@@ -1,22 +1,27 @@
 package com.woof.util;
 
 import java.sql.*;
+import java.util.ResourceBundle;
 
 public class Util {
-    public static final String DRIVER = "com.mysql.cj.jdbc.Driver";
 
-    public static final String URL = "jdbc:mysql://localhost:3306/woof?serverTimezone=Asia/Taipei";
+    private static ResourceBundle bundle = ResourceBundle.getBundle("jdbc");
 
-    public static final String USER = "root";
+    private static final String DRIVER = bundle.getString("driver");
 
-    public static final String PASSWORD = "password";
+    private static final String URL = bundle.getString("url");
+
+    private static final String USER = bundle.getString("user");
+
+    private static final String PASSWORD = bundle.getString("password");
+
 
     static {
-        try {
-            Class.forName(DRIVER);
-        }catch (ClassNotFoundException e){
-            e.printStackTrace();
-        }
+//        try {
+//            Class.forName(DRIVER);
+//        }catch (ClassNotFoundException e){
+//            e.printStackTrace();
+//        }
 
     }
 
