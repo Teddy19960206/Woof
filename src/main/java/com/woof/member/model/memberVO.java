@@ -2,7 +2,7 @@ package com.woof.member.model;
 
 import java.sql.Date;
 
-public class memberVO implements java.io.Serializable {
+public class memberVO {
 	private Integer memno;
 	private String memname;
 	private String memgender;

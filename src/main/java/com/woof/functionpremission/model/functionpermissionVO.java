@@ -1,6 +1,6 @@
 package com.woof.functionpremission.model;
 
-public class functionpermissionVO implements java.io.Serializable {
+public class functionpermissionVO {
 	private Integer funcno;
 	private Integer funcname;
 
