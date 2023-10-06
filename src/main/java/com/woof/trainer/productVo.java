@@ -3,6 +3,7 @@ package com.woof.trainer;
 public class productVo {
 private int price;
 private String ccc;
+private String bbb;
 public productVo(){
 	super();
 }
