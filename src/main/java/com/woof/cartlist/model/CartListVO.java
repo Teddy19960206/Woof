@@ -9,6 +9,9 @@ public class CartListVO {
 	private Integer cartAmount;
 	
 	
+	 public CartListVO() {
+	    }
+	
 	public Integer getProdNo() {
 		return prodNo;
 	}

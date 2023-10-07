@@ -8,6 +8,9 @@ public class PromotionProductVO {
 	private Integer paNo;
 	
 	
+	public PromotionProductVO() {
+    }
+	
 	public Integer getProdNo() {
 		return prodNo;
 	}
