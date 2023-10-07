@@ -13,6 +13,10 @@ public class CommentReportVO {
 	private Integer cpStatus;
 	private Timestamp cpDate;
 	
+	public CommentReportVO() {
+		
+	}
+	
 	public Integer getCrNo() {
 		return crNo;
 	}

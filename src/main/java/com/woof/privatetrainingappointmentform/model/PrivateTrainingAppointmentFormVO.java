@@ -9,6 +9,10 @@ public class PrivateTrainingAppointmentFormVO {
 	private Integer trainerNo;
 	private Integer ptaClass;
 	
+	public PrivateTrainingAppointmentFormVO() {
+		
+	}
+	
 	public Integer getPtaNo() {
 		return ptaNo;
 	}

@@ -9,6 +9,10 @@ public class NonTrainingScheduleVO {
 	private Integer trainerNo;
 	private Date ntsDate;
 	
+	public NonTrainingScheduleVO() {
+		
+	}
+	
 	public Integer getNtsNo() {
 		return ntsNo;
 	}

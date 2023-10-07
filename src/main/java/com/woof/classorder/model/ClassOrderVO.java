@@ -15,6 +15,10 @@ public class ClassOrderVO {
 	private Timestamp coCt;
 	private Integer actualAmount;
 	
+	public ClassOrderVO() {
+		
+	}
+	
 	public Integer getCoNo() {
 		return coNo;
 	}
