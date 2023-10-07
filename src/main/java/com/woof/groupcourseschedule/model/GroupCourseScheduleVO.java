@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.sql.Date;
 import java.util.Objects;
 
-public class GroupCourseSchedule implements Serializable {
+public class GroupCourseScheduleVO implements Serializable {
     private Integer gcsNo;
     private Integer gcNo;
     private Integer trainerNo;
@@ -17,7 +17,7 @@ public class GroupCourseSchedule implements Serializable {
     private Integer gcsPrice;
     private Integer gcsStatus;
 
-    public GroupCourseSchedule() {
+    public GroupCourseScheduleVO() {
     }
 
     public Integer getGcsNo() {
@@ -112,7 +112,7 @@ public class GroupCourseSchedule implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        GroupCourseSchedule that = (GroupCourseSchedule) o;
+        GroupCourseScheduleVO that = (GroupCourseScheduleVO) o;
         return Objects.equals(gcsNo, that.gcsNo) && Objects.equals(gcNo, that.gcNo) && Objects.equals(trainerNo, that.trainerNo) && Objects.equals(gcoNo, that.gcoNo) && Objects.equals(gscStart, that.gscStart) && Objects.equals(gscEnd, that.gscEnd) && Objects.equals(minLimit, that.minLimit) && Objects.equals(maxLimit, that.maxLimit) && Objects.equals(count, that.count) && Objects.equals(gcsPrice, that.gcsPrice) && Objects.equals(gcsStatus, that.gcsStatus);
     }
 
@@ -123,7 +123,7 @@ public class GroupCourseSchedule implements Serializable {
 
     @Override
     public String toString() {
-        return "GroupCourseSchedule{" +
+        return "GroupCourseScheduleVO{" +
                 "gcsNo=" + gcsNo +
                 ", gcNo=" + gcNo +
                 ", trainerNo=" + trainerNo +

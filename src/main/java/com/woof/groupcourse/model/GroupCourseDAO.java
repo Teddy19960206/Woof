@@ -5,13 +5,13 @@ import java.util.List;
 
 public interface GroupCourseDAO {
 
-    void insert(GroupCourse groupCourse);
+    void insert(GroupCourseVO groupCourseVO);
 
-    void update(GroupCourse groupCourse);
+    void update(GroupCourseVO groupCourseVO);
 
-    void delete(GroupCourse groupCourse);
+    void delete(GroupCourseVO groupCourseVO);
 
-    GroupCourse findbyCtNo(Integer ctNo);
+    GroupCourseVO findbyCtNo(Integer ctNo);
 
-    List<GroupCourse> getAll();
+    List<GroupCourseVO> getAll();
 }

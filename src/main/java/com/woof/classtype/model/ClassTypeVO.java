@@ -3,12 +3,12 @@ package com.woof.classtype.model;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class ClassType implements Serializable {
+public class ClassTypeVO implements Serializable {
     private Integer ctNo;
     private String ctName;
 
 
-    public ClassType() {
+    public ClassTypeVO() {
     }
 
 
@@ -32,8 +32,8 @@ public class ClassType implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ClassType classType = (ClassType) o;
-        return Objects.equals(ctNo, classType.ctNo) && Objects.equals(ctName, classType.ctName);
+        ClassTypeVO classTypeVO = (ClassTypeVO) o;
+        return Objects.equals(ctNo, classTypeVO.ctNo) && Objects.equals(ctName, classTypeVO.ctName);
     }
 
     @Override
@@ -43,7 +43,7 @@ public class ClassType implements Serializable {
 
     @Override
     public String toString() {
-        return "ClassType{" +
+        return "ClassTypeVO{" +
                 "ctNo=" + ctNo +
                 ", ctName='" + ctName + '\'' +
                 '}';

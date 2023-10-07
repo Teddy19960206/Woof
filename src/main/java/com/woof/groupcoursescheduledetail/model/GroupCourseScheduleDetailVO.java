@@ -4,12 +4,12 @@ import java.io.Serializable;
 import java.sql.Date;
 import java.util.Objects;
 
-public class GroupCourseScheduleDetail implements Serializable {
+public class GroupCourseScheduleDetailVO implements Serializable {
     private Integer gcsdNo;
     private Integer gcsNo;
     private Date classDate;
 
-    public GroupCourseScheduleDetail() {
+    public GroupCourseScheduleDetailVO() {
     }
 
     public Integer getGcsdNo() {
@@ -40,7 +40,7 @@ public class GroupCourseScheduleDetail implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        GroupCourseScheduleDetail that = (GroupCourseScheduleDetail) o;
+        GroupCourseScheduleDetailVO that = (GroupCourseScheduleDetailVO) o;
         return Objects.equals(gcsdNo, that.gcsdNo) && Objects.equals(gcsNo, that.gcsNo) && Objects.equals(classDate, that.classDate);
     }
 
@@ -51,7 +51,7 @@ public class GroupCourseScheduleDetail implements Serializable {
 
     @Override
     public String toString() {
-        return "GroupCourseScheduleDetail{" +
+        return "GroupCourseScheduleDetailVO{" +
                 "gcsdNo=" + gcsdNo +
                 ", gcsNo=" + gcsNo +
                 ", classDate=" + classDate +

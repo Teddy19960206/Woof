@@ -23,7 +23,7 @@ public class ClassTypeImpl implements ClassTypeDAO {
 
 
     @Override
-    public void insert(ClassType classType) {
+    public void insert(ClassTypeVO classTypeVO) {
         Connection con = null;
         PreparedStatement ps = null;
         int count = 0;
@@ -31,7 +31,7 @@ public class ClassTypeImpl implements ClassTypeDAO {
         try {
             con = Util.getConnection();
             ps = con.prepareStatement(INSERT_STMT);
-            ps.setString(1, classType.getCtName());
+            ps.setString(1, classTypeVO.getCtName());
             count = ps.executeUpdate();
 
         } catch (SQLException e) {
@@ -49,7 +49,7 @@ public class ClassTypeImpl implements ClassTypeDAO {
     }
 
     @Override
-    public void update(ClassType classType) {
+    public void update(ClassTypeVO classTypeVO) {
         Connection con = null;
         PreparedStatement ps = null;
         int count = 0;
@@ -57,8 +57,8 @@ public class ClassTypeImpl implements ClassTypeDAO {
         try {
             con = Util.getConnection();
             ps = con.prepareStatement(UPDATE_STMT);
-            ps.setString(1, classType.getCtName());
-            ps.setInt(2, classType.getCtNo());
+            ps.setString(1, classTypeVO.getCtName());
+            ps.setInt(2, classTypeVO.getCtNo());
             count = ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -76,7 +76,7 @@ public class ClassTypeImpl implements ClassTypeDAO {
     }
 
     @Override
-    public void delete(ClassType classType) {
+    public void delete(ClassTypeVO classTypeVO) {
         Connection con = null;
         PreparedStatement ps = null;
         int count = 0;
@@ -84,7 +84,7 @@ public class ClassTypeImpl implements ClassTypeDAO {
         try {
             con = Util.getConnection();
             ps = con.prepareStatement(DELETE_STMT);
-            ps.setString(1, classType.getCtName());
+            ps.setString(1, classTypeVO.getCtName());
             count = ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -101,12 +101,12 @@ public class ClassTypeImpl implements ClassTypeDAO {
     }
 
     @Override
-    public ClassType findbyCtNo(Integer ctNo) {
+    public ClassTypeVO findbyCtNo(Integer ctNo) {
 
         Connection con = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-        ClassType classType = null;
+        ClassTypeVO classTypeVO = null;
 
         try {
             con = Util.getConnection();
@@ -115,9 +115,9 @@ public class ClassTypeImpl implements ClassTypeDAO {
             rs = ps.executeQuery();
 
             if (rs.next()) {
-                classType = new ClassType();
-                classType.setCtNo(ctNo);
-                classType.setCtName(rs.getString("ct_name"));
+                classTypeVO = new ClassTypeVO();
+                classTypeVO.setCtNo(ctNo);
+                classTypeVO.setCtName(rs.getString("ct_name"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -125,18 +125,18 @@ public class ClassTypeImpl implements ClassTypeDAO {
             Util.closeResources(con, ps, rs);
         }
 
-        return classType;
+        return classTypeVO;
     }
 
     @Override
-    public List<ClassType> getAll() {
+    public List<ClassTypeVO> getAll() {
 
         Connection con = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-        ClassType classType = null;
+        ClassTypeVO classTypeVO = null;
 
-        List<ClassType> classList = new ArrayList<>();
+        List<ClassTypeVO> classList = new ArrayList<>();
 
         try {
             con = Util.getConnection();
@@ -144,11 +144,11 @@ public class ClassTypeImpl implements ClassTypeDAO {
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                classType = new ClassType();
-                classType.setCtNo(rs.getInt("ct_no"));
-                classType.setCtName(rs.getString("ct_name"));
+                classTypeVO = new ClassTypeVO();
+                classTypeVO.setCtNo(rs.getInt("ct_no"));
+                classTypeVO.setCtName(rs.getString("ct_name"));
 
-                classList.add(classType);
+                classList.add(classTypeVO);
             }
         } catch (SQLException e) {
             e.printStackTrace();

@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Objects;
 
-public class GroupCourseOrder implements Serializable {
+public class GroupCourseOrderVO implements Serializable {
 
     private Integer gcoNo;
     private Integer memNo;
@@ -15,7 +15,7 @@ public class GroupCourseOrder implements Serializable {
     private Integer actualAmount;
     private Integer gcoStatus;
 
-    public GroupCourseOrder() {
+    public GroupCourseOrderVO() {
     }
 
     public Integer getGcoNo() {
@@ -89,7 +89,7 @@ public class GroupCourseOrder implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        GroupCourseOrder that = (GroupCourseOrder) o;
+        GroupCourseOrderVO that = (GroupCourseOrderVO) o;
         return Objects.equals(gcoNo, that.gcoNo) && Objects.equals(memNo, that.memNo) && Objects.equals(gcsNo, that.gcsNo) && Objects.equals(gcoDate, that.gcoDate) && Objects.equals(gcoPaymentMethod, that.gcoPaymentMethod) && Objects.equals(gcoSmmp, that.gcoSmmp) && Objects.equals(actualAmount, that.actualAmount) && Objects.equals(gcoStatus, that.gcoStatus);
     }
 
@@ -100,7 +100,7 @@ public class GroupCourseOrder implements Serializable {
 
     @Override
     public String toString() {
-        return "GroupCourseOrder{" +
+        return "GroupCourseOrderVO{" +
                 "gcoNo=" + gcoNo +
                 ", memNo=" + memNo +
                 ", gcsNo=" + gcsNo +
