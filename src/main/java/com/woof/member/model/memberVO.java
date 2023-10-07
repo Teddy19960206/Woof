@@ -1,8 +1,10 @@
 package com.woof.member.model;
 
 import java.sql.Date;
+import java.util.Arrays;
+import java.util.Objects;
 
-public class memberVO {
+public class memberVO implements java.io.Serializable {
 	private Integer memno;
 	private String memname;
 	private String memgender;
@@ -101,5 +103,40 @@ public class memberVO {
 
 	public void setMemstatus(Integer memstatus) {
 		this.memstatus = memstatus;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + Arrays.hashCode(memphoto);
+		result = prime * result + Objects.hash(membd, mememail, memgender, memname, memno, mempassword, memstatus,
+				memtel, momopoint, totalclass);
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		memberVO other = (memberVO) obj;
+		return Objects.equals(membd, other.membd) && Objects.equals(mememail, other.mememail)
+				&& Objects.equals(memgender, other.memgender) && Objects.equals(memname, other.memname)
+				&& Objects.equals(memno, other.memno) && Objects.equals(mempassword, other.mempassword)
+				&& Arrays.equals(memphoto, other.memphoto) && Objects.equals(memstatus, other.memstatus)
+				&& Objects.equals(memtel, other.memtel) && Objects.equals(momopoint, other.momopoint)
+				&& Objects.equals(totalclass, other.totalclass);
+	}
+
+	@Override
+	public String toString() {
+		return "memberVO [memno=" + memno + ", memname=" + memname + ", memgender=" + memgender + ", memphoto="
+				+ Arrays.toString(memphoto) + ", mememail=" + mememail + ", mempassword=" + mempassword + ", memtel="
+				+ memtel + ", membd=" + membd + ", momopoint=" + momopoint + ", totalclass=" + totalclass
+				+ ", memstatus=" + memstatus + "]";
 	}
 }
