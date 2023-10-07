@@ -1,4 +1,4 @@
-package com.woof.appointmentdetail;
+package com.woof.appointmentdetail.model;
 
 import java.sql.Timestamp;
 import java.util.Objects;
