@@ -1,4 +1,4 @@
-package com.woof.privatetrainingappointmentform;
+package com.woof.privatetrainingappointmentform.model;
 
 import java.util.Objects;
 
