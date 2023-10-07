@@ -16,6 +16,9 @@ public class PromotionActivityVO {
 	private Boolean paStatus;
 	
 	
+	public PromotionActivityVO() {
+    }
+	
 	public Integer getPaNo() {
 		return paNo;
 	}

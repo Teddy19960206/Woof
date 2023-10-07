@@ -8,6 +8,11 @@ public class FaqVO {
 	private String faqClass;
 	private String faqTitle;
 	private String faqContent;
+	
+	
+	public FaqVO() {
+    }
+	
 	public Integer getFaqNo() {
 		return faqNo;
 	}
