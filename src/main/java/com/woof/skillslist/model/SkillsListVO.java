@@ -3,12 +3,12 @@ package com.woof.skillslist.model;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class SkillsList implements Serializable {
+public class SkillsListVO implements Serializable {
 
     private Integer trainerNo;
     private Integer skillNo;
 
-    public SkillsList() {
+    public SkillsListVO() {
     }
 
     public Integer getTrainerNo() {
@@ -31,7 +31,7 @@ public class SkillsList implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        SkillsList that = (SkillsList) o;
+        SkillsListVO that = (SkillsListVO) o;
         return Objects.equals(trainerNo, that.trainerNo) && Objects.equals(skillNo, that.skillNo);
     }
 
@@ -42,7 +42,7 @@ public class SkillsList implements Serializable {
 
     @Override
     public String toString() {
-        return "SkillsList{" +
+        return "SkillsListVO{" +
                 "trainerNo=" + trainerNo +
                 ", skillNo=" + skillNo +
                 '}';

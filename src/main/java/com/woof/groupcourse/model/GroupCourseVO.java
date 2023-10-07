@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Objects;
 
-public class GroupCourse implements Serializable {
+public class GroupCourseVO implements Serializable {
 
     private Integer gcNo;
     private Integer skillNo;
@@ -13,7 +13,7 @@ public class GroupCourse implements Serializable {
     private String courseContent;
     private Integer courseStatus;
 
-    public GroupCourse() {
+    public GroupCourseVO() {
     }
 
 
@@ -69,7 +69,7 @@ public class GroupCourse implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        GroupCourse that = (GroupCourse) o;
+        GroupCourseVO that = (GroupCourseVO) o;
         return Objects.equals(gcNo, that.gcNo) && Objects.equals(skillNo, that.skillNo) && Objects.equals(classType, that.classType) && Arrays.equals(coursePhoto, that.coursePhoto) && Objects.equals(courseContent, that.courseContent) && Objects.equals(courseStatus, that.courseStatus);
     }
 
@@ -82,7 +82,7 @@ public class GroupCourse implements Serializable {
 
     @Override
     public String toString() {
-        return "GroupCourse{" +
+        return "GroupCourseVO{" +
                 "gcNo=" + gcNo +
                 ", skillNo=" + skillNo +
                 ", classType=" + classType +

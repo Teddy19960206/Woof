@@ -20,7 +20,7 @@ public class GroupCourseImpl implements GroupCourseDAO {
     private static final String GET_ALL = "SELECT * FROM group_course";
 
     @Override
-    public void insert(GroupCourse groupCourse) {
+    public void insert(GroupCourseVO groupCourseVO) {
 
         Connection con = null;
         PreparedStatement ps = null;
@@ -30,11 +30,11 @@ public class GroupCourseImpl implements GroupCourseDAO {
         try {
             con = Util.getConnection();
             ps = con.prepareStatement(INSERT_STMT);
-            ps.setInt(1, groupCourse.getSkillNo());
-            ps.setInt(2, groupCourse.getClassType());
-            ps.setBytes(3, groupCourse.getCoursePhoto());
-            ps.setString(4,groupCourse.getCourseContent());
-            ps.setInt(5,groupCourse.getCourseStatus()) ;
+            ps.setInt(1, groupCourseVO.getSkillNo());
+            ps.setInt(2, groupCourseVO.getClassType());
+            ps.setBytes(3, groupCourseVO.getCoursePhoto());
+            ps.setString(4, groupCourseVO.getCourseContent());
+            ps.setInt(5, groupCourseVO.getCourseStatus()) ;
 
             count = ps.executeUpdate();
 
@@ -54,22 +54,22 @@ public class GroupCourseImpl implements GroupCourseDAO {
     }
 
     @Override
-    public void update(GroupCourse groupCourse) {
+    public void update(GroupCourseVO groupCourseVO) {
 
     }
 
     @Override
-    public void delete(GroupCourse groupCourse) {
+    public void delete(GroupCourseVO groupCourseVO) {
 
     }
 
     @Override
-    public GroupCourse findbyCtNo(Integer ctNo) {
+    public GroupCourseVO findbyCtNo(Integer ctNo) {
         return null;
     }
 
     @Override
-    public List<GroupCourse> getAll() {
+    public List<GroupCourseVO> getAll() {
         return null;
     }
 }
