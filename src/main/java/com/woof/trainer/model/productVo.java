@@ -1,4 +1,4 @@
-package com.woof.trainer;
+package com.woof.trainer.model;
 
 public class productVo {
 private int price;
