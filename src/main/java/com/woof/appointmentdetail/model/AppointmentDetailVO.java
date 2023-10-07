@@ -10,6 +10,7 @@ public class AppointmentDetailVO {
 	private Timestamp appTime;
 	private Integer appStatus;
 	private String appVenue;
+	
 	public Integer getAdNo() {
 		return adNo;
 	}
