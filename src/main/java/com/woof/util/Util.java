@@ -17,11 +17,11 @@ public class Util {
 
 
     static {
-//        try {
-//            Class.forName(DRIVER);
-//        }catch (ClassNotFoundException e){
-//            e.printStackTrace();
-//        }
+        try {
+            Class.forName(DRIVER);
+        }catch (ClassNotFoundException e){
+            e.printStackTrace();
+        }
 
     }
 
