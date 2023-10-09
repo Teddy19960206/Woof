@@ -8,7 +8,7 @@ import com.woof.util.Util;
 
 public class ClassOrderDAOImpl implements ClassOrderDAO{
 	
-	public static final String INSERT_STMT = "INSERT INTO class_order VALUES (? , ? , ? , ? , ? , ? , ? , ? , ?)";
+	public static final String INSERT_STMT = "INSERT INTO class_order VALUES (? , ? , ? , ? , ? , ? , ? , ? )";
 	public static final String UPDATE_STMT = "UPDATE class_order SET mem_no = ?, co_bc = ?, co_payment_method = ?, co_smmp = ?, co_time = ?, co_status = ?, co_ct = ?, actual_amount = ? WHERE co_no = ?";
 	private static final String DELETE_STMT = "DELETE FROM class_order WHERE co_no = ?";
 	private static final String FIND_BY_CONO = "SELECT * FROM class_order WHERE co_no = ?";
