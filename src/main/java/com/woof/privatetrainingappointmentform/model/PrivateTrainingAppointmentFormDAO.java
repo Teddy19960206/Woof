@@ -4,8 +4,8 @@ import java.util.List;
 
 public interface PrivateTrainingAppointmentFormDAO {
 
-	void insert (PrivateTrainingAppointmentFormDAO privateTrainingAppointmentFormDAO);
-	void update (PrivateTrainingAppointmentFormDAO privateTrainingAppointmentForm);
+	void insert (PrivateTrainingAppointmentFormVO privateTrainingAppointmentFormVO);
+	void update (PrivateTrainingAppointmentFormVO privateTrainingAppointmentFormVO);
 	void delete (Integer ptaNo);
 	
 	PrivateTrainingAppointmentFormVO findByPtaNo(Integer ptaNo);
