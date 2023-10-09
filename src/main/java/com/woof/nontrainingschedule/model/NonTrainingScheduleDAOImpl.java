@@ -8,7 +8,7 @@ import com.woof.util.Util;
 
 public class NonTrainingScheduleDAOImpl implements NonTrainingScheduleDAO{
 
-	public static final String INSERT_STMT = "INSERT INTO non_training_schedule VALUES (? , ? , ?)";
+	public static final String INSERT_STMT = "INSERT INTO non_training_schedule VALUES (? , ?)";
 	public static final String UPDATE_STMT = "UPDATE non_training_schedule SET trainer_no = ?, nts_date = ? WHERE nts_no = ?";
 	private static final String DELETE_STMT = "DELETE FROM non_training_schedule WHERE nts_no = ?";
 	private static final String FIND_BY_NTSNO = "SELECT * FROM non_training_schedule WHERE nts_no = ?";

@@ -9,7 +9,7 @@ import com.woof.util.Util;
 
 public class CommentReportDAOImpl implements CommentReportDAO{
 
-	public static final String INSERT_STMT = "INSERT INTO comment_report VALUES (? , ? , ? , ? , ? , ? , ?)";
+	public static final String INSERT_STMT = "INSERT INTO comment_report VALUES (? , ? , ? , ? , ? , ?)";
 	public static final String UPDATE_STMT = "UPDATE comment_report SET mem_no = ?, trainer_no = ?, pta_no = ?, cp_context = ?, cp_status= ?, cp_date = ? WHERE cr_no = ?";
 	private static final String DELETE_STMT = "DELETE FROM comment_report WHERE cr_no = ?";
 	private static final String FIND_BY_CRNO = "SELECT * FROM comment_report WHERE cr_no = ?";

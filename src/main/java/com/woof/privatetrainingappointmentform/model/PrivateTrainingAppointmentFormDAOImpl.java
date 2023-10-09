@@ -8,7 +8,7 @@ import com.woof.util.Util;
 
 public class PrivateTrainingAppointmentFormDAOImpl implements PrivateTrainingAppointmentFormDAO{
 	
-	public static final String INSERT_STMT = "INSERT INTO private_training_appointment_form VALUES (? , ? , ? , ?)";
+	public static final String INSERT_STMT = "INSERT INTO private_training_appointment_form VALUES (? , ? , ?)";
 	public static final String UPDATE_STMT = "UPDATE private_training_appointment_form SET mem_no = ?, trainer_no = ?, pta_class = ? WHERE pta_no = ?";
 	private static final String DELETE_STMT = "DELETE FROM private_training_appointment_form WHERE pta_no = ?";
 	private static final String FIND_BY_PTANO = "SELECT * FROM private_training_appointment_form WHERE pta_no = ?";

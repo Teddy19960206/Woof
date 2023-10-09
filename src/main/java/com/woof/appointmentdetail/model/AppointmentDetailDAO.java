@@ -6,7 +6,7 @@ public interface AppointmentDetailDAO {
 
 	void insert (AppointmentDetailVO appointmentDetailVO);
 	void update (AppointmentDetailVO appointmentDetailVO);
-	void delete (Integer adNo);
+	void delete(AppointmentDetailVO appointmentDetailVO);
 	
 	AppointmentDetailVO findByAdNo(Integer adNo);
 	List<AppointmentDetailVO> getAll();
