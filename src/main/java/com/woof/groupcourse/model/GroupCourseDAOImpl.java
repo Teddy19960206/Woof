@@ -3,9 +3,7 @@ package com.woof.groupcourse.model;
 import com.woof.util.Util;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,7 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GroupCourseImpl implements GroupCourseDAO {
+public class GroupCourseDAOImpl implements GroupCourseDAO {
 
     private static final String INSERT_STMT = "INSERT INTO group_course (skill_no , class_type , course_photo , course_content) VALUES (? , ? , ? , ?)";
 
@@ -160,7 +158,7 @@ public class GroupCourseImpl implements GroupCourseDAO {
 
 
     public static void main(String[] args) throws IOException {
-        GroupCourseDAO groupCourseDAO = new GroupCourseImpl();
+        GroupCourseDAO groupCourseDAO = new GroupCourseDAOImpl();
 
         GroupCourseVO groupCourseVO = new GroupCourseVO();
         groupCourseVO.setGcNo(4);
