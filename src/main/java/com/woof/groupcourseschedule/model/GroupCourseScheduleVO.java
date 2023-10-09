@@ -8,9 +8,8 @@ public class GroupCourseScheduleVO implements Serializable {
     private Integer gcsNo;
     private Integer gcNo;
     private Integer trainerNo;
-    private Integer gcoNo;
-    private Date gscStart;
-    private Date gscEnd;
+    private Date gcsStart;
+    private Date gcsEnd;
     private Integer minLimit;
     private Integer maxLimit;
     private Integer count;
@@ -44,28 +43,21 @@ public class GroupCourseScheduleVO implements Serializable {
         this.trainerNo = trainerNo;
     }
 
-    public Integer getGcoNo() {
-        return gcoNo;
+
+    public Date getGcsStart() {
+        return gcsStart;
     }
 
-    public void setGcoNo(Integer gcoNo) {
-        this.gcoNo = gcoNo;
+    public void setGcsStart(Date gscStart) {
+        this.gcsStart = gscStart;
     }
 
-    public Date getGscStart() {
-        return gscStart;
+    public Date getGcsEnd() {
+        return gcsEnd;
     }
 
-    public void setGscStart(Date gscStart) {
-        this.gscStart = gscStart;
-    }
-
-    public Date getGscEnd() {
-        return gscEnd;
-    }
-
-    public void setGscEnd(Date gscEnd) {
-        this.gscEnd = gscEnd;
+    public void setGcsEnd(Date gscEnd) {
+        this.gcsEnd = gscEnd;
     }
 
     public Integer getMinLimit() {
@@ -113,12 +105,12 @@ public class GroupCourseScheduleVO implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         GroupCourseScheduleVO that = (GroupCourseScheduleVO) o;
-        return Objects.equals(gcsNo, that.gcsNo) && Objects.equals(gcNo, that.gcNo) && Objects.equals(trainerNo, that.trainerNo) && Objects.equals(gcoNo, that.gcoNo) && Objects.equals(gscStart, that.gscStart) && Objects.equals(gscEnd, that.gscEnd) && Objects.equals(minLimit, that.minLimit) && Objects.equals(maxLimit, that.maxLimit) && Objects.equals(count, that.count) && Objects.equals(gcsPrice, that.gcsPrice) && Objects.equals(gcsStatus, that.gcsStatus);
+        return Objects.equals(gcsNo, that.gcsNo) && Objects.equals(gcNo, that.gcNo) && Objects.equals(trainerNo, that.trainerNo) && Objects.equals(gcsStart, that.gcsStart) && Objects.equals(gcsEnd, that.gcsEnd) && Objects.equals(minLimit, that.minLimit) && Objects.equals(maxLimit, that.maxLimit) && Objects.equals(count, that.count) && Objects.equals(gcsPrice, that.gcsPrice) && Objects.equals(gcsStatus, that.gcsStatus);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(gcsNo, gcNo, trainerNo, gcoNo, gscStart, gscEnd, minLimit, maxLimit, count, gcsPrice, gcsStatus);
+        return Objects.hash(gcsNo, gcNo, trainerNo, gcsStart, gcsEnd, minLimit, maxLimit, count, gcsPrice, gcsStatus);
     }
 
     @Override
@@ -127,9 +119,8 @@ public class GroupCourseScheduleVO implements Serializable {
                 "gcsNo=" + gcsNo +
                 ", gcNo=" + gcNo +
                 ", trainerNo=" + trainerNo +
-                ", gcoNo=" + gcoNo +
-                ", gscStart=" + gscStart +
-                ", gscEnd=" + gscEnd +
+                ", gscStart=" + gcsStart +
+                ", gscEnd=" + gcsEnd +
                 ", minLimit=" + minLimit +
                 ", maxLimit=" + maxLimit +
                 ", count=" + count +
