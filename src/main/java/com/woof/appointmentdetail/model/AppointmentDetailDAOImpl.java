@@ -4,10 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.woof.groupcoursescheduledetail.model.GroupCourseScheduleDetailVO;
 import com.woof.util.Util;
 
 public class AppointmentDetailDAOImpl implements AppointmentDetailDAO{
@@ -57,6 +56,7 @@ public class AppointmentDetailDAOImpl implements AppointmentDetailDAO{
 
         try {
             con = Util.getConnection();
+            ps = con.prepareStatement(UPDATE_STMT);
             ps.setInt(1, appointmentDetailVO.getPtaNo());
             ps.setTimestamp(2, appointmentDetailVO.getAppTime());
             ps.setInt(3, appointmentDetailVO.getAppStatus());
@@ -146,10 +146,10 @@ public class AppointmentDetailDAOImpl implements AppointmentDetailDAO{
             while (rs.next()){
             	AppointmentDetailVO appointmentDetailVO = new AppointmentDetailVO();
             	appointmentDetailVO.setAdNo(rs.getInt("ad_no"));
-            	appointmentDetailVO.setPtaNo(rs.getInt("gcs_no"));
-            	appointmentDetailVO.setAppTime(rs.getTimestamp("trainer_no"));
-            	appointmentDetailVO.setAppStatus(rs.getInt("class_date"));
-            	appointmentDetailVO.setAppVenue(rs.getString("class_date"));
+            	appointmentDetailVO.setPtaNo(rs.getInt("pta_no"));
+            	appointmentDetailVO.setAppTime(rs.getTimestamp("app_time"));
+            	appointmentDetailVO.setAppStatus(rs.getInt("app_status"));
+            	appointmentDetailVO.setAppVenue(rs.getString("app_venue"));
             	
             	appointmentDetailVOList.add(appointmentDetailVO);
             }
@@ -165,14 +165,25 @@ public class AppointmentDetailDAOImpl implements AppointmentDetailDAO{
 	}
 	
 	public static void main(String[] args) {
-		AppointmentDetailDAO appointmentDetail = new AppointmentDetailDAOImpl();
-		List<AppointmentDetailVO> appointmentDetailVOList = appointmentDetail.getAll();
-		for(AppointmentDetailVO appointmentDetailVO: appointmentDetailVOList) {
-			System.out.println(appointmentDetailVO.getAdNo());
-			System.out.println(appointmentDetailVO.getPtaNo());
-			System.out.println(appointmentDetailVO.getAppTime());
-			System.out.println(appointmentDetailVO.getAppStatus());
-			System.out.println(appointmentDetailVO.getAppVenue());
-		}
+		AppointmentDetailDAO appointmentDetailDAO = new AppointmentDetailDAOImpl();
+		AppointmentDetailVO appointmentDetailVO = new AppointmentDetailVO();
+		
+		appointmentDetailVO.setAdNo(11);
+		appointmentDetailVO.setPtaNo(11);
+		appointmentDetailVO.setAppTime(Timestamp.valueOf("2023-11-30 12:00:00"));
+		appointmentDetailVO.setAppStatus(1);
+		appointmentDetailVO.setAppVenue("123");
+		appointmentDetailDAO.insert(appointmentDetailVO);
+		
+		
+
+//		List<AppointmentDetailVO> appointmentDetailVOList = appointmentDetailDAO.getAll();
+//		for(AppointmentDetailVO appointmentDetailVO: appointmentDetailVOList) {
+//			System.out.println(appointmentDetailVO.getAdNo());
+//			System.out.println(appointmentDetailVO.getPtaNo());
+//			System.out.println(appointmentDetailVO.getAppTime());
+//			System.out.println(appointmentDetailVO.getAppStatus());
+//			System.out.println(appointmentDetailVO.getAppVenue());
+//		}
 	}
 }
