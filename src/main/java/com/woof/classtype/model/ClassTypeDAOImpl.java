@@ -9,9 +9,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ClassTypeImpl implements ClassTypeDAO {
+public class ClassTypeDAOImpl implements ClassTypeDAO {
 
-    private static final String INSERT_STMT = "INSERT INTO class_type VALUES ( ? )";
+    private static final String INSERT_STMT = "INSERT INTO class_type (ct_name) VALUES ( ? )";
 
     private static final String UPDATE_STMT = "UPDATE class_type SET ct_name = ? WHERE ct_no = ?";
 
@@ -84,7 +84,7 @@ public class ClassTypeImpl implements ClassTypeDAO {
         try {
             con = Util.getConnection();
             ps = con.prepareStatement(DELETE_STMT);
-            ps.setString(1, classTypeVO.getCtName());
+            ps.setInt(1, classTypeVO.getCtNo());
             count = ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -134,7 +134,6 @@ public class ClassTypeImpl implements ClassTypeDAO {
         Connection con = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-        ClassTypeVO classTypeVO = null;
 
         List<ClassTypeVO> classList = new ArrayList<>();
 
@@ -144,7 +143,7 @@ public class ClassTypeImpl implements ClassTypeDAO {
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                classTypeVO = new ClassTypeVO();
+                ClassTypeVO classTypeVO = new ClassTypeVO();
                 classTypeVO.setCtNo(rs.getInt("ct_no"));
                 classTypeVO.setCtName(rs.getString("ct_name"));
 
@@ -157,5 +156,29 @@ public class ClassTypeImpl implements ClassTypeDAO {
         }
 
         return classList;
+    }
+
+
+    public static void main(String[] args){
+        ClassTypeDAO classTypeDAO = new ClassTypeDAOImpl();
+        List<ClassTypeVO> classTypeVOList = classTypeDAO.getAll();
+        for (ClassTypeVO classTypeVO: classTypeVOList){
+            System.out.println(classTypeVO.getCtNo());
+            System.out.println(classTypeVO.getCtName());
+        }
+
+        ClassTypeVO classTypeVO = new ClassTypeVO();
+//        classTypeVO.setCtNo(3);
+        classTypeVO.setCtName("test4");
+
+        classTypeDAO.insert(classTypeVO);
+
+//        classTypeDAO.update(classTypeVO);
+
+//        classTypeDAO.delete(classTypeVO);
+
+
+
+        System.out.println(classTypeDAO.findbyCtNo(1).getCtName());
     }
 }

@@ -9,9 +9,7 @@ public interface GroupCourseDAO {
 
     void update(GroupCourseVO groupCourseVO);
 
-    void delete(GroupCourseVO groupCourseVO);
-
-    GroupCourseVO findbyCtNo(Integer ctNo);
+    GroupCourseVO findbyGcNo(Integer gcNo);
 
     List<GroupCourseVO> getAll();
 }
