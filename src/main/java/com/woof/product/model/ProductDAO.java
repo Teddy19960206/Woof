@@ -2,7 +2,6 @@ package com.woof.product.model;
 
 import java.util.List;
 
-// DAO Interface
 public interface ProductDAO {
     public void insert(ProductVO productVO);
     public void update(ProductVO productVO);

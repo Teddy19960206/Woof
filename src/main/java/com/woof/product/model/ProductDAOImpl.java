@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import com.woof.util.Util;
 
-public class ProductDAOlmpl implements ProductDAO {
+public class ProductDAOImpl implements ProductDAO {
 
 	private static final String INSERT_STMT = "INSERT INTO PRODUCT (PROD_CAT_NO, PROD_CONTENT, PROD_PRICE, PROD_NAME, PROD_STATUS) VALUES (?, ?, ?, ?, ?)";
 	private static final String UPDATE_STMT = "UPDATE PRODUCT SET PROD_CAT_NO = ?, PROD_CONTENT = ?, PROD_PRICE = ?, PROD_NAME = ?, PROD_STATUS = ? WHERE PROD_NO = ?";
