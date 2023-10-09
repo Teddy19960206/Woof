@@ -190,9 +190,8 @@ public class AppointmentDetailDAOImpl implements AppointmentDetailDAO{
 		// 查詢
 //		appointmentDetailVO = appointmentDetailDAO.findByAdNo(13);
 //		System.out.println(appointmentDetailVO);
-		
-		
-
+			
+		// 查詢全部
 //		List<AppointmentDetailVO> appointmentDetailVOList = appointmentDetailDAO.getAll();
 //		for(AppointmentDetailVO appointmentDetailVO: appointmentDetailVOList) {
 //			System.out.println(appointmentDetailVO.getAdNo());
