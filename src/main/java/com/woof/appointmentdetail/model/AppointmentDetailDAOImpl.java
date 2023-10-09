@@ -11,7 +11,7 @@ import com.woof.util.Util;
 
 public class AppointmentDetailDAOImpl implements AppointmentDetailDAO{
 	
-	private static final String INSERT_STMT = "INSERT INTO appointment_detail VALUES (? , ? , ? , ?)";
+	private static final String INSERT_STMT = "INSERT INTO appointment_detail (pta_no, app_time, app_status, app_venue) VALUES (?, ?, ?, ?)";
 	private static final String UPDATE_STMT = "UPDATE appointment_detail SET pta_no = ?, app_time = ?, app_status = ?, app_venue = ? WHERE ad_no = ?";
 	private static final String DELETE_STMT = "DELETE FROM appointment_detail WHERE ad_no = ?";
 	private static final String FIND_BY_ADNO = "SELECT * FROM appointment_detail WHERE ad_no = ?";
@@ -35,7 +35,7 @@ public class AppointmentDetailDAOImpl implements AppointmentDetailDAO{
             count = ps.executeUpdate();
 
         } catch (SQLException e) {
-            e.printStackTrace();
+        	throw new RuntimeException(e);
         } finally {
             Util.closeResources(con, ps, null);
         }
@@ -168,12 +168,28 @@ public class AppointmentDetailDAOImpl implements AppointmentDetailDAO{
 		AppointmentDetailDAO appointmentDetailDAO = new AppointmentDetailDAOImpl();
 		AppointmentDetailVO appointmentDetailVO = new AppointmentDetailVO();
 		
-		appointmentDetailVO.setAdNo(11);
-		appointmentDetailVO.setPtaNo(11);
-		appointmentDetailVO.setAppTime(Timestamp.valueOf("2023-11-30 12:00:00"));
-		appointmentDetailVO.setAppStatus(1);
-		appointmentDetailVO.setAppVenue("123");
-		appointmentDetailDAO.insert(appointmentDetailVO);
+		// 新增
+//		appointmentDetailVO.setPtaNo(9);
+//		appointmentDetailVO.setAppTime(Timestamp.valueOf("2023-11-30 12:00:00"));
+//		appointmentDetailVO.setAppStatus(1);
+//		appointmentDetailVO.setAppVenue("123");
+//		appointmentDetailDAO.insert(appointmentDetailVO);
+		
+		// 修改
+//		appointmentDetailVO.setPtaNo(5);
+//		appointmentDetailVO.setAppTime(Timestamp.valueOf("2023-11-29 11:00:00"));
+//		appointmentDetailVO.setAppStatus(2);
+//		appointmentDetailVO.setAppVenue("525");
+//		appointmentDetailVO.setAdNo(19);
+//		appointmentDetailDAO.update(appointmentDetailVO);
+		
+		// 刪除
+//		appointmentDetailVO.setAdNo(17);
+//		appointmentDetailDAO.delete(appointmentDetailVO);
+		
+		// 查詢
+//		appointmentDetailVO = appointmentDetailDAO.findByAdNo(13);
+//		System.out.println(appointmentDetailVO);
 		
 		
 
