@@ -85,7 +85,7 @@ public class GroupCourseScheduleDetailDAOImpl implements GroupCourseScheduleDeta
         try {
             con = Util.getConnection();
             ps = con.prepareStatement(DELETE_STMT);
-            ps.setInt(1 , groupCourseScheduleDetailVO.getGcsNo());
+            ps.setInt(1 , groupCourseScheduleDetailVO.getGcsdNo());
             count = ps.executeUpdate();
 
         } catch (SQLException e) {
