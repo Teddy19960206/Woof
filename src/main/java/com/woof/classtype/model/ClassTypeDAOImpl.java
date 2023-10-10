@@ -76,7 +76,7 @@ public class ClassTypeDAOImpl implements ClassTypeDAO {
     }
 
     @Override
-    public void delete(ClassTypeVO classTypeVO) {
+    public void delete(Integer ctno) {
         Connection con = null;
         PreparedStatement ps = null;
         int count = 0;
@@ -84,7 +84,7 @@ public class ClassTypeDAOImpl implements ClassTypeDAO {
         try {
             con = Util.getConnection();
             ps = con.prepareStatement(DELETE_STMT);
-            ps.setInt(1, classTypeVO.getCtNo());
+            ps.setInt(1, ctno);
             count = ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
