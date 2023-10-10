@@ -11,4 +11,3 @@ public interface AppointmentDetailDAO {
 	AppointmentDetailVO findByAdNo(Integer adNo);
 	List<AppointmentDetailVO> getAll();
 }
-//

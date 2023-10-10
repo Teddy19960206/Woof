@@ -6,8 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.woof.appointmentdetail.model.AppointmentDetailVO;
 import com.woof.util.Util;
 
 public class PrivateTrainingAppointmentFormDAOImpl implements PrivateTrainingAppointmentFormDAO{

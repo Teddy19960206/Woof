@@ -4,11 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.woof.appointmentdetail.model.AppointmentDetailVO;
 import com.woof.util.Util;
 
 public class ClassOrderDAOImpl implements ClassOrderDAO{
