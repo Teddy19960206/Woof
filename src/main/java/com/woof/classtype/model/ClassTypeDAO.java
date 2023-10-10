@@ -8,7 +8,7 @@ public interface ClassTypeDAO {
 
     void update(ClassTypeVO classTypeVO);
 
-    void delete(ClassTypeVO classTypeVO);
+    void delete(Integer ctno);
 
     ClassTypeVO findbyCtNo(Integer ctNo);
 

@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import com.woof.util.Util;
@@ -31,7 +30,6 @@ public class AppointmentDetailDAOImpl implements AppointmentDetailDAO{
             ps.setInt(3, appointmentDetailVO.getAppStatus());
             ps.setString(4, appointmentDetailVO.getAppVenue());
             
-
             count = ps.executeUpdate();
 
         } catch (SQLException e) {
@@ -40,14 +38,13 @@ public class AppointmentDetailDAOImpl implements AppointmentDetailDAO{
             Util.closeResources(con, ps, null);
         }
 
-
         if (count == 1) {
             System.out.println("新增成功");
         } else {
             System.out.println("新增失敗");
-        }
-		
+        }	
 	}
+	
 	@Override
 	public void update(AppointmentDetailVO appointmentDetailVO) {
 		Connection con = null;
@@ -62,6 +59,7 @@ public class AppointmentDetailDAOImpl implements AppointmentDetailDAO{
             ps.setInt(3, appointmentDetailVO.getAppStatus());
             ps.setString(4, appointmentDetailVO.getAppVenue());
             ps.setInt(5, appointmentDetailVO.getAdNo());
+            
             count = ps.executeUpdate();
 
         } catch (SQLException e) {
@@ -76,6 +74,7 @@ public class AppointmentDetailDAOImpl implements AppointmentDetailDAO{
             System.out.println("修改失敗");
         }
 	}
+	
 	@Override
 	public void delete(AppointmentDetailVO appointmentDetailVO) {
 		Connection con = null;
@@ -86,6 +85,7 @@ public class AppointmentDetailDAOImpl implements AppointmentDetailDAO{
             con = Util.getConnection();
             ps = con.prepareStatement(DELETE_STMT);
             ps.setInt(1, appointmentDetailVO.getAdNo());
+            
             count = ps.executeUpdate();
 
         } catch (SQLException e) {
@@ -123,7 +123,6 @@ public class AppointmentDetailDAOImpl implements AppointmentDetailDAO{
             	appointmentDetailVO.setAppVenue(rs.getString("app_venue"));
             }
 
-
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -131,6 +130,7 @@ public class AppointmentDetailDAOImpl implements AppointmentDetailDAO{
         }
         return appointmentDetailVO;
 	}
+	
 	@Override
 	public List<AppointmentDetailVO> getAll() {
 		Connection con = null;
@@ -164,9 +164,10 @@ public class AppointmentDetailDAOImpl implements AppointmentDetailDAO{
         return appointmentDetailVOList;
 	}
 	
+	
 	public static void main(String[] args) {
-		AppointmentDetailDAO appointmentDetailDAO = new AppointmentDetailDAOImpl();
-		AppointmentDetailVO appointmentDetailVO = new AppointmentDetailVO();
+//		AppointmentDetailDAO appointmentDetailDAO = new AppointmentDetailDAOImpl();
+//		AppointmentDetailVO appointmentDetailVO = new AppointmentDetailVO();
 		
 		// 新增
 //		appointmentDetailVO.setPtaNo(9);
@@ -193,12 +194,12 @@ public class AppointmentDetailDAOImpl implements AppointmentDetailDAO{
 			
 		// 查詢全部
 //		List<AppointmentDetailVO> appointmentDetailVOList = appointmentDetailDAO.getAll();
-//		for(AppointmentDetailVO appointmentDetailVO: appointmentDetailVOList) {
-//			System.out.println(appointmentDetailVO.getAdNo());
-//			System.out.println(appointmentDetailVO.getPtaNo());
-//			System.out.println(appointmentDetailVO.getAppTime());
-//			System.out.println(appointmentDetailVO.getAppStatus());
-//			System.out.println(appointmentDetailVO.getAppVenue());
+//		for(AppointmentDetailVO appointmentDetailVO1: appointmentDetailVOList) {
+//			System.out.println(appointmentDetailVO1.getAdNo());
+//			System.out.println(appointmentDetailVO1.getPtaNo());
+//			System.out.println(appointmentDetailVO1.getAppTime());
+//			System.out.println(appointmentDetailVO1.getAppStatus());
+//			System.out.println(appointmentDetailVO1.getAppVenue());
 //		}
 	}
 }
