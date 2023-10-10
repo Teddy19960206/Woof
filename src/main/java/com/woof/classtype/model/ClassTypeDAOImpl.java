@@ -171,7 +171,7 @@ public class ClassTypeDAOImpl implements ClassTypeDAO {
 //        classTypeVO.setCtNo(3);
         classTypeVO.setCtName("test4");
 
-        classTypeDAO.insert(classTypeVO);
+//        classTypeDAO.insert(classTypeVO);
 
 //        classTypeDAO.update(classTypeVO);
 
