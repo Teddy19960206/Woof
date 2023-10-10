@@ -112,7 +112,7 @@ public class PromotionProductDAOImpl implements PromotionProductDAO{
 
 	        try {
 	            con = Util.getConnection();
-	            ps = con.prepareStatement(FIND_BY_PRODNO);
+	            ps = con.prepareStatement(FIND_BY_PANO);
 	            ps.setInt(1, paNo);
 	            rs = ps.executeQuery();
 

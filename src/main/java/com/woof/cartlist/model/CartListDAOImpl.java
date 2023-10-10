@@ -179,7 +179,7 @@ public class CartListDAOImpl implements CartListDAO {
 
         try {
             con = Util.getConnection();
-            ps = con.prepareStatement(FIND_BY_PRODNO);
+            ps = con.prepareStatement(FIND_BY_MEMNO);
             ps.setInt(1, memNo);
             rs = ps.executeQuery();
 
