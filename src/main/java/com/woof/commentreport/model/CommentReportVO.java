@@ -9,9 +9,9 @@ public class CommentReportVO {
 	private Integer memNo;
 	private Integer trainerNo;
 	private Integer ptaNo;
-	private String cpContext;
-	private Integer cpStatus;
-	private Timestamp cpDate;
+	private String crContext;
+	private Integer crStatus;
+	private Timestamp crDate;
 	
 	public CommentReportVO() {
 		
@@ -41,27 +41,27 @@ public class CommentReportVO {
 	public void setPtaNo(Integer ptaNo) {
 		this.ptaNo = ptaNo;
 	}
-	public String getCpContext() {
-		return cpContext;
+	public String getCrContext() {
+		return crContext;
 	}
-	public void setCpContext(String cpContext) {
-		this.cpContext = cpContext;
+	public void setCrContext(String crContext) {
+		this.crContext = crContext;
 	}
-	public Integer getCpStatus() {
-		return cpStatus;
+	public Integer getCrStatus() {
+		return crStatus;
 	}
-	public void setCpStatus(Integer cpStatus) {
-		this.cpStatus = cpStatus;
+	public void setCrStatus(Integer crStatus) {
+		this.crStatus = crStatus;
 	}
-	public Timestamp getCpDate() {
-		return cpDate;
+	public Timestamp getCrDate() {
+		return crDate;
 	}
-	public void setCpDate(Timestamp cpDate) {
-		this.cpDate = cpDate;
+	public void setCrDate(Timestamp crDate) {
+		this.crDate = crDate;
 	}
 	@Override
 	public int hashCode() {
-		return Objects.hash(cpContext, cpDate, cpStatus, crNo, memNo, ptaNo, trainerNo);
+		return Objects.hash(crContext, crDate, crStatus, crNo, memNo, ptaNo, trainerNo);
 	}
 	@Override
 	public boolean equals(Object obj) {
@@ -72,15 +72,15 @@ public class CommentReportVO {
 		if (getClass() != obj.getClass())
 			return false;
 		CommentReportVO other = (CommentReportVO) obj;
-		return Objects.equals(cpContext, other.cpContext) && Objects.equals(cpDate, other.cpDate)
-				&& Objects.equals(cpStatus, other.cpStatus) && Objects.equals(crNo, other.crNo)
+		return Objects.equals(crContext, other.crContext) && Objects.equals(crDate, other.crDate)
+				&& Objects.equals(crStatus, other.crStatus) && Objects.equals(crNo, other.crNo)
 				&& Objects.equals(memNo, other.memNo) && Objects.equals(ptaNo, other.ptaNo)
 				&& Objects.equals(trainerNo, other.trainerNo);
 	}
 	@Override
 	public String toString() {
 		return "CommentReportVO [crNo=" + crNo + ", memNo=" + memNo + ", trainerNo=" + trainerNo + ", ptaNo=" + ptaNo
-				+ ", cpContext=" + cpContext + ", cpStatus=" + cpStatus + ", cpDate=" + cpDate + "]";
+				+ ", crContext=" + crContext + ", crStatus=" + crStatus + ", crDate=" + crDate + "]";
 	}
 	
 	
