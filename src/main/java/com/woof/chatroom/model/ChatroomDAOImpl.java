@@ -159,4 +159,42 @@ public class ChatroomDAOImpl implements ChatroomDAO {
 
 		return chatroomVOList;
 	}
+	public static void main(String[] args) {
+//	    ChatroomDAO chatroomDAO = new ChatroomDAOImpl();
+//	    ChatroomVO chatroomVO = new ChatroomVO();
+
+//	    // 新增
+//	    chatroomVO.setMemNo(9);  // 假設的數值，您可能需要相應的設定值
+//	    chatroomVO.setChatMsgDirect(1); // 假設的數值
+//	    chatroomVO.setChatMsgTime(Timestamp.valueOf("2023-11-30 12:00:00"));
+//	    chatroomVO.setChatMsgContext("Example context");
+//	    chatroomVO.setChatMsgPhoto(null); // 假設為null，您可能需要設定相應的值
+//	    chatroomDAO.insert(chatroomVO);
+
+//	    // 修改
+//	    chatroomVO.setMemNo(5);  // 假設的數值
+//	    chatroomVO.setChatMsgDirect(2);  // 假設的數值
+//	    chatroomVO.setChatMsgTime(Timestamp.valueOf("2023-11-29 11:00:00"));
+//	    chatroomVO.setChatMsgContext("Updated context");
+//	    chatroomVO.setRoomNo(19);  // 假設的數值
+//	    chatroomDAO.update(chatroomVO);
+
+//	    // 刪除
+//	    chatroomDAO.delete(17);  // 假設的數值
+//
+//	    // 查詢
+//	    chatroomVO = chatroomDAO.findByPrimaryKey(13);  // 假設的數值
+//	    System.out.println(chatroomVO);
+//
+//	    // 查詢全部
+//	    List<ChatroomVO> chatroomVOList = chatroomDAO.getAll();
+//	    for(ChatroomVO chatroomVOItem: chatroomVOList) {
+//	        System.out.println(chatroomVOItem.getRoomNo());
+//	        System.out.println(chatroomVOItem.getMemNo());
+//	        System.out.println(chatroomVOItem.getChatMsgDirect());
+//	        System.out.println(chatroomVOItem.getChatMsgTime());
+//	        System.out.println(chatroomVOItem.getChatMsgContext());
+//	        System.out.println(chatroomVOItem.getChatMsgPhoto());
+//	    }
+	}
 }

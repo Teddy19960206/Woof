@@ -1,6 +1,7 @@
 package com.woof.member.model;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -186,5 +187,55 @@ public class MemberDAOImpl implements MemberDAO {
 		}
 
 		return memberList;
+	}
+	public static void main(String[] args) {
+		MemberDAO memberDAO = new MemberDAOImpl();
+		MemberVO memberVO = new MemberVO();
+
+//		// 新增
+//		memberVO.setMemNo(15); // 假設的數值，您可能需要相應的設定值
+//		memberVO.setMemName("jack");
+//		memberVO.setMemGender("M"); // 假設的數值
+//		memberVO.setMemPhoto(null); // 假設為null
+//		memberVO.setMemEmail("example@example.com");
+//		memberVO.setMemPassword("password123");
+//		memberVO.setMemTel("123456789");
+//		memberVO.setMemAdress("Example Address");
+//		memberVO.setMemBd(Date.valueOf("1990-01-01"));
+//		memberVO.setMomoPoint(100); // 假設的數值
+//		memberVO.setTotalClass(5); // 假設的數值
+//		memberVO.setMemStatus(1); // 假設的數值
+//		memberDAO.insert(memberVO);
+
+//		// 修改
+//		memberVO.setMemNo(5); // 假設的數值
+//		memberVO.setMemName("Updated Name");
+//		memberVO.setMemGender("F"); // 假設的數值
+//		memberVO.setMemEmail("updated@example.com");
+//		memberDAO.update(memberVO);
+//
+//		// 刪除
+//		memberDAO.delete(17); // 假設的數值
+//
+//		// 查詢
+//		memberVO = memberDAO.findByPrimaryKey(13); // 假設的數值
+//		System.out.println(memberVO);
+//
+//		// 查詢全部
+//		List<MemberVO> memberVOList = memberDAO.getAll();
+//		for (MemberVO memberVOItem : memberVOList) {
+//			System.out.println(memberVOItem.getMemNo());
+//			System.out.println(memberVOItem.getMemName());
+//			System.out.println(memberVOItem.getMemGender());
+//			System.out.println(memberVOItem.getMemPhoto());
+//			System.out.println(memberVOItem.getMemEmail());
+//			System.out.println(memberVOItem.getMemPassword());
+//			System.out.println(memberVOItem.getMemTel());
+//			System.out.println(memberVOItem.getMemAdress());
+//			System.out.println(memberVOItem.getMemBd());
+//			System.out.println(memberVOItem.getMomoPoint());
+//			System.out.println(memberVOItem.getTotalClass());
+//			System.out.println(memberVOItem.getMemStatus());
+//		}
 	}
 }
