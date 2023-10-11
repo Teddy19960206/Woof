@@ -142,4 +142,37 @@ public class FunctionPermissionDAOImpl implements FunctionPermissionDAO {
 
 		return functionPermissionList;
 	}
+
+	public static void main(String[] args) {
+//		FunctionPermissionDAO dao = new FunctionPermissionDAOImpl();
+
+//		// 新增
+//		FunctionPermissionVO functionPermission1 = new FunctionPermissionVO();
+//		functionPermission1.setFuncName(5); // 假設的數值
+//		dao.insert(functionPermission1);
+
+//		// 修改
+//		FunctionPermissionVO functionPermission2 = new FunctionPermissionVO();
+//		functionPermission2.setFuncName(2); // 假設的數值
+//		functionPermission2.setFuncNo(5); // 假設的數值
+//		dao.update(functionPermission2);
+//
+//		// 刪除
+//		FunctionPermissionVO functionPermission3 = new FunctionPermissionVO();
+//		functionPermission3.setFuncNo(17); // 假設的數值
+//		dao.delete(functionPermission3);
+//
+//		// 查詢單筆
+//		FunctionPermissionVO functionPermission4 = dao.findBy(13); // 假設的數值
+//		System.out.println(functionPermission4.getFuncNo());
+//		System.out.println(functionPermission4.getFuncName());
+//
+//		// 查詢全部
+//		List<FunctionPermissionVO> list = dao.getAll();
+//		for (FunctionPermissionVO aFunctionPermission : list) {
+//			System.out.println(aFunctionPermission.getFuncNo() + ",");
+//			System.out.println(aFunctionPermission.getFuncName());
+//			System.out.println();
+//		}
+	}
 }
