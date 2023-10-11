@@ -10,7 +10,6 @@ public class ProductVO implements Serializable {
 	private Integer prodPrice;
 	private String prodName;
 	private Boolean prodStatus;
-	private static final long serialVersionUID = 1L;
 
 	public ProductVO() {
 	}

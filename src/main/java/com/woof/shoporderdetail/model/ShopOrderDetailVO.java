@@ -3,14 +3,33 @@ package com.woof.shoporderdetail.model;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Objects;
+import javax.persistence.*;
 
+@Entity
+@Table(name="shop_order_detil")
 public class ShopOrderDetailVO implements Serializable {
+
+    @Id
+    @Column(name="SHOP_ORDER_NO")
 	private Integer shopOrderNo;
+
+    @Id
+    @Column(name="PROD_NO")
 	private Integer prodNo;
+
+    @Column(name="ORDER_AMOUNT")
 	private Integer orderAmount;
+
+    @Column(name="PROD_PRICE")
 	private Integer prodPrice;
+
+    @Column(name="HAS_RETURNED")
 	private Boolean hasReturned;
+
+    @Column(name="DISCOUNT_RATE")
 	private BigDecimal discountRate;
+
+    @Column(name="RE_AMOUNT")
 	private Integer reAmount;
 
 	public ShopOrderDetailVO() {

@@ -3,11 +3,24 @@ package com.woof.productphoto.model;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Objects;
+import javax.persistence.*;
 
+@Entity
+@Table(name="product_photo")
 public class ProductPhotoVO implements Serializable {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="PROD_PHOTO_NO")
 	private Integer prodPhotoNo;
+
+    @Column(name="PROD_NO")
 	private Integer prodNo;
+
+    @Lob
+    @Column(name="PROD_PHOTO")
 	private byte[] prodPhoto;
+
 
 	public ProductPhotoVO() {
 	}

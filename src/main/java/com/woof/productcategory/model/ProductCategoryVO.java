@@ -2,11 +2,23 @@ package com.woof.productcategory.model;
 
 import java.io.Serializable;
 import java.util.Objects;
+import javax.persistence.*;
 
+@Entity
+@Table(name="product_category")
 public class ProductCategoryVO implements Serializable {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="PROD_CAT_NO")
 	private Integer prodCatNo;
+
+    @Column(name="PROD_CAT_NAME")
 	private String prodCatName;
+
+    @Column(name="PROD_CAT_CONTENT")
 	private String prodCatContent;
+
 
 	public ProductCategoryVO() {
 	}

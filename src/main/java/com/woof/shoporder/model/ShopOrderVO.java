@@ -3,20 +3,51 @@ package com.woof.shoporder.model;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Objects;
+import javax.persistence.*;
 
+@Entity
+@Table(name="shop_order")
 public class ShopOrderVO implements Serializable {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="SHOP_ORDER_NO")
 	private Integer shopOrderNo;
+
+    @Column(name="MEM_NO")
 	private Integer memNo;
+
+    @Column(name="PROD_ORDER_DATE")
 	private Timestamp prodOrderDate;
+
+    @Column(name="PAY_METHOD")
 	private Integer payMethod;
+
+    @Column(name="SHIP_METHOD")
 	private Boolean shipMethod;
+
+    @Column(name="ORDER_STATUS")
 	private Integer orderStatus;
+
+    @Column(name="REC_NAME")
 	private String recName;
+
+    @Column(name="REC_MOBILE")
 	private String recMobile;
+
+    @Column(name="REC_ADDRESS")
 	private String recAddress;
+
+    @Column(name="HAS_RETURN")
 	private Boolean hasReturn;
+
+    @Column(name="MO_COIN")
 	private Integer moCoin;
+
+    @Column(name="PROD_TOTAL")
 	private Integer prodTotal;
+
+    @Column(name="ACTUAL_AMOUNT")
 	private Integer actualAmount;
 
 	public ShopOrderVO() {
