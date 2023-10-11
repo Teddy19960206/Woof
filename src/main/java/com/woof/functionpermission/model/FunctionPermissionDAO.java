@@ -1,4 +1,4 @@
-package com.woof.functionpremission.model;
+package com.woof.functionpermission.model;
 
 import java.util.*;
 

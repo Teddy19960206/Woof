@@ -6,7 +6,7 @@ public interface NonTrainingScheduleDAO {
 
 	void insert (NonTrainingScheduleVO nonTrainingScheduleVO);
 	void update (NonTrainingScheduleVO nonTrainingScheduleVO);
-	void delete (Integer ntsNo);
+	void delete (NonTrainingScheduleVO nonTrainingScheduleVO);
 	
 	NonTrainingScheduleVO findByNtsNo(Integer ntsNo);
 	List<NonTrainingScheduleVO> getAll();
