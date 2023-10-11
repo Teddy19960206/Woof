@@ -21,13 +21,13 @@ public class GroupCourseScheduleDetailVO implements Serializable {
 	@Column(name = "GCSD_NO" , updatable = false)
     private Integer gcsdNo;
 	
-	@Column(name = "GCS_NO")
+	@Column(name = "GCS_NO" , nullable = false)
     private Integer gcsNo;
 	
-	@Column(name = "TRAINER_NO")
+	@Column(name = "TRAINER_NO" , nullable = false)
     private Integer trainerNo;
 	
-	@Column(name = "CLASS_DATE")
+	@Column(name = "CLASS_DATE" , nullable = false)
     private Date classDate;
 
     public GroupCourseScheduleDetailVO() {

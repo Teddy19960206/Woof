@@ -18,13 +18,13 @@ public class GroupCourseVO implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "GC_NO" , updatable = false)
+	@Column(name = "GC_NO" , updatable = false , nullable = false)
     private Integer gcNo;
 	
-	@Column(name = "SKILL_NO")
+	@Column(name = "SKILL_NO" , nullable = false)
     private Integer skillNo;
 	
-	@Column(name = "CLASS_TYPE")
+	@Column(name = "CLASS_TYPE" , nullable = false)
     private Integer classType;
 	
 	@Column(name = "COURSE_PHOTO" , columnDefinition= "MEDIUMBLOB")
@@ -33,7 +33,7 @@ public class GroupCourseVO implements Serializable {
 	@Column(name = "COUSE_CONTENT")
     private String courseContent;
 	
-	@Column(name = "COURSE_STATUS")
+	@Column(name = "COURSE_STATUS" , nullable = false , insertable = false)
     private Integer courseStatus;
 
     public GroupCourseVO() {

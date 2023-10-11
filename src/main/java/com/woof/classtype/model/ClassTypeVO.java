@@ -18,7 +18,7 @@ public class ClassTypeVO implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "CT_NO" , updatable = false)
     private Integer ctNo;
-	@Column(name = "CT_NAME")
+	@Column(name = "CT_NAME" , nullable = false)
     private String ctName;
 
     public ClassTypeVO() {

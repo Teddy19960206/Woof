@@ -21,25 +21,25 @@ public class GroupCourseOrderVO implements Serializable {
 	@Column(name = "GCO_NO" , updatable = false)
     private Integer gcoNo;
 	
-	@Column(name = "MEM_NO")
+	@Column(name = "MEM_NO" , nullable = false)
 	private	Integer memNo;
 	
-	@Column(name = "GCS_NO")
+	@Column(name = "GCS_NO" , nullable = false)
     private Integer gcsNo;
 	
-	@Column(name = "GCO_DATE")
+	@Column(name = "GCO_DATE" , nullable = false)
     private Timestamp gcoDate;
 	
-	@Column(name = "GCO_PAYMENT_METHOD")
+	@Column(name = "GCO_PAYMENT_METHOD" , nullable = false)
     private Integer gcoPaymentMethod;
 	
-	@Column(name = "GCO_SMMP")
+	@Column(name = "GCO_SMMP" , nullable = false)
     private Integer gcoSmmp;
 	
 	@Column(name = "ACTUAL_AMOUNT")
     private Integer actualAmount;
 	
-	@Column(name = "GCO_STATUS")
+	@Column(name = "GCO_STATUS" , nullable = false)
     private Integer gcoStatus;
 
     public GroupCourseOrderVO() {

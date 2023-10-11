@@ -20,7 +20,7 @@ public class SkillVO implements Serializable {
 	@Column(name = "SKILL_NO" , updatable = false)
     private Integer skillNo;
 	
-	@Column(name = "SKILL_NAME")
+	@Column(name = "SKILL_NAME" , nullable = false)
     private String skillName;
 
     public SkillVO() {
