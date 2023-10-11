@@ -9,13 +9,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name="appointment_detail")
 public class AppointmentDetailVO {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="AD_NO")
+	@Column(name="AD_NO", updatable = false)
 	private Integer adNo;
 	
 	@Column(name="PTA_NO")
