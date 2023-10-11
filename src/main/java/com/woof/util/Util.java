@@ -31,9 +31,11 @@ public class Util {
     }
 
     public static void closeResources(Connection con , PreparedStatement ps , ResultSet rs){
-        if (con != null){
+        
+        
+        if (rs != null){
             try {
-                con.close();
+                rs.close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -45,9 +47,9 @@ public class Util {
                 e.printStackTrace();
             }
         }
-        if (rs != null){
+        if (con != null){
             try {
-                rs.close();
+                con.close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
