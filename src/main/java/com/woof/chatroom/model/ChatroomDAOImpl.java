@@ -36,9 +36,9 @@ public class ChatroomDAOImpl implements ChatroomDAO {
 		}
 
 		if (count == 1) {
-			System.out.println("·s¼W¦¨¥\");
+			System.out.println("æ–°å¢æˆåŠŸ");
 		} else {
-			System.out.println("·s¼W¥¢±Ñ");
+			System.out.println("æ–°å¢å¤±æ•—");
 		}
 
 	}
@@ -67,9 +67,9 @@ public class ChatroomDAOImpl implements ChatroomDAO {
 		}
 
 		if (count == 1) {
-			System.out.println("­×§ï¦¨¥\");
+			System.out.println("ä¿®æ”¹æˆåŠŸ");
 		} else {
-			System.out.println("­×§ï¥¢±Ñ");
+			System.out.println("ä¿®æ”¹å¤±æ•—");
 		}
 	}
 
@@ -91,9 +91,9 @@ public class ChatroomDAOImpl implements ChatroomDAO {
 		}
 
 		if (count == 1) {
-			System.out.println("§R°£¦¨¥\");
+			System.out.println("åˆªé™¤æˆåŠŸ");
 		} else {
-			System.out.println("§R°£¥¢±Ñ");
+			System.out.println("åˆªé™¤å¤±æ•—");
 		}
 	}
 
