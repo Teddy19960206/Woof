@@ -1,4 +1,4 @@
-package com.woof.trainer.model;
+package com.woof.latestnews.model;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -7,25 +7,26 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
 
 import com.woof.util.Util;
 
-public class TrainerImpl implements TrainerDAO {
-	 private static final String INSERT_STMT = "INSERT INTO trainer ( admin_no ,experience) VALUES (? , ? )";
+public class LatestNewsDAOImpl  implements LatestNewsDAO {
+	 private static final String INSERT_STMT = "INSERT INTO latest_news (  ln_title , ln_content,ln_photo,ln_time) VALUES (? , ? , ? , ?)";
 
-	    private static final String UPDATE_STMT = "UPDATE trainer SET admin_no=?,experience=? WHERE trainer_no=?";
+	    private static final String UPDATE_STMT = "UPDATE latest_news SET ln_title=?,ln_content=?,ln_photo=? ,ln_time=? WHERE ln_no=?";
 
-	    private static final String DELETE_STMT = "DELETE FROM trainer WHERE trainer_no= ?";
+	    private static final String DELETE_STMT = "DELETE FROM latest_news WHERE ln_no= ?";
 
-	    private static final String FIND_BY_ADMINNO= "SELECT * FROM trainer WHERE trainer_no = ?";
+	    private static final String FIND_BY_ADMINNO= "SELECT * FROM latest_news WHERE ln_no = ?";
 
-	    private static final String GET_ALL = "SELECT * FROM trainer";
+	    private static final String GET_ALL = "SELECT * FROM latest_news";
 
 	    @Override
-	    public void insert(TrainerVO trainerVO ) {
+	    public void insert(LatestNewsVO latestnewsVO ) {
 
 	        Connection con = null;
 	        PreparedStatement ps = null;
@@ -35,9 +36,11 @@ public class TrainerImpl implements TrainerDAO {
 	        try {
 	            con = Util.getConnection();
 	            ps = con.prepareStatement(INSERT_STMT);
-	            ps.setInt(1, trainerVO.getAdminNo());
-	            ps.setString(2, trainerVO.getExperience());
-	           
+	            ps.setString(1, latestnewsVO.getLnTitle());
+	            ps.setString(2, latestnewsVO.getLnContent());
+	            ps.setBytes(3, latestnewsVO.getLnPhoto());
+	            ps.setTimestamp(4, latestnewsVO.getLnTime());
+	         
 	            
 
 	            count = ps.executeUpdate();
@@ -58,7 +61,7 @@ public class TrainerImpl implements TrainerDAO {
 	    }
 
 	    @Override
-	    public void update(TrainerVO trainerVO) {
+	    public void update(LatestNewsVO latestnewsVO) {
 	        Connection con = null;
 	        PreparedStatement ps = null;
 	        int count = 0;
@@ -66,10 +69,12 @@ public class TrainerImpl implements TrainerDAO {
 	        try {
 	            con = Util.getConnection();
 	            ps = con.prepareStatement(UPDATE_STMT);
-	            ps.setInt(1, trainerVO.getAdminNo());
-	            ps.setString(2, trainerVO.getExperience());
-	            ps.setInt(3, trainerVO.getTrainerNo());
-	       
+	            ps.setString(1, latestnewsVO.getLnTitle());
+	            ps.setString(2, latestnewsVO.getLnContent());
+	            ps.setBytes(3, latestnewsVO.getLnPhoto());
+	            ps.setTimestamp(4, latestnewsVO.getLnTime());
+	            ps.setInt(5,latestnewsVO.getLnNo());
+	         
 
 	            count = ps.executeUpdate();
 	        } catch (SQLException e) {
@@ -86,7 +91,7 @@ public class TrainerImpl implements TrainerDAO {
 
 	    }
 
-	    public void delete(TrainerVO trainerVO) {
+	    public void delete(LatestNewsVO latestnewsVO) {
 	        Connection con = null;
 	        PreparedStatement ps = null;
 	        int count  = 0;
@@ -94,7 +99,7 @@ public class TrainerImpl implements TrainerDAO {
 	        try {
 	            con = Util.getConnection();
 	            ps =  con.prepareStatement(DELETE_STMT);
-	            ps.setInt(1 , trainerVO.getTrainerNo());
+	            ps.setInt(1 , latestnewsVO.getLnNo());
 	            count = ps.executeUpdate();
 
 
@@ -113,25 +118,27 @@ public class TrainerImpl implements TrainerDAO {
 
 	    
 	    @Override
-	    public TrainerVO  findByTrainerNo(Integer trainerNo){
+	    public LatestNewsVO  findByLnNo(Integer lnNo){
 	        Connection con = null;
 	        PreparedStatement ps = null;
 	        ResultSet rs = null;
 
-	        TrainerVO trainerVO = null;
+	        LatestNewsVO latestnewsVO = null;
 
 	        try {
 	            con = Util.getConnection();
 	            ps = con.prepareStatement(FIND_BY_ADMINNO);
-	            ps.setInt(1,trainerNo);
+	            ps.setInt(1,lnNo);
 	            rs = ps.executeQuery();
 
 	            if (rs.next()){
-	            	trainerVO = new TrainerVO();
-	            	trainerVO.setTrainerNo(trainerNo);
-	            	trainerVO.setAdminNo(rs.getInt("admin_no"));
-	            	trainerVO.setExperience(rs.getString("experience"));
-	          
+	            	latestnewsVO = new LatestNewsVO();
+	            	latestnewsVO.setLnNo(lnNo);
+	            	latestnewsVO.setLnTitle(rs.getString("ln_title"));
+	            	latestnewsVO.setLnContent(rs.getString("ln_content"));
+	            	latestnewsVO.setLnPhoto(rs.getBytes("ln_photo"));
+	            	latestnewsVO.setLnTime(rs.getTimestamp("ln_time"));
+	       
 	            	
 	            	
 	            	
@@ -143,18 +150,18 @@ public class TrainerImpl implements TrainerDAO {
 	            Util.closeResources(con , ps , rs);
 	        }
 
-	        return trainerVO;
+	        return latestnewsVO;
 	    }
 
 	    @Override
-	    public List<TrainerVO> getAll() {
+	    public List<LatestNewsVO> getAll() {
 
 
 	        Connection con = null;
 	        PreparedStatement ps = null;
 	        ResultSet rs = null;
 
-	        List<TrainerVO> trainerVOList = new ArrayList<>();
+	        List<LatestNewsVO> latestnewsVOList = new ArrayList<>();
 
 	        try {
 	            con = Util.getConnection();
@@ -162,13 +169,15 @@ public class TrainerImpl implements TrainerDAO {
 	            rs = ps.executeQuery();
 
 	            while (rs.next()){
-	            	TrainerVO trainerVO = new TrainerVO();
-	            	trainerVO.setTrainerNo(rs.getInt("trainer_No"));
-	            	trainerVO.setAdminNo(rs.getInt("admin_no"));
-	            	trainerVO.setExperience(rs.getString("experience"));
-	    
+	            	LatestNewsVO latestnewsVO = new LatestNewsVO();
+	            	latestnewsVO.setLnNo(rs.getInt("ln_no"));
+	            	latestnewsVO.setLnTitle(rs.getString("ln_title"));
+	            	latestnewsVO.setLnContent(rs.getString("ln_content"));
+	            	latestnewsVO.setLnPhoto(rs.getBytes("ln_photo"));
+	            	latestnewsVO.setLnTime(rs.getTimestamp("ln_time"));
+	            	
 
-	            	trainerVOList.add(trainerVO);
+	            	latestnewsVOList.add(latestnewsVO);
 	            }
 
 	        } catch (SQLException e) {
@@ -177,31 +186,34 @@ public class TrainerImpl implements TrainerDAO {
 	            Util.closeResources(con , ps , rs);
 	        }
 
-	        return trainerVOList;
+	        return latestnewsVOList;
 	    }
 
 
 	    public static void main(String[] args) throws IOException {
-	    	TrainerDAO trainerDAO = new TrainerImpl();
+	    	LatestNewsDAO latestnewsDAO = new LatestNewsDAOImpl();
 
-	    	TrainerVO trainerVO = new TrainerVO();
+	    	LatestNewsVO latestnewsVO = new LatestNewsVO();
 	        
-	    	trainerVO.setTrainerNo(11);
-	    	trainerVO.setAdminNo(1);
-	    	trainerVO.setExperience("寵物大師");
+	    	latestnewsVO.setLnNo(20);
+	    	latestnewsVO.setLnTitle("1232");
+	    	latestnewsVO.setLnContent("安安");
+     	 byte[] pic = getPictureBtyeArray("C:\\Users\\T14 Gen 3\\Desktop\\吉\\123.jpg");
+     	latestnewsVO.setLnPhoto(pic);
+     	latestnewsVO.setLnTime(Timestamp.valueOf("2023-11-30 12:00:00"));
   
      	
 
 
 
-	        trainerDAO.delete(trainerVO);
+	        latestnewsDAO.update(latestnewsVO);
 
-	        System.out.println(trainerDAO.findByTrainerNo(1));
+	        System.out.println(latestnewsDAO.findByLnNo(1));
 	
-	        List<TrainerVO> trainerVOList = trainerDAO.getAll();
+	        List<LatestNewsVO> latestnewsVOList = latestnewsDAO.getAll();
 	
-	        for (TrainerVO trainer : trainerVOList){
-	            System.out.println(trainer);
+	        for (LatestNewsVO latestnews : latestnewsVOList){
+	            System.out.println(latestnews);
 	
 	        }
 
