@@ -3,18 +3,46 @@ package com.woof.appointmentdetail.model;
 import java.sql.Timestamp;
 import java.util.Objects;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="appointment_detail")
 public class AppointmentDetailVO {
-	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="AD_NO")
 	private Integer adNo;
+	
+	@Column(name="PTA_NO")
 	private Integer ptaNo;
+	
+	@Column(name="APP_TIME")
 	private Timestamp appTime;
+	
+	@Column(name="APP_STATUS")
 	private Integer appStatus;
+	
+	@Column(name="APP_VENUE")
 	private String appVenue;
 	
 	public AppointmentDetailVO() {
-		
+		super();
 	}
 	
+	public AppointmentDetailVO(Integer adNo, Integer ptaNo, Timestamp appTime, Integer appStatus, String appVenue) {
+		super();
+		this.adNo = adNo;
+		this.ptaNo = ptaNo;
+		this.appTime = appTime;
+		this.appStatus = appStatus;
+		this.appVenue = appVenue;
+	}
+
 	public Integer getAdNo() {
 		return adNo;
 	}
