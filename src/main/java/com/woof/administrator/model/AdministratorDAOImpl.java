@@ -13,7 +13,7 @@ import java.util.List;
 import com.woof.groupcourseorder.model.GroupCourseOrderVO;
 import com.woof.util.Util;
 
-public class AdministratorImpl implements AdministratorDAO {
+public class AdministratorDAOImpl implements AdministratorDAO {
 	 private static final String INSERT_STMT = "INSERT INTO administrator ( admin_name , admin_gender , admin_photo,admin_email,admin_password,admin_tel,admin_address,admin_bd,emergency_contactname,emergency_contactel,admin_hd,admin_rd) VALUES (? , ? , ? , ?,?,?,?,?,?,?,?,?)";
 
 	    private static final String UPDATE_STMT = "UPDATE administrator SET admin_name=?,admin_gender=?,admin_photo=?,admin_email=?,admin_password=?,admin_tel=?,admin_address=?,admin_bd=?,emergency_contactname=?,emergency_contactel=?,admin_hd=?,admin_rd=?,admin_status=? WHERE admin_no=?";
@@ -221,7 +221,7 @@ public class AdministratorImpl implements AdministratorDAO {
 
 
 	    public static void main(String[] args) throws IOException {
-	    	AdministratorDAO administratorDAO = new AdministratorImpl();
+	    	AdministratorDAO administratorDAO = new AdministratorDAOImpl();
 
 	        AdministratorVO administratorVO = new AdministratorVO();
 	        

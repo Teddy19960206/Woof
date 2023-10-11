@@ -1,18 +1,18 @@
-package com.woof.letestnews.model;
+package com.woof.latestnews.model;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Arrays;
 import java.util.Objects;
 
-public class LetestNewsVO implements Serializable {
+public class LatestNewsVO implements Serializable {
 	private Integer lnNo;
 	private String lnTitle;
 	private String lnContent;
 	private byte[] lnPhoto;
 	private Timestamp lnTime;
 
-	public LetestNewsVO() {
+	public LatestNewsVO() {
 	}
 
 	public Integer getLnNo() {
@@ -72,7 +72,7 @@ public class LetestNewsVO implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		LetestNewsVO other = (LetestNewsVO) obj;
+		LatestNewsVO other = (LatestNewsVO) obj;
 		return Objects.equals(lnContent, other.lnContent) && Objects.equals(lnNo, other.lnNo)
 				&& Arrays.equals(lnPhoto, other.lnPhoto) && Objects.equals(lnTime, other.lnTime)
 				&& Objects.equals(lnTitle, other.lnTitle);
