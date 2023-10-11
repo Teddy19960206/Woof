@@ -6,7 +6,7 @@ public interface PrivateTrainingAppointmentFormDAO {
 
 	void insert (PrivateTrainingAppointmentFormVO privateTrainingAppointmentFormVO);
 	void update (PrivateTrainingAppointmentFormVO privateTrainingAppointmentFormVO);
-	void delete (Integer ptaNo);
+	void delete (PrivateTrainingAppointmentFormVO privateTrainingAppointmentFormVO);
 	
 	PrivateTrainingAppointmentFormVO findByPtaNo(Integer ptaNo);
 	List<PrivateTrainingAppointmentFormVO> getAll();

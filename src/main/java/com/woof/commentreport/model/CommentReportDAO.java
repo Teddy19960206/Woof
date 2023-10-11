@@ -6,7 +6,7 @@ public interface CommentReportDAO {
 	
 	void insert (CommentReportVO commentReportVO);
 	void update (CommentReportVO commentReportVO);
-	void delete (Integer crNo);
+	void delete (CommentReportVO commentReportVO);
 	
 	CommentReportVO findByCrNo(Integer crNo);
 	List<CommentReportVO> getAll();

@@ -4,9 +4,9 @@ import java.util.List;
 
 public interface ClassOrderDAO {
 
-	void insert (ClassOrderVO ClassOrderVO);
-	void update (ClassOrderVO ClassOrderVO);
-	void delete (Integer coNo);
+	void insert (ClassOrderVO classOrderVO);
+	void update (ClassOrderVO classOrderVO);
+	void delete (ClassOrderVO classOrderVO);
 	
 	ClassOrderVO findByCoNo(Integer coNo);
 	List<ClassOrderVO> getAll();

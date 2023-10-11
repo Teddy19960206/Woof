@@ -2,6 +2,10 @@ package com.woof.classtype.model;
 
 import com.woof.util.Util;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,6 +14,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ClassTypeDAOImpl implements ClassTypeDAO {
+
+    private static DataSource ds = null;
+    static{
+        try {
+            Context ctx = new InitialContext();
+            ds =(DataSource) ctx.lookup("java:comp/env/jdbc/TestDB2");
+        } catch (NamingException e) {
+            e.printStackTrace();
+        }
+
+    }
 
     private static final String INSERT_STMT = "INSERT INTO class_type (ct_name) VALUES ( ? )";
 
@@ -29,7 +44,8 @@ public class ClassTypeDAOImpl implements ClassTypeDAO {
         int count = 0;
 
         try {
-            con = Util.getConnection();
+            con = ds.getConnection();
+            //con = Util.getConnection();
             ps = con.prepareStatement(INSERT_STMT);
             ps.setString(1, classTypeVO.getCtName());
             count = ps.executeUpdate();
@@ -76,7 +92,7 @@ public class ClassTypeDAOImpl implements ClassTypeDAO {
     }
 
     @Override
-    public void delete(ClassTypeVO classTypeVO) {
+    public void delete(Integer ctno) {
         Connection con = null;
         PreparedStatement ps = null;
         int count = 0;
@@ -84,7 +100,7 @@ public class ClassTypeDAOImpl implements ClassTypeDAO {
         try {
             con = Util.getConnection();
             ps = con.prepareStatement(DELETE_STMT);
-            ps.setInt(1, classTypeVO.getCtNo());
+            ps.setInt(1, ctno);
             count = ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -168,7 +184,7 @@ public class ClassTypeDAOImpl implements ClassTypeDAO {
         }
 
         ClassTypeVO classTypeVO = new ClassTypeVO();
-//        classTypeVO.setCtNo(3);
+        classTypeVO.setCtNo(3);
         classTypeVO.setCtName("test4");
 
         classTypeDAO.insert(classTypeVO);

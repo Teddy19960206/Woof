@@ -1,0 +1,29 @@
+.carousel-inner>.carousel-item>img {
+	/* max-height: 500px; */
+}
+
+/* header div.navbar div.container div.collapse ul.navbar-nav li a {
+  color: #eb702a;
+  font-weight: bolder;
+} */
+
+/* header div.navbar div.container div.collapse ul.navbar-nav li a.active {
+  color: #79350e;
+  font-weight: bolder;
+} */
+
+* {
+	font-family: "Noto Sans TC", sans-serif;
+}
+
+footer {
+	background-color: #f7e8dd;
+}
+
+.mytextcolor {
+	color: #eb702a;
+}
+
+.underline {
+	position: relative;
+}
