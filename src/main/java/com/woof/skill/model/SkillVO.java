@@ -3,9 +3,24 @@ package com.woof.skill.model;
 import java.io.Serializable;
 import java.util.Objects;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+
+@Entity
+@Table(name = "skill")
 public class SkillVO implements Serializable {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "SKILL_NO" , updatable = false)
     private Integer skillNo;
+	
+	@Column(name = "SKILL_NAME")
     private String skillName;
 
     public SkillVO() {

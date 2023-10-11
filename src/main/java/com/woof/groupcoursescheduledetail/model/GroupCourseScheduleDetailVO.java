@@ -4,10 +4,30 @@ import java.io.Serializable;
 import java.sql.Date;
 import java.util.Objects;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+
+@Entity
+@Table(name = "group_course_schedule_detail")
 public class GroupCourseScheduleDetailVO implements Serializable {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "GCSD_NO" , updatable = false)
     private Integer gcsdNo;
+	
+	@Column(name = "GCS_NO")
     private Integer gcsNo;
+	
+	@Column(name = "TRAINER_NO")
     private Integer trainerNo;
+	
+	@Column(name = "CLASS_DATE")
     private Date classDate;
 
     public GroupCourseScheduleDetailVO() {

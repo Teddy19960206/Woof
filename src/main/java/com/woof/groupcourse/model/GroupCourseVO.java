@@ -4,13 +4,36 @@ import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Objects;
 
-public class GroupCourseVO implements Serializable {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+
+@Entity
+@Table(name = "group_course")
+public class GroupCourseVO implements Serializable {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "GC_NO" , updatable = false)
     private Integer gcNo;
+	
+	@Column(name = "SKILL_NO")
     private Integer skillNo;
+	
+	@Column(name = "CLASS_TYPE")
     private Integer classType;
+	
+	@Column(name = "COURSE_PHOTO" , columnDefinition= "MEDIUMBLOB")
     private byte[] coursePhoto;
+	
+	@Column(name = "COUSE_CONTENT")
     private String courseContent;
+	
+	@Column(name = "COURSE_STATUS")
     private Integer courseStatus;
 
     public GroupCourseVO() {

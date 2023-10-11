@@ -4,15 +4,42 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Objects;
 
-public class GroupCourseOrderVO implements Serializable {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+
+@Entity
+@Table(name = "group_course_order")
+public class GroupCourseOrderVO implements Serializable {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "GCO_NO" , updatable = false)
     private Integer gcoNo;
-    private Integer memNo;
+	
+	@Column(name = "MEM_NO")
+	private	Integer memNo;
+	
+	@Column(name = "GCS_NO")
     private Integer gcsNo;
+	
+	@Column(name = "GCO_DATE")
     private Timestamp gcoDate;
+	
+	@Column(name = "GCO_PAYMENT_METHOD")
     private Integer gcoPaymentMethod;
+	
+	@Column(name = "GCO_SMMP")
     private Integer gcoSmmp;
+	
+	@Column(name = "ACTUAL_AMOUNT")
     private Integer actualAmount;
+	
+	@Column(name = "GCO_STATUS")
     private Integer gcoStatus;
 
     public GroupCourseOrderVO() {

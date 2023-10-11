@@ -4,16 +4,48 @@ import java.io.Serializable;
 import java.sql.Date;
 import java.util.Objects;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+
+@Entity
+@Table(name = "group_course_schedule")
 public class GroupCourseScheduleVO implements Serializable {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "GCS_NO" , updatable = false)
     private Integer gcsNo;
+	
+	@Column(name = "GC_NO")
     private Integer gcNo;
+	
+	@Column(name = "TRAINER_NO")
     private Integer trainerNo;
+	
+	@Column(name = "GCS_START")
     private Date gcsStart;
+	
+	@Column(name = "GCS_END")
     private Date gcsEnd;
+	
+	@Column(name = "MIN_LIMIT")
     private Integer minLimit;
+	
+	@Column(name = "MAX_LIMIT")
     private Integer maxLimit;
+	
+	@Column(name = "COUNT")
     private Integer count;
+	
+	@Column(name = "GCS_PRICE")
     private Integer gcsPrice;
+	
+	@Column(name = "GCS_STATUS")
     private Integer gcsStatus;
 
     public GroupCourseScheduleVO() {
