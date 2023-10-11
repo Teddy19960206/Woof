@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import com.woof.util.Util;
@@ -166,8 +167,8 @@ public class AppointmentDetailDAOImpl implements AppointmentDetailDAO{
 	
 	
 	public static void main(String[] args) {
-//		AppointmentDetailDAO appointmentDetailDAO = new AppointmentDetailDAOImpl();
-//		AppointmentDetailVO appointmentDetailVO = new AppointmentDetailVO();
+		AppointmentDetailDAO appointmentDetailDAO = new AppointmentDetailDAOImpl();
+		AppointmentDetailVO appointmentDetailVO = new AppointmentDetailVO();
 		
 		// 新增
 //		appointmentDetailVO.setPtaNo(9);
@@ -181,7 +182,7 @@ public class AppointmentDetailDAOImpl implements AppointmentDetailDAO{
 //		appointmentDetailVO.setAppTime(Timestamp.valueOf("2023-11-29 11:00:00"));
 //		appointmentDetailVO.setAppStatus(2);
 //		appointmentDetailVO.setAppVenue("525");
-//		appointmentDetailVO.setAdNo(19);
+//		appointmentDetailVO.setAdNo(20);
 //		appointmentDetailDAO.update(appointmentDetailVO);
 		
 		// 刪除
