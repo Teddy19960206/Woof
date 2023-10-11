@@ -7,3 +7,4 @@ bin/
 .idea
 *.iml
 src/main/resources/hibernate.cfg.xml
+src/main/resources/jdbc.properties
