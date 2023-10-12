@@ -11,11 +11,11 @@ import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.Table;
 
-import com.woof.promotionproduct.model.PromotionProductVO.CompositePromotionProduct;
+import com.woof.promotionproduct.model.PromotionProductVO.CompositeDetail;
 
 @Entity
 @Table(name = "promotion_product")
-@IdClass(CompositePromotionProduct.class)
+@IdClass(CompositeDetail.class)
 public class PromotionProductVO implements Serializable {
 	
 	@Id
@@ -26,11 +26,11 @@ public class PromotionProductVO implements Serializable {
 	@Column(name = "PA_NO" , nullable = false)
 	private Integer paNo;
 	
-	public CompositePromotionProduct getCompositeKey() {
-		return new CompositePromotionProduct(prodNo, paNo);
+	public CompositeDetail getCompositeKey() {
+		return new CompositeDetail(prodNo, paNo);
 	}
 	
-	public void setCompositeKey(CompositePromotionProduct key) {
+	public void setCompositeKey(CompositeDetail key) {
 		this.prodNo = key.getProdNo();
 		this.paNo = key.getPaNo();
 	}
@@ -54,17 +54,17 @@ public class PromotionProductVO implements Serializable {
 		this.paNo = paNo;
 	}
 	
-	static class CompositePromotionProduct implements Serializable {
+	static class CompositeDetail implements Serializable {
 		private static final long serialVersionUID = 1L;
 		
 		private Integer prodNo;
 		private Integer paNo;
 		
-		public CompositePromotionProduct() {
+		public CompositeDetail() {
 			super();
 		}
 
-		public CompositePromotionProduct(Integer prodNo, Integer paNo) {
+		public CompositeDetail(Integer prodNo, Integer paNo) {
 			super();
 			this.prodNo = prodNo;
 			this.paNo = paNo;
@@ -99,13 +99,13 @@ public class PromotionProductVO implements Serializable {
 				return false;
 			if (getClass() != obj.getClass())
 				return false;
-			CompositePromotionProduct other = (CompositePromotionProduct) obj;
+			CompositeDetail other = (CompositeDetail) obj;
 			return Objects.equals(paNo, other.paNo) && Objects.equals(prodNo, other.prodNo);
 		}
 
 		@Override
 		public String toString() {
-			return "CompositeCartList [prodNo=" + prodNo + ", paNo=" + paNo + "]";
+			return "CompositeDetail [prodNo=" + prodNo + ", paNo=" + paNo + "]";
 		}
 
 	}

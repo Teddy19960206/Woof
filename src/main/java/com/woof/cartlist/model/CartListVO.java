@@ -11,11 +11,11 @@ import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.Table;
 
-import com.woof.cartlist.model.CartListVO.CompositeCartList;
+import com.woof.cartlist.model.CartListVO.CompositeDetail;
 
 @Entity
 @Table(name = "cart_list")
-@IdClass(CompositeCartList.class)
+@IdClass(CompositeDetail.class)
 public class CartListVO implements Serializable {
 
 	@Id
@@ -29,11 +29,11 @@ public class CartListVO implements Serializable {
 	@Column(name ="CART_AMOUNT")
 	private Integer cartAmount;
 
-	public CompositeCartList getCompositeKey() {
-		return new CompositeCartList(prodNo, memNo);
+	public CompositeDetail getCompositeKey() {
+		return new CompositeDetail(prodNo, memNo);
 	}
 	
-	public void setCompositeKey(CompositeCartList key) {
+	public void setCompositeKey(CompositeDetail key) {
 		this.prodNo = key.getProdNo();
 		this.memNo = key.getMemNo();
 	}
@@ -65,18 +65,18 @@ public class CartListVO implements Serializable {
 		this.cartAmount = cartAmount;
 	}
 
-	static class CompositeCartList implements Serializable {
+	static class CompositeDetail implements Serializable {
 		private static final long serialVersionUID = 1L;
 
 		private Integer prodNo;
 		private Integer memNo;
 
 		// 一定要有無參數建構子
-		public CompositeCartList() {
+		public CompositeDetail() {
 			super();
 		}
 		
-		public CompositeCartList(Integer prodNo, Integer memNo) {
+		public CompositeDetail(Integer prodNo, Integer memNo) {
 			super();
 			this.prodNo = prodNo;
 			this.memNo = memNo;
@@ -111,13 +111,13 @@ public class CartListVO implements Serializable {
 				return false;
 			if (getClass() != obj.getClass())
 				return false;
-			CompositeCartList other = (CompositeCartList) obj;
+			CompositeDetail other = (CompositeDetail) obj;
 			return Objects.equals(memNo, other.memNo) && Objects.equals(prodNo, other.prodNo);
 		}
 
 		@Override
 		public String toString() {
-			return "CompositeCartList [prodNo=" + prodNo + ", memNo=" + memNo + "]";
+			return "CompositeDetail [prodNo=" + prodNo + ", memNo=" + memNo + "]";
 		}
 		
 	}
