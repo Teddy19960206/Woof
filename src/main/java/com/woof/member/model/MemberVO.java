@@ -24,10 +24,10 @@ public class MemberVO implements java.io.Serializable {
 	@Column(name = "MEM_NAME")
 	private String memName;
 	
-	@Column(name = "MEM_GENDER")
+	@Column(name = "MEM_GENDER"  , columnDefinition = "CHAR")
 	private String memGender;
 	
-	@Column(name = "MEM_PHOTO")
+	@Column(name = "MEM_PHOTO" , columnDefinition = "MEDIUMBLOB")
 	private byte[] memPhoto;
 	
 	@Column(name = "MEM_EMAIL")

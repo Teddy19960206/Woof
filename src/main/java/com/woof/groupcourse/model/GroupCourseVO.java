@@ -41,17 +41,17 @@ public class GroupCourseVO implements Serializable {
 	}
 	
 	@ManyToOne
-	@JoinColumn(name = "CLASS_TYPE" , referencedColumnName = "CLASS_TYPE")
+	@JoinColumn(name = "CT_NO" , referencedColumnName = "CT_NO")
 	private ClassTypeVO classTypeVO;
 	
 	
 	@Column(name = "COURSE_PHOTO" , columnDefinition= "MEDIUMBLOB")
     private byte[] coursePhoto;
 	
-	@Column(name = "COUSE_CONTENT")
+	@Column(name = "COURSE_CONTENT")
     private String courseContent;
 	
-	@Column(name = "COURSE_STATUS" , nullable = false , insertable = false)
+	@Column(name = "COURSE_STATUS" , nullable = false , insertable = false , columnDefinition = "TINYINT")
     private Integer courseStatus;
 
     public GroupCourseVO() {

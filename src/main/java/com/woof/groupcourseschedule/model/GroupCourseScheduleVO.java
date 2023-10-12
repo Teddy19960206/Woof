@@ -40,19 +40,19 @@ public class GroupCourseScheduleVO implements Serializable {
 	@Column(name = "GCS_END" , nullable = false)
     private Date gcsEnd;
 	
-	@Column(name = "MIN_LIMIT" , nullable = false)
+	@Column(name = "MIN_LIMIT" , nullable = false , columnDefinition = "TINYINT")
     private Integer minLimit;
 	
-	@Column(name = "MAX_LIMIT" , nullable = false)
+	@Column(name = "MAX_LIMIT" , nullable = false , columnDefinition = "TINYINT")
     private Integer maxLimit;
 	
-	@Column(name = "COUNT" , nullable = false , insertable = false)
+	@Column(name = "COUNT" , nullable = false , insertable = false , columnDefinition = "TINYINT")
     private Integer count;
 	
 	@Column(name = "GCS_PRICE" , nullable = false)
     private Integer gcsPrice;
 	
-	@Column(name = "GCS_STATUS" , nullable = false , insertable = false)
+	@Column(name = "GCS_STATUS" , nullable = false , insertable = false , columnDefinition = "TINYINT")
     private Integer gcsStatus;
 
     public GroupCourseScheduleVO() {

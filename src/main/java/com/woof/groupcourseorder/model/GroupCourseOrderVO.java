@@ -37,7 +37,7 @@ public class GroupCourseOrderVO implements Serializable {
 	@Column(name = "GCO_DATE" , nullable = false)
     private Timestamp gcoDate;
 	
-	@Column(name = "GCO_PAYMENT_METHOD" , nullable = false)
+	@Column(name = "GCO_PAYMENT_METHOD" , nullable = false , columnDefinition = "TINYINT")
     private Integer gcoPaymentMethod;
 	
 	@Column(name = "GCO_SMMP" , nullable = false)
@@ -46,7 +46,7 @@ public class GroupCourseOrderVO implements Serializable {
 	@Column(name = "ACTUAL_AMOUNT")
     private Integer actualAmount;
 	
-	@Column(name = "GCO_STATUS" , nullable = false)
+	@Column(name = "GCO_STATUS" , nullable = false , columnDefinition = "TINYINT")
     private Integer gcoStatus;
 
     public GroupCourseOrderVO() {

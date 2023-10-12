@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 @WebServlet("/classType")
 public class ClassTypeServlet extends HttpServlet {
@@ -24,8 +25,10 @@ public class ClassTypeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         super.doGet(req, resp);
-        
-        System.out.println(classTypeService.getAllClassTypes());
+
+        PrintWriter writer = resp.getWriter();
+        writer.print("123");
+//        System.out.println(classTypeService.getAllClassTypes());
         
     }
     

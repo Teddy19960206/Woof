@@ -12,19 +12,15 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name="class_type")
-public class ClassTypeVO implements Serializable {
+@Table(name="CLASS_TYPE")
+public class ClassTypeVO{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "CT_NO" , updatable = false)
+	@Column(name = "CT_NO" , updatable = false , columnDefinition = "TINYINT")
     private Integer ctNo;
 	@Column(name = "CT_NAME" , nullable = false)
     private String ctName;
 
-    public ClassTypeVO() {
-    }
-
-    
     public Integer getCtNo() {
         return ctNo;
     }
