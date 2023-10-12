@@ -12,13 +12,13 @@ public class ProductCategoryVO implements Serializable {
 	
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="PROD_CAT_NO")
+    @Column(name="PROD_CAT_NO") 	 //商品類別編號
 	private Integer prodCatNo;
 
-    @Column(name="PROD_CAT_NAME")
+    @Column(name="PROD_CAT_NAME") 	 //商品類別名稱
 	private String prodCatName;
 
-    @Column(name="PROD_CAT_CONTENT")
+    @Column(name="PROD_CAT_CONTENT") //商品類別描述
 	private String prodCatContent;
 
 

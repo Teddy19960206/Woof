@@ -14,19 +14,19 @@ public class ShopOrderDetailVO implements Serializable {
 	@EmbeddedId
 	private ShopOrderDetailPK id;
 
-	@Column(name = "ORDER_AMOUNT")
+	@Column(name = "ORDER_AMOUNT") //訂單數量
 	private Integer orderAmount;
 
-	@Column(name = "PROD_PRICE")
+	@Column(name = "PROD_PRICE") //商品單價
 	private Integer prodPrice;
 
-	@Column(name = "HAS_RETURNED")
+	@Column(name = "HAS_RETURNED") //是否已退貨 0:未退貨, 1:已退貨
 	private Boolean hasReturned;
 
-	@Column(name = "DISCOUNT_RATE")
+	@Column(name = "DISCOUNT_RATE") //商品折數
 	private BigDecimal discountRate;
 
-	@Column(name = "RE_AMOUNT")
+	@Column(name = "RE_AMOUNT") //已退貨數量 Default: 0
 	private Integer reAmount;
 
 	public ShopOrderDetailVO() {
@@ -110,11 +110,21 @@ public class ShopOrderDetailVO implements Serializable {
 		
 		private static final long serialVersionUID = 1L;
 		
-		@Column(name = "SHOP_ORDER_NO")
+		@Column(name = "SHOP_ORDER_NO") //商城訂單編號
 		private Integer shopOrderNo;
 
-		@Column(name = "PROD_NO")
+		@Column(name = "PROD_NO") //商品編號
 		private Integer prodNo;
+		
+		public ShopOrderDetailPK() {
+			super();
+		}
+		
+		public ShopOrderDetailPK(Integer shopOrderNo, Integer prodNo) {
+			super();
+			this.shopOrderNo = shopOrderNo;
+			this.prodNo = prodNo;
+		}
 
 		public Integer getShopOrderNo() {
 			return shopOrderNo;
