@@ -9,7 +9,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.woof.groupcourseschedule.model.GroupCourseScheduleVO;
+import com.woof.trainer.model.TrainerVO;
 
 
 @Entity
@@ -21,11 +26,13 @@ public class GroupCourseScheduleDetailVO implements Serializable {
 	@Column(name = "GCSD_NO" , updatable = false)
     private Integer gcsdNo;
 	
-	@Column(name = "GCS_NO" , nullable = false)
-    private Integer gcsNo;
+	@ManyToOne
+	@JoinColumn(name = "GCS_NO" , referencedColumnName = "GCS_NO")
+	private GroupCourseScheduleVO groupCourseScheduleVO;
 	
-	@Column(name = "TRAINER_NO" , nullable = false)
-    private Integer trainerNo;
+	@ManyToOne
+	@JoinColumn(name= "TRAINER_NO" , referencedColumnName = "TRAINER_NO")
+    private TrainerVO trainerVO;
 	
 	@Column(name = "CLASS_DATE" , nullable = false)
     private Date classDate;
@@ -41,22 +48,25 @@ public class GroupCourseScheduleDetailVO implements Serializable {
         this.gcsdNo = gcsdNo;
     }
 
-    public Integer getGcsNo() {
-        return gcsNo;
-    }
 
-    public void setGcsNo(Integer gcsNo) {
-        this.gcsNo = gcsNo;
-    }
-    public Integer getTrainerNo() {
-        return trainerNo;
-    }
 
-    public void setTrainerNo(Integer trainerNo) {
-        this.trainerNo = trainerNo;
-    }
+    public GroupCourseScheduleVO getGroupCourseScheduleVO() {
+		return groupCourseScheduleVO;
+	}
 
-    public Date getClassDate() {
+	public void setGroupCourseScheduleVO(GroupCourseScheduleVO groupCourseScheduleVO) {
+		this.groupCourseScheduleVO = groupCourseScheduleVO;
+	}
+
+	public TrainerVO getTrainerVO() {
+		return trainerVO;
+	}
+
+	public void setTrainerVO(TrainerVO trainerVO) {
+		this.trainerVO = trainerVO;
+	}
+
+	public Date getClassDate() {
         return classDate;
     }
 
@@ -64,26 +74,27 @@ public class GroupCourseScheduleDetailVO implements Serializable {
         this.classDate = classDate;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        GroupCourseScheduleDetailVO that = (GroupCourseScheduleDetailVO) o;
-        return Objects.equals(gcsdNo, that.gcsdNo) && Objects.equals(gcsNo, that.gcsNo) && Objects.equals(trainerNo, that.trainerNo) && Objects.equals(classDate, that.classDate);
-    }
+	@Override
+	public int hashCode() {
+		return Objects.hash(gcsdNo);
+	}
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(gcsdNo, gcsNo, trainerNo, classDate);
-    }
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		GroupCourseScheduleDetailVO other = (GroupCourseScheduleDetailVO) obj;
+		return Objects.equals(gcsdNo, other.gcsdNo);
+	}
 
-    @Override
-    public String toString() {
-        return "GroupCourseScheduleDetailVO{" +
-                "gcsdNo=" + gcsdNo +
-                ", gcsNo=" + gcsNo +
-                ", trainerNo=" + trainerNo +
-                ", classDate=" + classDate +
-                '}';
-    }
+	@Override
+	public String toString() {
+		return "GroupCourseScheduleDetailVO [gcsdNo=" + gcsdNo + ", classDate=" + classDate + "]";
+	}
+
+
 }

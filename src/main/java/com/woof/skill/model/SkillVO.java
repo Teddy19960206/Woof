@@ -2,13 +2,21 @@ package com.woof.skill.model;
 
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+
+import com.woof.trainer.model.TrainerVO;
+
+
 
 
 @Entity
@@ -22,6 +30,16 @@ public class SkillVO implements Serializable {
 	
 	@Column(name = "SKILL_NAME" , nullable = false)
     private String skillName;
+	
+	
+	@ManyToMany
+	@JoinTable(
+			name = "skills_list",
+			joinColumns = { @JoinColumn(name = "SKILL_NO" , referencedColumnName = "SKILL_NO")},
+			inverseJoinColumns = { @JoinColumn(name = "TRAINER_NO" , referencedColumnName = "TRAINER_NO")}
+			
+			)
+	private Set<TrainerVO> trainers;
 
     public SkillVO() {
     }

@@ -41,20 +41,28 @@ public class ClassTypeVO implements Serializable {
         this.ctName = ctName;
     }
 
+    
+    
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ClassTypeVO classTypeVO = (ClassTypeVO) o;
-        return Objects.equals(ctNo, classTypeVO.ctNo) && Objects.equals(ctName, classTypeVO.ctName);
-    }
+	public int hashCode() {
+		return Objects.hash(ctNo);
+	}
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(ctNo, ctName);
-    }
 
-    @Override
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ClassTypeVO other = (ClassTypeVO) obj;
+		return Objects.equals(ctNo, other.ctNo);
+	}
+
+
+	@Override
     public String toString() {
         return "ClassTypeVO{" +
                 "ctNo=" + ctNo +

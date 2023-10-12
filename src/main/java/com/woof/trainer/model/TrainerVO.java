@@ -2,12 +2,43 @@ package com.woof.trainer.model;
 
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.Set;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+
+import com.woof.skill.model.SkillVO;
+
+@Entity
+@Table(name = "trainer")
 public class TrainerVO implements Serializable {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "TRAINER_NO")
 	private Integer trainerNo;
+	
+	@Column(name = "ADMIN_NO")
 	private Integer adminNo;
+	
+	@Column(name = "EXPERIENCE")
 	private String experience;
 
+	
+	@ManyToMany
+	@JoinTable(
+			name = "skills_list",
+			joinColumns = { @JoinColumn(name = "TRAINER_NO" , referencedColumnName = "TRAINER_NO") },
+			inverseJoinColumns = { @JoinColumn(name = "SKILL_NO" , referencedColumnName = "SKILL_NO") }
+			)
+	private Set<SkillVO> skills;
+	
 	public TrainerVO() {
 	}
 
@@ -35,9 +66,17 @@ public class TrainerVO implements Serializable {
 		this.experience = experience;
 	}
 
+	public Set<SkillVO> getSkills() {
+		return skills;
+	}
+
+	public void setSkills(Set<SkillVO> skills) {
+		this.skills = skills;
+	}
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(adminNo, experience, trainerNo);
+		return Objects.hash(trainerNo);
 	}
 
 	@Override
@@ -49,16 +88,14 @@ public class TrainerVO implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		TrainerVO other = (TrainerVO) obj;
-		return Objects.equals(adminNo, other.adminNo) && Objects.equals(experience, other.experience)
-				&& Objects.equals(trainerNo, other.trainerNo);
+		return Objects.equals(trainerNo, other.trainerNo);
 	}
 
 	@Override
 	public String toString() {
-		return "TrainerVO [trainerNo=" + trainerNo + ", adminNo=" + adminNo + ", experience=" + experience
-				+ ", getTrainerNo()=" + getTrainerNo() + ", getAdminNo()=" + getAdminNo() + ", getExperience()="
-				+ getExperience() + ", hashCode()=" + hashCode() + ", getClass()=" + getClass() + ", toString()="
-				+ super.toString() + "]";
+		return "TrainerVO [trainerNo=" + trainerNo + ", adminNo=" + adminNo + ", experience=" + experience + "]";
 	}
+	
+	
 
 }
