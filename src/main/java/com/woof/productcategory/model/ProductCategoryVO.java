@@ -7,7 +7,9 @@ import javax.persistence.*;
 @Entity
 @Table(name="product_category")
 public class ProductCategoryVO implements Serializable {
-
+	
+	private static final long serialVersionUID = 1L;
+	
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="PROD_CAT_NO")

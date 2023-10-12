@@ -8,7 +8,9 @@ import javax.persistence.*;
 @Entity
 @Table(name="product_photo")
 public class ProductPhotoVO implements Serializable {
-
+	
+	private static final long serialVersionUID = 1L;
+	
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="PROD_PHOTO_NO")

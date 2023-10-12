@@ -8,7 +8,9 @@ import javax.persistence.*;
 @Entity
 @Table(name="shop_order")
 public class ShopOrderVO implements Serializable {
-
+	
+	private static final long serialVersionUID = 1L;
+	
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="SHOP_ORDER_NO")

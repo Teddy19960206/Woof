@@ -8,7 +8,9 @@ import javax.persistence.*;
 @Entity
 @Table(name="return_list")
 public class ReturnListVO implements Serializable {
-
+	
+	private static final long serialVersionUID = 1L;
+	
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="RE_EXCH_ID")
