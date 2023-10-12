@@ -13,7 +13,7 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name = "MEMBER")
+@Table(name = "member")
 public class MemberVO implements java.io.Serializable {
 	
 	@Id
