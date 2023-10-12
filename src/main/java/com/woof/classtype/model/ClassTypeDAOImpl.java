@@ -50,7 +50,7 @@ public class ClassTypeDAOImpl implements ClassTypeDAO {
 
 	@Override
 	public List<ClassTypeVO> getAll() {
-		return getSession().createQuery("from CLASS_TYPE" , ClassTypeVO.class).list();
+		return getSession().createQuery("FROM ClassTypeVO" , ClassTypeVO.class).list();
 	}
 	
 	

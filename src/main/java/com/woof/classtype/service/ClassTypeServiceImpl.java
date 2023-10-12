@@ -6,6 +6,7 @@ import com.woof.classtype.model.ClassTypeDAO;
 import com.woof.classtype.model.ClassTypeDAOImpl;
 import com.woof.classtype.model.ClassTypeVO;
 import com.woof.util.HibernateUtil;
+import org.hibernate.Session;
 
 public class ClassTypeServiceImpl implements ClassTypeService{
 	
@@ -40,8 +41,14 @@ public class ClassTypeServiceImpl implements ClassTypeService{
 
 	@Override
 	public List<ClassTypeVO> getAllClassTypes() {
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+
+		session.beginTransaction();
+		List<ClassTypeVO> classTypeVOList = dao.getAll();
+		session.getTransaction().commit();
+
 		// TODO Auto-generated method stub
-		return dao.getAll();
+		return classTypeVOList;
 	}
 
 	
