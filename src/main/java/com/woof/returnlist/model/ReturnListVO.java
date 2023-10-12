@@ -3,17 +3,44 @@ package com.woof.returnlist.model;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Objects;
+import javax.persistence.*;
 
+@Entity
+@Table(name="return_list")
 public class ReturnListVO implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
+	
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="RE_EXCH_ID")
 	private Integer reExchId;
+
+    @Column(name="SHOP_ORDER_NO")
 	private Integer shopOrderNo;
+
+    @Column(name="PROD_NO")
 	private Integer prodNo;
+
+    @Column(name="RE_REASON")
 	private String reReason;
+
+    @Column(name="RE_STATUS")
 	private Integer reStatus;
+
+    @Column(name="RE_DATE")
 	private Timestamp reDate;
+
+    @Column(name="PROC_DATE")
 	private Timestamp procDate;
+
+    @Column(name="REPAY_STATUS")
 	private Integer repayStatus;
+
+    @Column(name="RED_AMOUNT")
 	private Integer redAmount;
+
+    @Column(name="RE_PAY_AMOUNT")
 	private Integer rePayAmount;
 
 	public ReturnListVO() {
