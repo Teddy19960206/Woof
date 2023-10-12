@@ -2,11 +2,29 @@ package com.woof.faq.model;
 
 import java.util.Objects;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "faq")
 public class FaqVO {
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "FAQ_NO" , updatable = false , nullable = false)
 	private Integer faqNo;
+	
+	@Column(name ="FAQ_CLASS" , nullable = false)
 	private String faqClass;
+	
+	@Column(name ="FAQ_TITLE" , nullable = false)
 	private String faqTitle;
+	
+	@Column(name ="FAQ_CONTENT" , nullable = false)
 	private String faqContent;
 	
 	

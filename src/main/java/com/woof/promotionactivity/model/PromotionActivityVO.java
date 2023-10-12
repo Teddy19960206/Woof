@@ -4,15 +4,40 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Objects;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="promotion_activity")
 
 public class PromotionActivityVO {
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "PA_NO" , updatable = false , nullable = false)
 	private Integer paNo;
+	
+	@Column(name = "PA_NAME" , nullable = false)
 	private String paName;
+	
+	@Column(name = "PA_DISCOUNT" , nullable = false)
 	private BigDecimal paDiscount;
+	
+	@Column(name = "PA_CONTENT" , nullable = false)
 	private String paContent;
+	
+	@Column(name = "PA_START" , nullable = false)
 	private Timestamp paStart;
+	
+	@Column(name = "PA_END" , nullable = false)
 	private Timestamp paEnd;
+	
+	@Column(name = "PA_STATUS" , nullable = false)
 	private Boolean paStatus;
 	
 	
