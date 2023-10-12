@@ -4,18 +4,54 @@ import java.sql.Date;
 import java.util.Arrays;
 import java.util.Objects;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+
+@Entity
+@Table(name = "MEMBER")
 public class MemberVO implements java.io.Serializable {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "MEM_NO" , updatable =false , nullable = false)
 	private Integer memNo;
+	
+	@Column(name = "MEM_NAME")
 	private String memName;
+	
+	@Column(name = "MEM_GENDER")
 	private String memGender;
+	
+	@Column(name = "MEM_PHOTO")
 	private byte[] memPhoto;
+	
+	@Column(name = "MEM_EMAIL")
 	private String memEmail;
+	
+	@Column(name = "MEM_PASSWORD")
 	private String memPassword;
+	
+	@Column(name = "MEM_TEL")
 	private String memTel;
-	private String memAdress;
+	
+	@Column(name = "MEM_ADDRESS")
+	private String memAddress;
+	
+	@Column(name = "MEM_BD")
 	private Date memBd;
+	
+	@Column(name = "MOMO_POINT")
 	private Integer momoPoint;
+	
+	@Column(name = "TOTAL_CLASS")
 	private Integer totalClass;
+	
+	@Column(name = "MEM_STATUS")
 	private Integer memStatus;
 
 	public Integer getMemNo() {
@@ -74,12 +110,12 @@ public class MemberVO implements java.io.Serializable {
 		this.memTel = memTel;
 	}
 
-	public String getMemAdress() {
-		return memAdress;
+	public String getMemAddress() {
+		return memAddress;
 	}
 
-	public void setMemAdress(String memAdress) {
-		this.memAdress = memAdress;
+	public void setMemAdress(String memAddress) {
+		this.memAddress = memAddress;
 	}
 
 	public Date getMemBd() {
@@ -119,7 +155,7 @@ public class MemberVO implements java.io.Serializable {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + Arrays.hashCode(memPhoto);
-		result = prime * result + Objects.hash(memAdress, memBd, memEmail, memGender, memName, memNo, memPassword,
+		result = prime * result + Objects.hash(memAddress, memBd, memEmail, memGender, memName, memNo, memPassword,
 				memStatus, memTel, momoPoint, totalClass);
 		return result;
 	}
@@ -133,7 +169,7 @@ public class MemberVO implements java.io.Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		MemberVO other = (MemberVO) obj;
-		return Objects.equals(memAdress, other.memAdress) && Objects.equals(memBd, other.memBd)
+		return Objects.equals(memAddress, other.memAddress) && Objects.equals(memBd, other.memBd)
 				&& Objects.equals(memEmail, other.memEmail) && Objects.equals(memGender, other.memGender)
 				&& Objects.equals(memName, other.memName) && Objects.equals(memNo, other.memNo)
 				&& Objects.equals(memPassword, other.memPassword) && Arrays.equals(memPhoto, other.memPhoto)
@@ -145,7 +181,7 @@ public class MemberVO implements java.io.Serializable {
 	public String toString() {
 		return "MemberVO [memNo=" + memNo + ", memName=" + memName + ", memGender=" + memGender + ", memPhoto="
 				+ Arrays.toString(memPhoto) + ", memEmail=" + memEmail + ", memPassword=" + memPassword + ", memTel="
-				+ memTel + ", memAdress=" + memAdress + ", memBd=" + memBd + ", momoPoint=" + momoPoint
+				+ memTel + ", memAddress=" + memAddress + ", memBd=" + memBd + ", momoPoint=" + momoPoint
 				+ ", totalClass=" + totalClass + ", memStatus=" + memStatus + "]";
 	}
 }
