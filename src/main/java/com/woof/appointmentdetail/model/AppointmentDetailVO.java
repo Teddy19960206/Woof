@@ -16,19 +16,19 @@ import javax.persistence.Table;
 public class AppointmentDetailVO {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="AD_NO", updatable = false)
+	@Column(name="AD_NO" , updatable = false , nullable = false)
 	private Integer adNo;
 	
-	@Column(name="PTA_NO")
+	@Column(name="PTA_NO" , nullable = false)
 	private Integer ptaNo;
 	
-	@Column(name="APP_TIME")
+	@Column(name="APP_TIME" , nullable = false)
 	private Timestamp appTime;
 	
-	@Column(name="APP_STATUS")
+	@Column(name="APP_STATUS" , nullable = false)
 	private Integer appStatus;
 	
-	@Column(name="APP_VENUE")
+	@Column(name="APP_VENUE" , nullable = false)
 	private String appVenue;
 	
 	public AppointmentDetailVO() {
