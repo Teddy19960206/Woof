@@ -3,10 +3,40 @@ package com.woof.skillslist.model;
 import java.io.Serializable;
 import java.util.Objects;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.IdClass;
+import javax.persistence.Table;
+
+import com.woof.skillslist.model.SkillsListVO.CompositeSkillsList;
+
+@Entity
+@Table(name = "skills_list")
+@IdClass(CompositeSkillsList.class)
 public class SkillsListVO implements Serializable {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "TRAINER_NO")
     private Integer trainerNo;
+	
+	@Id
+	@Column(name = "SKILL_NO")
     private Integer skillNo;
+	
+	
+	public CompositeSkillsList getCompositeKey() {
+		return new CompositeSkillsList(trainerNo , skillNo);
+	}
+	
+	public void setCompositekey(CompositeSkillsList key) {
+		this.trainerNo = key.getTrainerNo();
+		this.skillNo = key.getSkillNo();
+	}
+	
 
     public SkillsListVO() {
     }
@@ -27,24 +57,58 @@ public class SkillsListVO implements Serializable {
         this.skillNo = skillNo;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        SkillsListVO that = (SkillsListVO) o;
-        return Objects.equals(trainerNo, that.trainerNo) && Objects.equals(skillNo, that.skillNo);
-    }
+    static class CompositeSkillsList implements Serializable{
+    	
+    	private static final long serialVersionUID = 1L;
+    	
+    	private Integer trainerNo;
+    	private Integer skillNo;
+    	
+    	public CompositeSkillsList(Integer trainerNo , Integer skillNo) {
+    		super();
+    		this.trainerNo = trainerNo;
+    		this.skillNo = skillNo;
+    	}
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(trainerNo, skillNo);
-    }
+		public Integer getTrainerNo() {
+			return trainerNo;
+		}
 
-    @Override
-    public String toString() {
-        return "SkillsListVO{" +
-                "trainerNo=" + trainerNo +
-                ", skillNo=" + skillNo +
-                '}';
+		public void setTrainerNo(Integer trainerNo) {
+			this.trainerNo = trainerNo;
+		}
+
+		public Integer getSkillNo() {
+			return skillNo;
+		}
+
+		public void setSkillNo(Integer skillNo) {
+			this.skillNo = skillNo;
+		}
+
+		@Override
+		public int hashCode() {
+			return Objects.hash(skillNo, trainerNo);
+		}
+
+		@Override
+		public boolean equals(Object obj) {
+			if (this == obj)
+				return true;
+			if (obj == null)
+				return false;
+			if (getClass() != obj.getClass())
+				return false;
+			CompositeSkillsList other = (CompositeSkillsList) obj;
+			return Objects.equals(skillNo, other.skillNo) && Objects.equals(trainerNo, other.trainerNo);
+		}
+
+		@Override
+		public String toString() {
+			return "CompositeSkillsList [trainerNo=" + trainerNo + ", skillNo=" + skillNo + "]";
+		}
+    	
+    	
+    	
     }
 }
