@@ -2,11 +2,28 @@ package com.woof.privatetrainingappointmentform.model;
 
 import java.util.Objects;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "private_training_appointment")
 public class PrivateTrainingAppointmentFormVO {
-	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="PTA_NO" , updatable = false , nullable = false)
 	private Integer ptaNo;
+	
+	@Column(name="MEM_NO" , nullable = false)
 	private Integer memNo;
+	
+	@Column(name="TRAINER_NO" , nullable = false)
 	private Integer trainerNo;
+	
+	@Column(name="PTA_CLASS" , nullable = false)
 	private Integer ptaClass;
 	
 	public PrivateTrainingAppointmentFormVO() {

@@ -5,11 +5,26 @@ import java.sql.Timestamp;
 import java.util.Arrays;
 import java.util.Objects;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+@Entity
+@Table(name="latest_news")
 public class LatestNewsVO implements Serializable {
+@Id
+@GeneratedValue(strategy=GenerationType.IDENTITY)
+@Column(name="LN_NO",updatable=false ,nullable=false)
 	private Integer lnNo;
+@Column(name="LN_TITLE" ,nullable=false)
 	private String lnTitle;
+@Column(name="LN_CONTENT",nullable=false)
 	private String lnContent;
+@Column(name="LN_PHOTO" ,columnDefinition="MEDIUMBLOB",nullable=false)
 	private byte[] lnPhoto;
+@Column(name="LN_TIME",nullable=false)
 	private Timestamp lnTime;
 
 	public LatestNewsVO() {

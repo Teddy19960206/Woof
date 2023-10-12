@@ -3,14 +3,38 @@ package com.woof.commentreport.model;
 import java.sql.Timestamp;
 import java.util.Objects;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "comment_report")
 public class CommentReportVO {
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "CR_NO" , updatable = false , nullable = false)
 	private Integer crNo;
+	
+	@Column(name = "MEM_NO" , nullable = false)
 	private Integer memNo;
+	
+	@Column(name = "TRAINER_NO" , nullable = false)
 	private Integer trainerNo;
+	
+	@Column(name = "PTA_NO" , nullable = false)
 	private Integer ptaNo;
+	
+	@Column(name = "CR_CONTEXT" , nullable = false)
 	private String crContext;
+	
+	@Column(name="CR_STATUS" , nullable = false)
 	private Integer crStatus;
+	
+	@Column(name="CR_DATE" , nullable = false)
 	private Timestamp crDate;
 	
 	public CommentReportVO() {
