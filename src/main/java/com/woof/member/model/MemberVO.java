@@ -10,40 +10,40 @@ import java.util.Objects;
 public class MemberVO implements java.io.Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "mem_no")
+	@Column(name = "MEM_NO")
 	private Integer memNo;
 
-	@Column(name = "mem_name")
+	@Column(name = "MEM_NAME")
 	private String memName;
 
-	@Column(name = "mem_gender")
+	@Column(name = "MEM_GENDER")
 	private String memGender;
 
-	@Column(name = "mem_photo")
+	@Column(name = "MEM_PHOTO")
 	private byte[] memPhoto;
 
-	@Column(name = "mem_email")
+	@Column(name = "MEM_EMAIL")
 	private String memEmail;
 
-	@Column(name = "mem_password")
+	@Column(name = "MEM_PASSWORD")
 	private String memPassword;
 
-	@Column(name = "mem_tel")
+	@Column(name = "MEM_TEL")
 	private String memTel;
 
-	@Column(name = "mem_address")
+	@Column(name = "MEM_ADDRESS")
 	private String memAdress;
 
-	@Column(name = "mem_bd")
+	@Column(name = "MEM_BD")
 	private Date memBd;
 
-	@Column(name = "momo_point")
+	@Column(name = "MOMO_POINT")
 	private Integer momoPoint;
 
-	@Column(name = "total_class")
+	@Column(name = "TOTAL_CLASS")
 	private Integer totalClass;
 
-	@Column(name = "mem_status")
+	@Column(name = "MEM_STATUS")
 	private Integer memStatus;
 
 	public MemberVO() {
