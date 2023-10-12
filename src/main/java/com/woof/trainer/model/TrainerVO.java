@@ -3,9 +3,22 @@ package com.woof.trainer.model;
 import java.io.Serializable;
 import java.util.Objects;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+@Entity
+@Table(name="trainer")
 public class TrainerVO implements Serializable {
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="TRAINER_NO",updatable=false ,nullable=false)
 	private Integer trainerNo;
+	@Column(name="ADMIN_NO" ,nullable=false)
 	private Integer adminNo;
+	@Column(name="EXPERIENCE")
 	private String experience;
 
 	public TrainerVO() {
