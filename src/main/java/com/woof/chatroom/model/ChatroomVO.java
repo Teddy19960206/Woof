@@ -2,6 +2,7 @@ package com.woof.chatroom.model;
 
 import java.sql.Timestamp;
 import java.util.Arrays;
+import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -39,17 +40,6 @@ public class ChatroomVO {
 	public ChatroomVO() {
 		super();
 		// TODO Auto-generated constructor stub
-	}
-
-	public ChatroomVO(Integer roomNo, Integer memNo, Integer chatMsgDirect, Timestamp chatMsgTime,
-			String chatMsgContext, byte[] chatMsgPhoto) {
-		super();
-		this.roomNo = roomNo;
-		this.memNo = memNo;
-		this.chatMsgDirect = chatMsgDirect;
-		this.chatMsgTime = chatMsgTime;
-		this.chatMsgContext = chatMsgContext;
-		this.chatMsgPhoto = chatMsgPhoto;
 	}
 
 	public Integer getRoomNo() {
@@ -98,6 +88,30 @@ public class ChatroomVO {
 
 	public void setChatMsgPhoto(byte[] chatMsgPhoto) {
 		this.chatMsgPhoto = chatMsgPhoto;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + Arrays.hashCode(chatMsgPhoto);
+		result = prime * result + Objects.hash(chatMsgContext, chatMsgDirect, chatMsgTime, memNo, roomNo);
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ChatroomVO other = (ChatroomVO) obj;
+		return Objects.equals(chatMsgContext, other.chatMsgContext)
+				&& Objects.equals(chatMsgDirect, other.chatMsgDirect) && Arrays.equals(chatMsgPhoto, other.chatMsgPhoto)
+				&& Objects.equals(chatMsgTime, other.chatMsgTime) && Objects.equals(memNo, other.memNo)
+				&& Objects.equals(roomNo, other.roomNo);
 	}
 
 	@Override
