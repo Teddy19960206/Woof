@@ -10,40 +10,40 @@ import java.util.Objects;
 public class MemberVO implements java.io.Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "MEM_NO")
+	@Column(name = "MEM_NO", updatable = false, nullable = false)
 	private Integer memNo;
 
-	@Column(name = "MEM_NAME")
+	@Column(name = "MEM_NAME", nullable = false)
 	private String memName;
 
-	@Column(name = "MEM_GENDER")
+	@Column(name = "MEM_GENDER", nullable = false)
 	private String memGender;
 
-	@Column(name = "MEM_PHOTO")
+	@Column(name = "MEM_PHOTO", columnDefinition = "MEDIUMBLOB")
 	private byte[] memPhoto;
 
-	@Column(name = "MEM_EMAIL")
+	@Column(name = "MEM_EMAIL", nullable = false)
 	private String memEmail;
 
-	@Column(name = "MEM_PASSWORD")
+	@Column(name = "MEM_PASSWORD", nullable = false)
 	private String memPassword;
 
-	@Column(name = "MEM_TEL")
+	@Column(name = "MEM_TEL", nullable = false)
 	private String memTel;
 
-	@Column(name = "MEM_ADDRESS")
+	@Column(name = "MEM_ADDRESS", nullable = false)
 	private String memAdress;
 
 	@Column(name = "MEM_BD")
 	private Date memBd;
 
-	@Column(name = "MOMO_POINT")
+	@Column(name = "MOMO_POINT", nullable = false)
 	private Integer momoPoint;
 
-	@Column(name = "TOTAL_CLASS")
+	@Column(name = "TOTAL_CLASS", nullable = false)
 	private Integer totalClass;
 
-	@Column(name = "MEM_STATUS")
+	@Column(name = "MEM_STATUS", nullable = false)
 	private Integer memStatus;
 
 	public MemberVO() {
