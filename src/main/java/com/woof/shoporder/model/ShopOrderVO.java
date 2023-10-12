@@ -13,43 +13,43 @@ public class ShopOrderVO implements Serializable {
 	
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="SHOP_ORDER_NO")		//商城訂單編號
+    @Column(name="SHOP_ORDER_NO", updatable = false)		//商城訂單編號
 	private Integer shopOrderNo;
 
-    @Column(name="MEM_NO")				//會員編號
+    @Column(name="MEM_NO", nullable=false)				//會員編號
 	private Integer memNo;
 
-    @Column(name="PROD_ORDER_DATE")		//訂單成立時間
+    @Column(name="PROD_ORDER_DATE", nullable=false)		//訂單成立時間
 	private Timestamp prodOrderDate;
 
-    @Column(name="PAY_METHOD")			//付款方式 0:信用卡 1:匯款 
+    @Column(name="PAY_METHOD", nullable=false)			//付款方式 0:信用卡 1:匯款 
 	private Integer payMethod;
 
-    @Column(name="SHIP_METHOD")			//取貨方式 0:宅配 1:超商取貨(未支援)
+    @Column(name="SHIP_METHOD", nullable=false)			//取貨方式 0:宅配 1:超商取貨(未支援)
 	private Boolean shipMethod;
 
-    @Column(name="ORDER_STATUS")		//訂單狀態 0:成立 1:出貨 2:完成 3:取消 4:未付款
+    @Column(name="ORDER_STATUS", nullable=false)		//訂單狀態 0:成立 1:出貨 2:完成 3:取消 4:未付款
 	private Integer orderStatus;
 
-    @Column(name="REC_NAME")			//收件人姓名
+    @Column(name="REC_NAME", nullable=false)			//收件人姓名
 	private String recName;
 
-    @Column(name="REC_MOBILE")			//收件人電話
+    @Column(name="REC_MOBILE", nullable=false)			//收件人電話
 	private String recMobile;
 
-    @Column(name="REC_ADDRESS")			//收件人地址
+    @Column(name="REC_ADDRESS", nullable=false)			//收件人地址
 	private String recAddress;
 
-    @Column(name="HAS_RETURN")			//是否有退貨 0:無退貨, 1:有退貨
+    @Column(name="HAS_RETURN", nullable=false)			//是否有退貨 0:無退貨, 1:有退貨
 	private Boolean hasReturn;
 
-    @Column(name="MO_COIN")				//折抵毛毛幣 Default:0 不使用就是0
+    @Column(name="MO_COIN", nullable=false)				//折抵毛毛幣 Default:0 不使用就是0
 	private Integer moCoin;
 
-    @Column(name="PROD_TOTAL")			//訂單總金額
+    @Column(name="PROD_TOTAL", nullable=false)			//訂單總金額
 	private Integer prodTotal;
 
-    @Column(name="ACTUAL_AMOUNT")		//實付金額 含扣除毛毛幣
+    @Column(name="ACTUAL_AMOUNT", nullable=false)		//實付金額 含扣除毛毛幣
 	private Integer actualAmount;
 
 	public ShopOrderVO() {
