@@ -4,12 +4,12 @@ import java.io.Serializable;
 import java.util.Objects;
 
 public class ProductVO implements Serializable {
-	private Integer prodNo;
-	private Integer prodCatNo;
-	private String prodContent;
-	private Integer prodPrice;
-	private String prodName;
-	private Boolean prodStatus;
+	private Integer prodNo; 		//商品編號
+	private Integer prodCatNo;  	//商品類別編號
+	private String prodContent; 	//商品描述
+	private Integer prodPrice;  	//商品價格
+	private String prodName; 		//商品名稱
+	private Boolean prodStatus; 	//商品狀態 0:下架 1:上架
 	private static final long serialVersionUID = 1L;
 
 	public ProductVO() {
