@@ -2,8 +2,17 @@ package com.woof.functionpermission.model;
 
 import java.util.Objects;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "function_permission")
 public class FunctionPermissionVO implements java.io.Serializable {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "FUNC_NO", updatable = false, nullable = false)
 	private Integer funcNo;
+
+	@Column(name = "FUNC_NAME", nullable = false)
 	private Integer funcName;
 
 	public Integer getFuncNo() {
@@ -44,22 +53,12 @@ public class FunctionPermissionVO implements java.io.Serializable {
 		return "FunctionPermissionVO [funcNo=" + funcNo + ", funcName=" + funcName + "]";
 	}
 }
-
 //package com.woof.functionpermission.model;
 //
 //import java.util.Objects;
 //
-//import javax.persistence.*;
-//
-//@Entity
-//@Table(name = "function_permission")
 //public class FunctionPermissionVO implements java.io.Serializable {
-//	@Id
-//	@GeneratedValue(strategy = GenerationType.IDENTITY)
-//	@Column(name = "FUNC_NO")
 //	private Integer funcNo;
-//
-//	@Column(name = "FUNC_NAME")
 //	private Integer funcName;
 //
 //	public Integer getFuncNo() {
