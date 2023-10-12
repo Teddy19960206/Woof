@@ -2,6 +2,9 @@ package com.woof.administratorpermission.model;
 
 import java.util.List;
 
+import com.woof.cartlist.model.CartListVO;
+import com.woof.skillslist.model.SkillsListVO;
+
 public interface AdministratorPermissionDAO {
 	void insert(AdministratorPermissionVO administratorPermissionVO);
 
@@ -9,7 +12,11 @@ public interface AdministratorPermissionDAO {
 
 	void delete(AdministratorPermissionVO administratorPermissionVO);
 
-	AdministratorPermissionVO findbyAdminNo(Integer adminNO);
+	AdministratorPermissionVO find(AdministratorPermissionVO administratorPermissionVO1);
+
+	AdministratorPermissionVO findByAdminNo(Integer adminNo);
+	
+
 
 	List<AdministratorPermissionVO> getAll();
 }

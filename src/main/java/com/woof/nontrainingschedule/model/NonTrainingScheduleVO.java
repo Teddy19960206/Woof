@@ -3,10 +3,25 @@ package com.woof.nontrainingschedule.model;
 import java.sql.Date;
 import java.util.Objects;
 
-public class NonTrainingScheduleVO {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "non_training_schedule")
+public class NonTrainingScheduleVO {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="NTS_NO" , updatable = false , nullable = false)
 	private Integer ntsNo;
+	
+	@Column(name="TRAINER_NO" , nullable = false)
 	private Integer trainerNo;
+	
+	@Column(name="NTS_NO")
 	private Date ntsDate;
 	
 	public NonTrainingScheduleVO() {

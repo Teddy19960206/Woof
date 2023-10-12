@@ -3,16 +3,44 @@ package com.woof.classorder.model;
 import java.sql.Timestamp;
 import java.util.Objects;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "class_order")
 public class ClassOrderVO {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "CO_NO" , updatable = false , nullable = false)
 	private Integer coNo;
+	
+	@Column(name = "MEM_NO", nullable = false)
 	private Integer memNo;
+	
+	@Column(name = "CO_BC", nullable = false)
 	private Integer coBc;
+	
+	@Column(name = "CO_PAYMENT_METHOD", nullable = false)
 	private Integer coPaymentMethod;
+	
+	@Column(name = "CO_SMMP", nullable = false)
 	private Integer coSmmp;
+	
+	@Column(name = "CO_TIME", nullable = false)
 	private Timestamp coTime;
+	
+	@Column(name = "CO_STATUS", nullable = false)
 	private Integer coStatus;
+	
+	@Column(name = "MEM_NO")
 	private Timestamp coCt;
+	
+	@Column(name = "ACTUAL_AMOUNT", nullable = false)
 	private Integer actualAmount;
 	
 	public ClassOrderVO() {
