@@ -14,19 +14,35 @@ import javax.persistence.Table;
 @Entity
 @Table(name="administrator")
 public class AdministratorVO implements Serializable {
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="ADMIN_NO",updatable=false ,nullable=false)
 	private Integer adminNo;
+	@Column(name="ADMIN_NAME",nullable=false)
 	private String adminName;
+	@Column(name="ADMIN_GENDER",nullable=false)
 	private String adminGender;
+	@Column(name="ADMIN_PHOTO" ,columnDefinition="MEDIUMBLOB")
 	private byte[] adminPhoto;
+	@Column(name="ADMIN_EMAIL" ,nullable=false)
 	private String adminEmail;
+	@Column(name="ADMIN_PASSWORD", nullable=false)
 	private String adminPassword;
+	@Column(name="ADMIN_TEL" ,nullable=false)
 	private String adminTel;
+	@Column(name="ADMIN_ADDRESS" ,nullable=false)
 	private String adminAddress;
+	@Column(name="ADMIN_BD")
 	private Date adminBd;
+	@Column(name="EMERGENCY_CONTACTNAME" ,nullable=false)
 	private String emergencyContactName;
+	@Column(name="EMERGENCYCONTACTEL",nullable=false)
 	private Integer emergencyContactel;
+	@Column(name="ADMIN_HD",nullable=false)
 	private Date adminHd;
+	@Column(name="ADMIN_RD")
 	private Date adminRd;
+	@Column(name="ADMIN_STATUS",nullable=false)
 	private Integer adminStatus;
 
 	public AdministratorVO() {
