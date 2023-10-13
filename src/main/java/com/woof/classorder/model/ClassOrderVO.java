@@ -25,7 +25,7 @@ public class ClassOrderVO {
 	@Column(name = "CO_BC", nullable = false)
 	private Integer coBc;
 	
-	@Column(name = "CO_PAYMENT_METHOD", nullable = false)
+	@Column(name = "CO_PAYMENT_METHOD", nullable = false ,  columnDefinition = "TINYINT")
 	private Integer coPaymentMethod;
 	
 	@Column(name = "CO_SMMP", nullable = false)
@@ -34,7 +34,7 @@ public class ClassOrderVO {
 	@Column(name = "CO_TIME", nullable = false)
 	private Timestamp coTime;
 	
-	@Column(name = "CO_STATUS", nullable = false)
+	@Column(name = "CO_STATUS", nullable = false ,  columnDefinition = "TINYINT")
 	private Integer coStatus;
 	
 	@Column(name = "MEM_NO")
