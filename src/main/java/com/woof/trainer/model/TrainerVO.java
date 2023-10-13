@@ -2,25 +2,81 @@ package com.woof.trainer.model;
 
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+<<<<<<< HEAD
 import javax.persistence.Table;
 @Entity
 @Table(name="trainer")
+=======
+<<<<<<< HEAD
+import javax.persistence.Table;
+@Entity
+@Table(name="trainer")
+=======
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+
+import com.woof.skill.model.SkillVO;
+
+@Entity
+@Table(name = "trainer")
+>>>>>>> branch 'master' of https://github.com/Teddy19960206/Woof.git
+>>>>>>> refs/heads/master
 public class TrainerVO implements Serializable {
 	@Id
+<<<<<<< HEAD
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="TRAINER_NO",updatable=false ,nullable=false)
+=======
+<<<<<<< HEAD
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="TRAINER_NO",updatable=false ,nullable=false)
+=======
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "TRAINER_NO")
+>>>>>>> branch 'master' of https://github.com/Teddy19960206/Woof.git
+>>>>>>> refs/heads/master
 	private Integer trainerNo;
+<<<<<<< HEAD
 	@Column(name="ADMIN_NO" ,nullable=false)
+=======
+<<<<<<< HEAD
+	@Column(name="ADMIN_NO" ,nullable=false)
+=======
+	
+	@Column(name = "ADMIN_NO")
+>>>>>>> branch 'master' of https://github.com/Teddy19960206/Woof.git
+>>>>>>> refs/heads/master
 	private Integer adminNo;
+<<<<<<< HEAD
 	@Column(name="EXPERIENCE")
+=======
+<<<<<<< HEAD
+	@Column(name="EXPERIENCE")
+=======
+	
+	@Column(name = "EXPERIENCE")
+>>>>>>> branch 'master' of https://github.com/Teddy19960206/Woof.git
+>>>>>>> refs/heads/master
 	private String experience;
 
+	
+	@ManyToMany
+	@JoinTable(
+			name = "skills_list",
+			joinColumns = { @JoinColumn(name = "TRAINER_NO" , referencedColumnName = "TRAINER_NO") },
+			inverseJoinColumns = { @JoinColumn(name = "SKILL_NO" , referencedColumnName = "SKILL_NO") }
+			)
+	private Set<SkillVO> skills;
+	
 	public TrainerVO() {
 	}
 
@@ -48,9 +104,17 @@ public class TrainerVO implements Serializable {
 		this.experience = experience;
 	}
 
+	public Set<SkillVO> getSkills() {
+		return skills;
+	}
+
+	public void setSkills(Set<SkillVO> skills) {
+		this.skills = skills;
+	}
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(adminNo, experience, trainerNo);
+		return Objects.hash(trainerNo);
 	}
 
 	@Override
@@ -62,16 +126,14 @@ public class TrainerVO implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		TrainerVO other = (TrainerVO) obj;
-		return Objects.equals(adminNo, other.adminNo) && Objects.equals(experience, other.experience)
-				&& Objects.equals(trainerNo, other.trainerNo);
+		return Objects.equals(trainerNo, other.trainerNo);
 	}
 
 	@Override
 	public String toString() {
-		return "TrainerVO [trainerNo=" + trainerNo + ", adminNo=" + adminNo + ", experience=" + experience
-				+ ", getTrainerNo()=" + getTrainerNo() + ", getAdminNo()=" + getAdminNo() + ", getExperience()="
-				+ getExperience() + ", hashCode()=" + hashCode() + ", getClass()=" + getClass() + ", toString()="
-				+ super.toString() + "]";
+		return "TrainerVO [trainerNo=" + trainerNo + ", adminNo=" + adminNo + ", experience=" + experience + "]";
 	}
+	
+	
 
 }

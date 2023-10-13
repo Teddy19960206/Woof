@@ -13,34 +13,34 @@ public class ReturnListVO implements Serializable {
 	
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="RE_EXCH_ID")
+    @Column(name="RE_EXCH_ID", updatable = false)		//退貨編號
 	private Integer reExchId;
 
-    @Column(name="SHOP_ORDER_NO")
+    @Column(name="SHOP_ORDER_NO", nullable=false)	//商城訂單編號
 	private Integer shopOrderNo;
 
-    @Column(name="PROD_NO")
+    @Column(name="PROD_NO", nullable=false)			//商品編號
 	private Integer prodNo;
 
-    @Column(name="RE_REASON")
+    @Column(name="RE_REASON")		//退貨原因
 	private String reReason;
 
-    @Column(name="RE_STATUS")
+    @Column(name="RE_STATUS", nullable=false)		//退貨狀態 0:待處理 1:已接受 2:已拒絕
 	private Integer reStatus;
 
-    @Column(name="RE_DATE")
+    @Column(name="RE_DATE", nullable=false)			//退貨申請日期
 	private Timestamp reDate;
 
-    @Column(name="PROC_DATE")
+    @Column(name="PROC_DATE")		//退貨處理日期
 	private Timestamp procDate;
 
-    @Column(name="REPAY_STATUS")
+    @Column(name="REPAY_STATUS", nullable=false)	//退款狀態 0:未退款 1:退款中 2:已退款
 	private Integer repayStatus;
 
-    @Column(name="RED_AMOUNT")
+    @Column(name="RED_AMOUNT", nullable=false)		//退貨數量
 	private Integer redAmount;
 
-    @Column(name="RE_PAY_AMOUNT")
+    @Column(name="RE_PAY_AMOUNT")	//退款金額 Default: 0
 	private Integer rePayAmount;
 
 	public ReturnListVO() {

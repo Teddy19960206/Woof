@@ -19,16 +19,16 @@ public class ChatroomVO {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ROOM_NO", updatable = false)
+	@Column(name = "ROOM_NO", updatable = false, nullable = false)
 	private Integer roomNo;
 
-	@Column(name = "MEM_NO")
+	@Column(name = "MEM_NO", nullable = false)
 	private Integer memNo;
 
-	@Column(name = "CHAT_MSG_DIRECT")
+	@Column(name = "CHAT_MSG_DIRECT", nullable = false)
 	private Integer chatMsgDirect;
 
-	@Column(name = "CHAT_MSG_TIME")
+	@Column(name = "CHAT_MSG_TIME", nullable = false)
 	private Timestamp chatMsgTime;
 
 	@Column(name = "CHAT_MSG_CONTETXT")
