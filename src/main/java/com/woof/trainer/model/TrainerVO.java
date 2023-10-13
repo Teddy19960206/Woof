@@ -9,6 +9,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+<<<<<<< HEAD
+import javax.persistence.Table;
+@Entity
+@Table(name="trainer")
+=======
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -18,16 +23,30 @@ import com.woof.skill.model.SkillVO;
 
 @Entity
 @Table(name = "trainer")
+>>>>>>> branch 'master' of https://github.com/Teddy19960206/Woof.git
 public class TrainerVO implements Serializable {
 	@Id
+<<<<<<< HEAD
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="TRAINER_NO",updatable=false ,nullable=false)
+=======
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "TRAINER_NO")
+>>>>>>> branch 'master' of https://github.com/Teddy19960206/Woof.git
 	private Integer trainerNo;
+<<<<<<< HEAD
+	@Column(name="ADMIN_NO" ,nullable=false)
+=======
 	
 	@Column(name = "ADMIN_NO")
+>>>>>>> branch 'master' of https://github.com/Teddy19960206/Woof.git
 	private Integer adminNo;
+<<<<<<< HEAD
+	@Column(name="EXPERIENCE")
+=======
 	
 	@Column(name = "EXPERIENCE")
+>>>>>>> branch 'master' of https://github.com/Teddy19960206/Woof.git
 	private String experience;
 
 	

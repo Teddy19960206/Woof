@@ -3,8 +3,20 @@ package com.woof.administratorpermission.model;
 import java.io.Serializable;
 import java.util.Objects;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+@Entity
+@Table(name="administrator_permission")
 public class AdministratorPermissionVO implements Serializable {
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="ADMIN_NO",updatable=false, nullable=false)
 	private Integer adminNo;
+	@Column(name="FUNC_NO" ,nullable=false)
 	private Integer funcNo;
 
 	public AdministratorPermissionVO() {
