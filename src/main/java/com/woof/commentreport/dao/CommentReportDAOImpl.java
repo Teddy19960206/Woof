@@ -1,4 +1,4 @@
-package com.woof.commentreport.model;
+package com.woof.commentreport.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.woof.commentreport.entity.CommentReport;
 import com.woof.util.Util;
 
 public class CommentReportDAOImpl implements CommentReportDAO{
@@ -18,7 +20,7 @@ public class CommentReportDAOImpl implements CommentReportDAO{
 	private static final String GET_ALL = "SELECT * FROM comment_report";
 	
 	@Override
-	public void insert(CommentReportVO commentReportVO) {
+	public void insert(CommentReport commentReportVO) {
 		Connection con = null;
         PreparedStatement ps = null;
         int count = 0;
@@ -48,7 +50,7 @@ public class CommentReportDAOImpl implements CommentReportDAO{
         }
 	}
 	@Override
-	public void update(CommentReportVO commentReportVO) {
+	public void update(CommentReport commentReportVO) {
 		Connection con = null;
         PreparedStatement ps = null;
         int count = 0;
@@ -80,7 +82,7 @@ public class CommentReportDAOImpl implements CommentReportDAO{
         }
 	}
 	@Override
-	public void delete(CommentReportVO commentReportVO) {
+	public void delete(CommentReport commentReportVO) {
 		Connection con = null;
         PreparedStatement ps = null;
         int count = 0;
@@ -105,11 +107,11 @@ public class CommentReportDAOImpl implements CommentReportDAO{
         }
 	}
 	@Override
-	public CommentReportVO findByCrNo(Integer crNo) {
+	public CommentReport findByCrNo(Integer crNo) {
 		Connection con = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-        CommentReportVO commentReportVO = null;
+        CommentReport commentReportVO = null;
 
         try {
             con = Util.getConnection();
@@ -118,7 +120,7 @@ public class CommentReportDAOImpl implements CommentReportDAO{
             rs = ps.executeQuery();
 
             if (rs.next()){
-            	commentReportVO = new CommentReportVO();
+            	commentReportVO = new CommentReport();
             	commentReportVO.setCrNo(crNo);
             	commentReportVO.setMemNo(rs.getInt("mem_no"));
             	commentReportVO.setTrainerNo(rs.getInt("trainer_no"));
@@ -136,11 +138,11 @@ public class CommentReportDAOImpl implements CommentReportDAO{
         return commentReportVO;
 	}
 	@Override
-	public List<CommentReportVO> getAll() {
+	public List<CommentReport> getAll() {
 		Connection con = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-        List<CommentReportVO> commentReportVOList = new ArrayList<>();
+        List<CommentReport> commentReportVOList = new ArrayList<>();
 
         try {
             con = Util.getConnection();
@@ -148,7 +150,7 @@ public class CommentReportDAOImpl implements CommentReportDAO{
             rs = ps.executeQuery();
 
             while (rs.next()){
-            	CommentReportVO commentReportVO = new CommentReportVO();
+            	CommentReport commentReportVO = new CommentReport();
             	commentReportVO.setCrNo(rs.getInt("cr_No"));
             	commentReportVO.setMemNo(rs.getInt("mem_no"));
             	commentReportVO.setTrainerNo(rs.getInt("trainer_no"));

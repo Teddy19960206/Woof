@@ -1,4 +1,4 @@
-package com.woof.nontrainingschedule.model;
+package com.woof.nontrainingschedule.dao;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.woof.nontrainingschedule.entity.NonTrainingSchedule;
 import com.woof.util.Util;
 
 public class NonTrainingScheduleDAOImpl implements NonTrainingScheduleDAO{
@@ -18,7 +20,7 @@ public class NonTrainingScheduleDAOImpl implements NonTrainingScheduleDAO{
 	private static final String GET_ALL = "SELECT * FROM non_training_schedule";
 	
 	@Override
-	public void insert(NonTrainingScheduleVO nonTrainingScheduleVO) {
+	public void insert(NonTrainingSchedule nonTrainingScheduleVO) {
 		Connection con = null;
         PreparedStatement ps = null;
         int count = 0;
@@ -44,7 +46,7 @@ public class NonTrainingScheduleDAOImpl implements NonTrainingScheduleDAO{
         }
 	}
 	@Override
-	public void update(NonTrainingScheduleVO nonTrainingScheduleVO) {
+	public void update(NonTrainingSchedule nonTrainingScheduleVO) {
 		Connection con = null;
         PreparedStatement ps = null;
         int count = 0;
@@ -71,7 +73,7 @@ public class NonTrainingScheduleDAOImpl implements NonTrainingScheduleDAO{
         }
 	}
 	@Override
-	public void delete(NonTrainingScheduleVO nonTrainingScheduleVO) {
+	public void delete(NonTrainingSchedule nonTrainingScheduleVO) {
 		Connection con = null;
         PreparedStatement ps = null;
         int count = 0;
@@ -96,11 +98,11 @@ public class NonTrainingScheduleDAOImpl implements NonTrainingScheduleDAO{
         }
 	}
 	@Override
-	public NonTrainingScheduleVO findByNtsNo(Integer ntsNo) {
+	public NonTrainingSchedule findByNtsNo(Integer ntsNo) {
 		Connection con = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-        NonTrainingScheduleVO nonTrainingScheduleVO = null;
+        NonTrainingSchedule nonTrainingScheduleVO = null;
 
         try {
             con = Util.getConnection();
@@ -109,7 +111,7 @@ public class NonTrainingScheduleDAOImpl implements NonTrainingScheduleDAO{
             rs = ps.executeQuery();
 
             if (rs.next()){
-            	nonTrainingScheduleVO = new NonTrainingScheduleVO();
+            	nonTrainingScheduleVO = new NonTrainingSchedule();
             	nonTrainingScheduleVO.setNtsNo(ntsNo);
             	nonTrainingScheduleVO.setTrainerNo(rs.getInt("trainer_no"));
             	nonTrainingScheduleVO.setNtsDate(rs.getDate("nts_date"));
@@ -123,11 +125,11 @@ public class NonTrainingScheduleDAOImpl implements NonTrainingScheduleDAO{
         return nonTrainingScheduleVO;
 	}
 	@Override
-	public List<NonTrainingScheduleVO> getAll() {
+	public List<NonTrainingSchedule> getAll() {
 		Connection con = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-        List<NonTrainingScheduleVO> nonTrainingScheduleVOList = new ArrayList<>();
+        List<NonTrainingSchedule> nonTrainingScheduleVOList = new ArrayList<>();
 
         try {
             con = Util.getConnection();
@@ -135,7 +137,7 @@ public class NonTrainingScheduleDAOImpl implements NonTrainingScheduleDAO{
             rs = ps.executeQuery();
 
             while (rs.next()){
-            	NonTrainingScheduleVO nonTrainingScheduleVO = new NonTrainingScheduleVO();
+            	NonTrainingSchedule nonTrainingScheduleVO = new NonTrainingSchedule();
             	nonTrainingScheduleVO.setNtsNo(rs.getInt("nts_no"));
             	nonTrainingScheduleVO.setTrainerNo(rs.getInt("trainer_no"));
             	nonTrainingScheduleVO.setNtsDate(rs.getDate("nts_date"));

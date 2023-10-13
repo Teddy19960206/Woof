@@ -1,4 +1,4 @@
-package com.woof.nontrainingschedule.model;
+package com.woof.nontrainingschedule.entity;
 
 import java.sql.Date;
 import java.util.Objects;
@@ -12,7 +12,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "non_training_schedule")
-public class NonTrainingScheduleVO {
+public class NonTrainingSchedule {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="NTS_NO" , updatable = false , nullable = false)
@@ -24,7 +24,7 @@ public class NonTrainingScheduleVO {
 	@Column(name="NTS_NO")
 	private Date ntsDate;
 	
-	public NonTrainingScheduleVO() {
+	public NonTrainingSchedule() {
 		
 	}
 	
@@ -58,7 +58,7 @@ public class NonTrainingScheduleVO {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		NonTrainingScheduleVO other = (NonTrainingScheduleVO) obj;
+		NonTrainingSchedule other = (NonTrainingSchedule) obj;
 		return Objects.equals(ntsDate, other.ntsDate) && Objects.equals(ntsNo, other.ntsNo)
 				&& Objects.equals(trainerNo, other.trainerNo);
 	}

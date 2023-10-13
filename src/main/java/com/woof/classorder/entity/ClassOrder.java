@@ -1,4 +1,4 @@
-package com.woof.classorder.model;
+package com.woof.classorder.entity;
 
 import java.sql.Timestamp;
 import java.util.Objects;
@@ -12,7 +12,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "class_order")
-public class ClassOrderVO {
+public class ClassOrder {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,7 +43,7 @@ public class ClassOrderVO {
 	@Column(name = "ACTUAL_AMOUNT", nullable = false)
 	private Integer actualAmount;
 	
-	public ClassOrderVO() {
+	public ClassOrder() {
 		
 	}
 	
@@ -150,7 +150,7 @@ public class ClassOrderVO {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		ClassOrderVO other = (ClassOrderVO) obj;
+		ClassOrder other = (ClassOrder) obj;
 		return Objects.equals(actualAmount, other.actualAmount) && Objects.equals(coBc, other.coBc)
 				&& Objects.equals(coCt, other.coCt) && Objects.equals(coNo, other.coNo)
 				&& Objects.equals(coPaymentMethod, other.coPaymentMethod) && Objects.equals(coSmmp, other.coSmmp)

@@ -1,4 +1,4 @@
-package com.woof.appointmentdetail.model;
+package com.woof.appointmentdetail.entity;
 
 import java.sql.Timestamp;
 import java.util.Objects;
@@ -13,7 +13,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="appointment_detail")
-public class AppointmentDetailVO {
+public class AppointmentDetail {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="AD_NO" , updatable = false , nullable = false)
@@ -31,11 +31,11 @@ public class AppointmentDetailVO {
 	@Column(name="APP_VENUE" , nullable = false)
 	private String appVenue;
 	
-	public AppointmentDetailVO() {
+	public AppointmentDetail() {
 		super();
 	}
 	
-	public AppointmentDetailVO(Integer adNo, Integer ptaNo, Timestamp appTime, Integer appStatus, String appVenue) {
+	public AppointmentDetail(Integer adNo, Integer ptaNo, Timestamp appTime, Integer appStatus, String appVenue) {
 		super();
 		this.adNo = adNo;
 		this.ptaNo = ptaNo;
@@ -86,7 +86,7 @@ public class AppointmentDetailVO {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		AppointmentDetailVO other = (AppointmentDetailVO) obj;
+		AppointmentDetail other = (AppointmentDetail) obj;
 		return Objects.equals(adNo, other.adNo) && Objects.equals(appStatus, other.appStatus)
 				&& Objects.equals(appTime, other.appTime) && Objects.equals(appVenue, other.appVenue)
 				&& Objects.equals(ptaNo, other.ptaNo);

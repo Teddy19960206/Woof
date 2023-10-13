@@ -1,4 +1,4 @@
-package com.woof.appointmentdetail.model;
+package com.woof.appointmentdetail.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,9 +7,11 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.woof.appointmentdetail.entity.AppointmentDetail;
 import com.woof.util.Util;
 
-public class AppointmentDetailDAOImpl implements AppointmentDetailDAO{
+public class AppointmentDetailJDBCDAOImpl implements AppointmentDetailJDBCDAO{
 	
 	private static final String INSERT_STMT = "INSERT INTO appointment_detail (pta_no, app_time, app_status, app_venue) VALUES (?, ?, ?, ?)";
 	private static final String UPDATE_STMT = "UPDATE appointment_detail SET pta_no = ?, app_time = ?, app_status = ?, app_venue = ? WHERE ad_no = ?";
@@ -18,7 +20,7 @@ public class AppointmentDetailDAOImpl implements AppointmentDetailDAO{
 	private static final String GET_ALL = "SELECT * FROM appointment_detail";
 	
 	@Override
-	public void insert(AppointmentDetailVO appointmentDetailVO) {
+	public void insert(AppointmentDetail appointmentDetailVO) {
 		Connection con = null;
         PreparedStatement ps = null;
         int count = 0;
@@ -47,7 +49,7 @@ public class AppointmentDetailDAOImpl implements AppointmentDetailDAO{
 	}
 	
 	@Override
-	public void update(AppointmentDetailVO appointmentDetailVO) {
+	public void update(AppointmentDetail appointmentDetailVO) {
 		Connection con = null;
         PreparedStatement ps = null;
         int count = 0;
@@ -77,7 +79,7 @@ public class AppointmentDetailDAOImpl implements AppointmentDetailDAO{
 	}
 	
 	@Override
-	public void delete(AppointmentDetailVO appointmentDetailVO) {
+	public void delete(AppointmentDetail appointmentDetailVO) {
 		Connection con = null;
         PreparedStatement ps = null;
         int count = 0;
@@ -103,11 +105,11 @@ public class AppointmentDetailDAOImpl implements AppointmentDetailDAO{
     }
 
 	@Override
-	public AppointmentDetailVO findByAdNo(Integer adNo) {
+	public AppointmentDetail findByAdNo(Integer adNo) {
 		Connection con = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-        AppointmentDetailVO appointmentDetailVO = null;
+        AppointmentDetail appointmentDetailVO = null;
 
         try {
             con = Util.getConnection();
@@ -116,7 +118,7 @@ public class AppointmentDetailDAOImpl implements AppointmentDetailDAO{
             rs = ps.executeQuery();
 
             if (rs.next()){
-            	appointmentDetailVO = new AppointmentDetailVO();
+            	appointmentDetailVO = new AppointmentDetail();
             	appointmentDetailVO.setAdNo(adNo);
             	appointmentDetailVO.setPtaNo(rs.getInt("pta_no"));
             	appointmentDetailVO.setAppTime(rs.getTimestamp("app_time"));
@@ -133,11 +135,11 @@ public class AppointmentDetailDAOImpl implements AppointmentDetailDAO{
 	}
 	
 	@Override
-	public List<AppointmentDetailVO> getAll() {
+	public List<AppointmentDetail> getAll() {
 		Connection con = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-        List<AppointmentDetailVO> appointmentDetailVOList = new ArrayList<>();
+        List<AppointmentDetail> appointmentDetailVOList = new ArrayList<>();
 
         try {
             con = Util.getConnection();
@@ -145,7 +147,7 @@ public class AppointmentDetailDAOImpl implements AppointmentDetailDAO{
             rs = ps.executeQuery();
 
             while (rs.next()){
-            	AppointmentDetailVO appointmentDetailVO = new AppointmentDetailVO();
+            	AppointmentDetail appointmentDetailVO = new AppointmentDetail();
             	appointmentDetailVO.setAdNo(rs.getInt("ad_no"));
             	appointmentDetailVO.setPtaNo(rs.getInt("pta_no"));
             	appointmentDetailVO.setAppTime(rs.getTimestamp("app_time"));
@@ -167,8 +169,8 @@ public class AppointmentDetailDAOImpl implements AppointmentDetailDAO{
 	
 	
 	public static void main(String[] args) {
-		AppointmentDetailDAO appointmentDetailDAO = new AppointmentDetailDAOImpl();
-		AppointmentDetailVO appointmentDetailVO = new AppointmentDetailVO();
+		AppointmentDetailJDBCDAO appointmentDetailDAO = new AppointmentDetailJDBCDAOImpl();
+		AppointmentDetail appointmentDetailVO = new AppointmentDetail();
 		
 		// 新增
 //		appointmentDetailVO.setPtaNo(9);

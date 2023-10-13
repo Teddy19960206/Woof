@@ -1,4 +1,4 @@
-package com.woof.privatetrainingappointmentform.model;
+package com.woof.privatetrainingappointmentform.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.woof.privatetrainingappointmentform.entity.PrivateTrainingAppointmentForm;
 import com.woof.util.Util;
 
 public class PrivateTrainingAppointmentFormDAOImpl implements PrivateTrainingAppointmentFormDAO{
@@ -17,7 +19,7 @@ public class PrivateTrainingAppointmentFormDAOImpl implements PrivateTrainingApp
 	private static final String GET_ALL = "SELECT * FROM private_training_appointment_form";
 	
 	@Override
-	public void insert(PrivateTrainingAppointmentFormVO privateTrainingAppointmentFormVO) {
+	public void insert(PrivateTrainingAppointmentForm privateTrainingAppointmentFormVO) {
 		Connection con = null;
         PreparedStatement ps = null;
         int count = 0;
@@ -44,7 +46,7 @@ public class PrivateTrainingAppointmentFormDAOImpl implements PrivateTrainingApp
         }		
 	}
 	@Override
-	public void update(PrivateTrainingAppointmentFormVO privateTrainingAppointmentFormVO) {
+	public void update(PrivateTrainingAppointmentForm privateTrainingAppointmentFormVO) {
 		Connection con = null;
         PreparedStatement ps = null;
         int count = 0;
@@ -72,7 +74,7 @@ public class PrivateTrainingAppointmentFormDAOImpl implements PrivateTrainingApp
         }		
 	}
 	@Override
-	public void delete(PrivateTrainingAppointmentFormVO privateTrainingAppointmentFormVO) {
+	public void delete(PrivateTrainingAppointmentForm privateTrainingAppointmentFormVO) {
 		Connection con = null;
         PreparedStatement ps = null;
         int count = 0;
@@ -97,11 +99,11 @@ public class PrivateTrainingAppointmentFormDAOImpl implements PrivateTrainingApp
         }
 	}
 	@Override
-	public PrivateTrainingAppointmentFormVO findByPtaNo(Integer ptaNo) {
+	public PrivateTrainingAppointmentForm findByPtaNo(Integer ptaNo) {
 		Connection con = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-        PrivateTrainingAppointmentFormVO privateTrainingAppointmentFormVO = null;
+        PrivateTrainingAppointmentForm privateTrainingAppointmentFormVO = null;
 
         try {
             con = Util.getConnection();
@@ -110,7 +112,7 @@ public class PrivateTrainingAppointmentFormDAOImpl implements PrivateTrainingApp
             rs = ps.executeQuery();
 
             if (rs.next()){
-            	privateTrainingAppointmentFormVO = new PrivateTrainingAppointmentFormVO();
+            	privateTrainingAppointmentFormVO = new PrivateTrainingAppointmentForm();
             	privateTrainingAppointmentFormVO.setPtaNo(ptaNo);
             	privateTrainingAppointmentFormVO.setMemNo(rs.getInt("mem_no"));
             	privateTrainingAppointmentFormVO.setTrainerNo(rs.getInt("trainer_no"));
@@ -125,11 +127,11 @@ public class PrivateTrainingAppointmentFormDAOImpl implements PrivateTrainingApp
         return privateTrainingAppointmentFormVO;
 	}
 	@Override
-	public List<PrivateTrainingAppointmentFormVO> getAll() {
+	public List<PrivateTrainingAppointmentForm> getAll() {
 		Connection con = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-        List<PrivateTrainingAppointmentFormVO> privateTrainingAppointmentFormVOList = new ArrayList<>();
+        List<PrivateTrainingAppointmentForm> privateTrainingAppointmentFormVOList = new ArrayList<>();
 
         try {
             con = Util.getConnection();
@@ -137,7 +139,7 @@ public class PrivateTrainingAppointmentFormDAOImpl implements PrivateTrainingApp
             rs = ps.executeQuery();
 
             while (rs.next()){
-            	PrivateTrainingAppointmentFormVO privateTrainingAppointmentFormVO = new PrivateTrainingAppointmentFormVO();
+            	PrivateTrainingAppointmentForm privateTrainingAppointmentFormVO = new PrivateTrainingAppointmentForm();
             	privateTrainingAppointmentFormVO.setPtaNo(rs.getInt("pta_no"));
             	privateTrainingAppointmentFormVO.setMemNo(rs.getInt("mem_no"));
             	privateTrainingAppointmentFormVO.setTrainerNo(rs.getInt("trainer_no"));

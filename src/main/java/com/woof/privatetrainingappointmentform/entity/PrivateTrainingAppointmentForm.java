@@ -1,4 +1,4 @@
-package com.woof.privatetrainingappointmentform.model;
+package com.woof.privatetrainingappointmentform.entity;
 
 import java.util.Objects;
 
@@ -11,7 +11,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "private_training_appointment")
-public class PrivateTrainingAppointmentFormVO {
+public class PrivateTrainingAppointmentForm {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="PTA_NO" , updatable = false , nullable = false)
@@ -26,7 +26,7 @@ public class PrivateTrainingAppointmentFormVO {
 	@Column(name="PTA_CLASS" , nullable = false)
 	private Integer ptaClass;
 	
-	public PrivateTrainingAppointmentFormVO() {
+	public PrivateTrainingAppointmentForm() {
 		
 	}
 	
@@ -66,7 +66,7 @@ public class PrivateTrainingAppointmentFormVO {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		PrivateTrainingAppointmentFormVO other = (PrivateTrainingAppointmentFormVO) obj;
+		PrivateTrainingAppointmentForm other = (PrivateTrainingAppointmentForm) obj;
 		return Objects.equals(memNo, other.memNo) && Objects.equals(ptaClass, other.ptaClass)
 				&& Objects.equals(ptaNo, other.ptaNo) && Objects.equals(trainerNo, other.trainerNo);
 	}

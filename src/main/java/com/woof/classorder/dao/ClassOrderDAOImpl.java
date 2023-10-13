@@ -1,4 +1,4 @@
-package com.woof.classorder.model;
+package com.woof.classorder.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.woof.classorder.entity.ClassOrder;
 import com.woof.util.Util;
 
 public class ClassOrderDAOImpl implements ClassOrderDAO{
@@ -18,7 +20,7 @@ public class ClassOrderDAOImpl implements ClassOrderDAO{
 	private static final String GET_ALL = "SELECT * FROM class_order";
 	
 	@Override
-	public void insert(ClassOrderVO classOrderVO) {
+	public void insert(ClassOrder classOrderVO) {
 		Connection con = null;
         PreparedStatement ps = null;
         int count = 0;
@@ -50,7 +52,7 @@ public class ClassOrderDAOImpl implements ClassOrderDAO{
         }
 	}
 	@Override
-	public void update(ClassOrderVO classOrderVO) {
+	public void update(ClassOrder classOrderVO) {
 		Connection con = null;
         PreparedStatement ps = null;
         int count = 0;
@@ -83,7 +85,7 @@ public class ClassOrderDAOImpl implements ClassOrderDAO{
         }
 	}
 	@Override
-	public void delete(ClassOrderVO classOrderVO) {
+	public void delete(ClassOrder classOrderVO) {
 		Connection con = null;
         PreparedStatement ps = null;
         int count = 0;
@@ -108,11 +110,11 @@ public class ClassOrderDAOImpl implements ClassOrderDAO{
         }
 	}
 	@Override
-	public ClassOrderVO findByCoNo(Integer coNo) {
+	public ClassOrder findByCoNo(Integer coNo) {
 		Connection con = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-        ClassOrderVO classOrderVO = null;
+        ClassOrder classOrderVO = null;
 
         try {
             con = Util.getConnection();
@@ -121,7 +123,7 @@ public class ClassOrderDAOImpl implements ClassOrderDAO{
             rs = ps.executeQuery();
 
             if (rs.next()){
-            	classOrderVO = new ClassOrderVO();
+            	classOrderVO = new ClassOrder();
             	classOrderVO.setCoNo(coNo);
             	classOrderVO.setMemNo(rs.getInt("mem_no"));
             	classOrderVO.setCoBc(rs.getInt("co_bc"));
@@ -141,11 +143,11 @@ public class ClassOrderDAOImpl implements ClassOrderDAO{
         return classOrderVO;
 	}
 	@Override
-	public List<ClassOrderVO> getAll() {
+	public List<ClassOrder> getAll() {
 		Connection con = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-        List<ClassOrderVO> classOrderVOList = new ArrayList<>();
+        List<ClassOrder> classOrderVOList = new ArrayList<>();
 
         try {
             con = Util.getConnection();
@@ -153,7 +155,7 @@ public class ClassOrderDAOImpl implements ClassOrderDAO{
             rs = ps.executeQuery();
 
             while (rs.next()){
-            	ClassOrderVO classOrderVO = new ClassOrderVO();
+            	ClassOrder classOrderVO = new ClassOrder();
             	classOrderVO.setCoNo(rs.getInt("co_No"));
             	classOrderVO.setMemNo(rs.getInt("mem_no"));
             	classOrderVO.setCoBc(rs.getInt("co_bc"));

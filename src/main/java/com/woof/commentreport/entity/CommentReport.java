@@ -1,4 +1,4 @@
-package com.woof.commentreport.model;
+package com.woof.commentreport.entity;
 
 import java.sql.Timestamp;
 import java.util.Objects;
@@ -12,7 +12,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "comment_report")
-public class CommentReportVO {
+public class CommentReport {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,7 +37,7 @@ public class CommentReportVO {
 	@Column(name="CR_DATE" , nullable = false)
 	private Timestamp crDate;
 	
-	public CommentReportVO() {
+	public CommentReport() {
 		
 	}
 	
@@ -95,7 +95,7 @@ public class CommentReportVO {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		CommentReportVO other = (CommentReportVO) obj;
+		CommentReport other = (CommentReport) obj;
 		return Objects.equals(crContext, other.crContext) && Objects.equals(crDate, other.crDate)
 				&& Objects.equals(crStatus, other.crStatus) && Objects.equals(crNo, other.crNo)
 				&& Objects.equals(memNo, other.memNo) && Objects.equals(ptaNo, other.ptaNo)
