@@ -16,7 +16,9 @@ public class MemberVO implements java.io.Serializable {
 	@Column(name = "MEM_NAME", nullable = false)
 	private String memName;
 
-	@Column(name = "MEM_GENDER", nullable = false)
+
+	@Column(name = "MEM_GENDER", nullable = false, columnDefinition = "CHAR")
+
 	private String memGender;
 
 	@Column(name = "MEM_PHOTO", columnDefinition = "MEDIUMBLOB")
