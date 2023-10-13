@@ -1,4 +1,4 @@
-package com.woof.groupcourse.model;
+package com.woof.groupcourse.entity;
 
 import java.io.Serializable;
 import java.util.Arrays;
@@ -13,13 +13,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.woof.classtype.model.ClassTypeVO;
-import com.woof.skill.model.SkillVO;
+import com.woof.classtype.entity.ClassType;
+import com.woof.skill.entity.Skill;
 
 
 @Entity
 @Table(name = "group_course")
-public class GroupCourseVO implements Serializable {
+public class GroupCourse implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,21 +28,21 @@ public class GroupCourseVO implements Serializable {
 	
 	@ManyToOne
 	@JoinColumn(name = "SKILL_NO" , referencedColumnName = "SKILL_NO")
-	private SkillVO skillVO;
+	private Skill skill;
 	
 	
-	public SkillVO getSkillVO() {
-		return skillVO;
+	public Skill getSkillVO() {
+		return skill;
 	}
 
 
-	public void setSkillVO(SkillVO skillVO) {
-		this.skillVO = skillVO;
+	public void setSkillVO(Skill skill) {
+		this.skill = skill;
 	}
 	
 	@ManyToOne
 	@JoinColumn(name = "CT_NO" , referencedColumnName = "CT_NO")
-	private ClassTypeVO classTypeVO;
+	private ClassType classType;
 	
 	
 	@Column(name = "COURSE_PHOTO" , columnDefinition= "MEDIUMBLOB")
@@ -54,7 +54,7 @@ public class GroupCourseVO implements Serializable {
 	@Column(name = "COURSE_STATUS" , nullable = false , insertable = false , columnDefinition = "TINYINT")
     private Integer courseStatus;
 
-    public GroupCourseVO() {
+    public GroupCourse() {
     }
 
 
@@ -68,13 +68,13 @@ public class GroupCourseVO implements Serializable {
 
     
 
-    public ClassTypeVO getClassTypeVO() {
-		return classTypeVO;
+    public ClassType getClassTypeVO() {
+		return classType;
 	}
 
 
-	public void setClassTypeVO(ClassTypeVO classTypeVO) {
-		this.classTypeVO = classTypeVO;
+	public void setClassTypeVO(ClassType classType) {
+		this.classType = classType;
 	}
 
 
@@ -117,7 +117,7 @@ public class GroupCourseVO implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		GroupCourseVO other = (GroupCourseVO) obj;
+		GroupCourse other = (GroupCourse) obj;
 		return Objects.equals(gcNo, other.gcNo);
 	}
 

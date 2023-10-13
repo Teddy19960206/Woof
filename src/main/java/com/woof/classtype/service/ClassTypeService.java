@@ -2,16 +2,16 @@ package com.woof.classtype.service;
 
 import java.util.List;
 
-import com.woof.classtype.model.ClassTypeVO;
+import com.woof.classtype.entity.ClassType;
 
 public interface ClassTypeService {
-	ClassTypeVO addClassType(ClassTypeVO classType);
+	ClassType addClassType(ClassType classType);
 	
-	ClassTypeVO updateClassType(ClassTypeVO classType);
+	ClassType updateClassType(ClassType classType);
 	
 	void deleteClassType(Integer ctNo);
 	
-	ClassTypeVO findClassTypeByNO(Integer ctNo);
+	ClassType findClassTypeByNO(Integer ctNo);
 	
-	List<ClassTypeVO> getAllClassTypes();
+	List<ClassType> getAllClassTypes();
 }

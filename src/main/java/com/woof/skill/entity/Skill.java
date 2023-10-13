@@ -1,4 +1,4 @@
-package com.woof.skill.model;
+package com.woof.skill.entity;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -21,7 +21,7 @@ import com.woof.trainer.model.TrainerVO;
 
 @Entity
 @Table(name = "skill")
-public class SkillVO implements Serializable {
+public class Skill implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,7 +41,7 @@ public class SkillVO implements Serializable {
 			)
 	private Set<TrainerVO> trainers;
 
-    public SkillVO() {
+    public Skill() {
     }
 
     public Integer getSkillNo() {
@@ -64,8 +64,8 @@ public class SkillVO implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        SkillVO skillVO = (SkillVO) o;
-        return Objects.equals(skillNo, skillVO.skillNo) && Objects.equals(skillName, skillVO.skillName);
+        Skill skill = (Skill) o;
+        return Objects.equals(skillNo, skill.skillNo) && Objects.equals(skillName, skill.skillName);
     }
 
     @Override

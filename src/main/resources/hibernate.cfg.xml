@@ -19,13 +19,13 @@
         <property name="hibernate.hbm2ddl.auto">validate</property>
         <property name="hibernate.current_session_context_class">thread</property>
 
-        <mapping class="com.woof.classtype.model.ClassTypeVO" />
-        <mapping class="com.woof.groupcourse.model.GroupCourseVO" />
-        <mapping class="com.woof.groupcourseorder.model.GroupCourseOrderVO" />
-        <mapping class="com.woof.groupcourseschedule.model.GroupCourseScheduleVO" />
-        <mapping class="com.woof.groupcoursescheduledetail.model.GroupCourseScheduleDetailVO" />
-        <mapping class="com.woof.skill.model.SkillVO" />
-        <mapping class="com.woof.skillslist.model.SkillsListVO" />
+        <mapping class="com.woof.classtype.entity.ClassType" />
+        <mapping class="com.woof.groupcourse.entity.GroupCourse" />
+        <mapping class="com.woof.groupcourseorder.entity.GroupCourseOrder" />
+        <mapping class="com.woof.groupcourseschedule.entity.GroupCourseSchedule" />
+        <mapping class="com.woof.groupcoursescheduledetail.entity.GroupCourseScheduleDetail" />
+        <mapping class="com.woof.skill.entity.Skill" />
+        <mapping class="com.woof.skillslist.entity.SkillsList" />
         <mapping class="com.woof.member.model.MemberVO"/>
         <mapping class="com.woof.trainer.model.TrainerVO"/>
 

@@ -10,7 +10,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.woof.groupcourseorder.model.GroupCourseOrderVO;
 import com.woof.util.Util;
 
 public class AdministratorDAOImpl implements AdministratorDAO {

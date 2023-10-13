@@ -1,7 +1,8 @@
-package com.woof.classtype.model;
+package com.woof.classtype.dao;
 
 import java.util.List;
 
+import com.woof.classtype.entity.ClassType;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
@@ -18,12 +19,12 @@ public class ClassTypeDAOImpl implements ClassTypeDAO {
 	}
 	
 	@Override
-	public int insert(ClassTypeVO entity) {
+	public int insert(ClassType entity) {
 		return (Integer) getSession().save(entity);
 	}
 
 	@Override
-	public int update(ClassTypeVO entity) {
+	public int update(ClassType entity) {
 		try {
 			getSession().update(entity);
 			return 1;
@@ -34,9 +35,9 @@ public class ClassTypeDAOImpl implements ClassTypeDAO {
 
 	@Override
 	public int delete(Integer ctno) {
-		ClassTypeVO classTypeVO = getSession().get(ClassTypeVO.class, ctno);
-		if(classTypeVO != null) {
-			getSession().delete(classTypeVO);
+		ClassType classType = getSession().get(ClassType.class, ctno);
+		if(classType != null) {
+			getSession().delete(classType);
 			return 1;
 		}else {
 			return -1;
@@ -44,13 +45,13 @@ public class ClassTypeDAOImpl implements ClassTypeDAO {
 	}
 
 	@Override
-	public ClassTypeVO findbyCtNo(Integer ctNo) {
-		return getSession().get(ClassTypeVO.class, ctNo);
+	public ClassType findbyCtNo(Integer ctNo) {
+		return getSession().get(ClassType.class, ctNo);
 	}
 
 	@Override
-	public List<ClassTypeVO> getAll() {
-		return getSession().createQuery("FROM ClassTypeVO" , ClassTypeVO.class).list();
+	public List<ClassType> getAll() {
+		return getSession().createQuery("FROM ClassType" , ClassType.class).list();
 	}
 	
 	

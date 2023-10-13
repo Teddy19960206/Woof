@@ -1,4 +1,4 @@
-package com.woof.groupcourseschedule.model;
+package com.woof.groupcourseschedule.entity;
 
 import java.io.Serializable;
 import java.sql.Date;
@@ -13,13 +13,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.woof.groupcourse.model.GroupCourseVO;
+import com.woof.groupcourse.entity.GroupCourse;
 import com.woof.trainer.model.TrainerVO;
 
 
 @Entity
 @Table(name = "group_course_schedule")
-public class GroupCourseScheduleVO implements Serializable {
+public class GroupCourseSchedule implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,7 +28,7 @@ public class GroupCourseScheduleVO implements Serializable {
 	
 	@ManyToOne
 	@JoinColumn(name = "GC_NO" , referencedColumnName = "GC_NO")
-    private GroupCourseVO groupCourseVO;
+    private GroupCourse groupCourse;
 	
 	@ManyToOne
 	@JoinColumn(name = "TRAINER_NO" , referencedColumnName = "TRAINER_NO")
@@ -55,17 +55,17 @@ public class GroupCourseScheduleVO implements Serializable {
 	@Column(name = "GCS_STATUS" , nullable = false , insertable = false , columnDefinition = "TINYINT")
     private Integer gcsStatus;
 
-    public GroupCourseScheduleVO() {
+    public GroupCourseSchedule() {
     }
     
     
-    public GroupCourseVO getGroupCourseVO() {
-		return groupCourseVO;
+    public GroupCourse getGroupCourseVO() {
+		return groupCourse;
 	}
 
 
-	public void setGroupCourseVO(GroupCourseVO groupCourseVO) {
-		this.groupCourseVO = groupCourseVO;
+	public void setGroupCourseVO(GroupCourse groupCourse) {
+		this.groupCourse = groupCourse;
 	}
 
 
@@ -158,7 +158,7 @@ public class GroupCourseScheduleVO implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		GroupCourseScheduleVO other = (GroupCourseScheduleVO) obj;
+		GroupCourseSchedule other = (GroupCourseSchedule) obj;
 		return Objects.equals(gcsNo, other.gcsNo);
 	}
 

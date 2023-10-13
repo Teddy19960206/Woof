@@ -1,4 +1,4 @@
-package com.woof.groupcoursescheduledetail.model;
+package com.woof.groupcoursescheduledetail.entity;
 
 import java.io.Serializable;
 import java.sql.Date;
@@ -13,13 +13,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.woof.groupcourseschedule.model.GroupCourseScheduleVO;
+import com.woof.groupcourseschedule.entity.GroupCourseSchedule;
 import com.woof.trainer.model.TrainerVO;
 
 
 @Entity
 @Table(name = "group_course_schedule_detail")
-public class GroupCourseScheduleDetailVO implements Serializable {
+public class GroupCourseScheduleDetail implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,7 +28,7 @@ public class GroupCourseScheduleDetailVO implements Serializable {
 	
 	@ManyToOne
 	@JoinColumn(name = "GCS_NO" , referencedColumnName = "GCS_NO")
-	private GroupCourseScheduleVO groupCourseScheduleVO;
+	private GroupCourseSchedule groupCourseSchedule;
 	
 	@ManyToOne
 	@JoinColumn(name= "TRAINER_NO" , referencedColumnName = "TRAINER_NO")
@@ -37,7 +37,7 @@ public class GroupCourseScheduleDetailVO implements Serializable {
 	@Column(name = "CLASS_DATE" , nullable = false)
     private Date classDate;
 
-    public GroupCourseScheduleDetailVO() {
+    public GroupCourseScheduleDetail() {
     }
 
     public Integer getGcsdNo() {
@@ -50,12 +50,12 @@ public class GroupCourseScheduleDetailVO implements Serializable {
 
 
 
-    public GroupCourseScheduleVO getGroupCourseScheduleVO() {
-		return groupCourseScheduleVO;
+    public GroupCourseSchedule getGroupCourseScheduleVO() {
+		return groupCourseSchedule;
 	}
 
-	public void setGroupCourseScheduleVO(GroupCourseScheduleVO groupCourseScheduleVO) {
-		this.groupCourseScheduleVO = groupCourseScheduleVO;
+	public void setGroupCourseScheduleVO(GroupCourseSchedule groupCourseSchedule) {
+		this.groupCourseSchedule = groupCourseSchedule;
 	}
 
 	public TrainerVO getTrainerVO() {
@@ -87,7 +87,7 @@ public class GroupCourseScheduleDetailVO implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		GroupCourseScheduleDetailVO other = (GroupCourseScheduleDetailVO) obj;
+		GroupCourseScheduleDetail other = (GroupCourseScheduleDetail) obj;
 		return Objects.equals(gcsdNo, other.gcsdNo);
 	}
 
