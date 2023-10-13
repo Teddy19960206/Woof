@@ -25,7 +25,7 @@ public class AppointmentDetailVO {
 	@Column(name="APP_TIME" , nullable = false)
 	private Timestamp appTime;
 	
-	@Column(name="APP_STATUS" , nullable = false)
+	@Column(name="APP_STATUS" , nullable = false ,  columnDefinition = "TINYINT")
 	private Integer appStatus;
 	
 	@Column(name="APP_VENUE" , nullable = false)
