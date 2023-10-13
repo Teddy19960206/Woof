@@ -95,7 +95,4 @@ public class TrainerVO implements Serializable {
 	public String toString() {
 		return "TrainerVO [trainerNo=" + trainerNo + ", adminNo=" + adminNo + ", experience=" + experience + "]";
 	}
-	
-	
-//
 }
