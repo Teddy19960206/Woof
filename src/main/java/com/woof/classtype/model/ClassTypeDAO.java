@@ -4,11 +4,11 @@ import java.util.List;
 
 public interface ClassTypeDAO {
 
-    void insert(ClassTypeVO classTypeVO);
+    int insert(ClassTypeVO classTypeVO);
 
-    void update(ClassTypeVO classTypeVO);
+    int update(ClassTypeVO classTypeVO);
 
-    void delete(Integer ctno);
+    int delete(Integer ctno);
 
     ClassTypeVO findbyCtNo(Integer ctNo);
 

@@ -9,7 +9,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.woof.groupcourseschedule.model.GroupCourseScheduleVO;
+import com.woof.member.model.MemberVO;
 
 
 @Entity
@@ -21,16 +26,18 @@ public class GroupCourseOrderVO implements Serializable {
 	@Column(name = "GCO_NO" , updatable = false)
     private Integer gcoNo;
 	
-	@Column(name = "MEM_NO" , nullable = false)
-	private	Integer memNo;
+	@ManyToOne
+	@JoinColumn(name = "MEM_NO" , referencedColumnName = "MEM_NO")
+	private MemberVO memberVO;
 	
-	@Column(name = "GCS_NO" , nullable = false)
-    private Integer gcsNo;
+	@ManyToOne
+	@JoinColumn(name = "GCS_NO" , referencedColumnName = "GCS_NO")
+	private GroupCourseScheduleVO groupCourseScheduleVO;
 	
 	@Column(name = "GCO_DATE" , nullable = false)
     private Timestamp gcoDate;
 	
-	@Column(name = "GCO_PAYMENT_METHOD" , nullable = false)
+	@Column(name = "GCO_PAYMENT_METHOD" , nullable = false , columnDefinition = "TINYINT")
     private Integer gcoPaymentMethod;
 	
 	@Column(name = "GCO_SMMP" , nullable = false)
@@ -39,7 +46,7 @@ public class GroupCourseOrderVO implements Serializable {
 	@Column(name = "ACTUAL_AMOUNT")
     private Integer actualAmount;
 	
-	@Column(name = "GCO_STATUS" , nullable = false)
+	@Column(name = "GCO_STATUS" , nullable = false , columnDefinition = "TINYINT")
     private Integer gcoStatus;
 
     public GroupCourseOrderVO() {
@@ -53,23 +60,25 @@ public class GroupCourseOrderVO implements Serializable {
         this.gcoNo = gcoNo;
     }
 
-    public Integer getMemNo() {
-        return memNo;
-    }
 
-    public void setMemNo(Integer memNo) {
-        this.memNo = memNo;
-    }
 
-    public Integer getGcsNo() {
-        return gcsNo;
-    }
+    public MemberVO getMemberVO() {
+		return memberVO;
+	}
 
-    public void setGcsNo(Integer gcsNo) {
-        this.gcsNo = gcsNo;
-    }
+	public void setMemberVO(MemberVO memberVO) {
+		this.memberVO = memberVO;
+	}
 
-    public Timestamp getGcoDate() {
+	public GroupCourseScheduleVO getGroupCourseScheduleVO() {
+		return groupCourseScheduleVO;
+	}
+
+	public void setGroupCourseScheduleVO(GroupCourseScheduleVO groupCourseScheduleVO) {
+		this.groupCourseScheduleVO = groupCourseScheduleVO;
+	}
+
+	public Timestamp getGcoDate() {
         return gcoDate;
     }
 
@@ -109,35 +118,33 @@ public class GroupCourseOrderVO implements Serializable {
         this.gcoStatus = gcoStatus;
     }
 
+	@Override
+	public int hashCode() {
+		return Objects.hash(gcoNo);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		GroupCourseOrderVO other = (GroupCourseOrderVO) obj;
+		return Objects.equals(gcoNo, other.gcoNo);
+	}
+
+	@Override
+	public String toString() {
+		return "GroupCourseOrderVO [gcoNo=" + gcoNo + ", gcoDate=" + gcoDate + ", gcoPaymentMethod=" + gcoPaymentMethod
+				+ ", gcoSmmp=" + gcoSmmp + ", actualAmount=" + actualAmount + ", gcoStatus=" + gcoStatus + "]";
+	}
 
 
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        GroupCourseOrderVO that = (GroupCourseOrderVO) o;
-        return Objects.equals(gcoNo, that.gcoNo) && Objects.equals(memNo, that.memNo) && Objects.equals(gcsNo, that.gcsNo) && Objects.equals(gcoDate, that.gcoDate) && Objects.equals(gcoPaymentMethod, that.gcoPaymentMethod) && Objects.equals(gcoSmmp, that.gcoSmmp) && Objects.equals(actualAmount, that.actualAmount) && Objects.equals(gcoStatus, that.gcoStatus);
-    }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(gcoNo, memNo, gcsNo, gcoDate, gcoPaymentMethod, gcoSmmp, actualAmount, gcoStatus);
-    }
-
-    @Override
-    public String toString() {
-        return "GroupCourseOrderVO{" +
-                "gcoNo=" + gcoNo +
-                ", memNo=" + memNo +
-                ", gcsNo=" + gcsNo +
-                ", gcoDate=" + gcoDate +
-                ", gcoPaymentMethod=" + gcoPaymentMethod +
-                ", gcoSmmp=" + gcoSmmp +
-                ", actualAmount=" + actualAmount +
-                ", gcoStatus=" + gcoStatus +
-                '}';
-    }
+    
 
 
 

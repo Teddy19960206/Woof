@@ -5,12 +5,12 @@
 <hibernate-configuration>
     <session-factory>
     
-    	<property name="connection.datasource">java:comp/env/jdbc/TestDB2</property>
+    	<property name="connection.datasource">java:comp/env/jdbc/TestDB</property>
     
-        <!-- <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
-        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/jdbcsample?serverTimezone=Asia/Taipei</property>
-        <property name="hibernate.connection.username">root</property>
-        <property name="hibernate.connection.password">asd100527</property> -->
+<!--        <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>-->
+<!--        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/woof?serverTimezone=Asia/Taipei</property>-->
+<!--        <property name="hibernate.connection.username">root</property>-->
+<!--        <property name="hibernate.connection.password">password</property>-->
         
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
         
@@ -26,6 +26,8 @@
         <mapping class="com.woof.groupcoursescheduledetail.model.GroupCourseScheduleDetailVO" />
         <mapping class="com.woof.skill.model.SkillVO" />
         <mapping class="com.woof.skillslist.model.SkillsListVO" />
+        <mapping class="com.woof.member.model.MemberVO"/>
+        <mapping class="com.woof.trainer.model.TrainerVO"/>
 
 
     </session-factory>

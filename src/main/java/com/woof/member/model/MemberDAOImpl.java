@@ -10,7 +10,8 @@ import java.util.List;
 
 import com.woof.util.Util;
 
-public class MemberDAOImpl implements MemberDAO {
+public class MemberDAOImpl /* implements MemberDAO */ {
+	/*
 	private static final String INSERT_STMT = "INSERT INTO member (mem_no, mem_name, mem_gender, mem_photo, mem_email, mem_password, mem_tel, mem_address, mem_bd, momo_point, total_class, mem_status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 	private static final String UPDATE_STMT = "UPDATE member set mem_name = ?, mem_gender = ?, mem_photo = ?, mem_email = ?, mem_password = ?, mem_tel = ?, mem_address = ?, mem_bd = ?, momo_point = ?, total_class = ?, mem_status = ? WHERE mem_no = ?";
@@ -238,4 +239,6 @@ public class MemberDAOImpl implements MemberDAO {
 //			System.out.println(memberVOItem.getMemStatus());
 //		}
 	}
+	
+	*/
 }

@@ -9,7 +9,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.woof.groupcourse.model.GroupCourseVO;
+import com.woof.trainer.model.TrainerVO;
 
 
 @Entity
@@ -21,11 +26,13 @@ public class GroupCourseScheduleVO implements Serializable {
 	@Column(name = "GCS_NO" , updatable = false)
     private Integer gcsNo;
 	
-	@Column(name = "GC_NO" , nullable = false)
-    private Integer gcNo;
+	@ManyToOne
+	@JoinColumn(name = "GC_NO" , referencedColumnName = "GC_NO")
+    private GroupCourseVO groupCourseVO;
 	
-	@Column(name = "TRAINER_NO" , nullable = false)
-    private Integer trainerNo;
+	@ManyToOne
+	@JoinColumn(name = "TRAINER_NO" , referencedColumnName = "TRAINER_NO")
+	private TrainerVO trainerVO;
 	
 	@Column(name = "GCS_START" , nullable = false)
     private Date gcsStart;
@@ -33,48 +40,52 @@ public class GroupCourseScheduleVO implements Serializable {
 	@Column(name = "GCS_END" , nullable = false)
     private Date gcsEnd;
 	
-	@Column(name = "MIN_LIMIT" , nullable = false)
+	@Column(name = "MIN_LIMIT" , nullable = false , columnDefinition = "TINYINT")
     private Integer minLimit;
 	
-	@Column(name = "MAX_LIMIT" , nullable = false)
+	@Column(name = "MAX_LIMIT" , nullable = false , columnDefinition = "TINYINT")
     private Integer maxLimit;
 	
-	@Column(name = "COUNT" , nullable = false , insertable = false)
+	@Column(name = "COUNT" , nullable = false , insertable = false , columnDefinition = "TINYINT")
     private Integer count;
 	
 	@Column(name = "GCS_PRICE" , nullable = false)
     private Integer gcsPrice;
 	
-	@Column(name = "GCS_STATUS" , nullable = false , insertable = false)
+	@Column(name = "GCS_STATUS" , nullable = false , insertable = false , columnDefinition = "TINYINT")
     private Integer gcsStatus;
 
     public GroupCourseScheduleVO() {
     }
+    
+    
+    public GroupCourseVO getGroupCourseVO() {
+		return groupCourseVO;
+	}
 
-    public Integer getGcsNo() {
+
+	public void setGroupCourseVO(GroupCourseVO groupCourseVO) {
+		this.groupCourseVO = groupCourseVO;
+	}
+
+
+	public TrainerVO getTrainerVO() {
+		return trainerVO;
+	}
+
+
+	public void setTrainerVO(TrainerVO trainerVO) {
+		this.trainerVO = trainerVO;
+	}
+
+
+	public Integer getGcsNo() {
         return gcsNo;
     }
 
     public void setGcsNo(Integer gcsNo) {
         this.gcsNo = gcsNo;
     }
-
-    public Integer getGcNo() {
-        return gcNo;
-    }
-
-    public void setGcNo(Integer gcNo) {
-        this.gcNo = gcNo;
-    }
-
-    public Integer getTrainerNo() {
-        return trainerNo;
-    }
-
-    public void setTrainerNo(Integer trainerNo) {
-        this.trainerNo = trainerNo;
-    }
-
 
     public Date getGcsStart() {
         return gcsStart;
@@ -132,32 +143,32 @@ public class GroupCourseScheduleVO implements Serializable {
         this.gcsStatus = gcsStatus;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        GroupCourseScheduleVO that = (GroupCourseScheduleVO) o;
-        return Objects.equals(gcsNo, that.gcsNo) && Objects.equals(gcNo, that.gcNo) && Objects.equals(trainerNo, that.trainerNo) && Objects.equals(gcsStart, that.gcsStart) && Objects.equals(gcsEnd, that.gcsEnd) && Objects.equals(minLimit, that.minLimit) && Objects.equals(maxLimit, that.maxLimit) && Objects.equals(count, that.count) && Objects.equals(gcsPrice, that.gcsPrice) && Objects.equals(gcsStatus, that.gcsStatus);
-    }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(gcsNo, gcNo, trainerNo, gcsStart, gcsEnd, minLimit, maxLimit, count, gcsPrice, gcsStatus);
-    }
+	@Override
+	public int hashCode() {
+		return Objects.hash(gcsNo);
+	}
 
-    @Override
-    public String toString() {
-        return "GroupCourseScheduleVO{" +
-                "gcsNo=" + gcsNo +
-                ", gcNo=" + gcNo +
-                ", trainerNo=" + trainerNo +
-                ", gscStart=" + gcsStart +
-                ", gscEnd=" + gcsEnd +
-                ", minLimit=" + minLimit +
-                ", maxLimit=" + maxLimit +
-                ", count=" + count +
-                ", gcsPrice=" + gcsPrice +
-                ", gcsStatus=" + gcsStatus +
-                '}';
-    }
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		GroupCourseScheduleVO other = (GroupCourseScheduleVO) obj;
+		return Objects.equals(gcsNo, other.gcsNo);
+	}
+
+
+	@Override
+	public String toString() {
+		return "GroupCourseScheduleVO [gcsNo=" + gcsNo + ", gcsStart=" + gcsStart + ", gcsEnd=" + gcsEnd + ", minLimit="
+				+ minLimit + ", maxLimit=" + maxLimit + ", count=" + count + ", gcsPrice=" + gcsPrice + ", gcsStatus="
+				+ gcsStatus + "]";
+	}
+
+    
 }

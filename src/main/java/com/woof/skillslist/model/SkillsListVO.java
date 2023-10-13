@@ -15,7 +15,7 @@ import com.woof.skillslist.model.SkillsListVO.CompositeSkillsList;
 
 @Entity
 @Table(name = "skills_list")
-@IdClass(CompositeSkillsList.class)
+@IdClass( SkillsListVO.CompositeSkillsList.class)
 public class SkillsListVO implements Serializable {
 
 	@Id

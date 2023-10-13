@@ -9,7 +9,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.woof.classtype.model.ClassTypeVO;
+import com.woof.skill.model.SkillVO;
 
 
 @Entity
@@ -21,19 +26,32 @@ public class GroupCourseVO implements Serializable {
 	@Column(name = "GC_NO" , updatable = false , nullable = false)
     private Integer gcNo;
 	
-	@Column(name = "SKILL_NO" , nullable = false)
-    private Integer skillNo;
+	@ManyToOne
+	@JoinColumn(name = "SKILL_NO" , referencedColumnName = "SKILL_NO")
+	private SkillVO skillVO;
 	
-	@Column(name = "CLASS_TYPE" , nullable = false)
-    private Integer classType;
+	
+	public SkillVO getSkillVO() {
+		return skillVO;
+	}
+
+
+	public void setSkillVO(SkillVO skillVO) {
+		this.skillVO = skillVO;
+	}
+	
+	@ManyToOne
+	@JoinColumn(name = "CT_NO" , referencedColumnName = "CT_NO")
+	private ClassTypeVO classTypeVO;
+	
 	
 	@Column(name = "COURSE_PHOTO" , columnDefinition= "MEDIUMBLOB")
     private byte[] coursePhoto;
 	
-	@Column(name = "COUSE_CONTENT")
+	@Column(name = "COURSE_CONTENT")
     private String courseContent;
 	
-	@Column(name = "COURSE_STATUS" , nullable = false , insertable = false)
+	@Column(name = "COURSE_STATUS" , nullable = false , insertable = false , columnDefinition = "TINYINT")
     private Integer courseStatus;
 
     public GroupCourseVO() {
@@ -48,23 +66,19 @@ public class GroupCourseVO implements Serializable {
         this.gcNo = gcNo;
     }
 
-    public Integer getSkillNo() {
-        return skillNo;
-    }
+    
 
-    public void setSkillNo(Integer skillNo) {
-        this.skillNo = skillNo;
-    }
+    public ClassTypeVO getClassTypeVO() {
+		return classTypeVO;
+	}
 
-    public Integer getClassType() {
-        return classType;
-    }
 
-    public void setClassType(Integer classType) {
-        this.classType = classType;
-    }
+	public void setClassTypeVO(ClassTypeVO classTypeVO) {
+		this.classTypeVO = classTypeVO;
+	}
 
-    public byte[] getCoursePhoto() {
+
+	public byte[] getCoursePhoto() {
         return coursePhoto;
     }
 
@@ -88,31 +102,33 @@ public class GroupCourseVO implements Serializable {
         this.courseStatus = courseStatus;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        GroupCourseVO that = (GroupCourseVO) o;
-        return Objects.equals(gcNo, that.gcNo) && Objects.equals(skillNo, that.skillNo) && Objects.equals(classType, that.classType) && Arrays.equals(coursePhoto, that.coursePhoto) && Objects.equals(courseContent, that.courseContent) && Objects.equals(courseStatus, that.courseStatus);
-    }
 
-    @Override
-    public int hashCode() {
-        int result = Objects.hash(gcNo, skillNo, classType, courseContent, courseStatus);
-        result = 31 * result + Arrays.hashCode(coursePhoto);
-        return result;
-    }
+	@Override
+	public int hashCode() {
+		return Objects.hash(gcNo);
+	}
 
-    @Override
-    public String toString() {
-        return "GroupCourseVO{" +
-                "gcNo=" + gcNo +
-                ", skillNo=" + skillNo +
-                ", classType=" + classType +
-                ", coursePhoto=" + Arrays.toString(coursePhoto) +
-                ", courseContent='" + courseContent + '\'' +
-                ", courseStatus=" + courseStatus +
-                '}';
-    }
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		GroupCourseVO other = (GroupCourseVO) obj;
+		return Objects.equals(gcNo, other.gcNo);
+	}
+
+
+	@Override
+	public String toString() {
+		return "GroupCourseVO [gcNo=" + gcNo + ", coursePhoto=" + Arrays.toString(coursePhoto) + ", courseContent="
+				+ courseContent + ", courseStatus=" + courseStatus + "]";
+	}
+
+
+	
 
 }

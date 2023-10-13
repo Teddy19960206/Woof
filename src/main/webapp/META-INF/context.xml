@@ -3,7 +3,7 @@
 <Context>
 	
     <Resource name="jdbc/TestDB" type="javax.sql.DataSource"
-        url="jdbc:mysql://localhost:3306/hibernatesample?serverTimezone=Asia/Taipei"
+        url="jdbc:mysql://localhost:3306/woof?serverTimezone=Asia/Taipei"
         username="root"
         password="password"
         driverClassName="com.mysql.cj.jdbc.Driver"
