@@ -31,7 +31,7 @@ public class CommentReportVO {
 	@Column(name = "CR_CONTEXT" , nullable = false)
 	private String crContext;
 	
-	@Column(name="CR_STATUS" , nullable = false)
+	@Column(name="CR_STATUS" , nullable = false ,  columnDefinition = "TINYINT")
 	private Integer crStatus;
 	
 	@Column(name="CR_DATE" , nullable = false)
