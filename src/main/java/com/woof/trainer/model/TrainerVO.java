@@ -97,5 +97,5 @@ public class TrainerVO implements Serializable {
 	}
 	
 	
-
+//
 }
