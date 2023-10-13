@@ -25,7 +25,7 @@ public class ReturnListVO implements Serializable {
     @Column(name="RE_REASON")		//退貨原因
 	private String reReason;
 
-    @Column(name="RE_STATUS", nullable=false)		//退貨狀態 0:待處理 1:已接受 2:已拒絕
+    @Column(name="RE_STATUS", nullable=false, columnDefinition = "TINYINT")		//退貨狀態 0:待處理 1:已接受 2:已拒絕
 	private Integer reStatus;
 
     @Column(name="RE_DATE", nullable=false)			//退貨申請日期
@@ -34,7 +34,7 @@ public class ReturnListVO implements Serializable {
     @Column(name="PROC_DATE")		//退貨處理日期
 	private Timestamp procDate;
 
-    @Column(name="REPAY_STATUS", nullable=false)	//退款狀態 0:未退款 1:退款中 2:已退款
+    @Column(name="REPAY_STATUS", nullable=false, columnDefinition = "TINYINT")	//退款狀態 0:未退款 1:退款中 2:已退款
 	private Integer repayStatus;
 
     @Column(name="RED_AMOUNT", nullable=false)		//退貨數量
