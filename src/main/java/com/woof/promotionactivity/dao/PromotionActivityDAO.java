@@ -7,9 +7,9 @@ import com.woof.promotionactivity.entity.PromotionActivity;
 
 public interface PromotionActivityDAO {
 	
-	void insert (PromotionActivity PromotionActivityVO);
-	void update (PromotionActivity PromotionActivityVO);
-	void delete (Integer paNo);
+	int insert (PromotionActivity PromotionActivity);
+	int update (PromotionActivity PromotionActivity);
+	int delete (Integer paNo);
 
 	PromotionActivity findByPaNo(Integer paNo);
 	
