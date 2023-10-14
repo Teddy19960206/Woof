@@ -19,31 +19,21 @@ public class ClassTypeServiceImpl implements ClassTypeService{
 	@Override
 	public ClassType addClassType(ClassType classType) {
 
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-
-		session.beginTransaction();
 		if (dao.insert(classType) == 1){
 
-			session.getTransaction().commit();
 			return classType;
 		}
-		session.getTransaction().rollback();
 		return null;
 	}
 
 	@Override
 	public ClassType updateClassType(ClassType classType) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 
-		session.beginTransaction();
 		int result = dao.update(classType);
 		if (result == 1){
 
-			session.getTransaction().commit();
 			return classType;
 		}
-		session.getTransaction().rollback();
-
 		return null;
 	}
 
@@ -55,28 +45,19 @@ public class ClassTypeServiceImpl implements ClassTypeService{
 
 	@Override
 	public ClassType findClassTypeByNO(Integer ctNo) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		session.beginTransaction();
-
-
-
-		return null;
+		
+		ClassType classType = dao.findbyCtNo(ctNo);
+		
+		return classType;
 	}
 
 	@Override
 	public List<ClassType> getAllClassTypes() {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-
-		session.beginTransaction();
+		
 		List<ClassType> classTypeList = dao.getAll();
-		session.getTransaction().commit();
 
 		// TODO Auto-generated method stub
 		return classTypeList;
 	}
-
 	
-	
-	
-
 }
