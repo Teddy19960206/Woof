@@ -7,16 +7,14 @@ import com.woof.promotionactivity.entity.PromotionActivity;
 
 public interface PromotionActivityDAO {
 	
-	int insert (PromotionActivity PromotionActivity);
-	int update (PromotionActivity PromotionActivity);
+	int insert (PromotionActivity promotionActivity);
+	int update (PromotionActivity promotionActivity);
 	int delete (Integer paNo);
 
 	PromotionActivity findByPaNo(Integer paNo);
 	
 	List<PromotionActivity> getAll();
-	
-	List<PromotionActivity> getByCompositeQuery(Map<String, String> map);
-	
+		
 	List<PromotionActivity> getAll(int currentPage);
 	
 	long getTotal();

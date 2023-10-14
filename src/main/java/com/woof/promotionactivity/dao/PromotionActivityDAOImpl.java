@@ -1,19 +1,14 @@
 package com.woof.promotionactivity.dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.List;
-import java.util.Map;
+import static com.woof.util.Constants.PAGE_MAX_RESULT;
 
+import com.woof.promotionactivity.entity.PromotionActivity;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-import java.util.ArrayList;
+import java.util.List;
 
-import com.woof.promotionactivity.entity.PromotionActivity;
-import com.woof.util.Util;
+
 
 public class PromotionActivityDAOImpl implements PromotionActivityDAO{
 	
@@ -28,54 +23,53 @@ public class PromotionActivityDAOImpl implements PromotionActivityDAO{
 	}
 
 	@Override
-	public int insert(PromotionActivity PromotionActivity) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int insert(PromotionActivity entity) {
+		return (Integer) getSession().save(entity);
 	}
 
 	@Override
-	public int update(PromotionActivity PromotionActivity) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int update(PromotionActivity entity) {
+		try {
+			getSession().update(entity);
+			return 1;
+		} catch (Exception e) {
+			return -1;
+		}
 	}
 
 	@Override
 	public int delete(Integer paNo) {
-		// TODO Auto-generated method stub
-		return 0;
+		PromotionActivity promotionActivity = getSession().get(PromotionActivity.class, paNo);
+		if(promotionActivity != null) {
+			getSession().delete(promotionActivity);
+			return 1;
+		}else {
+			return -1;
+		}
 	}
 
 	@Override
 	public PromotionActivity findByPaNo(Integer paNo) {
-		// TODO Auto-generated method stub
-		return null;
+		return getSession().get(PromotionActivity.class, paNo);
 	}
 
 	@Override
 	public List<PromotionActivity> getAll() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<PromotionActivity> getByCompositeQuery(Map<String, String> map) {
-		// TODO Auto-generated method stub
-		return null;
+		return getSession().createQuery("FROM PromotionActivity" , PromotionActivity.class).list();
 	}
 
 	@Override
 	public List<PromotionActivity> getAll(int currentPage) {
-		// TODO Auto-generated method stub
-		return null;
+		int first = (currentPage - 1) * PAGE_MAX_RESULT;
+		return getSession().createQuery("from PromotionActivity", PromotionActivity.class)
+				.setFirstResult(first)
+				.setMaxResults(PAGE_MAX_RESULT)
+				.list();
 	}
 
 	@Override
 	public long getTotal() {
-		// TODO Auto-generated method stub
-		return 0;
+		return getSession().createQuery("select count(*) from PromotionActivity", Long.class).uniqueResult();
 	}
-
-	
-	
-    
+  
 }
