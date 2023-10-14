@@ -1,13 +1,19 @@
 package com.woof.classtype.entity;
 
 import java.util.Objects;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.woof.groupcourse.entity.GroupCourse;
+
+import javax.persistence.CascadeType;
 
 
 @Entity
@@ -19,8 +25,19 @@ public class ClassType {
     private Integer ctNo;
 	@Column(name = "CT_NAME" , nullable = false)
     private String ctName;
+	
+	@OneToMany(mappedBy = "classType" , cascade = CascadeType.ALL)
+	private Set<GroupCourse> groupCourses;
 
-    public Integer getCtNo() {
+    public Set<GroupCourse> getGroupCourses() {
+		return groupCourses;
+	}
+
+	public void setGroupCourses(Set<GroupCourse> groupCourses) {
+		this.groupCourses = groupCourses;
+	}
+
+	public Integer getCtNo() {
         return ctNo;
     }
 
