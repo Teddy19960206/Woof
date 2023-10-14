@@ -1,7 +1,7 @@
 package com.woof.appointmentdetail.controller;
 
-import com.woof.classtype.service.ClassTypeService;
-import com.woof.classtype.service.ClassTypeServiceImpl;
+import com.woof.appointmentdetail.service.AppointmentDetailService;
+import com.woof.appointmentdetail.service.AppointmentDetailServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,24 +11,31 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet("/classType")
+@WebServlet("/appointmentdetail")
 public class AppointmentDetailServlet extends HttpServlet {
 	
-	private ClassTypeService classTypeService;
+	private AppointmentDetailService appointmentDetailService;
 	
 	@Override
 	public void init() throws ServletException{
-		classTypeService = new ClassTypeServiceImpl();
+		appointmentDetailService = new AppointmentDetailServiceImpl();
 	}
 	
+	@Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
+        String appointmentdetail = req.getParameter("Type");
 
+        resp.getWriter().println(appointmentdetail);
+    }
+	
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         super.doGet(req, resp);
 
         //PrintWriter writer = resp.getWriter();
         //System.out.println("123");
-        System.out.println(classTypeService.getAllClassTypes());
+        System.out.println(appointmentDetailService.getAllAppointmentDetails());
         
     }
     

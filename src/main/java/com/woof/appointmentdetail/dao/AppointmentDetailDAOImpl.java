@@ -34,16 +34,16 @@ private SessionFactory factory;
 		}
 	}
 
-	@Override
-	public int delete(Integer adNo) {
-		AppointmentDetail appointmentDetail = getSession().get(AppointmentDetail.class, adNo);
-		if(appointmentDetail != null) {
-			getSession().delete(appointmentDetail);
-			return 1;
-		}else {
-			return -1;
-		}
-	}
+//	@Override
+//	public int delete(Integer adNo) {
+//		AppointmentDetail appointmentDetail = getSession().get(AppointmentDetail.class, adNo);
+//		if(appointmentDetail != null) {
+//			getSession().delete(appointmentDetail);
+//			return 1;
+//		}else {
+//			return -1;
+//		}
+//	}
 
 	@Override
 	public AppointmentDetail findByAdNo(Integer adNo) {

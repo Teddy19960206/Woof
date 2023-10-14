@@ -28,6 +28,7 @@
         <mapping class="com.woof.skillslist.entity.SkillsList" />
         <mapping class="com.woof.member.model.MemberVO"/>
         <mapping class="com.woof.trainer.model.TrainerVO"/>
+        <mapping class="com.woof.appointmentdetail.entity.AppointmentDetail"/>
 
 
     </session-factory>
