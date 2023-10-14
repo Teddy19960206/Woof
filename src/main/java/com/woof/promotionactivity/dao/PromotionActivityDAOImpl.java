@@ -12,7 +12,6 @@ import org.hibernate.SessionFactory;
 
 import java.util.ArrayList;
 
-import com.woof.classtype.model.ClassTypeVO;
 import com.woof.promotionactivity.entity.PromotionActivity;
 import com.woof.util.Util;
 
