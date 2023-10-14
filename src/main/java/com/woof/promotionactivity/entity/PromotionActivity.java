@@ -1,4 +1,4 @@
-package com.woof.promotionactivity.model;
+package com.woof.promotionactivity.entity;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
@@ -15,7 +15,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name="promotion_activity")
 
-public class PromotionActivityVO {
+public class PromotionActivity {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,7 +41,7 @@ public class PromotionActivityVO {
 	private Boolean paStatus;
 	
 	
-	public PromotionActivityVO() {
+	public PromotionActivity() {
     }
 	
 	public Integer getPaNo() {
@@ -98,7 +98,7 @@ public class PromotionActivityVO {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		PromotionActivityVO other = (PromotionActivityVO) obj;
+		PromotionActivity other = (PromotionActivity) obj;
 		return Objects.equals(paContent, other.paContent) && Objects.equals(paDiscount, other.paDiscount)
 				&& Objects.equals(paEnd, other.paEnd) && Objects.equals(paName, other.paName)
 				&& Objects.equals(paNo, other.paNo) && Objects.equals(paStart, other.paStart)
