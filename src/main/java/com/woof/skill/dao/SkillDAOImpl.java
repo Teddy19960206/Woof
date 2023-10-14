@@ -1,5 +1,6 @@
-package com.woof.skill.model;
+package com.woof.skill.dao;
 
+import com.woof.skill.entity.Skill;
 import com.woof.util.Util;
 
 import java.sql.Connection;
@@ -21,7 +22,7 @@ public class SkillDAOImpl implements SkillDAO{
 
     private static final String GET_ALL = "SELECT * FROM skill";
     @Override
-    public void insert(SkillVO skillVO) {
+    public void insert(Skill skill) {
         Connection con = null;
         PreparedStatement ps = null;
         int count = 0;
@@ -29,7 +30,7 @@ public class SkillDAOImpl implements SkillDAO{
         try {
             con = Util.getConnection();
             ps = con.prepareStatement(INSERT_STMT);
-            ps.setString(1, skillVO.getSkillName());
+            ps.setString(1, skill.getSkillName());
             count = ps.executeUpdate();
 
         } catch (SQLException e) {
@@ -47,7 +48,7 @@ public class SkillDAOImpl implements SkillDAO{
     }
 
     @Override
-    public void update(SkillVO skillVO) {
+    public void update(Skill skill) {
         Connection con = null;
         PreparedStatement ps = null;
         int count = 0;
@@ -55,8 +56,8 @@ public class SkillDAOImpl implements SkillDAO{
         try {
             con = Util.getConnection();
             ps = con.prepareStatement(UPDATE_STMT);
-            ps.setString(1, skillVO.getSkillName());
-            ps.setInt(2, skillVO.getSkillNo());
+            ps.setString(1, skill.getSkillName());
+            ps.setInt(2, skill.getSkillNo());
             count = ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -72,7 +73,7 @@ public class SkillDAOImpl implements SkillDAO{
     }
 
     @Override
-    public void delete(SkillVO skillVO) {
+    public void delete(Skill skill) {
         Connection con = null;
         PreparedStatement ps = null;
         int count = 0;
@@ -80,7 +81,7 @@ public class SkillDAOImpl implements SkillDAO{
         try {
             con = Util.getConnection();
             ps = con.prepareStatement(DELETE_STMT);
-            ps.setInt(1, skillVO.getSkillNo());
+            ps.setInt(1, skill.getSkillNo());
             count = ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -96,11 +97,11 @@ public class SkillDAOImpl implements SkillDAO{
     }
 
     @Override
-    public SkillVO findbySkillNo(Integer skillNo) {
+    public Skill findbySkillNo(Integer skillNo) {
         Connection con = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-        SkillVO skillVO = null;
+        Skill skill = null;
 
         try {
             con = Util.getConnection();
@@ -109,9 +110,9 @@ public class SkillDAOImpl implements SkillDAO{
             rs = ps.executeQuery();
 
             if (rs.next()) {
-                skillVO = new SkillVO();
-                skillVO.setSkillNo(skillNo);
-                skillVO.setSkillName(rs.getString("skill_name"));
+                skill = new Skill();
+                skill.setSkillNo(skillNo);
+                skill.setSkillName(rs.getString("skill_name"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -119,16 +120,16 @@ public class SkillDAOImpl implements SkillDAO{
             Util.closeResources(con, ps, rs);
         }
 
-        return skillVO;
+        return skill;
     }
 
     @Override
-    public List<SkillVO> getAll() {
+    public List<Skill> getAll() {
         Connection con = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
 
-        List<SkillVO> skillList = new ArrayList<>();
+        List<Skill> skillList = new ArrayList<>();
 
         try {
             con = Util.getConnection();
@@ -136,11 +137,11 @@ public class SkillDAOImpl implements SkillDAO{
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                SkillVO skillVO = new SkillVO();
-                skillVO.setSkillNo(rs.getInt("skill_no"));
-                skillVO.setSkillName(rs.getString("skill_name"));
+                Skill skill = new Skill();
+                skill.setSkillNo(rs.getInt("skill_no"));
+                skill.setSkillName(rs.getString("skill_name"));
 
-                skillList.add(skillVO);
+                skillList.add(skill);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -153,15 +154,15 @@ public class SkillDAOImpl implements SkillDAO{
 
     public static void main(String[] args){
         SkillDAO skillDAO = new SkillDAOImpl();
-        List<SkillVO> skillVOList = skillDAO.getAll();
-        for (SkillVO skillVO: skillVOList){
-            System.out.println(skillVO.getSkillNo());
-            System.out.println(skillVO.getSkillName());
+        List<Skill> skillList = skillDAO.getAll();
+        for (Skill skill : skillList){
+            System.out.println(skill.getSkillNo());
+            System.out.println(skill.getSkillName());
         }
 
-        SkillVO skillVO = new SkillVO();
-        skillVO.setSkillNo(14);
-        skillVO.setSkillName("1231");
+        Skill skill = new Skill();
+        skill.setSkillNo(14);
+        skill.setSkillName("1231");
 
 //        skillDAO.insert(skillVO);
 

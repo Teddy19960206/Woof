@@ -2,9 +2,9 @@ package com.woof.classtype.service;
 
 import java.util.List;
 
-import com.woof.classtype.model.ClassTypeDAO;
-import com.woof.classtype.model.ClassTypeDAOImpl;
-import com.woof.classtype.model.ClassTypeVO;
+import com.woof.classtype.dao.ClassTypeDAO;
+import com.woof.classtype.dao.ClassTypeDAOImpl;
+import com.woof.classtype.entity.ClassType;
 import com.woof.util.HibernateUtil;
 import org.hibernate.Session;
 
@@ -17,14 +17,33 @@ public class ClassTypeServiceImpl implements ClassTypeService{
 	}
 
 	@Override
-	public ClassTypeVO addClassType(ClassTypeVO classType) {
-		// TODO Auto-generated method stub
+	public ClassType addClassType(ClassType classType) {
+
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+
+		session.beginTransaction();
+		if (dao.insert(classType) == 1){
+
+			session.getTransaction().commit();
+			return classType;
+		}
+		session.getTransaction().rollback();
 		return null;
 	}
 
 	@Override
-	public ClassTypeVO updateClassType(ClassTypeVO classType) {
-		// TODO Auto-generated method stub
+	public ClassType updateClassType(ClassType classType) {
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+
+		session.beginTransaction();
+		int result = dao.update(classType);
+		if (result == 1){
+
+			session.getTransaction().commit();
+			return classType;
+		}
+		session.getTransaction().rollback();
+
 		return null;
 	}
 
@@ -35,20 +54,25 @@ public class ClassTypeServiceImpl implements ClassTypeService{
 	}
 
 	@Override
-	public ClassTypeVO findClassTypeByNO(Integer ctNo) {
+	public ClassType findClassTypeByNO(Integer ctNo) {
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		session.beginTransaction();
+
+
+
 		return null;
 	}
 
 	@Override
-	public List<ClassTypeVO> getAllClassTypes() {
+	public List<ClassType> getAllClassTypes() {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 
 		session.beginTransaction();
-		List<ClassTypeVO> classTypeVOList = dao.getAll();
+		List<ClassType> classTypeList = dao.getAll();
 		session.getTransaction().commit();
 
 		// TODO Auto-generated method stub
-		return classTypeVOList;
+		return classTypeList;
 	}
 
 	

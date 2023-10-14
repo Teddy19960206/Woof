@@ -1,4 +1,4 @@
-package com.woof.groupcourseorder.model;
+package com.woof.groupcourseorder.entity;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
@@ -13,13 +13,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.woof.groupcourseschedule.model.GroupCourseScheduleVO;
+import com.woof.groupcourseschedule.entity.GroupCourseSchedule;
 import com.woof.member.model.MemberVO;
 
 
 @Entity
 @Table(name = "group_course_order")
-public class GroupCourseOrderVO implements Serializable {
+public class GroupCourseOrder implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,7 +32,7 @@ public class GroupCourseOrderVO implements Serializable {
 	
 	@ManyToOne
 	@JoinColumn(name = "GCS_NO" , referencedColumnName = "GCS_NO")
-	private GroupCourseScheduleVO groupCourseScheduleVO;
+	private GroupCourseSchedule groupCourseSchedule;
 	
 	@Column(name = "GCO_DATE" , nullable = false)
     private Timestamp gcoDate;
@@ -49,7 +49,7 @@ public class GroupCourseOrderVO implements Serializable {
 	@Column(name = "GCO_STATUS" , nullable = false , columnDefinition = "TINYINT")
     private Integer gcoStatus;
 
-    public GroupCourseOrderVO() {
+    public GroupCourseOrder() {
     }
 
     public Integer getGcoNo() {
@@ -70,12 +70,12 @@ public class GroupCourseOrderVO implements Serializable {
 		this.memberVO = memberVO;
 	}
 
-	public GroupCourseScheduleVO getGroupCourseScheduleVO() {
-		return groupCourseScheduleVO;
+	public GroupCourseSchedule getGroupCourseScheduleVO() {
+		return groupCourseSchedule;
 	}
 
-	public void setGroupCourseScheduleVO(GroupCourseScheduleVO groupCourseScheduleVO) {
-		this.groupCourseScheduleVO = groupCourseScheduleVO;
+	public void setGroupCourseScheduleVO(GroupCourseSchedule groupCourseSchedule) {
+		this.groupCourseSchedule = groupCourseSchedule;
 	}
 
 	public Timestamp getGcoDate() {
@@ -131,7 +131,7 @@ public class GroupCourseOrderVO implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		GroupCourseOrderVO other = (GroupCourseOrderVO) obj;
+		GroupCourseOrder other = (GroupCourseOrder) obj;
 		return Objects.equals(gcoNo, other.gcoNo);
 	}
 

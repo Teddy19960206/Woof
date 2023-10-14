@@ -1,6 +1,5 @@
-package com.woof.classtype.model;
+package com.woof.classtype.entity;
 
-import java.io.Serializable;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -13,7 +12,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="class_type")
-public class ClassTypeVO{
+public class ClassType {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "CT_NO" , updatable = false , columnDefinition = "TINYINT")
@@ -53,7 +52,7 @@ public class ClassTypeVO{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		ClassTypeVO other = (ClassTypeVO) obj;
+		ClassType other = (ClassType) obj;
 		return Objects.equals(ctNo, other.ctNo);
 	}
 

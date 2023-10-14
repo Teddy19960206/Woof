@@ -1,8 +1,7 @@
-package com.woof.skillslist.model;
+package com.woof.skillslist.dao;
 
-import com.woof.skill.model.SkillVO;
+import com.woof.skillslist.entity.SkillsList;
 import com.woof.util.Util;
-import oracle.jdbc.proxy.annotation.Pre;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -23,7 +22,7 @@ public class SkillsListDAOImpl implements SkillsListDAO{
 
     private static final String GET_ALL = "SELECT * FROM skills_list";
     @Override
-    public void insert(SkillsListVO skillsListVO) {
+    public void insert(SkillsList skillsList) {
         Connection con = null;
         PreparedStatement ps = null;
         int count  = 0;
@@ -31,8 +30,8 @@ public class SkillsListDAOImpl implements SkillsListDAO{
         try {
             con = Util.getConnection();
             ps = con.prepareStatement(INSERT_STMT);
-            ps.setInt(1 , skillsListVO.getTrainerNo());
-            ps.setInt(2 , skillsListVO.getSkillNo());
+            ps.setInt(1 , skillsList.getTrainerNo());
+            ps.setInt(2 , skillsList.getSkillNo());
             count = ps.executeUpdate();
 
         } catch (SQLException e) {
@@ -50,7 +49,7 @@ public class SkillsListDAOImpl implements SkillsListDAO{
     }
 
     @Override
-    public void delete(SkillsListVO skillsListVO) {
+    public void delete(SkillsList skillsList) {
         Connection con = null;
         PreparedStatement ps = null;
         int count = 0;
@@ -58,8 +57,8 @@ public class SkillsListDAOImpl implements SkillsListDAO{
         try {
             con = Util.getConnection();
             ps = con.prepareStatement(DELETE_STMT);
-            ps.setInt(1,skillsListVO.getTrainerNo());
-            ps.setInt(2, skillsListVO.getSkillNo());
+            ps.setInt(1, skillsList.getTrainerNo());
+            ps.setInt(2, skillsList.getSkillNo());
             count = ps.executeUpdate();
 
         } catch (SQLException e) {
@@ -77,12 +76,12 @@ public class SkillsListDAOImpl implements SkillsListDAO{
     }
 
     @Override
-    public SkillsListVO find(SkillsListVO skillsListVO) {
+    public SkillsList find(SkillsList skillsListVO) {
 
         Connection con = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-        SkillsListVO skillsList = null;
+        SkillsList skillsList = null;
 
         try {
             con  = Util.getConnection();
@@ -92,7 +91,7 @@ public class SkillsListDAOImpl implements SkillsListDAO{
             rs = ps.executeQuery();
 
             if (rs.next()){
-                skillsList = new SkillsListVO();
+                skillsList = new SkillsList();
                 skillsList.setTrainerNo(rs.getInt("trainer_no"));
                 skillsList.setSkillNo(rs.getInt("skill_no"));
             }
@@ -107,14 +106,14 @@ public class SkillsListDAOImpl implements SkillsListDAO{
     }
 
     @Override
-    public List<SkillsListVO> findbyTrainerNo(Integer TrainerNo) {
+    public List<SkillsList> findbyTrainerNo(Integer TrainerNo) {
         Connection con = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
 
 
 
-        List<SkillsListVO> skillsList = new ArrayList<>();
+        List<SkillsList> skillsList = new ArrayList<>();
 
         try {
             con = Util.getConnection();
@@ -122,7 +121,7 @@ public class SkillsListDAOImpl implements SkillsListDAO{
             ps.setInt(1 , TrainerNo);
             rs = ps.executeQuery();
             while (rs.next()){
-                SkillsListVO skillsListVO = new SkillsListVO();
+                SkillsList skillsListVO = new SkillsList();
                 skillsListVO.setTrainerNo(rs.getInt("trainer_no"));
                 skillsListVO.setSkillNo(rs.getInt("skill_no"));
 
@@ -141,13 +140,13 @@ public class SkillsListDAOImpl implements SkillsListDAO{
     }
 
     @Override
-    public List<SkillsListVO> getAll() {
+    public List<SkillsList> getAll() {
         Connection con = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
 
 
-        List<SkillsListVO> skillsListVOList = new ArrayList<>();
+        List<SkillsList> skillsListVOList = new ArrayList<>();
 
         try {
             con = Util.getConnection();
@@ -155,11 +154,11 @@ public class SkillsListDAOImpl implements SkillsListDAO{
             rs = ps.executeQuery();
 
             while (rs.next()){
-                SkillsListVO skillsListVO = new SkillsListVO();
-                skillsListVO.setTrainerNo(rs.getInt("trainer_no"));
-                skillsListVO.setSkillNo(rs.getInt("skill_no"));
+                SkillsList skillsList = new SkillsList();
+                skillsList.setTrainerNo(rs.getInt("trainer_no"));
+                skillsList.setSkillNo(rs.getInt("skill_no"));
 
-                skillsListVOList.add(skillsListVO);
+                skillsListVOList.add(skillsList);
             }
 
         } catch (SQLException e) {
@@ -174,9 +173,9 @@ public class SkillsListDAOImpl implements SkillsListDAO{
     public static void main(String[] args) {
         SkillsListDAO skillsListDAO = new SkillsListDAOImpl();
 
-        SkillsListVO skillsListVO = new SkillsListVO();
-        skillsListVO.setSkillNo(3);
-        skillsListVO.setTrainerNo(3);
+        SkillsList skillsList = new SkillsList();
+        skillsList.setSkillNo(3);
+        skillsList.setTrainerNo(3);
 
 //        System.out.println(skillsListDAO.find(skillsListVO).getSkillNo());
 //        System.out.println(skillsListDAO.find(skillsListVO).getTrainerNo());
@@ -184,9 +183,9 @@ public class SkillsListDAOImpl implements SkillsListDAO{
 
 //        List<SkillsListVO> skillsListVOList = skillsListDAO.findbyTrainerNo(3);
 
-        List<SkillsListVO> skillsListVOList = skillsListDAO.getAll();
+        List<SkillsList> skillsListVOList = skillsListDAO.getAll();
 
-        for (SkillsListVO skillsVO : skillsListVOList){
+        for (SkillsList skillsVO : skillsListVOList){
             System.out.println(skillsVO.getTrainerNo());
             System.out.println(skillsVO.getSkillNo());
         }

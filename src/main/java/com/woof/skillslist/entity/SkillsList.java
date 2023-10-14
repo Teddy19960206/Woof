@@ -1,4 +1,4 @@
-package com.woof.skillslist.model;
+package com.woof.skillslist.entity;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -11,12 +11,10 @@ import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.Table;
 
-import com.woof.skillslist.model.SkillsListVO.CompositeSkillsList;
-
 @Entity
 @Table(name = "skills_list")
-@IdClass( SkillsListVO.CompositeSkillsList.class)
-public class SkillsListVO implements Serializable {
+@IdClass( SkillsList.CompositeSkillsList.class)
+public class SkillsList implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,7 +36,7 @@ public class SkillsListVO implements Serializable {
 	}
 	
 
-    public SkillsListVO() {
+    public SkillsList() {
     }
 
     public Integer getTrainerNo() {

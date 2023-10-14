@@ -3,7 +3,7 @@ package com.woof.administratorpermission.model;
 import java.util.List;
 
 import com.woof.cartlist.model.CartListVO;
-import com.woof.skillslist.model.SkillsListVO;
+
 
 public interface AdministratorPermissionDAO {
 	void insert(AdministratorPermissionVO administratorPermissionVO);

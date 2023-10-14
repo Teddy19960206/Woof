@@ -20,16 +20,25 @@ public class ClassTypeServlet extends HttpServlet {
 	public void init() throws ServletException{
 		classTypeService = new ClassTypeServiceImpl();
 	}
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
+        String classtype = req.getParameter("Type");
+
+        resp.getWriter().println(classtype);
+    }
 	
 
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doGet(req, resp);
+        super.doPost(req, resp);
 
         //PrintWriter writer = resp.getWriter();
         //System.out.println("123");
-        System.out.println(classTypeService.getAllClassTypes());
+//        System.out.println(classTypeService.getAllClassTypes());
         
     }
-    
+
+
 }
