@@ -27,9 +27,17 @@ public class ClassType {
     private String ctName;
 	
 	@OneToMany(mappedBy = "classType" , cascade = CascadeType.ALL)
-	private Set<GroupCourse> groupcourseSet;
+	private Set<GroupCourse> groupCourses;
 
-    public Integer getCtNo() {
+    public Set<GroupCourse> getGroupCourses() {
+		return groupCourses;
+	}
+
+	public void setGroupCourses(Set<GroupCourse> groupCourses) {
+		this.groupCourses = groupCourses;
+	}
+
+	public Integer getCtNo() {
         return ctNo;
     }
 
