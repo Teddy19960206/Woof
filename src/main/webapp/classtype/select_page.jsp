@@ -7,10 +7,10 @@
     <title>CLASS TYPE</title>
 </head>
 <body>
-<jsp:useBean id="classTypeServer" scope="page" class="com.woof.classtype.service.ClassTypeServiceImpl"/>
+<jsp:useBean id="classTypeService" scope="page" class="com.woof.classtype.service.ClassTypeServiceImpl"/>
 <form method="POST" ACTION="${pageContext.request.contextPath}/classType">
     <select name="Type">
-        <c:forEach var="classType" items="${classTypeServer.allClassTypes}">
+        <c:forEach var="classType" items="${classTypeService.allClassTypes}">
             <option  value="${classType.ctNo}">${classType.ctName}</option>
         </c:forEach>
     </select>

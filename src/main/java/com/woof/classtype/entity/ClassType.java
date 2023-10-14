@@ -76,7 +76,7 @@ public class ClassType {
 
 	@Override
     public String toString() {
-        return "ClassTypeVO{" +
+        return "ClassType{" +
                 "ctNo=" + ctNo +
                 ", ctName='" + ctName + '\'' +
                 '}';

@@ -59,12 +59,12 @@ public class GroupCourseSchedule implements Serializable {
     }
     
     
-    public GroupCourse getGroupCourseVO() {
+    public GroupCourse getGroupCourse() {
 		return groupCourse;
 	}
 
 
-	public void setGroupCourseVO(GroupCourse groupCourse) {
+	public void setGroupCourse(GroupCourse groupCourse) {
 		this.groupCourse = groupCourse;
 	}
 
@@ -165,7 +165,7 @@ public class GroupCourseSchedule implements Serializable {
 
 	@Override
 	public String toString() {
-		return "GroupCourseScheduleVO [gcsNo=" + gcsNo + ", gcsStart=" + gcsStart + ", gcsEnd=" + gcsEnd + ", minLimit="
+		return "GroupCourseSchedule [gcsNo=" + gcsNo + ", gcsStart=" + gcsStart + ", gcsEnd=" + gcsEnd + ", minLimit="
 				+ minLimit + ", maxLimit=" + maxLimit + ", count=" + count + ", gcsPrice=" + gcsPrice + ", gcsStatus="
 				+ gcsStatus + "]";
 	}

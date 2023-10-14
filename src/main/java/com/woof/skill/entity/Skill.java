@@ -75,7 +75,7 @@ public class Skill implements Serializable {
 
     @Override
     public String toString() {
-        return "SkillVO{" +
+        return "Skill{" +
                 "skillNo=" + skillNo +
                 ", skillName='" + skillName + '\'' +
                 '}';

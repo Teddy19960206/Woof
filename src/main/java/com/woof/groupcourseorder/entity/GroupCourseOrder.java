@@ -70,11 +70,11 @@ public class GroupCourseOrder implements Serializable {
 		this.memberVO = memberVO;
 	}
 
-	public GroupCourseSchedule getGroupCourseScheduleVO() {
+	public GroupCourseSchedule getGroupCourseSchedule() {
 		return groupCourseSchedule;
 	}
 
-	public void setGroupCourseScheduleVO(GroupCourseSchedule groupCourseSchedule) {
+	public void setGroupCourseSchedule(GroupCourseSchedule groupCourseSchedule) {
 		this.groupCourseSchedule = groupCourseSchedule;
 	}
 
@@ -137,7 +137,7 @@ public class GroupCourseOrder implements Serializable {
 
 	@Override
 	public String toString() {
-		return "GroupCourseOrderVO [gcoNo=" + gcoNo + ", gcoDate=" + gcoDate + ", gcoPaymentMethod=" + gcoPaymentMethod
+		return "GroupCourseOrder [gcoNo=" + gcoNo + ", gcoDate=" + gcoDate + ", gcoPaymentMethod=" + gcoPaymentMethod
 				+ ", gcoSmmp=" + gcoSmmp + ", actualAmount=" + actualAmount + ", gcoStatus=" + gcoStatus + "]";
 	}
 
