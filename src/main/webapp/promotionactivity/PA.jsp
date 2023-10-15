@@ -7,7 +7,7 @@
 <title>PROMOTION ACTIVITY</title>
 </head>
 <body>
-	<jsp:useBean id="classTypeServer" scope="page"
+	<jsp:useBean id="promotionactivityServer" scope="page"
 		class="com.woof.promotionactivity.service.PromotionActivityServiceImpl" />
 	<form method="POST"
 		ACTION="${pageContext.request.contextPath}/promotionActivity">
