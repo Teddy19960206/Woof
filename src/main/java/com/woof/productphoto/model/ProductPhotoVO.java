@@ -3,11 +3,26 @@ package com.woof.productphoto.model;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Objects;
+import javax.persistence.*;
 
+@Entity
+@Table(name="product_photo")
 public class ProductPhotoVO implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
+	
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="PROD_PHOTO_NO", updatable = false) 	//商品照片編號
 	private Integer prodPhotoNo;
+
+    @Column(name="PROD_NO", nullable=false) 		//商品編號
 	private Integer prodNo;
+
+    @Lob
+    @Column(name="PROD_PHOTO")		//商品照片
 	private byte[] prodPhoto;
+
 
 	public ProductPhotoVO() {
 	}

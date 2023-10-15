@@ -4,10 +4,17 @@ import java.io.Serializable;
 import java.util.Objects;
 import java.util.Set;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 
-import com.google.gson.annotations.Expose;
-import com.woof.trainer.model.TrainerVO;
+import com.woof.trainer.entity.Trainer;
 
 
 
@@ -15,16 +22,16 @@ import com.woof.trainer.model.TrainerVO;
 @Entity
 @Table(name = "skill")
 public class Skill implements Serializable {
-    @Expose
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "SKILL_NO" , updatable = false)
     private Integer skillNo;
-    @Expose
+	
 	@Column(name = "SKILL_NAME" , nullable = false)
     private String skillName;
 	
-
+	
 	@ManyToMany
 	@JoinTable(
 			name = "skills_list",
@@ -32,9 +39,7 @@ public class Skill implements Serializable {
 			inverseJoinColumns = { @JoinColumn(name = "TRAINER_NO" , referencedColumnName = "TRAINER_NO")}
 			
 			)
-
-    @Transient
-	private Set<TrainerVO> trainers;
+	private Set<Trainer> trainers;
 
     public Skill() {
     }

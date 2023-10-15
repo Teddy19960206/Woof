@@ -14,7 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.woof.groupcourseschedule.entity.GroupCourseSchedule;
-import com.woof.trainer.model.TrainerVO;
+import com.woof.trainer.entity.Trainer;
 
 
 @Entity
@@ -32,7 +32,7 @@ public class GroupCourseScheduleDetail implements Serializable {
 	
 	@ManyToOne
 	@JoinColumn(name= "TRAINER_NO" , referencedColumnName = "TRAINER_NO")
-    private TrainerVO trainerVO;
+    private Trainer trainer;
 	
 	@Column(name = "CLASS_DATE" , nullable = false)
     private Date classDate;
@@ -58,12 +58,12 @@ public class GroupCourseScheduleDetail implements Serializable {
 		this.groupCourseSchedule = groupCourseSchedule;
 	}
 
-	public TrainerVO getTrainerVO() {
-		return trainerVO;
+	public Trainer getTrainerVO() {
+		return trainer;
 	}
 
-	public void setTrainerVO(TrainerVO trainerVO) {
-		this.trainerVO = trainerVO;
+	public void setTrainerVO(Trainer trainerVO) {
+		this.trainer = trainer;
 	}
 
 	public Date getClassDate() {

@@ -2,11 +2,25 @@ package com.woof.productcategory.model;
 
 import java.io.Serializable;
 import java.util.Objects;
+import javax.persistence.*;
 
+@Entity
+@Table(name="product_category")
 public class ProductCategoryVO implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
+	
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="PROD_CAT_NO", updatable = false) 	 //商品類別編號
 	private Integer prodCatNo;
+
+    @Column(name="PROD_CAT_NAME", nullable=false) 	 //商品類別名稱
 	private String prodCatName;
+
+    @Column(name="PROD_CAT_CONTENT") //商品類別描述
 	private String prodCatContent;
+
 
 	public ProductCategoryVO() {
 	}
