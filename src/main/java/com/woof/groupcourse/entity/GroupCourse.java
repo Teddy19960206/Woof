@@ -31,12 +31,12 @@ public class GroupCourse implements Serializable {
 	private Skill skill;
 	
 	
-	public Skill getSkillVO() {
+	public Skill getSkill() {
 		return skill;
 	}
 
 
-	public void setSkillVO(Skill skill) {
+	public void setSkill(Skill skill) {
 		this.skill = skill;
 	}
 	
@@ -68,12 +68,12 @@ public class GroupCourse implements Serializable {
 
     
 
-    public ClassType getClassTypeVO() {
+    public ClassType getClassType() {
 		return classType;
 	}
 
 
-	public void setClassTypeVO(ClassType classType) {
+	public void setClassType(ClassType classType) {
 		this.classType = classType;
 	}
 
@@ -124,7 +124,7 @@ public class GroupCourse implements Serializable {
 
 	@Override
 	public String toString() {
-		return "GroupCourseVO [gcNo=" + gcNo + ", coursePhoto=" + Arrays.toString(coursePhoto) + ", courseContent="
+		return "GroupCourse [gcNo=" + gcNo + ", coursePhoto=" + Arrays.toString(coursePhoto) + ", courseContent="
 				+ courseContent + ", courseStatus=" + courseStatus + "]";
 	}
 
