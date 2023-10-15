@@ -1,4 +1,4 @@
-package com.woof.administratorpermission.model;
+package com.woof.administratorpermission.entity;
 
 import java.io.Serializable;
 import java.util.Objects;

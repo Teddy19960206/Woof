@@ -1,4 +1,4 @@
-package com.woof.latestnews.model;
+package com.woof.latestnews.entity;
 
 import java.io.Serializable;
 import java.sql.Timestamp;

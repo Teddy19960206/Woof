@@ -1,4 +1,4 @@
-package com.woof.trainer.model;
+package com.woof.trainer.entity;
 
 import java.io.Serializable;
 import java.util.Objects;

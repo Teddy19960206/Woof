@@ -14,7 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.woof.groupcourseschedule.model.GroupCourseScheduleVO;
-import com.woof.trainer.model.TrainerVO;
+import com.woof.trainer.entity.TrainerVO;
 
 
 @Entity
