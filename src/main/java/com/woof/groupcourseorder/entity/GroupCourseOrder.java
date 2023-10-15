@@ -28,7 +28,7 @@ public class GroupCourseOrder implements Serializable {
 	
 	@ManyToOne
 	@JoinColumn(name = "MEM_NO" , referencedColumnName = "MEM_NO")
-	private Member memberVO;
+	private Member member;
 	
 	@ManyToOne
 	@JoinColumn(name = "GCS_NO" , referencedColumnName = "GCS_NO")
@@ -62,12 +62,12 @@ public class GroupCourseOrder implements Serializable {
 
 
 
-    public Member getMemberVO() {
-		return memberVO;
+    public Member getMember() {
+		return member;
 	}
 
-	public void setMemberVO(Member memberVO) {
-		this.memberVO = memberVO;
+	public void setMember(Member member) {
+		this.member = member;
 	}
 
 	public GroupCourseSchedule getGroupCourseSchedule() {
