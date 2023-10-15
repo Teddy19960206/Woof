@@ -14,7 +14,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-import com.woof.skill.model.SkillVO;
+import com.woof.skill.entity.Skill;
 
 @Entity
 @Table(name = "trainer")
@@ -30,17 +30,18 @@ public class TrainerVO implements Serializable {
  @Column(name = "EXPERIENCE")
  private String experience;
 
- 
- @ManyToMany
- @JoinTable(
-   name = "skills_list",
-   joinColumns = { @JoinColumn(name = "TRAINER_NO" , referencedColumnName = "TRAINER_NO") },
-   inverseJoinColumns = { @JoinColumn(name = "SKILL_NO" , referencedColumnName = "SKILL_NO") }
-   )
- private Set<SkillVO> skills;
- 
- public TrainerVO() {
- }
+	
+	@ManyToMany
+	@JoinTable(
+			name = "skills_list",
+			joinColumns = { @JoinColumn(name = "TRAINER_NO" , referencedColumnName = "TRAINER_NO") },
+			inverseJoinColumns = { @JoinColumn(name = "SKILL_NO" , referencedColumnName = "SKILL_NO") }
+			)
+	private Set<Skill> skills;
+	
+	public TrainerVO() {
+	}
+
 
  public Integer getTrainerNo() {
   return trainerNo;
@@ -66,13 +67,17 @@ public class TrainerVO implements Serializable {
   this.experience = experience;
  }
 
- public Set<SkillVO> getSkills() {
-  return skills;
- }
 
- public void setSkills(Set<SkillVO> skills) {
-  this.skills = skills;
- }
+	public Set<Skill> getSkills() {
+		return skills;
+	}
+
+
+
+	public void setSkills(Set<Skill> skills) {
+		this.skills = skills;
+	}
+
 
  @Override
  public int hashCode() {
