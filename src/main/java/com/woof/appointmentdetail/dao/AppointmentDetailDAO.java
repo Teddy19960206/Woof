@@ -11,7 +11,7 @@ public interface AppointmentDetailDAO {
 	
 	int update(AppointmentDetail appointmentDetail);
 	
-	int delete(Integer adNo);
+//	int delete(Integer adNo);
 	
 	AppointmentDetail findByAdNo(Integer adNo);
 	
