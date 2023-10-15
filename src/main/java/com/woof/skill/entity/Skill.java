@@ -14,11 +14,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-import com.woof.trainer.model.TrainerVO;
+import com.woof.trainer.entity.Trainer;
 
 
 
 
+@SuppressWarnings("serial")
 @Entity
 @Table(name = "skill")
 public class Skill implements Serializable {
@@ -39,7 +40,7 @@ public class Skill implements Serializable {
 			inverseJoinColumns = { @JoinColumn(name = "TRAINER_NO" , referencedColumnName = "TRAINER_NO")}
 			
 			)
-	private Set<TrainerVO> trainers;
+	private Set<Trainer> trainers;
 
     public Skill() {
     }
@@ -75,7 +76,7 @@ public class Skill implements Serializable {
 
     @Override
     public String toString() {
-        return "SkillVO{" +
+        return "Skill{" +
                 "skillNo=" + skillNo +
                 ", skillName='" + skillName + '\'' +
                 '}';

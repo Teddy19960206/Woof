@@ -1,4 +1,4 @@
-package com.woof.administratorpermission.model;
+package com.woof.administratorpermission.entity;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -11,7 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 @Entity
 @Table(name="administrator_permission")
-public class AdministratorPermissionVO implements Serializable {
+public class AdministratorPermission implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="ADMIN_NO",updatable=false, nullable=false)
@@ -19,7 +19,7 @@ public class AdministratorPermissionVO implements Serializable {
 	@Column(name="FUNC_NO" ,nullable=false)
 	private Integer funcNo;
 
-	public AdministratorPermissionVO() {
+	public AdministratorPermission() {
 	}
 
 	public Integer getAdminNo() {
@@ -51,7 +51,7 @@ public class AdministratorPermissionVO implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		AdministratorPermissionVO other = (AdministratorPermissionVO) obj;
+		AdministratorPermission other = (AdministratorPermission) obj;
 		return Objects.equals(adminNo, other.adminNo) && Objects.equals(funcNo, other.funcNo);
 	}
 
