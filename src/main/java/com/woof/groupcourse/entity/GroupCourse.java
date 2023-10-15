@@ -4,15 +4,9 @@ import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Objects;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
+import com.google.gson.annotations.Expose;
 import com.woof.classtype.entity.ClassType;
 import com.woof.skill.entity.Skill;
 
@@ -20,37 +14,31 @@ import com.woof.skill.entity.Skill;
 @Entity
 @Table(name = "group_course")
 public class GroupCourse implements Serializable {
-	
+
+	@Expose
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "GC_NO" , updatable = false , nullable = false)
     private Integer gcNo;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "SKILL_NO" , referencedColumnName = "SKILL_NO")
 	private Skill skill;
-	
-	
-	public Skill getSkill() {
-		return skill;
-	}
 
 
-	public void setSkill(Skill skill) {
-		this.skill = skill;
-	}
-	
+
 	@ManyToOne
 	@JoinColumn(name = "CT_NO" , referencedColumnName = "CT_NO")
 	private ClassType classType;
-	
-	
+
+	@Expose
 	@Column(name = "COURSE_PHOTO" , columnDefinition= "MEDIUMBLOB")
     private byte[] coursePhoto;
-	
+	@Expose
 	@Column(name = "COURSE_CONTENT")
     private String courseContent;
-	
+
+	@Expose
 	@Column(name = "COURSE_STATUS" , nullable = false , insertable = false , columnDefinition = "TINYINT")
     private Integer courseStatus;
 
@@ -66,9 +54,16 @@ public class GroupCourse implements Serializable {
         this.gcNo = gcNo;
     }
 
-    
+	public Skill getSkill() {
+		return skill;
+	}
 
-    public ClassType getClassType() {
+	public void setSkill(Skill skill) {
+		this.skill = skill;
+	}
+
+
+	public ClassType getClassType() {
 		return classType;
 	}
 
