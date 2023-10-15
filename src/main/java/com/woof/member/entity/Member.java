@@ -1,4 +1,4 @@
-package com.woof.member.model;
+package com.woof.member.entity;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -7,7 +7,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "member")
-public class MemberVO implements java.io.Serializable {
+public class Member implements java.io.Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "MEM_NO", updatable = false, nullable = false)
@@ -45,10 +45,10 @@ public class MemberVO implements java.io.Serializable {
 	@Column(name = "TOTAL_CLASS", nullable = false)
 	private Integer totalClass;
 
-	@Column(name = "MEM_STATUS", nullable = false)
+	@Column(name = "MEM_STATUS", nullable = false, columnDefinition = "TINYINT")
 	private Integer memStatus;
 
-	public MemberVO() {
+	public Member() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -167,7 +167,7 @@ public class MemberVO implements java.io.Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		MemberVO other = (MemberVO) obj;
+		Member other = (Member) obj;
 		return Objects.equals(memAdress, other.memAdress) && Objects.equals(memBd, other.memBd)
 				&& Objects.equals(memEmail, other.memEmail) && Objects.equals(memGender, other.memGender)
 				&& Objects.equals(memName, other.memName) && Objects.equals(memNo, other.memNo)

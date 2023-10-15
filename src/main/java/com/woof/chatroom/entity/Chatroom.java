@@ -1,4 +1,4 @@
-package com.woof.chatroom.model;
+package com.woof.chatroom.entity;
 
 import java.sql.Timestamp;
 import java.util.Arrays;
@@ -15,7 +15,7 @@ import javax.persistence.NamedQuery;
 @Entity
 @Table(name = "chatroom")
 @NamedQuery(name = "getAllChatrooms", query = "from Chatroom where roomNo > :roomNo order by roomNo desc")
-public class ChatroomVO {
+public class Chatroom {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,7 +25,7 @@ public class ChatroomVO {
 	@Column(name = "MEM_NO", nullable = false)
 	private Integer memNo;
 
-	@Column(name = "CHAT_MSG_DIRECT", nullable = false)
+	@Column(name = "CHAT_MSG_DIRECT", nullable = false, columnDefinition = "TINYINT")
 	private Integer chatMsgDirect;
 
 	@Column(name = "CHAT_MSG_TIME", nullable = false)
@@ -34,10 +34,10 @@ public class ChatroomVO {
 	@Column(name = "CHAT_MSG_CONTETXT")
 	private String chatMsgContext;
 
-	@Column(name = "CHAT_MSG_PHOTO")
+	@Column(name = "CHAT_MSG_PHOTO", columnDefinition = "MEDIUMBLOB")
 	private byte[] chatMsgPhoto;
 
-	public ChatroomVO() {
+	public Chatroom() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -107,7 +107,7 @@ public class ChatroomVO {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		ChatroomVO other = (ChatroomVO) obj;
+		Chatroom other = (Chatroom) obj;
 		return Objects.equals(chatMsgContext, other.chatMsgContext)
 				&& Objects.equals(chatMsgDirect, other.chatMsgDirect) && Arrays.equals(chatMsgPhoto, other.chatMsgPhoto)
 				&& Objects.equals(chatMsgTime, other.chatMsgTime) && Objects.equals(memNo, other.memNo)

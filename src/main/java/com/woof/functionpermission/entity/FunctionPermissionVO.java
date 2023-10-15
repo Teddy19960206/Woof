@@ -1,4 +1,4 @@
-package com.woof.functionpermission.model;
+package com.woof.functionpermission.entity;
 
 import java.util.Objects;
 
@@ -12,7 +12,7 @@ public class FunctionPermissionVO implements java.io.Serializable {
 	@Column(name = "FUNC_NO", updatable = false, nullable = false)
 	private Integer funcNo;
 
-	@Column(name = "FUNC_NAME", nullable = false)
+	@Column(name = "FUNC_NAME", nullable = false, columnDefinition = "TINYINT")
 	private Integer funcName;
 
 	public Integer getFuncNo() {
