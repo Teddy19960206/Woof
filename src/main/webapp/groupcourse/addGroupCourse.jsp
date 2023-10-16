@@ -8,9 +8,9 @@
 <body>
 <h1>新增團體課程</h1>
 
-<form action="groupcourse?action=addgroup" method="post">
+<form action="groupcourse?action=addgroup" method="post" enctype="multipart/form-data">
     <label>技能名稱：</label>
-    <select name="skillName">
+    <select name="skill">
         <c:forEach items="${skills}" var="skill">
             <option value="${skill.skillNo}">${skill.skillName}</option>
         </c:forEach>

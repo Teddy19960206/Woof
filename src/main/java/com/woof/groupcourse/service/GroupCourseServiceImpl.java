@@ -1,8 +1,10 @@
 package com.woof.groupcourse.service;
 
+import com.woof.classtype.entity.ClassType;
 import com.woof.groupcourse.dao.GroupCourseDAO;
 import com.woof.groupcourse.dao.GroupCourseDAOImpl;
 import com.woof.groupcourse.entity.GroupCourse;
+import com.woof.skill.entity.Skill;
 import com.woof.util.HibernateUtil;
 
 public class GroupCourseServiceImpl implements GroupCourseService{
@@ -13,13 +15,17 @@ public class GroupCourseServiceImpl implements GroupCourseService{
         dao = new GroupCourseDAOImpl(HibernateUtil.getSessionFactory());
     }
 
-    @Override
-    public int addGroupCourse(GroupCourse groupCourse) {
 
-        if (dao.insert(groupCourse) == 1){
-            return 1;
-        }
-        return 0;
+
+    @Override
+    public int addGroupCourse(Skill skill, ClassType classType, byte[] coursePhoto, String courseContent) {
+        GroupCourse groupCourse = new GroupCourse();
+        groupCourse.setSkill(skill);
+        groupCourse.setClassType(classType);
+        groupCourse.setCoursePhoto(coursePhoto);
+        groupCourse.setCourseContent(courseContent);
+        dao.insert(groupCourse);
+        return 1;
     }
 
     @Override

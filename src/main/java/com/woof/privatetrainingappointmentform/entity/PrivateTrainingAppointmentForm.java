@@ -38,7 +38,7 @@ public class PrivateTrainingAppointmentForm {
 	private Integer trainerNo;
 	
 	@Expose
-	@Column(name="PTA_CLASS" , nullable = false)
+	@Column(name="PTA_CLASS" , nullable = false , columnDefinition = "TINYINT")
 	private Integer ptaClass;
 	
 	public PrivateTrainingAppointmentForm() {
