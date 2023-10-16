@@ -18,3 +18,4 @@ public interface MemberService {
 	// Get all members
 	List<Member> getAllMembers();
 }
+//

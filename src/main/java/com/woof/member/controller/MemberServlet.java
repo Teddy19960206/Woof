@@ -37,3 +37,4 @@ public class MemberServlet extends HttpServlet {
 		System.out.println(memberService.getAllMembers());
 	}
 }
+//
