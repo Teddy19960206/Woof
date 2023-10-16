@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "function_permission")
-public class FunctionPermissionVO implements java.io.Serializable {
+public class FunctionPermission implements java.io.Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "FUNC_NO", updatable = false, nullable = false)
@@ -44,7 +44,7 @@ public class FunctionPermissionVO implements java.io.Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		FunctionPermissionVO other = (FunctionPermissionVO) obj;
+		FunctionPermission other = (FunctionPermission) obj;
 		return Objects.equals(funcName, other.funcName) && Objects.equals(funcNo, other.funcNo);
 	}
 

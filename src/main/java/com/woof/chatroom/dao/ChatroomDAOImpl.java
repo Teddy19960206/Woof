@@ -45,8 +45,8 @@ public class ChatroomDAOImpl implements ChatroomDAO {
 	}
 
 	@Override
-	public Chatroom findByRoomNo(Integer roomNO) {
-		return getSession().get(Chatroom.class, roomNO);
+	public Chatroom findByRoomNo(Integer roomNo) {
+		return getSession().get(Chatroom.class, roomNo);
 	}
 
 	@Override
@@ -54,7 +54,6 @@ public class ChatroomDAOImpl implements ChatroomDAO {
 		return getSession().createQuery("FROM Chatroom", Chatroom.class).list();
 	}
 }
-//
 ////package com.woof.chatroom.dao;
 ////
 ////import java.util.*;
