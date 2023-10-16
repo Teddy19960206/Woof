@@ -1,10 +1,12 @@
 package com.woof.classtype.service;
 
 import java.util.List;
+import java.util.Set;
 
-import com.woof.classtype.model.ClassTypeDAO;
-import com.woof.classtype.model.ClassTypeDAOImpl;
-import com.woof.classtype.model.ClassTypeVO;
+import com.woof.classtype.dao.ClassTypeDAO;
+import com.woof.classtype.dao.ClassTypeDAOImpl;
+import com.woof.classtype.entity.ClassType;
+import com.woof.groupcourse.entity.GroupCourse;
 import com.woof.util.HibernateUtil;
 import org.hibernate.Session;
 
@@ -17,14 +19,23 @@ public class ClassTypeServiceImpl implements ClassTypeService{
 	}
 
 	@Override
-	public ClassTypeVO addClassType(ClassTypeVO classType) {
-		// TODO Auto-generated method stub
+	public ClassType addClassType(ClassType classType) {
+
+		if (dao.insert(classType) == 1){
+
+			return classType;
+		}
 		return null;
 	}
 
 	@Override
-	public ClassTypeVO updateClassType(ClassTypeVO classType) {
-		// TODO Auto-generated method stub
+	public ClassType updateClassType(ClassType classType) {
+
+		int result = dao.update(classType);
+		if (result == 1){
+
+			return classType;
+		}
 		return null;
 	}
 
@@ -35,24 +46,28 @@ public class ClassTypeServiceImpl implements ClassTypeService{
 	}
 
 	@Override
-	public ClassTypeVO findClassTypeByNO(Integer ctNo) {
-		return null;
+	public ClassType findClassTypeByNO(Integer ctNo) {
+		
+		ClassType classType = dao.findbyCtNo(ctNo);
+		
+		return classType;
 	}
 
 	@Override
-	public List<ClassTypeVO> getAllClassTypes() {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-
-		session.beginTransaction();
-		List<ClassTypeVO> classTypeVOList = dao.getAll();
-		session.getTransaction().commit();
+	public List<ClassType> getAllClassTypes() {
+		
+		List<ClassType> classTypeList = dao.getAll();
 
 		// TODO Auto-generated method stub
-		return classTypeVOList;
+		return classTypeList;
 	}
 
-	
-	
-	
+	@Override
+	public Set<GroupCourse> getGroupCourseByCtNo(Integer ctNo) {
+
+		Set<GroupCourse> groupCourseSet = dao.getGroupCourseByClassNo(ctNo);
+
+		return groupCourseSet;
+	}
 
 }
