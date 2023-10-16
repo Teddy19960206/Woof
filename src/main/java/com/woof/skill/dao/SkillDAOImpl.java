@@ -42,7 +42,7 @@ public class SkillDAOImpl implements SkillDAO{
 
     @Override
     public Skill findbySkillNo(Integer skillNo) {
-        return null;
+        return getSession().get(Skill.class ,skillNo );
     }
 
     @Override

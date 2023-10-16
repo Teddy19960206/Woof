@@ -21,4 +21,9 @@ public class SkillServiceImpl implements SkillService{
 
         return dao.getAll();
     }
+
+    @Override
+    public Skill findBySkillNo(Integer skillNo) {
+        return dao.findbySkillNo(skillNo);
+    }
 }

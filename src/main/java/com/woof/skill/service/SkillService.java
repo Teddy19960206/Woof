@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface SkillService {
     List<Skill> getAllSkill();
+    Skill findBySkillNo(Integer skillNo);
 }
