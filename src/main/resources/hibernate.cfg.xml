@@ -29,6 +29,8 @@
         <mapping class="com.woof.member.entity.Member"/>
         <mapping class="com.woof.trainer.entity.Trainer"/>
         <mapping class="com.woof.appointmentdetail.entity.AppointmentDetail"/>
+        <mapping class="com.woof.promotionactivity.entity.PromotionActivity"/>
+        <mapping class="com.woof.privatetrainingappointmentform.entity.PrivateTrainingAppointmentForm"/>
 
 
     </session-factory>

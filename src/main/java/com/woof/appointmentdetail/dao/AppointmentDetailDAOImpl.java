@@ -7,18 +7,18 @@ import org.hibernate.SessionFactory;
 
 import com.woof.appointmentdetail.entity.AppointmentDetail;
 
-public class AppointmentDetailDAOImpl implements AppointmentDetailDAO{
+public class AppointmentDetailDAOImpl implements AppointmentDetailDAO {
 
-private SessionFactory factory;
-	
+	private SessionFactory factory;
+
 	public AppointmentDetailDAOImpl(SessionFactory factory) {
 		this.factory = factory;
 	}
-	
+
 	public Session getSession() {
 		return factory.getCurrentSession();
 	}
-	
+
 	@Override
 	public int insert(AppointmentDetail appointmentDetail) {
 		return (Integer) getSession().save(appointmentDetail);
@@ -52,6 +52,6 @@ private SessionFactory factory;
 
 	@Override
 	public List<AppointmentDetail> getAll() {
-		return getSession().createQuery("FROM AppointmentDetail" , AppointmentDetail.class).list();
+		return getSession().createQuery("FROM AppointmentDetail", AppointmentDetail.class).list();
 	}
 }

@@ -73,5 +73,4 @@ public class AppointmentDetailServiceImpl implements AppointmentDetailService{
 		return appointmentDetailList;
 	}
 	
-
 }

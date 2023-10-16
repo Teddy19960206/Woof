@@ -1,4 +1,4 @@
-package com.woof.productphoto.model;
+package com.woof.productphoto.entity;
 
 import java.io.Serializable;
 import java.util.Arrays;
@@ -7,7 +7,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="product_photo")
-public class ProductPhotoVO implements Serializable {
+public class ProductPhoto implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -24,7 +24,7 @@ public class ProductPhotoVO implements Serializable {
 	private byte[] prodPhoto;
 
 
-	public ProductPhotoVO() {
+	public ProductPhoto() {
 	}
 
 	public Integer getProdPhotoNo() {
@@ -68,7 +68,7 @@ public class ProductPhotoVO implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		ProductPhotoVO other = (ProductPhotoVO) obj;
+		ProductPhoto other = (ProductPhoto) obj;
 		return Objects.equals(prodNo, other.prodNo) && Arrays.equals(prodPhoto, other.prodPhoto)
 				&& Objects.equals(prodPhotoNo, other.prodPhotoNo);
 	}

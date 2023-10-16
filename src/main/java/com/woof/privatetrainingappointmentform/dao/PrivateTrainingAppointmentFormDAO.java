@@ -6,10 +6,11 @@ import com.woof.privatetrainingappointmentform.entity.PrivateTrainingAppointment
 
 public interface PrivateTrainingAppointmentFormDAO {
 
-	void insert (PrivateTrainingAppointmentForm privateTrainingAppointmentFormVO);
-	void update (PrivateTrainingAppointmentForm privateTrainingAppointmentFormVO);
-	void delete (PrivateTrainingAppointmentForm privateTrainingAppointmentFormVO);
+	int insert(PrivateTrainingAppointmentForm privateTrainingAppointmentForm);
+	
+	int update(PrivateTrainingAppointmentForm privateTrainingAppointmentForm);
 	
 	PrivateTrainingAppointmentForm findByPtaNo(Integer ptaNo);
+	
 	List<PrivateTrainingAppointmentForm> getAll();
 }
