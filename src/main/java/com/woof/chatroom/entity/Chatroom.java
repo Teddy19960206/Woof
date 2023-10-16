@@ -10,37 +10,53 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.NamedQuery;
+
+import com.google.gson.annotations.Expose;
 
 @Entity
 @Table(name = "chatroom")
-@NamedQuery(name = "getAllChatrooms", query = "from Chatroom where roomNo > :roomNo order by roomNo desc")
-public class Chatroom {
 
+public class Chatroom {
+	@Expose
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ROOM_NO", updatable = false, nullable = false)
 	private Integer roomNo;
-
+	
+	@Expose
 	@Column(name = "MEM_NO", nullable = false)
 	private Integer memNo;
-
+	
+	@Expose
 	@Column(name = "CHAT_MSG_DIRECT", nullable = false, columnDefinition = "TINYINT")
 	private Integer chatMsgDirect;
 
+	@Expose
 	@Column(name = "CHAT_MSG_TIME", nullable = false)
 	private Timestamp chatMsgTime;
 
+	@Expose
 	@Column(name = "CHAT_MSG_CONTETXT")
 	private String chatMsgContext;
 
+	@Expose
 	@Column(name = "CHAT_MSG_PHOTO", columnDefinition = "MEDIUMBLOB")
 	private byte[] chatMsgPhoto;
 
 	public Chatroom() {
-		super();
-		// TODO Auto-generated constructor stub
 	}
+
+	public Chatroom(Integer roomNo, Integer memNo, Integer chatMsgDirect, Timestamp chatMsgTime, String chatMsgContext,
+			byte[] chatMsgPhoto) {
+		super();
+		this.roomNo = roomNo;
+		this.memNo = memNo;
+		this.chatMsgDirect = chatMsgDirect;
+		this.chatMsgTime = chatMsgTime;
+		this.chatMsgContext = chatMsgContext;
+		this.chatMsgPhoto = chatMsgPhoto;
+	}
+
 
 	public Integer getRoomNo() {
 		return roomNo;
@@ -116,9 +132,9 @@ public class Chatroom {
 
 	@Override
 	public String toString() {
-		return "ChatroomVO [roomNo=" + roomNo + ", memNo=" + memNo + ", chatMsgDirect=" + chatMsgDirect
+		return "Chatroom [roomNo=" + roomNo + ", memNo=" + memNo + ", chatMsgDirect=" + chatMsgDirect
 				+ ", chatMsgTime=" + chatMsgTime + ", chatMsgContext=" + chatMsgContext + ", chatMsgPhoto="
-				+ Arrays.toString(chatMsgPhoto) + "]";
+				+  ", chatMsgPhotoLength=" + (chatMsgPhoto != null ? chatMsgPhoto.length : 0) + "]";
 	}
 }
 
