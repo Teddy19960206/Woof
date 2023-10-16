@@ -6,17 +6,15 @@ import java.util.Map;
 import com.woof.promotionactivity.entity.PromotionActivity;
 
 public interface PromotionActivityDAO {
-	
-	int insert (PromotionActivity promotionActivity);
-	int update (PromotionActivity promotionActivity);
-	int delete (Integer paNo);
+
+	int insert(PromotionActivity promotionActivity);
+
+	int update(PromotionActivity promotionActivity);
+
+//	int delete(Integer paNo);
 
 	PromotionActivity findByPaNo(Integer paNo);
-	
+
 	List<PromotionActivity> getAll();
-		
-	List<PromotionActivity> getAll(int currentPage);
-	
-	long getTotal();
 
 }

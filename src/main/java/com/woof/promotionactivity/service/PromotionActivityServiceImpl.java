@@ -10,7 +10,7 @@ import com.woof.promotionactivity.entity.PromotionActivity;
 import com.woof.util.HibernateUtil;
 
 public class PromotionActivityServiceImpl implements PromotionActivityService{
-	
+
 	private PromotionActivityDAO dao;
 
 	public PromotionActivityServiceImpl() {
@@ -22,7 +22,7 @@ public class PromotionActivityServiceImpl implements PromotionActivityService{
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 
 		session.beginTransaction();
-		if (dao.insert(promotionActivity) == 1){
+		if (dao.insert(promotionActivity) == 1) {
 
 			session.getTransaction().commit();
 			return promotionActivity;
@@ -37,7 +37,7 @@ public class PromotionActivityServiceImpl implements PromotionActivityService{
 
 		session.beginTransaction();
 		int result = dao.update(promotionActivity);
-		if (result == 1){
+		if (result == 1) {
 
 			session.getTransaction().commit();
 			return promotionActivity;
@@ -47,14 +47,14 @@ public class PromotionActivityServiceImpl implements PromotionActivityService{
 		return null;
 	}
 
+//	@Override
+//	public void deletePromotionActivity(Integer paNo) {
+//		// TODO Auto-generated method stub
+//		
+//	}
+	      
 	@Override
-	public void deletePromotionActivity(Integer paNo) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public PromotionActivity findByPaNo(Integer paNo) {
+	public PromotionActivity findPromotionActivityByPaNo(Integer paNo) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		session.beginTransaction();
 
@@ -71,15 +71,7 @@ public class PromotionActivityServiceImpl implements PromotionActivityService{
 
 		// TODO Auto-generated method stub
 		return promotionActivityList;
+			  
 	}
-
-	
-	@Override
-	public int getPageTotal() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	
-	
 
 }
