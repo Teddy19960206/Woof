@@ -36,7 +36,7 @@ public class Chatroom {
 	private Timestamp chatMsgTime;
 
 	@Expose
-	@Column(name = "CHAT_MSG_CONTETXT")
+	@Column(name = "CHAT_MSG_CONTEXT")
 	private String chatMsgContext;
 
 	@Expose
