@@ -8,40 +8,42 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.google.gson.annotations.Expose;
+import com.woof.privatetrainingappointmentform.entity.PrivateTrainingAppointmentForm;
 
 
 @Entity
 @Table(name="appointment_detail")
 public class AppointmentDetail {
+	
+	@Expose
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="AD_NO" , updatable = false , nullable = false)
 	private Integer adNo;
 	
-	@Column(name="PTA_NO" , nullable = false)
-	private Integer ptaNo;
+	@ManyToOne
+	@JoinColumn(name="PTA_NO" , referencedColumnName = "PTA_NO")
+	private PrivateTrainingAppointmentForm privateTrainingAppointmentForm;
 	
+	@Expose
 	@Column(name="APP_TIME" , nullable = false)
 	private Timestamp appTime;
 	
+	@Expose
 	@Column(name="APP_STATUS" , nullable = false ,  columnDefinition = "TINYINT")
 	private Integer appStatus;
 	
+	@Expose
 	@Column(name="APP_VENUE" , nullable = false)
 	private String appVenue;
 	
 	public AppointmentDetail() {
 		super();
-	}
-	
-	public AppointmentDetail(Integer adNo, Integer ptaNo, Timestamp appTime, Integer appStatus, String appVenue) {
-		super();
-		this.adNo = adNo;
-		this.ptaNo = ptaNo;
-		this.appTime = appTime;
-		this.appStatus = appStatus;
-		this.appVenue = appVenue;
 	}
 
 	public Integer getAdNo() {
@@ -50,12 +52,15 @@ public class AppointmentDetail {
 	public void setAdNo(Integer adNo) {
 		this.adNo = adNo;
 	}
-	public Integer getPtaNo() {
-		return ptaNo;
+	
+	public PrivateTrainingAppointmentForm getPrivateTrainingAppointmentForm() {
+		return privateTrainingAppointmentForm;
 	}
-	public void setPtaNo(Integer ptaNo) {
-		this.ptaNo = ptaNo;
+
+	public void setPrivateTrainingAppointmentForm(PrivateTrainingAppointmentForm privateTrainingAppointmentForm) {
+		this.privateTrainingAppointmentForm = privateTrainingAppointmentForm;
 	}
+
 	public Timestamp getAppTime() {
 		return appTime;
 	}
@@ -76,7 +81,7 @@ public class AppointmentDetail {
 	}
 	@Override
 	public int hashCode() {
-		return Objects.hash(adNo, appStatus, appTime, appVenue, ptaNo);
+		return Objects.hash(adNo);
 	}
 	@Override
 	public boolean equals(Object obj) {
@@ -87,13 +92,11 @@ public class AppointmentDetail {
 		if (getClass() != obj.getClass())
 			return false;
 		AppointmentDetail other = (AppointmentDetail) obj;
-		return Objects.equals(adNo, other.adNo) && Objects.equals(appStatus, other.appStatus)
-				&& Objects.equals(appTime, other.appTime) && Objects.equals(appVenue, other.appVenue)
-				&& Objects.equals(ptaNo, other.ptaNo);
+		return Objects.equals(adNo, other.adNo);
 	}
 	@Override
 	public String toString() {
-		return "AppointmentDetail [adNo=" + adNo + ", ptaNo=" + ptaNo + ", appTime=" + appTime + ", appStatus="
+		return "AppointmentDetail [adNo=" + adNo + ", ptaNo=" + (privateTrainingAppointmentForm != null ? privateTrainingAppointmentForm.getPtaNo() : "N/A") + ", appTime=" + appTime + ", appStatus="
 				+ appStatus + ", appVenue=" + appVenue + "]";
 	}
 

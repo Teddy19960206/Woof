@@ -1,7 +1,6 @@
 package com.woof.appointmentdetail.dao;
 
 import java.util.List;
-import java.util.Map;
 
 import com.woof.appointmentdetail.entity.AppointmentDetail;
 

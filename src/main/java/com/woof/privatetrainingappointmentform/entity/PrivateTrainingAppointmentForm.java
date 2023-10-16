@@ -1,28 +1,43 @@
 package com.woof.privatetrainingappointmentform.entity;
 
 import java.util.Objects;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.google.gson.annotations.Expose;
+import com.woof.appointmentdetail.entity.AppointmentDetail;
+
 @Entity
-@Table(name = "private_training_appointment")
+@Table(name = "private_training_appointment_form")
 public class PrivateTrainingAppointmentForm {
+	
+	@Expose
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="PTA_NO" , updatable = false , nullable = false)
 	private Integer ptaNo;
 	
+	@Expose
+	@OneToMany(mappedBy = "privateTrainingAppointmentForm" , cascade = CascadeType.ALL)
+	private Set<AppointmentDetail> appointmentDetails;
+	
+	@Expose
 	@Column(name="MEM_NO" , nullable = false)
 	private Integer memNo;
 	
+	@Expose
 	@Column(name="TRAINER_NO" , nullable = false)
 	private Integer trainerNo;
 	
+	@Expose
 	@Column(name="PTA_CLASS" , nullable = false)
 	private Integer ptaClass;
 	
@@ -36,6 +51,15 @@ public class PrivateTrainingAppointmentForm {
 	public void setPtaNo(Integer ptaNo) {
 		this.ptaNo = ptaNo;
 	}
+	
+	public Set<AppointmentDetail> getAppointmentDetails() {
+		return appointmentDetails;
+	}
+
+	public void setAppointmentDetails(Set<AppointmentDetail> appointmentDetails) {
+		this.appointmentDetails = appointmentDetails;
+	}
+
 	public Integer getMemNo() {
 		return memNo;
 	}
@@ -67,8 +91,7 @@ public class PrivateTrainingAppointmentForm {
 		if (getClass() != obj.getClass())
 			return false;
 		PrivateTrainingAppointmentForm other = (PrivateTrainingAppointmentForm) obj;
-		return Objects.equals(memNo, other.memNo) && Objects.equals(ptaClass, other.ptaClass)
-				&& Objects.equals(ptaNo, other.ptaNo) && Objects.equals(trainerNo, other.trainerNo);
+		return Objects.equals(memNo, other.memNo);
 	}
 	@Override
 	public String toString() {
