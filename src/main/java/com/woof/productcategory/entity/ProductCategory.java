@@ -1,4 +1,4 @@
-package com.woof.productcategory.model;
+package com.woof.productcategory.entity;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="product_category")
-public class ProductCategoryVO implements Serializable {
+public class ProductCategory implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -22,7 +22,7 @@ public class ProductCategoryVO implements Serializable {
 	private String prodCatContent;
 
 
-	public ProductCategoryVO() {
+	public ProductCategory() {
 	}
 
 	public Integer getProdCatNo() {
@@ -62,7 +62,7 @@ public class ProductCategoryVO implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		ProductCategoryVO other = (ProductCategoryVO) obj;
+		ProductCategory other = (ProductCategory) obj;
 		return Objects.equals(prodCatContent, other.prodCatContent) && Objects.equals(prodCatName, other.prodCatName)
 				&& Objects.equals(prodCatNo, other.prodCatNo);
 	}

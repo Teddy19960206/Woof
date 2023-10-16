@@ -1,4 +1,4 @@
-package com.woof.returnlist.model;
+package com.woof.returnlist.entity;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
@@ -7,7 +7,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="return_list")
-public class ReturnListVO implements Serializable {
+public class ReturnList implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -25,7 +25,7 @@ public class ReturnListVO implements Serializable {
     @Column(name="RE_REASON")		//退貨原因
 	private String reReason;
 
-    @Column(name="RE_STATUS", nullable=false)		//退貨狀態 0:待處理 1:已接受 2:已拒絕
+    @Column(name="RE_STATUS", nullable=false, columnDefinition = "TINYINT")		//退貨狀態 0:待處理 1:已接受 2:已拒絕
 	private Integer reStatus;
 
     @Column(name="RE_DATE", nullable=false)			//退貨申請日期
@@ -34,7 +34,7 @@ public class ReturnListVO implements Serializable {
     @Column(name="PROC_DATE")		//退貨處理日期
 	private Timestamp procDate;
 
-    @Column(name="REPAY_STATUS", nullable=false)	//退款狀態 0:未退款 1:退款中 2:已退款
+    @Column(name="REPAY_STATUS", nullable=false, columnDefinition = "TINYINT")	//退款狀態 0:未退款 1:退款中 2:已退款
 	private Integer repayStatus;
 
     @Column(name="RED_AMOUNT", nullable=false)		//退貨數量
@@ -43,7 +43,7 @@ public class ReturnListVO implements Serializable {
     @Column(name="RE_PAY_AMOUNT")	//退款金額 Default: 0
 	private Integer rePayAmount;
 
-	public ReturnListVO() {
+	public ReturnList() {
 	}
 
 	public Integer getReExchId() {
@@ -140,7 +140,7 @@ public class ReturnListVO implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		ReturnListVO other = (ReturnListVO) obj;
+		ReturnList other = (ReturnList) obj;
 		return Objects.equals(procDate, other.procDate) && Objects.equals(prodNo, other.prodNo)
 				&& Objects.equals(reDate, other.reDate) && Objects.equals(reExchId, other.reExchId)
 				&& Objects.equals(rePayAmount, other.rePayAmount) && Objects.equals(reReason, other.reReason)

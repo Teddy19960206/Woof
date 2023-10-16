@@ -1,9 +1,9 @@
-package com.woof.product.model;
+package com.woof.product.entity;
 
 import java.io.Serializable;
 import java.util.Objects;
 
-public class ProductVO implements Serializable {
+public class Product implements Serializable {
 	private Integer prodNo; 		//商品編號
 	private Integer prodCatNo;  	//商品類別編號
 	private String prodContent; 	//商品描述
@@ -12,7 +12,7 @@ public class ProductVO implements Serializable {
 	private Boolean prodStatus; 	//商品狀態 0:下架 1:上架
 	private static final long serialVersionUID = 1L;
 
-	public ProductVO() {
+	public Product() {
 	}
 
 	public Integer getProdNo() {
@@ -76,7 +76,7 @@ public class ProductVO implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		ProductVO other = (ProductVO) obj;
+		Product other = (Product) obj;
 		return Objects.equals(prodCatNo, other.prodCatNo) && Objects.equals(prodContent, other.prodContent)
 				&& Objects.equals(prodName, other.prodName) && Objects.equals(prodNo, other.prodNo)
 				&& Objects.equals(prodPrice, other.prodPrice) && Objects.equals(prodStatus, other.prodStatus);

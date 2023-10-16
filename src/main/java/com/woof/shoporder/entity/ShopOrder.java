@@ -1,4 +1,4 @@
-package com.woof.shoporder.model;
+package com.woof.shoporder.entity;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
@@ -7,7 +7,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="shop_order")
-public class ShopOrderVO implements Serializable {
+public class ShopOrder implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -22,13 +22,13 @@ public class ShopOrderVO implements Serializable {
     @Column(name="PROD_ORDER_DATE", nullable=false)		//訂單成立時間
 	private Timestamp prodOrderDate;
 
-    @Column(name="PAY_METHOD", nullable=false)			//付款方式 0:信用卡 1:匯款 
+    @Column(name="PAY_METHOD", nullable=false, columnDefinition = "TINYINT")			//付款方式 0:信用卡 1:匯款 
 	private Integer payMethod;
 
     @Column(name="SHIP_METHOD", nullable=false)			//取貨方式 0:宅配 1:超商取貨(未支援)
 	private Boolean shipMethod;
 
-    @Column(name="ORDER_STATUS", nullable=false)		//訂單狀態 0:成立 1:出貨 2:完成 3:取消 4:未付款
+    @Column(name="ORDER_STATUS", nullable=false, columnDefinition = "TINYINT")		//訂單狀態 0:成立 1:出貨 2:完成 3:取消 4:未付款
 	private Integer orderStatus;
 
     @Column(name="REC_NAME", nullable=false)			//收件人姓名
@@ -52,7 +52,7 @@ public class ShopOrderVO implements Serializable {
     @Column(name="ACTUAL_AMOUNT", nullable=false)		//實付金額 含扣除毛毛幣
 	private Integer actualAmount;
 
-	public ShopOrderVO() {
+	public ShopOrder() {
 	}
 
 	public Integer getShopOrderNo() {
@@ -173,7 +173,7 @@ public class ShopOrderVO implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		ShopOrderVO other = (ShopOrderVO) obj;
+		ShopOrder other = (ShopOrder) obj;
 		return Objects.equals(actualAmount, other.actualAmount) && Objects.equals(hasReturn, other.hasReturn)
 				&& Objects.equals(memNo, other.memNo) && Objects.equals(moCoin, other.moCoin)
 				&& Objects.equals(orderStatus, other.orderStatus) && Objects.equals(payMethod, other.payMethod)
