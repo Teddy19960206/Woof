@@ -19,7 +19,7 @@ public class ProductDAOImpl implements ProductDAO {
 	private static final String GET_ALL = "SELECT * FROM PRODUCT";
 
 	@Override
-	public void insert(Product productVO) {
+	public void insert(Product product) {
 		Connection con = null;
 		PreparedStatement ps = null;
 		int count = 0;
@@ -27,11 +27,11 @@ public class ProductDAOImpl implements ProductDAO {
 		try {
 			con = Util.getConnection();
 			ps = con.prepareStatement(INSERT_STMT);
-			ps.setInt(1, productVO.getProdCatNo());
-			ps.setString(2, productVO.getProdContent());
-			ps.setInt(3, productVO.getProdPrice());
-			ps.setString(4, productVO.getProdName());
-			ps.setBoolean(5, productVO.getProdStatus());
+			ps.setInt(1, product.getProdCatNo());
+			ps.setString(2, product.getProdContent());
+			ps.setInt(3, product.getProdPrice());
+			ps.setString(4, product.getProdName());
+			ps.setBoolean(5, product.getProdStatus());
 
 			count = ps.executeUpdate();
 		} catch (SQLException e) {
@@ -47,7 +47,7 @@ public class ProductDAOImpl implements ProductDAO {
 	}
 
 	@Override
-	public void update(Product productVO) {
+	public void update(Product product) {
 		Connection con = null;
 		PreparedStatement ps = null;
 		int count = 0;
@@ -56,12 +56,12 @@ public class ProductDAOImpl implements ProductDAO {
 			con = Util.getConnection();
 			ps = con.prepareStatement(UPDATE_STMT);
 
-			ps.setInt(1, productVO.getProdCatNo());
-			ps.setString(2, productVO.getProdContent());
-			ps.setInt(3, productVO.getProdPrice());
-			ps.setString(4, productVO.getProdName());
-			ps.setBoolean(5, productVO.getProdStatus());
-			ps.setInt(6, productVO.getProdNo());
+			ps.setInt(1, product.getProdCatNo());
+			ps.setString(2, product.getProdContent());
+			ps.setInt(3, product.getProdPrice());
+			ps.setString(4, product.getProdName());
+			ps.setBoolean(5, product.getProdStatus());
+			ps.setInt(6, product.getProdNo());
 
 			count = ps.executeUpdate();
 
@@ -114,14 +114,14 @@ public class ProductDAOImpl implements ProductDAO {
 			rs = ps.executeQuery();
 
 			while (rs.next()) {
-				Product productVO = new Product();
-				productVO.setProdNo(rs.getInt("PROD_NO"));
-				productVO.setProdCatNo(rs.getInt("PROD_CAT_NO"));
-				productVO.setProdContent(rs.getString("PROD_CONTENT"));
-				productVO.setProdPrice(rs.getInt("PROD_PRICE"));
-				productVO.setProdName(rs.getString("PROD_NAME"));
-				productVO.setProdStatus(rs.getBoolean("PROD_STATUS"));
-				productList.add(productVO);
+				Product product = new Product();
+				product.setProdNo(rs.getInt("PROD_NO"));
+				product.setProdCatNo(rs.getInt("PROD_CAT_NO"));
+				product.setProdContent(rs.getString("PROD_CONTENT"));
+				product.setProdPrice(rs.getInt("PROD_PRICE"));
+				product.setProdName(rs.getString("PROD_NAME"));
+				product.setProdStatus(rs.getBoolean("PROD_STATUS"));
+				productList.add(product);
 			}
 
 		} catch (SQLException e) {
@@ -138,7 +138,7 @@ public class ProductDAOImpl implements ProductDAO {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		Product productVO = null;
+		Product product = null;
 
 		try {
 			con = Util.getConnection();
@@ -147,13 +147,13 @@ public class ProductDAOImpl implements ProductDAO {
 			rs = ps.executeQuery();
 
 			if (rs.next()) {
-				productVO = new Product();
-				productVO.setProdNo(rs.getInt("PROD_NO"));
-				productVO.setProdCatNo(rs.getInt("PROD_CAT_NO"));
-				productVO.setProdContent(rs.getString("PROD_CONTENT"));
-				productVO.setProdPrice(rs.getInt("PROD_PRICE"));
-				productVO.setProdName(rs.getString("PROD_NAME"));
-				productVO.setProdStatus(rs.getBoolean("PROD_STATUS"));
+				product = new Product();
+				product.setProdNo(rs.getInt("PROD_NO"));
+				product.setProdCatNo(rs.getInt("PROD_CAT_NO"));
+				product.setProdContent(rs.getString("PROD_CONTENT"));
+				product.setProdPrice(rs.getInt("PROD_PRICE"));
+				product.setProdName(rs.getString("PROD_NAME"));
+				product.setProdStatus(rs.getBoolean("PROD_STATUS"));
 			}
 
 		} catch (SQLException e) {
@@ -162,7 +162,7 @@ public class ProductDAOImpl implements ProductDAO {
 			Util.closeResources(con, ps, rs);
 		}
 
-		return productVO;
+		return product;
 	}
 
 	
