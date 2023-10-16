@@ -10,7 +10,7 @@
 <form method="POST" ACTION="${pageContext.request.contextPath}/chatroom">
     <select name="Chatroom">
             <c:forEach var="chatroom" items="${chatroomService.allChatrooms}">
-                <option  value="${chatroom.memNO} ${chatroom.chatMsgDirect} ${chatroom.chatMsgTime} ${chatroom.chatMsgContext} ${chatroom.chatMsgPhoto}">${chatroom.roomNO}</option>
+                <option  value="${chatroom.memNo} ${chatroom.chatMsgDirect} ${chatroom.chatMsgTime} ${chatroom.chatMsgContext} ${chatroom.chatMsgPhoto}">${chatroom.roomNo}</option>
             </c:forEach>
     </select>
     <button type="submit">提交</button>
