@@ -18,4 +18,6 @@ public interface ClassTypeService {
 	List<ClassType> getAllClassTypes();
 
 	Set<GroupCourse> getGroupCourseByCtNo(Integer ctNo);
+
+
 }

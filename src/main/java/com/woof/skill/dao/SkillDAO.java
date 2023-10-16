@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface SkillDAO {
 
-    void insert(Skill skill);
+    int insert(Skill skill);
 
     void update(Skill skill);
 

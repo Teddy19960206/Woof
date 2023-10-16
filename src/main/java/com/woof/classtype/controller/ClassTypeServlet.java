@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Set;
 
-@WebServlet("/classType")
+@WebServlet("/classtype/get")
 public class ClassTypeServlet extends HttpServlet {
 	
 	private ClassTypeService classTypeService;
@@ -30,6 +30,21 @@ public class ClassTypeServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//        request.setCharacterEncoding("UTF-8");
+//        String action = request.getParameter("action");
+//        String forwardPath ="";
+//        if (action != null){
+//            switch (action){
+//                case "get":
+//                    break;
+//                default:
+//                    forwardPath = "/classtype/select_page.jsp";
+//            }
+//        }else {
+//            forwardPath = "/classtype/select_page.jsp";
+//        }
+//
+//        request.getRequestDispatcher(forwardPath).forward(request,response);
 
     }
 	
@@ -42,17 +57,13 @@ public class ClassTypeServlet extends HttpServlet {
         Set<GroupCourse> groupCourseByCtNo = classTypeService.getGroupCourseByCtNo(Integer.valueOf(classtype));
 //        req.setAttribute("groupCourseByCtNo", groupCourseByCtNo);
 //        req.getRequestDispatcher("groupcourse/showgroup.jsp").forward(req, resp);
-
+        System.out.println(groupCourseByCtNo);
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
         String json = gson.toJson(groupCourseByCtNo);
         response.setContentType("application/json;charset=UTF-8");
 
         response.getWriter().write(json);
 
-        request.setAttribute("xxx" , groupCourseByCtNo);
-        request.getRequestDispatcher("/xxxWeb.jsp").forward(request,response);
-
-        request.getAttribute("xxx");
 
     }
 

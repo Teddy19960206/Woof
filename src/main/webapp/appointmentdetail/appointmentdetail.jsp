@@ -4,14 +4,14 @@
 
 <html>
 <head>
-    <title>Appointment Detail</title>
+    <title>AppointmentDetail</title>
 </head>
 <body>
 <jsp:useBean id="appointmentDetailServer" scope="page" class="com.woof.appointmentdetail.service.AppointmentDetailServiceImpl"/>
 <form method="POST" ACTION="${pageContext.request.contextPath}/appointmentdetail">
     <select name="Type">
         <c:forEach var="appointmentDetail" items="${appointmentDetailServer.allAppointmentDetails}">
-            <option  value="${appointmentDetail.ptaNo} ${appointmentDetail.appTime} ${appointmentDetail.appStatus} ${appointmentDetail.appVenue}">${appointmentDetail.adNo}</option>
+            <option  value="${appointmentDetail.privateTrainingAppointmentForm.ptaNo} ${appointmentDetail.appTime} ${appointmentDetail.appStatus} ${appointmentDetail.appVenue}">${appointmentDetail.adNo}</option>
         </c:forEach>
     </select>
     <button type="submit">提交</button>
