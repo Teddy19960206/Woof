@@ -11,7 +11,7 @@
 <form method="POST" ACTION="${pageContext.request.contextPath}/appointmentdetail">
     <select name="Type">
         <c:forEach var="appointmentDetail" items="${appointmentDetailServer.allAppointmentDetails}">
-            <option  value="${appointmentDetail.adNo}">${appointmentDetail.ptaNo}</option>
+            <option  value="${appointmentDetail.ptaNo} ${appointmentDetail.appTime} ${appointmentDetail.appStatus} ${appointmentDetail.appVenue}">${appointmentDetail.adNo}</option>
         </c:forEach>
     </select>
     <button type="submit">提交</button>

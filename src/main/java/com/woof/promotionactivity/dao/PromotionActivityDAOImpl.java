@@ -71,5 +71,5 @@ public class PromotionActivityDAOImpl implements PromotionActivityDAO{
 	public long getTotal() {
 		return getSession().createQuery("select count(*) from PromotionActivity", Long.class).uniqueResult();
 	}
-  
+	
 }
