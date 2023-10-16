@@ -10,12 +10,10 @@ public interface PromotionActivityService {
 
 	PromotionActivity updatePromotionActivity(PromotionActivity promotionActivity);
 
-	void deletePromotionActivity(Integer paNo);
+//	void deletePromotionActivity(Integer paNo);
 
-	PromotionActivity findByPaNo(Integer paNo);
+	PromotionActivity findPromotionActivityByPaNo(Integer paNo);
 
 	List<PromotionActivity> getAllPromotionActivity();
-
-	int getPageTotal();
 
 }
