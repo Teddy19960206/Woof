@@ -90,9 +90,9 @@ public class GroupCourseServlet extends HttpServlet {
         String content = request.getParameter("content");
 
 
-        int i = groupCourseService.addGroupCourse(Skill, classTypeByNO, bytes, content);
+        int result = groupCourseService.addGroupCourse(Skill, classTypeByNO, bytes, content);
 
-        if ( i == 1){
+        if ( result == 1){
             System.out.println("新增成功");
         }else{
             System.out.println("新增失敗");

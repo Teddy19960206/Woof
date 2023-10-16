@@ -3,6 +3,7 @@ package com.woof.classtype.service;
 import java.util.List;
 import java.util.Set;
 
+import com.woof.AppService;
 import com.woof.classtype.dao.ClassTypeDAO;
 import com.woof.classtype.dao.ClassTypeDAOImpl;
 import com.woof.classtype.entity.ClassType;

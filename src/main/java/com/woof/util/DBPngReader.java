@@ -1,6 +1,7 @@
 package com.woof.util;
 
 
+import com.woof.AppService;
 import com.woof.groupcourse.service.GroupCourseService;
 import com.woof.groupcourse.service.GroupCourseServiceImpl;
 
@@ -16,16 +17,20 @@ import java.io.IOException;
 @WebServlet("/DBPngReader")
 public class DBPngReader extends HttpServlet {
 
+    private AppService appService;
+
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        response.setContentType("image/png");
-        ServletOutputStream out = response.getOutputStream();
-
+        if ("groupCourse".equals(request.getParameter("action"))){
+            appService = new GroupCourseServiceImpl();
+        }
         String id = request.getParameter("id").trim();
 
-        GroupCourseService groupCourseService = new GroupCourseServiceImpl();
-        byte[] picture = groupCourseService.getPictureById(Integer.valueOf(id));
+        byte[] picture = appService.getPhotoById(Integer.valueOf(id));
+
+        response.setContentType("image/png");
+        ServletOutputStream out = response.getOutputStream();
 
         out.write(picture);
 

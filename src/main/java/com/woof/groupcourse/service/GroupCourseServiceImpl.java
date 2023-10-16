@@ -1,5 +1,6 @@
 package com.woof.groupcourse.service;
 
+import com.woof.AppService;
 import com.woof.classtype.entity.ClassType;
 import com.woof.groupcourse.dao.GroupCourseDAO;
 import com.woof.groupcourse.dao.GroupCourseDAOImpl;
@@ -7,7 +8,7 @@ import com.woof.groupcourse.entity.GroupCourse;
 import com.woof.skill.entity.Skill;
 import com.woof.util.HibernateUtil;
 
-public class GroupCourseServiceImpl implements GroupCourseService{
+public class GroupCourseServiceImpl implements GroupCourseService , AppService {
 
     private GroupCourseDAO dao;
 
@@ -34,7 +35,7 @@ public class GroupCourseServiceImpl implements GroupCourseService{
         return groupCourse;
     }
 
-    public byte[] getPictureById(Integer gcNo){
+    public byte[] getPhotoById(Integer gcNo){
         return findGroupCourseByNo(gcNo).getCoursePhoto();
     }
 
