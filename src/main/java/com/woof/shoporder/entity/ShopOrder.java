@@ -1,4 +1,4 @@
-package com.woof.shoporder.model;
+package com.woof.shoporder.entity;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
@@ -7,7 +7,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="shop_order")
-public class ShopOrderVO implements Serializable {
+public class ShopOrder implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -52,7 +52,7 @@ public class ShopOrderVO implements Serializable {
     @Column(name="ACTUAL_AMOUNT", nullable=false)		//實付金額 含扣除毛毛幣
 	private Integer actualAmount;
 
-	public ShopOrderVO() {
+	public ShopOrder() {
 	}
 
 	public Integer getShopOrderNo() {
@@ -173,7 +173,7 @@ public class ShopOrderVO implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		ShopOrderVO other = (ShopOrderVO) obj;
+		ShopOrder other = (ShopOrder) obj;
 		return Objects.equals(actualAmount, other.actualAmount) && Objects.equals(hasReturn, other.hasReturn)
 				&& Objects.equals(memNo, other.memNo) && Objects.equals(moCoin, other.moCoin)
 				&& Objects.equals(orderStatus, other.orderStatus) && Objects.equals(payMethod, other.payMethod)

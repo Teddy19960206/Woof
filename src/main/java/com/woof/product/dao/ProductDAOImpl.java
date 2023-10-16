@@ -1,4 +1,4 @@
-package com.woof.product.model;
+package com.woof.product.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.woof.product.entity.Product;
 import com.woof.util.Util;
 
 public class ProductDAOImpl implements ProductDAO {
@@ -17,7 +19,7 @@ public class ProductDAOImpl implements ProductDAO {
 	private static final String GET_ALL = "SELECT * FROM PRODUCT";
 
 	@Override
-	public void insert(ProductVO productVO) {
+	public void insert(Product productVO) {
 		Connection con = null;
 		PreparedStatement ps = null;
 		int count = 0;
@@ -45,7 +47,7 @@ public class ProductDAOImpl implements ProductDAO {
 	}
 
 	@Override
-	public void update(ProductVO productVO) {
+	public void update(Product productVO) {
 		Connection con = null;
 		PreparedStatement ps = null;
 		int count = 0;
@@ -100,11 +102,11 @@ public class ProductDAOImpl implements ProductDAO {
 	}
 
 	@Override
-	public List<ProductVO> getAll() {
+	public List<Product> getAll() {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		List<ProductVO> productList = new ArrayList<>();
+		List<Product> productList = new ArrayList<>();
 
 		try {
 			con = Util.getConnection();
@@ -112,7 +114,7 @@ public class ProductDAOImpl implements ProductDAO {
 			rs = ps.executeQuery();
 
 			while (rs.next()) {
-				ProductVO productVO = new ProductVO();
+				Product productVO = new Product();
 				productVO.setProdNo(rs.getInt("PROD_NO"));
 				productVO.setProdCatNo(rs.getInt("PROD_CAT_NO"));
 				productVO.setProdContent(rs.getString("PROD_CONTENT"));
@@ -132,11 +134,11 @@ public class ProductDAOImpl implements ProductDAO {
 	}
 
 	@Override
-	public ProductVO findByProdNo(Integer prodNo) {
+	public Product findByProdNo(Integer prodNo) {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		ProductVO productVO = null;
+		Product productVO = null;
 
 		try {
 			con = Util.getConnection();
@@ -145,7 +147,7 @@ public class ProductDAOImpl implements ProductDAO {
 			rs = ps.executeQuery();
 
 			if (rs.next()) {
-				productVO = new ProductVO();
+				productVO = new Product();
 				productVO.setProdNo(rs.getInt("PROD_NO"));
 				productVO.setProdCatNo(rs.getInt("PROD_CAT_NO"));
 				productVO.setProdContent(rs.getString("PROD_CONTENT"));

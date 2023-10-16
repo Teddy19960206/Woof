@@ -1,4 +1,4 @@
-package com.woof.shoporderdetail.model;
+package com.woof.shoporderdetail.entity;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -7,7 +7,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "shop_order_detail")
-public class ShopOrderDetailVO implements Serializable {
+public class ShopOrderDetail implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -29,7 +29,7 @@ public class ShopOrderDetailVO implements Serializable {
 	@Column(name = "RE_AMOUNT") //已退貨數量 Default: 0
 	private Integer reAmount;
 
-	public ShopOrderDetailVO() {
+	public ShopOrderDetail() {
 	}
 
 	public ShopOrderDetailPK getId() {
@@ -93,7 +93,7 @@ public class ShopOrderDetailVO implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		ShopOrderDetailVO other = (ShopOrderDetailVO) obj;
+		ShopOrderDetail other = (ShopOrderDetail) obj;
 		return Objects.equals(discountRate, other.discountRate) && Objects.equals(hasReturned, other.hasReturned)
 				&& Objects.equals(id, other.id) && Objects.equals(orderAmount, other.orderAmount)
 				&& Objects.equals(prodPrice, other.prodPrice) && Objects.equals(reAmount, other.reAmount);

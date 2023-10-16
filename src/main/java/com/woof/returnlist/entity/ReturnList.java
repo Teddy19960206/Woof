@@ -1,4 +1,4 @@
-package com.woof.returnlist.model;
+package com.woof.returnlist.entity;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
@@ -7,7 +7,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="return_list")
-public class ReturnListVO implements Serializable {
+public class ReturnList implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -43,7 +43,7 @@ public class ReturnListVO implements Serializable {
     @Column(name="RE_PAY_AMOUNT")	//退款金額 Default: 0
 	private Integer rePayAmount;
 
-	public ReturnListVO() {
+	public ReturnList() {
 	}
 
 	public Integer getReExchId() {
@@ -140,7 +140,7 @@ public class ReturnListVO implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		ReturnListVO other = (ReturnListVO) obj;
+		ReturnList other = (ReturnList) obj;
 		return Objects.equals(procDate, other.procDate) && Objects.equals(prodNo, other.prodNo)
 				&& Objects.equals(reDate, other.reDate) && Objects.equals(reExchId, other.reExchId)
 				&& Objects.equals(rePayAmount, other.rePayAmount) && Objects.equals(reReason, other.reReason)
