@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.google.gson.annotations.Expose;
 import com.woof.groupcourse.entity.GroupCourse;
 
 import javax.persistence.CascadeType;
@@ -19,15 +20,21 @@ import javax.persistence.CascadeType;
 @Entity
 @Table(name="class_type")
 public class ClassType {
+	@Expose
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "CT_NO" , updatable = false , columnDefinition = "TINYINT")
     private Integer ctNo;
+
+	@Expose
 	@Column(name = "CT_NAME" , nullable = false)
     private String ctName;
-	
+
+	@Expose
 	@OneToMany(mappedBy = "classType" , cascade = CascadeType.ALL)
 	private Set<GroupCourse> groupCourses;
+
+
 
     public Set<GroupCourse> getGroupCourses() {
 		return groupCourses;
@@ -76,7 +83,7 @@ public class ClassType {
 
 	@Override
     public String toString() {
-        return "ClassTypeVO{" +
+        return "ClassType{" +
                 "ctNo=" + ctNo +
                 ", ctName='" + ctName + '\'' +
                 '}';

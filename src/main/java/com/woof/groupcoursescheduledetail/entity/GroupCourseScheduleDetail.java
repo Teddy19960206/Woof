@@ -14,7 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.woof.groupcourseschedule.entity.GroupCourseSchedule;
-import com.woof.trainer.model.TrainerVO;
+import com.woof.trainer.entity.Trainer;
 
 
 @Entity
@@ -32,7 +32,7 @@ public class GroupCourseScheduleDetail implements Serializable {
 	
 	@ManyToOne
 	@JoinColumn(name= "TRAINER_NO" , referencedColumnName = "TRAINER_NO")
-    private TrainerVO trainerVO;
+    private Trainer trainer;
 	
 	@Column(name = "CLASS_DATE" , nullable = false)
     private Date classDate;
@@ -50,20 +50,20 @@ public class GroupCourseScheduleDetail implements Serializable {
 
 
 
-    public GroupCourseSchedule getGroupCourseScheduleVO() {
+    public GroupCourseSchedule getGroupCourseSchedule() {
 		return groupCourseSchedule;
 	}
 
-	public void setGroupCourseScheduleVO(GroupCourseSchedule groupCourseSchedule) {
+	public void setGroupCourseSchedule(GroupCourseSchedule groupCourseSchedule) {
 		this.groupCourseSchedule = groupCourseSchedule;
 	}
 
-	public TrainerVO getTrainerVO() {
-		return trainerVO;
+	public Trainer getTrainerVO() {
+		return trainer;
 	}
 
-	public void setTrainerVO(TrainerVO trainerVO) {
-		this.trainerVO = trainerVO;
+	public void setTrainerVO(Trainer trainerVO) {
+		this.trainer = trainer;
 	}
 
 	public Date getClassDate() {
@@ -93,7 +93,7 @@ public class GroupCourseScheduleDetail implements Serializable {
 
 	@Override
 	public String toString() {
-		return "GroupCourseScheduleDetailVO [gcsdNo=" + gcsdNo + ", classDate=" + classDate + "]";
+		return "GroupCourseScheduleDetail [gcsdNo=" + gcsdNo + ", classDate=" + classDate + "]";
 	}
 
 

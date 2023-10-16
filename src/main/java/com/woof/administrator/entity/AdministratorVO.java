@@ -1,4 +1,4 @@
-package com.woof.administrator.model;
+package com.woof.administrator.entity;
 
 import java.io.Serializable;
 import java.sql.Date;
@@ -20,7 +20,7 @@ public class AdministratorVO implements Serializable {
 	private Integer adminNo;
 	@Column(name="ADMIN_NAME",nullable=false)
 	private String adminName;
-	@Column(name="ADMIN_GENDER",nullable=false)
+	@Column(name="ADMIN_GENDER",nullable=false ,columnDefinition="CHAR")
 	private String adminGender;
 	@Column(name="ADMIN_PHOTO" ,columnDefinition="MEDIUMBLOB")
 	private byte[] adminPhoto;
@@ -42,7 +42,7 @@ public class AdministratorVO implements Serializable {
 	private Date adminHd;
 	@Column(name="ADMIN_RD")
 	private Date adminRd;
-	@Column(name="ADMIN_STATUS",nullable=false)
+	@Column(name="ADMIN_STATUS",nullable=false,columnDefinition="TINYINT")
 	private Integer adminStatus;
 
 	public AdministratorVO() {

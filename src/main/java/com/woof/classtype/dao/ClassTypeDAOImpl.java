@@ -1,8 +1,10 @@
 package com.woof.classtype.dao;
 
 import java.util.List;
+import java.util.Set;
 
 import com.woof.classtype.entity.ClassType;
+import com.woof.groupcourse.entity.GroupCourse;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
@@ -53,8 +55,9 @@ public class ClassTypeDAOImpl implements ClassTypeDAO {
 	public List<ClassType> getAll() {
 		return getSession().createQuery("FROM ClassType" , ClassType.class).list();
 	}
-	
-	
-		
-    
+
+	@Override
+	public Set<GroupCourse> getGroupCourseByClassNo(Integer classNo) {
+		return getSession().get(ClassType.class , classNo).getGroupCourses();
+	}
 }

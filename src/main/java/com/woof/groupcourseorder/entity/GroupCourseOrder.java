@@ -28,7 +28,7 @@ public class GroupCourseOrder implements Serializable {
 	
 	@ManyToOne
 	@JoinColumn(name = "MEM_NO" , referencedColumnName = "MEM_NO")
-	private Member memberVO;
+	private Member member;
 	
 	@ManyToOne
 	@JoinColumn(name = "GCS_NO" , referencedColumnName = "GCS_NO")
@@ -62,19 +62,19 @@ public class GroupCourseOrder implements Serializable {
 
 
 
-    public Member getMemberVO() {
-		return memberVO;
+    public Member getMember() {
+		return member;
 	}
 
-	public void setMemberVO(Member memberVO) {
-		this.memberVO = memberVO;
+	public void setMember(Member member) {
+		this.member = member;
 	}
 
-	public GroupCourseSchedule getGroupCourseScheduleVO() {
+	public GroupCourseSchedule getGroupCourseSchedule() {
 		return groupCourseSchedule;
 	}
 
-	public void setGroupCourseScheduleVO(GroupCourseSchedule groupCourseSchedule) {
+	public void setGroupCourseSchedule(GroupCourseSchedule groupCourseSchedule) {
 		this.groupCourseSchedule = groupCourseSchedule;
 	}
 
@@ -137,7 +137,7 @@ public class GroupCourseOrder implements Serializable {
 
 	@Override
 	public String toString() {
-		return "GroupCourseOrderVO [gcoNo=" + gcoNo + ", gcoDate=" + gcoDate + ", gcoPaymentMethod=" + gcoPaymentMethod
+		return "GroupCourseOrder [gcoNo=" + gcoNo + ", gcoDate=" + gcoDate + ", gcoPaymentMethod=" + gcoPaymentMethod
 				+ ", gcoSmmp=" + gcoSmmp + ", actualAmount=" + actualAmount + ", gcoStatus=" + gcoStatus + "]";
 	}
 

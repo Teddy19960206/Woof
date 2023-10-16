@@ -52,6 +52,6 @@ private SessionFactory factory;
 
 	@Override
 	public List<AppointmentDetail> getAll() {
-		return getSession().createQuery("FROM ClassTypeVO" , AppointmentDetail.class).list();
+		return getSession().createQuery("FROM AppointmentDetail" , AppointmentDetail.class).list();
 	}
 }

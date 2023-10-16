@@ -1,10 +1,12 @@
 package com.woof.classtype.service;
 
 import java.util.List;
+import java.util.Set;
 
 import com.woof.classtype.dao.ClassTypeDAO;
 import com.woof.classtype.dao.ClassTypeDAOImpl;
 import com.woof.classtype.entity.ClassType;
+import com.woof.groupcourse.entity.GroupCourse;
 import com.woof.util.HibernateUtil;
 import org.hibernate.Session;
 
@@ -59,5 +61,13 @@ public class ClassTypeServiceImpl implements ClassTypeService{
 		// TODO Auto-generated method stub
 		return classTypeList;
 	}
-	
+
+	@Override
+	public Set<GroupCourse> getGroupCourseByCtNo(Integer ctNo) {
+
+		Set<GroupCourse> groupCourseSet = dao.getGroupCourseByClassNo(ctNo);
+
+		return groupCourseSet;
+	}
+
 }

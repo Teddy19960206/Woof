@@ -1,4 +1,4 @@
-package com.woof.trainer.model;
+package com.woof.trainer.entity;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -18,7 +18,7 @@ import com.woof.skill.entity.Skill;
 
 @Entity
 @Table(name = "trainer")
-public class TrainerVO implements Serializable {
+public class Trainer implements Serializable {
  @Id
  @GeneratedValue(strategy = GenerationType.IDENTITY)
  @Column(name = "TRAINER_NO")
@@ -30,18 +30,17 @@ public class TrainerVO implements Serializable {
  @Column(name = "EXPERIENCE")
  private String experience;
 
-	
-	@ManyToMany
-	@JoinTable(
-			name = "skills_list",
-			joinColumns = { @JoinColumn(name = "TRAINER_NO" , referencedColumnName = "TRAINER_NO") },
-			inverseJoinColumns = { @JoinColumn(name = "SKILL_NO" , referencedColumnName = "SKILL_NO") }
-			)
-	private Set<Skill> skills;
-	
-	public TrainerVO() {
-	}
-
+ 
+ @ManyToMany
+ @JoinTable(
+   name = "skills_list",
+   joinColumns = { @JoinColumn(name = "TRAINER_NO" , referencedColumnName = "TRAINER_NO") },
+   inverseJoinColumns = { @JoinColumn(name = "SKILL_NO" , referencedColumnName = "SKILL_NO") }
+   )
+ private Set<Skill> skills;
+ 
+ public Trainer() {
+ }
 
  public Integer getTrainerNo() {
   return trainerNo;
@@ -67,17 +66,13 @@ public class TrainerVO implements Serializable {
   this.experience = experience;
  }
 
+ public Set<Skill> getSkills() {
+  return skills;
+ }
 
-	public Set<Skill> getSkills() {
-		return skills;
-	}
-
-
-
-	public void setSkills(Set<Skill> skills) {
-		this.skills = skills;
-	}
-
+ public void setSkills(Set<Skill> skills) {
+  this.skills = skills;
+ }
 
  @Override
  public int hashCode() {
@@ -92,7 +87,7 @@ public class TrainerVO implements Serializable {
    return false;
   if (getClass() != obj.getClass())
    return false;
-  TrainerVO other = (TrainerVO) obj;
+  Trainer other = (Trainer) obj;
   return Objects.equals(trainerNo, other.trainerNo);
  }
 
