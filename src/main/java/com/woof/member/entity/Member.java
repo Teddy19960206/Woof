@@ -34,7 +34,7 @@ public class Member implements java.io.Serializable {
 	private String memTel;
 
 	@Column(name = "MEM_ADDRESS", nullable = false)
-	private String memAdress;
+	private String memAddress;
 
 	@Column(name = "MEM_BD")
 	private Date memBd;
@@ -109,12 +109,12 @@ public class Member implements java.io.Serializable {
 		this.memTel = memTel;
 	}
 
-	public String getMemAdress() {
-		return memAdress;
+	public String getMemAddress() {
+		return memAddress;
 	}
 
-	public void setMemAdress(String memAdress) {
-		this.memAdress = memAdress;
+	public void setMemAddress(String memAdress) {
+		this.memAddress = memAdress;
 	}
 
 	public Date getMemBd() {
@@ -154,7 +154,7 @@ public class Member implements java.io.Serializable {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + Arrays.hashCode(memPhoto);
-		result = prime * result + Objects.hash(memAdress, memBd, memEmail, memGender, memName, memNo, memPassword,
+		result = prime * result + Objects.hash(memAddress, memBd, memEmail, memGender, memName, memNo, memPassword,
 				memStatus, memTel, momoPoint, totalClass);
 		return result;
 	}
@@ -168,7 +168,7 @@ public class Member implements java.io.Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Member other = (Member) obj;
-		return Objects.equals(memAdress, other.memAdress) && Objects.equals(memBd, other.memBd)
+		return Objects.equals(memAddress, other.memAddress) && Objects.equals(memBd, other.memBd)
 				&& Objects.equals(memEmail, other.memEmail) && Objects.equals(memGender, other.memGender)
 				&& Objects.equals(memName, other.memName) && Objects.equals(memNo, other.memNo)
 				&& Objects.equals(memPassword, other.memPassword) && Arrays.equals(memPhoto, other.memPhoto)
@@ -178,9 +178,9 @@ public class Member implements java.io.Serializable {
 
 	@Override
 	public String toString() {
-		return "MemberVO [memNo=" + memNo + ", memName=" + memName + ", memGender=" + memGender + ", memPhoto="
+		return "Member [memNo=" + memNo + ", memName=" + memName + ", memGender=" + memGender + ", memPhoto="
 				+ Arrays.toString(memPhoto) + ", memEmail=" + memEmail + ", memPassword=" + memPassword + ", memTel="
-				+ memTel + ", memAdress=" + memAdress + ", memBd=" + memBd + ", momoPoint=" + momoPoint
+				+ memTel + ", memAddress=" + memAddress + ", memBd=" + memBd + ", momoPoint=" + momoPoint
 				+ ", totalClass=" + totalClass + ", memStatus=" + memStatus + "]";
 	}
 

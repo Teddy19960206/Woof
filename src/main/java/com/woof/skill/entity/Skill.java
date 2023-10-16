@@ -19,7 +19,6 @@ import com.woof.trainer.entity.Trainer;
 
 
 
-@SuppressWarnings("serial")
 @Entity
 @Table(name = "skill")
 public class Skill implements Serializable {

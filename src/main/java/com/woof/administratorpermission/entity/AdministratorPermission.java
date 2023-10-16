@@ -57,7 +57,7 @@ public class AdministratorPermission implements Serializable {
 
 	@Override
 	public String toString() {
-		return "AdministratorPermissionVO [adminNo=" + adminNo + ", funcNo=" + funcNo + ", getAdminNo()=" + getAdminNo()
+		return "AdministratorPermission [adminNo=" + adminNo + ", funcNo=" + funcNo + ", getAdminNo()=" + getAdminNo()
 				+ ", getFuncNo()=" + getFuncNo() + ", hashCode()=" + hashCode() + ", getClass()=" + getClass()
 				+ ", toString()=" + super.toString() + "]";
 	}
