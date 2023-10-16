@@ -32,6 +32,7 @@
         <mapping class="com.woof.promotionactivity.entity.PromotionActivity"/>
         <mapping class="com.woof.privatetrainingappointmentform.entity.PrivateTrainingAppointmentForm"/>
 		<mapping class="com.woof.chatroom.entity.Chatroom"/>
+		<mapping class="com.woof.member.entity.Member"/>
 
 
 
