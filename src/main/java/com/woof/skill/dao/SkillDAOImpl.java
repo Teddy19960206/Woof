@@ -1,16 +1,9 @@
 package com.woof.skill.dao;
 
-import com.woof.groupcourse.dao.GroupCourseDAOImpl;
 import com.woof.skill.entity.Skill;
-import com.woof.util.Util;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class SkillDAOImpl implements SkillDAO{
@@ -42,7 +35,7 @@ public class SkillDAOImpl implements SkillDAO{
 
     @Override
     public Skill findbySkillNo(Integer skillNo) {
-        return getSession().get(Skill.class ,skillNo );
+        return getSession().get(Skill.class , skillNo);
     }
 
     @Override

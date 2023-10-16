@@ -17,6 +17,26 @@ public class GroupCourseServiceImpl implements GroupCourseService , AppService {
     }
 
 
+    @Override
+    public int modify(Integer gcNo, Skill skill, ClassType classType, byte[] coursePhoto, String courseContent, Integer courseStatus) {
+
+        GroupCourse groupCourse = new GroupCourse();
+        groupCourse.setGcNo(gcNo);
+        groupCourse.setSkill(skill);
+        groupCourse.setClassType(classType);
+        if (coursePhoto !=null){
+            groupCourse.setCoursePhoto(coursePhoto);
+        }else {
+            groupCourse.setCoursePhoto(null);
+        }
+
+        groupCourse.setCourseContent(courseContent);
+        groupCourse.setCourseStatus(courseStatus);
+
+        dao.update(groupCourse);
+
+        return 1;
+    }
 
     @Override
     public int addGroupCourse(Skill skill, ClassType classType, byte[] coursePhoto, String courseContent) {

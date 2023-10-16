@@ -25,7 +25,12 @@ public class GroupCourseDAOImpl implements GroupCourseDAO{
 
     @Override
     public int update(GroupCourse groupCourse) {
-        return 0;
+        try{
+            getSession().update(groupCourse);
+            return 1;
+        }catch (Exception e){
+            return -1;
+        }
     }
 
     @Override

@@ -1,12 +1,12 @@
 
+let pathurl = window.location.pathname;
+let pathname = pathurl.split('/')[1];
+
+
 document.getElementById("button").onclick = function (){
     fetchData();
 }
 async function fetchData(){
-
-
-    let pathurl = window.location.pathname;
-    let pathname = pathurl.split('/')[1];
 
     const url = "get?classType=" + document.getElementById("selectClass").value;
 
@@ -43,10 +43,13 @@ async function fetchData(){
             <td>${item.skill.skillName}</td>
             <td>`;
 
-            if(item.coursePhoto != null)
+            if(item.coursePhoto instanceof Object && Object.keys(item.coursePhoto).length > 0){
                 html +=  `<img src="/${pathname}/DBPngReader?action=groupCourse&id=${item.gcNo}" style="width: 100px; height: 100px" >`;
+            }
+
 
             html += `</td>
+
             <td>${item.courseContent}</td>
             <td>${item.courseStatus}</td>
             <td><button type="button" class="modify-button" data-id="${item.gcNo}">修改</td>
@@ -64,8 +67,11 @@ async function fetchData(){
 }
 
 $(document).on("click" , ".modify-button" ,function (e){
-    console.log(this.getAttribute("data-id"));
-    console.log(e.target)
+    let url = `/${pathname}/groupcourse?action=modifiedPage&id=${this.getAttribute("data-id")}`
+
+    console.log(url);
+    window.location.href = url;
+
 })
 
 
