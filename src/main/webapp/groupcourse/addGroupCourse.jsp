@@ -26,7 +26,7 @@
     <br />
 
     <label>圖片：</label>
-    <input type="file" name="photo">
+    <input type="file" name="photo" accept="image/*">
     <br />
 
     <label>課程內容</label>

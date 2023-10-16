@@ -11,5 +11,4 @@ public interface GroupCourseService {
 
     GroupCourse findGroupCourseByNo(Integer gcNo);
 
-    byte[] getPictureById(Integer gcNo);
 }

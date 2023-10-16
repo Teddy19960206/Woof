@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent><!-- ＠用途說明1: Inherit defaults from Spring Boot -->
@@ -14,11 +14,12 @@
 	<groupId>woof</groupId>
 	<artifactId>woof</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>woof</packaging>
+	<packaging>war</packaging>
 	<name>woof</name>
 	<description>woof</description>
 
 	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>17</java.version>
 	</properties>
 
@@ -84,12 +85,14 @@
 	</dependencies>
 
 	<build>
-		<plugins>
-			<plugin><!-- ＠用途說明: Package as an executable jar/war -->
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-		</plugins>
+		<pluginManagement>
+			<plugins>
+				<plugin><!-- ＠用途說明: Package as an executable jar/war -->
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-maven-plugin</artifactId>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 	</build>
 
 </project>

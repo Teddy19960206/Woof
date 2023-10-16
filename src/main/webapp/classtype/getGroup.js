@@ -36,6 +36,7 @@ async function fetchData(){
 
 
         data.forEach((item)=>{
+            console.log(item)
 
             html+= `<tr>
             <td>${item.gcNo}</td>
@@ -43,7 +44,7 @@ async function fetchData(){
             <td>`;
 
             if(item.coursePhoto != null)
-                html +=  `<img src="/${pathname}/DBPngReader?id=${item.gcNo}" style="width: 100px; height: 100px" >`;
+                html +=  `<img src="/${pathname}/DBPngReader?action=groupCourse&id=${item.gcNo}" style="width: 100px; height: 100px" >`;
 
             html += `</td>
             <td>${item.courseContent}</td>
@@ -62,8 +63,9 @@ async function fetchData(){
     }
 }
 
-$(document).on("click" , ".modify-button" ,function (){
+$(document).on("click" , ".modify-button" ,function (e){
     console.log(this.getAttribute("data-id"));
+    console.log(e.target)
 })
 
 
