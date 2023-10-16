@@ -1,9 +1,11 @@
-package com.woof.productcategory.model;
+package com.woof.productcategory.dao;
 
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
+
+import com.woof.productcategory.entity.ProductCategory;
 
 public class ProductCategoryDAOImpl implements ProductCategoryDAO {
     
@@ -14,13 +16,13 @@ public class ProductCategoryDAOImpl implements ProductCategoryDAO {
     }
 
     @Override
-    public void insert(ProductCategoryVO productCategoryVO) {
+    public void insert(ProductCategory productCategoryVO) {
         Session session = sessionFactory.getCurrentSession();
         session.save(productCategoryVO);
     }
 
     @Override
-    public void update(ProductCategoryVO productCategoryVO) {
+    public void update(ProductCategory productCategoryVO) {
         Session session = sessionFactory.getCurrentSession();
         session.update(productCategoryVO);
     }
@@ -28,22 +30,22 @@ public class ProductCategoryDAOImpl implements ProductCategoryDAO {
     @Override
     public void delete(Integer prodCatNo) {
         Session session = sessionFactory.getCurrentSession();
-        ProductCategoryVO productCategoryVO = session.get(ProductCategoryVO.class, prodCatNo);
+        ProductCategory productCategoryVO = session.get(ProductCategory.class, prodCatNo);
         if(productCategoryVO != null) {
             session.delete(productCategoryVO);
         }
     }
 
     @Override
-    public ProductCategoryVO findByProdCatNo(Integer prodCatNo) {
+    public ProductCategory findByProdCatNo(Integer prodCatNo) {
         Session session = sessionFactory.getCurrentSession();
-        return session.get(ProductCategoryVO.class, prodCatNo);
+        return session.get(ProductCategory.class, prodCatNo);
     }
 
     @Override
-    public List<ProductCategoryVO> getAll() {
+    public List<ProductCategory> getAll() {
         Session session = sessionFactory.getCurrentSession();
-        Query<ProductCategoryVO> query = session.createQuery("FROM ProductCategoryVO", ProductCategoryVO.class);
+        Query<ProductCategory> query = session.createQuery("FROM ProductCategoryVO", ProductCategory.class);
         return query.getResultList();
     }
 }

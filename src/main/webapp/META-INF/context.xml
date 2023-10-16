@@ -2,7 +2,7 @@
 <!DOCTYPE xml>
 <Context>
 	
-    <Resource name="jdbc/TestDB2" type="javax.sql.DataSource"
+    <Resource name="jdbc/TestDB" type="javax.sql.DataSource"
         url="jdbc:mysql://localhost:3306/woof?serverTimezone=Asia/Taipei"
         username="root"
         password="password"

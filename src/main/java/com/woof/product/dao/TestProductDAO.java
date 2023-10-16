@@ -1,11 +1,12 @@
-package com.woof.product.model;
+package com.woof.product.dao;
 
 import java.util.List;
+import com.woof.product.entity.Product;
 
 public class TestProductDAO {
 		public static void main(String[] args) {
 			ProductDAO productDAO = new ProductDAOImpl();
-			ProductVO productVO = new ProductVO();
+			Product productVO = new Product();
 
 //			// 新增
 //			productVO.setProdCatNo(1);

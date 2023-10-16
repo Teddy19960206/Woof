@@ -21,6 +21,7 @@ public class GroupCourse implements Serializable {
 	@Column(name = "GC_NO" , updatable = false , nullable = false)
     private Integer gcNo;
 
+	@Expose
 	@ManyToOne
 	@JoinColumn(name = "SKILL_NO" , referencedColumnName = "SKILL_NO")
 	private Skill skill;

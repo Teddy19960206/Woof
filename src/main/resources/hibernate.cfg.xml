@@ -5,7 +5,7 @@
 <hibernate-configuration>
     <session-factory>
     
-    	<property name="connection.datasource">java:comp/env/jdbc/TestDB2</property>
+    	<property name="connection.datasource">java:comp/env/jdbc/TestDB</property>
     
 <!--        <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>-->
 <!--        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/woof?serverTimezone=Asia/Taipei</property>-->
@@ -30,6 +30,7 @@
         <mapping class="com.woof.trainer.entity.Trainer"/>
         <mapping class="com.woof.appointmentdetail.entity.AppointmentDetail"/>
         <mapping class="com.woof.promotionactivity.entity.PromotionActivity"/>
+        <mapping class="com.woof.privatetrainingappointmentform.entity.PrivateTrainingAppointmentForm"/>
 
 
     </session-factory>
