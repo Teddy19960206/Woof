@@ -5,19 +5,15 @@ import java.util.*;
 import com.woof.member.entity.Member;
 
 public interface MemberDAO {
-	int insert(Member memberVO);
+	int insert(Member member);
 
-	int update(Member memberVO);
+	int update(Member member);
 
 	int delete(Integer memNo);
 
+	Member findByMemberNo(Integer memNo);
+
 	List<Member> getAll();
-
-	Member findByMemNo(Integer memNo);
-
-	List<Member> getAll(int currentPage);
-
-	long getTotal();
 
 }
 

@@ -9,23 +9,22 @@ public class MemberDAOImpl implements MemberDAO {
 	private SessionFactory factory;
 
 	public MemberDAOImpl(SessionFactory factory) {
-		this.factory.getCurrentSession();
+		this.factory = factory;
 	}
 
 	public Session getSession() {
-		// TODO Auto-generated method stub
 		return factory.getCurrentSession();
 	}
 
 	@Override
-	public int insert(Member memberVO) {
-		return (Integer) getSession().save(memberVO);
+	public int insert(Member member) {
+		return (Integer) getSession().save(member);
 	}
 
 	@Override
-	public int update(Member memberVO) {
+	public int update(Member member) {
 		try {
-			getSession().update(memberVO);
+			getSession().update(member);
 			return 1;
 		} catch (Exception e) {
 			return -1;
@@ -34,39 +33,26 @@ public class MemberDAOImpl implements MemberDAO {
 
 	@Override
 	public int delete(Integer memNo) {
-		Member member= getSession().get(Member.class, memNo);
-		if(member !=null) {
+		Member member = getSession().get(Member.class, memNo);
+		if (member != null) {
 			getSession().delete(member);
 			return 1;
-		}else {
+		} else {
 			return -1;
 		}
 	}
 
 	@Override
-	public Member findByMemNo(Integer memNo) {
+	public Member findByMemberNo(Integer memNo) {
 		// TODO Auto-generated method stub
-		return getSession().get(Member.class,memNo);
+		return getSession().get(Member.class, memNo);
 	}
 
 	@Override
 	public List<Member> getAll() {
 		// TODO Auto-generated method stub
-		return getSession().createQuery("FROM Member",Member.class).list();
+		return getSession().createQuery("FROM Member", Member.class).list();
 	}
-
-	@Override
-	public List<Member> getAll(int currentPage) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public long getTotal() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
 }
 
 //package com.woof.member.dao;
