@@ -58,7 +58,7 @@ public class ClassTypeServiceImpl implements ClassTypeService{
 		
 		List<ClassType> classTypeList = dao.getAll();
 
-		// TODO Auto-generated method stub
+
 		return classTypeList;
 	}
 

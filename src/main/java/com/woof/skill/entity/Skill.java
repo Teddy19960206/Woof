@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import com.google.gson.annotations.Expose;
 import com.woof.trainer.entity.Trainer;
 
 
@@ -22,12 +23,13 @@ import com.woof.trainer.entity.Trainer;
 @Entity
 @Table(name = "skill")
 public class Skill implements Serializable {
-
+    @Expose
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "SKILL_NO" , updatable = false)
     private Integer skillNo;
-	
+
+    @Expose
 	@Column(name = "SKILL_NAME" , nullable = false)
     private String skillName;
 	
