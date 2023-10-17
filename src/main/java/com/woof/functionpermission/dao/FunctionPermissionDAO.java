@@ -2,17 +2,17 @@ package com.woof.functionpermission.dao;
 
 import java.util.*;
 
-import com.woof.functionpermission.entity.FunctionPermissionVO;
+import com.woof.functionpermission.entity.FunctionPermission;
 
 public interface FunctionPermissionDAO {
-	int insert(FunctionPermissionVO functionPermissionVO);
+	int insert(FunctionPermission functionPermissionVO);
 
-	int update(FunctionPermissionVO functionPermissionVO);
+	int update(FunctionPermission functionPermissionVO);
 
 	int delete(Integer funcNo);
 
-	FunctionPermissionVO findbyfuncNo(Integer funcNo);
+	FunctionPermission findbyfuncNo(Integer funcNo);
 
-	List<FunctionPermissionVO> getAll();
+	List<FunctionPermission> getAll();
 
 }

@@ -1,50 +1,78 @@
 package com.woof.member.entity;
 
 import javax.persistence.*;
+
+import com.google.gson.annotations.Expose;
+import com.woof.classorder.entity.ClassOrder;
+import com.woof.commentreport.entity.CommentReport;
+import com.woof.privatetrainingappointmentform.entity.PrivateTrainingAppointmentForm;
+
 import java.sql.Date;
 import java.util.Arrays;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "member")
 public class Member implements java.io.Serializable {
+	
+	@Expose
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "MEM_NO", updatable = false, nullable = false)
 	private Integer memNo;
-
+	
+	@OneToMany(mappedBy = "member" , cascade = CascadeType.ALL)
+	private Set<PrivateTrainingAppointmentForm> getPrivateTrainingAppointmentForms;
+	
+	@OneToMany(mappedBy = "member" , cascade = CascadeType.ALL)
+	private Set<ClassOrder> getClassOrders;
+	
+	@OneToMany(mappedBy = "member" , cascade = CascadeType.ALL)
+	private Set<CommentReport> getCommentReports;
+	
+	@Expose
 	@Column(name = "MEM_NAME", nullable = false)
 	private String memName;
 
-
+	
+	@Expose
 	@Column(name = "MEM_GENDER", nullable = false, columnDefinition = "CHAR")
-
 	private String memGender;
 
+	@Expose
 	@Column(name = "MEM_PHOTO", columnDefinition = "MEDIUMBLOB")
 	private byte[] memPhoto;
-
+	
+	@Expose
 	@Column(name = "MEM_EMAIL", nullable = false)
 	private String memEmail;
-
+	
+	@Expose
 	@Column(name = "MEM_PASSWORD", nullable = false)
 	private String memPassword;
-
+	
+	@Expose
 	@Column(name = "MEM_TEL", nullable = false)
 	private String memTel;
-
+	
+	@Expose
 	@Column(name = "MEM_ADDRESS", nullable = false)
 	private String memAddress;
-
+	
+	@Expose
 	@Column(name = "MEM_BD")
 	private Date memBd;
-
+	
+	@Expose
 	@Column(name = "MOMO_POINT", nullable = false)
 	private Integer momoPoint;
-
+	
+	@Expose
 	@Column(name = "TOTAL_CLASS", nullable = false)
 	private Integer totalClass;
-
+	
+	@Expose
 	@Column(name = "MEM_STATUS", nullable = false, columnDefinition = "TINYINT")
 	private Integer memStatus;
 
@@ -337,3 +365,4 @@ public class Member implements java.io.Serializable {
 //				+ ", totalClass=" + totalClass + ", memStatus=" + memStatus + "]";
 //	}
 //}
+//

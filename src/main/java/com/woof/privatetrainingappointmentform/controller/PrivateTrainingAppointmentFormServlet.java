@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.woof.privatetrainingappointmentform.service.PrivateTrainingAppointmentFormService;
 import com.woof.privatetrainingappointmentform.service.PrivateTrainingAppointmentFormServiceImpl;
 
-@WebServlet("/privatetrainingappointmentformservlet")
+@WebServlet("/privatetrainingappointmentform")
 public class PrivateTrainingAppointmentFormServlet extends HttpServlet {
 
 	private PrivateTrainingAppointmentFormService privateTrainingAppointmentFormService;

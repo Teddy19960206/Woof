@@ -6,11 +6,11 @@ import com.woof.commentreport.entity.CommentReport;
 
 public interface CommentReportDAO {
 	
-	void insert (CommentReport commentReportVO);
-	void update (CommentReport commentReportVO);
-	void delete (CommentReport commentReportVO);
+	int insert(CommentReport commentReport);
+	
+	int update(CommentReport commentReport);
 	
 	CommentReport findByCrNo(Integer crNo);
+	
 	List<CommentReport> getAll();
-
 }

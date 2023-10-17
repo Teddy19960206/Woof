@@ -8,38 +8,52 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.google.gson.annotations.Expose;
+import com.woof.member.entity.Member;
 
 @Entity
 @Table(name = "class_order")
 public class ClassOrder {
-
+	
+	@Expose
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "CO_NO" , updatable = false , nullable = false)
 	private Integer coNo;
 	
-	@Column(name = "MEM_NO", nullable = false)
-	private Integer memNo;
+	@ManyToOne
+	@JoinColumn(name = "MEM_NO" , referencedColumnName = "MEM_NO")
+	private Member member;
 	
+	@Expose
 	@Column(name = "CO_BC", nullable = false)
 	private Integer coBc;
 	
+	@Expose
 	@Column(name = "CO_PAYMENT_METHOD", nullable = false ,  columnDefinition = "TINYINT")
 	private Integer coPaymentMethod;
 	
+	@Expose
 	@Column(name = "CO_SMMP", nullable = false)
 	private Integer coSmmp;
 	
+	@Expose
 	@Column(name = "CO_TIME", nullable = false)
 	private Timestamp coTime;
 	
+	@Expose
 	@Column(name = "CO_STATUS", nullable = false ,  columnDefinition = "TINYINT")
 	private Integer coStatus;
 	
-	@Column(name = "MEM_NO")
+	@Expose
+	@Column(name = "CO_CT")
 	private Timestamp coCt;
 	
+	@Expose
 	@Column(name = "ACTUAL_AMOUNT", nullable = false)
 	private Integer actualAmount;
 	
@@ -57,14 +71,13 @@ public class ClassOrder {
 		this.coNo = coNo;
 	}
 
-
-	public Integer getMemNo() {
-		return memNo;
+	public Member getMember() {
+		return member;
 	}
 
 
-	public void setMemNo(Integer memNo) {
-		this.memNo = memNo;
+	public void setMember(Member member) {
+		this.member = member;
 	}
 
 
@@ -140,7 +153,7 @@ public class ClassOrder {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(actualAmount, coBc, coCt, coNo, coPaymentMethod, coSmmp, coStatus, coTime, memNo);
+		return Objects.hash(coNo);
 	}
 	@Override
 	public boolean equals(Object obj) {
@@ -151,15 +164,12 @@ public class ClassOrder {
 		if (getClass() != obj.getClass())
 			return false;
 		ClassOrder other = (ClassOrder) obj;
-		return Objects.equals(actualAmount, other.actualAmount) && Objects.equals(coBc, other.coBc)
-				&& Objects.equals(coCt, other.coCt) && Objects.equals(coNo, other.coNo)
-				&& Objects.equals(coPaymentMethod, other.coPaymentMethod) && Objects.equals(coSmmp, other.coSmmp)
-				&& Objects.equals(coStatus, other.coStatus) && Objects.equals(coTime, other.coTime)
-				&& Objects.equals(memNo, other.memNo);
+		return Objects.equals(coNo, other.coNo);
 	}
+				
 	@Override
 	public String toString() {
-		return "ClassOrderVO [coNo=" + coNo + ", memNo=" + memNo + ", coBc=" + coBc + ", coPaymentMethod="
+		return "ClassOrderVO [coNo=" + coNo + ", memNo=" + (member != null ? member.getMemNo() : "N/A") + ", coBc=" + coBc + ", coPaymentMethod="
 				+ coPaymentMethod + ", coSsmp=" + coSmmp + ", coTime=" + coTime + ", coStatus=" + coStatus + ", coCt="
 				+ coCt + ", actualAmount=" + actualAmount + "]";
 	}
