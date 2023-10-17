@@ -14,7 +14,7 @@
 		ACTION="${pageContext.request.contextPath}/functionpermission">
 		<select name="FunctionPermission" id="selectFunctionPermission">
 			<c:forEach var="functionPermission"
-				items="${functionPermissionService.getAllFunctionPermissions()}">
+				items="${functionPermissionService.allFunctionPermissions}">
 				<option value="${functionPermission.funcNo}">${functionPermission.funcName}</option>
 			</c:forEach>
 		</select>

@@ -49,11 +49,14 @@ public class FunctionPermissionDAOImpl implements FunctionPermissionDAO {
 
 	@Override
 	public List<FunctionPermission> getAll() {
-		return getSession().createQuery("FROM FunctionPermission", FunctionPermission.class).list();
+		try {
+			return getSession().createQuery("FROM FunctionPermission", FunctionPermission.class).list();
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+			return null; // or return an empty list
+		}
 	}
-
 }
-
 //package com.woof.functionpermission.dao;
 //
 //import java.sql.Connection;

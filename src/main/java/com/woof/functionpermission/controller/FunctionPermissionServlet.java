@@ -1,16 +1,17 @@
 package com.woof.functionpermission.controller;
 
 import java.io.IOException;
+
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.woof.functionpermission.entity.FunctionPermission;
 import com.woof.functionpermission.service.FunctionPermissionService;
 import com.woof.functionpermission.service.FunctionPermissionServiceImpl;
 
+@WebServlet("/functionpermission")
 public class FunctionPermissionServlet extends HttpServlet {
 	private FunctionPermissionService functionPermissionService;
 
