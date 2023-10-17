@@ -6,7 +6,6 @@ import com.woof.classtype.entity.ClassType;
 import com.woof.classtype.service.ClassTypeService;
 import com.woof.classtype.service.ClassTypeServiceImpl;
 import com.woof.groupcourse.entity.GroupCourse;
-import com.woof.groupcourse.service.GroupCourseService;
 import com.woof.groupcourse.service.GroupCourseServiceImpl;
 import com.woof.skill.entity.Skill;
 import com.woof.skill.service.SkillService;
@@ -48,21 +47,21 @@ public class GroupCourseServlet extends HttpServlet {
         if (action != null){
             switch (action){
                 case "addpage":
-                    getAllSelect(request,response);
+                    getSelectInfo(request,response);
                     forwardPath = "/groupcourse/addGroupCourse.jsp";
                     break;
                 case "addgroup":
                     addGroupCourse(request,response);
                     return;
                 case "modifiedPage":
-                    getAllSelect(request,response);
+                    getSelectInfo(request,response);
                     forwardPath = modify(request , response);
                     break;
                 case "modified":
                     modifyGroupCourse(request,response);
                     return;
                 case "getByClassType":
-                    getAllGroupCourse(request, response);
+                    getGroupCourseByClassType(request, response);
                     return;
                 default:
                     forwardPath = "/classtype/select_page.jsp";
@@ -73,7 +72,8 @@ public class GroupCourseServlet extends HttpServlet {
         request.getRequestDispatcher(forwardPath).forward(request,response);
     }
 
-    private void getAllGroupCourse(HttpServletRequest request, HttpServletResponse response) throws IOException {
+//    根據獲取的ClassType，去尋找所有有對應的GroupCourse資料
+    private void getGroupCourseByClassType(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         request.setCharacterEncoding("UTF-8");
         String classtype = request.getParameter("classType");
@@ -83,11 +83,11 @@ public class GroupCourseServlet extends HttpServlet {
         String json = gson.toJson(groupCourseList);
         response.setContentType("application/json;charset=UTF-8");
 
-        System.out.println(json);
         response.getWriter().write(json);
     }
 
-    private void getAllSelect(HttpServletRequest request , HttpServletResponse response){
+//    取得ClassType 與 Skill 所有資料 顯示在Select上
+    private void getSelectInfo(HttpServletRequest request , HttpServletResponse response){
 
         ClassTypeService classTypeService = new ClassTypeServiceImpl();
         List<ClassType> allClassTypes = classTypeService.getAllClassTypes();
@@ -99,6 +99,7 @@ public class GroupCourseServlet extends HttpServlet {
 
     }
 
+//    新增GroupCourse資料
     private void addGroupCourse(HttpServletRequest request , HttpServletResponse response) throws ServletException, IOException {
 
         Integer skillNo = Integer.valueOf(request.getParameter("skill"));
@@ -127,7 +128,7 @@ public class GroupCourseServlet extends HttpServlet {
 
     }
 
-
+// 進入修改資料頁面時，先把資料讀取回來進行修改
     private String modify(HttpServletRequest request ,HttpServletResponse response){
 
         Integer id = Integer.valueOf(request.getParameter("id"));
@@ -135,8 +136,10 @@ public class GroupCourseServlet extends HttpServlet {
         request.setAttribute("groupCourse" , groupCourse);
 
 
-        return "/groupcourse/modify.jsp";
+        return "/groupcourse/modifyGroupCourse.jsp";
     }
+
+//  修改GroupCourse資料
 
     private void modifyGroupCourse(HttpServletRequest request , HttpServletResponse response) throws IOException, ServletException {
 
@@ -163,11 +166,9 @@ public class GroupCourseServlet extends HttpServlet {
         }
 
         String content = request.getParameter("content");
-        System.out.println("==========");
 
         Integer status = Integer.valueOf(request.getParameter("status"));
 
-        System.out.println(content);
         int result = groupCourseService.modify(gcNo, skill, classTypeByNO, bytes, content,status);
 
         if ( result == 1){

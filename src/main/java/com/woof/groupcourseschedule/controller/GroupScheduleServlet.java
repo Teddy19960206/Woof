@@ -45,9 +45,7 @@ public class GroupScheduleServlet extends HttpServlet {
     private String getAllSchedule(HttpServletRequest request , HttpServletResponse response){
 
         List<GroupCourseSchedule> groupCourseScheduleList = groupGourseScheduleService.getAll();
-        for (GroupCourseSchedule groupCourseSchedule : groupCourseScheduleList){
-            System.out.println(groupCourseSchedule);
-        }
+
         request.setAttribute("scheduleList" ,groupCourseScheduleList );
 
         return "/groupcourse/schedule.jsp";
@@ -60,17 +58,10 @@ public class GroupScheduleServlet extends HttpServlet {
 
         List<GroupCourseSchedule> groupCourseScheduleSet = groupGourseScheduleService.getGroupScheduleByCtNo(classtypeNo);
 
-        for (GroupCourseSchedule groupCourseSchedule : groupCourseScheduleSet){
-            System.out.println(groupCourseSchedule.getGroupCourse());
-        }
-
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
         String json = gson.toJson(groupCourseScheduleSet);
         response.setContentType("application/json;charset=UTF-8");
 
-
-
-        System.out.println(json);
         response.getWriter().write(json);
 
     }

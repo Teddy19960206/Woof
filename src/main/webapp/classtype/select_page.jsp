@@ -31,6 +31,6 @@
 
 
 <script src="${pageContext.request.contextPath}/webutil/js/jquery-3.7.1.min.js"></script>
-<script src="${pageContext.request.contextPath}/classtype/getGroup.js"></script>
+<script src="${pageContext.request.contextPath}/classtype/js/getGroup.js"></script>
 </body>
 </html>

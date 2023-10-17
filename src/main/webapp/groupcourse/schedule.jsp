@@ -3,6 +3,7 @@
 <html>
 <head>
     <title>Schedule</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/webutil/css/bootstrap.min.css" />
 </head>
 <body>
 <h1>團體課程報名資訊</h1>
@@ -48,6 +49,7 @@
                     <th>GCS_PRICE</th>
                     <th>GCS_STATUS</th>
                     <th>修改</th>
+                    <th>報名</th>
                 </tr>
             </thead>
             <tbody id="mybody">
@@ -66,19 +68,54 @@
                         <td>${schedule.gcsStatus}</td>
 
                         <td>
-                            <button type="button" class="modify-button" data-id="${schedule.gcsNo}">
-                                修改
-                            </button>
+                            <button type="button" class="modify-button" data-id="${schedule.gcsNo}">修改</button>
                         </td>
-
+                        <td>
+                            <button type="button" class="registration" data-id="${schedule.gcsNo}">報名</button>
+                        </td>
                     </tr>
                 </c:forEach>
         </table>
+        <a href="#"><button>新增團體課程報名</button></a>
+
+
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Launch demo modal
+        </button>
+
+        <div class="container">
+            <h2>Basic Modal Example</h2>
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Launch demo modal
+            </button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            ...
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
 
 
 <script src="${pageContext.request.contextPath}/webutil/js/jquery-3.7.1.min.js"></script>
-<script src="${pageContext.request.contextPath}/groupcourse/getSchedule.js"></script>
+<script src="${pageContext.request.contextPath}/webutil/js/bootstrap.bundle.min.js"></script>
+<script src="${pageContext.request.contextPath}/groupcourse/js/getSchedule.js"></script>
 </body>
 </html>

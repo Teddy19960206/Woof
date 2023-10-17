@@ -17,10 +17,6 @@ async function fetchData(){
             throw new Error('Network response was not ok');
         }
         const data = await response.json();
-
-        console.log(data);
-
-
         html = "";
 
         html += `<table class="table table-stripclassNamext-center" border="1">
@@ -70,7 +66,7 @@ async function fetchData(){
     }
 }
 
-// $(document).on("click" , ".modify-button" ,function (e){
+// $(document).on("click" , "button.modify-button" ,function (e){
 //     let url = `/${pathname}/groupcourse?action=modifiedPage&id=${this.getAttribute("data-id")}`
 //
 //     console.log(url);
@@ -78,5 +74,18 @@ async function fetchData(){
 //
 // })
 
+$(document).on("click" , "button.registration" , function (){
+    console.log(confirm("123"));
+});
 
+// window.addEventListener("load" , function (){
+//     var myModal = document.getElementById('exampleModal')
+//     var myInput = document.getElementById('myInput')
+//
+//     myModal.addEventListener('shown.bs.modal', function () {
+//         myModal.show();
+//         myInput.focus()
+//     })
+//
+// })
 
