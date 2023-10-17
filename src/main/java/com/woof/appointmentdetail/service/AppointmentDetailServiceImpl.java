@@ -58,7 +58,11 @@ public class AppointmentDetailServiceImpl implements AppointmentDetailService{
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		session.beginTransaction();
 		
-		return null;
+		AppointmentDetail appointmentDetail = session.get(AppointmentDetail.class, adNo);
+
+	    session.getTransaction().commit();
+
+	    return appointmentDetail;
 	}
 
 	@Override

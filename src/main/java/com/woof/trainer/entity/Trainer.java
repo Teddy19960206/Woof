@@ -32,23 +32,25 @@ public class Trainer implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "TRAINER_NO")
 	private Integer trainerNo;
-	
+	//=============================================================
+//	@Expose
+//	@OneToMany(mappedBy = "trainer" , cascade = CascadeType.ALL)
+//	private Set<NonTrainingSchedule> nonTrainingSchedules;
+//	
+//	@Expose
+//	@OneToMany(mappedBy = "trainer" , cascade = CascadeType.ALL)
+//	private Set<PrivateTrainingAppointmentForm> privateTrainingAppointmentForms;
+//	
+//	@Expose
+//	@OneToMany(mappedBy = "trainer" , cascade = CascadeType.ALL)
+//	private Set<CommentReport> commentReports;
+	//trainer做完後，通知唯宸修改這邊
 	@Expose
-	@OneToMany(mappedBy = "trainer" , cascade = CascadeType.ALL)
-	private Set<NonTrainingSchedule> nonTrainingSchedules;
-	
-	@Expose
-	@OneToMany(mappedBy = "trainer" , cascade = CascadeType.ALL)
-	private Set<PrivateTrainingAppointmentForm> privateTrainingAppointmentForms;
-	
-	@Expose
-	@OneToMany(mappedBy = "trainer" , cascade = CascadeType.ALL)
-	private Set<CommentReport> commentReports;
-	
-	@Expose
-	@OneToOne
-	@JoinColumn(name = "ADMIN_NO", referencedColumnName = "ADMIN_NO")
+//	@OneToOne
+//	@JoinColumn(name = "ADMIN_NO", referencedColumnName = "ADMIN_NO")
+	@Column(name = "ADMIN_NO")
 	private Integer adminNo;
+	//=============================================================
 	@Expose
 	@Column(name = "EXPERIENCE")
 	private String experience;
@@ -62,29 +64,29 @@ public class Trainer implements Serializable {
 	public Trainer() {
 	}
 	
-	public Set<NonTrainingSchedule> getNonTrainingSchedules() {
-		return nonTrainingSchedules;
-	}
-
-	public void setNonTrainingSchedules(Set<NonTrainingSchedule> nonTrainingSchedules) {
-		this.nonTrainingSchedules = nonTrainingSchedules;
-	}
-
-	public Set<PrivateTrainingAppointmentForm> getPrivateTrainingAppointmentForms() {
-		return privateTrainingAppointmentForms;
-	}
-
-	public void setPrivateTrainingAppointmentForms(Set<PrivateTrainingAppointmentForm> privateTrainingAppointmentForms) {
-		this.privateTrainingAppointmentForms = privateTrainingAppointmentForms;
-	}
-
-	public Set<CommentReport> getCommentReports() {
-		return commentReports;
-	}
-
-	public void setCommentReports(Set<CommentReport> commentReports) {
-		this.commentReports = commentReports;
-	}
+//	public Set<NonTrainingSchedule> getNonTrainingSchedules() {
+//		return nonTrainingSchedules;
+//	}
+//
+//	public void setNonTrainingSchedules(Set<NonTrainingSchedule> nonTrainingSchedules) {
+//		this.nonTrainingSchedules = nonTrainingSchedules;
+//	}
+//
+//	public Set<PrivateTrainingAppointmentForm> getPrivateTrainingAppointmentForms() {
+//		return privateTrainingAppointmentForms;
+//	}
+//
+//	public void setPrivateTrainingAppointmentForms(Set<PrivateTrainingAppointmentForm> privateTrainingAppointmentForms) {
+//		this.privateTrainingAppointmentForms = privateTrainingAppointmentForms;
+//	}
+//
+//	public Set<CommentReport> getCommentReports() {
+//		return commentReports;
+//	}
+//
+//	public void setCommentReports(Set<CommentReport> commentReports) {
+//		this.commentReports = commentReports;
+//	}
 
 	public Integer getTrainerNo() {
 		return trainerNo;

@@ -30,11 +30,25 @@ public class CommentReport {
 	@ManyToOne
 	@JoinColumn(name = "MEM_NO" , referencedColumnName = "MEM_NO")
 	private Member member;
+	//===========================================//
+//	@ManyToOne
+//	@JoinColumn(name = "TRAINER_NO" , referencedColumnName = "TRAINER_NO")
+//	private Trainer trainer;
 	
-	@ManyToOne
-	@JoinColumn(name = "TRAINER_NO" , referencedColumnName = "TRAINER_NO")
-	private Trainer trainer;
+	@Expose
+	@Column(name="TRAINER_NO" , nullable = false)
+	private Integer trainerNo;
+
+	public Integer getTrainerNo() {
+		return trainerNo;
+	}
+
+	public void setTrainerNo(Integer trainerNo) {
+		this.trainerNo = trainerNo;	
+	}
 	
+	// Trainer做好後, 刪掉or註解拔掉
+	//===========================================//
 	@ManyToOne
 	@JoinColumn(name="PTA_NO" , referencedColumnName = "PTA_NO")
 	private PrivateTrainingAppointmentForm privateTrainingAppointmentForm;
@@ -70,13 +84,13 @@ public class CommentReport {
 		this.member = member;
 	}
 
-	public Trainer getTrainer() {
-		return trainer;
-	}
-
-	public void setTrainer(Trainer trainer) {
-		this.trainer = trainer;
-	}
+//	public Trainer getTrainer() {
+//		return trainer;
+//	}
+//
+//	public void setTrainer(Trainer trainer) {
+//		this.trainer = trainer;
+//	}
 
 	public PrivateTrainingAppointmentForm getPrivateTrainingAppointmentForm() {
 		return privateTrainingAppointmentForm;
@@ -118,10 +132,10 @@ public class CommentReport {
 		CommentReport other = (CommentReport) obj;
 		return Objects.equals(crNo, other.crNo);
 	}
-	@Override
-	public String toString() {
-		return "CommentReportVO [crNo=" + crNo + ", memNo=" + (member != null ? member.getMemNo() : "N/A") + ", trainerNo=" + (trainer != null ? trainer.getTrainerNo() : "N/A") + ", ptaNo=" + (privateTrainingAppointmentForm != null ? privateTrainingAppointmentForm.getPtaNo() : "N/A") + ", crContext=" + crContext + ", crStatus=" + crStatus + ", crDate=" + crDate + "]";
-	}
+//	@Override
+//	public String toString() {
+//		return "CommentReportVO [crNo=" + crNo + ", memNo=" + (member != null ? member.getMemNo() : "N/A") + ", trainerNo=" + (trainer != null ? trainer.getTrainerNo() : "N/A") + ", ptaNo=" + (privateTrainingAppointmentForm != null ? privateTrainingAppointmentForm.getPtaNo() : "N/A") + ", crContext=" + crContext + ", crStatus=" + crStatus + ", crDate=" + crDate + "]";
+//	}
 	
 	
 	
