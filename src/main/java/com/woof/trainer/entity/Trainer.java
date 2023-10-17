@@ -13,11 +13,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.MapsId;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.google.gson.annotations.Expose;
+import com.woof.administrator.entity.Administrator;
 import com.woof.commentreport.entity.CommentReport;
 import com.woof.nontrainingschedule.entity.NonTrainingSchedule;
 import com.woof.privatetrainingappointmentform.entity.PrivateTrainingAppointmentForm;
@@ -32,25 +34,24 @@ public class Trainer implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "TRAINER_NO")
 	private Integer trainerNo;
-	//=============================================================
-//	@Expose
-//	@OneToMany(mappedBy = "trainer" , cascade = CascadeType.ALL)
-//	private Set<NonTrainingSchedule> nonTrainingSchedules;
-//	
-//	@Expose
-//	@OneToMany(mappedBy = "trainer" , cascade = CascadeType.ALL)
-//	private Set<PrivateTrainingAppointmentForm> privateTrainingAppointmentForms;
-//	
-//	@Expose
-//	@OneToMany(mappedBy = "trainer" , cascade = CascadeType.ALL)
-//	private Set<CommentReport> commentReports;
-	//trainer做完後，通知唯宸修改這邊
+
 	@Expose
-//	@OneToOne
-//	@JoinColumn(name = "ADMIN_NO", referencedColumnName = "ADMIN_NO")
-	@Column(name = "ADMIN_NO")
-	private Integer adminNo;
-	//=============================================================
+	@OneToMany(mappedBy = "trainer" , cascade = CascadeType.ALL)
+	private Set<NonTrainingSchedule> nonTrainingSchedules;
+	
+	@Expose
+	@OneToMany(mappedBy = "trainer" , cascade = CascadeType.ALL)
+	private Set<PrivateTrainingAppointmentForm> privateTrainingAppointmentForms;
+	
+	@Expose
+	@OneToMany(mappedBy = "trainer" , cascade = CascadeType.ALL)
+	private Set<CommentReport> commentReports;
+	
+	@Expose
+	@OneToOne
+	@JoinColumn(name = "ADMIN_NO", referencedColumnName = "ADMIN_NO")
+	private Administrator administrator;
+
 	@Expose
 	@Column(name = "EXPERIENCE")
 	private String experience;
@@ -64,29 +65,29 @@ public class Trainer implements Serializable {
 	public Trainer() {
 	}
 	
-//	public Set<NonTrainingSchedule> getNonTrainingSchedules() {
-//		return nonTrainingSchedules;
-//	}
-//
-//	public void setNonTrainingSchedules(Set<NonTrainingSchedule> nonTrainingSchedules) {
-//		this.nonTrainingSchedules = nonTrainingSchedules;
-//	}
-//
-//	public Set<PrivateTrainingAppointmentForm> getPrivateTrainingAppointmentForms() {
-//		return privateTrainingAppointmentForms;
-//	}
-//
-//	public void setPrivateTrainingAppointmentForms(Set<PrivateTrainingAppointmentForm> privateTrainingAppointmentForms) {
-//		this.privateTrainingAppointmentForms = privateTrainingAppointmentForms;
-//	}
-//
-//	public Set<CommentReport> getCommentReports() {
-//		return commentReports;
-//	}
-//
-//	public void setCommentReports(Set<CommentReport> commentReports) {
-//		this.commentReports = commentReports;
-//	}
+	public Set<NonTrainingSchedule> getNonTrainingSchedules() {
+		return nonTrainingSchedules;
+	}
+
+	public void setNonTrainingSchedules(Set<NonTrainingSchedule> nonTrainingSchedules) {
+		this.nonTrainingSchedules = nonTrainingSchedules;
+	}
+
+	public Set<PrivateTrainingAppointmentForm> getPrivateTrainingAppointmentForms() {
+		return privateTrainingAppointmentForms;
+	}
+
+	public void setPrivateTrainingAppointmentForms(Set<PrivateTrainingAppointmentForm> privateTrainingAppointmentForms) {
+		this.privateTrainingAppointmentForms = privateTrainingAppointmentForms;
+	}
+
+	public Set<CommentReport> getCommentReports() {
+		return commentReports;
+	}
+
+	public void setCommentReports(Set<CommentReport> commentReports) {
+		this.commentReports = commentReports;
+	}
 
 	public Integer getTrainerNo() {
 		return trainerNo;
@@ -96,12 +97,20 @@ public class Trainer implements Serializable {
 		this.trainerNo = trainerNo;
 	}
 
-	public Integer getAdminNo() {
-		return adminNo;
+//	public Integer getAdminNo() {
+//		return adminNo;
+//	}
+//
+//	public void setAdminNo(Integer adminNo) {
+//		this.adminNo = adminNo;
+//	}
+
+	public Administrator getAdministrator() {
+		return administrator;
 	}
 
-	public void setAdminNo(Integer adminNo) {
-		this.adminNo = adminNo;
+	public void setAdministrator(Administrator administrator) {
+		this.administrator = administrator;
 	}
 
 	public String getExperience() {
@@ -137,9 +146,9 @@ public class Trainer implements Serializable {
 		return Objects.equals(trainerNo, other.trainerNo);
 	}
 
-	@Override
-	public String toString() {
-		return "TrainerVO [trainerNo=" + trainerNo + ", adminNo=" + adminNo + ", experience=" + experience + "]";
-	}
+//	@Override
+//	public String toString() {
+//		return "TrainerVO [trainerNo=" + trainerNo + ", adminNo=" + adminNo + ", experience=" + experience + "]";
+//	}
 
 }
