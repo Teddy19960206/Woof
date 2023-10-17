@@ -3,8 +3,9 @@ package com.woof.administrator.dao;
 import java.util.List;
 import java.util.Map;
 
-import com.woof.administrator.entity.AdministratorVO;
+import com.woof.administrator.entity.Administrator;
 import com.woof.administratorpermission.entity.AdministratorPermission;
+import com.woof.trainer.entity.Trainer;
 
 
 public interface AdministratorDAO {
@@ -18,17 +19,14 @@ public interface AdministratorDAO {
 //    AdministratorVO findbyAdminNo(Integer adminNO);
 //
 //    List<AdministratorVO> getAll();
-	int insert(AdministratorVO administratorVO);
+	int insert(Administrator administrator);
 
-	 int update(AdministratorVO administratorVO);
+	int update(Administrator administrator);
 
-	 int delete(Integer adminNo);
-	 List<AdministratorVO> getByCompositeQuery(Map<String, String> map);
+//	int delete(Integer  adminNo);
 
-	 AdministratorVO getById(Integer adminNo);
+	Administrator findByAdminNo(Integer adminNo);
 
-	 List<AdministratorVO> getAll();
-
-	 long getTotal();
+	List<Administrator> getAll();
 
 	}

@@ -12,21 +12,25 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.google.gson.annotations.Expose;
 import com.woof.skill.entity.Skill;
 
 @Entity
 @Table(name = "trainer")
 public class Trainer implements Serializable {
+@Expose	
  @Id
  @GeneratedValue(strategy = GenerationType.IDENTITY)
  @Column(name = "TRAINER_NO")
  private Integer trainerNo;
- 
- @Column(name = "ADMIN_NO")
+@Expose	
+@OneToOne
+ @JoinColumn(name = "ADMIN_NO" ,referencedColumnName="ADMIN_NO")
  private Integer adminNo;
- 
+@Expose	
  @Column(name = "EXPERIENCE")
  private String experience;
 
