@@ -18,6 +18,7 @@ import com.google.gson.annotations.Expose;
 import com.woof.appointmentdetail.entity.AppointmentDetail;
 import com.woof.commentreport.entity.CommentReport;
 import com.woof.member.entity.Member;
+import com.woof.trainer.entity.Trainer;
 
 @Entity
 @Table(name = "private_training_appointment_form")
@@ -41,9 +42,25 @@ public class PrivateTrainingAppointmentForm {
 	@JoinColumn(name = "MEM_NO" , referencedColumnName = "MEM_NO")
 	private Member member;
 	
+	//==========================================//
+//	@ManyToOne
+//	@JoinColumn(name = "TRAINER_NO" , referencedColumnName = "TRAINER_NO")
+//	private Trainer trainer;
+	
 	@Expose
 	@Column(name="TRAINER_NO" , nullable = false)
 	private Integer trainerNo;
+
+	public Integer getTrainerNo() {
+		return trainerNo;
+	}
+
+	public void setTrainerNo(Integer trainerNo) {
+		this.trainerNo = trainerNo;	
+	}
+	
+	// Trainer做好後, 刪掉or註解拔掉
+	//===========================================//
 	
 	@Expose
 	@Column(name="PTA_CLASS" , nullable = false , columnDefinition = "TINYINT")
@@ -85,12 +102,15 @@ public class PrivateTrainingAppointmentForm {
 		this.member = member;
 	}
 
-	public Integer getTrainerNo() {
-		return trainerNo;
-	}
-	public void setTrainerNo(Integer trainerNo) {
-		this.trainerNo = trainerNo;
-	}
+	
+//	public Trainer getTrainer() {
+//		return trainer;
+//	}
+//
+//	public void setTrainer(Trainer trainer) {
+//		this.trainer = trainer;
+//	}
+
 	public Integer getPtaClass() {
 		return ptaClass;
 	}
@@ -112,11 +132,10 @@ public class PrivateTrainingAppointmentForm {
 		PrivateTrainingAppointmentForm other = (PrivateTrainingAppointmentForm) obj;
 		return Objects.equals(ptaNo, other.ptaNo);
 	}
-	@Override
-	public String toString() {
-		return "PrivateTrainingAppointmentForm [ptaNo=" + ptaNo + ", memNo=" + (member != null ? member.getMemNo() : "N/A") + ", trainerNo=" + trainerNo
-				+ ", ptaClass=" + ptaClass + "]";
-	}
+//	@Override
+//	public String toString() {
+//		return "PrivateTrainingAppointmentForm [ptaNo=" + ptaNo + ", memNo=" + (member != null ? member.getMemNo() : "N/A") + ", trainerNo=" + (trainer != null ? trainer.getTrainerNo() : "N/A") + ", ptaClass=" + ptaClass + "]";
+//	}
 
 	
 }
