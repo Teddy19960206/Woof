@@ -11,7 +11,7 @@
 <form method="POST" ACTION="${pageContext.request.contextPath}/nontrainingschedule">
     <select name="Type">
         <c:forEach var="nonTrainingSchedule" items="${nonTrainingScheduleServer.allNonTrainingSchedules}">
-            <option  value="${nonTrainingSchedule.trainerNo} ${nonTrainingSchedule.ntsDate}">${nonTrainingSchedule.ntsNo}</option>
+            <option  value="${nonTrainingSchedule.trainer.trainerNo} ${nonTrainingSchedule.ntsDate}">${nonTrainingSchedule.ntsNo}</option>
         </c:forEach>
     </select>
     <button type="submit">提交</button>
