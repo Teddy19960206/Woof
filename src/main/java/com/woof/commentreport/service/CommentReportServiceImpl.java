@@ -48,7 +48,7 @@ public class CommentReportServiceImpl implements CommentReportService{
 	}
 
 	@Override
-	public CommentReport findCommentReportByNo(Integer adNo) {
+	public CommentReport findCommentReportByNo(Integer crNo) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		session.beginTransaction();
 		

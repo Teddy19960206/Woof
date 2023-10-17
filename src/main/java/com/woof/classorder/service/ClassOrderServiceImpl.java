@@ -48,7 +48,7 @@ public class ClassOrderServiceImpl implements ClassOrderService{
 	}
 
 	@Override
-	public ClassOrder findClassOrderByNo(Integer adNo) {
+	public ClassOrder findClassOrderByNo(Integer coNo) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		session.beginTransaction();
 		

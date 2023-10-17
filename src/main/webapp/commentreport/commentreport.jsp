@@ -11,7 +11,7 @@
 <form method="POST" ACTION="${pageContext.request.contextPath}/commentreport">
     <select name="Type">
         <c:forEach var="commentReport" items="${commentReportServer.allCommentReports}">
-            <option  value="${commentReport.member.memNo} ${commentReport.trainerNo} ${commentReport.privateTrainingAppointmentForm.ptaNo} ${commentReport.crContext} ${commentReport.crStatus} ${commentReport.crDate}">${commentReport.crNo}</option>
+            <option  value="${commentReport.member.memNo} ${commentReport.trainer.trainerNo} ${commentReport.privateTrainingAppointmentForm.ptaNo} ${commentReport.crContext} ${commentReport.crStatus} ${commentReport.crDate}">${commentReport.crNo}</option>
         </c:forEach>
     </select>
     <button type="submit">提交</button>

@@ -11,7 +11,7 @@
 <form method="POST" ACTION="${pageContext.request.contextPath}/privatetrainingappointmentform">
     <select name="Type">
         <c:forEach var="privateTrainingAppointmentForm" items="${privateTrainingAppointmentFormServer.allPrivateTrainingAppointmentForms}">
-            <option  value="${privateTrainingAppointmentForm.member.memNo} ${privateTrainingAppointmentForm.trainerNo} ${privateTrainingAppointmentForm.ptaClass}">${privateTrainingAppointmentForm.ptaNo}</option>
+            <option  value="${privateTrainingAppointmentForm.member.memNo} ${privateTrainingAppointmentForm.trainer.trainerNo} ${privateTrainingAppointmentForm.ptaClass}">${privateTrainingAppointmentForm.ptaNo}</option>
         </c:forEach>
     </select>
     <button type="submit">提交</button>
