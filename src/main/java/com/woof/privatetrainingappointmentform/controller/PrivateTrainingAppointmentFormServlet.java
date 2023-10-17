@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.woof.privatetrainingappointmentform.service.PrivateTrainingAppointmentFormService;
 import com.woof.privatetrainingappointmentform.service.PrivateTrainingAppointmentFormServiceImpl;
+import com.woof.member.entity.Member;
+import com.woof.member.service.MemberService;
+import com.woof.member.service.MemberServiceImpl;
 
 @WebServlet("/privatetrainingappointmentform")
 public class PrivateTrainingAppointmentFormServlet extends HttpServlet {
@@ -36,4 +39,12 @@ public class PrivateTrainingAppointmentFormServlet extends HttpServlet {
 		System.out.println(privateTrainingAppointmentFormService.getAllPrivateTrainingAppointmentForms());
 	}
 
+	private void addPrivateTrainingAppointmentForm(HttpServletRequest request , HttpServletResponse response) {
+		
+		Integer memNo = Integer.valueOf(request.getParameter("member"));
+		MemberService memberService = new MemberServiceImpl();
+		Member member = memberService.findMemberByNo(memNo);
+		//剩下等trainer
+		
+	}
 }

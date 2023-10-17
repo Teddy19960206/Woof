@@ -10,7 +10,7 @@ public interface CommentReportService {
 	
 	CommentReport updateCommentReport(CommentReport commentReport);
 
-	CommentReport findCommentReportByNo(Integer crNo);
+	CommentReport findCommentReportByCrNo(Integer crNo);
 	
 	List<CommentReport> getAllCommentReports();
 }

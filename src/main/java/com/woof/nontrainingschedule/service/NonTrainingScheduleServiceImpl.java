@@ -48,7 +48,7 @@ public class NonTrainingScheduleServiceImpl implements NonTrainingScheduleServic
 	}
 
 	@Override
-	public NonTrainingSchedule findNonTrainingScheduleByNo(Integer ntsNo) {
+	public NonTrainingSchedule findNonTrainingScheduleByNtsNo(Integer ntsNo) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		session.beginTransaction();
 

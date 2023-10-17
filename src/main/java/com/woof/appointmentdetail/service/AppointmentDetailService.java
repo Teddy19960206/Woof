@@ -11,7 +11,7 @@ public interface AppointmentDetailService {
 	
 //	void deleteAppointmentDetail(Integer adNo);
 	
-	AppointmentDetail findAppointmentDetailByNo(Integer adNo);
+	AppointmentDetail findAppointmentDetailByAdNo(Integer adNo);
 	
 	List<AppointmentDetail> getAllAppointmentDetails();
 }

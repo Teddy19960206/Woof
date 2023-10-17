@@ -10,7 +10,7 @@ public interface NonTrainingScheduleService {
 
 	NonTrainingSchedule updateNonTrainingSchedule(NonTrainingSchedule nonTrainingSchedule);
 
-	NonTrainingSchedule findNonTrainingScheduleByNo(Integer ntsNo);
+	NonTrainingSchedule findNonTrainingScheduleByNtsNo(Integer ntsNo);
 
 	List<NonTrainingSchedule> getAllNonTrainingSchedules();
 }

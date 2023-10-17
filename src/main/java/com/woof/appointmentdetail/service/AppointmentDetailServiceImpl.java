@@ -54,7 +54,7 @@ public class AppointmentDetailServiceImpl implements AppointmentDetailService{
 //	}
 
 	@Override
-	public AppointmentDetail findAppointmentDetailByNo(Integer adNo) {
+	public AppointmentDetail findAppointmentDetailByAdNo(Integer adNo) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		session.beginTransaction();
 		

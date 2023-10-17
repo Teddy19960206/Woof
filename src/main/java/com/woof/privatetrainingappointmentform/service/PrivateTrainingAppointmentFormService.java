@@ -9,7 +9,7 @@ public interface PrivateTrainingAppointmentFormService {
 	
 	PrivateTrainingAppointmentForm updatePrivateTrainingAppointmentForm(PrivateTrainingAppointmentForm privateTrainingAppointmentForm);
 	
-	PrivateTrainingAppointmentForm findPrivateTrainingAppointmentFormByNo(Integer ptaNo);
+	PrivateTrainingAppointmentForm findPrivateTrainingAppointmentFormByPtaNo(Integer ptaNo);
 	
 	List<PrivateTrainingAppointmentForm> getAllPrivateTrainingAppointmentForms();
 }
