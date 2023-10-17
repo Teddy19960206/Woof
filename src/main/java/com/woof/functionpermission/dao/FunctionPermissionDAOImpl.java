@@ -17,14 +17,14 @@ public class FunctionPermissionDAOImpl implements FunctionPermissionDAO {
 	}
 
 	@Override
-	public int insert(FunctionPermission functionpermission) {
-		return (Integer) getSession().save(functionpermission);
+	public int insert(FunctionPermission functionPermission) {
+		return (Integer) getSession().save(functionPermission);
 	}
 
 	@Override
-	public int update(FunctionPermission functionpermission) {
+	public int update(FunctionPermission functionPermission) {
 		try {
-			getSession().update(functionpermission);
+			getSession().update(functionPermission);
 			return 1;
 		} catch (Exception e) {
 			return -1;
@@ -33,9 +33,9 @@ public class FunctionPermissionDAOImpl implements FunctionPermissionDAO {
 
 	@Override
 	public int delete(Integer funcNo) {
-		FunctionPermission functionpermission = getSession().get(FunctionPermission.class, funcNo);
-		if (functionpermission != null) {
-			getSession().delete(functionpermission);
+		FunctionPermission functionPermission = getSession().get(FunctionPermission.class, funcNo);
+		if (functionPermission != null) {
+			getSession().delete(functionPermission);
 			return 1;
 		} else {
 			return -1;
@@ -43,14 +43,15 @@ public class FunctionPermissionDAOImpl implements FunctionPermissionDAO {
 	}
 
 	@Override
-	public FunctionPermission findbyfuncNo(Integer funcNo) {
+	public FunctionPermission findByFuncNo(Integer funcNo) {
 		return getSession().get(FunctionPermission.class, funcNo);
 	}
 
 	@Override
 	public List<FunctionPermission> getAll() {
-		return getSession().createQuery("FROM Functionpermission", FunctionPermission.class).list();
+		return getSession().createQuery("FROM FunctionPermission", FunctionPermission.class).list();
 	}
+
 }
 
 //package com.woof.functionpermission.dao;

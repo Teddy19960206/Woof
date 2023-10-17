@@ -5,14 +5,14 @@ import java.util.*;
 import com.woof.functionpermission.entity.FunctionPermission;
 
 public interface FunctionPermissionDAO {
-	int insert(FunctionPermission functionPermissionVO);
+	int insert(FunctionPermission functionPermission);
 
-	int update(FunctionPermission functionPermissionVO);
+	int update(FunctionPermission functionPermission);
 
 	int delete(Integer funcNo);
 
-	FunctionPermission findbyfuncNo(Integer funcNo);
-
 	List<FunctionPermission> getAll();
+
+	FunctionPermission findByFuncNo(Integer funcNo);
 
 }

@@ -35,6 +35,7 @@
 		<mapping class="com.woof.member.entity.Member"/>
 		<mapping class="com.woof.commentreport.entity.CommentReport"/>
 		<mapping class="com.woof.classorder.entity.ClassOrder"/>
+		<mapping class="com.woof.functionpermission.entity.FunctionPermission"/>
 
     </session-factory>
 </hibernate-configuration>
