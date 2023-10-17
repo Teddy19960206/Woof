@@ -2,28 +2,27 @@ package com.woof.trainer.dao;
 
 import java.util.List;
 
-
+import com.woof.promotionactivity.entity.PromotionActivity;
 import com.woof.trainer.entity.Trainer;
 
 public interface TrainerDAO {
-//	void insert(TrainerVO trainerVO);
+//	void insert(Trainer trainerVO);
 //
-//	void update(TrainerVO trainerVO);
+//	void update(Trainer trainerVO);
 //
-//	void delete(TrainerVO trainerVO);
+//	void delete(Trainer trainerVO);
 //
-//	TrainerVO findByTrainerNo(Integer trainerNo);
-//
-//	List<TrainerVO> getAll();
-	int insert(Trainer trainerVO);
+//	Trainer findByTrainerNo(Integer trainerNo);
 
-	 int update(Trainer trainerVO);
+//	List<Trainer> getAll();
+//	
+	int insert(Trainer trainer);
 
-	 int delete(Integer trainerNo);
+	int update(Trainer trainer);
 
-	 Trainer getById(Integer trainerNo);
+//	int delete(Integer trainerNo);
 
-	 List<Trainer> getAll();
+	Trainer findByTrainerNo(Integer trainerNo);
 
-	 long getTotal();
+	List<Trainer> getAll();
 }
