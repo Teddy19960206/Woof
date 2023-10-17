@@ -105,6 +105,31 @@ public class Member implements java.io.Serializable {
 		this.memGender = memGender;
 	}
 
+	public Set<PrivateTrainingAppointmentForm> getGetPrivateTrainingAppointmentForms() {
+		return getPrivateTrainingAppointmentForms;
+	}
+
+	public void setGetPrivateTrainingAppointmentForms(
+			Set<PrivateTrainingAppointmentForm> getPrivateTrainingAppointmentForms) {
+		this.getPrivateTrainingAppointmentForms = getPrivateTrainingAppointmentForms;
+	}
+
+	public Set<ClassOrder> getGetClassOrders() {
+		return getClassOrders;
+	}
+
+	public void setGetClassOrders(Set<ClassOrder> getClassOrders) {
+		this.getClassOrders = getClassOrders;
+	}
+
+	public Set<CommentReport> getGetCommentReports() {
+		return getCommentReports;
+	}
+
+	public void setGetCommentReports(Set<CommentReport> getCommentReports) {
+		this.getCommentReports = getCommentReports;
+	}
+
 	public byte[] getMemPhoto() {
 		return memPhoto;
 	}
