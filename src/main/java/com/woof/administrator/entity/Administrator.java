@@ -4,15 +4,19 @@ import java.io.Serializable;
 import java.sql.Date;
 import java.util.Arrays;
 import java.util.Objects;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.google.gson.annotations.Expose;
+import com.woof.trainer.entity.Trainer;
 
 @Entity
 @Table(name = "administrator")
@@ -22,6 +26,11 @@ public class Administrator implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ADMIN_NO", updatable = false, nullable = false)
 	private Integer adminNo;
+	
+	@Expose
+	@OneToMany(mappedBy = "administrator" , cascade = CascadeType.ALL)
+	private Set<Trainer> trainers;
+	
 	@Expose
 	@Column(name = "ADMIN_NAME", nullable = false)
 	private String adminName;
@@ -71,6 +80,14 @@ public class Administrator implements Serializable {
 
 	public void setAdminNo(Integer adminNo) {
 		this.adminNo = adminNo;
+	}
+
+	public Set<Trainer> getTrainers() {
+		return trainers;
+	}
+
+	public void setTrainers(Set<Trainer> trainers) {
+		this.trainers = trainers;
 	}
 
 	public String getAdminName() {

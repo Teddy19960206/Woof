@@ -35,15 +35,15 @@ public class Trainer implements Serializable {
 	
 	@Expose
 	@OneToMany(mappedBy = "trainer" , cascade = CascadeType.ALL)
-	private Set<NonTrainingSchedule> nonTrainingSchedule;
+	private Set<NonTrainingSchedule> nonTrainingSchedules;
 	
 	@Expose
 	@OneToMany(mappedBy = "trainer" , cascade = CascadeType.ALL)
-	private Set<PrivateTrainingAppointmentForm> privateTrainingAppointmentForm;
+	private Set<PrivateTrainingAppointmentForm> privateTrainingAppointmentForms;
 	
 	@Expose
 	@OneToMany(mappedBy = "trainer" , cascade = CascadeType.ALL)
-	private Set<CommentReport> commentReport;
+	private Set<CommentReport> commentReports;
 	
 	@Expose
 	@OneToOne
@@ -60,6 +60,30 @@ public class Trainer implements Serializable {
 	private Set<Skill> skills;
 
 	public Trainer() {
+	}
+	
+	public Set<NonTrainingSchedule> getNonTrainingSchedules() {
+		return nonTrainingSchedules;
+	}
+
+	public void setNonTrainingSchedules(Set<NonTrainingSchedule> nonTrainingSchedules) {
+		this.nonTrainingSchedules = nonTrainingSchedules;
+	}
+
+	public Set<PrivateTrainingAppointmentForm> getPrivateTrainingAppointmentForms() {
+		return privateTrainingAppointmentForms;
+	}
+
+	public void setPrivateTrainingAppointmentForms(Set<PrivateTrainingAppointmentForm> privateTrainingAppointmentForms) {
+		this.privateTrainingAppointmentForms = privateTrainingAppointmentForms;
+	}
+
+	public Set<CommentReport> getCommentReports() {
+		return commentReports;
+	}
+
+	public void setCommentReports(Set<CommentReport> commentReports) {
+		this.commentReports = commentReports;
 	}
 
 	public Integer getTrainerNo() {
