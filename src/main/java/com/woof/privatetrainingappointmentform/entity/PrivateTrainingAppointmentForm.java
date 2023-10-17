@@ -18,6 +18,7 @@ import com.google.gson.annotations.Expose;
 import com.woof.appointmentdetail.entity.AppointmentDetail;
 import com.woof.commentreport.entity.CommentReport;
 import com.woof.member.entity.Member;
+import com.woof.trainer.entity.Trainer;
 
 @Entity
 @Table(name = "private_training_appointment_form")
@@ -41,9 +42,9 @@ public class PrivateTrainingAppointmentForm {
 	@JoinColumn(name = "MEM_NO" , referencedColumnName = "MEM_NO")
 	private Member member;
 	
-	@Expose
-	@Column(name="TRAINER_NO" , nullable = false)
-	private Integer trainerNo;
+	@ManyToOne
+	@JoinColumn(name = "TRAINER_NO" , referencedColumnName = "TRAINER_NO")
+	private Trainer trainer;
 	
 	@Expose
 	@Column(name="PTA_CLASS" , nullable = false , columnDefinition = "TINYINT")
@@ -85,12 +86,15 @@ public class PrivateTrainingAppointmentForm {
 		this.member = member;
 	}
 
-	public Integer getTrainerNo() {
-		return trainerNo;
+	
+	public Trainer getTrainer() {
+		return trainer;
 	}
-	public void setTrainerNo(Integer trainerNo) {
-		this.trainerNo = trainerNo;
+
+	public void setTrainer(Trainer trainer) {
+		this.trainer = trainer;
 	}
+
 	public Integer getPtaClass() {
 		return ptaClass;
 	}
@@ -114,8 +118,7 @@ public class PrivateTrainingAppointmentForm {
 	}
 	@Override
 	public String toString() {
-		return "PrivateTrainingAppointmentForm [ptaNo=" + ptaNo + ", memNo=" + (member != null ? member.getMemNo() : "N/A") + ", trainerNo=" + trainerNo
-				+ ", ptaClass=" + ptaClass + "]";
+		return "PrivateTrainingAppointmentForm [ptaNo=" + ptaNo + ", memNo=" + (member != null ? member.getMemNo() : "N/A") + ", trainerNo=" + (trainer != null ? trainer.getTrainerNo() : "N/A") + ", ptaClass=" + ptaClass + "]";
 	}
 
 	
