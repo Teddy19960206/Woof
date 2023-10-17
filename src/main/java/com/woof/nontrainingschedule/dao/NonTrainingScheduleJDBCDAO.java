@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.woof.nontrainingschedule.entity.NonTrainingSchedule;
 
-public interface NonTrainingScheduleDAO {
+public interface NonTrainingScheduleJDBCDAO {
 
 	void insert (NonTrainingSchedule nonTrainingScheduleVO);
 	void update (NonTrainingSchedule nonTrainingScheduleVO);

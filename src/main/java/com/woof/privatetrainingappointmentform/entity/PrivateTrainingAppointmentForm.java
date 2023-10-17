@@ -9,11 +9,15 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.google.gson.annotations.Expose;
 import com.woof.appointmentdetail.entity.AppointmentDetail;
+import com.woof.commentreport.entity.CommentReport;
+import com.woof.member.entity.Member;
 
 @Entity
 @Table(name = "private_training_appointment_form")
@@ -30,8 +34,12 @@ public class PrivateTrainingAppointmentForm {
 	private Set<AppointmentDetail> appointmentDetails;
 	
 	@Expose
-	@Column(name="MEM_NO" , nullable = false)
-	private Integer memNo;
+	@OneToMany(mappedBy = "privateTrainingAppointmentForm" , cascade = CascadeType.ALL)
+	private Set<CommentReport> commentReports;
+	
+	@ManyToOne
+	@JoinColumn(name = "MEM_NO" , referencedColumnName = "MEM_NO")
+	private Member member;
 	
 	@Expose
 	@Column(name="TRAINER_NO" , nullable = false)
@@ -60,12 +68,23 @@ public class PrivateTrainingAppointmentForm {
 		this.appointmentDetails = appointmentDetails;
 	}
 
-	public Integer getMemNo() {
-		return memNo;
+	
+	public Set<CommentReport> getCommentReports() {
+		return commentReports;
 	}
-	public void setMemNo(Integer memNo) {
-		this.memNo = memNo;
+
+	public void setCommentReports(Set<CommentReport> commentReports) {
+		this.commentReports = commentReports;
 	}
+
+	public Member getMember() {
+		return member;
+	}
+
+	public void setMember(Member member) {
+		this.member = member;
+	}
+
 	public Integer getTrainerNo() {
 		return trainerNo;
 	}
@@ -80,7 +99,7 @@ public class PrivateTrainingAppointmentForm {
 	}
 	@Override
 	public int hashCode() {
-		return Objects.hash(memNo, ptaClass, ptaNo, trainerNo);
+		return Objects.hash(ptaNo);
 	}
 	@Override
 	public boolean equals(Object obj) {
@@ -91,11 +110,11 @@ public class PrivateTrainingAppointmentForm {
 		if (getClass() != obj.getClass())
 			return false;
 		PrivateTrainingAppointmentForm other = (PrivateTrainingAppointmentForm) obj;
-		return Objects.equals(memNo, other.memNo);
+		return Objects.equals(ptaNo, other.ptaNo);
 	}
 	@Override
 	public String toString() {
-		return "PrivateTrainingAppointmentForm [ptaNo=" + ptaNo + ", memNo=" + memNo + ", trainerNo=" + trainerNo
+		return "PrivateTrainingAppointmentForm [ptaNo=" + ptaNo + ", memNo=" + (member != null ? member.getMemNo() : "N/A") + ", trainerNo=" + trainerNo
 				+ ", ptaClass=" + ptaClass + "]";
 	}
 

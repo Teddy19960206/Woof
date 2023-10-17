@@ -33,6 +33,8 @@
         <mapping class="com.woof.privatetrainingappointmentform.entity.PrivateTrainingAppointmentForm"/>
 		<mapping class="com.woof.chatroom.entity.Chatroom"/>
 		<mapping class="com.woof.member.entity.Member"/>
+		<mapping class="com.woof.commentreport.entity.CommentReport"/>
+		<mapping class="com.woof.classorder.entity.ClassOrder"/>
 
     </session-factory>
 </hibernate-configuration>

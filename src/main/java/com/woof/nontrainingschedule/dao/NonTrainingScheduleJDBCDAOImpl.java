@@ -11,7 +11,7 @@ import java.util.List;
 import com.woof.nontrainingschedule.entity.NonTrainingSchedule;
 import com.woof.util.Util;
 
-public class NonTrainingScheduleDAOImpl implements NonTrainingScheduleDAO{
+public class NonTrainingScheduleJDBCDAOImpl implements NonTrainingScheduleJDBCDAO{
 
 	public static final String INSERT_STMT = "INSERT INTO non_training_schedule (trainer_no , nts_date) VALUES (? , ?)";
 	public static final String UPDATE_STMT = "UPDATE non_training_schedule SET trainer_no = ?, nts_date = ? WHERE nts_no = ?";

@@ -1,15 +1,15 @@
 package com.woof.classorder.dao;
 
 import java.util.List;
-
 import com.woof.classorder.entity.ClassOrder;
 
 public interface ClassOrderDAO {
 
-	void insert (ClassOrder classOrderVO);
-	void update (ClassOrder classOrderVO);
-	void delete (ClassOrder classOrderVO);
+int insert(ClassOrder classOrder);
 	
-	ClassOrder findByCoNo(Integer coNo);
+	int update(ClassOrder classOrder);
+	
+	ClassOrder findByAdNo(Integer adNo);
+	
 	List<ClassOrder> getAll();
 }
