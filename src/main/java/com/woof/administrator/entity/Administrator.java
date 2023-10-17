@@ -11,41 +11,58 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import com.google.gson.annotations.Expose;
+
 @Entity
-@Table(name="administrator")
-public class AdministratorVO implements Serializable {
+@Table(name = "administrator")
+public class Administrator implements Serializable {
+	@Expose
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="ADMIN_NO",updatable=false ,nullable=false)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "ADMIN_NO", updatable = false, nullable = false)
 	private Integer adminNo;
-	@Column(name="ADMIN_NAME",nullable=false)
+	@Expose
+	@Column(name = "ADMIN_NAME", nullable = false)
 	private String adminName;
-	@Column(name="ADMIN_GENDER",nullable=false ,columnDefinition="CHAR")
+	@Expose
+	@Column(name = "ADMIN_GENDER", nullable = false, columnDefinition = "CHAR")
 	private String adminGender;
-	@Column(name="ADMIN_PHOTO" ,columnDefinition="MEDIUMBLOB")
+	@Expose
+	@Column(name = "ADMIN_PHOTO", columnDefinition = "MEDIUMBLOB")
 	private byte[] adminPhoto;
-	@Column(name="ADMIN_EMAIL" ,nullable=false)
+	@Expose
+	@Column(name = "ADMIN_EMAIL", nullable = false)
 	private String adminEmail;
-	@Column(name="ADMIN_PASSWORD", nullable=false)
+	@Expose
+	@Column(name = "ADMIN_PASSWORD", nullable = false)
 	private String adminPassword;
-	@Column(name="ADMIN_TEL" ,nullable=false)
+	@Expose
+	@Column(name = "ADMIN_TEL", nullable = false)
 	private String adminTel;
-	@Column(name="ADMIN_ADDRESS" ,nullable=false)
+	@Expose
+	@Column(name = "ADMIN_ADDRESS", nullable = false)
 	private String adminAddress;
-	@Column(name="ADMIN_BD")
+	@Expose
+	@Column(name = "ADMIN_BD")
 	private Date adminBd;
-	@Column(name="EMERGENCY_CONTACTNAME" ,nullable=false)
+	@Expose
+	@Column(name = "EMERGENCY_CONTACTNAME", nullable = false)
 	private String emergencyContactName;
-	@Column(name="EMERGENCYCONTACTEL",nullable=false)
-	private Integer emergencyContactel;
-	@Column(name="ADMIN_HD",nullable=false)
+	@Expose
+	@Column(name = "EMERGENCY_CONTACTEL", nullable = false)
+	private String emergencyContactel;
+	@Expose
+	@Column(name = "ADMIN_HD", nullable = false)
 	private Date adminHd;
-	@Column(name="ADMIN_RD")
+	@Expose
+	@Column(name = "ADMIN_RD")
 	private Date adminRd;
-	@Column(name="ADMIN_STATUS",nullable=false,columnDefinition="TINYINT")
+	@Expose
+	@Column(name = "ADMIN_STATUS", nullable = false, columnDefinition = "TINYINT")
 	private Integer adminStatus;
 
-	public AdministratorVO() {
+	public Administrator() {
 	}
 
 	public Integer getAdminNo() {
@@ -128,11 +145,11 @@ public class AdministratorVO implements Serializable {
 		this.emergencyContactName = emergencyContactName;
 	}
 
-	public Integer getEmergencyContactel() {
+	public String getEmergencyContactel() {
 		return emergencyContactel;
 	}
 
-	public void setEmergencyContactel(Integer emergencyContactel) {
+	public void setEmergencyContactel(String emergencyContactel) {
 		this.emergencyContactel = emergencyContactel;
 	}
 
@@ -178,7 +195,7 @@ public class AdministratorVO implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		AdministratorVO other = (AdministratorVO) obj;
+		Administrator other = (Administrator) obj;
 		return Objects.equals(adminAddress, other.adminAddress) && Objects.equals(adminBd, other.adminBd)
 				&& Objects.equals(adminEmail, other.adminEmail) && Objects.equals(adminGender, other.adminGender)
 				&& Objects.equals(adminHd, other.adminHd) && Objects.equals(adminName, other.adminName)

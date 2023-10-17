@@ -1,4 +1,14 @@
-//package com.woof.administrator.dao;
+package com.woof.administrator.dao;
+
+import java.util.List;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+
+import com.woof.administrator.entity.Administrator;
+
+
+
 //
 //import java.io.FileInputStream;
 //import java.io.IOException;
@@ -14,7 +24,56 @@
 //import com.woof.groupcourseorder.model.GroupCourseOrderVO;
 //import com.woof.util.Util;
 //
-//public class AdministratorDAOImpl implements AdministratorDAO {
+public class AdministratorDAOImpl implements AdministratorDAO {
+	private SessionFactory factory;
+
+	public AdministratorDAOImpl(SessionFactory factory) {
+		this.factory = factory;
+	}
+
+	public Session getSession() {
+		return factory.getCurrentSession();
+	}
+
+	@Override
+	public int insert(Administrator administrator) {
+		return (Integer) getSession().save(administrator);
+	}
+
+	@Override
+	public int update(Administrator administrator) {
+		try {
+			getSession().update(administrator);
+			return 1;
+		} catch (Exception e) {
+			return -1;
+		}
+	}
+
+//	@Override
+//	public int delete(Integer adminNo) {
+//		Administrator administrator = getSession().get(Administrator.class, adminNo);
+//		if(administrator != null) {
+//			getSession().delete(administrator);
+//			return 1;
+//		}else {
+//			return -1;
+//		}
+//	}
+
+	@Override
+	public Administrator findByAdminNo(Integer adminNo) {
+		return getSession().get(Administrator.class, adminNo);
+	}
+
+	@Override
+	public List<Administrator> getAll() {
+		return getSession().createQuery("FROM Administrator", Administrator.class).list();
+	}
+}
+	
+	
+
 //	 private static final String INSERT_STMT = "INSERT INTO administrator ( admin_name , admin_gender , admin_photo,admin_email,admin_password,admin_tel,admin_address,admin_bd,emergency_contactname,emergency_contactel,admin_hd,admin_rd) VALUES (? , ? , ? , ?,?,?,?,?,?,?,?,?)";
 //
 //	    private static final String UPDATE_STMT = "UPDATE administrator SET admin_name=?,admin_gender=?,admin_photo=?,admin_email=?,admin_password=?,admin_tel=?,admin_address=?,admin_bd=?,emergency_contactname=?,emergency_contactel=?,admin_hd=?,admin_rd=?,admin_status=? WHERE admin_no=?";
