@@ -25,9 +25,25 @@ public class NonTrainingSchedule {
 	@Column(name="NTS_NO" , updatable = false , nullable = false)
 	private Integer ntsNo;
 	
-	@ManyToOne
-	@JoinColumn(name = "TRAINER_NO" , referencedColumnName = "TRAINER_NO")
-	private Trainer trainer;
+	//==============================================//
+//	@ManyToOne
+//	@JoinColumn(name = "TRAINER_NO" , referencedColumnName = "TRAINER_NO")
+//	private Trainer trainer;
+	
+	@Expose
+	@Column(name="TRAINER_NO" , nullable = false)
+	private Integer trainerNo;
+
+	public Integer getTrainerNo() {
+		return trainerNo;
+	}
+
+	public void setTrainerNo(Integer trainerNo) {
+		this.trainerNo = trainerNo;	
+	}
+	
+	// Trainer做好後, 刪掉or註解拔掉
+	//===========================================//
 	
 	@Expose
 	@Column(name="NTS_DATE")
@@ -44,13 +60,13 @@ public class NonTrainingSchedule {
 		this.ntsNo = ntsNo;
 	}
 	
-	public Trainer getTrainer() {
-		return trainer;
-	}
-
-	public void setTrainer(Trainer trainer) {
-		this.trainer = trainer;
-	}
+//	public Trainer getTrainer() {
+//		return trainer;
+//	}
+//
+//	public void setTrainer(Trainer trainer) {
+//		this.trainer = trainer;
+//	}
 
 	public Date getNtsDate() {
 		return ntsDate;
@@ -73,10 +89,10 @@ public class NonTrainingSchedule {
 		NonTrainingSchedule other = (NonTrainingSchedule) obj;
 		return Objects.equals(ntsNo, other.ntsNo);
 	}
-	@Override
-	public String toString() {
-		return "NonTrainingScheduleVO [ntsNo=" + ntsNo + ", trainerNo=" + (trainer != null ? trainer.getTrainerNo() : "N/A") + ", ntsDate=" + ntsDate + "]";
-	}
+//	@Override
+//	public String toString() {
+//		return "NonTrainingScheduleVO [ntsNo=" + ntsNo + ", trainerNo=" + (trainer != null ? trainer.getTrainerNo() : "N/A") + ", ntsDate=" + ntsDate + "]";
+//	}
 	
 	
 	

@@ -42,9 +42,25 @@ public class PrivateTrainingAppointmentForm {
 	@JoinColumn(name = "MEM_NO" , referencedColumnName = "MEM_NO")
 	private Member member;
 	
-	@ManyToOne
-	@JoinColumn(name = "TRAINER_NO" , referencedColumnName = "TRAINER_NO")
-	private Trainer trainer;
+	//==========================================//
+//	@ManyToOne
+//	@JoinColumn(name = "TRAINER_NO" , referencedColumnName = "TRAINER_NO")
+//	private Trainer trainer;
+	
+	@Expose
+	@Column(name="TRAINER_NO" , nullable = false)
+	private Integer trainerNo;
+
+	public Integer getTrainerNo() {
+		return trainerNo;
+	}
+
+	public void setTrainerNo(Integer trainerNo) {
+		this.trainerNo = trainerNo;	
+	}
+	
+	// Trainer做好後, 刪掉or註解拔掉
+	//===========================================//
 	
 	@Expose
 	@Column(name="PTA_CLASS" , nullable = false , columnDefinition = "TINYINT")
@@ -87,13 +103,13 @@ public class PrivateTrainingAppointmentForm {
 	}
 
 	
-	public Trainer getTrainer() {
-		return trainer;
-	}
-
-	public void setTrainer(Trainer trainer) {
-		this.trainer = trainer;
-	}
+//	public Trainer getTrainer() {
+//		return trainer;
+//	}
+//
+//	public void setTrainer(Trainer trainer) {
+//		this.trainer = trainer;
+//	}
 
 	public Integer getPtaClass() {
 		return ptaClass;
@@ -116,10 +132,10 @@ public class PrivateTrainingAppointmentForm {
 		PrivateTrainingAppointmentForm other = (PrivateTrainingAppointmentForm) obj;
 		return Objects.equals(ptaNo, other.ptaNo);
 	}
-	@Override
-	public String toString() {
-		return "PrivateTrainingAppointmentForm [ptaNo=" + ptaNo + ", memNo=" + (member != null ? member.getMemNo() : "N/A") + ", trainerNo=" + (trainer != null ? trainer.getTrainerNo() : "N/A") + ", ptaClass=" + ptaClass + "]";
-	}
+//	@Override
+//	public String toString() {
+//		return "PrivateTrainingAppointmentForm [ptaNo=" + ptaNo + ", memNo=" + (member != null ? member.getMemNo() : "N/A") + ", trainerNo=" + (trainer != null ? trainer.getTrainerNo() : "N/A") + ", ptaClass=" + ptaClass + "]";
+//	}
 
 	
 }
