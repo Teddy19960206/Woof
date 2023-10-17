@@ -21,7 +21,7 @@ public class NonTrainingSchedule {
 	@Column(name="TRAINER_NO" , nullable = false)
 	private Integer trainerNo;
 	
-	@Column(name="NTS_NO")
+	@Column(name="NTS_DATE")
 	private Date ntsDate;
 	
 	public NonTrainingSchedule() {

@@ -35,8 +35,8 @@ public class ClassOrderDAOImpl implements ClassOrderDAO{
 	}
 
 	@Override
-	public ClassOrder findByAdNo(Integer adNo) {
-		return getSession().get(ClassOrder.class, adNo);
+	public ClassOrder findByCoNo(Integer coNo) {
+		return getSession().get(ClassOrder.class, coNo);
 	}
 
 	@Override

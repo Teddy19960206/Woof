@@ -9,7 +9,7 @@ int insert(ClassOrder classOrder);
 	
 	int update(ClassOrder classOrder);
 	
-	ClassOrder findByAdNo(Integer adNo);
+	ClassOrder findByCoNo(Integer coNo);
 	
 	List<ClassOrder> getAll();
 }
