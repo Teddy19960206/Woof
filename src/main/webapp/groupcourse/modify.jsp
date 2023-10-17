@@ -37,7 +37,7 @@
     <br />
 
     <label>課程內容：</label>
-    <textarea name="content">${groupCourse.courseContent}</textarea>
+    <textarea name="content" >${groupCourse.courseContent}</textarea>
     <br />
 
     <label>課程狀態：</label>

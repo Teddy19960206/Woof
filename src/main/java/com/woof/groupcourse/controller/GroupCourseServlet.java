@@ -1,5 +1,7 @@
 package com.woof.groupcourse.controller;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.woof.classtype.entity.ClassType;
 import com.woof.classtype.service.ClassTypeService;
 import com.woof.classtype.service.ClassTypeServiceImpl;
@@ -26,7 +28,7 @@ import java.util.List;
 @MultipartConfig
 public class GroupCourseServlet extends HttpServlet {
 
-    private GroupCourseService groupCourseService;
+    private GroupCourseServiceImpl groupCourseService;
 
     @Override
     public void init() throws ServletException {
@@ -59,6 +61,9 @@ public class GroupCourseServlet extends HttpServlet {
                 case "modified":
                     modifyGroupCourse(request,response);
                     return;
+                case "getByClassType":
+                    getAllGroupCourse(request, response);
+                    return;
                 default:
                     forwardPath = "/classtype/select_page.jsp";
             }
@@ -66,6 +71,20 @@ public class GroupCourseServlet extends HttpServlet {
             forwardPath = "/classtype/select_page.jsp";
         }
         request.getRequestDispatcher(forwardPath).forward(request,response);
+    }
+
+    private void getAllGroupCourse(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+        request.setCharacterEncoding("UTF-8");
+        String classtype = request.getParameter("classType");
+
+        List<GroupCourse> groupCourseList = groupCourseService.getAllbyCtNo(Integer.valueOf(classtype));
+        Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+        String json = gson.toJson(groupCourseList);
+        response.setContentType("application/json;charset=UTF-8");
+
+        System.out.println(json);
+        response.getWriter().write(json);
     }
 
     private void getAllSelect(HttpServletRequest request , HttpServletResponse response){
@@ -122,13 +141,10 @@ public class GroupCourseServlet extends HttpServlet {
     private void modifyGroupCourse(HttpServletRequest request , HttpServletResponse response) throws IOException, ServletException {
 
         Integer gcNo = Integer.valueOf(request.getParameter("groupCourseNo"));
-//
-//        SkillService skillService = new SkillServiceImpl();
-//        Integer skillNo = Integer.valueOf(request.getParameter("skill"));
-//        Skill skill = skillService.findBySkillNo(skillNo);
-            Skill skill =new Skill();
-            skill.setSkillNo(1);
-            skill.setSkillName("攻擊行為矯正");
+
+        SkillService skillService = new SkillServiceImpl();
+        Integer skillNo = Integer.valueOf(request.getParameter("skill"));
+        Skill skill = skillService.findBySkillNo(skillNo);
 
         ClassTypeService classTypeService = new ClassTypeServiceImpl();
         Integer ctNo = Integer.valueOf(request.getParameter("classType"));
@@ -136,17 +152,22 @@ public class GroupCourseServlet extends HttpServlet {
 
 
         byte[] bytes = null;
-        if (request.getPart("photo") != null){
-            Part filePart = request.getPart("photo");
+
+        Part filePart = request.getPart("photo");
+        if (filePart != null && filePart.getSize() > 0){
+
             bytes = PartParsebyte.partToByteArray(filePart);
 
+        }else{
+            bytes = groupCourseService.getPhotoById(Integer.valueOf(request.getParameter("groupCourseNo")));
         }
 
         String content = request.getParameter("content");
+        System.out.println("==========");
 
         Integer status = Integer.valueOf(request.getParameter("status"));
 
-
+        System.out.println(content);
         int result = groupCourseService.modify(gcNo, skill, classTypeByNO, bytes, content,status);
 
         if ( result == 1){

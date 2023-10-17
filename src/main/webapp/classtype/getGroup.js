@@ -8,7 +8,7 @@ document.getElementById("button").onclick = function (){
 }
 async function fetchData(){
 
-    const url = "get?classType=" + document.getElementById("selectClass").value;
+    let url = `/${pathname}/groupcourse?action=getByClassType&classType=` + document.getElementById("selectClass").value;
 
     try{
         const response = await fetch(url);

@@ -13,5 +13,7 @@ public interface GroupCourseDAO {
 
     GroupCourse findbyGcNo(Integer gcNo);
 
+    List<GroupCourse> getGroupCourseByCtNo(Integer ctNo);
+
     List<GroupCourse> getAll();
 }

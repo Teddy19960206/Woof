@@ -4,6 +4,8 @@ import com.woof.classtype.entity.ClassType;
 import com.woof.groupcourse.entity.GroupCourse;
 import com.woof.skill.entity.Skill;
 
+import java.util.List;
+
 public interface GroupCourseService {
 
     int modify(Integer gcNo, Skill skill, ClassType classType , byte[] coursePhoto , String courseContent , Integer courseStatus);
@@ -11,5 +13,7 @@ public interface GroupCourseService {
     int addGroupCourse(Skill skill, ClassType classType , byte[] coursePhoto , String courseContent);
 
     GroupCourse findGroupCourseByNo(Integer gcNo);
+
+    List<GroupCourse> getAllbyCtNo(Integer ctNo);
 
 }

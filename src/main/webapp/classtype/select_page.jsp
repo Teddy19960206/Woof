@@ -9,7 +9,7 @@
 
 <%-- 取得所有 classtype 顯示在select裡，讓使用者可以選擇 --%>
 <jsp:useBean id="classTypeService" scope="page" class="com.woof.classtype.service.ClassTypeServiceImpl"/>
-<form method="POST" ACTION="${pageContext.request.contextPath}/classType">
+<form>
     <select name="Type" id="selectClass">
         <c:forEach var="classType" items="${classTypeService.allClassTypes}">
             <option  value="${classType.ctNo}">${classType.ctName}</option>
@@ -26,6 +26,7 @@
 
 <%-- 新增團體課程 --%>
 <a href="${pageContext.request.contextPath}/groupcourse?action=addpage"><button>新增團體課程</button></a>
+<a href="${pageContext.request.contextPath}/groupcourse/schedule?action=getAll"><button>查看報名資訊</button></a>
 
 
 

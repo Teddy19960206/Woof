@@ -1,10 +1,8 @@
 package com.woof.classtype.controller;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+
 import com.woof.classtype.service.ClassTypeService;
 import com.woof.classtype.service.ClassTypeServiceImpl;
-import com.woof.groupcourse.entity.GroupCourse;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,7 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Set;
 
 @WebServlet("/classtype/get")
 public class ClassTypeServlet extends HttpServlet {
@@ -49,17 +46,38 @@ public class ClassTypeServlet extends HttpServlet {
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        request.setCharacterEncoding("UTF-8");
-        String classtype = request.getParameter("classType");
-
-        Set<GroupCourse> groupCourseByCtNo = classTypeService.getGroupCourseByCtNo(Integer.valueOf(classtype));
-        Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
-        String json = gson.toJson(groupCourseByCtNo);
-        response.setContentType("application/json;charset=UTF-8");
-
-        response.getWriter().write(json);
-
+        String groupCourse = request.getParameter("action");
+        switch (groupCourse){
+            case "groupCourse":
+                getGroupCourse(request,response);
+                break;
+            case "groupSchedule":
+//                getGroupSchedule(request,response);
+                break;
+            default:
+                break;
+        }
 
     }
 
+
+    private void getGroupCourse(HttpServletRequest request , HttpServletResponse response) throws IOException {
+
+        request.setCharacterEncoding("UTF-8");
+        String classtype = request.getParameter("classType");
+
+//        Set<GroupCourse> groupCourseByCtNo = classTypeService.getGroupCourseByCtNo(Integer.valueOf(classtype));
+//        Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+//        String json = gson.toJson(groupCourseByCtNo);
+//        response.setContentType("application/json;charset=UTF-8");
+
+//        response.getWriter().write(json);
+    }
+
+    private void getGroupSchedule(HttpServletRequest request ,HttpServletResponse response) throws IOException{
+        request.setCharacterEncoding("UTF-8");
+        String classtype = request.getParameter("classType");
+
+//        classTypeService.getGroupCourseByCtNo(Integer.valueOf(classtype));
+    }
 }

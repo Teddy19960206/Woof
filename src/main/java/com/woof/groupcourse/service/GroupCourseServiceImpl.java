@@ -8,6 +8,8 @@ import com.woof.groupcourse.entity.GroupCourse;
 import com.woof.skill.entity.Skill;
 import com.woof.util.HibernateUtil;
 
+import java.util.List;
+
 public class GroupCourseServiceImpl implements GroupCourseService , AppService {
 
     private GroupCourseDAO dao;
@@ -26,8 +28,8 @@ public class GroupCourseServiceImpl implements GroupCourseService , AppService {
         groupCourse.setClassType(classType);
         if (coursePhoto !=null){
             groupCourse.setCoursePhoto(coursePhoto);
-        }else {
-            groupCourse.setCoursePhoto(null);
+        }else {      groupCourse.setCoursePhoto(null);
+
         }
 
         groupCourse.setCourseContent(courseContent);
@@ -53,6 +55,11 @@ public class GroupCourseServiceImpl implements GroupCourseService , AppService {
     public GroupCourse findGroupCourseByNo(Integer gcNo) {
         GroupCourse groupCourse = dao.findbyGcNo(gcNo);
         return groupCourse;
+    }
+
+    @Override
+    public List<GroupCourse> getAllbyCtNo(Integer ctNo) {
+        return dao.getGroupCourseByCtNo(ctNo);
     }
 
     public byte[] getPhotoById(Integer gcNo){
