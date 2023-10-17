@@ -1,3 +1,58 @@
+package com.woof.functionpermission.dao;
+
+import java.util.*;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import com.woof.functionpermission.entity.FunctionPermission;
+
+public class FunctionPermissionDAOImpl implements FunctionPermissionDAO {
+	private SessionFactory factory;
+
+	public FunctionPermissionDAOImpl(SessionFactory factory) {
+		this.factory = factory;
+	}
+
+	public Session getSession() {
+		return factory.getCurrentSession();
+	}
+
+	@Override
+	public int insert(FunctionPermission functionpermission) {
+		return (Integer) getSession().save(functionpermission);
+	}
+
+	@Override
+	public int update(FunctionPermission functionpermission) {
+		try {
+			getSession().update(functionpermission);
+			return 1;
+		} catch (Exception e) {
+			return -1;
+		}
+	}
+
+	@Override
+	public int delete(Integer funcNo) {
+		FunctionPermission functionpermission = getSession().get(FunctionPermission.class, funcNo);
+		if (functionpermission != null) {
+			getSession().delete(functionpermission);
+			return 1;
+		} else {
+			return -1;
+		}
+	}
+
+	@Override
+	public FunctionPermission findbyfuncNo(Integer funcNo) {
+		return getSession().get(FunctionPermission.class, funcNo);
+	}
+
+	@Override
+	public List<FunctionPermission> getAll() {
+		return getSession().createQuery("FROM Functionpermission", FunctionPermission.class).list();
+	}
+}
+
 //package com.woof.functionpermission.dao;
 //
 //import java.sql.Connection;

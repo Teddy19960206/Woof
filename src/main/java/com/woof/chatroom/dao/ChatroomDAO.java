@@ -5,17 +5,15 @@ import java.util.*;
 import com.woof.chatroom.entity.Chatroom;
 
 public interface ChatroomDAO {
-	int insert(Chatroom chatroomVO);
+	int insert(Chatroom chatroom);
 
-	int update(Chatroom chatroomVO);
+	int update(Chatroom chatroom);
 
-	int delete(Integer chatroomVO);
-
-	Chatroom getById(Integer roomNO);
+	int delete(Integer roomNo);
 
 	List<Chatroom> getAll();
 
-	Chatroom findByRoomNO(Integer roomNO);
+	Chatroom findByRoomNo(Integer roomNo);
 }
 
 //package com.woof.chatroom.dao;

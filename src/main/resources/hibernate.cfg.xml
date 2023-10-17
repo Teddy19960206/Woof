@@ -6,7 +6,7 @@
     <session-factory>
     
     	<property name="connection.datasource">java:comp/env/jdbc/TestDB</property>
-    
+<!--  -->
 <!--        <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>-->
 <!--        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/woof?serverTimezone=Asia/Taipei</property>-->
 <!--        <property name="hibernate.connection.username">root</property>-->
@@ -31,7 +31,11 @@
         <mapping class="com.woof.appointmentdetail.entity.AppointmentDetail"/>
         <mapping class="com.woof.promotionactivity.entity.PromotionActivity"/>
         <mapping class="com.woof.privatetrainingappointmentform.entity.PrivateTrainingAppointmentForm"/>
-
+		<mapping class="com.woof.chatroom.entity.Chatroom"/>
+		<mapping class="com.woof.member.entity.Member"/>
+		<mapping class="com.woof.commentreport.entity.CommentReport"/>
+		<mapping class="com.woof.classorder.entity.ClassOrder"/>
+		<mapping class="com.woof.nontrainingschedule.entity.NonTrainingSchedule"/>
 
     </session-factory>
 </hibernate-configuration>
