@@ -4,16 +4,18 @@ import java.util.List;
 
 import com.woof.administrator.entity.Administrator;
 
+
 public interface AdministratorService {
 
 	Administrator addAdministrator(Administrator administrator);
 
 	Administrator updateAdministrator(Administrator administrator);
 
-//			void deleteAdministrator(Integer adminNo);
+	void deleteAdministrator(Integer adminNo);
 
 	Administrator findAdministratorByAdminNo(Integer adminNo);
 
-	List<Administrator> getAllAdministrator();
+	List<Administrator> getAllAdministrators();
+
 
 }

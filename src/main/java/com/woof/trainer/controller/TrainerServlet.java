@@ -10,34 +10,36 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-	import com.woof.trainer.service.TrainerService;
+import com.woof.trainer.service.TrainerService;
+import com.woof.trainer.service.TrainerServiceImpl;
+import com.woof.trainer.service.TrainerService;
 	import com.woof.trainer.service.TrainerServiceImpl;
 
 	@WebServlet("/trainer")
 	public class TrainerServlet  extends HttpServlet {
 
-				private TrainerService trainerService;
-				
-				@Override
-				public void init() throws ServletException{
-					trainerService = new TrainerServiceImpl();
-				}
-				
-				@Override
-			    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-			        req.setCharacterEncoding("UTF-8");
-			        String conmain = req.getParameter("conmain");
-			        System.out.println(trainerService.getAllTrainer());
-			    }
-				
-			    @Override
-			    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-			    	doPost(req, resp);
+		private TrainerService trainerService;
 
-			        
-			        
-			    }
-			    
-			}
+		@Override
+		public void init() throws ServletException {
+			trainerService = new TrainerServiceImpl();
+		}
+
+		@Override
+		protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+			req.setCharacterEncoding("UTF-8");
+			String trainerType = req.getParameter("Trainer");
+
+			res.getWriter().println(trainerType);
+		}
+
+		@Override
+		protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+			super.doGet(req,res);
+			PrintWriter writer = res.getWriter();
+	        System.out.println("123");
+			System.out.println(trainerService.getAllTrainers());
+		}
+	}
 
 

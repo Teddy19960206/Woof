@@ -6,74 +6,61 @@ import org.hibernate.Session;
 
 import com.woof.trainer.dao.TrainerDAOImpl;
 import com.woof.trainer.entity.Trainer;
-
+import com.woof.trainer.dao.TrainerDAO;
+import com.woof.trainer.dao.TrainerDAOImpl;
+import com.woof.trainer.entity.Trainer;
 import com.woof.trainer.dao.TrainerDAO;
 import com.woof.util.HibernateUtil;
 
 public class TrainerServiceImpl  implements TrainerService{
 	
 		
-		private TrainerDAO dao;
+	private TrainerDAO dao;
 
-		public TrainerServiceImpl() {
-			dao = new TrainerDAOImpl(HibernateUtil.getSessionFactory());
-		}
+	public TrainerServiceImpl() {
+		dao = new TrainerDAOImpl(HibernateUtil.getSessionFactory());
+	}
 
-		@Override
-		public Trainer addTrainer(Trainer trainer) {
-			Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-
-			session.beginTransaction();
+	@Override
+	public Trainer addTrainer(Trainer trainer) {
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		session.beginTransaction();
 			if (dao.insert(trainer) == 1) {
-
 				session.getTransaction().commit();
 				return trainer;
 			}
 			session.getTransaction().rollback();
-			return null;
-		}
+		return null;
+	}
 
-		@Override
-		public Trainer updateTrainer(Trainer trainer) {
-			Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-
-			session.beginTransaction();
-			int result = dao.update(trainer);
-			if (result == 1) {
-
+	@Override
+	public Trainer updateTrainer(Trainer trainer) {
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		session.beginTransaction();
+			if (dao.update(trainer) == 1) {
 				session.getTransaction().commit();
 				return trainer;
 			}
 			session.getTransaction().rollback();
+		return null;
+	}
 
-			return null;
+	@Override
+	public void deleteTrainer(Integer trainerNo) {
+		
+	}
+
+	@Override
+	public Trainer findTrainerByTrainerNo(Integer trainerNo) {
+		Trainer trainer = dao.findBytrainerNo(trainerNo);
+		return trainer;
 		}
 
-//		@Override
-//		public void deleteAdministrator(Integer adminNo) {
-//			// TODO Auto-generated method stub
-//			
-//		}
-		      
-		@Override
-		public Trainer findTrainerByTrainerNo(Integer trainerNo) {
-			Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-			session.beginTransaction();
-
-			return null;
+	@Override
+	public List<Trainer> getAllTrainers() {
+			List<Trainer> trainerList = dao.getAll();
+			return trainerList;
 		}
-
-		@Override
-		public List<Trainer> getAllTrainer() {
-			Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-			session.beginTransaction();
-			List<Trainer> allTrainer = dao.getAll();
-			session.getTransaction().commit();
-
-			return allTrainer;
-				  
-		}
-
 	}
 
 
