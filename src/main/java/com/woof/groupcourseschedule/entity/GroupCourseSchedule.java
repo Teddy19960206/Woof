@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.google.gson.annotations.Expose;
 import com.woof.groupcourse.entity.GroupCourse;
 import com.woof.trainer.entity.Trainer;
 
@@ -20,38 +21,47 @@ import com.woof.trainer.entity.Trainer;
 @Entity
 @Table(name = "group_course_schedule")
 public class GroupCourseSchedule implements Serializable {
-	
+
+    @Expose
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "GCS_NO" , updatable = false)
     private Integer gcsNo;
-	
+
+    @Expose
 	@ManyToOne
 	@JoinColumn(name = "GC_NO" , referencedColumnName = "GC_NO")
     private GroupCourse groupCourse;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "TRAINER_NO" , referencedColumnName = "TRAINER_NO")
 	private Trainer trainer;
-	
+
+    @Expose
 	@Column(name = "GCS_START" , nullable = false)
     private Date gcsStart;
-	
+
+    @Expose
 	@Column(name = "GCS_END" , nullable = false)
     private Date gcsEnd;
-	
+
+    @Expose
 	@Column(name = "MIN_LIMIT" , nullable = false , columnDefinition = "TINYINT")
     private Integer minLimit;
-	
+
+    @Expose
 	@Column(name = "MAX_LIMIT" , nullable = false , columnDefinition = "TINYINT")
     private Integer maxLimit;
-	
+
+    @Expose
 	@Column(name = "COUNT" , nullable = false , insertable = false , columnDefinition = "TINYINT")
     private Integer count;
-	
+
+    @Expose
 	@Column(name = "GCS_PRICE" , nullable = false)
     private Integer gcsPrice;
-	
+
+    @Expose
 	@Column(name = "GCS_STATUS" , nullable = false , insertable = false , columnDefinition = "TINYINT")
     private Integer gcsStatus;
 

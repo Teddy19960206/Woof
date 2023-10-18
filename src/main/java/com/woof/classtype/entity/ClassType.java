@@ -30,7 +30,7 @@ public class ClassType {
 	@Column(name = "CT_NAME" , nullable = false)
     private String ctName;
 
-	@Expose
+
 	@OneToMany(mappedBy = "classType" , cascade = CascadeType.ALL)
 	private Set<GroupCourse> groupCourses;
 

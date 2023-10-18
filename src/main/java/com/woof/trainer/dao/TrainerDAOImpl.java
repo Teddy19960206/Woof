@@ -1,19 +1,73 @@
-//package com.woof.trainer.dao;
-//
-//import java.io.FileInputStream;
-//import java.io.IOException;
-//import java.sql.Connection;
-//import java.sql.Date;
-//import java.sql.PreparedStatement;
-//import java.sql.ResultSet;
-//import java.sql.SQLException;
-//import java.util.ArrayList;
-//import java.util.List;
-//
-//import com.woof.trainer.entity.TrainerVO;
-//import com.woof.util.Util;
-//
-//public class TrainerDAOImpl implements TrainerDAO {
+package com.woof.trainer.dao;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+
+
+import com.woof.trainer.entity.Trainer;
+
+import com.woof.util.Util;
+
+public class TrainerDAOImpl implements TrainerDAO {
+	
+		private SessionFactory factory;
+
+		public  TrainerDAOImpl(SessionFactory factory) {
+			this.factory = factory;
+		}
+
+		public Session getSession() {
+			return factory.getCurrentSession();
+		}
+
+		@Override
+		public int insert(Trainer  trainer) {
+			return (Integer) getSession().save(trainer);
+		}
+
+		@Override
+		public int update(Trainer  trainer) {
+			try {
+				getSession().update(trainer);
+				return 1;
+			} catch (Exception e) {
+				return -1;
+			}
+		}
+
+//		@Override
+//		public int delete(Integer trainerNo) {
+//			Trainer trainer = getSession().get(Trainer.class, trainerNo);
+//			if(trainer != null) {
+//				getSession().delete(trainer);
+//				return 1;
+//			}else {
+//				return -1;
+//			}
+//		}
+
+		@Override
+		public Trainer findByTrainerNo(Integer trainerNo) {
+			return getSession().get(Trainer.class, trainerNo);
+		}
+
+		@Override
+		public List<Trainer> getAll() {
+			return getSession().createQuery("FROM Trainer", Trainer.class).list();
+		}
+	}
+
+
 //	 private static final String INSERT_STMT = "INSERT INTO trainer ( admin_no ,experience) VALUES (? , ? )";
 //
 //	    private static final String UPDATE_STMT = "UPDATE trainer SET admin_no=?,experience=? WHERE trainer_no=?";
@@ -25,7 +79,7 @@
 //	    private static final String GET_ALL = "SELECT * FROM trainer";
 //
 //	    @Override
-//	    public void insert(TrainerVO trainerVO ) {
+//	    public void insert(Trainer trainerVO ) {
 //
 //	        Connection con = null;
 //	        PreparedStatement ps = null;
@@ -58,7 +112,7 @@
 //	    }
 //
 //	    @Override
-//	    public void update(TrainerVO trainerVO) {
+//	    public void update(Trainer trainerVO) {
 //	        Connection con = null;
 //	        PreparedStatement ps = null;
 //	        int count = 0;
@@ -86,7 +140,7 @@
 //
 //	    }
 //
-//	    public void delete(TrainerVO trainerVO) {
+//	    public void delete(Trainer trainerVO) {
 //	        Connection con = null;
 //	        PreparedStatement ps = null;
 //	        int count  = 0;
@@ -113,12 +167,12 @@
 //
 //	    
 //	    @Override
-//	    public TrainerVO  findByTrainerNo(Integer trainerNo){
+//	    public Trainer  findByTrainerNo(Integer trainerNo){
 //	        Connection con = null;
 //	        PreparedStatement ps = null;
 //	        ResultSet rs = null;
 //
-//	        TrainerVO trainerVO = null;
+//	        Trainer trainerVO = null;
 //
 //	        try {
 //	            con = Util.getConnection();
@@ -127,7 +181,7 @@
 //	            rs = ps.executeQuery();
 //
 //	            if (rs.next()){
-//	            	trainerVO = new TrainerVO();
+//	            	trainerVO = new Trainer();
 //	            	trainerVO.setTrainerNo(trainerNo);
 //	            	trainerVO.setAdminNo(rs.getInt("admin_no"));
 //	            	trainerVO.setExperience(rs.getString("experience"));
@@ -147,14 +201,14 @@
 //	    }
 //
 //	    @Override
-//	    public List<TrainerVO> getAll() {
+//	    public List<Trainer> getAll() {
 //
 //
 //	        Connection con = null;
 //	        PreparedStatement ps = null;
 //	        ResultSet rs = null;
 //
-//	        List<TrainerVO> trainerVOList = new ArrayList<>();
+//	        List<Trainer> trainerVOList = new ArrayList<>();
 //
 //	        try {
 //	            con = Util.getConnection();
@@ -162,7 +216,7 @@
 //	            rs = ps.executeQuery();
 //
 //	            while (rs.next()){
-//	            	TrainerVO trainerVO = new TrainerVO();
+//	            	Trainer trainerVO = new Trainer();
 //	            	trainerVO.setTrainerNo(rs.getInt("trainer_No"));
 //	            	trainerVO.setAdminNo(rs.getInt("admin_no"));
 //	            	trainerVO.setExperience(rs.getString("experience"));
@@ -184,7 +238,7 @@
 //	    public static void main(String[] args) throws IOException {
 //	    	TrainerDAO trainerDAO = new TrainerDAOImpl();
 //
-//	    	TrainerVO trainerVO = new TrainerVO();
+//	    	Trainer trainerVO = new Trainer();
 //	        
 //	    	trainerVO.setTrainerNo(11);
 //	    	trainerVO.setAdminNo(1);
@@ -198,9 +252,9 @@
 //
 //	        System.out.println(trainerDAO.findByTrainerNo(1));
 //	
-//	        List<TrainerVO> trainerVOList = trainerDAO.getAll();
+//	        List<Trainer> trainerVOList = trainerDAO.getAll();
 //	
-//	        for (TrainerVO trainer : trainerVOList){
+//	        for (Trainer trainer : trainerVOList){
 //	            System.out.println(trainer);
 //	
 //	        }
@@ -215,4 +269,5 @@
 //	        fis.close();
 //	        return buffer;
 //	    }
-//}
+	
+	

@@ -1,6 +1,5 @@
 package com.woof.groupcourseschedule.dao;
 
-
 import com.woof.groupcourseschedule.entity.GroupCourseSchedule;
 
 import java.util.List;
@@ -14,4 +13,7 @@ public interface GroupCourseScheduleDAO {
     GroupCourseSchedule findByGcsNo(Integer gcsNo);
 
     List<GroupCourseSchedule> getAll();
+
+
+    List<GroupCourseSchedule> getAllbyClassType(Integer ctNo);
 }
