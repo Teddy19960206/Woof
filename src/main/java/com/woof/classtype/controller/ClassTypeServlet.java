@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/classtype/get")
+@WebServlet("/classtype/*")
 public class ClassTypeServlet extends HttpServlet {
 	
 	private ClassTypeService classTypeService;
@@ -33,10 +33,10 @@ public class ClassTypeServlet extends HttpServlet {
 //                case "get":
 //                    break;
 //                default:
-//                    forwardPath = "/classtype/select_page.jsp";
+//                    forwardPath = "/classtype/classContent.jsp";
 //            }
 //        }else {
-//            forwardPath = "/classtype/select_page.jsp";
+//            forwardPath = "/classtype/classContent.jsp";
 //        }
 //
 //        request.getRequestDispatcher(forwardPath).forward(request,response);

@@ -16,4 +16,8 @@ public interface GroupCourseDAO {
     List<GroupCourse> getGroupCourseByCtNo(Integer ctNo);
 
     List<GroupCourse> getAll();
+
+    List<GroupCourse> getAll(int currentPage);
+
+    long getTotal();
 }

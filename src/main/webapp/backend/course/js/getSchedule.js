@@ -7,19 +7,25 @@ document.getElementById("button").onclick = function (){
     fetchData();
 }
 
+
 async function fetchData(){
 
-    const url = "schedule?action=schedule&classType=" + document.getElementById("selectClass").value;
+    let url = `/${pathname}/schedule/getSchedule`;
+    let formData = new FormData();
+    formData.append("classType" , document.getElementById("selectClass").value);
 
     try{
-        const response = await fetch(url);
+        const response = await fetch(url ,{
+            method : "POST",
+            body:formData
+        });
+
         if (!response.ok){
             throw new Error('Network response was not ok');
         }
-        const data = await response.json();
-        html = "";
 
-        html += `<table class="table table-stripclassNamext-center" border="1">
+        const data = await response.json();
+        html = `<table class="table table-stripclassNamext-center" border="1">
         <thead>
         <tr>
             <th>GCS_NO</th>
@@ -37,10 +43,7 @@ async function fetchData(){
         </thead>
         <tbody id="mybody">`;
 
-
         data.forEach((item)=>{
-            console.log(item)
-
             html+= `
             <th>${item.gcsNo}</th>
             <th>${item.groupCourse.classType.ctName}</th>
@@ -77,7 +80,7 @@ async function fetchData(){
 $(document).on("click" , "button.modify-button" , function (){
 
 
-    let url = `/${pathname}/groupcourse/schedule?action=modifiedPage&id=${this.getAttribute("data-id")}`;
+    let url = `/${pathname}/groupcourse/schedule/modifiedPage?id=${this.getAttribute("data-id")}`;
 
     window.location.href = url;
 
@@ -86,7 +89,7 @@ $(document).on("click" , "button.modify-button" , function (){
 $(document).on("click" , "button.registration" , function (){
 
 
-    let url = `/${pathname}/groupcourse/schedule?action=registration&id=${this.getAttribute("data-id")}`;
+    let url = `/${pathname}/groupcourse/schedule/registration?id=${this.getAttribute("data-id")}`;
 
     window.location.href = url;
 

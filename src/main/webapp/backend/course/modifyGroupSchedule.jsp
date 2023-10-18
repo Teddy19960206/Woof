@@ -46,7 +46,7 @@
     <option value="1" <c:if test="${groupCourse.courseStatus eq 1}">selected</c:if>>下架</option>
   </select>
   <br />
-  <button type="submit" onclick="window.location.href='${pageContext.request.contextPath}/groupcourse?action=modified'">確定修改</button>
+  <button type="submit" onclick="window.location.href='../../../../../out/artifacts/woof_war_exploded/groupcourse'">確定修改</button>
   <button type="button" onclick="history.back()">取消修改</button>
 </form>
 </body>

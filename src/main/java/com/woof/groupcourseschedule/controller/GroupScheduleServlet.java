@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/groupcourse/schedule")
+@WebServlet("/schedule/*")
 public class GroupScheduleServlet extends HttpServlet {
 
     private GroupGourseScheduleService groupGourseScheduleService;
@@ -29,21 +29,32 @@ public class GroupScheduleServlet extends HttpServlet {
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         request.setCharacterEncoding("UTF-8");
-        String action = request.getParameter("action");
+
+        String pathInfo = request.getPathInfo();
+
+        int secondSlashIndex = pathInfo.indexOf('/', 2);
+        Integer result = null;
+
+        if (secondSlashIndex > 0){
+            result = Integer.valueOf(pathInfo.substring(secondSlashIndex + 1));
+        }
         String forwardPath = "";
-        switch (action){
-            case "schedule":
+
+        switch (pathInfo){
+            case "/getSchedule":
                 getScheduleByCtNo(request , response);
                 return;
-            case "modifiedPage":
-                forwardPath = getScheduleByGcsNo(request ,response);
-                break;
-            case "registration":
+            case "/registration":
                 registration(request , response);
                 return;
             default:
-                forwardPath = getAllSchedule(request ,response);
+                if (pathInfo.startsWith("/edit/")) {
+                    forwardPath = getScheduleByGcsNo(request ,response , result);
+                } else {
+                    forwardPath = getAllSchedule(request ,response);
+                }
         }
         request.getRequestDispatcher(forwardPath).forward(request,response);
     }
@@ -60,9 +71,10 @@ public class GroupScheduleServlet extends HttpServlet {
 
     private void getScheduleByCtNo(HttpServletRequest request , HttpServletResponse response) throws IOException {
         request.setCharacterEncoding("UTF-8");
-        Integer classtypeNo = Integer.valueOf(request.getParameter("classType"));
 
-        List<GroupCourseSchedule> groupCourseScheduleSet = groupGourseScheduleService.getGroupScheduleByCtNo(classtypeNo);
+        String classType = request.getParameter("classType");
+
+        List<GroupCourseSchedule> groupCourseScheduleSet = groupGourseScheduleService.getGroupScheduleByCtNo(Integer.valueOf(classType));
 
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
         String json = gson.toJson(groupCourseScheduleSet);
@@ -72,7 +84,7 @@ public class GroupScheduleServlet extends HttpServlet {
 
     }
 
-    private String getScheduleByGcsNo(HttpServletRequest request , HttpServletResponse response){
+    private String getScheduleByGcsNo(HttpServletRequest request , HttpServletResponse response , Integer result){
 
         Integer id = Integer.valueOf(request.getParameter("id"));
 

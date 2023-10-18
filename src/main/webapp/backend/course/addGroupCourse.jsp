@@ -8,7 +8,7 @@
 <body>
 <h1>新增團體課程</h1>
 
-<form action="groupcourse?action=addgroup" method="post" enctype="multipart/form-data">
+<form action="${pageContext.request.contextPath}/groupcourse/addgroup" method="post" enctype="multipart/form-data">
     <label>技能名稱：</label>
     <select name="skill">
         <c:forEach items="${skills}" var="skill">

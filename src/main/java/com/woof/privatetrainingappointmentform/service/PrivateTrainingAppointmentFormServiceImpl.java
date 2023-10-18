@@ -2,6 +2,8 @@ package com.woof.privatetrainingappointmentform.service;
 
 import java.util.List;
 
+import com.woof.member.entity.Member;
+import com.woof.trainer.entity.Trainer;
 import org.hibernate.Session;
 
 import com.woof.privatetrainingappointmentform.dao.PrivateTrainingAppointmentFormDAO;
@@ -72,6 +74,11 @@ public class PrivateTrainingAppointmentFormServiceImpl implements PrivateTrainin
 		// TODO Auto-generated method stub
 		return privateTrainingAppointmentFormList;
 	}
-	
-	
+
+	@Override
+	public int addPrivateTrainingAppointmentForm(Member member, Trainer trainer, Integer ptaClassInt) {
+		return 0;
+	}
+
+
 }

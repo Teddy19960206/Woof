@@ -8,28 +8,14 @@
 <body>
 <h1>團體課程報名資訊</h1>
 <jsp:useBean id="classTypeService" scope="page" class="com.woof.classtype.service.ClassTypeServiceImpl"/>
-<form>
-    <select name="Type" id="selectClass">
-        <c:forEach var="classType" items="${classTypeService.allClassTypes}">
-            <option  value="${classType.ctNo}">${classType.ctName}</option>
-        </c:forEach>
-    </select>
-    <button type="button" id="button">提交</button>
-</form>
+<select name="Type" id="selectClass">
+    <option  value="0">-- 顯示全部 --</option>
+    <c:forEach var="classType" items="${classTypeService.allClassTypes}">
+        <option  value="${classType.ctNo}" style="text-align: center">${classType.ctName}</option>
+    </c:forEach>
+</select>
+<button type="button" id="button">提交</button>
 
-<%--<c:forEach items="${scheduleList}" var="schedule">--%>
-<%--    ${schedule.gcsNo}--%>
-<%--    ${schedule.groupCourse.gcName}--%>
-<%--    ${schedule.trainer.trainerNo}--%>
-<%--    ${schedule.gcsStart}--%>
-<%--    ${schedule.gcsEnd}--%>
-<%--    ${schedule.minLimit}--%>
-<%--    ${schedule.maxLimit}--%>
-<%--    ${schedule.count}--%>
-<%--    ${schedule.gcsPrice}--%>
-<%--    ${schedule.gcsStatus}--%>
-
-<%--</c:forEach>--%>
 
 
 <%-- 報名列表 --%>
@@ -116,6 +102,6 @@
 
 <script src="${pageContext.request.contextPath}/webutil/js/jquery-3.7.1.min.js"></script>
 <script src="${pageContext.request.contextPath}/webutil/js/bootstrap.bundle.min.js"></script>
-<script src="${pageContext.request.contextPath}/groupcourse/js/getSchedule.js"></script>
+<script src="${pageContext.request.contextPath}/backend/course/js/getSchedule.js"></script>
 </body>
 </html>

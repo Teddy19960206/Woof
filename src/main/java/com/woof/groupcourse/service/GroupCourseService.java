@@ -16,4 +16,12 @@ public interface GroupCourseService {
 
     List<GroupCourse> getAllbyCtNo(Integer ctNo);
 
+    List<GroupCourse> getAllGroupCourse();
+
+    List<GroupCourse> getAllGroupCourse(int currentPage);
+
+    int getPageTotal();
+
+
+
 }

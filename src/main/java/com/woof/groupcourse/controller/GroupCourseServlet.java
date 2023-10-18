@@ -23,7 +23,7 @@ import java.io.IOException;
 import java.util.List;
 
 
-@WebServlet("/groupcourse")
+@WebServlet("/groupcourse/*")
 @MultipartConfig
 public class GroupCourseServlet extends HttpServlet {
 
@@ -41,41 +41,52 @@ public class GroupCourseServlet extends HttpServlet {
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         request.setCharacterEncoding("UTF-8");
-        String action = request.getParameter("action");
+
+        String pathInfo = request.getPathInfo();
+
+        System.out.println(pathInfo);
+
+        int secondSlashIndex = pathInfo.indexOf('/', 2);
+        Integer result = null;
+        if (secondSlashIndex > 0){
+            result = Integer.valueOf(pathInfo.substring(secondSlashIndex + 1));
+        }
+
         String forwardPath = "";
-        if (action != null){
-            switch (action){
-                case "addpage":
+
+        switch (pathInfo){
+            case "/addpage":
+//                預先載入可選擇的選項
+                forwardPath =getSelectInfo(request,response);
+                break;
+            case "/addgroup":
+//                正式增加GroupCourse資料
+                addGroupCourse(request,response);
+                return;
+            case "/modified" :
+//               正式修改資料
+                modified(request,response);
+                return;
+            case "/getGroupCourse":
+//               根據ClassType取得對應的GroupCourse
+                getGroupCourse(request, response);
+                return;
+            default:
+//               進入edit畫面先進行讀取要修改的檔案
+                if (pathInfo.startsWith("/edit/")) {
                     getSelectInfo(request,response);
-                    forwardPath = "/groupcourse/addGroupCourse.jsp";
-                    break;
-                case "addgroup":
-                    addGroupCourse(request,response);
-                    return;
-                case "modifiedPage":
-                    getSelectInfo(request,response);
-                    forwardPath = modify(request , response);
-                    break;
-                case "modified":
-                    modifyGroupCourse(request,response);
-                    return;
-                case "getByClassType":
-                    System.out.println(request.getRequestURI());
-                    System.out.println("====================");
-                    getGroupCourseByClassType(request, response);
-                    return;
-                default:
-                    forwardPath = "/classtype/select_page.jsp";
-            }
-        }else{
-            forwardPath = "/classtype/select_page.jsp";
+                    forwardPath = edit(request , response , result);
+                } else {
+                    forwardPath = "/classtype/classContent.jsp";
+                }
         }
         request.getRequestDispatcher(forwardPath).forward(request,response);
     }
 
 //    根據獲取的ClassType，去尋找所有有對應的GroupCourse資料
-    private void getGroupCourseByClassType(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    private void getGroupCourse(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
 
 
@@ -83,7 +94,18 @@ public class GroupCourseServlet extends HttpServlet {
 
         String classtype = request.getParameter("classType");
 
-        List<GroupCourse> groupCourseList = groupCourseService.getAllbyCtNo(Integer.valueOf(classtype));
+        List<GroupCourse> groupCourseList = null;
+
+        if (classtype != null){
+            if ("0".equals(classtype)){
+                groupCourseList = groupCourseService.getAllGroupCourse();
+            }else{
+                groupCourseList = groupCourseService.getAllbyCtNo(Integer.valueOf(classtype));
+            }
+        }else{
+//            異常判斷
+        }
+
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
         String json = gson.toJson(groupCourseList);
         response.setContentType("application/json;charset=UTF-8");
@@ -92,7 +114,7 @@ public class GroupCourseServlet extends HttpServlet {
     }
 
 //    取得ClassType 與 Skill 所有資料 顯示在Select上
-    private void getSelectInfo(HttpServletRequest request , HttpServletResponse response){
+    private String getSelectInfo(HttpServletRequest request , HttpServletResponse response){
 
         ClassTypeService classTypeService = new ClassTypeServiceImpl();
         List<ClassType> allClassTypes = classTypeService.getAllClassTypes();
@@ -102,6 +124,7 @@ public class GroupCourseServlet extends HttpServlet {
         request.setAttribute("classTypes" , allClassTypes);
         request.setAttribute("skills", allSkill);
 
+        return "/backend/course/addGroupCourse.jsp";
     }
 
 //    新增GroupCourse資料
@@ -129,24 +152,23 @@ public class GroupCourseServlet extends HttpServlet {
             System.out.println("新增失敗");
         }
 
-        response.sendRedirect(request.getServletContext().getContextPath()+"/classtype/select_page.jsp");
+        response.sendRedirect(request.getServletContext().getContextPath()+"/backend/course/classContent.jsp");
 
     }
 
 // 進入修改資料頁面時，先把資料讀取回來進行修改
-    private String modify(HttpServletRequest request ,HttpServletResponse response){
+    private String edit(HttpServletRequest request ,HttpServletResponse response , Integer id){
 
-        Integer id = Integer.valueOf(request.getParameter("id"));
         GroupCourse groupCourse = groupCourseService.findGroupCourseByNo(id);
         request.setAttribute("groupCourse" , groupCourse);
 
 
-        return "/groupcourse/modifyGroupCourse.jsp";
+        return "/backend/course/editGroupCourse.jsp";
     }
 
 //  修改GroupCourse資料
 
-    private void modifyGroupCourse(HttpServletRequest request , HttpServletResponse response) throws IOException, ServletException {
+    private void modified(HttpServletRequest request , HttpServletResponse response) throws IOException, ServletException {
 
         Integer gcNo = Integer.valueOf(request.getParameter("groupCourseNo"));
 
@@ -182,7 +204,7 @@ public class GroupCourseServlet extends HttpServlet {
             System.out.println("更新失敗");
         }
 
-        response.sendRedirect(request.getServletContext().getContextPath()+"/classtype/select_page.jsp");
+        response.sendRedirect(request.getServletContext().getContextPath()+"/backend/course/classContent.jsp");
 
     }
 

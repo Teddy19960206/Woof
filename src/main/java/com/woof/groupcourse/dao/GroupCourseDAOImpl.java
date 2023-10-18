@@ -4,8 +4,9 @@ import com.woof.groupcourse.entity.GroupCourse;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
-
 import java.util.List;
+
+import static com.woof.util.Constants.PAGE_MAX_RESULT;
 
 public class GroupCourseDAOImpl implements GroupCourseDAO{
 
@@ -51,6 +52,20 @@ public class GroupCourseDAOImpl implements GroupCourseDAO{
 
     @Override
     public List<GroupCourse> getAll() {
-        return null;
+        return getSession().createQuery("FROM GroupCourse" , GroupCourse.class).list();
+    }
+
+    @Override
+    public List<GroupCourse> getAll(int currentPage) {
+        int first = (currentPage - 1) * PAGE_MAX_RESULT;
+        return getSession().createQuery("FROM GroupCourse" , GroupCourse.class)
+                .setFirstResult(first)
+                .setMaxResults(currentPage)
+                .list();
+    }
+
+    @Override
+    public long getTotal() {
+        return getSession().createQuery("SELECT count(*) FROM GroupCourse" , Long.class).uniqueResult();
     }
 }

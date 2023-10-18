@@ -8,6 +8,8 @@ import com.woof.groupcourse.entity.GroupCourse;
 import com.woof.skill.entity.Skill;
 import com.woof.util.HibernateUtil;
 
+import static com.woof.util.Constants.PAGE_MAX_RESULT;
+
 import java.util.List;
 
 public class GroupCourseServiceImpl implements GroupCourseService , AppService {
@@ -60,6 +62,24 @@ public class GroupCourseServiceImpl implements GroupCourseService , AppService {
     @Override
     public List<GroupCourse> getAllbyCtNo(Integer ctNo) {
         return dao.getGroupCourseByCtNo(ctNo);
+    }
+
+    @Override
+    public List<GroupCourse> getAllGroupCourse() {
+        return dao.getAll();
+    }
+
+    @Override
+    public List<GroupCourse> getAllGroupCourse(int currentPage) {
+        return dao.getAll(currentPage);
+    }
+
+    @Override
+    public int getPageTotal() {
+        long total = dao.getTotal();
+
+        int pageQty = (int)(total % PAGE_MAX_RESULT == 0 ? (total / PAGE_MAX_RESULT) : (total / PAGE_MAX_RESULT + 1));
+        return pageQty;
     }
 
     public byte[] getPhotoById(Integer gcNo){

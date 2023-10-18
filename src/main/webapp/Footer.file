@@ -1,0 +1,87 @@
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
+
+    <!-- 頁尾 -->
+    <footer class="animated fadeInUp">
+      <div class="container py-5">
+        <div class="row g-5">
+          <div class="col-lg-4 col-12 text-center">
+            <img src="<%=request.getContextPath()%>/webutil/images/logo.png" class="w-sm-100 w-50" />
+            <a href="#" class="text-decoration-none">
+              <h1 class="h3 mytextcolor">Woof</h1>
+            </a>
+          </div>
+          <div class="col-lg-4 col-12 border-dark-subtle">
+            <h4 class="mytextcolor mb-4 text-center">Address</h4>
+            <p>
+              <img src="<%=request.getContextPath()%>/webutil/icons/house.svg" /> 320桃園市中壢區復興路46號8樓804室
+              CHA103
+            </p>
+            <p><img src="<%=request.getContextPath()%>/webutil/icons/telephone.svg" /> 03 425 1108</p>
+
+            <a href="https://www.tibame.com/goodjob"
+              ><img src="<%=request.getContextPath()%>/webutil/icons/link.svg" alt="" width="30px" /> 緯育</a
+            >
+          </div>
+          <div class="col-lg-4 col-12 text-center">
+            <h4 class="mytextcolor mb-4">About Us</h4>
+            <div class="row">
+              <div class="col-3">
+                <p>組員：</p>
+              </div>
+              <div class="col-3">
+                <p>蕭皓鴻</p>
+                <p>鄔馨誼</p>
+                <p>羅鈺漳</p>
+              </div>
+              <div class="col-3">
+                <p>徐唯宸</p>
+                <p>楊佳宜</p>
+                <p>張昱堯</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="container p-5 border-top border-dark-subtle">
+        <div class="row text-center">
+          <div class="col-1">
+            <a href="" class="d-none d-sm-block">
+              <img src="<%=request.getContextPath()%>/webutil/icons/facebook.svg" width="30px" />
+            </a>
+          </div>
+          <div class="col-1">
+            <a href="" class="d-none d-sm-block">
+              <img src="<%=request.getContextPath()%>/webutil/icons/instagram.svg" width="30px" />
+            </a>
+          </div>
+          <div class="col-1">
+            <a href="" class="d-none d-sm-block">
+              <img src="<%=request.getContextPath()%>/webutil/icons/line.svg" width="30px" />
+            </a>
+          </div>
+          <div class="col-1">
+            <a href="" class="d-none d-sm-block">
+              <img src="<%=request.getContextPath()%>/webutil/icons/messenger.svg" width="30px" />
+            </a>
+          </div>
+          <div class="col-8">
+            <p>© 2023 All Right Reserved</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <script src="<%=request.getContextPath()%>/webutil/js/bootstrap.bundle.min.js"></script>
+    <script src="<%=request.getContextPath()%>/webutil/js/jquery-3.7.1.min.js"></script>
+    <script>
+      var tooltipTriggerList = [].slice.call(
+        document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      );
+      var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
+      });
+
+      $(function () {
+        $("[data-toggle='popover']").popover();
+      });
+    </script>
