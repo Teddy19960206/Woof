@@ -71,7 +71,10 @@
                             <button type="button" class="modify-button" data-id="${schedule.gcsNo}">修改</button>
                         </td>
                         <td>
-                            <button type="button" class="registration" data-id="${schedule.gcsNo}">報名</button>
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                報名
+                            </button>
+<%--                            <button type="button" class="registration" data-id="${schedule.gcsNo}">報名</button>--%>
                         </td>
                     </tr>
                 </c:forEach>
@@ -79,20 +82,17 @@
         <a href="#"><button>新增團體課程報名</button></a>
 
 
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            Launch demo modal
-        </button>
 
         <div class="container">
-            <h2>Basic Modal Example</h2>
-            <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                Launch demo modal
-            </button>
+<%--            <h2>Basic Modal Example</h2>--%>
+<%--            <!-- Button trigger modal -->--%>
+<%--            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">--%>
+<%--                Launch demo modal--%>
+<%--            </button>--%>
 
             <!-- Modal -->
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
+                <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>

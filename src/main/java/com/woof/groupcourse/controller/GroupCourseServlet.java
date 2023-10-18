@@ -61,6 +61,8 @@ public class GroupCourseServlet extends HttpServlet {
                     modifyGroupCourse(request,response);
                     return;
                 case "getByClassType":
+                    System.out.println(request.getRequestURI());
+                    System.out.println("====================");
                     getGroupCourseByClassType(request, response);
                     return;
                 default:
@@ -75,7 +77,10 @@ public class GroupCourseServlet extends HttpServlet {
 //    根據獲取的ClassType，去尋找所有有對應的GroupCourse資料
     private void getGroupCourseByClassType(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
+
+
         request.setCharacterEncoding("UTF-8");
+
         String classtype = request.getParameter("classType");
 
         List<GroupCourse> groupCourseList = groupCourseService.getAllbyCtNo(Integer.valueOf(classtype));
