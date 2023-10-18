@@ -97,14 +97,6 @@ public class Trainer implements Serializable {
 		this.trainerNo = trainerNo;
 	}
 
-//	public Integer getAdminNo() {
-//		return adminNo;
-//	}
-//
-//	public void setAdminNo(Integer adminNo) {
-//		this.adminNo = adminNo;
-//	}
-
 	public Administrator getAdministrator() {
 		return administrator;
 	}
@@ -146,9 +138,14 @@ public class Trainer implements Serializable {
 		return Objects.equals(trainerNo, other.trainerNo);
 	}
 
-//	@Override
-//	public String toString() {
-//		return "TrainerVO [trainerNo=" + trainerNo + ", adminNo=" + adminNo + ", experience=" + experience + "]";
-//	}
+	@Override
+	public String toString() {
+		return "Trainer [trainerNo=" + trainerNo + ", nonTrainingSchedules=" + nonTrainingSchedules
+				+ ", privateTrainingAppointmentForms=" + privateTrainingAppointmentForms + ", commentReports="
+				+ commentReports + ", administrator=" + administrator + ", experience=" + experience + ", skills="
+				+ skills + "]";
+	}
+
+
 
 }
