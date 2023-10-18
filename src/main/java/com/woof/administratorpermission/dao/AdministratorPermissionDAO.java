@@ -2,6 +2,7 @@ package com.woof.administratorpermission.dao;
 
 import java.util.List;
 import com.woof.administratorpermission.entity.AdministratorPermission;
+import com.woof.administratorpermission.entity.AdministratorPermission;
 
 
 //import idv.david.emp.entity.Emp;
@@ -21,17 +22,15 @@ public interface AdministratorPermissionDAO {
 //
 //	List<AdministratorPermissionVO> getAll();
 	
-	int insert(AdministratorPermission administratorPermissionVO);
+    void insert(AdministratorPermission administratorPermission);
 
-	 int update(AdministratorPermission administratorPermissionVO);
 
-	 int delete(Integer adminNo);
-	
+    void delete(AdministratorPermission administratorPermission);
 
-	 AdministratorPermission getById(Integer adminNo);
+    AdministratorPermission find(AdministratorPermission administratorPermission);
 
-	 List<AdministratorPermission> getAll();
+    List<AdministratorPermission> findbyAdminNo(Integer AdminNo);
 
-	 long getTotal();
+    List<AdministratorPermission> getAll();
 	
 }
