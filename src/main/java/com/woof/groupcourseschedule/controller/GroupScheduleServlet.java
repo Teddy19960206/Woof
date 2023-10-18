@@ -7,6 +7,7 @@ import com.woof.groupcourseschedule.service.GroupCourseScheduleServiceImpl;
 import com.woof.groupcourseschedule.service.GroupGourseScheduleService;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -15,6 +16,7 @@ import java.io.IOException;
 import java.util.List;
 
 @WebServlet("/schedule/*")
+@MultipartConfig
 public class GroupScheduleServlet extends HttpServlet {
 
     private GroupGourseScheduleService groupGourseScheduleService;
@@ -31,6 +33,8 @@ public class GroupScheduleServlet extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         request.setCharacterEncoding("UTF-8");
+
+        String classType = request.getParameter("classType");
 
         String pathInfo = request.getPathInfo();
 
@@ -65,7 +69,7 @@ public class GroupScheduleServlet extends HttpServlet {
 
         request.setAttribute("scheduleList" ,groupCourseScheduleList );
 
-        return "/groupcourse/schedule.jsp";
+        return "/backend/course/schedule.jsp";
     }
 
 

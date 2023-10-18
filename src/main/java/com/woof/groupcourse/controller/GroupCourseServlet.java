@@ -44,6 +44,7 @@ public class GroupCourseServlet extends HttpServlet {
 
         request.setCharacterEncoding("UTF-8");
 
+
         String pathInfo = request.getPathInfo();
 
         System.out.println(pathInfo);
