@@ -11,23 +11,35 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import com.google.gson.annotations.Expose;
+
 @Entity
-@Table(name="latest_news")
-public class LatestNewsVO implements Serializable {
-@Id
-@GeneratedValue(strategy=GenerationType.IDENTITY)
-@Column(name="LN_NO",updatable=false ,nullable=false)
+@Table(name = "latest_news")
+public class LatestNews implements Serializable {
+	@Expose
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "LN_NO", updatable = false, nullable = false)
 	private Integer lnNo;
-@Column(name="LN_TITLE" ,nullable=false)
+
+	@Expose
+	@Column(name = "LN_TITLE", nullable = false)
 	private String lnTitle;
-@Column(name="LN_CONTENT",nullable=false)
+
+	@Expose
+	@Column(name = "LN_CONTENT", nullable = false)
 	private String lnContent;
-@Column(name="LN_PHOTO" ,columnDefinition="MEDIUMBLOB",nullable=false)
+
+	@Expose
+	@Column(name = "LN_PHOTO", columnDefinition = "MEDIUMBLOB", nullable = false)
 	private byte[] lnPhoto;
-@Column(name="LN_TIME",nullable=false)
+
+	@Expose
+	@Column(name = "LN_TIME", nullable = false)
 	private Timestamp lnTime;
 
-	public LatestNewsVO() {
+	public LatestNews() {
 	}
 
 	public Integer getLnNo() {
@@ -87,7 +99,7 @@ public class LatestNewsVO implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		LatestNewsVO other = (LatestNewsVO) obj;
+		LatestNews other = (LatestNews) obj;
 		return Objects.equals(lnContent, other.lnContent) && Objects.equals(lnNo, other.lnNo)
 				&& Arrays.equals(lnPhoto, other.lnPhoto) && Objects.equals(lnTime, other.lnTime)
 				&& Objects.equals(lnTitle, other.lnTitle);
@@ -95,10 +107,8 @@ public class LatestNewsVO implements Serializable {
 
 	@Override
 	public String toString() {
-		return "LetestNewsVO [lnNo=" + lnNo + ", lnTitle=" + lnTitle + ", lnContent=" + lnContent + ", lnPhoto="
-				+ Arrays.toString(lnPhoto) + ", lnTime=" + lnTime + ", getLnNo()=" + getLnNo() + ", getLnTitle()="
-				+ getLnTitle() + ", getLnContent()=" + getLnContent() + ", getLnPhoto()="
-				+ Arrays.toString(getLnPhoto()) + ", getLnTime()=" + getLnTime() + ", hashCode()=" + hashCode()
-				+ ", getClass()=" + getClass() + ", toString()=" + super.toString() + "]";
+		return "LatestNews [lnNo=" + lnNo + ", lnTitle=" + lnTitle + ", lnContent=" + lnContent + ", lnPhoto="
+				+ Arrays.toString(lnPhoto) + ", lnTime=" + lnTime + "]";
 	}
+
 }

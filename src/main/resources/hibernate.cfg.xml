@@ -38,6 +38,6 @@
 		<mapping class="com.woof.nontrainingschedule.entity.NonTrainingSchedule"/>
 		<mapping class="com.woof.administrator.entity.Administrator" />
         <mapping class="com.woof.functionpermission.entity.FunctionPermission"/>
-
+		<mapping class="com.woof.latestnews.entity.LatestNews"/>
     </session-factory>
 </hibernate-configuration>
