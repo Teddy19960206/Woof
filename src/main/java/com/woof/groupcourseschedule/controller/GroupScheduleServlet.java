@@ -36,6 +36,12 @@ public class GroupScheduleServlet extends HttpServlet {
             case "schedule":
                 getScheduleByCtNo(request , response);
                 return;
+            case "modifiedPage":
+                forwardPath = getScheduleByGcsNo(request ,response);
+                break;
+            case "registration":
+                registration(request , response);
+                return;
             default:
                 forwardPath = getAllSchedule(request ,response);
         }
@@ -66,6 +72,25 @@ public class GroupScheduleServlet extends HttpServlet {
 
     }
 
+    private String getScheduleByGcsNo(HttpServletRequest request , HttpServletResponse response){
+
+        Integer id = Integer.valueOf(request.getParameter("id"));
+
+        GroupCourseSchedule groupCourseSchedule = groupGourseScheduleService.findByGcsNo(id);
+
+        request.setAttribute("schedule" , groupCourseSchedule);
+
+
+        return "/groupcourse/modifyGroupSchedule.jsp";
+    }
+
+    private void registration(HttpServletRequest request , HttpServletResponse response) throws IOException {
+
+        Integer id = Integer.valueOf(request.getParameter("id"));
+        groupGourseScheduleService.registrationSchedule(id);
+
+        response.sendRedirect(request.getContextPath()+"/groupcourse/schedule?action=getAl");
+    }
 }
 
 

@@ -4,6 +4,8 @@ import com.woof.groupcourseschedule.entity.GroupCourseSchedule;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.NativeQuery;
+import org.hibernate.query.Query;
+
 import java.util.List;
 
 public class GroupCourseScheduleDAOImpl implements GroupCourseScheduleDAO{
@@ -29,8 +31,18 @@ public class GroupCourseScheduleDAOImpl implements GroupCourseScheduleDAO{
     }
 
     @Override
+    public void updateCount(Integer gcsNo , Integer count) {
+        String sql = "UPDATE group_course_schedule SET count = ? WHERE GCS_NO = ?";
+        Query query = getSession().createSQLQuery(sql);
+        query.setParameter(1, count + 1);
+        query.setParameter(2, gcsNo);
+        int result = query.executeUpdate();
+        System.out.println(result);
+    }
+
+    @Override
     public GroupCourseSchedule findByGcsNo(Integer gcsNo) {
-        return getSession().get(GroupCourseSchedule.class,gcsNo);
+        return getSession().get(GroupCourseSchedule.class , gcsNo);
     }
 
     @Override

@@ -74,8 +74,22 @@ async function fetchData(){
 //
 // })
 
+$(document).on("click" , "button.modify-button" , function (){
+
+
+    let url = `/${pathname}/groupcourse/schedule?action=modifiedPage&id=${this.getAttribute("data-id")}`;
+
+    window.location.href = url;
+
+});
+
 $(document).on("click" , "button.registration" , function (){
-    console.log(confirm("123"));
+
+
+    let url = `/${pathname}/groupcourse/schedule?action=registration&id=${this.getAttribute("data-id")}`;
+
+    window.location.href = url;
+
 });
 
 // window.addEventListener("load" , function (){
@@ -88,4 +102,6 @@ $(document).on("click" , "button.registration" , function (){
 //     })
 //
 // })
+
+
 

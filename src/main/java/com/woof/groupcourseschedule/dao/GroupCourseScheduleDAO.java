@@ -10,6 +10,8 @@ public interface GroupCourseScheduleDAO {
 
     void update(GroupCourseSchedule groupCourseSchedule);
 
+    void updateCount(Integer gcsNo , Integer count);
+
     GroupCourseSchedule findByGcsNo(Integer gcsNo);
 
     List<GroupCourseSchedule> getAll();

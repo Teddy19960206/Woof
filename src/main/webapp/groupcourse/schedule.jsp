@@ -71,10 +71,10 @@
                             <button type="button" class="modify-button" data-id="${schedule.gcsNo}">修改</button>
                         </td>
                         <td>
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                報名
-                            </button>
-<%--                            <button type="button" class="registration" data-id="${schedule.gcsNo}">報名</button>--%>
+<%--                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">--%>
+<%--                                報名--%>
+<%--                            </button>--%>
+                            <button type="button" class="registration" data-id="${schedule.gcsNo}">報名</button>
                         </td>
                     </tr>
                 </c:forEach>
@@ -99,11 +99,11 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            ...
+                            確定要報名嗎
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消報名</button>
+                            <button type="button" class="btn btn-primary">確定報名</button>
                         </div>
                     </div>
                 </div>
