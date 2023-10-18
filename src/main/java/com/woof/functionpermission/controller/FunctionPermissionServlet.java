@@ -23,18 +23,18 @@ public class FunctionPermissionServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
-		res.setCharacterEncoding("UTF-8");
-		String functionPermissionType = req.getParameter("functionpermission");
+		String functionPermissionType = req.getParameter("FunctionPermission");
 
 		res.getWriter().println(functionPermissionType);
 	}
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		super.doGet(req, res);
-		PrintWriter writer =res.getWriter();
-		System.out.println("123");
-		System.out.println(functionPermissionService.getAllFunctionPermissions());
+//		super.doGet(req, res);
+//		PrintWriter writer =res.getWriter();
+//		System.out.println("123");
+//		System.out.println(functionPermissionService.getAllFunctionPermissions());
+		doPost(req,res);
 //		res.setCharacterEncoding("UTF-8");
 //		res.setContentType("text/html; charset=UTF-8");
 //		PrintWriter writer = res.getWriter();
