@@ -161,3 +161,4 @@ public class ShopOrderDetail implements Serializable {
 	}
 
 }
+

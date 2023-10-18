@@ -155,3 +155,5 @@ public class ReturnList implements Serializable {
 				+ ", repayStatus=" + repayStatus + ", redAmount=" + redAmount + ", rePayAmount=" + rePayAmount + "]";
 	}
 }
+
+
