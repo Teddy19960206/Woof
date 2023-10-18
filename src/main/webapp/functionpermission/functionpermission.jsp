@@ -18,7 +18,11 @@
 				<option value="${functionPermission.funcNo}">${functionPermission.funcName}</option>
 			</c:forEach>
 		</select>
-		<button type="submit">提交</button>
+		<button type="submit">提交</button><br>
+		<br>
+		<button value="1">新增</button>
+		<button value="2">修改</button>
+		<button value="3">刪除</button>
 	</form>
 </body>
 </html>
