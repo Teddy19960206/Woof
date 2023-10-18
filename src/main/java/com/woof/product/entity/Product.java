@@ -88,3 +88,4 @@ public class Product implements Serializable {
 				+ ", prodPrice=" + prodPrice + ", prodName=" + prodName + ", prodStatus=" + prodStatus + "]";
 	}
 }
+

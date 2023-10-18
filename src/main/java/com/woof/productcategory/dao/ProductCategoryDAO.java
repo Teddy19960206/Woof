@@ -22,3 +22,4 @@ public interface ProductCategoryDAO {
 
 	long getTotal();
 }
+
