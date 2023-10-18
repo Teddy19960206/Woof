@@ -31,7 +31,7 @@ public class ChatroomServiceImpl implements ChatroomService {
 	public Chatroom updateChatroom(Chatroom chatroom) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		session.beginTransaction();
-			if (dao.insert(chatroom) == 1) {
+			if (dao.update(chatroom) == 1) {
 				session.getTransaction().commit();
 				return chatroom;
 			}
