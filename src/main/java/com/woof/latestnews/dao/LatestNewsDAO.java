@@ -1,29 +1,25 @@
 package com.woof.latestnews.dao;
 
 import java.util.List;
-
-
-import com.woof.latestnews.entity.LatestNewsVO;
+import com.woof.latestnews.entity.LatestNews;
 
 public interface LatestNewsDAO {
-//	void insert(LatestNewsVO letestNewsVO);
-//
-//	void update(LatestNewsVO letestNewsVO);
-//
-//	void delete(LatestNewsVO letestNewsVO);
-//
-//	LatestNewsVO findByLnNo(Integer lnNo);
-//
-//	List<LatestNewsVO> getAll();
-	int insert(LatestNewsVO latestNewsVO);
+	 int insert(LatestNews latestNews);
 
-	 int update(LatestNewsVO latestNewsVO);
+	 int update(LatestNews latestNews);
 
 	 int delete(Integer lnNo);
 
-	 LatestNewsVO getById(Integer lnNo);
+	 LatestNews findByLatestNewsNo(Integer lnNo);
 
-	 List<LatestNewsVO> getAll();
-
-	 long getTotal();
+	 List<LatestNews> getAll();
 }
+//void insert(LatestNewsVO letestNewsVO);
+//
+//void update(LatestNewsVO letestNewsVO);
+//
+//void delete(LatestNewsVO letestNewsVO);
+//
+//LatestNewsVO findByLnNo(Integer lnNo);
+//
+//List<LatestNewsVO> getAll();

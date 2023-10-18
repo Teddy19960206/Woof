@@ -4,23 +4,8 @@
 
 <html>
 <head>
+<meta charset="UTF-8">
 <title>Member</title>
-<!-- <style>
-table {
-	width: 80%;
-	margin: 20px auto;
-	border-collapse: collapse;
-}
-
-th, td {
-	border: 1px solid #ddd;
-	padding: 8px 12px;
-}
-
-th {
-	background-color: #f2f2f2;
-}
-</style>  -->
 </head>
 <body>
 
@@ -38,8 +23,13 @@ th {
 			<button type="submit" id="button">提交</button>
 		</div>
 	</form>
-<%-- 	<script src="${pageContext.request.contextPath}/webutil/js/jquery-3.7.1.min.js"></script>
-	<script src="${pageContext.request.contextPath}/member/member.js"></script> --%>
+<%-- 取得會員列表 --%>
+<div class="container center-table">
+    <div class="row">
+    </div>
+</div>
+	<script src="${pageContext.request.contextPath}/webutil/js/jquery-3.7.1.min.js"></script>
+	<script src="${pageContext.request.contextPath}/member/member.js"></script> 
 	<!-- <script>
     function filterTable() {
         let filter = document.getElementById('statusFilter').value;
