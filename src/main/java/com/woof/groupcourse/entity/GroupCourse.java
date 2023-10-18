@@ -3,6 +3,7 @@ package com.woof.groupcourse.entity;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Objects;
+import java.util.Set;
 
 import javax.persistence.*;
 
@@ -26,8 +27,7 @@ public class GroupCourse implements Serializable {
 	@JoinColumn(name = "SKILL_NO" , referencedColumnName = "SKILL_NO")
 	private Skill skill;
 
-
-
+	@Expose
 	@ManyToOne
 	@JoinColumn(name = "CT_NO" , referencedColumnName = "CT_NO")
 	private ClassType classType;
@@ -47,7 +47,7 @@ public class GroupCourse implements Serializable {
     }
 
 
-    public Integer getGcNo() {
+	public Integer getGcNo() {
         return gcNo;
     }
 

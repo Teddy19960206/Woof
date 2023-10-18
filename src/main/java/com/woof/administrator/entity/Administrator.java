@@ -26,11 +26,6 @@ public class Administrator implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ADMIN_NO", updatable = false, nullable = false)
 	private Integer adminNo;
-	//==========================================================
-//	@Expose
-//	@OneToMany(mappedBy = "administrator" , cascade = CascadeType.ALL)
-//	private Set<Trainer> trainers;
-	//=============================================================
 	@Expose
 	@Column(name = "ADMIN_NAME", nullable = false)
 	private String adminName;
@@ -81,14 +76,6 @@ public class Administrator implements Serializable {
 	public void setAdminNo(Integer adminNo) {
 		this.adminNo = adminNo;
 	}
-
-//	public Set<Trainer> getTrainers() {
-//		return trainers;
-//	}
-//
-//	public void setTrainers(Set<Trainer> trainers) {
-//		this.trainers = trainers;
-//	}
 
 	public String getAdminName() {
 		return adminName;
