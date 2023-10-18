@@ -29,11 +29,12 @@
     <input type="file" name="photo" accept="image/*">
     <br />
 
-    <label>課程內容</label>
+    <label>課程內容：</label>
     <textarea name="content"></textarea>
     <br />
 
     <button type="submit">新增</button>
+    <button type="button" onclick="history.back()">取消新增</button>
 </form>
 
 </body>
