@@ -79,3 +79,4 @@ public class ProductPhoto implements Serializable {
 				+ Arrays.toString(prodPhoto) + "]";
 	}
 }
+
