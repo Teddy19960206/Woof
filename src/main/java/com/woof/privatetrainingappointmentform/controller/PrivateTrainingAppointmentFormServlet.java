@@ -42,7 +42,7 @@ public class PrivateTrainingAppointmentFormServlet extends HttpServlet {
 		System.out.println(privateTrainingAppointmentFormService.getAllPrivateTrainingAppointmentForms());
 	}
 
-	private void addPrivateTrainingAppointmentForm(HttpServletRequest request , HttpServletResponse response) {
+	private void addPrivateTrainingAppointmentForm(HttpServletRequest request , HttpServletResponse response) throws IOException {
 		
 		Integer memNo = Integer.valueOf(request.getParameter("member"));
 		MemberService memberService = new MemberServiceImpl();
@@ -63,5 +63,12 @@ public class PrivateTrainingAppointmentFormServlet extends HttpServlet {
 		    result = -1;
 		}
 		
+		if ( result == 1){
+            System.out.println("新增成功");
+        }else{
+            System.out.println("新增失敗");
+        }
+		
+		response.sendRedirect(request.getServletContext().getContextPath()+"/privatetrainingappointmentform/privatetrainingappointmentform.jsp");
 	}
 }

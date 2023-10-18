@@ -7,7 +7,6 @@ import com.woof.privatetrainingappointmentform.entity.PrivateTrainingAppointment
 import com.woof.trainer.entity.Trainer;
 
 public interface PrivateTrainingAppointmentFormService {
-	PrivateTrainingAppointmentForm addPrivateTrainingAppointmentForm(PrivateTrainingAppointmentForm privateTrainingAppointmentForm);
 	
 	PrivateTrainingAppointmentForm updatePrivateTrainingAppointmentForm(PrivateTrainingAppointmentForm privateTrainingAppointmentForm);
 	

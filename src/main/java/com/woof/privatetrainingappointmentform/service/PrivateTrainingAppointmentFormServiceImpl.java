@@ -4,9 +4,11 @@ import java.util.List;
 
 import org.hibernate.Session;
 
+import com.woof.member.entity.Member;
 import com.woof.privatetrainingappointmentform.dao.PrivateTrainingAppointmentFormDAO;
 import com.woof.privatetrainingappointmentform.dao.PrivateTrainingAppointmentFormDAOImpl;
 import com.woof.privatetrainingappointmentform.entity.PrivateTrainingAppointmentForm;
+import com.woof.trainer.entity.Trainer;
 import com.woof.util.HibernateUtil;
 
 public class PrivateTrainingAppointmentFormServiceImpl implements PrivateTrainingAppointmentFormService{
@@ -17,20 +19,20 @@ public class PrivateTrainingAppointmentFormServiceImpl implements PrivateTrainin
 		dao = new PrivateTrainingAppointmentFormDAOImpl(HibernateUtil.getSessionFactory());
 	}
 
-	@Override
-	public PrivateTrainingAppointmentForm addPrivateTrainingAppointmentForm(
-			PrivateTrainingAppointmentForm privateTrainingAppointmentForm) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-
-		session.beginTransaction();
-		if (dao.insert(privateTrainingAppointmentForm) == 1){
-
-			session.getTransaction().commit();
-			return privateTrainingAppointmentForm;
-		}
-		session.getTransaction().rollback();
-		return null;
-	}
+//	@Override
+//	public PrivateTrainingAppointmentForm addPrivateTrainingAppointmentForm(
+//			PrivateTrainingAppointmentForm privateTrainingAppointmentForm) {
+//		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+//
+//		session.beginTransaction();
+//		if (dao.insert(privateTrainingAppointmentForm) == 1){
+//
+//			session.getTransaction().commit();
+//			return privateTrainingAppointmentForm;
+//		}
+//		session.getTransaction().rollback();
+//		return null;
+//	}
 
 	@Override
 	public PrivateTrainingAppointmentForm updatePrivateTrainingAppointmentForm(
@@ -71,6 +73,16 @@ public class PrivateTrainingAppointmentFormServiceImpl implements PrivateTrainin
 
 		// TODO Auto-generated method stub
 		return privateTrainingAppointmentFormList;
+	}
+
+	@Override
+	public int addPrivateTrainingAppointmentForm(Member member, Trainer trainer, Integer ptaClassInt) {
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+
+		
+		
+		
+		return 0;
 	}
 	
 	
