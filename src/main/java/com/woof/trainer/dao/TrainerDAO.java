@@ -2,6 +2,7 @@ package com.woof.trainer.dao;
 
 import java.util.List;
 
+import com.woof.trainer.entity.Trainer;
 import com.woof.promotionactivity.entity.PromotionActivity;
 import com.woof.trainer.entity.Trainer;
 
@@ -20,9 +21,9 @@ public interface TrainerDAO {
 
 	int update(Trainer trainer);
 
-//	int delete(Integer trainerNo);
-
-	Trainer findByTrainerNo(Integer trainerNo);
+	int delete(Integer trainerNo);
 
 	List<Trainer> getAll();
+
+	Trainer findBytrainerNo(Integer trainerNo);
 }

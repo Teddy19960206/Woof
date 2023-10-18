@@ -11,3 +11,4 @@ public interface ProductCategoryDAO {
     public ProductCategory findByProdCatNo(Integer prodCatNo);
     public List<ProductCategory> getAll();
 }
+

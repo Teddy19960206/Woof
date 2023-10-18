@@ -13,59 +13,59 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-
+import com.woof.trainer.entity.Trainer;
 import com.woof.trainer.entity.Trainer;
 
 import com.woof.util.Util;
 
 public class TrainerDAOImpl implements TrainerDAO {
 	
-		private SessionFactory factory;
+	private SessionFactory factory;
 
-		public  TrainerDAOImpl(SessionFactory factory) {
-			this.factory = factory;
-		}
+	public TrainerDAOImpl(SessionFactory factory) {
+		this.factory = factory;
+	}
 
-		public Session getSession() {
-			return factory.getCurrentSession();
-		}
+	public Session getSession() {
+		return factory.getCurrentSession();
+	}
 
-		@Override
-		public int insert(Trainer  trainer) {
-			return (Integer) getSession().save(trainer);
-		}
+	@Override
+	public int insert(Trainer trainer) {
+		return (Integer) getSession().save(trainer);
+	}
 
-		@Override
-		public int update(Trainer  trainer) {
-			try {
-				getSession().update(trainer);
-				return 1;
-			} catch (Exception e) {
-				return -1;
-			}
-		}
-
-//		@Override
-//		public int delete(Integer trainerNo) {
-//			Trainer trainer = getSession().get(Trainer.class, trainerNo);
-//			if(trainer != null) {
-//				getSession().delete(trainer);
-//				return 1;
-//			}else {
-//				return -1;
-//			}
-//		}
-
-		@Override
-		public Trainer findByTrainerNo(Integer trainerNo) {
-			return getSession().get(Trainer.class, trainerNo);
-		}
-
-		@Override
-		public List<Trainer> getAll() {
-			return getSession().createQuery("FROM Trainer", Trainer.class).list();
+	@Override
+	public int update(Trainer trainer) {
+		try {
+			getSession().update(trainer);
+			return 1;
+		} catch (Exception e) {
+			return -1;
 		}
 	}
+
+	@Override
+	public int delete(Integer trainerNo) {
+		Trainer trainer =getSession().get(Trainer.class, trainerNo);
+		if(trainer !=null) {
+			getSession().delete(trainer);
+			return 1;
+		}else {
+			return -1;
+		}
+	}
+
+	@Override
+	public Trainer findBytrainerNo(Integer trainerNo) {
+		return getSession().get(Trainer.class, trainerNo);
+	}
+
+	@Override
+	public List<Trainer> getAll() {
+		return getSession().createQuery("FROM Trainer", Trainer.class).list();
+	}
+}
 
 
 //	 private static final String INSERT_STMT = "INSERT INTO trainer ( admin_no ,experience) VALUES (? , ? )";

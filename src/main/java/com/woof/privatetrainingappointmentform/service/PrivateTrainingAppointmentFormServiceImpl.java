@@ -50,11 +50,15 @@ public class PrivateTrainingAppointmentFormServiceImpl implements PrivateTrainin
 	}
 
 	@Override
-	public PrivateTrainingAppointmentForm findPrivateTrainingAppointmentFormByNo(Integer ptaNo) {
+	public PrivateTrainingAppointmentForm findPrivateTrainingAppointmentFormByPtaNo(Integer ptaNo) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		session.beginTransaction();
 		
-		return null;
+		PrivateTrainingAppointmentForm privateTrainingAppointmentForm = session.get(PrivateTrainingAppointmentForm.class, ptaNo);
+		
+		session.getTransaction().commit();
+		
+		return privateTrainingAppointmentForm;
 	}
 
 	@Override

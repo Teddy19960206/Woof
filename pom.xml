@@ -82,6 +82,11 @@
 			<version>2.10.1</version>
 		</dependency>
 
+		<dependency>
+			<groupId>com.tibame</groupId>
+			<artifactId>Spring_0201_AOP_Introduction</artifactId>
+			<version>1.0.0</version>
+		</dependency>
 	</dependencies>
 
 	<build>

@@ -9,7 +9,7 @@ public interface ClassOrderService {
 	
 	ClassOrder updateClassOrder(ClassOrder classOrder);
 	
-	ClassOrder findClassOrderByNo(Integer coNo);
+	ClassOrder findClassOrderByCoNo(Integer coNo);
 	
 	List<ClassOrder> getAllClassOrders();
 }

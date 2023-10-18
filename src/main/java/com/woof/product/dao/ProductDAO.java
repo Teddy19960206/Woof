@@ -10,3 +10,6 @@ public interface ProductDAO {
     public Product findByProdNo(Integer prodNo);
     public List<Product> getAll();
 }
+
+
+
