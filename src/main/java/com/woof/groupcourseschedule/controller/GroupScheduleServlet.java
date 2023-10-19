@@ -2,9 +2,21 @@ package com.woof.groupcourseschedule.controller;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.woof.classtype.entity.ClassType;
+import com.woof.classtype.service.ClassTypeService;
+import com.woof.classtype.service.ClassTypeServiceImpl;
+import com.woof.groupcourse.entity.GroupCourse;
+import com.woof.groupcourse.service.GroupCourseService;
+import com.woof.groupcourse.service.GroupCourseServiceImpl;
 import com.woof.groupcourseschedule.entity.GroupCourseSchedule;
 import com.woof.groupcourseschedule.service.GroupCourseScheduleServiceImpl;
 import com.woof.groupcourseschedule.service.GroupGourseScheduleService;
+import com.woof.skill.entity.Skill;
+import com.woof.skill.service.SkillService;
+import com.woof.skill.service.SkillServiceImpl;
+import com.woof.trainer.entity.Trainer;
+import com.woof.trainer.service.TrainerService;
+import com.woof.trainer.service.TrainerServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -34,8 +46,6 @@ public class GroupScheduleServlet extends HttpServlet {
 
         request.setCharacterEncoding("UTF-8");
 
-        String classType = request.getParameter("classType");
-
         String pathInfo = request.getPathInfo();
 
         int secondSlashIndex = pathInfo.indexOf('/', 2);
@@ -48,14 +58,15 @@ public class GroupScheduleServlet extends HttpServlet {
 
         switch (pathInfo){
             case "/getSchedule":
-                getScheduleByCtNo(request , response);
+                getSchedule(request , response);
                 return;
             case "/registration":
                 registration(request , response);
                 return;
             default:
                 if (pathInfo.startsWith("/edit/")) {
-                    forwardPath = getScheduleByGcsNo(request ,response , result);
+                    getSelectInfo(request,response);
+                    forwardPath = edit(request ,response , result);
                 } else {
                     forwardPath = getAllSchedule(request ,response);
                 }
@@ -73,12 +84,22 @@ public class GroupScheduleServlet extends HttpServlet {
     }
 
 
-    private void getScheduleByCtNo(HttpServletRequest request , HttpServletResponse response) throws IOException {
+    private void getSchedule(HttpServletRequest request , HttpServletResponse response) throws IOException {
         request.setCharacterEncoding("UTF-8");
 
         String classType = request.getParameter("classType");
 
-        List<GroupCourseSchedule> groupCourseScheduleSet = groupGourseScheduleService.getGroupScheduleByCtNo(Integer.valueOf(classType));
+        List<GroupCourseSchedule> groupCourseScheduleSet = null;
+        if (classType != null){
+            if ("0".equals(classType)){
+                groupCourseScheduleSet = groupGourseScheduleService.getAll();
+            }else{
+                groupCourseScheduleSet = groupGourseScheduleService.getGroupScheduleByCtNo(Integer.valueOf(classType));
+            }
+        }else{
+            //異常判斷
+        }
+
 
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
         String json = gson.toJson(groupCourseScheduleSet);
@@ -88,16 +109,29 @@ public class GroupScheduleServlet extends HttpServlet {
 
     }
 
-    private String getScheduleByGcsNo(HttpServletRequest request , HttpServletResponse response , Integer result){
+    private String getSelectInfo(HttpServletRequest request , HttpServletResponse response){
 
-        Integer id = Integer.valueOf(request.getParameter("id"));
+        GroupCourseService groupCourseService = new GroupCourseServiceImpl();
+        List<GroupCourse> allGroupCourse = groupCourseService.getAllGroupCourse();
+
+        TrainerService trainerService = new TrainerServiceImpl();
+        List<Trainer> allTrainers = trainerService.getAllTrainers();
+
+
+        request.setAttribute("groupCourses" , allGroupCourse);
+        request.setAttribute("trainers", allTrainers);
+
+        return "/backend/course/addGroupCourse.jsp";
+    }
+
+    private String edit(HttpServletRequest request , HttpServletResponse response , Integer id){
 
         GroupCourseSchedule groupCourseSchedule = groupGourseScheduleService.findByGcsNo(id);
 
         request.setAttribute("schedule" , groupCourseSchedule);
 
 
-        return "/groupcourse/modifyGroupSchedule.jsp";
+        return "/groupcourse/editGroupSchedule.jsp";
     }
 
     private void registration(HttpServletRequest request , HttpServletResponse response) throws IOException {

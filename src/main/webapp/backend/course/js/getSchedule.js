@@ -7,6 +7,10 @@ document.getElementById("button").onclick = function (){
     fetchData();
 }
 
+document.addEventListener("DOMContentLoaded", function (){
+    fetchData();
+});
+
 
 async function fetchData(){
 
@@ -55,7 +59,7 @@ async function fetchData(){
             <th>${item.count}</th>
             <th>${item.gcsPrice}</th>
             <th>${item.gcsStatus}</th>
-            <td><button type="button" class="modify-button" data-id="${item.gcNo}">修改</td>
+            <td><button type="button" class="modify-button" data-id="${item.gcsNo}">修改</td>
         </tr>`;
         })
 
@@ -80,7 +84,7 @@ async function fetchData(){
 $(document).on("click" , "button.modify-button" , function (){
 
 
-    let url = `/${pathname}/groupcourse/schedule/modifiedPage?id=${this.getAttribute("data-id")}`;
+    let url = `/${pathname}/schedule/edit/${this.getAttribute("data-id")}`;
 
     window.location.href = url;
 
@@ -89,7 +93,7 @@ $(document).on("click" , "button.modify-button" , function (){
 $(document).on("click" , "button.registration" , function (){
 
 
-    let url = `/${pathname}/groupcourse/schedule/registration?id=${this.getAttribute("data-id")}`;
+    let url = `/${pathname}/groupcourse/schedule/xxx/${this.getAttribute("data-id")}`;
 
     window.location.href = url;
 
