@@ -8,7 +8,7 @@
 <body>
 <h1>新增私人預約單</h1>
 
-<form action="privatetrainingappointmentform?action=asd" method="post" enctype="multipart/form-data">
+<form action="privatetrainingappointmentform?action=add" method="post" enctype="multipart/form-data">
     <label>成員名稱：</label>
     <select name="member">
         <c:forEach items="${members}" var="member">
@@ -26,7 +26,7 @@
     <br />
 
     <label>課堂數：</label>
-    <textarea name="number"></textarea>
+    <input type="text" name="number">
     <br />
 
     <button type="submit">新增</button>

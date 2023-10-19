@@ -35,18 +35,18 @@ public class PrivateTrainingAppointmentFormServlet extends HttpServlet {
 		String forwardPath = "";
         if (action != null){
             switch (action){
-                case "asd":
+                case "add":
                     addPrivateTrainingAppointmentForm(req,resp);
-                    forwardPath = "/privatetrainingappointmentform/privatetrainingappointmentform_add.jsp";
+                    forwardPath = "/frontend/privatetrainingappointmentform/privatetrainingappointmentform.jsp";
                     break;
                 default:
-                    forwardPath = "/privatetrainingappointmentform/privatetrainingappointmentform_add.jsp";
+                    forwardPath = "/frontend/privatetrainingappointmentform/privatetrainingappointmentform_add.jsp";
             }
         }else{
-            forwardPath = "/privatetrainingappointmentform/privatetrainingappointmentform_add.jsp";
+            forwardPath = "/frontend/privatetrainingappointmentform/privatetrainingappointmentform_add.jsp";
         }
         req.getRequestDispatcher(forwardPath).forward(req,resp);
-//		resp.getWriter().println(privatetrainingappointmentform);
+		resp.getWriter().println(action);
 	}
 
 	@Override
@@ -66,13 +66,13 @@ public class PrivateTrainingAppointmentFormServlet extends HttpServlet {
 		TrainerService trainerService = new TrainerServiceImpl();
 		Trainer trainer = trainerService.findTrainerByTrainerNo(trainerNo);
 		
-		String ptaClass = request.getParameter("number");
+		String ptaClassStr = request.getParameter("number");
 		
 		int result;
 		
 		try {
-		    Integer ptaClassInt = Integer.parseInt(ptaClass);
-		    result = privateTrainingAppointmentFormService.addPrivateTrainingAppointmentForm(member, trainer ,ptaClassInt);
+		    Integer ptaClass = Integer.parseInt(ptaClassStr);
+		    result = privateTrainingAppointmentFormService.addPrivateTrainingAppointmentForm(member, trainer ,ptaClass);
 		} catch (NumberFormatException e) {
 		    result = -1;
 		}

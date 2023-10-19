@@ -79,14 +79,15 @@ public class PrivateTrainingAppointmentFormServiceImpl implements PrivateTrainin
 	}
 
 	@Override
-	public int addPrivateTrainingAppointmentForm(Member member, Trainer trainer, Integer ptaClassInt) {
+	public int addPrivateTrainingAppointmentForm(Member member, Trainer trainer, Integer ptaClass) {
 
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-
+		PrivateTrainingAppointmentForm privateTrainingAppointmentForm = new PrivateTrainingAppointmentForm();
+		privateTrainingAppointmentForm.setMember(member);
+		privateTrainingAppointmentForm.setTrainer(trainer);
+		privateTrainingAppointmentForm.setPtaClass(ptaClass);
+		dao.insert(privateTrainingAppointmentForm);
 		
-		
-		
-		return 0;
+		return 1;
 	}
 
 }
