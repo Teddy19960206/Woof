@@ -5,7 +5,7 @@ import com.woof.product.entity.Product;
 
 public class TestProductDAO {
 		public static void main(String[] args) {
-			ProductDAO productDAO = new ProductDAOImpl();
+			ProductDAO1 productDAO = new ProductDAOImpl1();
 			Product productVO = new Product();
 
 //			// 新增
