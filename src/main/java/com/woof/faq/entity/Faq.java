@@ -1,4 +1,4 @@
-package com.woof.faq.model;
+package com.woof.faq.entity;
 
 import java.util.Objects;
 
@@ -11,7 +11,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "faq")
-public class FaqVO {
+public class Faq {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,7 +28,7 @@ public class FaqVO {
 	private String faqContent;
 	
 	
-	public FaqVO() {
+	public Faq() {
     }
 	
 	public Integer getFaqNo() {
@@ -67,7 +67,7 @@ public class FaqVO {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		FaqVO other = (FaqVO) obj;
+		Faq other = (Faq) obj;
 		return Objects.equals(faqClass, other.faqClass) && Objects.equals(faqContent, other.faqContent)
 				&& Objects.equals(faqNo, other.faqNo) && Objects.equals(faqTitle, other.faqTitle);
 	}

@@ -63,11 +63,12 @@ public class PromotionActivityServiceImpl implements PromotionActivityService{
 
 	@Override
 	public List<PromotionActivity> getAllPromotionActivity() {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		//filter已經有寫所以這邊可以省略
+//		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 
-		session.beginTransaction();
+//		session.beginTransaction();
 		List<PromotionActivity> promotionActivityList = dao.getAll();
-		session.getTransaction().commit();
+//		session.getTransaction().commit();
 
 		// TODO Auto-generated method stub
 		return promotionActivityList;

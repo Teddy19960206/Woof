@@ -23,16 +23,16 @@ public class PromotionActivityServlet extends HttpServlet {
 	}
 
 	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
 		String promotionactivity = req.getParameter("Type");
 
-		res.getWriter().println(promotionactivity);
+		resp.getWriter().println(promotionactivity);
 	}
 
 	@Override
-	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		super.doGet(req, res);
+	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		super.doGet(req, resp);
 
 		// PrintWriter writer = resp.getWriter();
 		// System.out.println("123");
