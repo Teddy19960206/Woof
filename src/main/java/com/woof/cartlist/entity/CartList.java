@@ -1,22 +1,20 @@
-package com.woof.cartlist.model;
+package com.woof.cartlist.entity;
 
 import java.io.Serializable;
 import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.Table;
 
-import com.woof.cartlist.model.CartListVO.CompositeDetail;
+import com.woof.cartlist.entity.CartList.CompositeDetail;
 
 @Entity
 @Table(name = "cart_list")
-@IdClass(CompositeDetail.class)
-public class CartListVO implements Serializable {
+@IdClass(CartList.CompositeDetail.class)
+public class CartList implements Serializable {
 
 	@Id
 	@Column(name = "PROD_NO" , nullable = false)
@@ -38,7 +36,7 @@ public class CartListVO implements Serializable {
 		this.memNo = key.getMemNo();
 	}
 	
-	public CartListVO() {
+	public CartList() {
 	}
 
 	public Integer getProdNo() {
