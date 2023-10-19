@@ -31,10 +31,11 @@ public class MemberServlet extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		super.doGet(req, res);
-		PrintWriter writer = res.getWriter();
-		System.out.println("123");
-		System.out.println(memberService.getAllMembers());
+//		super.doGet(req, res);
+//		PrintWriter writer = res.getWriter();
+//		System.out.println("123");
+//		System.out.println(memberService.getAllMembers());
+		doPost(req,res);
 	}
 }
 //
