@@ -21,61 +21,11 @@
 <%-- 報名列表 --%>
 <div class="container center-table">
     <div class="row">
-<%--        <table class="table table-stripclassNamext-center" border="1">--%>
-<%--            <thead>--%>
-<%--                <tr>--%>
-<%--                    <th>GCS_NO</th>--%>
-<%--                    <th>GC_NO</th>--%>
-<%--                    <th>TRAINER_NO</th>--%>
-<%--                    <th>GCS_START</th>--%>
-<%--                    <th>GCS_END</th>--%>
-<%--                    <th>MIN_LIMIT</th>--%>
-<%--                    <th>MAX_LIMIT</th>--%>
-<%--                    <th>COUNT</th>--%>
-<%--                    <th>GCS_PRICE</th>--%>
-<%--                    <th>GCS_STATUS</th>--%>
-<%--                    <th>修改</th>--%>
-<%--                    <th>報名</th>--%>
-<%--                </tr>--%>
-<%--            </thead>--%>
-<%--            <tbody id="mybody">--%>
-<%--                <c:forEach items="${scheduleList}" var="schedule">--%>
-<%--                    <tr>--%>
-
-<%--                        <td>${schedule.gcsNo}</td>--%>
-<%--                        <td>${schedule.groupCourse.gcNo}</td>--%>
-<%--                        <td>${schedule.trainer.trainerNo}</td>--%>
-<%--                        <td>${schedule.gcsStart}</td>--%>
-<%--                        <td>${schedule.gcsEnd}</td>--%>
-<%--                        <td>${schedule.minLimit}</td>--%>
-<%--                        <td>${schedule.maxLimit}</td>--%>
-<%--                        <td>${schedule.count}</td>--%>
-<%--                        <td>${schedule.gcsPrice}</td>--%>
-<%--                        <td>${schedule.gcsStatus}</td>--%>
-<%--                        <img src="">--%>
-<%--                        <td>--%>
-<%--                            <button type="button" class="modify-button" data-id="${schedule.gcsNo}">修改</button>--%>
-<%--                        </td>--%>
-<%--                        <td>--%>
-<%--&lt;%&ndash;                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">&ndash;%&gt;--%>
-<%--&lt;%&ndash;                                報名&ndash;%&gt;--%>
-<%--&lt;%&ndash;                            </button>&ndash;%&gt;--%>
-<%--                            <button type="button" class="registration" data-id="${schedule.gcsNo}">報名</button>--%>
-<%--                        </td>--%>
-<%--                    </tr>--%>
-<%--                </c:forEach>--%>
-<%--        </table>--%>
-        <a href="#"><button>新增團體課程報名</button></a>
     </div>
 </div>
+<button type="button">新增報名課程</button>
 
 <div class="container">
-    <%--            <h2>Basic Modal Example</h2>--%>
-    <%--            <!-- Button trigger modal -->--%>
-    <%--            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">--%>
-    <%--                Launch demo modal--%>
-    <%--            </button>--%>
-
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">

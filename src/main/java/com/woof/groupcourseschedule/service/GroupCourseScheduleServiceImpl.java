@@ -4,8 +4,10 @@ import com.woof.groupcourse.entity.GroupCourse;
 import com.woof.groupcourseschedule.dao.GroupCourseScheduleDAO;
 import com.woof.groupcourseschedule.dao.GroupCourseScheduleDAOImpl;
 import com.woof.groupcourseschedule.entity.GroupCourseSchedule;
+import com.woof.trainer.entity.Trainer;
 import com.woof.util.HibernateUtil;
 
+import java.sql.Date;
 import java.util.List;
 
 public class GroupCourseScheduleServiceImpl implements GroupGourseScheduleService{
@@ -21,6 +23,25 @@ public class GroupCourseScheduleServiceImpl implements GroupGourseScheduleServic
         GroupCourseSchedule schedule = findByGcsNo(gcsNo);
 
         dao.updateCount(gcsNo, schedule.getCount());
+    }
+
+    @Override
+    public int updateSchedule(Integer gcsNo, GroupCourse groupCourse , Trainer trainer , Date gcsStart , Date gcsEnd , Integer minLimit , Integer maxLimit , Integer count , Integer gcsPrice , Integer gcsStatus) {
+        GroupCourseSchedule groupCourseSchedule = new GroupCourseSchedule();
+        groupCourseSchedule.setGcsNo(gcsNo);
+        groupCourseSchedule.setGroupCourse(groupCourse);
+        groupCourseSchedule.setTrainer(trainer);
+        groupCourseSchedule.setGcsStart(gcsStart);
+        groupCourseSchedule.setGcsEnd(gcsEnd);
+        groupCourseSchedule.setMinLimit(minLimit);
+        groupCourseSchedule.setMaxLimit(maxLimit);
+        groupCourseSchedule.setCount(count);
+        groupCourseSchedule.setGcsPrice(gcsPrice);
+        groupCourseSchedule.setGcsStatus(gcsStatus);
+
+        int update = dao.update(groupCourseSchedule);
+
+        return update;
     }
 
     public GroupCourseSchedule findByGcsNo(Integer GcsNo){

@@ -2,18 +2,12 @@ package com.woof.groupcourseschedule.controller;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.woof.classtype.entity.ClassType;
-import com.woof.classtype.service.ClassTypeService;
-import com.woof.classtype.service.ClassTypeServiceImpl;
 import com.woof.groupcourse.entity.GroupCourse;
 import com.woof.groupcourse.service.GroupCourseService;
 import com.woof.groupcourse.service.GroupCourseServiceImpl;
 import com.woof.groupcourseschedule.entity.GroupCourseSchedule;
 import com.woof.groupcourseschedule.service.GroupCourseScheduleServiceImpl;
 import com.woof.groupcourseschedule.service.GroupGourseScheduleService;
-import com.woof.skill.entity.Skill;
-import com.woof.skill.service.SkillService;
-import com.woof.skill.service.SkillServiceImpl;
 import com.woof.trainer.entity.Trainer;
 import com.woof.trainer.service.TrainerService;
 import com.woof.trainer.service.TrainerServiceImpl;
@@ -25,6 +19,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.Date;
 import java.util.List;
 
 @WebServlet("/schedule/*")
@@ -46,28 +41,38 @@ public class GroupScheduleServlet extends HttpServlet {
 
         request.setCharacterEncoding("UTF-8");
 
+//       取得位址資訊
         String pathInfo = request.getPathInfo();
 
+//       判斷若是 /edit/{:_id} 取得id
         int secondSlashIndex = pathInfo.indexOf('/', 2);
         Integer result = null;
-
         if (secondSlashIndex > 0){
             result = Integer.valueOf(pathInfo.substring(secondSlashIndex + 1));
         }
+
         String forwardPath = "";
 
         switch (pathInfo){
             case "/getSchedule":
+//                根據classType的選擇取得相對應的schedule資料
                 getSchedule(request , response);
                 return;
             case "/registration":
+//                消費者點選報名時進行報名人數更新
                 registration(request , response);
+                return;
+            case "/modified":
+//                正式修改資料
+                modified(request , response);
                 return;
             default:
                 if (pathInfo.startsWith("/edit/")) {
+//                   進入edit畫面根據取得的id去抓取要修改的資料
                     getSelectInfo(request,response);
                     forwardPath = edit(request ,response , result);
                 } else {
+//                    若是都不是以上位址，則預設取得全部資料，並轉回"/backend/course/schedule.jsp"
                     forwardPath = getAllSchedule(request ,response);
                 }
         }
@@ -113,9 +118,11 @@ public class GroupScheduleServlet extends HttpServlet {
 
         GroupCourseService groupCourseService = new GroupCourseServiceImpl();
         List<GroupCourse> allGroupCourse = groupCourseService.getAllGroupCourse();
+        System.out.println(allGroupCourse);
 
         TrainerService trainerService = new TrainerServiceImpl();
         List<Trainer> allTrainers = trainerService.getAllTrainers();
+        System.out.println(allTrainers);
 
 
         request.setAttribute("groupCourses" , allGroupCourse);
@@ -131,7 +138,7 @@ public class GroupScheduleServlet extends HttpServlet {
         request.setAttribute("schedule" , groupCourseSchedule);
 
 
-        return "/groupcourse/editGroupSchedule.jsp";
+        return "/backend/course/editGroupSchedule.jsp";
     }
 
     private void registration(HttpServletRequest request , HttpServletResponse response) throws IOException {
@@ -141,6 +148,38 @@ public class GroupScheduleServlet extends HttpServlet {
 
         response.sendRedirect(request.getContextPath()+"/groupcourse/schedule?action=getAl");
     }
+
+    private void modified(HttpServletRequest request , HttpServletResponse response) throws IOException {
+        Integer scheduleNo = Integer.valueOf(request.getParameter("scheduleNo"));
+
+        Integer content = Integer.valueOf(request.getParameter("skill"));
+        GroupCourseService groupCourseService = new GroupCourseServiceImpl();
+        GroupCourse groupCourseByNo = groupCourseService.findGroupCourseByNo(content);
+
+        Integer trainer = Integer.valueOf(request.getParameter("trainer"));
+        TrainerService trainerService = new TrainerServiceImpl();
+        Trainer trainerByTrainerNo = trainerService.findTrainerByTrainerNo(trainer);
+
+        Date startDate = Date.valueOf(request.getParameter("startDate"));
+        Date endDate = Date.valueOf(request.getParameter("endDate"));
+        Integer minLimit = Integer.valueOf(request.getParameter("minLimit"));
+        Integer maxLimit = Integer.valueOf(request.getParameter("maxLimit"));
+        Integer count = Integer.valueOf(request.getParameter("count"));
+        Integer price = Integer.valueOf(request.getParameter("price"));
+        Integer status = Integer.valueOf(request.getParameter("status"));
+
+
+        int result = groupGourseScheduleService.updateSchedule(scheduleNo, groupCourseByNo, trainerByTrainerNo, startDate, endDate, minLimit, maxLimit, count, price, status);
+
+        if (result == 1){
+            System.out.println("修改成功");
+        }else {
+            System.out.println("修改失敗");
+        }
+
+        response.sendRedirect(request.getContextPath()+"/backend/course/schedule.jsp");
+    }
+
 }
 
 

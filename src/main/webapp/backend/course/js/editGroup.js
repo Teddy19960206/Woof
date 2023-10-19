@@ -1,11 +1,14 @@
 const p_file = document.getElementById("p_file");
 const preview = document.getElementById("preview");
 
+
+// 移除圖片
 function clearPhoto() {
     preview.innerHTML = `<span class="text">預覽圖</span>`;
 }
 
 
+// 讀取圖片
 function readImg(result) {
     let reader = new FileReader();
     reader.readAsDataURL(result);
@@ -15,6 +18,7 @@ function readImg(result) {
     });
 }
 
+// 當選擇新圖片時，讀取圖片並顯示在頁面上，若沒有選擇圖片，則刪除圖片
 p_file.addEventListener("change", function (e) {
     if (this.files.length > 0) {
         readImg(this.files[0]);

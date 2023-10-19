@@ -33,6 +33,7 @@ public class GroupCourseSchedule implements Serializable {
 	@JoinColumn(name = "GC_NO" , referencedColumnName = "GC_NO")
     private GroupCourse groupCourse;
 
+    @Expose
 	@ManyToOne
 	@JoinColumn(name = "TRAINER_NO" , referencedColumnName = "TRAINER_NO")
 	private Trainer trainer;

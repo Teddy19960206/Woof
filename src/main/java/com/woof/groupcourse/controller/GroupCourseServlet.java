@@ -44,11 +44,10 @@ public class GroupCourseServlet extends HttpServlet {
 
         request.setCharacterEncoding("UTF-8");
 
-
+//       取得位址資訊
         String pathInfo = request.getPathInfo();
 
-        System.out.println(pathInfo);
-
+//       判斷若是 /edit/{:_id} 取得id
         int secondSlashIndex = pathInfo.indexOf('/', 2);
         Integer result = null;
         if (secondSlashIndex > 0){
@@ -75,11 +74,12 @@ public class GroupCourseServlet extends HttpServlet {
                 getGroupCourse(request, response);
                 return;
             default:
-//               進入edit畫面先進行讀取要修改的檔案
+//                進入edit畫面根據取得的id去抓取要修改的資料
                 if (pathInfo.startsWith("/edit/")) {
                     getSelectInfo(request,response);
                     forwardPath = edit(request , response , result);
                 } else {
+//                    若是都不是以上位址，則預設取得全部資料，並轉回"/classtype/classContent.jsp"
                     forwardPath = "/classtype/classContent.jsp";
                 }
         }
