@@ -1,14 +1,24 @@
 package com.woof.productcategory.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.woof.productcategory.entity.ProductCategory;
 
 public interface ProductCategoryDAO {
-    public void insert(ProductCategory productCategoryVO);
-    public void update(ProductCategory productCategoryVO);
-    public void delete(Integer prodCatNo);
-    public ProductCategory findByProdCatNo(Integer prodCatNo);
-    public List<ProductCategory> getAll();
-}
+	int insert(ProductCategory ProductCategory);
 
+	int update(ProductCategory ProductCategory);
+
+	int delete(Integer prodCatNo);
+
+	ProductCategory findByProdCatNo(Integer prodCatNo);
+
+	List<ProductCategory> getAll();
+
+	List<ProductCategory> getByCompositeQuery(Map<String, String> map);
+
+	List<ProductCategory> getAll(int currentPage);
+
+	long getTotal();
+}
