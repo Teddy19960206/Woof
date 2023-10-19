@@ -29,7 +29,7 @@
     </div>
 </div>
 	<script src="${pageContext.request.contextPath}/webutil/js/jquery-3.7.1.min.js"></script>
-	<script src="${pageContext.request.contextPath}/member/member.js"></script> 
+	<script src="${pageContext.request.contextPath}/frontend/member/member.js"></script>
 	<!-- <script>
     function filterTable() {
         let filter = document.getElementById('statusFilter').value;
