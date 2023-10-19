@@ -6,9 +6,11 @@ import com.woof.member.entity.Member;
 import com.woof.trainer.entity.Trainer;
 import org.hibernate.Session;
 
+import com.woof.member.entity.Member;
 import com.woof.privatetrainingappointmentform.dao.PrivateTrainingAppointmentFormDAO;
 import com.woof.privatetrainingappointmentform.dao.PrivateTrainingAppointmentFormDAOImpl;
 import com.woof.privatetrainingappointmentform.entity.PrivateTrainingAppointmentForm;
+import com.woof.trainer.entity.Trainer;
 import com.woof.util.HibernateUtil;
 
 public class PrivateTrainingAppointmentFormServiceImpl implements PrivateTrainingAppointmentFormService{
@@ -22,15 +24,16 @@ public class PrivateTrainingAppointmentFormServiceImpl implements PrivateTrainin
 	@Override
 	public PrivateTrainingAppointmentForm addPrivateTrainingAppointmentForm(
 			PrivateTrainingAppointmentForm privateTrainingAppointmentForm) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		// 已經有過濾器, 就不用session方法
+//		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 
-		session.beginTransaction();
+//		session.beginTransaction();
 		if (dao.insert(privateTrainingAppointmentForm) == 1){
 
-			session.getTransaction().commit();
+//			session.getTransaction().commit();
 			return privateTrainingAppointmentForm;
 		}
-		session.getTransaction().rollback();
+//		session.getTransaction().rollback();
 		return null;
 	}
 
@@ -77,8 +80,13 @@ public class PrivateTrainingAppointmentFormServiceImpl implements PrivateTrainin
 
 	@Override
 	public int addPrivateTrainingAppointmentForm(Member member, Trainer trainer, Integer ptaClassInt) {
+
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+
+		
+		
+		
 		return 0;
 	}
-
 
 }

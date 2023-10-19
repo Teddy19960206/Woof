@@ -6,21 +6,27 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import com.woof.privatetrainingappointmentform.entity.PrivateTrainingAppointmentForm;
+import com.woof.util.HibernateUtil;
 
-public class PrivateTrainingAppointmentFormDAOImpl implements PrivateTrainingAppointmentFormDAO{
+public class PrivateTrainingAppointmentFormDAOImpl implements PrivateTrainingAppointmentFormDAO {
 
 	private SessionFactory factory;
-	
+
 	public PrivateTrainingAppointmentFormDAOImpl(SessionFactory factory) {
 		this.factory = factory;
 	}
-	
+
 	public Session getSession() {
 		return factory.getCurrentSession();
 	}
 
 	@Override
 	public int insert(PrivateTrainingAppointmentForm privateTrainingAppointmentForm) {
+		
+//		privateTrainingAppointmentForm.setMember();
+//		privateTrainingAppointmentForm.setTrainer();
+//		privateTrainingAppointmentForm.setPtaClass();
+
 		return (Integer) getSession().save(privateTrainingAppointmentForm);
 	}
 
@@ -41,8 +47,8 @@ public class PrivateTrainingAppointmentFormDAOImpl implements PrivateTrainingApp
 
 	@Override
 	public List<PrivateTrainingAppointmentForm> getAll() {
-		return getSession().createQuery("FROM PrivateTrainingAppointmentForm", PrivateTrainingAppointmentForm.class).list();
+		return getSession().createQuery("FROM PrivateTrainingAppointmentForm", PrivateTrainingAppointmentForm.class)
+				.list();
 	}
-	
-	
+
 }

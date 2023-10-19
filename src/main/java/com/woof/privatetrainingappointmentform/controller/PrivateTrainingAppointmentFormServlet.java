@@ -30,9 +30,23 @@ public class PrivateTrainingAppointmentFormServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
-		String privatetrainingappointmentform = req.getParameter("Type");
-
-		resp.getWriter().println(privatetrainingappointmentform);
+		String action = req.getParameter("action");
+		
+		String forwardPath = "";
+        if (action != null){
+            switch (action){
+                case "asd":
+                    addPrivateTrainingAppointmentForm(req,resp);
+                    forwardPath = "/privatetrainingappointmentform/privatetrainingappointmentform_add.jsp";
+                    break;
+                default:
+                    forwardPath = "/privatetrainingappointmentform/privatetrainingappointmentform_add.jsp";
+            }
+        }else{
+            forwardPath = "/privatetrainingappointmentform/privatetrainingappointmentform_add.jsp";
+        }
+        req.getRequestDispatcher(forwardPath).forward(req,resp);
+//		resp.getWriter().println(privatetrainingappointmentform);
 	}
 
 	@Override
@@ -42,7 +56,7 @@ public class PrivateTrainingAppointmentFormServlet extends HttpServlet {
 		System.out.println(privateTrainingAppointmentFormService.getAllPrivateTrainingAppointmentForms());
 	}
 
-	private void addPrivateTrainingAppointmentForm(HttpServletRequest request , HttpServletResponse response) {
+	private void addPrivateTrainingAppointmentForm(HttpServletRequest request , HttpServletResponse response) throws IOException {
 		
 		Integer memNo = Integer.valueOf(request.getParameter("member"));
 		MemberService memberService = new MemberServiceImpl();
@@ -63,5 +77,12 @@ public class PrivateTrainingAppointmentFormServlet extends HttpServlet {
 		    result = -1;
 		}
 		
+		if ( result == 1){
+            System.out.println("新增成功");
+        }else{
+            System.out.println("新增失敗");
+        }
+		
+		response.sendRedirect(request.getServletContext().getContextPath()+"/privatetrainingappointmentform/privatetrainingappointmentform.jsp");
 	}
 }
