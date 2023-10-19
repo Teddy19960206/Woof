@@ -30,9 +30,23 @@ public class PrivateTrainingAppointmentFormServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
-		String privatetrainingappointmentform = req.getParameter("Type");
-
-		resp.getWriter().println(privatetrainingappointmentform);
+		String action = req.getParameter("action");
+		
+		String forwardPath = "";
+        if (action != null){
+            switch (action){
+                case "asd":
+                    addPrivateTrainingAppointmentForm(req,resp);
+                    forwardPath = "/privatetrainingappointmentform/privatetrainingappointmentform_add.jsp";
+                    break;
+                default:
+                    forwardPath = "/privatetrainingappointmentform/privatetrainingappointmentform_add.jsp";
+            }
+        }else{
+            forwardPath = "/privatetrainingappointmentform/privatetrainingappointmentform_add.jsp";
+        }
+        req.getRequestDispatcher(forwardPath).forward(req,resp);
+//		resp.getWriter().println(privatetrainingappointmentform);
 	}
 
 	@Override

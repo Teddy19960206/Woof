@@ -19,20 +19,21 @@ public class PrivateTrainingAppointmentFormServiceImpl implements PrivateTrainin
 		dao = new PrivateTrainingAppointmentFormDAOImpl(HibernateUtil.getSessionFactory());
 	}
 
-//	@Override
-//	public PrivateTrainingAppointmentForm addPrivateTrainingAppointmentForm(
-//			PrivateTrainingAppointmentForm privateTrainingAppointmentForm) {
+	@Override
+	public PrivateTrainingAppointmentForm addPrivateTrainingAppointmentForm(
+			PrivateTrainingAppointmentForm privateTrainingAppointmentForm) {
+		// 已經有過濾器, 就不用session方法
 //		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-//
+
 //		session.beginTransaction();
-//		if (dao.insert(privateTrainingAppointmentForm) == 1){
-//
+		if (dao.insert(privateTrainingAppointmentForm) == 1){
+
 //			session.getTransaction().commit();
-//			return privateTrainingAppointmentForm;
-//		}
+			return privateTrainingAppointmentForm;
+		}
 //		session.getTransaction().rollback();
-//		return null;
-//	}
+		return null;
+	}
 
 	@Override
 	public PrivateTrainingAppointmentForm updatePrivateTrainingAppointmentForm(
