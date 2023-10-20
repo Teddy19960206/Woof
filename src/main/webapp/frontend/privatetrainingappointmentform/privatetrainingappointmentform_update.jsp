@@ -6,7 +6,7 @@
     <title>Title</title>
 </head>
 <body>
-<h1>新增私人預約單</h1>
+<h1>修改私人預約單</h1>
 
 <form action="${pageContext.request.contextPath}/privatetrainingappointmentform/privatetrainingappointmentform" method="post" enctype="multipart/form-data">
     <label>成員名稱：</label>

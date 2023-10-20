@@ -83,7 +83,7 @@ public class PrivateTrainingAppointmentFormServiceImpl implements PrivateTrainin
 		privateTrainingAppointmentForm.setMember(member);
 		privateTrainingAppointmentForm.setTrainer(trainer);
 		privateTrainingAppointmentForm.setPtaClass(ptaClass);
-//		dao.insert(privateTrainingAppointmentForm);
+		dao.insert(privateTrainingAppointmentForm);
 		System.out.println(privateTrainingAppointmentForm);
 		return 1;
 	}
