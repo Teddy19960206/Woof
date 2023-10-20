@@ -6,11 +6,9 @@ import com.woof.member.entity.Member;
 import com.woof.trainer.entity.Trainer;
 import org.hibernate.Session;
 
-import com.woof.member.entity.Member;
 import com.woof.privatetrainingappointmentform.dao.PrivateTrainingAppointmentFormDAO;
 import com.woof.privatetrainingappointmentform.dao.PrivateTrainingAppointmentFormDAOImpl;
 import com.woof.privatetrainingappointmentform.entity.PrivateTrainingAppointmentForm;
-import com.woof.trainer.entity.Trainer;
 import com.woof.util.HibernateUtil;
 
 public class PrivateTrainingAppointmentFormServiceImpl implements PrivateTrainingAppointmentFormService{
@@ -85,8 +83,8 @@ public class PrivateTrainingAppointmentFormServiceImpl implements PrivateTrainin
 		privateTrainingAppointmentForm.setMember(member);
 		privateTrainingAppointmentForm.setTrainer(trainer);
 		privateTrainingAppointmentForm.setPtaClass(ptaClass);
-		dao.insert(privateTrainingAppointmentForm);
-		
+//		dao.insert(privateTrainingAppointmentForm);
+		System.out.println(privateTrainingAppointmentForm);
 		return 1;
 	}
 
