@@ -7,13 +7,13 @@ import com.woof.classtype.entity.ClassType;
 import com.woof.groupcourse.entity.GroupCourse;
 
 public interface ClassTypeService {
-	ClassType addClassType(ClassType classType);
+	void addClassType(String className);
 	
-	ClassType updateClassType(ClassType classType);
+	ClassType updateClassType(Integer ctNo , String ctName);
 	
-	void deleteClassType(Integer ctNo);
+	int deleteClassType(Integer ctNo);
 	
-	ClassType findClassTypeByNO(Integer ctNo);
+	ClassType findClassTypeByNo(Integer ctNo);
 	
 	List<ClassType> getAllClassTypes();
 

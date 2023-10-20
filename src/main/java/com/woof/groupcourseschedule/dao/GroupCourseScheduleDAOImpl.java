@@ -21,8 +21,8 @@ public class GroupCourseScheduleDAOImpl implements GroupCourseScheduleDAO{
     }
 
     @Override
-    public void insert(GroupCourseSchedule groupCourseSchedule) {
-
+    public int insert(GroupCourseSchedule groupCourseSchedule) {
+        return (Integer) getSession().save(groupCourseSchedule);
     }
 
     @Override

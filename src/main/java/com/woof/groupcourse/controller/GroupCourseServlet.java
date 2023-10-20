@@ -138,7 +138,7 @@ public class GroupCourseServlet extends HttpServlet {
 
         ClassTypeService classTypeService = new ClassTypeServiceImpl();
         Integer ctNo = Integer.valueOf(request.getParameter("classType"));
-        ClassType classTypeByNO = classTypeService.findClassTypeByNO(ctNo);
+        ClassType classTypeByNO = classTypeService.findClassTypeByNo(ctNo);
 
         Part filePart = request.getPart("photo");
         byte[] bytes = PartParsebyte.partToByteArray(filePart);
@@ -153,7 +153,7 @@ public class GroupCourseServlet extends HttpServlet {
             System.out.println("新增失敗");
         }
 
-        response.sendRedirect(request.getServletContext().getContextPath()+"/backend/course/classContent.jsp");
+        response.sendRedirect(request.getContextPath()+"/backend/course/classContent.jsp");
 
     }
 
@@ -179,7 +179,7 @@ public class GroupCourseServlet extends HttpServlet {
 
         ClassTypeService classTypeService = new ClassTypeServiceImpl();
         Integer ctNo = Integer.valueOf(request.getParameter("classType"));
-        ClassType classTypeByNO = classTypeService.findClassTypeByNO(ctNo);
+        ClassType classTypeByNO = classTypeService.findClassTypeByNo(ctNo);
 
 
         byte[] bytes = null;
@@ -205,7 +205,7 @@ public class GroupCourseServlet extends HttpServlet {
             System.out.println("更新失敗");
         }
 
-        response.sendRedirect(request.getServletContext().getContextPath()+"/backend/course/classContent.jsp");
+        response.sendRedirect(request.getContextPath()+"/backend/course/classContent.jsp");
 
     }
 

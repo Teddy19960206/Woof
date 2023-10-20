@@ -3,19 +3,18 @@
 <html>
 <head>
     <title>Schedule</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/webutil/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/webutil/css/bootstrap.min.css"/>
 </head>
 <body>
 <h1>團體課程報名資訊</h1>
 <jsp:useBean id="classTypeService" scope="page" class="com.woof.classtype.service.ClassTypeServiceImpl"/>
 <select name="Type" id="selectClass">
-    <option  value="0">-- 顯示全部 --</option>
+    <option value="0">-- 顯示全部 --</option>
     <c:forEach var="classType" items="${classTypeService.allClassTypes}">
-        <option  value="${classType.ctNo}" style="text-align: center">${classType.ctName}</option>
+        <option value="${classType.ctNo}" style="text-align: center">${classType.ctName}</option>
     </c:forEach>
 </select>
 <button type="button" id="button">提交</button>
-
 
 
 <%-- 報名列表 --%>
@@ -23,7 +22,12 @@
     <div class="row">
     </div>
 </div>
-<button type="button">新增報名課程</button>
+<a href="${pageContext.request.contextPath}/schedule/addpage">
+    <button type="button">新增報名課程</button>
+</a>
+<a href="${pageContext.request.contextPath}/backend/">
+    <button>返回後台首頁</button>
+</a>
 
 <div class="container">
     <!-- Modal -->

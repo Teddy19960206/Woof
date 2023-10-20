@@ -27,10 +27,12 @@ import java.util.List;
 public class GroupScheduleServlet extends HttpServlet {
 
     private GroupGourseScheduleService groupGourseScheduleService;
+
     @Override
     public void init() throws ServletException {
         groupGourseScheduleService = new GroupCourseScheduleServiceImpl();
     }
+
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doPost(request, response);
@@ -47,61 +49,69 @@ public class GroupScheduleServlet extends HttpServlet {
 //       判斷若是 /edit/{:_id} 取得id
         int secondSlashIndex = pathInfo.indexOf('/', 2);
         Integer result = null;
-        if (secondSlashIndex > 0){
+        if (secondSlashIndex > 0) {
             result = Integer.valueOf(pathInfo.substring(secondSlashIndex + 1));
         }
 
         String forwardPath = "";
 
-        switch (pathInfo){
+        switch (pathInfo) {
+            case "/addpage":
+//                進入新增頁面前，先撈取下拉是選項資料
+                forwardPath = getSelectInfo(request, response);
+                break;
+            case "/addSchedule":
+                addGroupSchedule(request, response);
+                return;
             case "/getSchedule":
 //                根據classType的選擇取得相對應的schedule資料
-                getSchedule(request , response);
+                getSchedule(request, response);
                 return;
             case "/registration":
 //                消費者點選報名時進行報名人數更新
-                registration(request , response);
+                registration(request, response);
                 return;
             case "/modified":
 //                正式修改資料
-                modified(request , response);
+                modified(request, response);
                 return;
             default:
                 if (pathInfo.startsWith("/edit/")) {
+//                   進入修改頁面前，先撈取下拉式選項資料
+                    getSelectInfo(request, response);
 //                   進入edit畫面根據取得的id去抓取要修改的資料
-                    getSelectInfo(request,response);
-                    forwardPath = edit(request ,response , result);
+                    forwardPath = edit(request, response, result);
                 } else {
 //                    若是都不是以上位址，則預設取得全部資料，並轉回"/backend/course/schedule.jsp"
-                    forwardPath = getAllSchedule(request ,response);
+                    forwardPath = getAllSchedule(request, response);
                 }
         }
-        request.getRequestDispatcher(forwardPath).forward(request,response);
+        request.getRequestDispatcher(forwardPath).forward(request, response);
     }
 
-    private String getAllSchedule(HttpServletRequest request , HttpServletResponse response){
+    private String getAllSchedule(HttpServletRequest request, HttpServletResponse response) {
 
         List<GroupCourseSchedule> groupCourseScheduleList = groupGourseScheduleService.getAll();
 
-        request.setAttribute("scheduleList" ,groupCourseScheduleList );
+        request.setAttribute("scheduleList", groupCourseScheduleList);
 
         return "/backend/course/schedule.jsp";
     }
 
 
-    private void getSchedule(HttpServletRequest request , HttpServletResponse response) throws IOException {
+    private void getSchedule(HttpServletRequest request, HttpServletResponse response) throws IOException {
         request.setCharacterEncoding("UTF-8");
 
         String classType = request.getParameter("classType");
 
         List<GroupCourseSchedule> groupCourseScheduleSet = null;
-        if (classType != null){
-            if ("0".equals(classType)){
+        if (classType != null) {
+            if ("0".equals(classType)) {
                 groupCourseScheduleSet = groupGourseScheduleService.getAll();
-            }else{
+            } else {
                 groupCourseScheduleSet = groupGourseScheduleService.getGroupScheduleByCtNo(Integer.valueOf(classType));
             }
-        }else{
+        } else {
             //異常判斷
         }
 
@@ -114,42 +124,44 @@ public class GroupScheduleServlet extends HttpServlet {
 
     }
 
-    private String getSelectInfo(HttpServletRequest request , HttpServletResponse response){
+    //    進入<新增>或<修改>頁面時，會先獲取select下拉式選單可選擇的資料，並到新增頁面
+    private String getSelectInfo(HttpServletRequest request, HttpServletResponse response) {
 
         GroupCourseService groupCourseService = new GroupCourseServiceImpl();
         List<GroupCourse> allGroupCourse = groupCourseService.getAllGroupCourse();
-        System.out.println(allGroupCourse);
 
         TrainerService trainerService = new TrainerServiceImpl();
         List<Trainer> allTrainers = trainerService.getAllTrainers();
-        System.out.println(allTrainers);
 
 
-        request.setAttribute("groupCourses" , allGroupCourse);
+        request.setAttribute("groupCourses", allGroupCourse);
         request.setAttribute("trainers", allTrainers);
 
-        return "/backend/course/addGroupCourse.jsp";
+        return "/backend/course/addSchedule.jsp";
     }
 
-    private String edit(HttpServletRequest request , HttpServletResponse response , Integer id){
+    //    進入修改頁面前，依照id撈取原先的資料
+    private String edit(HttpServletRequest request, HttpServletResponse response, Integer id) {
 
         GroupCourseSchedule groupCourseSchedule = groupGourseScheduleService.findByGcsNo(id);
 
-        request.setAttribute("schedule" , groupCourseSchedule);
+        request.setAttribute("schedule", groupCourseSchedule);
 
 
         return "/backend/course/editGroupSchedule.jsp";
     }
 
-    private void registration(HttpServletRequest request , HttpServletResponse response) throws IOException {
+    //    消費者報名Schedule
+    private void registration(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         Integer id = Integer.valueOf(request.getParameter("id"));
         groupGourseScheduleService.registrationSchedule(id);
 
-        response.sendRedirect(request.getContextPath()+"/groupcourse/schedule?action=getAl");
+        response.sendRedirect(request.getContextPath() + "/groupcourse/schedule?action=getAl");
     }
 
-    private void modified(HttpServletRequest request , HttpServletResponse response) throws IOException {
+    //    修改Schedule
+    private void modified(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Integer scheduleNo = Integer.valueOf(request.getParameter("scheduleNo"));
 
         Integer content = Integer.valueOf(request.getParameter("skill"));
@@ -171,13 +183,41 @@ public class GroupScheduleServlet extends HttpServlet {
 
         int result = groupGourseScheduleService.updateSchedule(scheduleNo, groupCourseByNo, trainerByTrainerNo, startDate, endDate, minLimit, maxLimit, count, price, status);
 
-        if (result == 1){
+        if (result == 1) {
             System.out.println("修改成功");
-        }else {
+        } else {
             System.out.println("修改失敗");
         }
 
-        response.sendRedirect(request.getContextPath()+"/backend/course/schedule.jsp");
+        response.sendRedirect(request.getContextPath() + "/backend/course/schedule.jsp");
+    }
+
+    //    新增 GroupSchedule 團體報名課程
+    private void addGroupSchedule(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+        Integer groupCoruse = Integer.valueOf(request.getParameter("groupCoruse"));
+        GroupCourseService groupCourseService = new GroupCourseServiceImpl();
+        GroupCourse groupCourseByNo = groupCourseService.findGroupCourseByNo(groupCoruse);
+
+        Integer trainer = Integer.valueOf(request.getParameter("trainer"));
+        TrainerService trainerService = new TrainerServiceImpl();
+        Trainer trainerByTrainerNo = trainerService.findTrainerByTrainerNo(trainer);
+
+        Date startDate = Date.valueOf(request.getParameter("startDate"));
+        Date endDate = Date.valueOf(request.getParameter("endDate"));
+        Integer minLimit = Integer.valueOf(request.getParameter("minLimit"));
+        Integer maxLimit = Integer.valueOf(request.getParameter("maxLimit"));
+        Integer price = Integer.valueOf(request.getParameter("price"));
+
+        int result = groupGourseScheduleService.addSchedule(groupCourseByNo, trainerByTrainerNo, startDate, endDate, minLimit, maxLimit, price);
+
+        if (result == 1) {
+            System.out.println("新增成功");
+        } else {
+            System.out.println("新增失敗");
+        }
+
+        response.sendRedirect(request.getContextPath() + "/backend/course/schedule.jsp");
     }
 
 }

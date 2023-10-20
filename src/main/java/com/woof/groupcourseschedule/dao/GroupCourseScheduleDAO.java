@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface GroupCourseScheduleDAO {
 
-    void insert(GroupCourseSchedule groupCourseSchedule);
+    int insert(GroupCourseSchedule groupCourseSchedule);
 
     int update(GroupCourseSchedule groupCourseSchedule);
 

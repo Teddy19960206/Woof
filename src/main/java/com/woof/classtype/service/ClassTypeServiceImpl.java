@@ -17,17 +17,26 @@ public class ClassTypeServiceImpl implements ClassTypeService{
 	}
 
 	@Override
-	public ClassType addClassType(ClassType classType) {
+	public void addClassType(String className) {
 
-		if (dao.insert(classType) == 1){
+		ClassType classType = new ClassType();
+		classType.setCtName(className);
+		int result = dao.insert(classType);
 
-			return classType;
+		if (result == 1){
+			System.out.println("新增成功");
+		}else{
+			System.out.println("新增失敗");
 		}
-		return null;
+
 	}
 
 	@Override
-	public ClassType updateClassType(ClassType classType) {
+	public ClassType updateClassType(Integer ctNo , String ctName) {
+
+		ClassType classType = new ClassType();
+		classType.setCtNo(ctNo);
+		classType.setCtName(ctName);
 
 		int result = dao.update(classType);
 		if (result == 1){
@@ -37,13 +46,12 @@ public class ClassTypeServiceImpl implements ClassTypeService{
 	}
 
 	@Override
-	public void deleteClassType(Integer ctNo) {
-		// TODO Auto-generated method stub
-	
+	public int deleteClassType(Integer ctNo) {
+			return dao.delete(ctNo);
 	}
 
 	@Override
-	public ClassType findClassTypeByNO(Integer ctNo) {
+	public ClassType findClassTypeByNo(Integer ctNo) {
 		
 		ClassType classType = dao.findbyCtNo(ctNo);
 		

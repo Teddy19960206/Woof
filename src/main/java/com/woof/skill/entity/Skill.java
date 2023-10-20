@@ -32,9 +32,11 @@ public class Skill implements Serializable {
     @Expose
 	@Column(name = "SKILL_NAME" , nullable = false)
     private String skillName;
-	
-	
-	@ManyToMany
+
+
+
+
+    @ManyToMany
 	@JoinTable(
 			name = "skills_list",
 			joinColumns = { @JoinColumn(name = "SKILL_NO" , referencedColumnName = "SKILL_NO")},
@@ -45,7 +47,13 @@ public class Skill implements Serializable {
 
     public Skill() {
     }
+    public Set<Trainer> getTrainers() {
+        return trainers;
+    }
 
+    public void setTrainers(Set<Trainer> trainers) {
+        this.trainers = trainers;
+    }
     public Integer getSkillNo() {
         return skillNo;
     }

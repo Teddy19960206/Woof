@@ -19,6 +19,20 @@ public class GroupCourseScheduleServiceImpl implements GroupGourseScheduleServic
     }
 
     @Override
+    public int addSchedule(GroupCourse groupCourse, Trainer trainer, Date startDate, Date endDate, Integer minLimit, Integer maxLimit, Integer price) {
+        GroupCourseSchedule groupCourseSchedule = new GroupCourseSchedule();
+        groupCourseSchedule.setGroupCourse(groupCourse);
+        groupCourseSchedule.setTrainer(trainer);
+        groupCourseSchedule.setGcsStart(startDate);
+        groupCourseSchedule.setGcsEnd(endDate);
+        groupCourseSchedule.setMinLimit(minLimit);
+        groupCourseSchedule.setMaxLimit(maxLimit);
+        groupCourseSchedule.setGcsPrice(price);
+
+        return dao.insert(groupCourseSchedule);
+    }
+
+    @Override
     public void registrationSchedule(Integer gcsNo) {
         GroupCourseSchedule schedule = findByGcsNo(gcsNo);
 

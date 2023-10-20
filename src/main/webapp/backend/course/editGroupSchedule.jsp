@@ -50,6 +50,7 @@
 
   <label for="price">價格：</label>
   <input type="input" name="price" id="price" value="${schedule.gcsPrice}">
+  <br />
 
   <label for="status">課程報名狀態：</label>
   <select name="status" id="status">
