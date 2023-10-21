@@ -27,8 +27,9 @@ public class FaqServiceImpl implements FaqService{
 	}
 
 	@Override
-	public int updateFaq(String faqClass, String faqTitle, String faqContent) {
+	public int updateFaq(Integer faqNo, String faqClass, String faqTitle, String faqContent) {
 		Faq faq = new Faq();
+		faq.setFaqNo(faqNo);
 		faq.setFaqClass(faqClass);
 		faq.setFaqTitle(faqTitle);
 		faq.setFaqContent(faqContent);

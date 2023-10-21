@@ -8,7 +8,7 @@ public interface FaqService {
 
 	int addFaq(String faqClass, String faqTitle, String faqContent);
 
-	int updateFaq(String faqClass, String faqTitle, String faqContent);
+	int updateFaq(Integer faqNo, String faqClass, String faqTitle, String faqContent);
 
 	int deleteFaq(Integer faqNo);
 
