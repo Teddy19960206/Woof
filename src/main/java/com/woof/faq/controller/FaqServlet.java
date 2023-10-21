@@ -72,7 +72,8 @@ public class FaqServlet extends HttpServlet {
 		int result = (Integer)faqService.addFaq(faqClass, faqTitle, faqContent);
 	    
 	    if (result > 0) {
-	        return "1"; // FAQ添加成功
+//	    	resp.sendRedirect(req.getContextPath() + "/faq?action=getAll");
+	        return null; // FAQ添加成功
 	    } else {
 	        return "-1"; // FAQ添加失败
 	    }
