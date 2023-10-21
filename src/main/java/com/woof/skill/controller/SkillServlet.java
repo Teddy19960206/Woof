@@ -3,6 +3,7 @@ package com.woof.skill.controller;
 import com.woof.skill.entity.Skill;
 import com.woof.skill.service.SkillService;
 import com.woof.skill.service.SkillServiceImpl;
+import com.woof.trainer.entity.Trainer;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+import java.util.Set;
 
 @WebServlet("/skill/*")
 @MultipartConfig
@@ -56,8 +58,12 @@ public class SkillServlet extends HttpServlet {
                 delete(request, response);
                 return;
             case "/addSkill":
+//                新增skill
                 addSkill(request ,response);
                 forwardPath = getAllSkill(request, response);
+                break;
+            case "/getTrainersBySkill":
+                forwardPath = getTrainers(request , response);
                 break;
             default:
                     forwardPath = getAllSkill(request, response);
@@ -97,4 +103,16 @@ public class SkillServlet extends HttpServlet {
         skillService.addSkill(skillName);
     }
 
+//    由 skill 往 trainer撈取所有有相對應的資料，以測試成功
+    private String getTrainers(HttpServletRequest request , HttpServletResponse response){
+//        Integer skillNo = Integer.valueOf(request.getParameter("skillNo"));
+
+        Set<Trainer> trainerBySkillNo = skillService.getTrainerBySkillNo(1);
+
+        request.setAttribute("trainers" , trainerBySkillNo);
+        for (Trainer trainer : trainerBySkillNo){
+            System.out.println(trainer.getAdministrator().getAdminName());
+        }
+        return "/backend/employee/trainer.jsp";
+    }
 }
