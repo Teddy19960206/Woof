@@ -9,6 +9,13 @@
 <h1>修改私人預約單</h1>
 
 <form action="${pageContext.request.contextPath}/privatetrainingappointmentform/privatetrainingappointmentform" method="post" enctype="multipart/form-data">
+    <label>私人訓練預約單編號：</label>
+    <select name="ptano">
+        <c:forEach items="${members}" var="member">
+            <option value="${member.memNo}">${member.memName}</option>
+        </c:forEach>
+    </select>
+    <br />
     <label>成員名稱：</label>
     <select name="member">
         <c:forEach items="${members}" var="member">

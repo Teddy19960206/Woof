@@ -94,9 +94,9 @@ public class PrivateTrainingAppointmentFormServlet extends HttpServlet {
 			System.out.println("新增失敗");
 			request.setAttribute("errorMessage", "新增失敗");
 		}
-		request.getRequestDispatcher("/frontend/privatetrainingappointmentform/privatetrainingappointmentform.jsp").forward(request, response);
+//		request.getRequestDispatcher("/frontend/privatetrainingappointmentform/privatetrainingappointmentform.jsp").forward(request, response);
 		response.sendRedirect(request.getServletContext().getContextPath()
-				+ "/frontend/privatetrainingappointmentform/privatetrainingappointmentform_update.jsp");
+				+ "/frontend/privatetrainingappointmentform/privatetrainingappointmentform.jsp");
 	}
 
 	private void getSelectInfo(HttpServletRequest req, HttpServletResponse resp) {
