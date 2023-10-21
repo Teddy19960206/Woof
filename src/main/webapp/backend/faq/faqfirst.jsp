@@ -23,7 +23,7 @@
 
 		<label>FAQ類別：</label> <input type="text" name="faqClass" value="訂單問題" /> <br /> 
 		<label>FAQ標題：</label> <input type="text" name="faqTitle" value="退貨時間？" /> <br /> 
-		<label>FAQ內容：</label> <input type="text" name="faqContent" value="10點"/>
+		<label>FAQ內容：</label> <input type="text" name="faqContent" value="9點"/>
 		
 		<input type="submit" value="確定新增" /> 
  		<input type="button" value="取消新增" onclick="history.back()" />

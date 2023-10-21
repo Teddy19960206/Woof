@@ -60,24 +60,26 @@ public class FaqServlet extends HttpServlet {
 
 		return "/backend/faq/getAll.jsp";
 	}
-	
+
 	private String addfaq(HttpServletRequest req, HttpServletResponse resp) {
-		
+
 		String faqClass = req.getParameter("faqClass");
 		String faqTitle = req.getParameter("faqTitle");
 		String faqContent = req.getParameter("faqContent");
 
-		System.out.println("qqqqq");
-		
-		int result = (Integer)faqService.addFaq(faqClass, faqTitle, faqContent);
-	    
-	    if (result > 0) {
-//	    	resp.sendRedirect(req.getContextPath() + "/faq?action=getAll");
-	        return null; // FAQ添加成功
-	    } else {
-	        return "-1"; // FAQ添加失败
-	    }
+//		System.out.println("qqqqq");
 
+//	    if (result > 0) {
+//	    	resp.sendRedirect(req.getContextPath() + "/faq?action=getAll");
+//	        return null; // FAQ添加成功
+//	    } else {
+//	        return "-1"; // FAQ添加失败
+//	    }
+		
+		int saved = (Integer) faqService.addFaq(faqClass, faqTitle, faqContent);
+		var result = faqService.findByFaqNo(saved);
+		req.setAttribute("result", result);
+		return "/backend/faq/add.jsp";
 	}
 
 }
