@@ -15,6 +15,10 @@
         </c:forEach>
     </select>
     <button type="submit">提交</button>
+    <a href="${pageContext.request.contextPath}/privatetrainingappointmentform?action=gettoadd">新增頁面</a>
+    <a href="${pageContext.request.contextPath}/privatetrainingappointmentform?action=gettoupdate">更新頁面</a>
+
+    <br><br>
 </form>
 </body>
 </html>

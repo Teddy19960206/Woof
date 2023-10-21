@@ -1,10 +1,9 @@
 package com.woof.product.controller;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.Map;
-import java.util.HashMap;
-
+import java.util.*;
+import com.woof.product.entity.Product;
+import com.woof.product.service.ProductService;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,80 +11,75 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.woof.product.entity.Product;
-import com.woof.product.service.ProductService;
-import com.woof.product.service.ProductServiceImpl;
-@WebServlet("/product")
+@WebServlet("/Product")
 public class ProductServlet extends HttpServlet {
-	private ProductService productService;
 
-	@Override
-	public void init() throws ServletException {
-		productService = new ProductServiceImpl();
+	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+  doPost(req, res);
 	}
 
-	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		req.setCharacterEncoding("UTF-8");
-		String action = req.getParameter("action");
-		String forwardPath = "";
-		switch (action) {
-		case "getAll":
-			forwardPath = getAllProducts(req, res);
-			break;
-		case "compositeQuery":
-			forwardPath = getCompositeProductsQuery(req, res);
-			break;
-		default:
-			forwardPath = "/product.jsp";
-		}
+	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
-		res.setContentType("text/html; charset=UTF-8");
-		RequestDispatcher dispatcher = req.getRequestDispatcher(forwardPath);
-		dispatcher.forward(req, res);
-	}
+  req.setCharacterEncoding("UTF-8");
+  String action = req.getParameter("action");
 
-	private String getAllProducts(HttpServletRequest req, HttpServletResponse res) {
-		String page = req.getParameter("page");
-		int currentPage = (page == null) ? 1 : Integer.parseInt(page);
+  if ("getOne_For_Display".equals(action)) { // 來自select_page.jsp??��?��??
 
-		List<Product> productList = productService.getAllProducts(currentPage);
+   List<String> errorMsgs = new LinkedList<String>();
+   // Store this set in the request scope, in case we need to
+   // send the ErrorPage view.
+   req.setAttribute("errorMsgs", errorMsgs);
 
-		if (req.getSession().getAttribute("productPageQty") == null) {
-			int productPageQty = productService.getPageTotal();
-			req.getSession().setAttribute("productPageQty", productPageQty);
-		}
+   /***************************
+    * 1.接收請求參數 - 輸入格式的錯誤處理
+    **********************/
+   String str = req.getParameter("prodNo");
+   if (str == null || (str.trim()).length() == 0) {
+    errorMsgs.add("請輸入員工編號");
+   }
+   // Send the use back to the form, if there were errors
+   if (!errorMsgs.isEmpty()) {
+    RequestDispatcher failureView = req.getRequestDispatcher("/product/select_page.jsp");
+    failureView.forward(req, res);
+    return;// 程式中斷
+   }
 
-		req.setAttribute("productList", productList);
-		req.setAttribute("currentPage", currentPage);
+   Integer prodNo = null;
+   try {
+	   prodNo = Integer.valueOf(str);
+   } catch (Exception e) {
+    errorMsgs.add("員工編號格式不正確");
+   }
+   // Send the use back to the form, if there were errors
+   if (!errorMsgs.isEmpty()) {
+    RequestDispatcher failureView = req.getRequestDispatcher("/product/select_page.jsp");
+    failureView.forward(req, res);
+    return;// 程式中斷
+   }
 
-		return "/product/product.jsp";
-	}
+   /***************************
+    * 2.開始查詢資料
+    *****************************************/
+   ProductService productSvc = new ProductService();
+   Product product = productSvc.getOneProduct(prodNo);
+   if (product == null) {
+    errorMsgs.add("查無資料");
+   }
+   // Send the use back to the form, if there were errors
+   if (!errorMsgs.isEmpty()) {
+    RequestDispatcher failureView = req.getRequestDispatcher("/product/select_page.jsp");
+    failureView.forward(req, res);
+    return;// 程式中斷
+   }
 
-	private String getCompositeProductsQuery(HttpServletRequest req, HttpServletResponse res) {
-		Map<String, String[]> map = req.getParameterMap();
-		Map<String, String> queryMap = new HashMap<>();
-		for (Map.Entry<String, String[]> entry : map.entrySet()) {
-			String key = entry.getKey();
-			if ("action".equals(key)) {
-				continue;
-			}
-			String value = entry.getValue()[0];
-			if (value != null && !value.isEmpty()) {
-				queryMap.put(key, value);
-			}
-		}
-		if (!queryMap.isEmpty()) {
-			List<Product> productList = productService.getProductsByCompositeQuery(queryMap);
-			req.setAttribute("productList", productList);
-		} else {
-			return "/product/product.jsp";
-		}
-		return "/product/product.jsp";
-	}
+   /***************************
+    * 3.查詢完成,準備轉交(Send the Success view)
+    *************/
+   req.setAttribute("product", product); // 資料庫取出的empVO物件,存入req
+   String url = "/product/listOneEmp.jsp";
+   RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
+   successView.forward(req, res);
 
-	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		doPost(req, res);
+  }
 	}
 }
