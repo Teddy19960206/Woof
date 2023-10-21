@@ -8,7 +8,7 @@
 <body>
 <h1>新增私人預約單</h1>
 
-<form action="privatetrainingappointmentform?action=asd" method="post" enctype="multipart/form-data">
+<form action="${pageContext.request.contextPath}/privatetrainingappointmentform/privatetrainingappointmentform" method="post" enctype="multipart/form-data">
     <label>成員名稱：</label>
     <select name="member">
         <c:forEach items="${members}" var="member">
@@ -17,18 +17,18 @@
     </select>
     <br />
 
-    <label>訓練師名稱：</label>
+    <label>訓練師編號：</label>
     <select name="trainer">
-        <c:forEach items="${trainer}" var="trainer">
-            <option value="${trainer.trainerNo}">${trainer.trainerName}</option>
+        <c:forEach items="${trainers}" var="trainer">
+            <option value="${trainer.trainerNo}">${trainer.trainerNo}</option>
         </c:forEach>
     </select>
     <br />
 
     <label>課堂數：</label>
-    <textarea name="number"></textarea>
+    <input type="text" name="number">
     <br />
-
+	<input type="hidden" name="action" value="add">
     <button type="submit">新增</button>
     <button type="button" onclick="history.back()">取消新增</button>
 </form>

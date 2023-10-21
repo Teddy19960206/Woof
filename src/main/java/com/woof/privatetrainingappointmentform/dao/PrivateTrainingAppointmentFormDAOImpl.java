@@ -23,9 +23,6 @@ public class PrivateTrainingAppointmentFormDAOImpl implements PrivateTrainingApp
 	@Override
 	public int insert(PrivateTrainingAppointmentForm privateTrainingAppointmentForm) {
 		
-//		privateTrainingAppointmentForm.setMember();
-//		privateTrainingAppointmentForm.setTrainer();
-//		privateTrainingAppointmentForm.setPtaClass();
 
 		return (Integer) getSession().save(privateTrainingAppointmentForm);
 	}
