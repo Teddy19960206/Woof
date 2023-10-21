@@ -16,5 +16,5 @@ public interface SkillService {
     List<Skill> getAllSkill();
     Skill findBySkillNo(Integer skillNo);
 
-    Set<Trainer> getTrainerBySkillNo(Integer skillNo);
+    Set<Trainer> getTrainersBySkillNo(Integer skillNo);
 }

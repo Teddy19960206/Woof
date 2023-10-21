@@ -13,6 +13,22 @@ document.addEventListener("DOMContentLoaded", function (){
     fetchData();
 });
 
+// 點選相關資料的修改時，發送相關資料的id，並進入到編輯頁面
+$(document).on("click" , "button.modify-button" , function (){
+    let url = `/${pathname}/schedule/edit/${this.getAttribute("data-id")}`;
+    window.location.href = url;
+});
+
+// 點擊相關資料的報名時，更新報名人數
+$(document).on("click" , "button.registration" , function (){
+
+
+    let url = `/${pathname}/groupcourse/schedule/xxx/${this.getAttribute("data-id")}`;
+
+    window.location.href = url;
+
+});
+
 
 // 抓取資料
 async function fetchData(){
@@ -53,7 +69,7 @@ async function fetchData(){
 
         // 取得所有相關的資料
         data.forEach((item)=>{
-            console.log(item)
+
             html+= `
             <th>${item.gcsNo}</th>
             <th>${item.groupCourse.classType.ctName} : ${item.groupCourse.skill.skillName}</th>
@@ -79,22 +95,3 @@ async function fetchData(){
         console.error('Error', error);
     }
 }
-
-// 點選相關資料的修改時，發送相關資料的id，並進入到編輯頁面
-$(document).on("click" , "button.modify-button" , function (){
-    let url = `/${pathname}/schedule/edit/${this.getAttribute("data-id")}`;
-    window.location.href = url;
-});
-
-// 點擊相關資料的報名時，更新報名人數
-$(document).on("click" , "button.registration" , function (){
-
-
-    let url = `/${pathname}/groupcourse/schedule/xxx/${this.getAttribute("data-id")}`;
-
-    window.location.href = url;
-
-});
-
-
-

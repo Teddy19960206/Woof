@@ -9,7 +9,7 @@
 <form action="${pageContext.request.contextPath}/schedule/addSchedule" method="post">
 
     <label>課程：</label>
-    <select name="groupCoruse">
+    <select id="skill" name="groupCoruse">
         <c:forEach items="${groupCourses}" var="groupCourse">
             <option value="${groupCourse.gcNo}">
                     ${groupCourse.classType.ctName} : ${groupCourse.skill.skillName}</option>
@@ -18,12 +18,8 @@
     <br/>
 
     <label>訓練師：</label>
-    <select name="trainer">
-        <c:forEach items="${trainers}" var="trainer">
-            <option value="${trainer.trainerNo}"
-                    <c:if test="${trainer.trainerNo eq schedule.trainer.trainerNo}">selected</c:if>>
-                    ${trainer.trainerNo}</option>
-        </c:forEach>
+    <select id="trainer" name="trainer">
+        <option>請先選擇課程</option>
     </select>
     <br/>
 
@@ -50,5 +46,7 @@
     <button type="submit">確定新增</button>
     <button type="button" onclick="history.back()">取消新增</button>
 </form>
+<script src="${pageContext.request.contextPath}/webutil/js/jquery-3.7.1.min.js"></script>
+<script src="${pageContext.request.contextPath}/backend/course/js/getTrainerBySkill.js" ></script>
 </body>
 </html>
