@@ -10,9 +10,9 @@
 
 <form action="${pageContext.request.contextPath}/privatetrainingappointmentform/privatetrainingappointmentform" method="post" enctype="multipart/form-data">
     <label>私人訓練預約單編號：</label>
-    <select name="ptano">
-        <c:forEach items="${members}" var="member">
-            <option value="${member.memNo}">${member.memName}</option>
+    <select name="privateTrainingAppointmentForm">
+        <c:forEach items="${privateTrainingAppointmentForms}" var="privateTrainingAppointmentForm">
+            <option value="${privateTrainingAppointmentForm.ptaNo}">${privateTrainingAppointmentForm.ptaNo}</option>
         </c:forEach>
     </select>
     <br />
@@ -35,9 +35,9 @@
     <label>課堂數：</label>
     <input type="text" name="number">
     <br />
-	<input type="hidden" name="action" value="add">
-    <button type="submit">新增</button>
-    <button type="button" onclick="history.back()">取消新增</button>
+	<input type="hidden" name="action" value="update">
+    <button type="submit">修改</button>
+    <button type="button" onclick="history.back()">取消修改</button>
 </form>
 
 </body>

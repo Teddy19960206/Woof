@@ -38,39 +38,34 @@ public class PrivateTrainingAppointmentFormServiceImpl implements PrivateTrainin
 	@Override
 	public PrivateTrainingAppointmentForm updatePrivateTrainingAppointmentForm(
 			PrivateTrainingAppointmentForm privateTrainingAppointmentForm) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-
-		session.beginTransaction();
+		
 		int result = dao.update(privateTrainingAppointmentForm);
 		if (result == 1){
 
-			session.getTransaction().commit();
+			
 			return privateTrainingAppointmentForm;
 		}
-		session.getTransaction().rollback();
+		
 
 		return null;
 	}
 
 	@Override
 	public PrivateTrainingAppointmentForm findPrivateTrainingAppointmentFormByPtaNo(Integer ptaNo) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		session.beginTransaction();
 		
-		PrivateTrainingAppointmentForm privateTrainingAppointmentForm = session.get(PrivateTrainingAppointmentForm.class, ptaNo);
 		
-		session.getTransaction().commit();
 		
-		return privateTrainingAppointmentForm;
+		
+		return null;
 	}
 
 	@Override
 	public List<PrivateTrainingAppointmentForm> getAllPrivateTrainingAppointmentForms() {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 
-		session.beginTransaction();
+
 		List<PrivateTrainingAppointmentForm> privateTrainingAppointmentFormList = dao.getAll();
-		session.getTransaction().commit();
+
 
 		// TODO Auto-generated method stub
 		return privateTrainingAppointmentFormList;

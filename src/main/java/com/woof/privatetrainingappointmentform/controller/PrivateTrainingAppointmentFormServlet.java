@@ -45,8 +45,11 @@ public class PrivateTrainingAppointmentFormServlet extends HttpServlet {
                     break;
                 case "add":
                 	add(req,resp);
-//                	forwardPath = "/frontend/privatetrainingappointmentform/privatetrainingappointmentform.jsp";
-                	break;
+                	return;
+                case "gettoupdate":
+                	beforeUpdate(req,resp);
+                    forwardPath = "/frontend/privatetrainingappointmentform/privatetrainingappointmentform_update.jsp";
+                    break;
                 default:
                     forwardPath = "/frontend/privatetrainingappointmentform/privatetrainingappointmentform_add.jsp";
             }
@@ -112,12 +115,20 @@ public class PrivateTrainingAppointmentFormServlet extends HttpServlet {
 
 	}
 	
-	private void update(HttpServletRequest req, HttpServletResponse resp) {
+	private void beforeUpdate(HttpServletRequest req, HttpServletResponse resp) {
 		
-		PrivateTrainingAppointmentFormService privateTrainingAppointmentFormService = new PrivateTrainingAppointmentFormServiceImpl();
-		List<PrivateTrainingAppointmentForm> allPrivateTrainingAppointmentForms = privateTrainingAppointmentFormService.getAllPrivateTrainingAppointmentForms();
+		PrivateTrainingAppointmentFormService  privateTrainingAppointmentFormService = new PrivateTrainingAppointmentFormServiceImpl();
+		List<PrivateTrainingAppointmentForm> allPrivateTrainingAppointmentForms =  privateTrainingAppointmentFormService.getAllPrivateTrainingAppointmentForms();
 		
-		req.setAttribute("privateTrainingAppointmentForms",allPrivateTrainingAppointmentForms);
+		MemberService memberservice = new MemberServiceImpl();
+		List<Member> allMembers = memberservice.getAllMembers();
+
+		TrainerService trainerservice = new TrainerServiceImpl();
+		List<Trainer> allTrainers = trainerservice.getAllTrainers();
+
+		req.setAttribute("privateTrainingAppointmentForms", allPrivateTrainingAppointmentForms);
+		req.setAttribute("members", allMembers);
+		req.setAttribute("trainers", allTrainers);
 	
 	}
 	
