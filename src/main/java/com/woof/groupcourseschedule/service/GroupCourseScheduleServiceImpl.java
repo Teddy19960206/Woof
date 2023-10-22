@@ -72,8 +72,6 @@ public class GroupCourseScheduleServiceImpl implements GroupGourseScheduleServic
 
     @Override
     public List<GroupCourseSchedule> getGroupScheduleByCtNo(Integer ctNo) {
-
-
         return dao.getAllbyClassType(ctNo);
     }
 }

@@ -67,17 +67,20 @@ public class GroupCourseSchedule implements Serializable {
 	@Column(name = "GCS_STATUS" , nullable = false , insertable = false , columnDefinition = "TINYINT")
     private Integer gcsStatus;
 
-
+    @Expose
     @Column(name = "GCS_DELAY_REASON")
     private String gcsDelayReason;
 
+    @Expose
     @ManyToOne
     @JoinColumn(name = "RELATED_GCS_NO" , referencedColumnName = "GCS_NO")
     private GroupCourseSchedule relatedGcsNo;
 
+    @Expose
     @Column(name="CREATED_AT" , insertable = false , updatable = false)
     private Timestamp createdAt;
 
+    @Expose
     @Column(name ="UPDATED_AT" , insertable = false , updatable = false)
     private Timestamp updatedAt;
 

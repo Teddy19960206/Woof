@@ -22,8 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Date;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @WebServlet("/schedule/*")
 @MultipartConfig
@@ -184,6 +183,7 @@ public class GroupScheduleServlet extends HttpServlet {
         Integer price = Integer.valueOf(request.getParameter("price"));
         Integer status = Integer.valueOf(request.getParameter("status"));
         String delayReason = request.getParameter("delayReason");
+
         Integer relatedGcsNo = Integer.valueOf(request.getParameter("relatedGcsNo"));
         GroupCourseSchedule byGcsNo = groupGourseScheduleService.findByGcsNo(relatedGcsNo);
 
@@ -218,8 +218,13 @@ public class GroupScheduleServlet extends HttpServlet {
 
         String delayReason = request.getParameter("delayReason");
 
-        Integer relatedGcsNo = Integer.valueOf(request.getParameter("relatedGcsNo"));
-        GroupCourseSchedule byGcsNo = groupGourseScheduleService.findByGcsNo(relatedGcsNo);
+        String parameter = request.getParameter("relatedGcsNo");
+        GroupCourseSchedule byGcsNo = null;
+        if (parameter != null && parameter.length() != 0){
+            Integer relatedGcsNo = Integer.valueOf(parameter);
+             byGcsNo = groupGourseScheduleService.findByGcsNo(relatedGcsNo);
+
+        }
 
         int result = groupGourseScheduleService.addSchedule(groupCourseByNo, trainerByTrainerNo, startDate, endDate, minLimit, maxLimit, price ,  delayReason ,  byGcsNo);
 
@@ -232,6 +237,26 @@ public class GroupScheduleServlet extends HttpServlet {
         response.sendRedirect(request.getContextPath() + "/backend/course/schedule.jsp");
     }
 
+
+//    測試中
+    private Map<String , String> testNull(HttpServletRequest request , String... args){
+        Map<String , String> getParameter = new HashMap<String , String>();
+        Map<String , String> errorMsgs = new HashMap<String, String>();
+        for (String arg : args){
+            String parameter = request.getParameter(arg);
+            if (parameter == null || parameter.length() == 0){
+                errorMsgs.put(arg , "不能為空");
+            }else{
+                getParameter.put(arg , parameter);
+            }
+        }
+
+        if (errorMsgs.size() > 0){
+            return errorMsgs;
+        }else{
+            return getParameter;
+        }
+    }
 }
 
 
