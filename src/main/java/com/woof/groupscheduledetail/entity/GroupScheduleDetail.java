@@ -1,4 +1,4 @@
-package com.woof.groupcoursescheduledetail.entity;
+package com.woof.groupscheduledetail.entity;
 
 import java.io.Serializable;
 import java.sql.Date;
@@ -19,7 +19,7 @@ import com.woof.trainer.entity.Trainer;
 
 @Entity
 @Table(name = "group_course_schedule_detail")
-public class GroupCourseScheduleDetail implements Serializable {
+public class GroupScheduleDetail implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,7 +37,7 @@ public class GroupCourseScheduleDetail implements Serializable {
 	@Column(name = "CLASS_DATE" , nullable = false)
     private Date classDate;
 
-    public GroupCourseScheduleDetail() {
+    public GroupScheduleDetail() {
     }
 
     public Integer getGcsdNo() {
@@ -47,8 +47,6 @@ public class GroupCourseScheduleDetail implements Serializable {
     public void setGcsdNo(Integer gcsdNo) {
         this.gcsdNo = gcsdNo;
     }
-
-
 
     public GroupCourseSchedule getGroupCourseSchedule() {
 		return groupCourseSchedule;
@@ -87,13 +85,13 @@ public class GroupCourseScheduleDetail implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		GroupCourseScheduleDetail other = (GroupCourseScheduleDetail) obj;
+		GroupScheduleDetail other = (GroupScheduleDetail) obj;
 		return Objects.equals(gcsdNo, other.gcsdNo);
 	}
 
 	@Override
 	public String toString() {
-		return "GroupCourseScheduleDetail [gcsdNo=" + gcsdNo + ", classDate=" + classDate + "]";
+		return "GroupScheduleDetailDAOImpl [gcsdNo=" + gcsdNo + ", classDate=" + classDate + "]";
 	}
 
 

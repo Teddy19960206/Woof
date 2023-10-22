@@ -4,20 +4,28 @@ let pathname = pathurl.split('/')[1];
 let selectElement = document.getElementById("skill");
 
 selectElement.addEventListener("change" , async function (e){
-    let results = await fetchTrainers($(this).val());
 
-    let trainerSelect =  $("select#trainer");
+    let select = $(this).val();
 
-    if (results.length == 0){
-        trainerSelect.html("找不到擁有該專業的訓練師");
+    if (select == 0){
+        select.html("請選擇")
     }else{
-        html = "";
-        results.forEach((trainers)=>{
-            html += `<option value="${trainers.trainerNo}">${trainers.administrator.adminName}</option>`;
-        })
+        let results = await fetchTrainers();
+
+        let trainerSelect =  $("select#trainer");
+
+        if (results.length == 0){
+            trainerSelect.html("找不到擁有該專業的訓練師");
+        }else{
+            html = "";
+            results.forEach((trainers)=>{
+                html += `<option value="${trainers.trainerNo}">${trainers.administrator.adminName}</option>`;
+            })
+        }
+
+        trainerSelect.html(html);
     }
 
-   trainerSelect.html(html);
 
 })
 

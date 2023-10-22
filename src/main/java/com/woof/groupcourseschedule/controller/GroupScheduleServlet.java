@@ -226,6 +226,14 @@ public class GroupScheduleServlet extends HttpServlet {
 
         }
 
+
+        String[] classDates = request.getParameterValues("classDate");
+        for (String classDate : classDates){
+            System.out.println(classDate);
+        }
+
+
+
         int result = groupGourseScheduleService.addSchedule(groupCourseByNo, trainerByTrainerNo, startDate, endDate, minLimit, maxLimit, price ,  delayReason ,  byGcsNo);
 
         if (result == 1) {

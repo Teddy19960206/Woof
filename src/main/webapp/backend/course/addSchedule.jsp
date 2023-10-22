@@ -11,6 +11,7 @@
     <div id="addSchedule">
         <label>課程：</label>
         <select id="skill" name="groupCourse">
+            <option value="0">請選擇課程</option>
             <c:forEach items="${groupCourses}" var="groupCourse">
                 <option value="${groupCourse.gcNo}">
                         ${groupCourse.classType.ctName} : ${groupCourse.skill.skillName}</option>
@@ -57,12 +58,13 @@
     </div>
     <div id="addScheduleDetail" style="display:none">
         <button type="button" id="addClassDate">+</button>
-
-        <div>
-            <label>新增上課日期：</label>
-            <input type="date" name="classDate" class="classDate" data-id="${1}">
+        <div id="input">
+            <div>
+                <label>新增上課日期：</label>
+                <input type="date" name="classDate" class="classDate" data-id="${1}">
+            </div>
         </div>
-
+        <button type="button" id="back">返回上一步</button>
         <button type="submit">確定新增</button>
     </div>
 </form>
