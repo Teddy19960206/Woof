@@ -17,6 +17,7 @@
         <property name="hibernate.show_sql">true</property>
         <property name="hibernate.format_sql">true</property>
         <property name="hibernate.hbm2ddl.auto">validate</property>
+<!--        若是使用spring 則不使用 -->
         <property name="hibernate.current_session_context_class">thread</property>
 
         <mapping class="com.woof.classtype.entity.ClassType" />

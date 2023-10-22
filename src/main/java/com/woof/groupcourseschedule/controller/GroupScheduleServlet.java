@@ -8,6 +8,8 @@ import com.woof.groupcourse.service.GroupCourseServiceImpl;
 import com.woof.groupcourseschedule.entity.GroupCourseSchedule;
 import com.woof.groupcourseschedule.service.GroupCourseScheduleServiceImpl;
 import com.woof.groupcourseschedule.service.GroupGourseScheduleService;
+import com.woof.skill.service.SkillService;
+import com.woof.skill.service.SkillServiceImpl;
 import com.woof.trainer.entity.Trainer;
 import com.woof.trainer.service.TrainerService;
 import com.woof.trainer.service.TrainerServiceImpl;
@@ -21,6 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Date;
 import java.util.List;
+import java.util.Set;
 
 @WebServlet("/schedule/*")
 @MultipartConfig
@@ -58,7 +61,7 @@ public class GroupScheduleServlet extends HttpServlet {
         switch (pathInfo) {
             case "/addpage":
 //                進入新增頁面前，先撈取下拉是選項資料
-                forwardPath = getSelectInfo(request, response);
+                forwardPath = getSelectInfo(request, response , null);
                 break;
             case "/addSchedule":
                 addGroupSchedule(request, response);
@@ -78,7 +81,7 @@ public class GroupScheduleServlet extends HttpServlet {
             default:
                 if (pathInfo.startsWith("/edit/")) {
 //                   進入修改頁面前，先撈取下拉式選項資料
-                    getSelectInfo(request, response);
+                    getSelectInfo(request, response , result);
 //                   進入edit畫面根據取得的id去抓取要修改的資料
                     forwardPath = edit(request, response, result);
                 } else {
@@ -125,17 +128,19 @@ public class GroupScheduleServlet extends HttpServlet {
     }
 
     //    進入<新增>或<修改>頁面時，會先獲取select下拉式選單可選擇的資料，並到新增頁面
-    private String getSelectInfo(HttpServletRequest request, HttpServletResponse response) {
+    private String getSelectInfo(HttpServletRequest request, HttpServletResponse response , Integer gcsNo) {
 
         GroupCourseService groupCourseService = new GroupCourseServiceImpl();
         List<GroupCourse> allGroupCourse = groupCourseService.getAllGroupCourse();
+        if (gcsNo != null){
+            Integer skillNo = groupGourseScheduleService.findByGcsNo(gcsNo).getGroupCourse().getSkill().getSkillNo();
+            SkillService skillService = new SkillServiceImpl();
+            Set<Trainer> trainersBySkillNo = skillService.getTrainersBySkillNo(skillNo);
 
-        TrainerService trainerService = new TrainerServiceImpl();
-        List<Trainer> allTrainers = trainerService.getAllTrainers();
-
+            request.setAttribute("trainers", trainersBySkillNo);
+        }
 
         request.setAttribute("groupCourses", allGroupCourse);
-        request.setAttribute("trainers", allTrainers);
 
         return "/backend/course/addSchedule.jsp";
     }
@@ -146,7 +151,6 @@ public class GroupScheduleServlet extends HttpServlet {
         GroupCourseSchedule groupCourseSchedule = groupGourseScheduleService.findByGcsNo(id);
 
         request.setAttribute("schedule", groupCourseSchedule);
-
 
         return "/backend/course/editGroupSchedule.jsp";
     }
@@ -176,12 +180,15 @@ public class GroupScheduleServlet extends HttpServlet {
         Date endDate = Date.valueOf(request.getParameter("endDate"));
         Integer minLimit = Integer.valueOf(request.getParameter("minLimit"));
         Integer maxLimit = Integer.valueOf(request.getParameter("maxLimit"));
-        Integer count = Integer.valueOf(request.getParameter("count"));
+        Integer regCount = Integer.valueOf(request.getParameter("regCount"));
         Integer price = Integer.valueOf(request.getParameter("price"));
         Integer status = Integer.valueOf(request.getParameter("status"));
+        String delayReason = request.getParameter("delayReason");
+        Integer relatedGcsNo = Integer.valueOf(request.getParameter("relatedGcsNo"));
+        GroupCourseSchedule byGcsNo = groupGourseScheduleService.findByGcsNo(relatedGcsNo);
 
 
-        int result = groupGourseScheduleService.updateSchedule(scheduleNo, groupCourseByNo, trainerByTrainerNo, startDate, endDate, minLimit, maxLimit, count, price, status);
+        int result = groupGourseScheduleService.updateSchedule(scheduleNo, groupCourseByNo, trainerByTrainerNo, startDate, endDate, minLimit, maxLimit, regCount, price, status , delayReason ,byGcsNo);
 
         if (result == 1) {
             System.out.println("修改成功");
@@ -195,9 +202,9 @@ public class GroupScheduleServlet extends HttpServlet {
     //    新增 GroupSchedule 團體報名課程
     private void addGroupSchedule(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-        Integer groupCoruse = Integer.valueOf(request.getParameter("groupCoruse"));
+        Integer groupCourse = Integer.valueOf(request.getParameter("groupCourse"));
         GroupCourseService groupCourseService = new GroupCourseServiceImpl();
-        GroupCourse groupCourseByNo = groupCourseService.findGroupCourseByNo(groupCoruse);
+        GroupCourse groupCourseByNo = groupCourseService.findGroupCourseByNo(groupCourse);
 
         Integer trainer = Integer.valueOf(request.getParameter("trainer"));
         TrainerService trainerService = new TrainerServiceImpl();
@@ -209,7 +216,12 @@ public class GroupScheduleServlet extends HttpServlet {
         Integer maxLimit = Integer.valueOf(request.getParameter("maxLimit"));
         Integer price = Integer.valueOf(request.getParameter("price"));
 
-        int result = groupGourseScheduleService.addSchedule(groupCourseByNo, trainerByTrainerNo, startDate, endDate, minLimit, maxLimit, price);
+        String delayReason = request.getParameter("delayReason");
+
+        Integer relatedGcsNo = Integer.valueOf(request.getParameter("relatedGcsNo"));
+        GroupCourseSchedule byGcsNo = groupGourseScheduleService.findByGcsNo(relatedGcsNo);
+
+        int result = groupGourseScheduleService.addSchedule(groupCourseByNo, trainerByTrainerNo, startDate, endDate, minLimit, maxLimit, price ,  delayReason ,  byGcsNo);
 
         if (result == 1) {
             System.out.println("新增成功");

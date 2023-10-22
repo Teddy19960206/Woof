@@ -1,8 +1,14 @@
 package com.woof.skill.controller;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.woof.groupcourse.entity.GroupCourse;
+import com.woof.groupcourse.service.GroupCourseService;
+import com.woof.groupcourse.service.GroupCourseServiceImpl;
 import com.woof.skill.entity.Skill;
 import com.woof.skill.service.SkillService;
 import com.woof.skill.service.SkillServiceImpl;
+import com.woof.trainer.entity.Trainer;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -12,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+import java.util.Set;
 
 @WebServlet("/skill/*")
 @MultipartConfig
@@ -56,11 +63,17 @@ public class SkillServlet extends HttpServlet {
                 delete(request, response);
                 return;
             case "/addSkill":
+//                新增skill
                 addSkill(request ,response);
                 forwardPath = getAllSkill(request, response);
                 break;
             default:
+                if (pathInfo.startsWith("/getTrainersBySkill/")){
+                    getTrainers(request , response , result);
+                    return;
+                }else {
                     forwardPath = getAllSkill(request, response);
+                }
         }
         request.getRequestDispatcher(forwardPath).forward(request,response);
     }
@@ -97,4 +110,23 @@ public class SkillServlet extends HttpServlet {
         skillService.addSkill(skillName);
     }
 
+
+//    由 skill 往 trainer撈取所有有相對應的資料，以測試成功
+//    取得groupCourseNo 尋找該物件資料，並抓到SkillNo去尋找擁有該skill的所有trainers
+    private void getTrainers(HttpServletRequest request , HttpServletResponse response , Integer gcNo) throws IOException {
+//        取得groupCourse物件
+        GroupCourseService groupCourseService = new GroupCourseServiceImpl();
+        GroupCourse groupCourse = groupCourseService.findGroupCourseByNo(gcNo);
+//        找到該物件的skillNo
+        Integer skillNo = groupCourse.getSkill().getSkillNo();
+
+//        利用groupCourse的skillNo去尋找擁有該skill的所有tr
+        Set<Trainer> trainerBySkillNo = skillService.getTrainersBySkillNo(skillNo);
+
+        Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+        String json = gson.toJson(trainerBySkillNo);
+        response.setContentType("application/json;charset=UTF-8");
+        response.getWriter().write(json);
+
+    }
 }

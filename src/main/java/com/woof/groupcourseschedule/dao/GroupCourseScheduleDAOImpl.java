@@ -32,10 +32,10 @@ public class GroupCourseScheduleDAOImpl implements GroupCourseScheduleDAO{
     }
 
     @Override
-    public void updateCount(Integer gcsNo , Integer count) {
-        String sql = "UPDATE group_course_schedule SET count = ? WHERE GCS_NO = ?";
+    public void updateCount(Integer gcsNo , Integer regCount) {
+        String sql = "UPDATE group_course_schedule SET regCount = ? WHERE GCS_NO = ?";
         Query query = getSession().createSQLQuery(sql);
-        query.setParameter(1, count + 1);
+        query.setParameter(1, regCount + 1);
         query.setParameter(2, gcsNo);
         int result = query.executeUpdate();
         System.out.println(result);
@@ -54,7 +54,7 @@ public class GroupCourseScheduleDAOImpl implements GroupCourseScheduleDAO{
     @Override
     public List<GroupCourseSchedule> getAllbyClassType(Integer ctNo) {
 
-        String sql = "SELECT gcs.GCS_NO , gcs.GC_NO , gcs.TRAINER_NO , gcs.GCS_START , gcs.GCS_END , gcs.MIN_LIMIT ,gcs.MAX_LIMIT , gcs.COUNT , gcs.GCS_PRICE , GCS_STATUS" +
+        String sql = "SELECT gcs" +
                 " FROM GROUP_COURSE_SCHEDULE AS gcs INNER JOIN GROUP_COURSE AS gc ON gcs.GC_NO = gc.GC_NO WHERE gc.CT_NO = :ctNo";
 
         NativeQuery query = getSession().createNativeQuery(sql)
