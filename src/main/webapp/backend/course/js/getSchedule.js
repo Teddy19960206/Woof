@@ -62,6 +62,10 @@ async function fetchData(){
             <th>已報名人數</th>
             <th>價格</th>
             <th>課程報名狀態</th>
+            <th>延期原因</th>
+            <th>延期關聯表格</th>
+            <th>建立時間</th>
+            <th>最後修改時間</th>
             <th>修改</th>
         </tr>
         </thead>
@@ -78,9 +82,13 @@ async function fetchData(){
             <th>${item.gcsEnd}</th>
             <th>${item.minLimit}</th>
             <th>${item.maxLimit}</th>
-            <th>${item.count}</th>
+            <th>${item.regCount}</th>
             <th>${item.gcsPrice}</th>
             <th>${item.gcsStatus}</th>
+            <th>${item.gcsDelayReason}</th>
+            <th>${item.relatedGcsNo}</th>
+            <th>${item.createdAt}</th>
+            <th>${item.updatedAt}</th>
             <td><button type="button" class="modify-button" data-id="${item.gcsNo}">修改</td>
         </tr>`;
         })

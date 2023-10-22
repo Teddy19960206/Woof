@@ -44,8 +44,8 @@
   <input type="number" name="maxLimit" id="maxLimit" value="${schedule.maxLimit}">
   <br />
 
-  <label for="count">已報名人數：</label>
-  <input type="number" name="count" id="count" value="${schedule.count}">
+  <label for="regCount">已報名人數：</label>
+  <input type="number" name="regCount" id="regCount" value="${schedule.regCount}">
   <br />
 
   <label for="price">價格：</label>

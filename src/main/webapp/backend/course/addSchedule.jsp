@@ -43,6 +43,14 @@
     <input type="input" name="price" id="price">
     <br/>
 
+    <label for="price">延期原因：</label>
+    <input type="input" name="price" id="delayReason">
+    <br/>
+
+    <label for="price">延期的關聯表格：</label>
+    <input type="input" name="price" id="relatedGcsNo">
+    <br/>
+
     <button type="submit">確定新增</button>
     <button type="button" onclick="history.back()">取消新增</button>
 </form>

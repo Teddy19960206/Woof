@@ -180,12 +180,15 @@ public class GroupScheduleServlet extends HttpServlet {
         Date endDate = Date.valueOf(request.getParameter("endDate"));
         Integer minLimit = Integer.valueOf(request.getParameter("minLimit"));
         Integer maxLimit = Integer.valueOf(request.getParameter("maxLimit"));
-        Integer count = Integer.valueOf(request.getParameter("count"));
+        Integer regCount = Integer.valueOf(request.getParameter("regCount"));
         Integer price = Integer.valueOf(request.getParameter("price"));
         Integer status = Integer.valueOf(request.getParameter("status"));
+        String delayReason = request.getParameter("delayReason");
+        Integer relatedGcsNo = Integer.valueOf(request.getParameter("relatedGcsNo"));
+        GroupCourseSchedule byGcsNo = groupGourseScheduleService.findByGcsNo(relatedGcsNo);
 
 
-        int result = groupGourseScheduleService.updateSchedule(scheduleNo, groupCourseByNo, trainerByTrainerNo, startDate, endDate, minLimit, maxLimit, count, price, status);
+        int result = groupGourseScheduleService.updateSchedule(scheduleNo, groupCourseByNo, trainerByTrainerNo, startDate, endDate, minLimit, maxLimit, regCount, price, status , delayReason ,byGcsNo);
 
         if (result == 1) {
             System.out.println("修改成功");
@@ -213,7 +216,12 @@ public class GroupScheduleServlet extends HttpServlet {
         Integer maxLimit = Integer.valueOf(request.getParameter("maxLimit"));
         Integer price = Integer.valueOf(request.getParameter("price"));
 
-        int result = groupGourseScheduleService.addSchedule(groupCourseByNo, trainerByTrainerNo, startDate, endDate, minLimit, maxLimit, price);
+        String delayReason = request.getParameter("delayReason");
+
+        Integer relatedGcsNo = Integer.valueOf(request.getParameter("relatedGcsNo"));
+        GroupCourseSchedule byGcsNo = groupGourseScheduleService.findByGcsNo(relatedGcsNo);
+
+        int result = groupGourseScheduleService.addSchedule(groupCourseByNo, trainerByTrainerNo, startDate, endDate, minLimit, maxLimit, price ,  delayReason ,  byGcsNo);
 
         if (result == 1) {
             System.out.println("新增成功");

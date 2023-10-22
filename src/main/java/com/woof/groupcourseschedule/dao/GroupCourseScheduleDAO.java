@@ -13,7 +13,7 @@ public interface GroupCourseScheduleDAO {
 
     int update(GroupCourseSchedule groupCourseSchedule);
 
-    void updateCount(Integer gcsNo , Integer count);
+    void updateCount(Integer gcsNo , Integer regCount);
 
     GroupCourseSchedule findByGcsNo(Integer gcsNo);
 

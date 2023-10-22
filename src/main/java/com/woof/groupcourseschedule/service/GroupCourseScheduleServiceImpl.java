@@ -19,7 +19,7 @@ public class GroupCourseScheduleServiceImpl implements GroupGourseScheduleServic
     }
 
     @Override
-    public int addSchedule(GroupCourse groupCourse, Trainer trainer, Date startDate, Date endDate, Integer minLimit, Integer maxLimit, Integer price) {
+    public int addSchedule(GroupCourse groupCourse, Trainer trainer, Date startDate, Date endDate, Integer minLimit, Integer maxLimit, Integer price , String delayReason , GroupCourseSchedule relatedGcsNo) {
         GroupCourseSchedule groupCourseSchedule = new GroupCourseSchedule();
         groupCourseSchedule.setGroupCourse(groupCourse);
         groupCourseSchedule.setTrainer(trainer);
@@ -28,6 +28,8 @@ public class GroupCourseScheduleServiceImpl implements GroupGourseScheduleServic
         groupCourseSchedule.setMinLimit(minLimit);
         groupCourseSchedule.setMaxLimit(maxLimit);
         groupCourseSchedule.setGcsPrice(price);
+        groupCourseSchedule.setGcsDelayReason(delayReason);
+        groupCourseSchedule.setRelatedGcsNo(relatedGcsNo);
 
         return dao.insert(groupCourseSchedule);
     }
@@ -36,11 +38,11 @@ public class GroupCourseScheduleServiceImpl implements GroupGourseScheduleServic
     public void registrationSchedule(Integer gcsNo) {
         GroupCourseSchedule schedule = findByGcsNo(gcsNo);
 
-        dao.updateCount(gcsNo, schedule.getCount());
+        dao.updateCount(gcsNo, schedule.getRegCount());
     }
 
     @Override
-    public int updateSchedule(Integer gcsNo, GroupCourse groupCourse , Trainer trainer , Date gcsStart , Date gcsEnd , Integer minLimit , Integer maxLimit , Integer count , Integer gcsPrice , Integer gcsStatus) {
+    public int updateSchedule(Integer gcsNo, GroupCourse groupCourse , Trainer trainer , Date gcsStart , Date gcsEnd , Integer minLimit , Integer maxLimit , Integer regCount , Integer gcsPrice , Integer gcsStatus , String gcsDelayReason , GroupCourseSchedule relatedGcsNo) {
         GroupCourseSchedule groupCourseSchedule = new GroupCourseSchedule();
         groupCourseSchedule.setGcsNo(gcsNo);
         groupCourseSchedule.setGroupCourse(groupCourse);
@@ -49,9 +51,11 @@ public class GroupCourseScheduleServiceImpl implements GroupGourseScheduleServic
         groupCourseSchedule.setGcsEnd(gcsEnd);
         groupCourseSchedule.setMinLimit(minLimit);
         groupCourseSchedule.setMaxLimit(maxLimit);
-        groupCourseSchedule.setCount(count);
+        groupCourseSchedule.setRegCount(regCount);
         groupCourseSchedule.setGcsPrice(gcsPrice);
         groupCourseSchedule.setGcsStatus(gcsStatus);
+        groupCourseSchedule.setGcsDelayReason(gcsDelayReason);
+        groupCourseSchedule.setRelatedGcsNo(relatedGcsNo);
 
         int update = dao.update(groupCourseSchedule);
 
