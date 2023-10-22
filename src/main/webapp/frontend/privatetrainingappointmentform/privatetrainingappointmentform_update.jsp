@@ -10,7 +10,7 @@
 
 <form action="${pageContext.request.contextPath}/privatetrainingappointmentform/privatetrainingappointmentform" method="post" enctype="multipart/form-data">
     <label>私人訓練預約單編號：</label>
-    <select name="privateTrainingAppointmentForm">
+    <select name="ptaNo">
         <c:forEach items="${privateTrainingAppointmentForms}" var="privateTrainingAppointmentForm">
             <option value="${privateTrainingAppointmentForm.ptaNo}">${privateTrainingAppointmentForm.ptaNo}</option>
         </c:forEach>
@@ -19,7 +19,7 @@
     <label>成員名稱：</label>
     <select name="member">
         <c:forEach items="${members}" var="member">
-            <option value="${member.memNo}">${member.memName}</option>
+            <option value="${privateTrainingAppointmentForm.member.memNo}">${member.memName}</option>
         </c:forEach>
     </select>
     <br />
