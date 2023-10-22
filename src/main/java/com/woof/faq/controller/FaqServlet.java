@@ -129,17 +129,12 @@ public class FaqServlet extends HttpServlet {
 
 		if (result == 1) {
 			System.out.println("刪除成功");
-			// 重定向到 faqfirst.jsp
-			try {
-				resp.sendRedirect(req.getContextPath() + "/faq/faqfirst.jsp");
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+
 		} else {
 			System.out.println("刪除失敗");
 		}
 
-		return null;
+		return "/backend/faq/faqfirst.jsp";
 	}
 
 }
