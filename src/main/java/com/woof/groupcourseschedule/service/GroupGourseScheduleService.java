@@ -10,9 +10,9 @@ import java.util.List;
 public interface GroupGourseScheduleService {
 
 
-    int addSchedule(GroupCourse groupCourse , Trainer trainer , Date startDate , Date endDate , Integer minLimit , Integer maxLimit , Integer price);
+    int addSchedule(GroupCourse groupCourse , Trainer trainer , Date startDate , Date endDate , Integer minLimit , Integer maxLimit , Integer price , String delayReason , GroupCourseSchedule relatedGcsNo);
     void registrationSchedule(Integer gcsNo);
-    int updateSchedule(Integer gcsNo, GroupCourse groupCourse , Trainer trainer , Date gcsStart , Date gcsEnd , Integer minLimit , Integer maxLimit , Integer count , Integer gcsPrice , Integer gcsStatus);
+    int updateSchedule(Integer gcsNo, GroupCourse groupCourse , Trainer trainer , Date gcsStart , Date gcsEnd , Integer minLimit , Integer maxLimit , Integer regCount , Integer gcsPrice , Integer gcsStatus , String gcsDelayReason , GroupCourseSchedule relatedGcsNo);
     GroupCourseSchedule findByGcsNo(Integer GcsNo);
     List<GroupCourseSchedule> getAll();
     List<GroupCourseSchedule> getGroupScheduleByCtNo(Integer ctNo);

@@ -10,20 +10,20 @@
 
   <input type="hidden" name="scheduleNo" value="${schedule.gcsNo}">
   <label>課程：</label>
-  <select name="skill">
-    <c:forEach items="${groupCourses}" var="groupCourse">
-      <option value="${groupCourse.gcNo}"
-              <c:if test="${groupCourse.skill.skillNo eq schedule.groupCourse.skill.skillNo}">selected</c:if>
-      >${groupCourse.classType.ctName} : ${groupCourse.skill.skillName}</option>
+  <select id="skill" name="skill">
+    <c:forEach items="${groupCourses}" var="course">
+      <option value="${course.gcNo}"
+              <c:if test="${course.skill.skillNo eq schedule.groupCourse.skill.skillNo}">selected</c:if>
+      >${course.classType.ctName} : ${course.skill.skillName}</option>
     </c:forEach>
   </select>
   <br />
 
   <label>訓練師：</label>
-  <select name="trainer">
+  <select id="trainer" name="trainer">
     <c:forEach items="${trainers}" var="trainer">
       <option value="${trainer.trainerNo}" <c:if test="${trainer.trainerNo eq schedule.trainer.trainerNo}">selected</c:if>>
-          ${trainer.trainerNo}</option>
+          ${trainer.administrator.adminName}</option>
     </c:forEach>
   </select>
   <br />
@@ -44,8 +44,8 @@
   <input type="number" name="maxLimit" id="maxLimit" value="${schedule.maxLimit}">
   <br />
 
-  <label for="count">已報名人數：</label>
-  <input type="number" name="count" id="count" value="${schedule.count}">
+  <label for="regCount">已報名人數：</label>
+  <input type="number" name="regCount" id="regCount" value="${schedule.regCount}">
   <br />
 
   <label for="price">價格：</label>
@@ -61,5 +61,7 @@
   <button type="submit">確定修改</button>
   <button type="button" onclick="history.back()">取消修改</button>
 </form>
+<script src="${pageContext.request.contextPath}/webutil/js/jquery-3.7.1.min.js"></script>
+<script src="${pageContext.request.contextPath}/backend/course/js/getTrainerBySkill.js" ></script>
 </body>
 </html>

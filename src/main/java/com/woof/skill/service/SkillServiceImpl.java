@@ -52,7 +52,7 @@ public class SkillServiceImpl implements SkillService{
     }
 
     @Override
-    public Set<Trainer> getTrainerBySkillNo(Integer skillNo) {
-        return getTrainerBySkillNo(skillNo);
+    public Set<Trainer> getTrainersBySkillNo(Integer skillNo) {
+        return dao.getTrainerBySkill(skillNo);
     }
 }

@@ -59,7 +59,7 @@ public class GroupCourseServlet extends HttpServlet {
         switch (pathInfo){
             case "/addpage":
 //                預先載入可選擇的選項
-                forwardPath =getSelectInfo(request,response);
+                forwardPath = getSelectInfo(request,response);
                 break;
             case "/addgroup":
 //                正式增加GroupCourse資料
@@ -119,6 +119,8 @@ public class GroupCourseServlet extends HttpServlet {
 
         ClassTypeService classTypeService = new ClassTypeServiceImpl();
         List<ClassType> allClassTypes = classTypeService.getAllClassTypes();
+
+
         SkillService skillService = new SkillServiceImpl();
         List<Skill> allSkill = skillService.getAllSkill();
 

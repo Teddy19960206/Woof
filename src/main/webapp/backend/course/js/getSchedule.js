@@ -13,6 +13,22 @@ document.addEventListener("DOMContentLoaded", function (){
     fetchData();
 });
 
+// 點選相關資料的修改時，發送相關資料的id，並進入到編輯頁面
+$(document).on("click" , "button.modify-button" , function (){
+    let url = `/${pathname}/schedule/edit/${this.getAttribute("data-id")}`;
+    window.location.href = url;
+});
+
+// 點擊相關資料的報名時，更新報名人數
+$(document).on("click" , "button.registration" , function (){
+
+
+    let url = `/${pathname}/groupcourse/schedule/xxx/${this.getAttribute("data-id")}`;
+
+    window.location.href = url;
+
+});
+
 
 // 抓取資料
 async function fetchData(){
@@ -46,6 +62,10 @@ async function fetchData(){
             <th>已報名人數</th>
             <th>價格</th>
             <th>課程報名狀態</th>
+            <th>延期原因</th>
+            <th>延期關聯表格</th>
+            <th>建立時間</th>
+            <th>最後修改時間</th>
             <th>修改</th>
         </tr>
         </thead>
@@ -53,7 +73,7 @@ async function fetchData(){
 
         // 取得所有相關的資料
         data.forEach((item)=>{
-            console.log(item)
+
             html+= `
             <th>${item.gcsNo}</th>
             <th>${item.groupCourse.classType.ctName} : ${item.groupCourse.skill.skillName}</th>
@@ -62,9 +82,13 @@ async function fetchData(){
             <th>${item.gcsEnd}</th>
             <th>${item.minLimit}</th>
             <th>${item.maxLimit}</th>
-            <th>${item.count}</th>
+            <th>${item.regCount}</th>
             <th>${item.gcsPrice}</th>
             <th>${item.gcsStatus}</th>
+            <th>${item.gcsDelayReason}</th>
+            <th>${item.relatedGcsNo}</th>
+            <th>${item.createdAt}</th>
+            <th>${item.updatedAt}</th>
             <td><button type="button" class="modify-button" data-id="${item.gcsNo}">修改</td>
         </tr>`;
         })
@@ -79,22 +103,3 @@ async function fetchData(){
         console.error('Error', error);
     }
 }
-
-// 點選相關資料的修改時，發送相關資料的id，並進入到編輯頁面
-$(document).on("click" , "button.modify-button" , function (){
-    let url = `/${pathname}/schedule/edit/${this.getAttribute("data-id")}`;
-    window.location.href = url;
-});
-
-// 點擊相關資料的報名時，更新報名人數
-$(document).on("click" , "button.registration" , function (){
-
-
-    let url = `/${pathname}/groupcourse/schedule/xxx/${this.getAttribute("data-id")}`;
-
-    window.location.href = url;
-
-});
-
-
-
