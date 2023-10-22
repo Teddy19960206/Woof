@@ -27,16 +27,16 @@
 				<td>
 
 					<FORM METHOD="post"
-						action="${pageContext.request.contextPath}/backend/faq/update">
+						action="${pageContext.request.contextPath}/backend/faq/updatefaq.jsp">
 						<input type="hidden" name="action" value="updatefaq">
 						<button class="btn btn-success" type="submit">修改</button>
-		
+						
 					</FORM>
 				</td> 
 				<td>
 					<FORM METHOD="post"
-						ACTION="<%=request.getContextPath()%>/admin/admin.do">
-						<input type="hidden" name="action" value="deletefaq">
+						action="${pageContext.request.contextPath}/backend/faq?action=deletefaq">
+						<input type="hidden" name="faqNo" value="${all.faqNo}">
 						<button class="btn btn-danger" type="submit">刪除</button>
 		
 					</FORM>
