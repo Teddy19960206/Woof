@@ -15,10 +15,12 @@ import javax.persistence.Table;
 
 import com.woof.groupcourseschedule.entity.GroupCourseSchedule;
 import com.woof.trainer.entity.Trainer;
+import org.hibernate.annotations.BatchSize;
 
 
 @Entity
 @Table(name = "group_course_schedule_detail")
+@BatchSize(size = 20)
 public class GroupScheduleDetail implements Serializable {
 	
 	@Id
@@ -56,11 +58,11 @@ public class GroupScheduleDetail implements Serializable {
 		this.groupCourseSchedule = groupCourseSchedule;
 	}
 
-	public Trainer getTrainerVO() {
+	public Trainer getTrainer() {
 		return trainer;
 	}
 
-	public void setTrainerVO(Trainer trainerVO) {
+	public void setTrainer(Trainer trainer) {
 		this.trainer = trainer;
 	}
 

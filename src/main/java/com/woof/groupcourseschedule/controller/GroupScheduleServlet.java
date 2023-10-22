@@ -8,6 +8,8 @@ import com.woof.groupcourse.service.GroupCourseServiceImpl;
 import com.woof.groupcourseschedule.entity.GroupCourseSchedule;
 import com.woof.groupcourseschedule.service.GroupCourseScheduleServiceImpl;
 import com.woof.groupcourseschedule.service.GroupGourseScheduleService;
+import com.woof.groupscheduledetail.service.GroupScheduleDetailService;
+import com.woof.groupscheduledetail.service.GroupScheduleDetailServiceImpl;
 import com.woof.skill.service.SkillService;
 import com.woof.skill.service.SkillServiceImpl;
 import com.woof.trainer.entity.Trainer;
@@ -226,21 +228,17 @@ public class GroupScheduleServlet extends HttpServlet {
 
         }
 
+        GroupCourseSchedule groupCourseSchedule = groupGourseScheduleService.addSchedule(groupCourseByNo, trainerByTrainerNo, startDate, endDate, minLimit, maxLimit, price ,  delayReason ,  byGcsNo);
 
+        Set<Date> dates = new HashSet<>();
         String[] classDates = request.getParameterValues("classDate");
         for (String classDate : classDates){
-            System.out.println(classDate);
+            Date date = Date.valueOf(classDate);
+            dates.add(date);
         }
 
-
-
-        int result = groupGourseScheduleService.addSchedule(groupCourseByNo, trainerByTrainerNo, startDate, endDate, minLimit, maxLimit, price ,  delayReason ,  byGcsNo);
-
-        if (result == 1) {
-            System.out.println("新增成功");
-        } else {
-            System.out.println("新增失敗");
-        }
+        GroupScheduleDetailService groupScheduleDetailService = new GroupScheduleDetailServiceImpl();
+        groupScheduleDetailService.add(groupCourseSchedule , groupCourseSchedule.getTrainer() ,dates );
 
         response.sendRedirect(request.getContextPath() + "/backend/course/schedule.jsp");
     }

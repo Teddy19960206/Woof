@@ -3,9 +3,10 @@ package com.woof.groupscheduledetail.dao;
 import com.woof.groupscheduledetail.entity.GroupScheduleDetail;
 
 import java.util.List;
+import java.util.Set;
 
 public interface GroupScheduleDetailDAO {
-    int insert(GroupScheduleDetail groupScheduleDetail);
+    int insert(List<GroupScheduleDetail> groupScheduleDetailSet);
     int update(GroupScheduleDetail groupScheduleDetail);
     int delete(GroupScheduleDetail groupScheduleDetail);
 

@@ -49,7 +49,7 @@
         <input type="input" name="price" id="delayReason">
         <br/>
 
-        <label for="price">延期的關聯表格：</label>
+        <label for="price">延期的關聯表格編號：</label>
         <input type="input" name="price" id="relatedGcsNo">
         <br/>
 

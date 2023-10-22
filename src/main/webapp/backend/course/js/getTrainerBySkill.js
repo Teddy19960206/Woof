@@ -8,16 +8,17 @@ selectElement.addEventListener("change" , async function (e){
     let select = $(this).val();
 
     if (select == 0){
-        select.html("請選擇")
+        select.html("請選擇課程")
     }else{
-        let results = await fetchTrainers();
+        let results = await fetchTrainers(select);
 
         let trainerSelect =  $("select#trainer");
 
-        if (results.length == 0){
+        let html = "";
+        if (results == undefined || results.length == 0){
             trainerSelect.html("找不到擁有該專業的訓練師");
         }else{
-            html = "";
+
             results.forEach((trainers)=>{
                 html += `<option value="${trainers.trainerNo}">${trainers.administrator.adminName}</option>`;
             })

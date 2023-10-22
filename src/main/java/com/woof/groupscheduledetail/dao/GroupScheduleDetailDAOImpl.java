@@ -1,9 +1,12 @@
 package com.woof.groupscheduledetail.dao;
 
+import com.woof.groupcourseschedule.entity.GroupCourseSchedule;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import java.util.List;
+import java.util.Set;
+
 import com.woof.groupscheduledetail.entity.GroupScheduleDetail;
 import org.hibernate.query.Query;
 
@@ -19,8 +22,12 @@ public class GroupScheduleDetailDAOImpl implements GroupScheduleDetailDAO{
         return factory.getCurrentSession();
     }
     @Override
-    public int insert(GroupScheduleDetail groupScheduleDetail) {
-        return (Integer) getSession().save(groupScheduleDetail);
+    public int insert(List<GroupScheduleDetail> groupScheduleDetailSet) {
+        for (GroupScheduleDetail groupScheduleDetail : groupScheduleDetailSet){
+            getSession().persist(groupScheduleDetail);
+        }
+            getSession().flush();
+        return 1;
     }
 
     @Override
@@ -36,8 +43,8 @@ public class GroupScheduleDetailDAOImpl implements GroupScheduleDetailDAO{
     }
 
     @Override
-    public GroupScheduleDetail findByGcsd(Integer gcsd) {
-        return getSession().get(GroupScheduleDetail.class , gcsd);
+    public GroupScheduleDetail findByGcsd(Integer gcsdNo) {
+        return getSession().get(GroupScheduleDetail.class , gcsdNo);
     }
 
     @Override
