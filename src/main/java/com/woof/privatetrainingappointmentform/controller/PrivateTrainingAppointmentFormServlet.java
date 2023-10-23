@@ -224,11 +224,13 @@ public class PrivateTrainingAppointmentFormServlet extends HttpServlet {
 	}
 	private void getOne(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
+		PrivateTrainingAppointmentFormService  privateTrainingAppointmentFormService = new PrivateTrainingAppointmentFormServiceImpl();
+		List<PrivateTrainingAppointmentForm> allPrivateTrainingAppointmentForms =  privateTrainingAppointmentFormService.getAllPrivateTrainingAppointmentForms();
 		Integer ptaNoInt = Integer.valueOf(request.getParameter("ptaNo"));
 		
-		PrivateTrainingAppointmentForm ptaNo = privateTrainingAppointmentFormService.findPrivateTrainingAppointmentFormByPtaNo(ptaNoInt);
-
-		request.setAttribute("getone",ptaNo);
+		PrivateTrainingAppointmentForm pta = privateTrainingAppointmentFormService.findPrivateTrainingAppointmentFormByPtaNo(ptaNoInt);
+		request.setAttribute("privateTrainingAppointmentForms", allPrivateTrainingAppointmentForms);
+		request.setAttribute("pta",pta);
 		
 	}
 }

@@ -9,9 +9,9 @@
 <body>
 <jsp:useBean id="privateTrainingAppointmentFormServer" scope="page" class="com.woof.privatetrainingappointmentform.service.PrivateTrainingAppointmentFormServiceImpl"/>
 <form method="POST" ACTION="${pageContext.request.contextPath}/privatetrainingappointmentform">
-    <select name="Type">
+    <select name="ptaNo">
         <c:forEach var="privateTrainingAppointmentForm" items="${privateTrainingAppointmentFormServer.allPrivateTrainingAppointmentForms}">
-            <option  value="${privateTrainingAppointmentForm.member.memNo} ${privateTrainingAppointmentForm.trainer.trainerNo} ${privateTrainingAppointmentForm.ptaClass}">${privateTrainingAppointmentForm.ptaNo}</option>
+            <option  value="${privateTrainingAppointmentForm.ptaNo}">${privateTrainingAppointmentForm.ptaNo}</option>
         </c:forEach>
     </select>
     <input type="hidden" name="action" value="getone">
