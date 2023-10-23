@@ -53,22 +53,17 @@ public class MemberServlet extends HttpServlet {
 		String forwardPath = "";
 		if (action != null) {
 			switch (action) {
-			case "/addpage":
-//            預先載入可選擇的選項
-				getSelectInfo(req, res);
-				forwardPath = "/frontend/member/selectmember.jsp";
-				break;
 			case "/addmember":
 //            正式增加Member資料
 				try {
-		            addMember(req, res);
-		        } catch (IOException | ParseException e) {
-		            e.printStackTrace();
-		        }
-				break;
-			case "getupdate":
-				beforeUpdate(req, res);
-				forwardPath = "/frontend/member/updatemember.jsp";
+					addMember(req, res);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				break;
 			case "/update":
 //           正式修改資料
@@ -82,7 +77,7 @@ public class MemberServlet extends HttpServlet {
 				forwardPath = "/frontend/member/list_one_member.jsp";
 				break;
 			case "/delete":
-				doDelete(req, res);
+				Delete(req, res);
 				forwardPath = "/frontend/member/list_all_member.jsp";
 
 			default:
@@ -93,7 +88,7 @@ public class MemberServlet extends HttpServlet {
 				} else {
 					forwardPath = "/member/selectmember.jsp";
 				}
-				  break;
+				break;
 			}
 			req.getRequestDispatcher(forwardPath).forward(req, res);
 
@@ -164,9 +159,9 @@ public class MemberServlet extends HttpServlet {
 
 	}
 
-	private void beforeUpdate(HttpServletRequest req, HttpServletResponse res) {
-		// TODO Auto-generated method stub
-
+	private void Delete(HttpServletRequest req, HttpServletResponse res) {
+//		req.getParameter("memNo");
+//		memberService.deleteMember(Integer.valueOf(req.getParameter("memNo")));
 	}
 
 	private String getAllmembers(HttpServletRequest req, HttpServletResponse res) throws IOException {
@@ -201,31 +196,40 @@ public class MemberServlet extends HttpServlet {
 	}
 
 	private void addMember(HttpServletRequest req, HttpServletResponse res) throws IOException, ParseException {
-		  req.setCharacterEncoding("UTF-8");
-//		  String memName = req.getParameter("memName");
-//		  String memGender = req.getParameter("memGender");
-//		  String memEmail =req.getParameter("memEmail");
-//		  String memPassword =req.getParameter("memPassword");
-//		  String memTel =req.getParameter("memTel");
-//		  String memAdress =req.getParameter("memAdress");
-//		  java.util.Date date =null;
-//		  int result;
-//		  try {
-//			  date = new SimpleDateFormat("yyyy-mm-dd").parse(req.getParameter("memBd"));} catch (ParseException e) {
-//				  e.printStackTrace();
-//		   result = -1;
-//		  if (result == 1) {
-//		   System.out.println("新增成功");
-//		   req.setAttribute("successMessage", "新增成功");
-//		  } else {
-//		   System.out.println("新增失敗");
-//		   req.setAttribute("errorMessage", "新增失敗");
-//		  }
-//		  res.sendRedirect(req.getContextPath()
-//		    + "/frontend/member/list_all_member.jsp");
-//		 }
-		return;
-	}
+//		req.setCharacterEncoding("UTF-8");
+//		String memName = req.getParameter("memName");
+//		String memGender = req.getParameter("memGender");
+//		String memEmail = req.getParameter("memEmail");
+//		String memPassword = req.getParameter("memPassword");
+//		String memTel = req.getParameter("memTel");
+//		String memAddress = req.getParameter("memAddress");
+//		// java.sql的日期寫法
+//		Date date = null;
+//		try {
+//			date = (Date) new SimpleDateFormat("yyyy-mm-dd").parse(req.getParameter("memBd"));
+//		} catch (ParseException e) {
+//			e.printStackTrace();
+//		}
+//		String memBd = req.getParameter("memBd"); // 取决于您的HTML表单中的字段名称
+//
+//		java.text.SimpleDateFormat format = new java.text.SimpleDateFormat("yyyy-MM-dd"); // 根据您的日期格式进行调整
+//		java.util.Date parsedDate = format.parse(memBd);
+//		java.sql.Date memBd1 = new java.sql.Date(parsedDate.getTime());
+//		Integer momoPoint = Integer.valueOf(req.getParameter("momoPoint"));
+//		Integer totalClass = Integer.valueOf(req.getParameter("totalClass"));
+//		Integer memStatus = Integer.valueOf(req.getParameter("memStatus"));
+//		memberService.addMember(memName, memGender, memEmail,memPassword, memTel,memAddress,memBd1, momoPoint, totalClass, memStatus);
+//		int result;
+//			result = -1;
+//			if (result == 1) {
+//				System.out.println("新增成功");
+//				req.setAttribute("successMessage", "新增成功");
+//			} else {
+//				System.out.println("新增失敗");
+//				req.setAttribute("errorMessage", "新增失敗");
+//			}
+//			res.sendRedirect(req.getContextPath() + "/frontend/member/list_all_member.jsp");
+		}
 
 //
 	private String edit(HttpServletRequest req, HttpServletResponse res, Integer id) {

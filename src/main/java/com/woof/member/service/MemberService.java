@@ -10,7 +10,7 @@ public interface MemberService {
 	int modify(Integer memNo, String memName, String memGender, byte[] memPhoto, String memEmail, String memPassword,
 			String memTel, String memAddress, Date memBd, Integer momoPoint, Integer totalClass, Integer memStatus);
 
-	int addMember(Integer memNo, String memName, String memGender, byte[] memPhoto, String memEmail,
+	int addMember(String memName, String memGender, String memEmail,
 			String memPassword, String memTel, String memAddress, Date memBd, Integer momoPoint, Integer totalClass,
 			Integer memStatus);
 
