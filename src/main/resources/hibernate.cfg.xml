@@ -13,7 +13,7 @@
 <!--        <property name="hibernate.connection.password">password</property>-->
         
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
-        
+
         <property name="hibernate.show_sql">true</property>
         <property name="hibernate.format_sql">true</property>
         <property name="hibernate.hbm2ddl.auto">validate</property>
@@ -24,7 +24,7 @@
         <mapping class="com.woof.groupcourse.entity.GroupCourse" />
         <mapping class="com.woof.groupcourseorder.entity.GroupCourseOrder" />
         <mapping class="com.woof.groupcourseschedule.entity.GroupCourseSchedule" />
-        <mapping class="com.woof.groupcoursescheduledetail.entity.GroupCourseScheduleDetail" />
+        <mapping class="com.woof.groupscheduledetail.entity.GroupScheduleDetail" />
         <mapping class="com.woof.skill.entity.Skill" />
         <mapping class="com.woof.skillslist.entity.SkillsList" />
         <mapping class="com.woof.member.entity.Member"/>
@@ -40,6 +40,7 @@
 		<mapping class="com.woof.administrator.entity.Administrator" />
         <mapping class="com.woof.functionpermission.entity.FunctionPermission"/>
 		<mapping class="com.woof.latestnews.entity.LatestNews"/>
+		<mapping class="com.woof.product.entity.Product"/>
 		<mapping class="com.woof.faq.entity.Faq"/>
     </session-factory>
 </hibernate-configuration>

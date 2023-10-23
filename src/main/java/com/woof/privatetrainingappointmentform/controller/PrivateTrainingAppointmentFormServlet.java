@@ -154,7 +154,10 @@ public class PrivateTrainingAppointmentFormServlet extends HttpServlet {
 		PrivateTrainingAppointmentFormService  privateTrainingAppointmentFormService = new PrivateTrainingAppointmentFormServiceImpl();
 		List<PrivateTrainingAppointmentForm> allPrivateTrainingAppointmentForms =  privateTrainingAppointmentFormService.getAllPrivateTrainingAppointmentForms();
 	
+		
+
 		req.setAttribute("privateTrainingAppointmentForms", allPrivateTrainingAppointmentForms);
+		
 	}
 	
 	private void update(HttpServletRequest request, HttpServletResponse response)

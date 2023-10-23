@@ -36,15 +36,25 @@ public class FaqServlet extends HttpServlet {
 		String action = req.getParameter("action");
 		String forwardPath = "";
 		switch (action) {
+
 		case "getAll":
 			forwardPath = getAll(req, resp);
 			break;
+
 		case "addfaq":
 			forwardPath = addfaq(req, resp);
 			break;
 
+		case "updatefaq":
+			forwardPath = updatefaq(req, resp);
+			break;
+
+		case "deletefaq":
+			forwardPath = deletefaq(req, resp);
+			break;
+
 		default:
-			forwardPath = "/backend/faq/getAll.jsp";
+			forwardPath = "/backend/index.html";
 		}
 
 		resp.setContentType("text/html; charset=UTF-8");
@@ -70,16 +80,61 @@ public class FaqServlet extends HttpServlet {
 //		System.out.println("qqqqq");
 
 //	    if (result > 0) {
-//	    	resp.sendRedirect(req.getContextPath() + "/faq?action=getAll");
-//	        return null; // FAQ添加成功
+//	        return 1; // FAQ添加成功
 //	    } else {
 //	        return "-1"; // FAQ添加失败
 //	    }
-		
+
+		// 如果有確定進入資料庫會有流水編號，再去找流水編號的值，顯示在jsp
 		int saved = (Integer) faqService.addFaq(faqClass, faqTitle, faqContent);
 		var result = faqService.findByFaqNo(saved);
+
 		req.setAttribute("result", result);
-		return "/backend/faq/add.jsp";
+		return "/backend/faq/addfaq.jsp";
+	}
+
+	private String updatefaq(HttpServletRequest req, HttpServletResponse resp) {
+
+		int faqNo = Integer.parseInt(req.getParameter("faqNo"));
+		String faqClass = req.getParameter("faqClass");
+		String faqTitle = req.getParameter("faqTitle");
+		String faqContent = req.getParameter("faqContent");
+
+//		System.out.println(faqNo);
+//		System.out.println(faqClass);
+//		System.out.println(faqTitle);
+//		System.out.println(faqContent);
+
+		int result = faqService.updateFaq(faqNo, faqClass, faqTitle, faqContent);
+
+		if (result > 0) {
+			System.out.println("更新成功");
+		} else {
+			System.out.println("更新失敗");
+		}
+
+		return "/backend/faq/faqfirst.jsp";
+	}
+
+	private String deletefaq(HttpServletRequest req, HttpServletResponse resp) {
+
+		Integer faqNo = Integer.parseInt(req.getParameter("faqNo"));
+		// 檢查 FAQ 編號是否有效
+		if (faqNo == null || faqNo <= 0) {
+			System.out.println("無效的 FAQ 編號");
+			return null;
+		}
+
+		int result = faqService.deleteFaq(faqNo);
+
+		if (result == 1) {
+			System.out.println("刪除成功");
+
+		} else {
+			System.out.println("刪除失敗");
+		}
+
+		return "/backend/faq/faqfirst.jsp";
 	}
 
 }

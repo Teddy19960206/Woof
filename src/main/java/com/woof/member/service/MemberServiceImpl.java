@@ -1,6 +1,11 @@
 package com.woof.member.service;
 
+import static com.woof.util.Constants.PAGE_MAX_RESULT;
+
+import java.sql.Date;
 import java.util.List;
+import java.util.Map;
+
 import org.hibernate.Session;
 
 import com.woof.member.dao.MemberDAO;
@@ -15,26 +20,68 @@ public class MemberServiceImpl implements MemberService {
     public MemberServiceImpl() {
         dao = new MemberDAOImpl(HibernateUtil.getSessionFactory());
     }
+    
+
 
     @Override
-    public Member addMember(Member member) {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        session.beginTransaction();
-        try {
-            if (dao.insert(member) == 1) {
-                session.getTransaction().commit();
-                return member;
-            } else {
-                session.getTransaction().rollback();
-                return null;
-            }
-        } catch (Exception e) {
-            session.getTransaction().rollback();
-            throw e; // or handle the exception appropriately
-        }
-    }
-
+	public int modify(Integer memNo, String memName, String memGender, byte[] memPhoto, String memEmail,
+			String memPassword, String memTel, String memAddress, Date memBd, Integer momoPoint, Integer totalClass,
+			Integer memStatus) {
+    	Member member =new Member();
+    	member.setMemAddress(memAddress);
+    	member.setMemBd(memBd);
+    	member.setMemEmail(memEmail);
+    	member.setMemGender(memGender);
+    	member.setMemName(memName);
+    	member.setMemNo(memNo);
+    	member.setMemPassword(memPassword);
+    	member.setMemStatus(memStatus);
+    	member.setMemTel(memTel);
+    	member.setMomoPoint(momoPoint);
+    	member.setMemStatus(memStatus);
+    	member.setTotalClass(totalClass);
+    	if(memPhoto !=null) {member.setMemPhoto(memPhoto);
+    	}else { member.setMemPhoto(null);
+    	}
+    	dao.update(member);
+		return 1;
+	}
     @Override
+	public int addMember(Integer memNo, String memName, String memGender, byte[] memPhoto, String memEmail,
+			String memPassword, String memTel, String memAddress, Date memBd, Integer momoPoint, Integer totalClass,
+			Integer memStatus) {
+    	Member member =new Member();
+    	member.setMemAddress(memAddress);
+    	member.setMemBd(memBd);
+    	member.setMemEmail(memEmail);
+    	member.setMemGender(memGender);
+    	member.setMemName(memName);
+    	member.setMemNo(memNo);
+    	member.setMemPassword(memPassword);
+    	member.setMemPhoto(memPhoto);
+    	member.setMemStatus(memStatus);
+    	member.setMemTel(memTel);
+    	member.setMomoPoint(momoPoint);
+    	member.setTotalClass(totalClass);
+    	dao.insert(member);
+		return 1;
+	}
+
+
+
+	public MemberDAO getDao() {
+		return dao;
+	}
+
+
+
+	public void setDao(MemberDAO dao) {
+		this.dao = dao;
+	}
+
+
+
+	@Override
     public Member updateMember(Member member) {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
@@ -70,13 +117,36 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public Member findMemberByNo(Integer memNo) {
-        return dao.findByMemberNo(memNo);
+    	Member member =dao.findByMemberNo(memNo);
+        return member;
     }
 
     @Override
     public List<Member> getAllMembers() {
-    	List<Member>memberList=dao.getAll();
-        return memberList;
+    	return dao.getAll();
     }
+    public byte[] getPhotoById(Integer memNo){
+        return findMemberByNo(memNo).getMemPhoto();
+    }
+
+
+
+	@Override
+	public int getPageTotal() {
+		long total = dao.getTotal();
+
+        int pageQty = (int)(total % PAGE_MAX_RESULT == 0 ? (total / PAGE_MAX_RESULT) : (total / PAGE_MAX_RESULT + 1));
+        return pageQty;
+	}
+
+
+
+	@Override
+	public List<Member> getMembersByCompositeQuery(Map<String, String[]> map) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
 }
 //

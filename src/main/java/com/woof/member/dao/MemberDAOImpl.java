@@ -4,6 +4,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import com.woof.member.entity.Member;
 import java.util.List;
+import java.util.Map;
 
 public class MemberDAOImpl implements MemberDAO {
 	private SessionFactory factory;
@@ -52,6 +53,17 @@ public class MemberDAOImpl implements MemberDAO {
 	public List<Member> getAll() {
 		// TODO Auto-generated method stub
 		return getSession().createQuery("FROM Member", Member.class).list();
+	}
+
+	@Override
+	public long getTotal() {
+		return getSession().createQuery("SELECT count(*) FROM Member" , Long.class).uniqueResult();
+    }
+
+	@Override
+	public List<Member> getByCompositeQuery(Map<String, String> map) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
 
