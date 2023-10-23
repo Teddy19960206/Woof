@@ -137,10 +137,15 @@ public class PrivateTrainingAppointmentFormServlet extends HttpServlet {
 		
 		PrivateTrainingAppointmentFormService  privateTrainingAppointmentFormService = new PrivateTrainingAppointmentFormServiceImpl();
 		List<PrivateTrainingAppointmentForm> allPrivateTrainingAppointmentForms =  privateTrainingAppointmentFormService.getAllPrivateTrainingAppointmentForms();
-		
+		MemberService memberservice = new MemberServiceImpl();
+		List<Member> allMembers = memberservice.getAllMembers();
+
+		TrainerService trainerservice = new TrainerServiceImpl();
+		List<Trainer> allTrainers = trainerservice.getAllTrainers();
 		
 		req.setAttribute("privateTrainingAppointmentForms", allPrivateTrainingAppointmentForms);
-		
+		req.setAttribute("members", allMembers);
+		req.setAttribute("trainers", allTrainers);
 	
 	}
 	

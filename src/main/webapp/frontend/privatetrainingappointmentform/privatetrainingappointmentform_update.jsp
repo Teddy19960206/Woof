@@ -18,16 +18,16 @@
     <br />
     <label>成員名稱：</label>
     <select name="member">
-        <c:forEach items="${privateTrainingAppointmentForms}" var="privateTrainingAppointmentForm">
-            <option value="${privateTrainingAppointmentForm.member.memNo}">${privateTrainingAppointmentForm.member.memName}</option>
+        <c:forEach items="${members}" var="member">
+            <option value="${member.memNo}">${member.memName}</option>
         </c:forEach>
     </select>
     <br />
 
     <label>訓練師編號：</label>
     <select name="trainer">
-        <c:forEach items="${privateTrainingAppointmentForms}" var="privateTrainingAppointmentForm">
-            <option value="${privateTrainingAppointmentForm.trainer.trainerNo}">${privateTrainingAppointmentForm.trainer.trainerNo}</option>
+        <c:forEach items="${trainers}" var="trainer">
+            <option value="${trainer.trainerNo}">${trainer.trainerNo}</option>
         </c:forEach>
     </select>
     <br />

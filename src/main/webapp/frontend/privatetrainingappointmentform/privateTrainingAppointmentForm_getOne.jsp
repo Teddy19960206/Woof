@@ -20,7 +20,7 @@
 		<c:forEach var="privateTrainingAppointmentForm" items="${privateTrainingAppointmentForms}">
 		
 			<tr>
-				<td><c:out value="${privateTrainingAppointmentForm.ptaNo}" /></td>
+				<td>${privateTrainingAppointmentForm.ptaNo}</td>
 				<td>${privateTrainingAppointmentForm.member.memNo}</td>
 				<td>${privateTrainingAppointmentForm.trainer.trainerNo}</td>
 				<td>${privateTrainingAppointmentForm.ptaClass}</td>
