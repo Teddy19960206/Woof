@@ -17,5 +17,10 @@ public interface PrivateTrainingAppointmentFormService {
 	
 	List<PrivateTrainingAppointmentForm> getAllPrivateTrainingAppointmentForms();
 
-	int addPrivateTrainingAppointmentForm(Member member, Trainer trainer, Integer ptaClassInt);
+	int addPrivateTrainingAppointmentForm(Member member, Trainer trainer, Integer ptaClass);
+
+	int updatePrivateTrainingAppointmentForm(Integer ptaNo, Member member, Trainer trainer,
+			Integer ptaClass);
+	
+	int deletePrivateTrainingAppointmentForm(Integer ptaNo);
 }

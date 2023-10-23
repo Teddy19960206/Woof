@@ -21,14 +21,14 @@ public class ClassTypeDAOImpl implements ClassTypeDAO {
 	}
 	
 	@Override
-	public int insert(ClassType entity) {
-		return (Integer) getSession().save(entity);
+	public int insert(ClassType classType) {
+		return (Integer) getSession().save(classType);
 	}
 
 	@Override
-	public int update(ClassType entity) {
+	public int update(ClassType classType) {
 		try {
-			getSession().update(entity);
+			getSession().update(classType);
 			return 1;
 		} catch (Exception e) {
 			return -1;

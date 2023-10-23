@@ -23,9 +23,6 @@ public class PrivateTrainingAppointmentFormDAOImpl implements PrivateTrainingApp
 	@Override
 	public int insert(PrivateTrainingAppointmentForm privateTrainingAppointmentForm) {
 		
-//		privateTrainingAppointmentForm.setMember();
-//		privateTrainingAppointmentForm.setTrainer();
-//		privateTrainingAppointmentForm.setPtaClass();
 
 		return (Integer) getSession().save(privateTrainingAppointmentForm);
 	}
@@ -40,6 +37,11 @@ public class PrivateTrainingAppointmentFormDAOImpl implements PrivateTrainingApp
 		}
 	}
 
+	public int delete(PrivateTrainingAppointmentForm privateTrainingAppointmentForm) {
+		getSession().delete(privateTrainingAppointmentForm);
+		return 1;
+	}
+	
 	@Override
 	public PrivateTrainingAppointmentForm findByPtaNo(Integer ptaNo) {
 		return getSession().get(PrivateTrainingAppointmentForm.class, ptaNo);

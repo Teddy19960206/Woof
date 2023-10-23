@@ -67,11 +67,11 @@ public class Member implements java.io.Serializable {
 	@Expose
 	@Column(name = "MOMO_POINT", nullable = false)
 	private Integer momoPoint;
-	
-	@Expose
+
+    @Expose
 	@Column(name = "TOTAL_CLASS", nullable = false)
 	private Integer totalClass;
-	
+
 	@Expose
 	@Column(name = "MEM_STATUS", nullable = false, columnDefinition = "TINYINT")
 	private Integer memStatus;

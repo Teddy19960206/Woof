@@ -4,7 +4,7 @@
 <html>
 <head>
 <title>商品管理: 首頁</title>
-
+ 
 <style>
   table#table-1 {
     width: 450px;

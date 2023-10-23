@@ -1,19 +1,26 @@
-
+// 取得項目名
 let pathurl = window.location.pathname;
 let pathname = pathurl.split('/')[1];
 
-
+// 點擊提交按鈕則執行fetchData()
 document.getElementById("button").onclick = function (){
     fetchData();
 }
 
+// 進入到classContent.jsp時，會直接撈取全部課程資料
 document.addEventListener("DOMContentLoaded", function (){
     fetchData();
 });
 
 
+// 撈取資料
 async function fetchData(){
+
+    // 發送請求，取得全部或與班別有相應的資料
+
     let url = `/${pathname}/groupcourse/getGroupCourse`;
+
+    // 取得相應的資料，根據classTypeNo
     let formData = new FormData();
     formData.append("classType",document.getElementById("selectClass").value);
 
@@ -39,6 +46,8 @@ async function fetchData(){
         </tr>
         </thead>
         <tbody id="mybody">`;
+
+        // 將取得的資料進行拼接打到頁面上
         data.forEach((item)=>{
             html+= `<tr>
             <td>${item.gcNo}</td>
