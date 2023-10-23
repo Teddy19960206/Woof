@@ -5,6 +5,28 @@
 <html>
 <head>
     <title>PrivateTrainingAppointmentForm</title>
+    <style>
+        /* 在这里定义你的CSS样式 */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+        select {
+            width: 200px;
+            padding: 10px;
+        }
+        button {
+            background-color: #0074d9;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+        h1 {
+            color: #333;
+        }
+        /* 可以继续定义其他样式 */
+    </style>
 </head>
 <body>
 <jsp:useBean id="privateTrainingAppointmentFormServer" scope="page" class="com.woof.privatetrainingappointmentform.service.PrivateTrainingAppointmentFormServiceImpl"/>
