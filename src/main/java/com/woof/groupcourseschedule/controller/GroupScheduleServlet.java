@@ -184,9 +184,18 @@ public class GroupScheduleServlet extends HttpServlet {
         Integer regCount = Integer.valueOf(request.getParameter("regCount"));
         Integer price = Integer.valueOf(request.getParameter("price"));
         Integer status = Integer.valueOf(request.getParameter("status"));
+
+
         String delayReason = request.getParameter("delayReason");
 
-        Integer relatedGcsNo = Integer.valueOf(request.getParameter("relatedGcsNo"));
+        String parameter = request.getParameter("relatedGcsNo");
+
+        Integer relatedGcsNo = null;
+        if (parameter != null){
+            relatedGcsNo = Integer.valueOf(request.getParameter("relatedGcsNo"));
+        }
+
+
         GroupCourseSchedule byGcsNo = groupGourseScheduleService.findByGcsNo(relatedGcsNo);
 
 

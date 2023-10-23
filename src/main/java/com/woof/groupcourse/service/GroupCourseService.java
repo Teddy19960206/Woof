@@ -12,6 +12,8 @@ public interface GroupCourseService {
 
     int addGroupCourse(Skill skill, ClassType classType , byte[] coursePhoto , String courseContent);
 
+    int deletePhoto(Integer gcNo);
+
     GroupCourse findGroupCourseByNo(Integer gcNo);
 
     List<GroupCourse> getAllbyCtNo(Integer ctNo);
@@ -21,7 +23,6 @@ public interface GroupCourseService {
     List<GroupCourse> getAllGroupCourse(int currentPage);
 
     int getPageTotal();
-
 
 
 }
