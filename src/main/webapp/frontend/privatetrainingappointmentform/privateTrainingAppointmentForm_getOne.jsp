@@ -17,13 +17,13 @@
 			<th>預約堂數</th>
 		</tr>
 
-		<c:forEach var="privateTrainingAppointmentForm" items="${privateTrainingAppointmentForms}">
+<%-- 		<c:forEach var="privateTrainingAppointmentForm" items="${privateTrainingAppointmentForms}"> --%>
 		
 			<tr>
-				<td>${privateTrainingAppointmentForm.ptaNo}</td>
-				<td>${privateTrainingAppointmentForm.member.memNo}</td>
-				<td>${privateTrainingAppointmentForm.trainer.trainerNo}</td>
-				<td>${privateTrainingAppointmentForm.ptaClass}</td>
+				<td>${pta.ptaNo}</td>
+				<td>${pta.member.memNo}</td>
+				<td>${pta.trainer.trainerNo}</td>
+				<td>${pta.ptaClass}</td>
 <!-- 				<td> -->
 
 <!-- 					<FORM METHOD="post" -->
@@ -41,7 +41,7 @@
 
 <!-- 				</td> -->
 			</tr>
-		</c:forEach>
+<%-- 		</c:forEach> --%>
 		
 	</table>
 	
