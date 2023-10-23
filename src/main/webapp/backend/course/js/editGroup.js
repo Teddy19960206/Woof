@@ -1,10 +1,34 @@
 const p_file = document.getElementById("p_file");
 const preview = document.getElementById("preview");
-
+let pathurl = window.location.pathname;
+let pathname = pathurl.split('/')[1];
 
 // 移除圖片
-function clearPhoto() {
+$("button#delete").on("click" , function (){
     preview.innerHTML = `<span class="text">預覽圖</span>`;
+    let id = $(this).data('id')
+    console.log(id);
+    fetchDelete(id);
+})
+
+// 到資料庫把圖片刪除
+async function fetchDelete(id) {
+    let url = `/${pathname}/groupcourse/delete/${id}`;
+
+    try{
+        const response = await fetch(url ,{
+            method : "POST"
+        });
+        if (!response.ok){
+            throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+
+        console.log(data)
+
+    }catch (error){
+        console.error('Error', error);
+    }
 }
 
 

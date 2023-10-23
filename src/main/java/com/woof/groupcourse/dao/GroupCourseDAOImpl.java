@@ -37,6 +37,14 @@ public class GroupCourseDAOImpl implements GroupCourseDAO{
     }
 
     @Override
+    public int deletePhoto(Integer gcNo) {
+        GroupCourse groupCourse = findbyGcNo(gcNo);
+        groupCourse.setCoursePhoto(null);
+        getSession().update(groupCourse);
+        return 1;
+    }
+
+    @Override
     public GroupCourse findbyGcNo(Integer gcNo) {
         return getSession().get(GroupCourse.class,gcNo);
     }

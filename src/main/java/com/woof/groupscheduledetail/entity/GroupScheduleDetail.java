@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.google.gson.annotations.Expose;
 import com.woof.groupcourseschedule.entity.GroupCourseSchedule;
 import com.woof.trainer.entity.Trainer;
 import org.hibernate.annotations.BatchSize;
@@ -22,7 +23,8 @@ import org.hibernate.annotations.BatchSize;
 @Table(name = "group_course_schedule_detail")
 @BatchSize(size = 20)
 public class GroupScheduleDetail implements Serializable {
-	
+
+	@Expose
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "GCSD_NO" , updatable = false)
@@ -31,11 +33,13 @@ public class GroupScheduleDetail implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "GCS_NO" , referencedColumnName = "GCS_NO")
 	private GroupCourseSchedule groupCourseSchedule;
-	
+
+	@Expose
 	@ManyToOne
 	@JoinColumn(name= "TRAINER_NO" , referencedColumnName = "TRAINER_NO")
     private Trainer trainer;
-	
+
+	@Expose
 	@Column(name = "CLASS_DATE" , nullable = false)
     private Date classDate;
 

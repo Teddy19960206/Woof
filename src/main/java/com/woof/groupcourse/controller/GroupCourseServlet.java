@@ -78,6 +78,9 @@ public class GroupCourseServlet extends HttpServlet {
                 if (pathInfo.startsWith("/edit/")) {
                     getSelectInfo(request,response);
                     forwardPath = edit(request , response , result);
+                } else if (pathInfo.startsWith("/delete/")) {
+                    delete(request , response , result);
+                    return;
                 } else {
 //                    若是都不是以上位址，則預設取得全部資料，並轉回"/classtype/classContent.jsp"
                     forwardPath = "/classtype/classContent.jsp";
@@ -144,6 +147,7 @@ public class GroupCourseServlet extends HttpServlet {
 
         Part filePart = request.getPart("photo");
         byte[] bytes = PartParsebyte.partToByteArray(filePart);
+
         String content = request.getParameter("content");
 
 
@@ -211,5 +215,10 @@ public class GroupCourseServlet extends HttpServlet {
 
     }
 
+    private void delete(HttpServletRequest request , HttpServletResponse response , Integer id) throws IOException {
+        groupCourseService.deletePhoto(id);
+
+        response.getWriter().write("ok");
+    }
 
 }
