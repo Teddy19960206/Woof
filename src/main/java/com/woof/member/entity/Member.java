@@ -20,7 +20,7 @@ public class Member implements java.io.Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "MEM_NO", updatable = false, nullable = false)
-	private String memNo;
+	private Integer memNo;
 	
 	@OneToMany(mappedBy = "member" , cascade = CascadeType.ALL)
 	private Set<PrivateTrainingAppointmentForm> getPrivateTrainingAppointmentForms;
@@ -81,11 +81,11 @@ public class Member implements java.io.Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public String getMemNo() {
+	public Integer getMemNo() {
 		return memNo;
 	}
 
-	public void setMemNo(String memNo) {
+	public void setMemNo(Integer memNo) {
 		this.memNo = memNo;
 	}
 

@@ -14,7 +14,7 @@
             <option  value="${privateTrainingAppointmentForm.member.memNo} ${privateTrainingAppointmentForm.trainer.trainerNo} ${privateTrainingAppointmentForm.ptaClass}">${privateTrainingAppointmentForm.ptaNo}</option>
         </c:forEach>
     </select>
-<!--     <input type="hidden" name="action" value="getone"> -->
+    <input type="hidden" name="action" value="getone">
     <button type="submit">提交</button>
     <br>
     <h1>私人訓練預約單</h1>
