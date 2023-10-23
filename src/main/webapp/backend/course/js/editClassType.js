@@ -34,9 +34,8 @@ $(document).on("click" , "button.modify-button" ,  async function (){
     }
 })
 
+// 刪除 classType 按鈕觸發fetchData
 $(document).on("click", "button.delete-button" , async function (){
-
-
     // 獲取 classType 編號
     let id = $(this).closest("tr").find("td").eq(0).text();
 
@@ -46,7 +45,6 @@ $(document).on("click", "button.delete-button" , async function (){
     if (result === 1){
         $(this).closest("tr").remove();
     }
-
 })
 
 async function fetchData(id , name , action){

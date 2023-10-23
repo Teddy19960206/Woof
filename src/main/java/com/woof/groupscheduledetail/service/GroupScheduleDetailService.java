@@ -10,7 +10,7 @@ import java.util.Set;
 
 public interface GroupScheduleDetailService {
 
-    int modify(Integer gcsdNo, Trainer trainer , Date classDate , GroupCourseSchedule groupCourseSchedule);
+    int modify(Integer gcsdNo, Trainer trainer , Date classDate);
 
     int add(GroupCourseSchedule groupCourseSchedule , Trainer trainer , Set<Date> classDate);
 

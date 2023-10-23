@@ -72,6 +72,7 @@ async function fetchData(){
     }
 }
 
+// 修改按鈕
 $(document).on("click" , "button.modify-button" ,function (e){
     let url = `/${pathname}/groupcourse/edit/${this.getAttribute("data-id")}`;
     window.location.href = url;
