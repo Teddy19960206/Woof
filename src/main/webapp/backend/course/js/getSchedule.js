@@ -23,7 +23,6 @@ $(document).on("click" , "button.modify-button" , function (){
 // 點擊相關資料的報名時，更新報名人數???????????????????????????????
 $(document).on("click" , "button.registration" , function (){
 
-
     let url = `/${pathname}/groupcourse/schedule/xxx/${this.getAttribute("data-id")}`;
 
     window.location.href = url;
@@ -97,7 +96,7 @@ async function fetchData(){
             <th>${item.relatedGcsNo !== undefined ? item.relatedGcsNo : '無'}</th>
             <th>${item.createdAt}</th>
             <th>${item.updatedAt}</th>
-            <td><button type="button" class="modify-button" data-id="${item.gcsNo}">修改</td>
+            <td><button type="button" class="modify-button" data-id="${item.gcsNo}" onclick="fetchDetail(${item.gcsNo})">修改</td>
             <th><button type="button" class="detail-button" data-id="${item.gcsNo}">詳情</button></th>
         </tr>`;
         })
@@ -113,7 +112,7 @@ async function fetchData(){
     }
 }
 
-// 抓取上課日期
+// 抓取上課日期，依照Schedule編號
 async function fetchDetail(url){
     // 抓取資料，根據classType取得相對應的資料
     try{
@@ -146,8 +145,8 @@ async function fetchDetail(url){
                 <th>${className}</th>
                 <th>${item.trainer.administrator.adminName}</th>
                 <th>${item.classDate}</th>
-                <th><button type="button">修改</button></th>
-                <th><button type="button">刪除</button></th>
+                <th><button type="button" class="modifyDetail" data-id="${item.gcsdNo}">修改</button></th>
+                <th><button type="button" class="deleteDetail" data-id="${item.gcsdNo}">刪除</button></th>
             </tr>`
         });
 
@@ -164,4 +163,75 @@ async function fetchDetail(url){
     }
 }
 
+$(document).on("click" , "button.modifyDetail" , async  function (){
+    let data = await detailModify(this.getAttribute("data-id"));
+    let th = $(this).closest("tr").find("th");
+    let html = `<select>`
+        data.forEach((item)=>{
+            html += `<option value="${item.trainerNo}" ${item.administrator.adminName == th.eq(2).html() ? 'selected' : ''}>${item.administrator.adminName}</option>`;
+        })
+        html += `</select>`;
+
+    th.eq(2).html(html);
+
+    let date = `<input type="date" value="">`
+})
+
+async function detailModify(id){
+    // 抓取資料，根據classType取得相對應的資料
+    let url = `/${pathname}/scheduleDetail/modify`;
+
+    let formData = new FormData();
+    formData.append("Detail" ,id );
+
+    try{
+        const response = await fetch(url ,{
+            method : "POST",
+            body : formData
+        });
+
+        if (!response.ok){
+            throw new Error('Network response was not ok');
+        }
+        // 取得資料後，進行拼圖，並打到頁面上
+        const data = await response.json();
+        console.log(data)
+
+        return data;
+
+    }catch (error){
+        console.error('Error', error);
+    }
+}
+
+
+
+$(document).on("click" , "button.deleteDetail" , function (){
+    detailDelete(this.getAttribute("data-id"));
+    $(this).closest("tr").remove();
+})
+
+async function detailDelete(id){
+    // 抓取資料，根據classType取得相對應的資料
+    let url = `/${pathname}/scheduleDetail/delete`;
+
+    let formData = new FormData();
+    formData.append("Detail" ,id );
+
+    try{
+        const response = await fetch(url ,{
+            method : "POST",
+            body : formData
+        });
+
+        if (!response.ok){
+            throw new Error('Network response was not ok');
+        }
+        // 取得資料後，進行拼圖，並打到頁面上
+        const data = await response.json();
+
+    }catch (error){
+        console.error('Error', error);
+    }
+}
 

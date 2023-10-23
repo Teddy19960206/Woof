@@ -63,6 +63,11 @@ public class GroupScheduleDetailServiceImpl implements GroupScheduleDetailServic
     }
 
     @Override
+    public GroupScheduleDetail findByGcsd(Integer gcsdNo) {
+        return dao.findByGcsd(gcsdNo);
+    }
+
+    @Override
     public List<GroupScheduleDetail> getAll() {
         return dao.getAll();
     }

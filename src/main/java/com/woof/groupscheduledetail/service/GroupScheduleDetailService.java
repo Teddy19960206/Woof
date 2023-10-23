@@ -16,6 +16,8 @@ public interface GroupScheduleDetailService {
 
     int delete(Integer gcsd);
 
+    GroupScheduleDetail findByGcsd(Integer gcsdNo);
+
     List<GroupScheduleDetail> getAll();
 
     List<GroupScheduleDetail> getByGroupSchedule(Integer gcsNo);
