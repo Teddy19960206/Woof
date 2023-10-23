@@ -4,6 +4,30 @@
 <html>
 <head>
     <title>Title</title>
+    <style>
+        /* 在这里添加你的 CSS 样式 */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+        h1 {
+            color: #0074d9;
+        }
+        label {
+            font-weight: bold;
+        }
+        select, input {
+            padding: 5px;
+            margin: 5px;
+        }
+        button {
+            background-color: #0074d9;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
 <h1>修改私人預約單</h1>
