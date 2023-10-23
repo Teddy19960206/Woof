@@ -87,6 +87,19 @@
 			<artifactId>Spring_0201_AOP_Introduction</artifactId>
 			<version>1.0.0</version>
 		</dependency>
+		<dependency>
+			<groupId>idv.david</groupId>
+			<artifactId>HibernateEx</artifactId>
+			<version>1.0</version>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
+		<dependency>
+		    <groupId>com.alibaba</groupId>
+		    <artifactId>fastjson</artifactId>
+		    <version>2.0.40</version>
+		</dependency>
+		
 	</dependencies>
 
 	<build>

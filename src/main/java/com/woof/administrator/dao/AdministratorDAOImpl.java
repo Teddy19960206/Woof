@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 
 import com.woof.administrator.entity.Administrator;
 import com.woof.administrator.entity.Administrator;
@@ -38,7 +39,8 @@ public class AdministratorDAOImpl implements AdministratorDAO {
 
 	@Override
 	public int insert(Administrator administrator) {
-		return (Integer) getSession().save(administrator);
+		Integer i = (Integer) getSession().save(administrator);
+		return i;
 	}
 
 	@Override
