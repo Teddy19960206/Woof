@@ -90,7 +90,7 @@ public class FaqServlet extends HttpServlet {
 		var result = faqService.findByFaqNo(saved);
 
 		req.setAttribute("result", result);
-		return "/backend/faq/add.jsp";
+		return "/backend/faq/addfaq.jsp";
 	}
 
 	private String updatefaq(HttpServletRequest req, HttpServletResponse resp) {
