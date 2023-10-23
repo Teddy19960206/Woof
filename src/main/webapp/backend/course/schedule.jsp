@@ -22,6 +22,8 @@
     <div class="row">
     </div>
 </div>
+
+
 <a href="${pageContext.request.contextPath}/schedule/addpage">
     <button type="button">新增報名課程</button>
 </a>

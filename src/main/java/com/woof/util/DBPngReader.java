@@ -27,7 +27,9 @@ public class DBPngReader extends HttpServlet {
                 break;
         }
         String id = request.getParameter("id").trim();
+
         byte[] picture = appService.getPhotoById(Integer.valueOf(id));
+
         response.setContentType("image/png");
         ServletOutputStream out = response.getOutputStream();
         out.write(picture);

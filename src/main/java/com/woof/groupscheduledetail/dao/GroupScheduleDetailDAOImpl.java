@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.woof.groupscheduledetail.entity.GroupScheduleDetail;
+import org.hibernate.query.NativeQuery;
 import org.hibernate.query.Query;
 
 public class GroupScheduleDetailDAOImpl implements GroupScheduleDetailDAO{
@@ -49,8 +50,15 @@ public class GroupScheduleDetailDAOImpl implements GroupScheduleDetailDAO{
 
     @Override
     public List<GroupScheduleDetail> getByGroupSchedule(Integer gcsNo) {
-        Query query = getSession().createQuery("FROM GroupScheduleDetail WHERE GroupCourseSchedule.gcsNo = :gcsNo");
-        query.setParameter("gcsNo" , gcsNo);
+//        String sql = "SELECT * FROM GROUP_COURSE_SCHEDULE_DETAIL AS gcsd WHERE GCS_NO = :gcsNo";
+//        NativeQuery query = getSession().createNativeQuery(sql)
+//                .setParameter("gcsNo" , gcsNo)
+//                .addEntity(GroupScheduleDetail.class);
+//
+//        List results = query.list();
+
+        String hql = "FROM GroupScheduleDetail AS gcsd JOIN FETCH gcsd.trainer WHERE gcsd.groupCourseSchedule.gcsNo = :gcsNo";
+        Query<GroupScheduleDetail> query = getSession().createQuery(hql, GroupScheduleDetail.class).setParameter("gcsNo", gcsNo);
         List<GroupScheduleDetail> results = query.list();
 
         return results;
