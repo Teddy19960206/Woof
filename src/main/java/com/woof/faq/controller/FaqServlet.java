@@ -35,6 +35,7 @@ public class FaqServlet extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
 		String forwardPath = "";
+		
 		switch (action) {
 
 		case "getAll":
@@ -77,19 +78,20 @@ public class FaqServlet extends HttpServlet {
 		String faqTitle = req.getParameter("faqTitle");
 		String faqContent = req.getParameter("faqContent");
 
-//		System.out.println("qqqqq");
-
-//	    if (result > 0) {
-//	        return 1; // FAQ添加成功
-//	    } else {
-//	        return "-1"; // FAQ添加失败
-//	    }
-
 		// 如果有確定進入資料庫會有流水編號，再去找流水編號的值，顯示在jsp
 		int saved = (Integer) faqService.addFaq(faqClass, faqTitle, faqContent);
 		var result = faqService.findByFaqNo(saved);
 
+		if (saved > 0) {
+//		    return 1; // FAQ添加成功
+	        System.out.println("新增成功");
+	    } else {
+//	        return -1; // FAQ添加失败
+	        System.out.println("新增失敗");
+	    }
+		
 		req.setAttribute("result", result);
+		
 		return "/backend/faq/addfaq.jsp";
 	}
 
