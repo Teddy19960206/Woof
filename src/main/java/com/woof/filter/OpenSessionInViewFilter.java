@@ -40,7 +40,6 @@ public class OpenSessionInViewFilter implements Filter{
 			e.printStackTrace();
 			chain.doFilter(request, response);
 		}
-		
 	}
 
 	@Override

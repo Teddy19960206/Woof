@@ -2,6 +2,7 @@ package com.woof.groupcourseschedule.entity;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -33,6 +34,7 @@ public class GroupCourseSchedule implements Serializable {
 	@JoinColumn(name = "GC_NO" , referencedColumnName = "GC_NO")
     private GroupCourse groupCourse;
 
+    @Expose
 	@ManyToOne
 	@JoinColumn(name = "TRAINER_NO" , referencedColumnName = "TRAINER_NO")
 	private Trainer trainer;
@@ -54,8 +56,8 @@ public class GroupCourseSchedule implements Serializable {
     private Integer maxLimit;
 
     @Expose
-	@Column(name = "COUNT" , nullable = false , insertable = false , columnDefinition = "TINYINT")
-    private Integer count;
+	@Column(name = "REG_Count" , nullable = false , insertable = false , columnDefinition = "TINYINT")
+    private Integer regCount;
 
     @Expose
 	@Column(name = "GCS_PRICE" , nullable = false)
@@ -64,6 +66,23 @@ public class GroupCourseSchedule implements Serializable {
     @Expose
 	@Column(name = "GCS_STATUS" , nullable = false , insertable = false , columnDefinition = "TINYINT")
     private Integer gcsStatus;
+
+    @Expose
+    @Column(name = "GCS_DELAY_REASON")
+    private String gcsDelayReason;
+
+    @Expose
+    @ManyToOne
+    @JoinColumn(name = "RELATED_GCS_NO" , referencedColumnName = "GCS_NO")
+    private GroupCourseSchedule relatedGcsNo;
+
+    @Expose
+    @Column(name="CREATED_AT" , insertable = false , updatable = false)
+    private Timestamp createdAt;
+
+    @Expose
+    @Column(name ="UPDATED_AT" , insertable = false , updatable = false)
+    private Timestamp updatedAt;
 
     public GroupCourseSchedule() {
     }
@@ -129,12 +148,12 @@ public class GroupCourseSchedule implements Serializable {
         this.maxLimit = maxLimit;
     }
 
-    public Integer getCount() {
-        return count;
+    public Integer getRegCount() {
+        return regCount;
     }
 
-    public void setCount(Integer count) {
-        this.count = count;
+    public void setRegCount(Integer regCount) {
+        this.regCount = regCount;
     }
 
     public Integer getGcsPrice() {
@@ -154,11 +173,44 @@ public class GroupCourseSchedule implements Serializable {
     }
 
 
+    public String getGcsDelayReason() {
+        return gcsDelayReason;
+    }
+
+    public void setGcsDelayReason(String gcsDelayReason) {
+        this.gcsDelayReason = gcsDelayReason;
+    }
+
+
+    public Timestamp getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Timestamp createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Timestamp getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Timestamp updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(gcsNo);
 	}
 
+
+    public GroupCourseSchedule getRelatedGcsNo() {
+        return relatedGcsNo;
+    }
+
+    public void setRelatedGcsNo(GroupCourseSchedule relatedGcsNo) {
+        this.relatedGcsNo = relatedGcsNo;
+    }
 
 	@Override
 	public boolean equals(Object obj) {
@@ -172,13 +224,20 @@ public class GroupCourseSchedule implements Serializable {
 		return Objects.equals(gcsNo, other.gcsNo);
 	}
 
-
-	@Override
-	public String toString() {
-		return "GroupCourseSchedule [gcsNo=" + gcsNo + ", gcsStart=" + gcsStart + ", gcsEnd=" + gcsEnd + ", minLimit="
-				+ minLimit + ", maxLimit=" + maxLimit + ", count=" + count + ", gcsPrice=" + gcsPrice + ", gcsStatus="
-				+ gcsStatus + "]";
-	}
-
-    
+    @Override
+    public String toString() {
+        return "GroupCourseSchedule{" +
+                "gcsNo=" + gcsNo +
+                ", gcsStart=" + gcsStart +
+                ", gcsEnd=" + gcsEnd +
+                ", minLimit=" + minLimit +
+                ", maxLimit=" + maxLimit +
+                ", regCount=" + regCount +
+                ", gcsPrice=" + gcsPrice +
+                ", gcsStatus=" + gcsStatus +
+                ", gcsDelayReason='" + gcsDelayReason + '\'' +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                '}';
+    }
 }

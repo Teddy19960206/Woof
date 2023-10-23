@@ -1,20 +1,15 @@
 package com.woof.faq.dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import com.woof.faq.entity.Faq;
-import com.woof.util.Util;
 
-public class FaqDAOImpl implements FaqDAO{
-	
+
+public class FaqDAOImpl implements FaqDAO {
+
 	private SessionFactory factory;
 
 	public FaqDAOImpl(SessionFactory factory) {
@@ -27,35 +22,38 @@ public class FaqDAOImpl implements FaqDAO{
 
 	@Override
 	public int insert(Faq faq) {
-		// TODO Auto-generated method stub
-		return 0;
+		return (Integer) getSession().save(faq);
 	}
 
 	@Override
 	public int update(Faq faq) {
-		// TODO Auto-generated method stub
-		return 0;
+		try {
+			getSession().update(faq);
+			return 1;
+		} catch (Exception e) {
+			return -1;
+		}
 	}
 
 	@Override
-	public int delete(Faq faq) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int delete(Integer faqNo) {
+		Faq faq = getSession().get(Faq.class, faqNo);
+		if (faq != null) {
+			getSession().delete(faq);
+			return 1;
+		} else {
+			return -1;
+		}
 	}
 
 	@Override
 	public Faq findByFaqNo(Integer faqNo) {
-		// TODO Auto-generated method stub
-		return null;
+		return getSession().get(Faq.class, faqNo);
 	}
 
 	@Override
 	public List<Faq> getAll() {
-		// TODO Auto-generated method stub
-		return null;
+		return getSession().createQuery("FROM Faq", Faq.class).list();
 	}
-    	
-   	
-	
-	
+
 }

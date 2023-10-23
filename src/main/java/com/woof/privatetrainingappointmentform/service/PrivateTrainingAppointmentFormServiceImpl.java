@@ -38,39 +38,34 @@ public class PrivateTrainingAppointmentFormServiceImpl implements PrivateTrainin
 	@Override
 	public PrivateTrainingAppointmentForm updatePrivateTrainingAppointmentForm(
 			PrivateTrainingAppointmentForm privateTrainingAppointmentForm) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-
-		session.beginTransaction();
+		
 		int result = dao.update(privateTrainingAppointmentForm);
 		if (result == 1){
 
-			session.getTransaction().commit();
+			
 			return privateTrainingAppointmentForm;
 		}
-		session.getTransaction().rollback();
+		
 
 		return null;
 	}
 
 	@Override
 	public PrivateTrainingAppointmentForm findPrivateTrainingAppointmentFormByPtaNo(Integer ptaNo) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		session.beginTransaction();
 		
-		PrivateTrainingAppointmentForm privateTrainingAppointmentForm = session.get(PrivateTrainingAppointmentForm.class, ptaNo);
+		PrivateTrainingAppointmentForm privateTrainingAppointmentForm = new PrivateTrainingAppointmentForm();
 		
-		session.getTransaction().commit();
+		privateTrainingAppointmentForm = dao.findByPtaNo(ptaNo);
 		
 		return privateTrainingAppointmentForm;
 	}
 
 	@Override
 	public List<PrivateTrainingAppointmentForm> getAllPrivateTrainingAppointmentForms() {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		
 
-		session.beginTransaction();
 		List<PrivateTrainingAppointmentForm> privateTrainingAppointmentFormList = dao.getAll();
-		session.getTransaction().commit();
+
 
 		// TODO Auto-generated method stub
 		return privateTrainingAppointmentFormList;
@@ -88,4 +83,26 @@ public class PrivateTrainingAppointmentFormServiceImpl implements PrivateTrainin
 		return 1;
 	}
 
+	@Override
+	public int updatePrivateTrainingAppointmentForm(Integer ptaNo, Member member, Trainer trainer, Integer ptaClass) {
+		PrivateTrainingAppointmentForm privateTrainingAppointmentForm = new PrivateTrainingAppointmentForm();
+		privateTrainingAppointmentForm.setPtaNo(ptaNo);
+		privateTrainingAppointmentForm.setMember(member);
+		privateTrainingAppointmentForm.setTrainer(trainer);
+		privateTrainingAppointmentForm.setPtaClass(ptaClass);
+		dao.update(privateTrainingAppointmentForm);
+		return 1;
+	}
+
+	@Override
+	public int deletePrivateTrainingAppointmentForm(Integer ptaNo) {
+		PrivateTrainingAppointmentForm privateTrainingAppointmentForm = new PrivateTrainingAppointmentForm();
+		privateTrainingAppointmentForm.setPtaNo(ptaNo);
+		dao.delete(privateTrainingAppointmentForm);
+		return 1;
+	}
+
+	
+	
+	
 }
