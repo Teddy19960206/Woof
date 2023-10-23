@@ -1,4 +1,4 @@
-package com.woof.groupcoursescheduledetail.entity;
+package com.woof.groupscheduledetail.entity;
 
 import java.io.Serializable;
 import java.sql.Date;
@@ -15,11 +15,13 @@ import javax.persistence.Table;
 
 import com.woof.groupcourseschedule.entity.GroupCourseSchedule;
 import com.woof.trainer.entity.Trainer;
+import org.hibernate.annotations.BatchSize;
 
 
 @Entity
 @Table(name = "group_course_schedule_detail")
-public class GroupCourseScheduleDetail implements Serializable {
+@BatchSize(size = 20)
+public class GroupScheduleDetail implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,7 +39,7 @@ public class GroupCourseScheduleDetail implements Serializable {
 	@Column(name = "CLASS_DATE" , nullable = false)
     private Date classDate;
 
-    public GroupCourseScheduleDetail() {
+    public GroupScheduleDetail() {
     }
 
     public Integer getGcsdNo() {
@@ -48,8 +50,6 @@ public class GroupCourseScheduleDetail implements Serializable {
         this.gcsdNo = gcsdNo;
     }
 
-
-
     public GroupCourseSchedule getGroupCourseSchedule() {
 		return groupCourseSchedule;
 	}
@@ -58,11 +58,11 @@ public class GroupCourseScheduleDetail implements Serializable {
 		this.groupCourseSchedule = groupCourseSchedule;
 	}
 
-	public Trainer getTrainerVO() {
+	public Trainer getTrainer() {
 		return trainer;
 	}
 
-	public void setTrainerVO(Trainer trainerVO) {
+	public void setTrainer(Trainer trainer) {
 		this.trainer = trainer;
 	}
 
@@ -87,13 +87,13 @@ public class GroupCourseScheduleDetail implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		GroupCourseScheduleDetail other = (GroupCourseScheduleDetail) obj;
+		GroupScheduleDetail other = (GroupScheduleDetail) obj;
 		return Objects.equals(gcsdNo, other.gcsdNo);
 	}
 
 	@Override
 	public String toString() {
-		return "GroupCourseScheduleDetail [gcsdNo=" + gcsdNo + ", classDate=" + classDate + "]";
+		return "GroupScheduleDetailDAOImpl [gcsdNo=" + gcsdNo + ", classDate=" + classDate + "]";
 	}
 
 

@@ -32,6 +32,8 @@
 </tr>
 </c:forEach>
 
+<input type="button" value="返回" onclick="history.back()">
+
 
 <%-- <jsp:useBean id="promotionActivityServer" scope="page" class="com.woof.promotionactivity.service.PromotionActivityServiceImpl"/> --%>
 <%-- <form method="POST" ACTION="${pageContext.request.contextPath}/promotionactivity"> --%>

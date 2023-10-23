@@ -75,6 +75,7 @@
     <button type="button" onclick="history.back()">取消修改</button>
     <button type="button" onclick="clearPhoto()">刪除圖片</button>
 </form>
+<script src="${pageContext.request.contextPath}/webutil/js/jquery-3.7.1.min.js"></script>
 <script src="${pageContext.request.contextPath}/backend/course/js/editGroup.js"></script>
 </body>
 </html>

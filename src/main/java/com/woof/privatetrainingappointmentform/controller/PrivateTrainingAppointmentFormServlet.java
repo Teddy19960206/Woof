@@ -45,8 +45,29 @@ public class PrivateTrainingAppointmentFormServlet extends HttpServlet {
                     break;
                 case "add":
                 	add(req,resp);
-//                	forwardPath = "/frontend/privatetrainingappointmentform/privatetrainingappointmentform.jsp";
-                	break;
+                	return;
+                case "gettoupdate":
+                	beforeUpdate(req,resp);
+                    forwardPath = "/frontend/privatetrainingappointmentform/privatetrainingappointmentform_update.jsp";
+                    break;
+                case "update":
+                	update(req,resp);
+                	return;
+                case "gettoupdelete":
+                	beforedelete(req,resp);
+                    forwardPath = "/frontend/privatetrainingappointmentform/privatetrainingappointmentform_delete.jsp";
+                    break;
+                case "delete":
+                	delete(req,resp);
+                	return;
+                case "getall":
+                	getAll(req,resp);
+                    forwardPath = "/frontend/privatetrainingappointmentform/privateTrainingAppointmentForm_getAll.jsp";
+                    break;
+                case "getone":
+                	getOne(req,resp);
+                    forwardPath = "/frontend/privatetrainingappointmentform/privateTrainingAppointmentForm_getOne.jsp";
+                    break;
                 default:
                     forwardPath = "/frontend/privatetrainingappointmentform/privatetrainingappointmentform_add.jsp";
             }
@@ -94,9 +115,9 @@ public class PrivateTrainingAppointmentFormServlet extends HttpServlet {
 			System.out.println("新增失敗");
 			request.setAttribute("errorMessage", "新增失敗");
 		}
-		request.getRequestDispatcher("/frontend/privatetrainingappointmentform/privatetrainingappointmentform.jsp").forward(request, response);
-		response.sendRedirect(request.getServletContext().getContextPath()
-				+ "/frontend/privatetrainingappointmentform/privatetrainingappointmentform_update.jsp");
+//		request.getRequestDispatcher("/frontend/privatetrainingappointmentform/privatetrainingappointmentform.jsp").forward(request, response);
+		response.sendRedirect(request.getContextPath()
+				+ "/frontend/privatetrainingappointmentform/privatetrainingappointmentform.jsp");
 	}
 
 	private void getSelectInfo(HttpServletRequest req, HttpServletResponse resp) {
@@ -112,13 +133,104 @@ public class PrivateTrainingAppointmentFormServlet extends HttpServlet {
 
 	}
 	
-	private void update(HttpServletRequest req, HttpServletResponse resp) {
+	private void beforeUpdate(HttpServletRequest req, HttpServletResponse resp) {
 		
-		PrivateTrainingAppointmentFormService privateTrainingAppointmentFormService = new PrivateTrainingAppointmentFormServiceImpl();
-		List<PrivateTrainingAppointmentForm> allPrivateTrainingAppointmentForms = privateTrainingAppointmentFormService.getAllPrivateTrainingAppointmentForms();
+		PrivateTrainingAppointmentFormService  privateTrainingAppointmentFormService = new PrivateTrainingAppointmentFormServiceImpl();
+		List<PrivateTrainingAppointmentForm> allPrivateTrainingAppointmentForms =  privateTrainingAppointmentFormService.getAllPrivateTrainingAppointmentForms();
+		MemberService memberservice = new MemberServiceImpl();
+		List<Member> allMembers = memberservice.getAllMembers();
+
+		TrainerService trainerservice = new TrainerServiceImpl();
+		List<Trainer> allTrainers = trainerservice.getAllTrainers();
 		
-		req.setAttribute("privateTrainingAppointmentForms",allPrivateTrainingAppointmentForms);
+		req.setAttribute("privateTrainingAppointmentForms", allPrivateTrainingAppointmentForms);
+		req.setAttribute("members", allMembers);
+		req.setAttribute("trainers", allTrainers);
 	
 	}
 	
+	private void beforedelete(HttpServletRequest req, HttpServletResponse resp) {
+		
+		PrivateTrainingAppointmentFormService  privateTrainingAppointmentFormService = new PrivateTrainingAppointmentFormServiceImpl();
+		List<PrivateTrainingAppointmentForm> allPrivateTrainingAppointmentForms =  privateTrainingAppointmentFormService.getAllPrivateTrainingAppointmentForms();
+	
+		
+
+		req.setAttribute("privateTrainingAppointmentForms", allPrivateTrainingAppointmentForms);
+		
+	}
+	
+	private void update(HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+		
+		Integer ptaNo = Integer.valueOf(request.getParameter("ptaNo"));
+		
+		Integer memNo = Integer.valueOf(request.getParameter("member"));
+		MemberService memberService = new MemberServiceImpl();
+		Member member = memberService.findMemberByNo(memNo);
+
+		Integer trainerNo = Integer.valueOf(request.getParameter("trainer"));
+		TrainerService trainerService = new TrainerServiceImpl();
+		Trainer trainer = trainerService.findTrainerByTrainerNo(trainerNo);
+
+		String ptaClassStr = request.getParameter("number");
+
+		int result;
+
+		try {
+			Integer ptaClass = Integer.parseInt(ptaClassStr);
+			result = privateTrainingAppointmentFormService.updatePrivateTrainingAppointmentForm(ptaNo ,member, trainer, ptaClass);
+		} catch (NumberFormatException e) {
+			result = -1;
+		}
+
+		if (result == 1) {
+			System.out.println("修改成功");
+			request.setAttribute("successMessage", "修改成功");
+		} else {
+			System.out.println("修改失敗");
+			request.setAttribute("errorMessage", "修改失敗");
+		}
+//		request.getRequestDispatcher("/frontend/privatetrainingappointmentform/privatetrainingappointmentform.jsp").forward(request, response);
+		response.sendRedirect(request.getContextPath()
+				+ "/frontend/privatetrainingappointmentform/privatetrainingappointmentform.jsp");
+	}
+	
+	private void delete(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		
+		Integer ptaNo = Integer.valueOf(request.getParameter("ptaNo"));
+		int result = privateTrainingAppointmentFormService.deletePrivateTrainingAppointmentForm(ptaNo);
+		if (result == 1) {
+			System.out.println("刪除成功");
+			request.setAttribute("successMessage", "刪除成功");
+		} else {
+			System.out.println("刪除失敗");
+			request.setAttribute("errorMessage", "刪除失敗");
+		response.sendRedirect(request.getContextPath()
+				+ "/frontend/privatetrainingappointmentform/privatetrainingappointmentform.jsp");
+		}
+	}
+	private void getAll(HttpServletRequest request, HttpServletResponse response) {
+		
+		
+		PrivateTrainingAppointmentFormService  privateTrainingAppointmentFormService = new PrivateTrainingAppointmentFormServiceImpl();
+		List<PrivateTrainingAppointmentForm> allPrivateTrainingAppointmentForms =  privateTrainingAppointmentFormService.getAllPrivateTrainingAppointmentForms();
+	
+//		Integer member = privateTrainingAppointmentFormService.findPrivateTrainingAppointmentFormByPtaNo(ptaNo).getMember().getMemNo();
+//		Integer trainer = privateTrainingAppointmentFormService.findPrivateTrainingAppointmentFormByPtaNo(ptaNo).getTrainer().getTrainerNo();
+			
+		request.setAttribute("privateTrainingAppointmentForms", allPrivateTrainingAppointmentForms);
+		
+	}
+	private void getOne(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		
+		PrivateTrainingAppointmentFormService  privateTrainingAppointmentFormService = new PrivateTrainingAppointmentFormServiceImpl();
+		List<PrivateTrainingAppointmentForm> allPrivateTrainingAppointmentForms =  privateTrainingAppointmentFormService.getAllPrivateTrainingAppointmentForms();
+		Integer ptaNoInt = Integer.valueOf(request.getParameter("ptaNo"));
+		
+		PrivateTrainingAppointmentForm pta = privateTrainingAppointmentFormService.findPrivateTrainingAppointmentFormByPtaNo(ptaNoInt);
+		request.setAttribute("privateTrainingAppointmentForms", allPrivateTrainingAppointmentForms);
+		request.setAttribute("pta",pta);
+		
+	}
 }

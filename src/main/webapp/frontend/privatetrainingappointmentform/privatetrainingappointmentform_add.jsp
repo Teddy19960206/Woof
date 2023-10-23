@@ -26,7 +26,7 @@
     <br />
 
     <label>課堂數：</label>
-    <input type="text" name="number">
+    <input type="text" name="number" required>
     <br />
 	<input type="hidden" name="action" value="add">
     <button type="submit">新增</button>
