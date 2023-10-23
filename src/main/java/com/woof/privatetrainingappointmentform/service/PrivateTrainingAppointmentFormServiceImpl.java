@@ -55,15 +55,14 @@ public class PrivateTrainingAppointmentFormServiceImpl implements PrivateTrainin
 		
 		PrivateTrainingAppointmentForm privateTrainingAppointmentForm = new PrivateTrainingAppointmentForm();
 		
+		privateTrainingAppointmentForm = dao.findByPtaNo(ptaNo);
 		
-		
-		return null;
+		return privateTrainingAppointmentForm;
 	}
 
 	@Override
 	public List<PrivateTrainingAppointmentForm> getAllPrivateTrainingAppointmentForms() {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-
+		
 
 		List<PrivateTrainingAppointmentForm> privateTrainingAppointmentFormList = dao.getAll();
 

@@ -60,6 +60,14 @@ public class PrivateTrainingAppointmentFormServlet extends HttpServlet {
                 case "delete":
                 	delete(req,resp);
                 	return;
+                case "getall":
+                	getAll(req,resp);
+                    forwardPath = "/frontend/privatetrainingappointmentform/privateTrainingAppointmentForm_getAll.jsp";
+                    break;
+                case "getone":
+                	getOne(req,resp);
+                    forwardPath = "/frontend/privatetrainingappointmentform/privateTrainingAppointmentForm_getOne.jsp";
+                    break;
                 default:
                     forwardPath = "/frontend/privatetrainingappointmentform/privatetrainingappointmentform_add.jsp";
             }
@@ -130,17 +138,9 @@ public class PrivateTrainingAppointmentFormServlet extends HttpServlet {
 		PrivateTrainingAppointmentFormService  privateTrainingAppointmentFormService = new PrivateTrainingAppointmentFormServiceImpl();
 		List<PrivateTrainingAppointmentForm> allPrivateTrainingAppointmentForms =  privateTrainingAppointmentFormService.getAllPrivateTrainingAppointmentForms();
 		
-		MemberService memberservice = new MemberServiceImpl();
-		List<Member> allMembers = memberservice.getAllMembers();
-
-		TrainerService trainerservice = new TrainerServiceImpl();
-		List<Trainer> allTrainers = trainerservice.getAllTrainers();
 		
-		
-
 		req.setAttribute("privateTrainingAppointmentForms", allPrivateTrainingAppointmentForms);
-		req.setAttribute("members", allMembers);
-		req.setAttribute("trainers", allTrainers);
+		
 	
 	}
 	
@@ -202,5 +202,25 @@ public class PrivateTrainingAppointmentFormServlet extends HttpServlet {
 				+ "/frontend/privatetrainingappointmentform/privatetrainingappointmentform.jsp");
 		}
 	}
+	private void getAll(HttpServletRequest request, HttpServletResponse response) {
+		
+		
+		PrivateTrainingAppointmentFormService  privateTrainingAppointmentFormService = new PrivateTrainingAppointmentFormServiceImpl();
+		List<PrivateTrainingAppointmentForm> allPrivateTrainingAppointmentForms =  privateTrainingAppointmentFormService.getAllPrivateTrainingAppointmentForms();
 	
+//		Integer member = privateTrainingAppointmentFormService.findPrivateTrainingAppointmentFormByPtaNo(ptaNo).getMember().getMemNo();
+//		Integer trainer = privateTrainingAppointmentFormService.findPrivateTrainingAppointmentFormByPtaNo(ptaNo).getTrainer().getTrainerNo();
+			
+		request.setAttribute("privateTrainingAppointmentForms", allPrivateTrainingAppointmentForms);
+		
+	}
+	private void getOne(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		
+		Integer ptaNoInt = Integer.valueOf(request.getParameter("ptaNo"));
+		
+		PrivateTrainingAppointmentForm ptaNo = privateTrainingAppointmentFormService.findPrivateTrainingAppointmentFormByPtaNo(ptaNoInt);
+
+		request.setAttribute("getone",ptaNo);
+		
+	}
 }
