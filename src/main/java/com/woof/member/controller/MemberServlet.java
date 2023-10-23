@@ -1,9 +1,10 @@
 package com.woof.member.controller;
 
 import java.io.IOException;
-import java.util.LinkedHashMap;
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -50,83 +51,91 @@ public class MemberServlet extends HttpServlet {
 		}
 
 		String forwardPath = "";
-
-		switch (action) {
-		case "/addpage":
+		if (action != null) {
+			switch (action) {
+			case "/addpage":
 //            預先載入可選擇的選項
-			forwardPath = getSelectInfo(req, res);
-			break;
-		case "/addmember":
-//            正式增加Member資料
-			addMember(req, res);
-			return;
-		case "/modified":
-//           正式修改資料
-			modified(req, res);
-			return;
-		case "/getall":
-			forwardPath = getAllmembers(req, res);
-			return;
-		default:
-//           進入edit畫面先進行讀取要修改的檔案
-			if (action.startsWith("/edit/")) {
 				getSelectInfo(req, res);
-				forwardPath = edit(req, res, result);
-			} else {
-				forwardPath = "/member/selectmember.jsp";
+				forwardPath = "/frontend/member/selectmember.jsp";
+				break;
+			case "/addmember":
+//            正式增加Member資料
+				try {
+		            addMember(req, res);
+		        } catch (IOException | ParseException e) {
+		            e.printStackTrace();
+		        }
+				break;
+			case "getupdate":
+				beforeUpdate(req, res);
+				forwardPath = "/frontend/member/updatemember.jsp";
+				break;
+			case "/update":
+//           正式修改資料
+				updatemember(req, res);
+				break;
+			case "/getall":
+				forwardPath = getAllmembers(req, res);
+				break;
+			case "/getone":
+				getOne(req, res);
+				forwardPath = "/frontend/member/list_one_member.jsp";
+				break;
+			case "/delete":
+				doDelete(req, res);
+				forwardPath = "/frontend/member/list_all_member.jsp";
+
+			default:
+//           進入edit畫面先進行讀取要修改的檔案
+				if (action.startsWith("/edit/")) {
+					getSelectInfo(req, res);
+					forwardPath = edit(req, res, result);
+				} else {
+					forwardPath = "/member/selectmember.jsp";
+				}
+				  break;
 			}
 			req.getRequestDispatcher(forwardPath).forward(req, res);
+
+			res.setContentType("text/html; charset=UTF-8");
+			RequestDispatcher dispatcher = req.getRequestDispatcher(forwardPath);
+			dispatcher.forward(req, res);
+		}
+	}
+
+	private void getOne(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		// 從請求中取得 memNo
+		String memNoStr = req.getParameter("memNo");
+		Integer memNo = null;
+
+		try {
+			memNo = Integer.parseInt(memNoStr);
+		} catch (NumberFormatException e) {
+			// 可以進行異常處理，例如轉發到錯誤頁面
+			req.setAttribute("errorMessage", "無效的會員編號");
+			req.getRequestDispatcher("/member/errorPage.jsp").forward(req, res);
+			return;
 		}
 
-		res.setContentType("text/html; charset=UTF-8");
-		RequestDispatcher dispatcher = req.getRequestDispatcher(forwardPath);
-		dispatcher.forward(req, res);
-	}
+		// 呼叫 Service 方法取得 Member 資料
+		Member member = memberService.findMemberByNo(memNo);
 
-
-	private String getAllmembers(HttpServletRequest req, HttpServletResponse res) throws IOException {
-		req.setCharacterEncoding("UTF-8");
-
-		String member = req.getParameter("member");
-
-		List<Member> memberList = null;
-
-		if (member != null) {
-			if ("0".equals(member)) {
-				memberList = memberService.getAllMembers();
-			}
-		} else {
-//	            異常判斷
+		if (member == null) {
+			// 沒有找到會員，可以進行相應的錯誤處理
+			req.setAttribute("errorMessage", "找不到指定的會員");
+			req.getRequestDispatcher("/member/errorPage.jsp").forward(req, res);
+			return;
 		}
 
-		Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
-		String json = gson.toJson(memberList);
-		res.setContentType("application/json;charset=UTF-8");
+		// 將 Member 資料設定為請求的屬性
+		req.setAttribute("member", member);
 
-		res.getWriter().write(json);
-		return json;
-	}
-	private String getSelectInfo(HttpServletRequest req, HttpServletResponse res) {
-
-		MemberService memberservice = new MemberServiceImpl();
-		java.util.List<Member> allMember = memberService.getAllMembers();
-		req.setAttribute("members", allMember);
-		return "/frontend/member/selectmember.jsp";
+		// 轉發到適當的 JSP 頁面以顯示 Member 資料
+		req.getRequestDispatcher("/frontend/member/list_one_member.jsp").forward(req, res);
 	}
 
-	private void addMember(HttpServletRequest req, HttpServletResponse res) {
-
-	}
-//
-	private String edit(HttpServletRequest req, HttpServletResponse res, Integer id) {
-		return null;
-//		Member member = member.findMemberByNo(id);
-//		req.setAttribute("member", member);
-//		return "/frontend/member/editMember.jsp";
-	}
-//
-	private void modified(HttpServletRequest req, HttpServletResponse res) throws IOException {
-//		Integer memNo = Integer.valueOf(req.getParameter("memberNo"));
+	private void updatemember(HttpServletRequest req, HttpServletResponse res) {
+		Integer memNo = Integer.valueOf(req.getParameter("memberNo"));
 //		byte[] bytes = null;
 //
 //		Part filePart = req.getPart("photo");
@@ -152,6 +161,77 @@ public class MemberServlet extends HttpServlet {
 //
 //		res.sendRedirect(req.getServletContext().getContextPath() + "/frontend/member/list_all_member.jsp");
 //
+
 	}
 
+	private void beforeUpdate(HttpServletRequest req, HttpServletResponse res) {
+		// TODO Auto-generated method stub
+
+	}
+
+	private String getAllmembers(HttpServletRequest req, HttpServletResponse res) throws IOException {
+		req.setCharacterEncoding("UTF-8");
+
+		String member = req.getParameter("member");
+
+		List<Member> memberList = null;
+
+		if (member != null) {
+			if ("0".equals(member)) {
+				memberList = memberService.getAllMembers();
+			}
+		} else {
+//	            異常判斷
+		}
+
+		Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+		String json = gson.toJson(memberList);
+		res.setContentType("application/json;charset=UTF-8");
+
+		res.getWriter().write(json);
+		return json;
+	}
+
+	private String getSelectInfo(HttpServletRequest req, HttpServletResponse res) {
+
+		MemberService memberservice = new MemberServiceImpl();
+		java.util.List<Member> allMember = memberService.getAllMembers();
+		req.setAttribute("members", allMember);
+		return "/frontend/member/selectmember.jsp";
+	}
+
+	private void addMember(HttpServletRequest req, HttpServletResponse res) throws IOException, ParseException {
+		  req.setCharacterEncoding("UTF-8");
+//		  String memName = req.getParameter("memName");
+//		  String memGender = req.getParameter("memGender");
+//		  String memEmail =req.getParameter("memEmail");
+//		  String memPassword =req.getParameter("memPassword");
+//		  String memTel =req.getParameter("memTel");
+//		  String memAdress =req.getParameter("memAdress");
+//		  java.util.Date date =null;
+//		  int result;
+//		  try {
+//			  date = new SimpleDateFormat("yyyy-mm-dd").parse(req.getParameter("memBd"));} catch (ParseException e) {
+//				  e.printStackTrace();
+//		   result = -1;
+//		  if (result == 1) {
+//		   System.out.println("新增成功");
+//		   req.setAttribute("successMessage", "新增成功");
+//		  } else {
+//		   System.out.println("新增失敗");
+//		   req.setAttribute("errorMessage", "新增失敗");
+//		  }
+//		  res.sendRedirect(req.getContextPath()
+//		    + "/frontend/member/list_all_member.jsp");
+//		 }
+		return;
+	}
+
+//
+	private String edit(HttpServletRequest req, HttpServletResponse res, Integer id) {
+		return null;
+//		Member member = member.findMemberByNo(id);
+//		req.setAttribute("member", member);
+//		return "/frontend/member/editMember.jsp";
+	}
 }

@@ -50,7 +50,7 @@ th, td {
 	<table>
 		<tr>
 			<td>
-				<h3>所有員工資料 - listAllEmp.jsp</h3>
+				<h3>所有會員資料 - listAllEmp.jsp</h3>
 				<h4>
 					<a href="selectmember.jsp">回首頁</a>
 				</h4>

@@ -1,7 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
-<%@ page import="com.woof.member.*"%>
-<%-- 此頁暫練習採用 Script 的寫法取值 --%>
 
 
 <%
@@ -52,7 +50,8 @@ th, td {
 
 </head>
 <body bgcolor='white'>
-
+<jsp:useBean id="memberService" scope="page"
+			class="com.woof.member.service.MemberServiceImpl" />
 	<h4>此頁暫練習採用 Script 的寫法取值:</h4>
 	<table id="table-1">
 		<tr>
@@ -80,6 +79,7 @@ th, td {
 			<th>課堂數</th>
 			<th>狀態</th>
 		</tr>
+		<c:forEach var="memNo" items="${memberService.findMemberByNo}">
 		<tr>
 			<td>${member.memNo}</td>
 			<td>${member.memName}</td>
@@ -93,7 +93,26 @@ th, td {
 			<td>${member.momoPoint}</td>
 			<td>${member.totalClass}</td>
 			<td>${member.memStatus}</td>
-		</tr>
+			<td>
+			<FORM method="post"
+						action="${pageContext.request.contextPath}/member"
+						style="margin-bottom: 0px;">
+						<input type="submit" value="修改"> <input type="hidden"
+							name="empno" value="${member.memNo}"> <input
+							type="hidden" name="action" value="getOne_For_Update">
+					</FORM>
+				</td>
+				<td>
+					<FORM METHOD="POST"
+						ACTION="<%=request.getContextPath()%>/member"
+						style="margin-bottom: 0px;">
+						<input type="submit" value="刪除"> <input type="hidden"
+							name="empno" value="${member.memNo}"> <input
+							type="hidden" name="action" value="delete">
+					</FORM>
+				</td>
+			</tr>
+		</c:forEach>
 	</table>
 
 </body>
