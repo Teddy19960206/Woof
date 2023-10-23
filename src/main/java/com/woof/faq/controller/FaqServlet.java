@@ -102,11 +102,6 @@ public class FaqServlet extends HttpServlet {
 		String faqTitle = req.getParameter("faqTitle");
 		String faqContent = req.getParameter("faqContent");
 
-//		System.out.println(faqNo);
-//		System.out.println(faqClass);
-//		System.out.println(faqTitle);
-//		System.out.println(faqContent);
-
 		int result = faqService.updateFaq(faqNo, faqClass, faqTitle, faqContent);
 
 		if (result > 0) {
@@ -136,7 +131,7 @@ public class FaqServlet extends HttpServlet {
 			System.out.println("刪除失敗");
 		}
 
-		return "/backend/faq/faqfirst.jsp";
+		return "/faq?action=getAll";
 	}
 
 }
