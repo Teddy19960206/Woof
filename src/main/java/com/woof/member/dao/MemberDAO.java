@@ -12,8 +12,12 @@ public interface MemberDAO {
 	int delete(Integer memNo);
 
 	Member findByMemberNo(Integer memNo);
-
+	
 	List<Member> getAll();
+	
+	List<Member> getByCompositeQuery(Map<String, String> map);
+
+	long getTotal();
 
 }
 
