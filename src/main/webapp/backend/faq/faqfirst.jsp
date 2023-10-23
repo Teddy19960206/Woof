@@ -22,45 +22,44 @@
 		action="${pageContext.request.contextPath}/faq?action=addfaq">
 
 
-		<label>FAQ類別：</label> <input type="text" name="faqClass" value="訂單問題" />
-		<br /> <label>FAQ標題：</label> <input type="text" name="faqTitle"
-			value="退貨時間？" /> <br /> <label>FAQ內容：</label> <input type="text"
-			name="faqContent" value="9點" /> <input type="submit" value="確定新增" />
-		<input type="button" value="取消新增" onclick="history.back()" />
+		<label>FAQ類別：</label> <input type="text" name="faqClass" value="訂單問題" /><br /> 
+		<label>FAQ標題：</label> <input type="text" name="faqTitle" value="退貨時間？" /> <br /> 
+		<label>FAQ內容：</label> <input type="text" name="faqContent" value="9點" /> <input type="submit" value="確定新增" />
+		<input type="button" value="取消新增" onclick="window.location.href='${pageContext.request.contextPath}/backend/index.html'" />
 
 	</form>
 
 
-	<h1>修改FAQ</h1>
+<!-- 	<h1>修改FAQ</h1> -->
 
-	<form method="Post"
-		action="${pageContext.request.contextPath}/faq?action=updatefaq">
+<!-- 	<form method="Post" -->
+<%-- 		action="${pageContext.request.contextPath}/faq?action=updatefaq"> --%>
 
-		<label>FAQ編號：</label> 
-		<input type="text" name="faqNo" /> <br /> 
-		<label>FAQ類別：</label>
-		<input type="text" name="faqClass" /> <br /> 
-		<label>FAQ標題：</label> 
-		<input
-			type="text" name="faqTitle" /> <br /> 
-		<label>FAQ內容：</label> <input
-			type="text" name="faqContent" /> 
-		<input type="submit" value="確定修改" />
-		<input type="button" value="取消修改" onclick="history.back()" />
+<!-- 		<label>FAQ編號：</label>  -->
+<!-- 		<input type="text" name="faqNo" /> <br />  -->
+<!-- 		<label>FAQ類別：</label> -->
+<!-- 		<input type="text" name="faqClass" /> <br />  -->
+<!-- 		<label>FAQ標題：</label>  -->
+<!-- 		<input -->
+<!-- 			type="text" name="faqTitle" /> <br />  -->
+<!-- 		<label>FAQ內容：</label> <input -->
+<!-- 			type="text" name="faqContent" />  -->
+<!-- 		<input type="submit" value="確定修改" /> -->
+<!-- 		<input type="button" value="取消修改" onclick="history.back()" /> -->
 
-	</form>
+<!-- 	</form> -->
 	
 	
-		<h1>刪除FAQ</h1>
+<!-- 		<h1>刪除FAQ</h1> -->
 
-	<form method="Post" action="${pageContext.request.contextPath}/faq?action=deletefaq">
+<%-- 	<form method="Post" action="${pageContext.request.contextPath}/faq?action=deletefaq"> --%>
 		
-		<label>FAQ編號：</label> <input type="text" name="faqNo" /> 
+<!-- 		<label>FAQ編號：</label> <input type="text" name="faqNo" />  -->
 		
-		<input type="submit" value="確定刪除" /> 
- 		<input type="button" value="取消刪除" onclick="history.back()" />
+<!-- 		<input type="submit" value="確定刪除" />  -->
+<!--  		<input type="button" value="取消刪除" onclick="history.back()" /> -->
  		
-   </form>
+<!--    </form> -->
 
 </body>
 </html>
