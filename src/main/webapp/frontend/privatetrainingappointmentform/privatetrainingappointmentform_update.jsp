@@ -48,10 +48,10 @@
     </select>
     <br />
 
-    <label>訓練師編號：</label>
+    <label>訓練師名稱：</label>
     <select name="trainer">
         <c:forEach items="${trainers}" var="trainer">
-            <option value="${trainer.trainerNo}">${trainer.trainerNo}</option>
+            <option value="${trainer.trainerNo}">${trainer.administrator.adminName}</option>
         </c:forEach>
     </select>
     <br />
