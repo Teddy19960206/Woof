@@ -11,15 +11,15 @@
 <title>administrator</title>
 <script type="text/javascript">
 //表單點擊找出對應的function
-  function processUpdate(adminNo){
-	  window.location.href= "<%=request.getContextPath()%>/frontend/administrator/administratorUpdate.jsp?adminNo="+ adminNo ;
+  function processUpdate(jsonData){
+	  window.location.href = " <%=request.getContextPath()%>/frontend/administrator/administratorUpdate.jsp?adminNo=" + jsonData.adminNo ;
   }
-  function processDelete(adminNo){
+  function processDelete(jsonData){
  	 $.ajax({
      //指定http參數傳輸格式為POST
      type : "POST",
      //ajax請求配置
-     data : {ADMIN_NO : adminNo},
+     data : jsonData,
      //請求目標的url
      url : "<%=request.getContextPath()%>/administrator.do?action=del",
      //Ajax成功後執行的function，response為回傳的值
@@ -47,15 +47,15 @@
 	<table>
 		<th>編輯</th>
 		<th>刪除</th>
+		<th>寵物訓練師帳號</th>
 		<th>寵物訓練師名稱</th>
-		<th>寵物訓練師編號</th>
 		<th>電話</th>
 	<c:forEach var="administrator" items="${administratorService.allAdministrators}">
     	<tr>
-    		<td><input type="button" value="修改" onclick="processUpdate(${administrator.adminNo});"></td>
-    		<td><input type="button" value="刪除" onclick="processDelete(${administrator.adminNo});"></td>	
-    		<td>${administrator.adminName}</td>
+    		<td><input type="button" value="修改" onclick="processUpdate({adminNo:'${administrator.adminNo}'});"></td>
+    		<td><input type="button" value="刪除" onclick="processDelete({ADMIN_NO:'${administrator.adminNo}'});"></td>	
     		<td>${administrator.adminNo}</td>
+    		<td>${administrator.adminName}</td>
     		<td>${administrator.adminTel}</td>
     	<tr>
     </c:forEach>

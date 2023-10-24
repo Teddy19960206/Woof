@@ -19,11 +19,8 @@ public class AdministratorServiceImpl implements AdministratorService {
 
 	@Override
 	public Administrator addAdministrator(Administrator administrator) {
-		Integer i = dao.insert(administrator);
-		if (i == 1) {
-			return administrator;
-		}
-		return null;
+		dao.insert(administrator);
+		return administrator;
 	}
 
 	@Override
@@ -36,12 +33,12 @@ public class AdministratorServiceImpl implements AdministratorService {
 	}
 
 	@Override
-	public void deleteAdministrator(Integer adminNo) {
+	public void deleteAdministrator(String adminNo) {
 		dao.delete(adminNo);
 	}
 
 	@Override
-	public Administrator findAdministratorByAdminNo(Integer adminNo) {
+	public Administrator findAdministratorByAdminNo(String adminNo) {
 		Administrator administrator = dao.findByadminNo(adminNo);
 		return administrator;
 	}

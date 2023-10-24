@@ -11,9 +11,9 @@ public interface AdministratorService {
 
 	Administrator updateAdministrator(Administrator administrator);
 
-	void deleteAdministrator(Integer adminNo);
+	void deleteAdministrator(String adminNo);
 
-	Administrator findAdministratorByAdminNo(Integer adminNo);
+	Administrator findAdministratorByAdminNo(String adminNo);
 
 	List<Administrator> getAllAdministrators();
 

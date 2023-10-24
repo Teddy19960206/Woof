@@ -24,6 +24,18 @@
 	<form method="post" action="<%=request.getContextPath()%>/administrator.do?action=add" accept-charset="UTF-8">
 		<table>
 		<tr>
+			<th>管理員帳號</th>
+			<td>
+				<input type="text" name="ADMIN_NO" id="ADMIN_NO" required>
+			</td>
+		</tr>
+		<tr>
+			<th>管理員密碼</th>
+			<td>
+				<input type="password" name="ADMIN_PASSWORD" id="ADMIN_PASSWORD" >
+			</td>
+		</tr>
+		<tr>
 			<th>管理員名字</th>
 			<td>
 				<input type="text" name="ADMIN_NAME" id="ADMIN_NAME" required >
@@ -43,12 +55,6 @@
 			</td>
 		</tr>
 		<tr>
-			<th>管理員密碼</th>
-			<td>
-				<input type="password" name="ADMIN_PASSWORD" id="ADMIN_PASSWORD" >
-			</td>
-		</tr>
-			<tr>
 			<th>管理員電話</th>
 			<td>
 				<input type="text" name="ADMIN_TEL" id="ADMIN_TEL">

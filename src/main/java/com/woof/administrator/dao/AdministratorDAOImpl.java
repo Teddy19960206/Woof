@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
 import com.woof.administrator.entity.Administrator;
 import com.woof.administrator.entity.Administrator;
@@ -38,9 +39,8 @@ public class AdministratorDAOImpl implements AdministratorDAO {
 	}
 
 	@Override
-	public int insert(Administrator administrator) {
-		Integer i = (Integer) getSession().save(administrator);
-		return i;
+	public void insert(Administrator administrator) {
+		getSession().save(administrator);
 	}
 
 	@Override
@@ -54,7 +54,7 @@ public class AdministratorDAOImpl implements AdministratorDAO {
 	}
 
 	@Override
-	public int delete(Integer adminNo) {
+	public int delete(String adminNo) {
 		Administrator administrator =getSession().get(Administrator.class, adminNo);
 		if(administrator !=null) {
 			getSession().delete(administrator);
@@ -65,8 +65,10 @@ public class AdministratorDAOImpl implements AdministratorDAO {
 	}
 
 	@Override
-	public Administrator findByadminNo(Integer adminNo) {
-		return getSession().get(Administrator.class, adminNo);
+	public Administrator findByadminNo(String adminNo) {
+		Query<Administrator> query = getSession().createQuery("FROM Administrator where adminNo=:adminNo",Administrator.class);
+		query.setParameter("adminNo", adminNo);
+		return query.getSingleResult();
 	}
 
 	@Override

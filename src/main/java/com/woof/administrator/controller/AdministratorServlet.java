@@ -58,7 +58,7 @@ public class AdministratorServlet extends HttpServlet {
 	
 	private void processQuery(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
 		//找對應的aminno
-		Administrator admin = administratorService.findAdministratorByAdminNo(Integer.valueOf(req.getParameter("ADMIN_NO")));
+		Administrator admin = administratorService.findAdministratorByAdminNo((req.getParameter("ADMIN_NO")));
 		
 		res.setCharacterEncoding("UTF-8");
 		//用json把值裝起來
@@ -69,14 +69,13 @@ public class AdministratorServlet extends HttpServlet {
 	}
 	
 	private void processDelete(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
-		req.getParameter("ADMIN_NO");
-		administratorService.deleteAdministrator(Integer.valueOf(req.getParameter("ADMIN_NO")));
+		administratorService.deleteAdministrator(req.getParameter("ADMIN_NO"));
 	}
 	
 	private void processUpdate(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
 		Administrator admin = new Administrator();
 		//把資料給前端
-		admin.setAdminNo (Integer.valueOf(req.getParameter("ADMIN_NO")));
+		admin.setAdminNo (req.getParameter("ADMIN_NO"));
 		admin.setAdminName (req.getParameter("ADMIN_NAME"));
 		admin.setAdminGender(req.getParameter("ADMIN_GENDER"));
 		admin.setAdminEmail (req.getParameter("ADMIN_EMAIL"));
@@ -105,6 +104,7 @@ public class AdministratorServlet extends HttpServlet {
 	private void processAdd(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
 		Administrator admin = new Administrator();
 		//把資料給前端
+		admin.setAdminNo(req.getParameter("ADMIN_NO"));
 		admin.setAdminName (req.getParameter("ADMIN_NAME"));
 		admin.setAdminGender(req.getParameter("ADMIN_GENDER"));
 		admin.setAdminEmail (req.getParameter("ADMIN_EMAIL"));
@@ -127,9 +127,8 @@ public class AdministratorServlet extends HttpServlet {
 		
 		
 		//導到指定的URL 頁面上 把請求回應都帶過去
-		String url = "/frontend/administrator/administrator.jsp";
-		RequestDispatcher rd =  req.getRequestDispatcher(url);
-		rd.forward(req, res);
+		String url = req.getContextPath()+"/frontend/administrator/administrator.jsp";
+		res.sendRedirect(url);
 	}
 
 }

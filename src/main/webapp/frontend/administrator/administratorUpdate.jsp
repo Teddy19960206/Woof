@@ -13,13 +13,13 @@
 	 	 $.ajax({
 	 	     //指定http參數傳輸格式為POST
 	 	     type : "POST",
-	 	     data : {ADMIN_NO : <%= request.getParameter("adminNo")%>},
+	 	     data : {ADMIN_NO : '<%= request.getParameter("adminNo")%>'},
 	 	     //請求目標的url
 	 	     url : "<%=request.getContextPath()%>/administrator.do?action=query",
 	 	     //Ajax成功後執行的function，response為回傳的值
 	 	     success : function(data) {
 	 	    	 var jsonObj = JSON.parse(data);
-	 	    	 console.log(jsonObj)
+	 	    	 $('#ADMIN_NO').val(jsonObj.adminNo);
 	 	    	 $('#ADMIN_NAME').val(jsonObj.adminName);
 	 	    	 $('input[name=ADMIN_GENDER][value='+jsonObj.adminGender+']').prop('checked',true);
 	 	    	 $('#ADMIN_EMAIL').val(jsonObj.adminEmail);
@@ -46,8 +46,19 @@
 <body>
 <!--                               request.getContextPath()動態根路徑，action=update找到後端switch(action)的update-->
 	<form method="post" action="<%=request.getContextPath()%>/administrator.do?action=update">
-		<input type="hidden" name="ADMIN_NO" id="ADMIN_NO" value='<%= request.getParameter("adminNo")%>'>
 		<table>
+		<tr>
+			<th>管理員帳號</th>
+			<td>
+				<input type="text" name="ADMIN_NO" id="ADMIN_NO" value="<%= request.getParameter("adminNo")%>" readonly>
+			</td>
+		</tr>
+		<tr>
+			<th>管理員密碼</th>
+			<td>
+				<input type="password" name="ADMIN_PASSWORD" id="ADMIN_PASSWORD" >
+			</td>
+		</tr>
 		<tr>
 			<th>管理員名字</th>
 			<td>
@@ -73,7 +84,7 @@
 				<input type="password" name="ADMIN_PASSWORD" id="ADMIN_PASSWORD" >
 			</td>
 		</tr>
-			<tr>
+		<tr>
 			<th>管理員電話</th>
 			<td>
 				<input type="text" name="ADMIN_TEL" id="ADMIN_TEL">

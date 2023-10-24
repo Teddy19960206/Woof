@@ -21,15 +21,15 @@ public interface AdministratorDAO {
 //
 //    List<AdministratorVO> getAll();
 	
-	int insert(Administrator administrator);
+	void insert(Administrator administrator);
 
 	int update(Administrator administrator);
 
-	int delete(Integer adminNo);
+	int delete(String adminNo);
 
 	List<Administrator> getAll();
 
-	Administrator findByadminNo(Integer adminNo);
+	Administrator findByadminNo(String adminNo);
 }
 
 	
