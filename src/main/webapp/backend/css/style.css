@@ -85,3 +85,13 @@ li.sidebar-item a.sidebar-link2 {
 .text-color {
     color: #FF5733; 
   }
+
+.sidebar-item {
+    transition: background-color 0.2s; 
+    border-radius: 10px;
+}
+
+.sidebar-item:hover {
+    background-color: rgba(143, 143, 143, 0.1); 
+    cursor: pointer; 
+}
