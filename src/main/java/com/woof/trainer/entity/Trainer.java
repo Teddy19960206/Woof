@@ -21,6 +21,7 @@ import javax.persistence.Table;
 import com.google.gson.annotations.Expose;
 import com.woof.administrator.entity.Administrator;
 import com.woof.commentreport.entity.CommentReport;
+import com.woof.groupscheduledetail.entity.GroupScheduleDetail;
 import com.woof.nontrainingschedule.entity.NonTrainingSchedule;
 import com.woof.privatetrainingappointmentform.entity.PrivateTrainingAppointmentForm;
 import com.woof.skill.entity.Skill;
@@ -61,6 +62,10 @@ public class Trainer implements Serializable {
 			@JoinColumn(name = "TRAINER_NO", referencedColumnName = "TRAINER_NO") }, inverseJoinColumns = {
 					@JoinColumn(name = "SKILL_NO", referencedColumnName = "SKILL_NO") })
 	private Set<Skill> skills;
+
+
+	@OneToMany(mappedBy = "trainer" , cascade = CascadeType.ALL)
+	private Set<GroupScheduleDetail> groupScheduleDetailSet;
 
 	public Trainer() {
 	}
@@ -119,6 +124,14 @@ public class Trainer implements Serializable {
 
 	public void setSkills(Set<Skill> skills) {
 		this.skills = skills;
+	}
+
+	public Set<GroupScheduleDetail> getGroupScheduleDetailSet() {
+		return groupScheduleDetailSet;
+	}
+
+	public void setGroupScheduleDetailSet(Set<GroupScheduleDetail> groupScheduleDetailSet) {
+		this.groupScheduleDetailSet = groupScheduleDetailSet;
 	}
 
 	@Override

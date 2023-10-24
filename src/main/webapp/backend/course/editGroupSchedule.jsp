@@ -9,6 +9,7 @@
 <form action="${pageContext.request.contextPath}/schedule/modified" method="post" enctype="multipart/form-data">
 
   <input type="hidden" name="scheduleNo" value="${schedule.gcsNo}">
+
   <label>課程：</label>
   <select id="skill" name="skill">
     <c:forEach items="${groupCourses}" var="course">

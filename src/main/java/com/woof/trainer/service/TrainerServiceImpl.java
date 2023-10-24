@@ -1,7 +1,9 @@
 package com.woof.trainer.service;
 
 import java.util.List;
+import java.util.Set;
 
+import com.woof.groupscheduledetail.entity.GroupScheduleDetail;
 import org.hibernate.Session;
 
 import com.woof.trainer.dao.TrainerDAOImpl;
@@ -60,7 +62,13 @@ public class TrainerServiceImpl  implements TrainerService{
 	public List<Trainer> getAllTrainers() {
 			List<Trainer> trainerList = dao.getAll();
 			return trainerList;
-		}
 	}
+
+	@Override
+	public Set<GroupScheduleDetail> getGroupDetail(Integer trainerNo) {
+		return dao.groupScheduleDetails(trainerNo);
+	}
+}
+
 
 

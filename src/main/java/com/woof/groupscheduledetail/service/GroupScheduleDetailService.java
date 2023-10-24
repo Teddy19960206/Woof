@@ -6,6 +6,7 @@ import com.woof.trainer.entity.Trainer;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 public interface GroupScheduleDetailService {
@@ -21,5 +22,7 @@ public interface GroupScheduleDetailService {
     List<GroupScheduleDetail> getAll();
 
     List<GroupScheduleDetail> getByGroupSchedule(Integer gcsNo);
+
+    List<Object[]> getByTrainer(Integer trainerNo);
 
 }

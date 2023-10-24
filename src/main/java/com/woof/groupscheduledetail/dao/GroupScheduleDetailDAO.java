@@ -14,6 +14,8 @@ public interface GroupScheduleDetailDAO {
 
     GroupScheduleDetail findByGcsd(Integer gcsd);
 
+
+    List<Object[]> getByTrainer(Integer trainerNo);
     List<GroupScheduleDetail> getByGroupSchedule(Integer gcsNo);
     List<GroupScheduleDetail> getAll();
 }

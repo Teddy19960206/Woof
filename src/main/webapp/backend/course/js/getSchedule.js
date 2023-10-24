@@ -229,7 +229,7 @@ $(document).on("click" , "button.modify" , async function () {
         let button = $(this).closest("tr").find("button");
         button.eq(0).prop("disabled" , false);
         button.eq(1).prop("disabled" , true);
-        tr.find("td").eq(2).html(select.text());
+        tr.find("td").eq(2).html(select.find("option:selected").text());
         tr.find("td").eq(3).html(input.val());
     }
 })

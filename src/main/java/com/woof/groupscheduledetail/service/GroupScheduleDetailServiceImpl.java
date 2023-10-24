@@ -69,4 +69,9 @@ public class GroupScheduleDetailServiceImpl implements GroupScheduleDetailServic
     public List<GroupScheduleDetail> getByGroupSchedule(Integer gcsNo) {
         return dao.getByGroupSchedule(gcsNo);
     }
+
+    @Override
+    public List<Object[]> getByTrainer(Integer trainerNo) {
+        return dao.getByTrainer(trainerNo);
+    }
 }

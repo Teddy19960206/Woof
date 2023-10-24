@@ -1,7 +1,9 @@
 package com.woof.trainer.dao;
 
 import java.util.List;
+import java.util.Set;
 
+import com.woof.groupscheduledetail.entity.GroupScheduleDetail;
 import com.woof.trainer.entity.Trainer;
 import com.woof.promotionactivity.entity.PromotionActivity;
 import com.woof.trainer.entity.Trainer;
@@ -26,4 +28,6 @@ public interface TrainerDAO {
 	List<Trainer> getAll();
 
 	Trainer findBytrainerNo(Integer trainerNo);
+
+	Set<GroupScheduleDetail> groupScheduleDetails(Integer trainerNo);
 }

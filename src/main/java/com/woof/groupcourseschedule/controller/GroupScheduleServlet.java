@@ -179,6 +179,8 @@ public class GroupScheduleServlet extends HttpServlet {
     private void modified(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Integer scheduleNo = Integer.valueOf(request.getParameter("scheduleNo"));
 
+        System.out.println(scheduleNo);
+
         Integer content = Integer.valueOf(request.getParameter("skill"));
         GroupCourseService groupCourseService = new GroupCourseServiceImpl();
         GroupCourse groupCourseByNo = groupCourseService.findGroupCourseByNo(content);
@@ -206,7 +208,7 @@ public class GroupScheduleServlet extends HttpServlet {
         }
 
 
-        GroupCourseSchedule byGcsNo = groupGourseScheduleService.findByGcsNo(relatedGcsNo);
+        GroupCourseSchedule byGcsNo = groupGourseScheduleService.findByGcsNo(scheduleNo);
 
 
         int result = groupGourseScheduleService.updateSchedule(scheduleNo, groupCourseByNo, trainerByTrainerNo, startDate, endDate, minLimit, maxLimit, regCount, price, status , delayReason ,byGcsNo);

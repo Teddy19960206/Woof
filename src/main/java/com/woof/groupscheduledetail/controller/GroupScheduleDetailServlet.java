@@ -2,6 +2,8 @@ package com.woof.groupscheduledetail.controller;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.woof.groupcourseschedule.entity.GroupCourseSchedule;
+import com.woof.groupcourseschedule.service.GroupCourseScheduleServiceImpl;
 import com.woof.groupscheduledetail.entity.GroupScheduleDetail;
 import com.woof.groupscheduledetail.service.GroupScheduleDetailService;
 import com.woof.groupscheduledetail.service.GroupScheduleDetailServiceImpl;
@@ -63,6 +65,9 @@ public class GroupScheduleDetailServlet extends HttpServlet {
             case "/modify":
                 modify(request , response);
                 return;
+            case "/getClassDate":
+                getTrainerClass(request, response);
+                return;
             default:
 //                進入detail畫面根據取得的id去抓取要修改的資料
                 if (pathInfo.startsWith("/detail/")) {
@@ -79,6 +84,9 @@ public class GroupScheduleDetailServlet extends HttpServlet {
     private void getdetail(HttpServletRequest request , HttpServletResponse response , Integer gcsNo) throws IOException {
         GroupScheduleDetailService groupScheduleDetailService1 = new GroupScheduleDetailServiceImpl();
         List<GroupScheduleDetail> byGroupSchedule = groupScheduleDetailService1.getByGroupSchedule(gcsNo);
+
+
+
 
         Gson gson = new GsonBuilder()
                 .excludeFieldsWithoutExposeAnnotation()
@@ -130,5 +138,24 @@ public class GroupScheduleDetailServlet extends HttpServlet {
 
         response.setContentType("application/json;charset=UTF-8");
         response.getWriter().write("ok");
+    }
+
+    private void getTrainerClass(HttpServletRequest request , HttpServletResponse response) throws IOException {
+        String trainerId = request.getParameter("trainerId");
+        String json = null	;
+
+        if (trainerId != null && trainerId.length() != 0) {
+            Integer Id = Integer.valueOf(trainerId);
+            List<Object[]> byTrainer = groupScheduleDetailService.getByTrainer(Id);
+            System.out.println(byTrainer);
+            Gson gson = new GsonBuilder()
+                    .excludeFieldsWithoutExposeAnnotation()
+                    .setDateFormat("yyyy-MM-dd")
+                    .create();
+            json = gson.toJson(byTrainer);
+        }
+
+        response.setContentType("application/json;charset=UTF-8");
+        response.getWriter().write(json);
     }
 }

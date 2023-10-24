@@ -9,7 +9,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
+import com.woof.classtype.entity.ClassType;
+import com.woof.groupscheduledetail.entity.GroupScheduleDetail;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
@@ -59,6 +62,11 @@ public class TrainerDAOImpl implements TrainerDAO {
 	@Override
 	public Trainer findBytrainerNo(Integer trainerNo) {
 		return getSession().get(Trainer.class, trainerNo);
+	}
+
+	@Override
+	public Set<GroupScheduleDetail> groupScheduleDetails(Integer trainerNo) {
+		return getSession().get(Trainer.class , trainerNo).getGroupScheduleDetailSet();
 	}
 
 	@Override

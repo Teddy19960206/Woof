@@ -45,6 +45,7 @@ public class GroupScheduleDetail implements Serializable {
 	@Column(name = "CLASS_DATE" , nullable = false)
     private Date classDate;
 
+
     public GroupScheduleDetail() {
     }
 
