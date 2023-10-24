@@ -73,6 +73,7 @@
     </footer>
     <script src="<%=request.getContextPath()%>/webutil/js/bootstrap.bundle.min.js"></script>
     <script src="<%=request.getContextPath()%>/webutil/js/jquery-3.7.1.min.js"></script>
+    <script src="<%=request.getContextPath()%>/webutil/js/aos.js"></script>
     <script>
       var tooltipTriggerList = [].slice.call(
         document.querySelectorAll('[data-bs-toggle="tooltip"]')
@@ -84,4 +85,5 @@
       $(function () {
         $("[data-toggle='popover']").popover();
       });
+      AOS.init();
     </script>

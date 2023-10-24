@@ -1,0 +1,25 @@
+img.background{
+    margin: 0;
+    width: 100vw;
+    height: 500px;
+    object-fit: cover;
+    overflow: hidden;
+}
+
+button.myBtn{
+    width: 200px;
+    height: 50px;
+    border-radius: 10px;
+    background-color: #FCDABF;
+    border: none;
+    font-size: 20px;
+}
+
+button.myBtn:hover{
+    background-color: #F79B66;
+    color: #084298;
+}
+
+h1.h5{
+    color: #eb702a;
+}
