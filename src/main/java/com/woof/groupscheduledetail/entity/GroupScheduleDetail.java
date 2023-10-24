@@ -17,11 +17,13 @@ import com.google.gson.annotations.Expose;
 import com.woof.groupcourseschedule.entity.GroupCourseSchedule;
 import com.woof.trainer.entity.Trainer;
 import org.hibernate.annotations.BatchSize;
+import org.hibernate.annotations.DynamicUpdate;
 
 
 @Entity
 @Table(name = "group_course_schedule_detail")
 @BatchSize(size = 20)
+@DynamicUpdate
 public class GroupScheduleDetail implements Serializable {
 
 	@Expose

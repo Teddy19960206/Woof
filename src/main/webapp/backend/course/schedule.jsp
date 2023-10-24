@@ -56,5 +56,6 @@
 <script src="${pageContext.request.contextPath}/webutil/js/jquery-3.7.1.min.js"></script>
 <script src="${pageContext.request.contextPath}/webutil/js/bootstrap.bundle.min.js"></script>
 <script src="${pageContext.request.contextPath}/backend/course/js/getSchedule.js"></script>
+<script src="${pageContext.request.contextPath}/backend/course/js/addSchedule.js"></script>
 </body>
 </html>

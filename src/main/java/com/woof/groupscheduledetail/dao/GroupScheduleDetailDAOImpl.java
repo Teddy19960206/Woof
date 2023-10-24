@@ -1,9 +1,11 @@
 package com.woof.groupscheduledetail.dao;
 
 import com.woof.groupcourseschedule.entity.GroupCourseSchedule;
+import com.woof.trainer.entity.Trainer;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -32,8 +34,10 @@ public class GroupScheduleDetailDAOImpl implements GroupScheduleDetailDAO{
     }
 
     @Override
-    public int update(GroupScheduleDetail groupScheduleDetail) {
-        getSession().merge(groupScheduleDetail);
+    public int update(Integer gcsdNo, Trainer trainer, Date classDate) {
+        GroupScheduleDetail groupScheduleDetail = getSession().get(GroupScheduleDetail.class, gcsdNo);
+        groupScheduleDetail.setTrainer(trainer);
+        groupScheduleDetail.setClassDate(classDate);
         return 1;
     }
 

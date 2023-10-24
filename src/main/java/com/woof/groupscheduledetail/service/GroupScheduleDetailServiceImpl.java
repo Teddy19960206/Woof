@@ -23,16 +23,9 @@ public class GroupScheduleDetailServiceImpl implements GroupScheduleDetailServic
         dao = new GroupScheduleDetailDAOImpl(HibernateUtil.getSessionFactory());
     }
     @Override
-    public int modify(Integer gcsdNo, Trainer trainer, Date classDate , GroupCourseSchedule groupCourseSchedule) {
-        GroupScheduleDetail groupScheduleDetail = new GroupScheduleDetail();
-        groupScheduleDetail.setGcsdNo(gcsdNo);
-        groupScheduleDetail.setTrainer(trainer);
-        groupScheduleDetail.setClassDate(classDate);
-        groupScheduleDetail.setGroupCourseSchedule(groupCourseSchedule);
+    public int modify(Integer gcsdNo, Trainer trainer, Date classDate) {
 
-        dao.update(groupScheduleDetail);
-
-        return 1;
+        return dao.update(gcsdNo , trainer , classDate);
     }
 
     @Override
@@ -60,6 +53,11 @@ public class GroupScheduleDetailServiceImpl implements GroupScheduleDetailServic
 
         GroupScheduleDetail byGcsd = dao.findByGcsd(gcsdNo);
         return dao.delete(byGcsd);
+    }
+
+    @Override
+    public GroupScheduleDetail findByGcsd(Integer gcsdNo) {
+        return dao.findByGcsd(gcsdNo);
     }
 
     @Override

@@ -110,7 +110,10 @@ public class GroupCourseServlet extends HttpServlet {
 //            異常判斷
         }
 
-        Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+        Gson gson = new GsonBuilder()
+                .excludeFieldsWithoutExposeAnnotation()
+                .setDateFormat("yyyy-MM-dd")
+                .create();
         String json = gson.toJson(groupCourseList);
         response.setContentType("application/json;charset=UTF-8");
 

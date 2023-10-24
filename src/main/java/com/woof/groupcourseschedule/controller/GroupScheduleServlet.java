@@ -99,6 +99,13 @@ public class GroupScheduleServlet extends HttpServlet {
 
         request.setAttribute("scheduleList", groupCourseScheduleList);
 
+        for (GroupCourseSchedule groupCourseSchedule : groupCourseScheduleList){
+            System.out.println(groupCourseSchedule.getGcsStart());
+            System.out.println(groupCourseSchedule.getGcsEnd());
+            System.out.println(groupCourseSchedule.getUpdatedAt());
+            System.out.println(groupCourseSchedule.getCreatedAt());
+        }
+
         return "/backend/course/schedule.jsp";
     }
 
@@ -120,7 +127,10 @@ public class GroupScheduleServlet extends HttpServlet {
         }
 
 
-        Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+        Gson gson = new GsonBuilder()
+                .excludeFieldsWithoutExposeAnnotation()
+                .setDateFormat("yyyy-MM-dd")
+                .create();
         String json = gson.toJson(groupCourseScheduleSet);
         response.setContentType("application/json;charset=UTF-8");
 
