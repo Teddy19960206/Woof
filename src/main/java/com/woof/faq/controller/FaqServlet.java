@@ -14,7 +14,7 @@ import com.woof.faq.entity.Faq;
 import com.woof.faq.service.FaqService;
 import com.woof.faq.service.FaqServiceImpl;
 
-@WebServlet("/faq")
+@WebServlet("/faq/*")
 public class FaqServlet extends HttpServlet {
 
 	private FaqService faqService;
@@ -102,14 +102,18 @@ public class FaqServlet extends HttpServlet {
 		String faqTitle = req.getParameter("faqTitle");
 		String faqContent = req.getParameter("faqContent");
 
-		int result = faqService.updateFaq(faqNo, faqClass, faqTitle, faqContent);
+		int result = faqService.updateFaq(faqNo, faqClass, faqTitle, faqContent);		
+//		req.setAttribute("result", result);
+		
+//		System.out.println(result);
 
 		if (result > 0) {
 			System.out.println("更新成功");
 		} else {
 			System.out.println("更新失敗");
 		}
-
+		
+		resp.setContentType("application/json;charset=UTF-8");
 		return "/backend/faq/faqfirst.jsp";
 	}
 
