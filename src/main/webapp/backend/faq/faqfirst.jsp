@@ -1,65 +1,52 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 
-
+<!DOCTYPE html>
 <html>
 <head>
-<title>FAQQQ</title>
+    <title>FAQ</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+    </style>
 </head>
 <body>
 
-	<h1>搜尋全部</h1>
+    <div class="container">
+        <h1>搜尋全部</h1>
+        <form method="Post">
+            <a class="btn btn-primary" href="${pageContext.request.contextPath}/faq?action=getAll">查詢所有FAQ</a>
+        </form>
 
-	<form method="Post">
-		<!--我註冊的路徑servlet   後面的getAll自己取名對應servlet-->
-		<a href="${pageContext.request.contextPath}/faq?action=getAll">查詢所有FAQ</a>
-	</form>
+        <h1>新增FAQ</h1>
+        <form method="Post" action="${pageContext.request.contextPath}/faq?action=addfaq">
+            <div class="form-group">
+                <label for="faqClass">FAQ類別：</label>
+                <input type="text" class="form-control" id="faqClass" name="faqClass" value="訂單問題">
+            </div>
+            <div class="form-group">
+                <label for="faqTitle">FAQ標題：</label>
+                <input type="text" class="form-control" id="faqTitle" name="faqTitle" value="退貨時間？">
+            </div>
+            <div class="form-group">
+                <label for="faqContent">FAQ內容：</label>
+                <input type="text" class="form-control" id="faqContent" name="faqContent" value="9點">
+            </div>
+            <button class="btn btn-success" type="submit">確定新增</button>
+            <a class="btn btn-secondary" href="${pageContext.request.contextPath}/backend/index.html">取消新增</a>
+        </form>
+    </div>
 
-
-	<h1>新增FAQ</h1>
-
-	<form method="Post"
-		action="${pageContext.request.contextPath}/faq?action=addfaq">
-
-
-		<label>FAQ類別：</label> <input type="text" name="faqClass" value="訂單問題" /><br /> 
-		<label>FAQ標題：</label> <input type="text" name="faqTitle" value="退貨時間？" /> <br /> 
-		<label>FAQ內容：</label> <input type="text" name="faqContent" value="9點" /> <input type="submit" value="確定新增" />
-		<input type="button" value="取消新增" onclick="window.location.href='${pageContext.request.contextPath}/backend/index.html'" />
-
-	</form>
-
-
-<!-- 	<h1>修改FAQ</h1> -->
-
-<!-- 	<form method="Post" -->
-<%-- 		action="${pageContext.request.contextPath}/faq?action=updatefaq"> --%>
-
-<!-- 		<label>FAQ編號：</label>  -->
-<!-- 		<input type="text" name="faqNo" /> <br />  -->
-<!-- 		<label>FAQ類別：</label> -->
-<!-- 		<input type="text" name="faqClass" /> <br />  -->
-<!-- 		<label>FAQ標題：</label>  -->
-<!-- 		<input -->
-<!-- 			type="text" name="faqTitle" /> <br />  -->
-<!-- 		<label>FAQ內容：</label> <input -->
-<!-- 			type="text" name="faqContent" />  -->
-<!-- 		<input type="submit" value="確定修改" /> -->
-<!-- 		<input type="button" value="取消修改" onclick="history.back()" /> -->
-
-<!-- 	</form> -->
-	
-	
-<!-- 		<h1>刪除FAQ</h1> -->
-
-<%-- 	<form method="Post" action="${pageContext.request.contextPath}/faq?action=deletefaq"> --%>
-		
-<!-- 		<label>FAQ編號：</label> <input type="text" name="faqNo" />  -->
-		
-<!-- 		<input type="submit" value="確定刪除" />  -->
-<!--  		<input type="button" value="取消刪除" onclick="history.back()" /> -->
- 		
-<!--    </form> -->
-
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
