@@ -67,8 +67,9 @@ public class Administrator implements Serializable {
 	private Integer adminStatus;
 
 	public Administrator() {
+		super();
 	}
-
+	
 	public Integer getAdminNo() {
 		return adminNo;
 	}

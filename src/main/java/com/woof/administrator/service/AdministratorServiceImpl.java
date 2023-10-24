@@ -19,45 +19,36 @@ public class AdministratorServiceImpl implements AdministratorService {
 
 	@Override
 	public Administrator addAdministrator(Administrator administrator) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		session.beginTransaction();
-			if (dao.insert(administrator) == 1) {
-				session.getTransaction().commit();
-				return administrator;
-			}
-			session.getTransaction().rollback();
+		Integer i = dao.insert(administrator);
+		if (i == 1) {
+			return administrator;
+		}
 		return null;
 	}
 
 	@Override
 	public Administrator updateAdministrator(Administrator administrator) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		session.beginTransaction();
-			if (dao.update(administrator) == 1) {
-				session.getTransaction().commit();
-				return administrator;
-			}
-			session.getTransaction().rollback();
+		int i = dao.update(administrator);
+		if (i == 1) {
+			return administrator;
+		}
 		return null;
 	}
 
 	@Override
 	public void deleteAdministrator(Integer adminNo) {
-		
+		dao.delete(adminNo);
 	}
 
 	@Override
 	public Administrator findAdministratorByAdminNo(Integer adminNo) {
 		Administrator administrator = dao.findByadminNo(adminNo);
 		return administrator;
-		}
+	}
 
 	@Override
 	public List<Administrator> getAllAdministrators() {
-			List<Administrator> administratorList = dao.getAll();
-			return administratorList;
-		}
+		List<Administrator> administratorList = dao.getAll();
+		return administratorList;
 	}
-
-
-
+}
