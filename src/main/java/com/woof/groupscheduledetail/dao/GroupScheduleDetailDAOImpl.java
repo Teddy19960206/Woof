@@ -28,9 +28,9 @@ public class GroupScheduleDetailDAOImpl implements GroupScheduleDetailDAO{
     @Override
     public int insert(List<GroupScheduleDetail> groupScheduleDetailSet) {
         for (GroupScheduleDetail groupScheduleDetail : groupScheduleDetailSet){
-            getSession().persist(groupScheduleDetail);
+            getSession().save(groupScheduleDetail);
         }
-            getSession().flush();
+
         return 1;
     }
 

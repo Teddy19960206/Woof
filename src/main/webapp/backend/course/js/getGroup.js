@@ -37,11 +37,11 @@ async function fetchData(){
         html = `<table class="table table-stripclassNamext-center" border="1">
         <thead>
         <tr>
-            <th>GC_NO</th>
-            <th>SKILL_NAME</th>
-            <th>COURSE_PHOTO</th>
-            <th>COURSE_CONTENT</th>
-            <th>COURSE_STATUS</th>
+            <th>課程編號</th>
+            <th>技能名稱</th>
+            <th>課程圖片</th>
+            <th>課程內容</th>
+            <th>課程狀態</th>
             <th>修改</th>
         </tr>
         </thead>
@@ -58,7 +58,7 @@ async function fetchData(){
             }
             html += `</td>
             <td>${item.courseContent}</td>
-            <td>${item.courseStatus}</td>
+            <td>${item.courseStatus == 0 ? "下架" : "<font color='red'>上架</font>"}</td>
             <td><button type="button" class="modify-button" data-id="${item.gcNo}">修改</td>
         </tr>`;
         })

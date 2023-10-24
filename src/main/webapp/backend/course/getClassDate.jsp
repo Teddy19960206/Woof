@@ -6,6 +6,7 @@
 </head>
 <body>
   <div id="trainer"></div>
+  <div id="showDate">
 
   <script src="${pageContext.request.contextPath}/webutil/js/jquery-3.7.1.min.js"></script>
   <script src="${pageContext.request.contextPath}/backend/course/js/getTrainerClassDates.js"></script>
