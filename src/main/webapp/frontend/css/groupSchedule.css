@@ -10,9 +10,10 @@ button.myBtn{
     width: 200px;
     height: 50px;
     border-radius: 10px;
-    background-color: #FCDABF;
+    background-color: #eb702a;
     border: none;
     font-size: 20px;
+    color: white;
 }
 
 button.myBtn:hover{
@@ -21,5 +22,25 @@ button.myBtn:hover{
 }
 
 h1.h5{
+    color: #eb702a;
+}
+
+.carousel-caption {
+    top: 50%;
+    transform: translateY(-50%);
+    bottom: auto;
+}
+
+ul > li{
+    list-style-type: none;
+    font-size: 1.2rem;
+}
+
+
+span{
+    color: #0b5ed7;
+}
+
+myTextColor{
     color: #eb702a;
 }
