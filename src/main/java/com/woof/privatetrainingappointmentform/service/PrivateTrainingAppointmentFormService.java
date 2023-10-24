@@ -8,11 +8,6 @@ import com.woof.trainer.entity.Trainer;
 
 public interface PrivateTrainingAppointmentFormService {
 	
-	PrivateTrainingAppointmentForm addPrivateTrainingAppointmentForm(PrivateTrainingAppointmentForm privateTrainingAppointmentForm);
-
-	
-	PrivateTrainingAppointmentForm updatePrivateTrainingAppointmentForm(PrivateTrainingAppointmentForm privateTrainingAppointmentForm);
-	
 	PrivateTrainingAppointmentForm findPrivateTrainingAppointmentFormByPtaNo(Integer ptaNo);
 	
 	List<PrivateTrainingAppointmentForm> getAllPrivateTrainingAppointmentForms();
