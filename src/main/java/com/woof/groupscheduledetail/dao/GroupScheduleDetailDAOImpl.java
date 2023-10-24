@@ -7,6 +7,7 @@ import org.hibernate.SessionFactory;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 import com.woof.groupscheduledetail.entity.GroupScheduleDetail;
@@ -53,6 +54,24 @@ public class GroupScheduleDetailDAOImpl implements GroupScheduleDetailDAO{
     }
 
     @Override
+    public List<Object[]> getByTrainer(Integer trainerNo) {
+        String hql = "SELECT gcDetail.classDate, skill.skillName , ct.ctName " +
+                "FROM Trainer as t " +
+                "JOIN t.groupScheduleDetailSet as gcDetail " +
+                "JOIN gcDetail.groupCourseSchedule as gcSchedule " +
+                "JOIN gcSchedule.groupCourse as gc " +
+                "JOIN gc.skill as skill " +
+                "JOIN gc.classType as ct " +
+                "WHERE t.trainerNo = :trainerNo";
+
+        Query<Object[]> query = getSession()
+                .createQuery(hql , Object[].class)
+                .setParameter("trainerNo",trainerNo);
+        List<Object[]> results = query.list();
+        return results;
+    }
+
+    @Override
     public List<GroupScheduleDetail> getByGroupSchedule(Integer gcsNo) {
 //        String sql = "SELECT * FROM GROUP_COURSE_SCHEDULE_DETAIL AS gcsd WHERE GCS_NO = :gcsNo";
 //        NativeQuery query = getSession().createNativeQuery(sql)
@@ -62,7 +81,9 @@ public class GroupScheduleDetailDAOImpl implements GroupScheduleDetailDAO{
 //        List results = query.list();
 
         String hql = "FROM GroupScheduleDetail AS gcsd JOIN FETCH gcsd.trainer WHERE gcsd.groupCourseSchedule.gcsNo = :gcsNo";
-        Query<GroupScheduleDetail> query = getSession().createQuery(hql, GroupScheduleDetail.class).setParameter("gcsNo", gcsNo);
+        Query<GroupScheduleDetail> query = getSession()
+                .createQuery(hql, GroupScheduleDetail.class)
+                .setParameter("gcsNo", gcsNo);
         List<GroupScheduleDetail> results = query.list();
 
         return results;

@@ -25,7 +25,7 @@ public class Administrator implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ADMIN_NO", updatable = false, nullable = false)
-	private Integer adminNo;
+	private String adminNo;
 	@Expose
 	@Column(name = "ADMIN_NAME", nullable = false)
 	private String adminName;
@@ -69,11 +69,11 @@ public class Administrator implements Serializable {
 	public Administrator() {
 	}
 
-	public Integer getAdminNo() {
+	public String getAdminNo() {
 		return adminNo;
 	}
 
-	public void setAdminNo(Integer adminNo) {
+	public void setAdminNo(String adminNo) {
 		this.adminNo = adminNo;
 	}
 
