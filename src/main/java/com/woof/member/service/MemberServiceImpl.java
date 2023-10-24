@@ -15,131 +15,87 @@ import com.woof.util.HibernateUtil;
 
 public class MemberServiceImpl implements MemberService {
 
-    private MemberDAO dao;
+	private MemberDAO dao;
 
-    public MemberServiceImpl() {
-        dao = new MemberDAOImpl(HibernateUtil.getSessionFactory());
-    }
-    
+	public MemberServiceImpl() {
+		dao = new MemberDAOImpl(HibernateUtil.getSessionFactory());
+	}
 
-
-    @Override
+	@Override
 	public int modify(Integer memNo, String memName, String memGender, byte[] memPhoto, String memEmail,
 			String memPassword, String memTel, String memAddress, Date memBd, Integer momoPoint, Integer totalClass,
 			Integer memStatus) {
-    	Member member =new Member();
-    	member.setMemAddress(memAddress);
-    	member.setMemBd(memBd);
-    	member.setMemEmail(memEmail);
-    	member.setMemGender(memGender);
-    	member.setMemName(memName);
-    	member.setMemNo(memNo);
-    	member.setMemPassword(memPassword);
-    	member.setMemStatus(memStatus);
-    	member.setMemTel(memTel);
-    	member.setMomoPoint(momoPoint);
-    	member.setMemStatus(memStatus);
-    	member.setTotalClass(totalClass);
-    	if(memPhoto !=null) {member.setMemPhoto(memPhoto);
-    	}else { member.setMemPhoto(null);
-    	}
-    	dao.update(member);
+		Member member = new Member();
+		member.setMemAddress(memAddress);
+		member.setMemBd(memBd);
+		member.setMemEmail(memEmail);
+		member.setMemGender(memGender);
+		member.setMemName(memName);
+		member.setMemNo(memNo);
+		member.setMemPassword(memPassword);
+		member.setMemStatus(memStatus);
+		member.setMemTel(memTel);
+		member.setMomoPoint(momoPoint);
+		member.setMemStatus(memStatus);
+		member.setTotalClass(totalClass);
+		if (memPhoto != null) {
+			member.setMemPhoto(memPhoto);
+		} else {
+			member.setMemPhoto(null);
+		}
+		dao.update(member);
 		return 1;
 	}
-    @Override
-	public int addMember(Integer memNo, String memName, String memGender, byte[] memPhoto, String memEmail,
-			String memPassword, String memTel, String memAddress, Date memBd, Integer momoPoint, Integer totalClass,
-			Integer memStatus) {
-    	Member member =new Member();
-    	member.setMemAddress(memAddress);
-    	member.setMemBd(memBd);
-    	member.setMemEmail(memEmail);
-    	member.setMemGender(memGender);
-    	member.setMemName(memName);
-    	member.setMemNo(memNo);
-    	member.setMemPassword(memPassword);
-    	member.setMemPhoto(memPhoto);
-    	member.setMemStatus(memStatus);
-    	member.setMemTel(memTel);
-    	member.setMomoPoint(momoPoint);
-    	member.setTotalClass(totalClass);
-    	dao.insert(member);
-		return 1;
-	}
-
-
 
 	public MemberDAO getDao() {
 		return dao;
 	}
 
-
-
 	public void setDao(MemberDAO dao) {
 		this.dao = dao;
 	}
 
-
+	@Override
+	public Member updateMember(Member member) {
+//        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+//        session.beginTransaction();
+		if (dao.update(member) == 1) {
+			return member;
+		}
+		return null;
+	}
 
 	@Override
-    public Member updateMember(Member member) {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        session.beginTransaction();
-        try {
-            if (dao.update(member) == 1) {
-                session.getTransaction().commit();
-                return member;
-            } else {
-                session.getTransaction().rollback();
-                return null;
-            }
-        } catch (Exception e) {
-            session.getTransaction().rollback();
-            throw e; 
-        }
-    }
+	public void deleteMember(Integer memNo) {
+//        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+//        session.beginTransaction();
+		if (dao.delete(memNo) == 1) {
+			return;
+		}
+	}
 
-    @Override
-    public void deleteMember(Integer memNo) {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        session.beginTransaction();
-        try {
-            if (dao.delete(memNo) == 1) {
-                session.getTransaction().commit();
-            } else {
-                session.getTransaction().rollback();
-            }
-        } catch (Exception e) {
-            session.getTransaction().rollback();
-            throw e; 
-        }
-    }
+	@Override
+	public Member findMemberByNo(Integer memNo) {
+		Member member = dao.findByMemberNo(memNo);
+		return member;
+	}
 
-    @Override
-    public Member findMemberByNo(Integer memNo) {
-    	Member member =dao.findByMemberNo(memNo);
-        return member;
-    }
+	@Override
+	public List<Member> getAllMembers() {
+		return dao.getAll();
+	}
 
-    @Override
-    public List<Member> getAllMembers() {
-    	return dao.getAll();
-    }
-    public byte[] getPhotoById(Integer memNo){
-        return findMemberByNo(memNo).getMemPhoto();
-    }
-
-
+	public byte[] getPhotoById(Integer memNo) {
+		return findMemberByNo(memNo).getMemPhoto();
+	}
 
 	@Override
 	public int getPageTotal() {
 		long total = dao.getTotal();
 
-        int pageQty = (int)(total % PAGE_MAX_RESULT == 0 ? (total / PAGE_MAX_RESULT) : (total / PAGE_MAX_RESULT + 1));
-        return pageQty;
+		int pageQty = (int) (total % PAGE_MAX_RESULT == 0 ? (total / PAGE_MAX_RESULT) : (total / PAGE_MAX_RESULT + 1));
+		return pageQty;
 	}
-
-
 
 	@Override
 	public List<Member> getMembersByCompositeQuery(Map<String, String[]> map) {
@@ -147,6 +103,22 @@ public class MemberServiceImpl implements MemberService {
 		return null;
 	}
 
-
+	@Override
+	public int addMember(String memName, String memGender, String memEmail, String memPassword, String memTel,
+			String memAddress, Date memBd, Integer momoPoint, Integer totalClass, Integer memStatus) {
+		Member member = new Member();
+		member.setMemAddress(memAddress);
+		member.setMemBd(memBd);
+		member.setMemEmail(memEmail);
+		member.setMemGender(memGender);
+		member.setMemName(memName);
+		member.setMemPassword(memPassword);
+		member.setMemStatus(memStatus);
+		member.setMemTel(memTel);
+		member.setMomoPoint(momoPoint);
+		member.setTotalClass(totalClass);
+		dao.insert(member);
+		return 1;
+	}
 }
 //
