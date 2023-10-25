@@ -25,6 +25,13 @@
 
 
 	<dependencies>
+		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-pool2 -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-pool2</artifactId>
+			<version>2.12.0</version>
+		</dependency>
+
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -82,16 +89,6 @@
 			<version>2.10.1</version>
 		</dependency>
 
-		<dependency>
-			<groupId>com.tibame</groupId>
-			<artifactId>Spring_0201_AOP_Introduction</artifactId>
-			<version>1.0.0</version>
-		</dependency>
-		<dependency>
-			<groupId>idv.david</groupId>
-			<artifactId>HibernateEx</artifactId>
-			<version>1.0</version>
-		</dependency>
 		
 		<!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
 		<dependency>
