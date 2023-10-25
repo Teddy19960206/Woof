@@ -52,6 +52,22 @@ public class GroupCourseScheduleDAOImpl implements GroupCourseScheduleDAO{
     }
 
     @Override
+    public List<GroupCourseSchedule> getListSchedule(Integer classType , Integer status) {
+
+        String hql = "FROM GroupCourseSchedule gcs WHERE gcs.groupCourse.classType.ctNo = :ctNo and gcs.gcsStatus = :status";
+
+        Query<GroupCourseSchedule> query = getSession().createQuery(hql , GroupCourseSchedule.class);
+        query.setParameter("ctNo" , classType);
+        query.setParameter("status" , status);
+
+
+        List<GroupCourseSchedule> list = query.list();
+
+
+        return list;
+    }
+
+    @Override
     public List<GroupCourseSchedule> getAllbyClassType(Integer ctNo) {
 
 //      原生 sql 無法對物件，僅可明確指定

@@ -86,8 +86,6 @@ public class GroupScheduleDetailServlet extends HttpServlet {
         List<GroupScheduleDetail> byGroupSchedule = groupScheduleDetailService1.getByGroupSchedule(gcsNo);
 
 
-
-
         Gson gson = new GsonBuilder()
                 .excludeFieldsWithoutExposeAnnotation()
                 .setDateFormat("yyyy-MM-dd")

@@ -19,6 +19,8 @@ public interface GroupCourseScheduleDAO {
 
     List<GroupCourseSchedule> getAll();
 
+    List<GroupCourseSchedule> getListSchedule(Integer classType , Integer status);
+
 
     List<GroupCourseSchedule> getAllbyClassType(Integer ctNo);
 }

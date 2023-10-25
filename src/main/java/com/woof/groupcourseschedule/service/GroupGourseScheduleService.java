@@ -17,4 +17,6 @@ public interface GroupGourseScheduleService {
     List<GroupCourseSchedule> getAll();
     List<GroupCourseSchedule> getGroupScheduleByCtNo(Integer ctNo);
 
+    List<GroupCourseSchedule> getListSchedule(Integer classType , Integer status);
+
 }
