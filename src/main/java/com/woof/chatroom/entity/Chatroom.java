@@ -25,7 +25,7 @@ public class Chatroom {
 	
 	@Expose
 	@Column(name = "MEM_NO", nullable = false)
-	private Integer memNo;
+	private String memNo;
 	
 	@Expose
 	@Column(name = "CHAT_MSG_DIRECT", nullable = false, columnDefinition = "TINYINT")
@@ -46,7 +46,7 @@ public class Chatroom {
 	public Chatroom() {
 	}
 
-	public Chatroom(Integer roomNo, Integer memNo, Integer chatMsgDirect, Timestamp chatMsgTime, String chatMsgContext,
+	public Chatroom(Integer roomNo, String memNo, Integer chatMsgDirect, Timestamp chatMsgTime, String chatMsgContext,
 			byte[] chatMsgPhoto) {
 		super();
 		this.roomNo = roomNo;
@@ -66,11 +66,11 @@ public class Chatroom {
 		this.roomNo = roomNo;
 	}
 
-	public Integer getMemNo() {
+	public String getMemNo() {
 		return memNo;
 	}
 
-	public void setMemNo(Integer memNo) {
+	public void setMemNo(String memNo) {
 		this.memNo = memNo;
 	}
 
