@@ -160,7 +160,7 @@ public class MemberServlet extends HttpServlet {
 		member.setMomoPoint(Integer.valueOf(req.getParameter("momoPoint")));
 		member.setTotalClass(Integer.valueOf(req.getParameter("totalClass")));
 		member.setMemStatus(Integer.valueOf(req.getParameter("memStatus")));
-//		memberService.updateMember(member);
+		memberService.updateMember(member);
 //		res.sendRedirect(req.getContextPath() + "/frontend/member/list_all_member.jsp");
 		// 導到指定的URL 頁面上 把請求回應都帶過去
         System.out.println(req.getParameter("memNo")+"================");
@@ -205,7 +205,7 @@ public class MemberServlet extends HttpServlet {
 		// 轉發到適當的 JSP 頁面以顯示 Member 資料
 //		req.getRequestDispatcher("/frontend/member/list_one_member.jsp").forward(req, res);
 		// 導到指定的URL 頁面上 把請求回應都帶過去
-		String url = req.getContextPath() + "/frontend/member/list__member.jsp";
+		String url = req.getContextPath() + "/frontend/member/list_one_member.jsp";
 		req.setCharacterEncoding("UTF-8");
 		res.sendRedirect(url);
 	}

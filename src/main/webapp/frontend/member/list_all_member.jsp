@@ -45,6 +45,12 @@ th, td {
 	padding: 5px;
 	text-align: center;
 }
+.delete-btn {
+    width: 50px; /* or whatever width you want */
+}
+.update-btn {
+    width: 50px; /* or whatever width you want */
+}
 </style>
 
 </head>
@@ -97,9 +103,10 @@ th, td {
 					<form method="post"
 						action="${pageContext.request.contextPath}/member.do"
 						style="margin-bottom: 0px;">
-						<input type="hidden" name="action" value="processupdate"> 
+						<input type="hidden" name="action" value="update"> 
 						<input type="hidden" name="memNo" value="${member.memNo}"> 
-						<button type="submit">修改</button>
+						<input type="button" class="update-btn" value="修改" onclick="processUpdate({memNo:'${member.memNo}'});">
+						
 					</form>
 				</td>
 				<td>
@@ -108,8 +115,7 @@ th, td {
 						style="margin-bottom: 0px;">
 						<input type="hidden" name="action" value="delete" >
 						<input type="hidden" name="memNo" value="${member.memNo}"> 
-						
-						<button type="submit">刪除</button>
+						<button type="submit" class="delete-btn" >刪除</button>
 					</FORM>
 				</td>
 			</tr>

@@ -172,8 +172,8 @@ th, td {
 			</tr>
 		</table>
 		<br> <input type="hidden" name="action" value="insert"> <input
-			type="submit" value="新增">
-		<button type="button" onclick="history.back()">取消新增</button>
+			type="submit" value="更新">
+		<button type="button" onclick="history.back()">取消更新</button>
 	</form>
 </body>
 </html>

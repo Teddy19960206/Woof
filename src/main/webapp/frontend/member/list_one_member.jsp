@@ -98,8 +98,8 @@ th, td {
 			<form method="post"
 						action="${pageContext.request.contextPath}/member.do"
 						style="margin-bottom: 0px;">
-						<input type="hidden" name="action" value="update">
-						<input type="hidden" name="memNo" value="${member.memNo}">  
+						<input type="hidden" name="action" value="processupdate"> 
+						<input type="hidden" name="memNo" value="${member.memNo}"> 
 						<button type="submit">н╫зя</button>
 					</form>
 					
