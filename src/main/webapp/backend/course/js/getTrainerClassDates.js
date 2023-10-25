@@ -64,7 +64,6 @@ async function fetchTrainerDetails(trainerId){
         }
         const data = await response.json();
 
-        console.log(data)
         return data;
 
     }catch (error){
@@ -74,11 +73,24 @@ async function fetchTrainerDetails(trainerId){
 
 function showDetails(data){
     html =
-        `<table>
+        `<table border="1">
             <thead>
                 <tr>
+                    <th>班別</th>
+                    <th>課程</th>
                     <th>上課日期</th>
                 </tr>
             </thead>
-        </table>`
+            <tbody>`;
+            data.forEach((item)=>{
+                html+= `<tr>
+                    <td>${item[2]}</td>
+                    <td>${item[1]}</td>
+                    <td>${item[0]}</td>
+                </tr>`
+            })
+
+    html+= `</tbody></table>`;
+
+    $("div#showDate").html(html);
 }
