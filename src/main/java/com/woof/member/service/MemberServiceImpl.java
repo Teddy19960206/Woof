@@ -22,7 +22,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public int modify(Integer memNo, String memName, String memGender, byte[] memPhoto, String memEmail,
+	public int modify(String memNo, String memName, String memGender, byte[] memPhoto, String memEmail,
 			String memPassword, String memTel, String memAddress, Date memBd, Integer momoPoint, Integer totalClass,
 			Integer memStatus) {
 		Member member = new Member();
