@@ -3,17 +3,13 @@
     font-weight: 700;
 }
 
-body {
-    color: #F8EEE6;
-}
-
 a {
     text-decoration: none;
 }
 
 .bg-color{
-    /* width: 230px; */
-    height: 700px;
+    width: 250px;
+    height: 800px;
     background-color: #F8EEE6;
   }
 
@@ -79,13 +75,13 @@ li.sidebar-item a.sidebar-link2 {
   }
 
 .sidebar-item {
-    transition: background-color 0.2s; /* 添加過渡效果，使顏色變化平滑 */
+    transition: background-color 0.2s; 
     border-radius: 10px;
 }
 
 .sidebar-item:hover {
-    background-color: rgba(143, 143, 143, 0.1); /* 設置懸停時的背景顏色透明度 */
-    cursor: pointer; /* 更改鼠標游標以指示可單擊 */
+    background-color: rgba(143, 143, 143, 0.1); 
+    cursor: pointer; 
 }
 
 .btn:hover {
