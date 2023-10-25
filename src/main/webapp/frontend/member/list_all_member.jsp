@@ -90,20 +90,18 @@ th, td {
 				<td>
 
 					<form method="post"
-						action="${pageContext.request.contextPath}/member"
+						action="${pageContext.request.contextPath}/member.do"
 						style="margin-bottom: 0px;">
-						<input type="submit" value="修改"> <input type="hidden"
-							name="empno" value="${member.memNo}"> <input
-							type="hidden" name="action" value="getOne_For_Update">
+						<input type="hidden" name="action" value="update"> 
+						<button type="submit">修改</button>
 					</form>
 				</td>
 				<td>
 					<FORM METHOD="POST"
-						ACTION="<%=request.getContextPath()%>/member"
+						ACTION="<%=request.getContextPath()%>/member.do"
 						style="margin-bottom: 0px;">
-						<input type="submit" value="刪除"> <input type="hidden"
-							name="empno" value="${member.memNo}"> <input
-							type="hidden" name="action" value="delete">
+						<input type="hidden" name="action" value="delete">
+						<button type="submit">刪除</button>
 					</FORM>
 				</td>
 			</tr>

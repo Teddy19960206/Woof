@@ -1,7 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.woof.member.*"%>
-
 <html>
 <head>
 <!-- 日期的套版 -->
@@ -12,7 +11,7 @@
 <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <meta charset="UTF-8">
-<title>員工資料新增 - addEmp.jsp</title>
+<title>員工資料新增 - addmember.jsp</title>
 <script>
       //日期格式
     $(function() {
@@ -61,7 +60,7 @@ th, td {
 	<table id="table-1">
 		<tr>
 			<td>
-				<h3>會員資料新增 - addEmp.jsp</h3>
+				<h3>會員資料新增 - addmember.jsp</h3>
 			</td>
 			<td>
 				<h4>
@@ -72,23 +71,12 @@ th, td {
 	</table>
 
 	<h3>資料新增:</h3>
-
-	<%-- 錯誤表列 --%>
-	<%-- <c:if test="${not empty errorMsgs}"> --%>
-	<!-- 	<font style="color:red">請修正以下錯誤:</font> -->
-	<!-- 	<ul> -->
-	<%-- 		<c:forEach var="message" items="${errorMsgs}"> --%>
-	<%-- 			<li style="color:red">${message.value}</li> --%>
-	<%-- 		</c:forEach> --%>
-	<!-- 	</ul> -->
-	<%-- </c:if> --%>
-
-	<form method="POST" ACTION="${pageContext.request.contextPath}/member">
+	<!-- request.getContextPath()動態根路徑，action=update找到後端switch(action)的add-->
+	<form method="post" action="${pageContext.request.contextPath}/member.do" enctype="multipart/form-data"  accept-charset="UTF-8">
 		<table>
 			<tr>
 				<td>會員姓名:</td>
-				<td><input type="TEXT" name="memname" id="memname"
-					size="45" /></td>
+				<td><input type="TEXT" name="memName" id="memName" size="45" /></td>
 				<td>${errorMsgs.memName}</td>
 			</tr>
 			<tr>
@@ -99,55 +87,53 @@ th, td {
 			</tr>
 			<tr>
 				<td>email:</td>
-				<td><input type="TEXT" name="memEmail"
-					id="memEmail" placeholder="XXX@gmail.com" size="45"></td>
+				<td><input type="TEXT" name="memEmail" id="memEmail"
+					placeholder="XXX@gmail.com" size="45"></td>
 				<td>${errorMsgs.memEmail}</td>
 			</tr>
 			<tr>
 				<td>密碼:</td>
-				<td><input type="TEXT" name="memPassword"
-					id="memPassword" size="45" /></td>
+				<td><input type="password" name="memPassword" id="memPassword"
+					size="45" /></td>
 				<td>${errorMsgs.memPassword}</td>
 			</tr>
 			<tr>
 				<td>電話:</td>
-				<td><input type="TEXT" name="memTel" id="memTel"
-					size="45" /></td>
+				<td><input type="TEXT" name="memTel" id="memTel" size="45" /></td>
 				<td>${errorMsgs.memTel}</td>
 			</tr>
 			<tr>
 				<td>地址:</td>
-				<td><input type="TEXT" name="memAdress"
-					id="memAdress" size="45" /></td>
+				<td><input type="TEXT" name="memAddress" id="memAddress"
+					size="45" /></td>
 				<td>${errorMsgs.memAdress}</td>
 			</tr>
 			<tr>
 				<td>生日:</td>
-				<td><input type="TEXT" name="memBd" id="memBd"
-					size="45" /></td>
+				<td><input type="TEXT" name="memBd" id="memBd" size="45" /></td>
 				<td>${errorMsgs.memBd}</td>
 			</tr>
 			<tr>
 				<td>毛毛幣:</td>
-				<td><input type="TEXT" name="momoPoint"
-					id="momoPoint" size="45" /></td>
+				<td><input type="TEXT" name="momoPoint" id="momoPoint"
+					size="45" /></td>
 				<td>${errorMsgs.momoPoint}</td>
 			</tr>
 			<tr>
 				<td>總堂數:</td>
-				<td><input type="TEXT" name="totalClass"
-					id="totalClass" size="45" /></td>
+				<td><input type="TEXT" name="totalClass" id="totalClass"
+					size="45" /></td>
 				<td>${errorMsgs.totalClass}</td>
 			</tr>
 			<tr>
 				<td>狀態:</td>
-				<td><input type="radio" name="memStatus" value="0">停權
-					<input type="radio" name="memStatus" value="1" checked>正常</td>
+				<td><input type="radio" name="memStatus" value="0">停權 <input
+					type="radio" name="memStatus" value="1" checked>正常</td>
 				<td>${errorMsgs.memStatus}</td>
 			</tr>
 		</table>
-		<br> <input type="hidden" name="action" value="insert"> <input
-			type="submit" value="新增">
+		<input type ="hidden" name="action" value ="add">
+		<button type="submit">新增</button>
 		<button type="button" onclick="history.back()">取消新增</button>
 	</form>
 </body>

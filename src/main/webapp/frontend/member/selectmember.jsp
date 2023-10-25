@@ -4,7 +4,6 @@
 <html>
 <head>
 <title>Member</title>
-
 <style>
 table#table-1 {
 	width: 450px;
@@ -47,9 +46,9 @@ h4 {
 			class="com.woof.member.service.MemberServiceImpl" />
 
 		<li><form method="POST"
-				ACTION="${pageContext.request.contextPath}/member">
+				ACTION="${pageContext.request.contextPath}/member.do">
 				<b>選擇會員編號:</b> 
-				<select name="action" id="selectMember">
+				<select name="action" id="getone">
 					<c:forEach var="member" items="${memberService.allMembers}">
 						<option
 							value="${member.memNo} ${member.memGender} ${member.memPhoto} ${member.memEmail} ${member.memTel} ${member.memPassword} ${member.memAddress} ${member.memBd} ${member.momoPoint} ${member.totalClass} ${member.memStatus}">${member.memNo}</option>
@@ -57,12 +56,12 @@ h4 {
 				</select> 
 				<input type="submit" value="送出">
 			</form></li>
-
+			
 		<li><form method="POST"
-				ACTION="${pageContext.request.contextPath}/member">
+				ACTION="${pageContext.request.contextPath}/member.do">
 				<b>選擇會員姓名:</b>
 				<select
-					name="action" id="selectMember">
+					name="action" id="getone">
 					<c:forEach var="member" items="${memberService.allMembers}">
 						<option
 							value="${member.memNo} ${member.memGender} ${member.memPhoto} ${member.memEmail} ${member.memTel} ${member.memPassword} ${member.memAddress} ${member.memBd} ${member.momoPoint} ${member.totalClass} ${member.memStatus}">${member.memName}</option>

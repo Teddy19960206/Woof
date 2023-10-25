@@ -45,13 +45,11 @@ public class MemberDAOImpl implements MemberDAO {
 
 	@Override
 	public Member findByMemberNo(Integer memNo) {
-		// TODO Auto-generated method stub
 		return getSession().get(Member.class, memNo);
 	}
 
 	@Override
 	public List<Member> getAll() {
-		// TODO Auto-generated method stub
 		return getSession().createQuery("FROM Member", Member.class).list();
 	}
 
@@ -62,7 +60,6 @@ public class MemberDAOImpl implements MemberDAO {
 
 	@Override
 	public List<Member> getByCompositeQuery(Map<String, String> map) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 }
