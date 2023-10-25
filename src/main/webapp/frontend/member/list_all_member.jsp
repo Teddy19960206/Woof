@@ -4,7 +4,12 @@
 <head>
 <meta charset="UTF-8">
 <title>會員資料</title>
-
+<script type="text/javascript">
+//表單點擊找出對應的function
+  function processUpdate(jsonData){
+	  window.location.href = " <%=request.getContextPath()%>/frontend/member/updatemember.jsp?memNo=" + jsonData.memNo ;
+  }
+</script>
 <style>
 table#table-1 {
 	background-color: #CCCCFF;
@@ -92,7 +97,8 @@ th, td {
 					<form method="post"
 						action="${pageContext.request.contextPath}/member.do"
 						style="margin-bottom: 0px;">
-						<input type="hidden" name="action" value="update"> 
+						<input type="hidden" name="action" value="processupdate"> 
+						<input type="hidden" name="memNo" value="${member.memNo}"> 
 						<button type="submit">修改</button>
 					</form>
 				</td>
@@ -100,7 +106,9 @@ th, td {
 					<FORM METHOD="POST"
 						ACTION="<%=request.getContextPath()%>/member.do"
 						style="margin-bottom: 0px;">
-						<input type="hidden" name="action" value="delete">
+						<input type="hidden" name="action" value="delete" >
+						<input type="hidden" name="memNo" value="${member.memNo}"> 
+						
 						<button type="submit">刪除</button>
 					</FORM>
 				</td>

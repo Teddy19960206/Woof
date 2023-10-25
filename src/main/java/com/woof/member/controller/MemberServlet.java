@@ -40,7 +40,6 @@ public class MemberServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
-		res.getWriter().println(action);
 
 		String forwardPath = "";
 		if (action != null) {
@@ -83,16 +82,16 @@ public class MemberServlet extends HttpServlet {
 			}
 		}
 		req.getRequestDispatcher(forwardPath).forward(req, res);
-		res.getWriter().println(action);
 	}
 
 	private void processQuery(HttpServletRequest req, HttpServletResponse res) throws IOException {
-		Member member = memberService.findMemberByNo(Integer.valueOf(req.getParameter("MEM_NO")));
+		Member member = memberService.findMemberByNo(Integer.valueOf(req.getParameter("memNo")));
 
 		res.setCharacterEncoding("UTF-8");
-		Gson gson = new Gson();
-		String str = gson.toJson(member);
+		Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
 
+		String str = gson.toJson(member);
+//		System.out.println(str);
 		// 回應給前端
 		PrintWriter out = res.getWriter();
 		out.write(str);
@@ -136,32 +135,44 @@ public class MemberServlet extends HttpServlet {
 	private void updateMember(HttpServletRequest req, HttpServletResponse res)
 			throws ParseException, IOException, ServletException {
 		Member member = new Member();
+//		req.setAttribute(getServletName(), member);
+		member = memberService.findMemberByNo(Integer.valueOf(req.getParameter("memNo")));
+		member.setMemNo(Integer.valueOf(req.getParameter("memNo")));
 		member.setMemName(req.getParameter("memName"));
 		member.setMemGender(req.getParameter("memGender"));
 		member.setMemEmail(req.getParameter("memEmail"));
 		member.setMemPassword(req.getParameter("memPassword"));
 		member.setMemTel(req.getParameter("memTel"));
 		member.setMemAddress(req.getParameter("memAddress"));
-		// java.sql的日期寫法
-		Date date = null;
-		try {
-			date = new SimpleDateFormat("yyyy-MM-dd").parse(req.getParameter("memBd"));
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-
-		java.sql.Date sqlDate = new java.sql.Date(date.getTime());
-		member.setMemBd(sqlDate);
+		 String memBdString = req.getParameter("memBd");
+		    if (memBdString != null && !memBdString.isEmpty()) {
+		        try {
+		            Date date = new SimpleDateFormat("yyyy-MM-dd").parse(memBdString);
+		            java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+		            member.setMemBd(sqlDate);
+		        } catch (ParseException e) {
+		            e.printStackTrace();
+		            req.setAttribute("dateError", "The provided date is invalid.");
+		        }
+		    } else {
+		    	 req.setAttribute("memBd=null", memBdString);
+		    }
 		member.setMomoPoint(Integer.valueOf(req.getParameter("momoPoint")));
 		member.setTotalClass(Integer.valueOf(req.getParameter("totalClass")));
 		member.setMemStatus(Integer.valueOf(req.getParameter("memStatus")));
-		memberService.updateMember(member);
+//		memberService.updateMember(member);
 //		res.sendRedirect(req.getContextPath() + "/frontend/member/list_all_member.jsp");
 		// 導到指定的URL 頁面上 把請求回應都帶過去
-		String url = "/frontend/member/list_all_member.jsp";
-		req.setCharacterEncoding("UTF-8");
-		RequestDispatcher rd = req.getRequestDispatcher(url);
-		rd.forward(req, res);
+        System.out.println(req.getParameter("memNo")+"================");
+
+//		req.setCharacterEncoding("UTF-8");
+//		res.setCharacterEncoding("UTF-8");
+//		req.setAttribute("memNo", req.getParameter("memNo"));
+		String url = req.getContextPath() + "/frontend/member/updatemember.jsp";
+		res.sendRedirect(url);
+//		res.setContentType("text/html; charset=UTF-8");
+//		RequestDispatcher dispatcher = req.getRequestDispatcher("/frontend/member/updatemember.jsp");
+//		dispatcher.forward(req, res);
 	}
 
 	private void getOne(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -194,20 +205,18 @@ public class MemberServlet extends HttpServlet {
 		// 轉發到適當的 JSP 頁面以顯示 Member 資料
 //		req.getRequestDispatcher("/frontend/member/list_one_member.jsp").forward(req, res);
 		// 導到指定的URL 頁面上 把請求回應都帶過去
-		String url = "/frontend/member/list_one_member.jsp";
+		String url = req.getContextPath() + "/frontend/member/list__member.jsp";
 		req.setCharacterEncoding("UTF-8");
-		RequestDispatcher rd = req.getRequestDispatcher(url);
-		rd.forward(req, res);
+		res.sendRedirect(url);
 	}
 
 	private void deleteMember(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.getParameter("memNo");
 		memberService.deleteMember(Integer.valueOf(req.getParameter("memNo")));
 		// 導到指定的URL 頁面上 把請求回應都帶過去
-		String url = "/frontend/member/list_all_member.jsp";
+		String url = req.getContextPath() + "/frontend/member/list_all_member.jsp";
 		req.setCharacterEncoding("UTF-8");
-		RequestDispatcher rd = req.getRequestDispatcher(url);
-		rd.forward(req, res);
+		res.sendRedirect(url);
 	}
 
 	private String getAllmembers(HttpServletRequest req, HttpServletResponse res) throws IOException {

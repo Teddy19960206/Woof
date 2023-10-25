@@ -98,15 +98,16 @@ th, td {
 			<form method="post"
 						action="${pageContext.request.contextPath}/member.do"
 						style="margin-bottom: 0px;">
-						<input type="hidden" name="action" value="update"> 
+						<input type="hidden" name="action" value="update">
+						<input type="hidden" name="memNo" value="${member.memNo}">  
 						<button type="submit">­×§ï</button>
 					</form>
-				</td>
-				<td>
-					<FORM METHOD="POST"
+					
+					<FORM METHOD="post"
 						ACTION="<%=request.getContextPath()%>/member.do"
 						style="margin-bottom: 0px;">
 						<input type="hidden" name="action" value="delete">
+						<input type="hidden" name="memNo" value="${member.memNo}"> 
 						<button type="submit">§R°£</button>
 					</FORM>
 </body>

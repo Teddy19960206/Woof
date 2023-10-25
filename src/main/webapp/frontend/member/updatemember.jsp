@@ -1,3 +1,4 @@
+<%@page import="org.hibernate.internal.build.AllowSysOut"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
@@ -9,6 +10,7 @@
 	rel="stylesheet">
 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <meta charset="UTF-8">
 <title>所有員工資料 - updatemember.jsp</title>
@@ -17,28 +19,28 @@ $(document).ready(function(){
     $.ajax({
         //指定http參數傳輸格式為POST
         type : "POST",
-        data : {MemNO : <%=request.getParameter("memNo")%>},
+
+        data : {memNo : <%=request.getParameter("memNo")%>},
         //請求目標的url
-        url : "<%=request.getContextPath()%>
-	/member?action=query",
+        url : "<%=request.getContextPath()%>/member.do?action=query",
 					//Ajax成功後執行的function，response為回傳的值
 					success : function(data) {
 						var jsonObj = JSON.parse(data);
 						console.log(jsonObj)
-						$('#MEM_NAME').val(jsonObj.memName);
+						$('#memName').val(jsonObj.memName);
 						$(
-								'input[name=MEM_GENDER][value='
+								'input[name=memGender][value='
 										+ jsonObj.memGender + ']').prop(
 								'checked', true);
-						$('#MEM_EMAIL').val(jsonObj.memEmail);
-						$('#MEM_PASSWORD').val(jsonObj.memPassword);
-						$('#MEM_TEL').val(jsonObj.memTel);
-						$('#MEM_ADDRESS').val(jsonObj.memAddress);
-						$('#MEM_TOTALCLASS').val(jsonObj.memTotalclass);
-						$('#MEM_MOMOPOINT').val(jsonObj.momoPoint);
-						$('#MEM_BD').val(jsonObj.memBd);
+						$('#memEmail').val(jsonObj.memEmail);
+						$('#memPassword').val(jsonObj.memPassword);
+						$('#memTel').val(jsonObj.memTel);
+						$('#memAddress').val(jsonObj.memAddress);
+						$('#memTotalclass').val(jsonObj.totalClass);
+						$('#momoPoint').val(jsonObj.momoPoint);
+						$('#memBd').val(jsonObj.memBd);
 						$(
-								'input[name=MEM_STATUS][value='
+								'input[name=memStatus][value='
 										+ jsonObj.memStatus + ']').prop(
 								'checked', true);
 					},
@@ -93,9 +95,9 @@ th, td {
 
 </head>
 <body bgcolor='white'>
-<!--request.getContextPath()動態根路徑，action=update找到後端switch(action)的update-->
- <form method="post" action="<%=request.getContextPath()%>/member.do?action=update">
-  <input type="hidden" name="member" id="member" value='<%= request.getParameter("MEM_NO")%>'>
+	<!--request.getContextPath()動態根路徑，action=update找到後端switch(action)的update-->
+	<input type="hidden" name="member" id="member"
+		value='<%=request.getParameter("memNo")%>'>
 	<table id="table-1">
 		<tr>
 			<td>
@@ -107,10 +109,13 @@ th, td {
 		</tr>
 	</table>
 	<h3>資料更新:</h3>
+	<form method="post"
+		action="${pageContext.request.contextPath}/member.do"
+		enctype="multipart/form-data" accept-charset="UTF-8">
 		<table>
 			<tr>
 				<td>會員姓名:</td>
-				<td><input type="TEXT" name="memname" id="memname" size="45" /></td>
+				<td><input type="TEXT" name="memName" id="memName" size="45" /></td>
 				<td>${errorMsgs.memName}</td>
 			</tr>
 			<tr>
@@ -127,7 +132,7 @@ th, td {
 			</tr>
 			<tr>
 				<td>密碼:</td>
-				<td><input type="TEXT" name="memPassword" id="memPassword"
+				<td><input type="password" name="memPassword" id="memPassword"
 					size="45" /></td>
 				<td>${errorMsgs.memPassword}</td>
 			</tr>
@@ -138,7 +143,7 @@ th, td {
 			</tr>
 			<tr>
 				<td>地址:</td>
-				<td><input type="TEXT" name="memAdress" id="memAdress"
+				<td><input type="TEXT" name="memAddress" id="memAddress"
 					size="45" /></td>
 				<td>${errorMsgs.memAdress}</td>
 			</tr>
@@ -168,8 +173,7 @@ th, td {
 		</table>
 		<br> <input type="hidden" name="action" value="insert"> <input
 			type="submit" value="新增">
-		<!--   點擊取消後跳轉回去首頁 -->
-  <input  type="button" onclick="window.location.href='<%=request.getContextPath()%>/frontend/member/selectmember.jsp'" value="取消">
+		<button type="button" onclick="history.back()">取消新增</button>
 	</form>
 </body>
 </html>
