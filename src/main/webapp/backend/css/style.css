@@ -59,17 +59,6 @@ li.sidebar-item a.sidebar-link2 {
     transition: all .2s ease-out;
 }
 
-/* .sidebar-link[data-bs-toggle="collapse"].collapsed::after { */
-    /* transform: rotate(45deg); */
-    /* transition: all .2s ease-out; */
-/* } */
-
-
-/* .dropdown-menu { */
-    /* background-color: #F79B66; */
-    /* max-width: 10px; */
-/* } */
-
 .text-color {
     color: #FF5733; 
   }
@@ -88,3 +77,11 @@ li.sidebar-item a.sidebar-link2 {
     background-color: #8a8a8a;
     color: white;
 }
+
+/* 懸停時文字颜色 */
+.sidebar-item a.sidebar-link2:hover {
+    color: #626262; 
+    border-left: 2px solid #626262;
+}
+
+
