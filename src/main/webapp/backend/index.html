@@ -15,10 +15,10 @@
 <body>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-3 bg-color ">
-                <aside id="sidebar">
-                    <img src="images/logo.png" width="220" />
-                    <ul class="sidebar-nav">
+            <div class="col-md-3 bg-color p-0 ">
+                <aside id="sidebar" class="position-sticky top-0">
+                    <img src="images/logo.png" width="220" class="text-center">
+                    <ul class="sidebar-nav p-0">
                         <li class="sidebar-item">
                             <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#mem"
                                 aria-expanded="false" aria-controls="mem">
@@ -114,32 +114,35 @@
                 </aside>
             </div>
 
-            <div class="col-md-9 bg-light p-1"
-                style="box-shadow: 0 6px 2px -2px rgba(126, 126, 126, 0.2); height: 80px; position: sticky; top: 0;">
-                <!-- <h1>這是頂部</h1> -->
-                <div style="position: absolute; bottom: 0; right: 0; text-align: right; padding: 5px; ">
-                    <img src="images/happy.png" width="30">
-                    <span style="color: rgb(80, 80, 80);">超级管理員</span>
-                    <a href="#" class="btn" style="background-color: #a5a5a5; font-family: 'Noto Sans TC', sans-serif;
-                    font-weight: 700; border: 1px solid rgb(80, 80, 80);">登出</a>
+            <div class="col-md p-0 ">
+                <div class="col-md-12 bg-light"
+                    style="height: 100px; box-shadow: 0 6px 2px -2px rgba(126, 126, 126, 0.2); height: 80px; position: sticky; top: 0;">
+                    <!-- <h1>這是頂部</h1> -->
+                    <div style="position: absolute; bottom: 0; right: 0; text-align: right; padding: 5px; ">
+                        <img src="images/happy.png" width="30">
+                        <span style="color: rgb(80, 80, 80);">超级管理員</span>
+                        <a href="#" class="btn"
+                            style="background-color: #FABA91; font-family: 'Noto Sans TC', sans-serif; font-weight: 700; ">登出</a>
+                    </div>
                 </div>
+
+
+                <!-- 這邊是讓大家放上自己要秀出來的內容 -->
+
+                <div class="col-md text-center">
+                    <div class="position-relative"></div>
+                    <img src="images/pexels-anna-shvets-4587992.jpg" alt="寵毛導師後台首頁" width="250">
+                    <div class="position-absolute top-50 start-50 translate-middle text-center"></div>
+                    <h2>歡迎寵毛導師的後台</h2>
+                    <p>大家的功能請放在這邊</p>
+                </div>
+
+                <!-- 這邊是讓大家放上自己要秀出來的內容 -->
+
+
             </div>
-            
-
-
         </div>
-
-
-
-        
-
     </div>
-
-
-
-
-
-
     </div>
 
     <script src="js/bootstrap.bundle.min.js"></script>
