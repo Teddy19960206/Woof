@@ -66,7 +66,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public void deleteMember(Integer memNo) {
+	public void deleteMember(String memNo) {
 //        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 //        session.beginTransaction();
 		if (dao.delete(memNo) == 1) {
@@ -75,7 +75,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public Member findMemberByNo(Integer memNo) {
+	public Member findMemberByNo(String memNo) {
 		Member member = dao.findByMemberNo(memNo);
 		return member;
 	}
@@ -85,7 +85,7 @@ public class MemberServiceImpl implements MemberService {
 		return dao.getAll();
 	}
 
-	public byte[] getPhotoById(Integer memNo) {
+	public byte[] getPhotoById(String memNo) {
 		return findMemberByNo(memNo).getMemPhoto();
 	}
 

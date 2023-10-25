@@ -56,8 +56,8 @@
 	<table border=1>
 		<tr>
 			<th>私人訓練預約單編號</th>
-			<th>會員編號</th>
-			<th>訓練師編號</th>
+			<th>會員名稱</th>
+			<th>訓練師名稱</th>
 			<th>預約堂數</th>
 		</tr>
 
@@ -65,8 +65,8 @@
 		
 			<tr>
 				<td>${pta.ptaNo}</td>
-				<td>${pta.member.memNo}</td>
-				<td>${pta.trainer.trainerNo}</td>
+				<td>${pta.member.memName}</td>
+				<td>${pta.trainer.administrator.adminName}</td>
 				<td>${pta.ptaClass}</td>
 <!-- 				<td> -->
 

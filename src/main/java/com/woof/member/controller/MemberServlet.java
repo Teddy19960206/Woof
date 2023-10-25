@@ -101,10 +101,10 @@ public class MemberServlet extends HttpServlet {
 	private void getOne(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		// 從請求中取得 memNo
 		String memNoStr = req.getParameter("memNo");
-		Integer memNo = null;
+		String memNo = null;
 
 		try {
-			memNo = Integer.parseInt(memNoStr);
+			memNo = memNoStr;
 		} catch (NumberFormatException e) {
 			// 可以進行異常處理，例如轉發到錯誤頁面
 			req.setAttribute("errorMessage", "無效的會員編號");

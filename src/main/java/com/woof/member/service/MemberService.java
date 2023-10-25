@@ -17,10 +17,10 @@ public interface MemberService {
 	Member updateMember(Member member);
 
 	// Delete a member by its number or ID
-	void deleteMember(Integer memberNo);
+	void deleteMember(String memNo);
 
 	// Find a member by its number or ID
-	Member findMemberByNo(Integer memberNo);
+	Member findMemberByNo(String memNo);
 
 	// Get all members
 	List<Member> getAllMembers();

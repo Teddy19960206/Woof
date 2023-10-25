@@ -89,7 +89,7 @@ public class PrivateTrainingAppointmentFormServlet extends HttpServlet {
 	private void add(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 
-		Integer memNo = Integer.valueOf(request.getParameter("member"));
+		String memNo = request.getParameter("member");
 		MemberService memberService = new MemberServiceImpl();
 		Member member = memberService.findMemberByNo(memNo);
 
@@ -165,7 +165,7 @@ public class PrivateTrainingAppointmentFormServlet extends HttpServlet {
 		
 		Integer ptaNo = Integer.valueOf(request.getParameter("ptaNo"));
 		
-		Integer memNo = Integer.valueOf(request.getParameter("member"));
+		String memNo = request.getParameter("member");
 		MemberService memberService = new MemberServiceImpl();
 		Member member = memberService.findMemberByNo(memNo);
 
