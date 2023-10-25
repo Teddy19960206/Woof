@@ -1,5 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
+<%
+request.setCharacterEncoding("UTF-8");
+%>
 
 
 <!DOCTYPE html>
@@ -23,19 +26,19 @@
         <form method="post" action="${pageContext.request.contextPath}/faq?action=updatefaq">
             <div class="form-group">
                 <label for="faqNo">FAQ編號：</label>
-            	<class="form-control" id="faqNo" name="faqNo" value="${Faq.getFaqNo()}">
+            	<input type="text" class="form-control" id="faqNo" name="faqNo" value="${param.faqNo}" readonly>
             </div>
             <div class="form-group">
                 <label for="faqClass">FAQ類別：</label>
-                <input type="text" class="form-control" id="faqClass" name="faqClass">
+                <input type="text" class="form-control" id="faqClass" name="faqClass" value="${param.faqClass}">
             </div>
             <div class="form-group">
                 <label for="faqTitle">FAQ標題：</label>
-                <input type="text" class="form-control" id="faqTitle" name="faqTitle">
+                <input type="text" class="form-control" id="faqTitle" name="faqTitle" value="${param.faqTitle}">
             </div>
             <div class="form-group">
                 <label for="faqContent">FAQ內容：</label>
-                <input type="text" class="form-control" id="faqContent" name="faqContent">
+                <input type="text" class="form-control" id="faqContent" name="faqContent" value="${param.faqContent}">
             </div>
             <button class="btn btn-success" type="submit">確定修改</button>
             <a class="btn btn-secondary" href="javascript:history.back()">取消修改</a>

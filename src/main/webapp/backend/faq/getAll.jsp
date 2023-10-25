@@ -1,5 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
+<%
+request.setCharacterEncoding("UTF-8");
+%>
 
 <!DOCTYPE html>
 <html>
@@ -40,10 +43,20 @@
                         <td>${all.faqTitle}</td>
                         <td>${all.faqContent}</td>
                         <td>
-                            <form method="post" action="${pageContext.request.contextPath}/backend/faq/updatefaq.jsp">
-                                <input type="hidden" name="add" value="updatefaq">
-                                <button class="btn btn-success" type="submit">修改</button>
-                            </form>
+<%--                             <form method="post" action="${pageContext.request.contextPath}/backend/faq/updatefaq.jsp"> --%>
+<%--                                 <input type="hidden" name="faqNo" value="${all.faqNo}"> --%>
+<!--                                 <input type="hidden" name="action" value="updatefaq"> -->
+<!--                                 <button class="btn btn-success" type="submit">修改</button> -->
+<!--                             </form> -->
+
+<form method="post" action="${pageContext.request.contextPath}/backend/faq/updatefaq.jsp">
+    <input type="hidden" name="faqNo" value="${all.faqNo}">
+    <input type="hidden" name="faqClass" value="${all.faqClass}">
+    <input type="hidden" name="faqTitle" value="${all.faqTitle}">
+    <input type="hidden" name="faqContent" value="${all.faqContent}">
+    <button class="btn btn-success" type="submit">修改</button>
+</form>
+
                         </td>
                         <td>
                             <form method="post" action="${pageContext.request.contextPath}/faq">

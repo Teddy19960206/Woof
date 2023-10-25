@@ -12,31 +12,23 @@ a {
 }
 
 .bg-color{
-    width: 230px;
-    height: 85px;
+    /* width: 230px; */
+    height: 700px;
     background-color: #F8EEE6;
   }
-  
-.line{
-    height: 2px; 
-    background-color:#FABA91; 
-    border-radius: 30px; 
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); 
-    opacity: 0.5;
-}
 
 #sidebar {
-    max-width: 250px;
-    height: 600px;
-    box-shadow: 0 0 20px 0 rgba(97, 97, 97, 0.5);
-    background-color: #F8EEE6;
-    padding: 20px;
-    z-index: 100;
+    /* max-width: 250px; */
+    /* height: 600px; */
+    /* box-shadow: 0 0 10px 0 rgba(97, 97, 97, 0.5); */
+    /* background-color: #F8EEE6; */
+    padding: 10px;
+    /* z-index: 100; */
     position: sticky;
 }
 
 .sidebar-nav {
-    padding: 0;
+    padding: 5px;
 }
 
 a.sidebar-link {
@@ -71,17 +63,32 @@ li.sidebar-item a.sidebar-link2 {
     transition: all .2s ease-out;
 }
 
-.sidebar-link[data-bs-toggle="collapse"].collapsed::after {
-    transform: rotate(45deg);
-    transition: all .2s ease-out;
-}
+/* .sidebar-link[data-bs-toggle="collapse"].collapsed::after { */
+    /* transform: rotate(45deg); */
+    /* transition: all .2s ease-out; */
+/* } */
 
 
-.dropdown-menu {
-    background-color: #F79B66;
-    max-width: 10px;
-}
+/* .dropdown-menu { */
+    /* background-color: #F79B66; */
+    /* max-width: 10px; */
+/* } */
 
 .text-color {
     color: #FF5733; 
   }
+
+.sidebar-item {
+    transition: background-color 0.2s; /* 添加過渡效果，使顏色變化平滑 */
+    border-radius: 10px;
+}
+
+.sidebar-item:hover {
+    background-color: rgba(143, 143, 143, 0.1); /* 設置懸停時的背景顏色透明度 */
+    cursor: pointer; /* 更改鼠標游標以指示可單擊 */
+}
+
+.btn:hover {
+    background-color: #8a8a8a;
+    color: white;
+}
