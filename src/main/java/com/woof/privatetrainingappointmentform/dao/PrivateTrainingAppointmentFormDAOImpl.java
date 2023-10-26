@@ -1,5 +1,7 @@
 package com.woof.privatetrainingappointmentform.dao;
 
+import static com.woof.util.Constants.PAGE_MAX_RESULT;
+
 import java.util.List;
 
 import org.hibernate.Session;
@@ -7,6 +9,7 @@ import org.hibernate.SessionFactory;
 
 import com.woof.privatetrainingappointmentform.entity.PrivateTrainingAppointmentForm;
 import com.woof.util.HibernateUtil;
+
 
 public class PrivateTrainingAppointmentFormDAOImpl implements PrivateTrainingAppointmentFormDAO {
 
@@ -52,5 +55,5 @@ public class PrivateTrainingAppointmentFormDAOImpl implements PrivateTrainingApp
 		return getSession().createQuery("FROM PrivateTrainingAppointmentForm", PrivateTrainingAppointmentForm.class)
 				.list();
 	}
-
+	
 }

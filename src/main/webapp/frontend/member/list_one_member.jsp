@@ -63,7 +63,6 @@ th, td {
 			</td>
 		</tr>
 	</table>
-
 	<table>
 		<tr>
 			<th>編號</th>
@@ -94,26 +93,22 @@ th, td {
 			<td>${member.totalClass}</td>
 			<td>${member.memStatus}</td>
 			<td>
-			<FORM method="post"
-						action="${pageContext.request.contextPath}/member"
+			</c:forEach>
+			</table>
+			<form method="post"
+						action="${pageContext.request.contextPath}/member.do"
 						style="margin-bottom: 0px;">
-						<input type="submit" value="修改"> <input type="hidden"
-							name="empno" value="${member.memNo}"> <input
-							type="hidden" name="action" value="getOne_For_Update">
-					</FORM>
-				</td>
-				<td>
-					<FORM METHOD="POST"
-						ACTION="<%=request.getContextPath()%>/member"
+						<input type="hidden" name="action" value="processupdate"> 
+						<input type="hidden" name="memNo" value="${member.memNo}"> 
+						<button type="submit">修改</button>
+					</form>
+					
+					<FORM METHOD="post"
+						ACTION="<%=request.getContextPath()%>/member.do"
 						style="margin-bottom: 0px;">
-						<input type="submit" value="刪除"> <input type="hidden"
-							name="empno" value="${member.memNo}"> <input
-							type="hidden" name="action" value="delete">
+						<input type="hidden" name="action" value="delete">
+						<input type="hidden" name="memNo" value="${member.memNo}"> 
+						<button type="submit">刪除</button>
 					</FORM>
-				</td>
-			</tr>
-		</c:forEach>
-	</table>
-
 </body>
 </html>

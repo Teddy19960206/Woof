@@ -4,7 +4,12 @@
 <head>
 <meta charset="UTF-8">
 <title>會員資料</title>
-
+<script type="text/javascript">
+//表單點擊找出對應的function
+  function processUpdate(jsonData){
+	  window.location.href = " <%=request.getContextPath()%>/frontend/member/updatemember.jsp?memNo=" + jsonData.memNo ;
+  }
+</script>
 <style>
 table#table-1 {
 	background-color: #CCCCFF;
@@ -39,6 +44,12 @@ table, th, td {
 th, td {
 	padding: 5px;
 	text-align: center;
+}
+.delete-btn {
+    width: 50px; /* or whatever width you want */
+}
+.update-btn {
+    width: 50px; /* or whatever width you want */
 }
 </style>
 
@@ -90,20 +101,21 @@ th, td {
 				<td>
 
 					<form method="post"
-						action="${pageContext.request.contextPath}/member"
+						action="${pageContext.request.contextPath}/member.do"
 						style="margin-bottom: 0px;">
-						<input type="submit" value="修改"> <input type="hidden"
-							name="empno" value="${member.memNo}"> <input
-							type="hidden" name="action" value="getOne_For_Update">
+						<input type="hidden" name="action" value="update"> 
+						<input type="hidden" name="memNo" value="${member.memNo}"> 
+						<input type="button" class="update-btn" value="修改" onclick="processUpdate({memNo:'${member.memNo}'});">
+						
 					</form>
 				</td>
 				<td>
 					<FORM METHOD="POST"
-						ACTION="<%=request.getContextPath()%>/member"
+						ACTION="<%=request.getContextPath()%>/member.do"
 						style="margin-bottom: 0px;">
-						<input type="submit" value="刪除"> <input type="hidden"
-							name="empno" value="${member.memNo}"> <input
-							type="hidden" name="action" value="delete">
+						<input type="hidden" name="action" value="delete" >
+						<input type="hidden" name="memNo" value="${member.memNo}"> 
+						<button type="submit" class="delete-btn" >刪除</button>
 					</FORM>
 				</td>
 			</tr>

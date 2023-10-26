@@ -7,14 +7,14 @@ import java.util.Map;
 import com.woof.member.entity.Member;
 
 public interface MemberService {
-	int modify(String memNo, String memName, String memGender, byte[] memPhoto, String memEmail, String memPassword,
-			String memTel, String memAddress, Date memBd, Integer momoPoint, Integer totalClass, Integer memStatus);
 
-	int addMember(String memName, String memGender, String memEmail,
-			String memPassword, String memTel, String memAddress, Date memBd, Integer momoPoint, Integer totalClass,
-			Integer memStatus);
+	
+//	int addMember(String memName, String memGender, String memEmail,
+//			String memPassword, String memTel, String memAddress, Date memBd, Integer momoPoint, Integer totalClass,
+//			Integer memStatus);
 
-	Member updateMember(Member member);
+
+	void updateMember(Member member);
 
 	// Delete a member by its number or ID
 	void deleteMember(String memNo);
@@ -28,5 +28,8 @@ public interface MemberService {
 	int getPageTotal();
 	
 	List<Member> getMembersByCompositeQuery(Map<String, String[]> map);
+
+	void addMember(Member member);
+	
 }
 //
