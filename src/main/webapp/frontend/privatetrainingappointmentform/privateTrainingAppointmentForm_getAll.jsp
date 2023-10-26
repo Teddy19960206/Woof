@@ -60,7 +60,7 @@ tr:nth-child(odd) {
 </style>
 </head>
 <body>
-	<%-- <form action="${pageContext.request.contextPath}/privatetrainingappointmentform/privatetrainingappointmentform" method="post" enctype="multipart/form-data"> --%>
+	<%-- <form action="${pageContext.request.contextPath}/privatetrainingappointmentform/privateTrainingAppointmentForm" method="post" enctype="multipart/form-data"> --%>
 	<table border=1>
 		<tr>
 			<th>私人訓練預約單編號</th>

@@ -1,9 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<%
-request.setCharacterEncoding("UTF-8");
-%>
 <html>
 <head>
     <title>Title</title>
@@ -35,17 +32,18 @@ request.setCharacterEncoding("UTF-8");
 <body>
 <h1>修改私人預約單</h1>
 
-<form action="${pageContext.request.contextPath}/privatetrainingappointmentform/privatetrainingappointmentform" method="post" enctype="multipart/form-data">
-   
+<form action="${pageContext.request.contextPath}/privatetrainingappointmentform/privateTrainingAppointmentForm" method="post" enctype="multipart/form-data">
     <label>私人訓練預約單編號：</label>
-    <input type="text" name="ptaNo" value="${param.ptaNo}" readonly>
+    <select name="ptaNo">
+        <c:forEach items="${privateTrainingAppointmentForms}" var="privateTrainingAppointmentForm">
+            <option value="${privateTrainingAppointmentForm.ptaNo}">${privateTrainingAppointmentForm.ptaNo}</option>
+        </c:forEach>
+    </select>
     <br />
     <label>成員名稱：</label>
     <select name="member">
         <c:forEach items="${members}" var="member">
-            <option value="${member.memNo}"
-            		<c:if test="${member.memName eq param.member}">selected</c:if>
-            		>${member.memName}</option>
+            <option value="${member.memNo}">${member.memName}</option>
         </c:forEach>
     </select>
     <br />
@@ -53,15 +51,13 @@ request.setCharacterEncoding("UTF-8");
     <label>訓練師名稱：</label>
     <select name="trainer">
         <c:forEach items="${trainers}" var="trainer">
-            <option value="${trainer.trainerNo}"
-            		<c:if test="${trainer.administrator.adminName eq param.trainer}">selected</c:if>
-            		>${trainer.administrator.adminName}</option>
+            <option value="${trainer.trainerNo}">${trainer.administrator.adminName}</option>
         </c:forEach>
     </select>
     <br />
 
     <label>課堂數：</label>
-    <input type="text" name="number" value="${param.number}" required>
+    <input type="text" name="number" required>
     <br />
 	<input type="hidden" name="action" value="update">
     <button type="submit">修改</button>
