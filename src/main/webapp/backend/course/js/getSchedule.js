@@ -1,20 +1,20 @@
 
 // 取得項目名
-let pathurl = window.location.pathname;
-let pathname = pathurl.split('/')[1];
+let pathName = window.document.location.pathname;
+let projectName = pathName.substring( 0 , pathName.substring(1).indexOf("/")+1);
 let className;
 
 
 // 點選相關資料的修改時，發送相關資料的id，並進入到編輯頁面
 $(document).on("click" , "button.modify-button" , function (){
-    let url = `/${pathname}/schedule/edit/${this.getAttribute("data-id")}`;
+    let url = `${projectName}/schedule/edit/${this.getAttribute("data-id")}`;
     window.location.href = url;
 });
 
 // 點擊相關資料的報名時，更新報名人數???????????????????????????????
 $(document).on("click" , "button.registration" , function (){
 
-    let url = `/${pathname}/groupcourse/schedule/xxx/${this.getAttribute("data-id")}`;
+    let url = `${projectName}/groupcourse/schedule/xxx/${this.getAttribute("data-id")}`;
 
     window.location.href = url;
 
@@ -35,7 +35,7 @@ document.getElementById("button").onclick = function (){
 async function fetchData(){
 
     // 抓取資料，根據classType取得相對應的資料
-    let url = `/${pathname}/schedule/getSchedule`;
+    let url = `${projectName}/schedule/getSchedule`;
     let formData = new FormData();
     formData.append("classType" , document.getElementById("selectClass").value);
 
@@ -109,7 +109,7 @@ async function fetchData(){
 
 // 抓取上課日期，依照Schedule編號---------------------------------
 $(document).on("click" , "button.detail-button" , function (e){
-    let url = `/${pathname}/scheduleDetail/detail/${this.getAttribute("data-id")}`;
+    let url = `${projectName}/scheduleDetail/detail/${this.getAttribute("data-id")}`;
     className = $(this).closest("tr").find("th").eq(1).text();
     fetchDetail(url);
 });
@@ -191,7 +191,7 @@ $(document).on("click" , "button.editDetail" , async  function (){
 
 async function detailedit(id){
 
-    let url = `/${pathname}/scheduleDetail/edit`;
+    let url = `${projectName}/scheduleDetail/edit`;
 
     let formData = new FormData();
     formData.append("Detail" ,id );
@@ -235,7 +235,7 @@ $(document).on("click" , "button.modify" , async function () {
 })
 
 async function detailModify(id , trainer , classDate){
-    let url = `/${pathname}/scheduleDetail/modify`;
+    let url = `${projectName}/scheduleDetail/modify`;
 
     let formData = new FormData();
     formData.append("gcsdNo" ,id );
@@ -270,7 +270,7 @@ $(document).on("click" , "button.deleteDetail" , function (){
 
 async function detailDelete(id){
     // 抓取資料，根據classType取得相對應的資料
-    let url = `/${pathname}/scheduleDetail/delete`;
+    let url = `${projectName}/scheduleDetail/delete`;
 
     let formData = new FormData();
     formData.append("Detail" ,id );

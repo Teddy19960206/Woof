@@ -1,6 +1,6 @@
 
-let pathurl = window.location.pathname;
-let pathname = pathurl.split('/')[1];
+let pathName = window.document.location.pathname;
+let projectName = pathName.substring( 0 , pathName.substring(1).indexOf("/")+1);
 
 
 $(function (){
@@ -20,7 +20,7 @@ async function fetchSchedule(classType){
 
     try{
 
-        let url = `/${pathname}/schedule/getListClass`;
+        let url = `${projectName}/schedule/getListClass`;
         let formData = new FormData();
         formData.append("classType" , classType);
         formData.append("status" , "1");
@@ -53,7 +53,7 @@ async function splicing(data){
             <div class="card mb-5">
                 <div class="row g-0">
                     <div class="col-md-4 myImg">
-                        <img src="/${pathname}/DBPngReader?action=groupCourse&id=${item.groupCourse.gcNo}"
+                        <img src="${projectName}/DBPngReader?action=groupCourse&id=${item.groupCourse.gcNo}"
                              class="img-fluid rounded-start">
                     </div>
                     <div class="col-md-8 myCard">
@@ -84,7 +84,7 @@ async function splicing(data){
                     <!-- Modal body -->
                     <div class="modal-body">
                         <div class="modal-div">
-                            <img src="/${pathname}/webutil/images/Carousel01.jpg" class="modal-img">
+                            <img src="${projectName}/webutil/images/Carousel01.jpg" class="modal-img">
                         </div>
                         <div class="container">
                             <div class="row">
@@ -127,7 +127,7 @@ async function splicing(data){
 
 async function fetchClassDate(gcsNo , divClass){
     try{
-        let url = `/${pathname}/scheduleDetail/detail/${gcsNo}`;
+        let url = `${projectName}/scheduleDetail/detail/${gcsNo}`;
 
         const response = await fetch(url,{
             method : "POST"
@@ -155,5 +155,6 @@ async function fetchClassDate(gcsNo , divClass){
 
 
 function registration(gcsNo){
-    window.location.href = `/${pathname}/`;
+    window.location.href = `${projectName}/groupOrder/getGroupInfo/${gcsNo}`;
+
 }

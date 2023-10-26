@@ -4,8 +4,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.woof.groupscheduledetail.entity.GroupScheduleDetail;
-import com.woof.trainer.entity.Trainer;
-import com.woof.promotionactivity.entity.PromotionActivity;
+import com.woof.skill.entity.Skill;
 import com.woof.trainer.entity.Trainer;
 
 public interface TrainerDAO {
@@ -25,9 +24,13 @@ public interface TrainerDAO {
 
 	int delete(Integer trainerNo);
 
+	Set<Skill> getSkillsList(Integer trainerNo);
+
 	List<Trainer> getAll();
 
 	Trainer findBytrainerNo(Integer trainerNo);
 
 	Set<GroupScheduleDetail> groupScheduleDetails(Integer trainerNo);
+
+
 }

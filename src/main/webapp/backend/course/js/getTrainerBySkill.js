@@ -1,5 +1,5 @@
-let pathurl = window.location.pathname;
-let pathname = pathurl.split('/')[1];
+let pathName = window.document.location.pathname;
+let projectName = pathName.substring( 0 , pathName.substring(1).indexOf("/")+1);
 
 let selectElement = document.getElementById("skill");
 
@@ -33,7 +33,7 @@ selectElement.addEventListener("change" , async function (e){
 
 async function fetchTrainers(id){
     // 抓取資料，根據classType取得相對應的資料
-    let url = `/${pathname}/skill/getTrainersBySkill/${id}`;
+    let url = `${projectName}/skill/getTrainersBySkill/${id}`;
 
     try{
         const response = await fetch(url ,{

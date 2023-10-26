@@ -1,5 +1,5 @@
-let pathurl = window.location.pathname;
-let pathname = pathurl.split('/')[1];
+let pathName = window.document.location.pathname;
+let projectName = pathName.substring( 0 , pathName.substring(1).indexOf("/")+1);
 
 
 // 進來網頁時，抓取訓練師資料並顯示在頁面上
@@ -10,7 +10,7 @@ $(async function (){
 
 // 取得所有訓練師資料
 async function fetchAllTrainer(){
-    let url = `/${pathname}/trainer/getTrianers`;
+    let url = `${projectName}/trainer/getTrianers`;
 
     try {
         const response = await  fetch(url , {
@@ -48,7 +48,7 @@ $(document).on("click" , "button.getBtn" , async function (){
 });
 
 async function fetchTrainerDetails(trainerId){
-    let url = `/${pathname}/scheduleDetail/getClassDate`;
+    let url = `${projectName}/scheduleDetail/getClassDate`;
 
     let formData = new FormData;
     formData.append("trainerId" , trainerId)

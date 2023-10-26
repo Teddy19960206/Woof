@@ -1,7 +1,6 @@
 // 取得項目名
-let pathurl = window.location.pathname;
-let pathname = pathurl.split('/')[1];
-
+let pathName = window.document.location.pathname;
+let projectName = pathName.substring( 0 , pathName.substring(1).indexOf("/")+1);
 // 點擊提交按鈕則執行fetchData()
 document.getElementById("button").onclick = function (){
     fetchData();
@@ -18,7 +17,7 @@ async function fetchData(){
 
     // 發送請求，取得全部或與班別有相應的資料
 
-    let url = `/${pathname}/groupcourse/getGroupCourse`;
+    let url = `${projectName}/groupcourse/getGroupCourse`;
 
     // 取得相應的資料，根據classTypeNo
     let formData = new FormData();
@@ -54,7 +53,7 @@ async function fetchData(){
             <td>${item.skill.skillName}</td>
             <td>`;
             if(item.coursePhoto instanceof Object && Object.keys(item.coursePhoto).length > 0){
-                html +=  `<img src="/${pathname}/DBPngReader?action=groupCourse&id=${item.gcNo}" style="width: 100px; height: 100px" >`;
+                html +=  `<img src="${projectName}/DBPngReader?action=groupCourse&id=${item.gcNo}" style="width: 100px; height: 100px" >`;
             }
             html += `</td>
             <td>${item.courseContent}</td>
@@ -74,7 +73,7 @@ async function fetchData(){
 
 // 修改按鈕
 $(document).on("click" , "button.modify-button" ,function (e){
-    let url = `/${pathname}/groupcourse/edit/${this.getAttribute("data-id")}`;
+    let url = `${projectName}/groupcourse/edit/${this.getAttribute("data-id")}`;
     window.location.href = url;
 })
 
