@@ -20,8 +20,13 @@ request.setCharacterEncoding("UTF-8");
             width: 100%;
         }
     </style>
+    
+    <%@ include file="/backend/meta.file" %>
+    
 </head>
 <body>
+
+<%@ include file="/backend/SideTop.file" %>
 
     <div class="container">
         <h1>搜尋全部FAQ</h1>
