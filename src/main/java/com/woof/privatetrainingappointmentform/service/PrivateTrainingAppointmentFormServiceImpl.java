@@ -1,5 +1,5 @@
 package com.woof.privatetrainingappointmentform.service;
-
+import static com.woof.util.Constants.PAGE_MAX_RESULT;
 import java.util.List;
 
 import com.woof.member.entity.Member;
@@ -69,7 +69,18 @@ public class PrivateTrainingAppointmentFormServiceImpl implements PrivateTrainin
 		return 1;
 	}
 
-	
+	@Override
+	public List<PrivateTrainingAppointmentForm> getAllPrivateTrainingAppointmentForms(int currentPage) {
+		return dao.getAll(currentPage);
+	}
+
+	@Override
+	public int getPageTotal() {
+		long total = dao.getTotal();
+		int pageQty = (int)(total % PAGE_MAX_RESULT == 0 ? (total / PAGE_MAX_RESULT) : (total / PAGE_MAX_RESULT + 1));
+		return pageQty;
+	}
+
 	
 	
 }
