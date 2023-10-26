@@ -215,20 +215,21 @@ public class PrivateTrainingAppointmentFormServlet extends HttpServlet {
 		}
 	}
 	private void getAll(HttpServletRequest request, HttpServletResponse response) {
-//		String page = request.getParameter("page");
-//		int currentPage = (page == null) ? 1 : Integer.parseInt(page);
-//		if (request.getSession().getAttribute("PTAFPageQty") == null) {
-//			int PTAFPageQty = privateTrainingAppointmentFormService.getPageTotal();
-//			request.getSession().setAttribute("PTAFPageQty", PTAFPageQty);
-//		}
-//		List<PrivateTrainingAppointmentForm> allPrivateTrainingAppointmentForms =  privateTrainingAppointmentFormService.getAllPTAFs(currentPage);
-		List<PrivateTrainingAppointmentForm> allPrivateTrainingAppointmentForms =  privateTrainingAppointmentFormService.getAllPrivateTrainingAppointmentForms();
+		String page = request.getParameter("page");
+		int currentPage = (page == null) ? 1 : Integer.parseInt(page);
+		if (request.getSession().getAttribute("PTAFPageQty") == null) {
+			int PTAFPageQty = privateTrainingAppointmentFormService.getPageTotal();
+			request.getSession().setAttribute("PTAFPageQty", PTAFPageQty);
+		}
+		List<PrivateTrainingAppointmentForm> allPrivateTrainingAppointmentForms =  privateTrainingAppointmentFormService.getAllPTAFs(currentPage);
+
+//		List<PrivateTrainingAppointmentForm> allPrivateTrainingAppointmentForms =  privateTrainingAppointmentFormService.getAllPrivateTrainingAppointmentForms();
 	
 //		Integer member = privateTrainingAppointmentFormService.findPrivateTrainingAppointmentFormByPtaNo(ptaNo).getMember().getMemNo();
 //		Integer trainer = privateTrainingAppointmentFormService.findPrivateTrainingAppointmentFormByPtaNo(ptaNo).getTrainer().getTrainerNo();
 			
 		request.setAttribute("privateTrainingAppointmentForms", allPrivateTrainingAppointmentForms);
-//		request.setAttribute("currentPage", currentPage);
+		request.setAttribute("currentPage", currentPage);
 		
 	}
 	private void getOne(HttpServletRequest request, HttpServletResponse response) throws IOException {

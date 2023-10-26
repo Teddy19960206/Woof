@@ -19,7 +19,7 @@ public interface PrivateTrainingAppointmentFormService {
 	
 	int deletePrivateTrainingAppointmentForm(Integer ptaNo);
 	
-//	List<PrivateTrainingAppointmentForm> getAllPTAFs(int currentPage);
-//
-//	int getPageTotal();
+	List<PrivateTrainingAppointmentForm> getAllPTAFs(int currentPage);
+
+	int getPageTotal();
 }
