@@ -15,4 +15,8 @@ public interface PrivateTrainingAppointmentFormDAO {
 	PrivateTrainingAppointmentForm findByPtaNo(Integer ptaNo);
 	
 	List<PrivateTrainingAppointmentForm> getAll();
+	
+	List<PrivateTrainingAppointmentForm> getAll(int currentPage);
+	
+	long getTotal();
 }

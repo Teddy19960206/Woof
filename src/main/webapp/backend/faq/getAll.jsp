@@ -8,23 +8,28 @@ request.setCharacterEncoding("UTF-8");
 <html>
 <head>
     <title>GetAllFAQ</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<!--     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> -->
     <style>
-        body {
-            padding: 20px;
-        }
-        .container {
-            max-width: 800px;
-        }
-        table {
-            width: 100%;
-        }
+/*         body { */
+/*             padding: 20px; */
+/*         } */
+/*         .container { */
+/*             max-width: 800px; */
+/*         } */
+/*         table { */
+/*             width: 100%; */
+/*         } */
     </style>
+    
+<%@ include file="/backend/backhead.file" %>
+    
 </head>
 <body>
 
+<%@ include file="/backend/backbody.file" %>
+
     <div class="container">
-        <h1>搜尋全部FAQ</h1>
+        <h3>搜尋全部FAQ</h3>
         <table class="table table-bordered">
             <thead>
                 <tr>
@@ -72,8 +77,10 @@ request.setCharacterEncoding("UTF-8");
         <a class="btn btn-secondary" href="javascript:history.back()">返回</a>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<%@ include file="/backend/backfoot.file" %>
+
+<!--     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script> -->
+<!--     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script> -->
+<!--     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
 </body>
 </html>

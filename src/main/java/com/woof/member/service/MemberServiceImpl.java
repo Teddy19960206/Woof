@@ -22,51 +22,14 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public int modify(String memNo, String memName, String memGender, byte[] memPhoto, String memEmail,
-			String memPassword, String memTel, String memAddress, Date memBd, Integer momoPoint, Integer totalClass,
-			Integer memStatus) {
-		Member member = new Member();
-		member.setMemAddress(memAddress);
-		member.setMemBd(memBd);
-		member.setMemEmail(memEmail);
-		member.setMemGender(memGender);
-		member.setMemName(memName);
-		member.setMemNo(memNo);
-		member.setMemPassword(memPassword);
-		member.setMemStatus(memStatus);
-		member.setMemTel(memTel);
-		member.setMomoPoint(momoPoint);
-		member.setMemStatus(memStatus);
-		member.setTotalClass(totalClass);
-		if (memPhoto != null) {
-			member.setMemPhoto(memPhoto);
-		} else {
-			member.setMemPhoto(null);
-		}
-		dao.update(member);
-		return 1;
-	}
-
-	public MemberDAO getDao() {
-		return dao;
-	}
-
-	public void setDao(MemberDAO dao) {
-		this.dao = dao;
-	}
-
-	@Override
-	public Member updateMember(Member member) {
+	public void updateMember(Member member) {
 //        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 //        session.beginTransaction();
-		if (dao.update(member) == 1) {
-			return member;
-		}
-		return null;
+		dao.update(member);
 	}
 
 	@Override
-	public void deleteMember(Integer memNo) {
+	public void deleteMember(String memNo) {
 //        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 //        session.beginTransaction();
 		if (dao.delete(memNo) == 1) {
@@ -75,7 +38,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public Member findMemberByNo(Integer memNo) {
+	public Member findMemberByNo(String memNo) {
 		Member member = dao.findByMemberNo(memNo);
 		return member;
 	}
@@ -85,7 +48,7 @@ public class MemberServiceImpl implements MemberService {
 		return dao.getAll();
 	}
 
-	public byte[] getPhotoById(Integer memNo) {
+	public byte[] getPhotoById(String memNo) {
 		return findMemberByNo(memNo).getMemPhoto();
 	}
 
@@ -103,22 +66,30 @@ public class MemberServiceImpl implements MemberService {
 		return null;
 	}
 
+//	@Override
+//	public int addMember(String memName, String memGender, String memEmail, String memPassword, String memTel,
+//			String memAddress, Date memBd, Integer momoPoint, Integer totalClass, Integer memStatus) {
+//		Member member = new Member();
+//		member.setMemAddress(memAddress);
+//		member.setMemBd(memBd);
+//		member.setMemEmail(memEmail);
+//		member.setMemGender(memGender);
+//		member.setMemName(memName);
+//		member.setMemPassword(memPassword);
+//		member.setMemStatus(memStatus);
+//		member.setMemTel(memTel);
+//		member.setMomoPoint(momoPoint);
+//		member.setTotalClass(totalClass);
+//		dao.insert(member);
+//		return 1;
+//		
+//	}
+
 	@Override
-	public int addMember(String memName, String memGender, String memEmail, String memPassword, String memTel,
-			String memAddress, Date memBd, Integer momoPoint, Integer totalClass, Integer memStatus) {
-		Member member = new Member();
-		member.setMemAddress(memAddress);
-		member.setMemBd(memBd);
-		member.setMemEmail(memEmail);
-		member.setMemGender(memGender);
-		member.setMemName(memName);
-		member.setMemPassword(memPassword);
-		member.setMemStatus(memStatus);
-		member.setMemTel(memTel);
-		member.setMomoPoint(momoPoint);
-		member.setTotalClass(totalClass);
+	public void addMember(Member member) {
+		
 		dao.insert(member);
-		return 1;
 	}
+	
 }
 //
