@@ -45,6 +45,5 @@
     <button type="submit">刪除</button>
     <button type="button" onclick="history.back()">取消刪除</button>
 </form>
-
 </body>
 </html>

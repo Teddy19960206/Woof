@@ -56,6 +56,5 @@
     <button type="submit">新增</button>
     <button type="button" onclick="history.back()">取消新增</button>
 </form>
-
 </body>
 </html>
