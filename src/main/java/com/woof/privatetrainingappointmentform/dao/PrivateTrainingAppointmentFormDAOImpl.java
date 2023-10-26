@@ -56,4 +56,17 @@ public class PrivateTrainingAppointmentFormDAOImpl implements PrivateTrainingApp
 				.list();
 	}
 	
+	@Override
+	public List<PrivateTrainingAppointmentForm> getAll(int currentPage) {
+		int first = (currentPage - 1) * PAGE_MAX_RESULT;
+		return getSession().createQuery("FROM PrivateTrainingAppointmentForm", PrivateTrainingAppointmentForm.class)
+				.setFirstResult(first)
+				.setMaxResults(PAGE_MAX_RESULT)
+				.list();
+	}
+
+	@Override
+	public long getTotal() {
+		return getSession().createQuery("select count(*) from PrivateTrainingAppointmentForm", Long.class).uniqueResult();
+	}
 }
