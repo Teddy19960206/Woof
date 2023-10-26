@@ -79,6 +79,13 @@ public class GroupScheduleServlet extends HttpServlet {
 //                正式修改資料
                 modified(request, response);
                 return;
+            case "/getListClass":
+//                前台取得上架課程
+                getListClass(request ,response);
+                return;
+            case "/checkout":
+                checkout(request ,response);
+                return;
             default:
                 if (pathInfo.startsWith("/edit/")) {
 //                   進入修改頁面前，先撈取下拉式選項資料
@@ -98,13 +105,6 @@ public class GroupScheduleServlet extends HttpServlet {
         List<GroupCourseSchedule> groupCourseScheduleList = groupGourseScheduleService.getAll();
 
         request.setAttribute("scheduleList", groupCourseScheduleList);
-
-        for (GroupCourseSchedule groupCourseSchedule : groupCourseScheduleList){
-            System.out.println(groupCourseSchedule.getGcsStart());
-            System.out.println(groupCourseSchedule.getGcsEnd());
-            System.out.println(groupCourseSchedule.getUpdatedAt());
-            System.out.println(groupCourseSchedule.getCreatedAt());
-        }
 
         return "/backend/course/schedule.jsp";
     }
@@ -264,6 +264,33 @@ public class GroupScheduleServlet extends HttpServlet {
         response.sendRedirect(request.getContextPath() + "/backend/course/schedule.jsp");
     }
 
+    private void getListClass(HttpServletRequest request ,HttpServletResponse response){
+
+//        1 :  幼犬班  2 : 成犬班
+        Integer classType = Integer.valueOf(request.getParameter("classType"));
+
+//        若是從前台發送 fetch 固定 status 為 1
+        Integer status = Integer.valueOf(request.getParameter("status"));
+
+//        status 狀態 1 為 上架狀態，代表可報名
+        List<GroupCourseSchedule> listSchedule = groupGourseScheduleService.getListSchedule(classType, status);
+
+
+        try {
+            Gson gson = new GsonBuilder()
+                    .excludeFieldsWithoutExposeAnnotation()
+                    .setDateFormat("yyyy-MM-dd")
+                    .create();
+
+            String json = gson.toJson(listSchedule);
+            response.setContentType("application/json;charset=UTF-8");
+            response.getWriter().write(json);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
 
 //    測試中
     private Map<String , String> testNull(HttpServletRequest request , String... args){
@@ -283,6 +310,12 @@ public class GroupScheduleServlet extends HttpServlet {
         }else{
             return getParameter;
         }
+    }
+
+
+    private void checkout(HttpServletRequest request , HttpServletResponse response){
+
+
     }
 }
 

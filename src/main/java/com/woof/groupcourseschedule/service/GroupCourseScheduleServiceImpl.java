@@ -44,7 +44,8 @@ public class GroupCourseScheduleServiceImpl implements GroupGourseScheduleServic
     }
 
     @Override
-    public int updateSchedule(Integer gcsNo, GroupCourse groupCourse , Trainer trainer , Date gcsStart , Date gcsEnd , Integer minLimit , Integer maxLimit , Integer regCount , Integer gcsPrice , Integer gcsStatus , String gcsDelayReason , GroupCourseSchedule relatedGcsNo) {
+    public int updateSchedule(Integer gcsNo, GroupCourse groupCourse , Trainer trainer , Date gcsStart , Date gcsEnd , Integer minLimit
+            , Integer maxLimit , Integer regCount , Integer gcsPrice , Integer gcsStatus , String gcsDelayReason , GroupCourseSchedule relatedGcsNo) {
         GroupCourseSchedule groupCourseSchedule = new GroupCourseSchedule();
         groupCourseSchedule.setGcsNo(gcsNo);
         groupCourseSchedule.setGroupCourse(groupCourse);
@@ -75,5 +76,10 @@ public class GroupCourseScheduleServiceImpl implements GroupGourseScheduleServic
     @Override
     public List<GroupCourseSchedule> getGroupScheduleByCtNo(Integer ctNo) {
         return dao.getAllbyClassType(ctNo);
+    }
+
+    @Override
+    public List<GroupCourseSchedule> getListSchedule(Integer classType, Integer status) {
+        return dao.getListSchedule(classType , status);
     }
 }

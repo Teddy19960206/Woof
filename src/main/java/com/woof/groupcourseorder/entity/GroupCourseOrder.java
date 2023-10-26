@@ -34,7 +34,7 @@ public class GroupCourseOrder implements Serializable {
 	@JoinColumn(name = "GCS_NO" , referencedColumnName = "GCS_NO")
 	private GroupCourseSchedule groupCourseSchedule;
 	
-	@Column(name = "GCO_DATE" , nullable = false)
+	@Column(name = "GCO_DATE" , nullable = false , insertable = false , updatable = false)
     private Timestamp gcoDate;
 	
 	@Column(name = "GCO_PAYMENT_METHOD" , nullable = false , columnDefinition = "TINYINT")
@@ -110,13 +110,13 @@ public class GroupCourseOrder implements Serializable {
         this.actualAmount = actualAmount;
     }
 
-    public Integer getGcoStatus() {
-        return gcoStatus;
-    }
+	public Integer getGcoStatus() {
+		return gcoStatus;
+	}
 
-    public void setGcoStatus(Integer gcoStatus) {
-        this.gcoStatus = gcoStatus;
-    }
+	public void setGcoStatus(Integer gcoStatus) {
+		this.gcoStatus = gcoStatus;
+	}
 
 	@Override
 	public int hashCode() {

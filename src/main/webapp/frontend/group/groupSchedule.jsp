@@ -3,7 +3,7 @@
 <html>
 <head>
     <%@ include file="/meta.file" %>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/frontend/css/groupSchedule.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/frontend/group/css/groupSchedule.css">
     <title>寵毛導師 Woof | 團體課程資訊</title>
 </head>
 <body>
@@ -69,13 +69,18 @@
          data-aos="fade-up"
          data-aos-anchor-placement="bottom-bottom"
          data-aos-duration="1000">
-        <button type="button" class="m-5 myBtn">成犬班
+        <button type="button" class="m-5 myBtn" id="adultClass">成犬班
         </button>
-        <button type="button" class="m-5 myBtn">幼犬班
+        <button type="button" class="m-5 myBtn" id="puppyClass">幼犬班
         </button>
     </div>
 </div>
 
+<div id="show"></div>
+
+
+
 <%@ include file="/Footer.file" %>
+<script src="${pageContext.request.contextPath}/frontend/group/js/groupSchedule.js"></script>
 </body>
 </html>
