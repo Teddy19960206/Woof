@@ -50,8 +50,8 @@ th, td {
 
 </head>
 <body bgcolor='white'>
-<jsp:useBean id="memberService" scope="page"
-			class="com.woof.member.service.MemberServiceImpl" />
+	<jsp:useBean id="memberService" scope="page"
+		class="com.woof.member.service.MemberServiceImpl" />
 	<h4>此頁暫練習採用 Script 的寫法取值:</h4>
 	<table id="table-1">
 		<tr>
@@ -62,7 +62,7 @@ th, td {
 				</h4>
 			</td>
 		</tr>
-	</table>
+	</table>	
 	<table>
 		<tr>
 			<th>編號</th>
@@ -78,37 +78,41 @@ th, td {
 			<th>課堂數</th>
 			<th>狀態</th>
 		</tr>
-		<c:forEach var="memNo" items="${memberService.findMemberByNo}">
-		<tr>
-			<td>${member.memNo}</td>
-			<td>${member.memName}</td>
-			<td>${member.memGender}</td>
-			<td>${member.memPhoto}</td>
-			<td>${member.memEmail}</td>
-			<td>${member.memPassword}</td>
-			<td>${member.memTel}</td>
-			<td>${member.memAddress}</td>
-			<td>${member.memBd}</td>
-			<td>${member.momoPoint}</td>
-			<td>${member.totalClass}</td>
-			<td>${member.memStatus}</td>
-			<td>
-			</c:forEach>
-			</table>
-			<form method="post"
+		
+			<tr>
+				<td>${member.memNo}</td>
+				<td>${member.memName}</td>
+				<td>${member.memGender}</td>
+				<td>${member.memPhoto}</td>
+				<td>${member.memEmail}</td>
+				<td>${member.memPassword}</td>
+				<td>${member.memTel}</td>
+				<td>${member.memAddress}</td>
+				<td>${member.memBd}</td>
+				<td>${member.momoPoint}</td>
+				<td>${member.totalClass}</td>
+				<td>${member.memStatus}</td>
+				<td>
+
+					<form method="post"
 						action="${pageContext.request.contextPath}/member.do"
 						style="margin-bottom: 0px;">
-						<input type="hidden" name="action" value="processupdate"> 
+						<input type="hidden" name="action" value="update"> 
 						<input type="hidden" name="memNo" value="${member.memNo}"> 
-						<button type="submit">修改</button>
+						<input type="button" class="update-btn" value="修改" onclick="processUpdate({memNo:'${member.memNo}'});">
+						
 					</form>
-					
-					<FORM METHOD="post"
+				</td>
+				<td>
+					<FORM METHOD="POST"
 						ACTION="<%=request.getContextPath()%>/member.do"
 						style="margin-bottom: 0px;">
-						<input type="hidden" name="action" value="delete">
+						<input type="hidden" name="action" value="delete" >
 						<input type="hidden" name="memNo" value="${member.memNo}"> 
-						<button type="submit">刪除</button>
+						<button type="submit" class="delete-btn" >刪除</button>
 					</FORM>
+				</td>
+			</tr>
+		</table>
 </body>
 </html>
