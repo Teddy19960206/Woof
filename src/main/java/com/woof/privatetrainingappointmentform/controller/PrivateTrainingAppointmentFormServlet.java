@@ -50,6 +50,10 @@ public class PrivateTrainingAppointmentFormServlet extends HttpServlet {
                 	beforeUpdate(req,resp);
                     forwardPath = "/frontend/privatetrainingappointmentform/privatetrainingappointmentform_update.jsp";
                     break;
+                case "gettoupdate2":
+                	beforeUpdate(req,resp);
+                    forwardPath = "/frontend/privatetrainingappointmentform/privatetrainingappointmentform_update2.jsp";
+                    break;
                 case "update":
                 	update(req,resp);
                 	return;
@@ -151,11 +155,11 @@ public class PrivateTrainingAppointmentFormServlet extends HttpServlet {
 	
 	private void beforedelete(HttpServletRequest req, HttpServletResponse resp) {
 		
+		
+		
 		PrivateTrainingAppointmentFormService  privateTrainingAppointmentFormService = new PrivateTrainingAppointmentFormServiceImpl();
 		List<PrivateTrainingAppointmentForm> allPrivateTrainingAppointmentForms =  privateTrainingAppointmentFormService.getAllPrivateTrainingAppointmentForms();
 	
-		
-
 		req.setAttribute("privateTrainingAppointmentForms", allPrivateTrainingAppointmentForms);
 		
 	}
