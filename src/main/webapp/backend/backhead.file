@@ -36,6 +36,7 @@ a {
 
 .sidebar-nav {
     padding: 5px;
+    list-style-type: none;
 }
 
 a.sidebar-link {
