@@ -1,3 +1,14 @@
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://kit.fontawesome.com/ae360af17e.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="<%=request.getContextPath()%>/webutil/css/bootstrap.min.css" />
+<link rel="stylesheet" href="<%=request.getContextPath()%>/webutil/css/style.css">
+
+
+<style>
+
 * {
 	font-family: 'Noto Sans TC', sans-serif;
     font-weight: 700;
@@ -84,4 +95,4 @@ li.sidebar-item a.sidebar-link2 {
     border-left: 2px solid #626262;
 }
 
-
+</style>

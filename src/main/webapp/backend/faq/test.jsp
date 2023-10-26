@@ -10,13 +10,14 @@ request.setCharacterEncoding("UTF-8");
 <meta charset="BIG5">
 <title>Insert title here</title>
 
-<%@ include file="/backend/meta2.file"%>
-
+<%@ include file="/backend/backhead.file" %>
 
 </head>
 <body>
 
-	<%@ include file="/backend/SideTop.file"%>
+<%@ include file="/backend/backbody.file" %>
+
+<%@ include file="/backend/backfoot.file" %>
 
 </body>
 </html>
