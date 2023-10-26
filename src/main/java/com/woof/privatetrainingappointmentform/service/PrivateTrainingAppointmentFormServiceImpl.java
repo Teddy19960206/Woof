@@ -68,18 +68,18 @@ public class PrivateTrainingAppointmentFormServiceImpl implements PrivateTrainin
 		dao.delete(privateTrainingAppointmentForm);
 		return 1;
 	}
-
-	@Override
-	public List<PrivateTrainingAppointmentForm> getAllPrivateTrainingAppointmentForms(int currentPage) {
-		return dao.getAll(currentPage);
-	}
-
-	@Override
-	public int getPageTotal() {
-		long total = dao.getTotal();
-		int pageQty = (int)(total % PAGE_MAX_RESULT == 0 ? (total / PAGE_MAX_RESULT) : (total / PAGE_MAX_RESULT + 1));
-		return pageQty;
-	}
+//
+//	@Override
+//	public List<PrivateTrainingAppointmentForm> getAllPTAFs(int currentPage) {
+//		return dao.getAllByPage(currentPage);
+//	}
+//
+//	@Override
+//	public int getPageTotal() {
+//		long total = dao.getTotal();
+//		int pageQty = (int)(total % PAGE_MAX_RESULT == 0 ? (total / PAGE_MAX_RESULT) : (total / PAGE_MAX_RESULT + 1));
+//		return pageQty;
+//	}
 
 	
 	

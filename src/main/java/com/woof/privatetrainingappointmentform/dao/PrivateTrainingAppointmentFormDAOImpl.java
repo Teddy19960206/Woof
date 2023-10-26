@@ -52,21 +52,21 @@ public class PrivateTrainingAppointmentFormDAOImpl implements PrivateTrainingApp
 
 	@Override
 	public List<PrivateTrainingAppointmentForm> getAll() {
-		return getSession().createQuery("FROM PrivateTrainingAppointmentForm", PrivateTrainingAppointmentForm.class)
+		return getSession().createQuery("FROM private_training_appointment_form", PrivateTrainingAppointmentForm.class)
 				.list();
 	}
 	
-	@Override
-	public List<PrivateTrainingAppointmentForm> getAll(int currentPage) {
-		int first = (currentPage - 1) * PAGE_MAX_RESULT;
-		return getSession().createQuery("from Emp", PrivateTrainingAppointmentForm.class)
-				.setFirstResult(first)
-				.setMaxResults(PAGE_MAX_RESULT)
-				.list();
-	}
-
-	@Override
-	public long getTotal() {
-		return getSession().createQuery("select count(*) from PrivateTrainingAppointmentForm", Long.class).uniqueResult();
-	}
+//	@Override
+//	public List<PrivateTrainingAppointmentForm> getAllByPage(int currentPage) {
+//		int first = (currentPage - 1) * PAGE_MAX_RESULT;
+//		return getSession().createQuery("FROM private_training_appointment_form", PrivateTrainingAppointmentForm.class)
+//				.setFirstResult(first)
+//				.setMaxResults(PAGE_MAX_RESULT)
+//				.list();
+//	}
+//
+//	@Override
+//	public long getTotal() {
+//		return getSession().createQuery("select count(*) from private_training_appointment_form", Long.class).uniqueResult();
+//	}
 }
