@@ -10,4 +10,4 @@
 		</div>
 	</div>
 	
-	<script src="<%=request.getContextPath()%>/webutil/js/bootstrap.bundle.min.js"></script>
+	<script src="<%=request.getContextPath()%>/js/bootstrap.bundle.min.js"></script>

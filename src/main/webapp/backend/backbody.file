@@ -4,7 +4,7 @@
 		<div class="row">
 			<div class="col-md-3 bg-color p-0 ">
 				<aside id="sidebar" class="position-sticky top-0">
-					<img src="<%=request.getContextPath()%>/webutil/images/logo.png" width="220" class="text-center">
+					<img src="<%=request.getContextPath()%>/images/logo.png" width="220" class="text-center">
 					<ul class="sidebar-nav p-0">
 						<li class="sidebar-item"><a href="#"
 							class="sidebar-link collapsed" data-bs-toggle="collapse"
@@ -90,7 +90,7 @@
 					<!-- <h1>這是頂部</h1> -->
 					<div
 						style="position: absolute; bottom: 0; right: 0; text-align: right; padding: 5px;">
-						<img src="<%=request.getContextPath()%>/webutil/images/happy.png" width="30"> <span
+						<img src="<%=request.getContextPath()%>/images/happy.png" width="30"> <span
 							style="color: rgb(80, 80, 80);">超级管理員</span> <a href="#"
 							class="btn"
 							style="background-color: #FABA91; font-family: 'Noto Sans TC', sans-serif; font-weight: 700;">登出</a>
