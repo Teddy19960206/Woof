@@ -16,4 +16,8 @@ public interface FaqDAO {
 
 	List<Faq> getAll();
 
+//	List<Faq> getAll(int currentPage);
+//
+//	long getTotal();
+
 }

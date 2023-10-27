@@ -24,7 +24,7 @@ request.setCharacterEncoding("UTF-8");
 
     <div class="container">
         <h3>搜尋全部FAQ</h3>
-        <table class="table table-bordered small-table">
+        <table class="table table-bordered small-table" style="font-size: 12px;">
             <thead>
                 <tr>
                     <th>編號</th>
@@ -53,7 +53,7 @@ request.setCharacterEncoding("UTF-8");
     <input type="hidden" name="faqClass" value="${all.faqClass}">
     <input type="hidden" name="faqTitle" value="${all.faqTitle}">
     <input type="hidden" name="faqContent" value="${all.faqContent}">
-    <button class="btn btn-success small-btn" type="submit">修改</button>
+	<button class="btn btn-success small-btn" style="font-size: 10px;" type="submit">修改</button>
 </form>
 
                         </td>
@@ -61,7 +61,8 @@ request.setCharacterEncoding("UTF-8");
                             <form method="post" action="${pageContext.request.contextPath}/faq">
                                 <input type="hidden" name="faqNo" value="${all.faqNo}">
                                 <input type="hidden" name="action" value="deletefaq">
-                                <button class="btn btn-danger small-btn" type="submit">刪除</button>
+                                <button class="btn btn-danger small-btn" style="font-size: 10px;" type="submit">刪除</button>
+                                
                             </form>
                         </td>
                     </tr>
