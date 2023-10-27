@@ -1,25 +1,15 @@
 package com.woof.trainer.dao;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Set;
 
-import com.woof.classtype.entity.ClassType;
 import com.woof.groupscheduledetail.entity.GroupScheduleDetail;
+import com.woof.skill.entity.Skill;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import com.woof.trainer.entity.Trainer;
-import com.woof.trainer.entity.Trainer;
-
-import com.woof.util.Util;
 
 public class TrainerDAOImpl implements TrainerDAO {
 	
@@ -57,6 +47,13 @@ public class TrainerDAOImpl implements TrainerDAO {
 		}else {
 			return -1;
 		}
+	}
+
+	@Override
+	public Set<Skill> getSkillsList(Integer trainerNo) {
+
+		Trainer trainer = getSession().get(Trainer.class, trainerNo);
+		return trainer.getSkills();
 	}
 
 	@Override

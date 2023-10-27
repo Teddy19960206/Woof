@@ -1,7 +1,7 @@
 const p_file = document.getElementById("p_file");
 const preview = document.getElementById("preview");
-let pathurl = window.location.pathname;
-let pathname = pathurl.split('/')[1];
+let pathName = window.document.location.pathname;
+let projectName = pathName.substring( 0 , pathName.substring(1).indexOf("/")+1);
 
 // 移除圖片
 $("button#delete").on("click" , function (){
@@ -13,7 +13,7 @@ $("button#delete").on("click" , function (){
 
 // 到資料庫把圖片刪除
 async function fetchDelete(id) {
-    let url = `/${pathname}/groupcourse/delete/${id}`;
+    let url = `${projectName}/groupcourse/delete/${id}`;
 
     try{
         const response = await fetch(url ,{

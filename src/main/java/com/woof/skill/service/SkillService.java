@@ -17,4 +17,6 @@ public interface SkillService {
     Skill findBySkillNo(Integer skillNo);
 
     Set<Trainer> getTrainersBySkillNo(Integer skillNo);
+
+    List<Skill> getTrainerNotExistsSkill(Integer trainerNo);
 }

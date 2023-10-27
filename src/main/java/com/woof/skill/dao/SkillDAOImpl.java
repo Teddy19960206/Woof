@@ -1,10 +1,15 @@
 package com.woof.skill.dao;
 
 import com.woof.skill.entity.Skill;
+import com.woof.skillslist.entity.SkillsList;
 import com.woof.trainer.entity.Trainer;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 
+import javax.persistence.Tuple;
+import javax.persistence.criteria.*;
 import java.util.List;
 import java.util.Set;
 
@@ -60,6 +65,20 @@ public class SkillDAOImpl implements SkillDAO{
     public Set<Trainer> getTrainerBySkill(Integer skillNo) {
 
         return getSession().get(Skill.class , skillNo).getTrainers();
+    }
+
+    @Override
+    public List<Skill> getNotExistsSkill(Integer trainerNo){
+
+        String hql = "SELECT s " +
+                "FROM Skill s " +
+                "WHERE NOT EXISTS " +
+                "(SELECT sl.skillNo FROM SkillsList sl WHERE sl.trainerNo = :trainerNo AND sl.skillNo = s.skillNo)";
+
+        Query<Skill> query = getSession().createQuery(hql , Skill.class);
+        query.setParameter("trainerNo" , trainerNo);
+        List<Skill> list = query.list();
+        return list;
     }
 
 }

@@ -1,3 +1,6 @@
+let pathName = window.document.location.pathname;
+let projectName = pathName.substring( 0 , pathName.substring(1).indexOf("/")+1);
+
 
 $(document).on("click" , "button.edit-button" , function (){
     let modifyBtn = $(this).closest("tr").find("button").eq(1);
@@ -47,10 +50,8 @@ $(document).on("click", "button.delete-button" , async function (){
 })
 
 async function fetchData(id , name , action){
-    let pathurl = window.location.pathname;
-    let pathname = pathurl.split('/')[1];
 
-    let url = `/${pathname}/skill/${action}`;
+    let url = `${projectName}/skill/${action}`;
 
     let formData = new FormData();
     formData.append("skillNo" , id);

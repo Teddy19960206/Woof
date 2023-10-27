@@ -1,3 +1,4 @@
+
 package com.woof.skill.dao;
 
 import com.woof.skill.entity.Skill;
@@ -19,5 +20,7 @@ public interface SkillDAO {
     List<Skill> getAll();
 
     Set<Trainer> getTrainerBySkill(Integer skillNo);
+
+    List<Skill> getNotExistsSkill(Integer trainerNo);
 
 }
