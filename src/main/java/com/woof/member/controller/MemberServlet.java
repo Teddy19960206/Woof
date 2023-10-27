@@ -104,6 +104,7 @@ public class MemberServlet extends HttpServlet {
 			throws IOException, ParseException, ServletException {
 		Member member = new Member();
 		// 把資料給前端
+		member.setMemNo(req.getParameter("memNo"));
 		member.setMemName(req.getParameter("memName"));
 		member.setMemGender(req.getParameter("memGender"));
 		member.setMemEmail(req.getParameter("memEmail"));
