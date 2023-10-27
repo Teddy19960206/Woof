@@ -92,26 +92,7 @@ th, td {
 				<td>${member.momoPoint}</td>
 				<td>${member.totalClass}</td>
 				<td>${member.memStatus}</td>
-				<td>
-
-					<form method="post"
-						action="${pageContext.request.contextPath}/member.do"
-						style="margin-bottom: 0px;">
-						<input type="hidden" name="action" value="update"> 
-						<input type="hidden" name="memNo" value="${member.memNo}"> 
-						<input type="button" class="update-btn" value="­×§ï" onclick="processUpdate({memNo:'${member.memNo}'});">
-						
-					</form>
-				</td>
-				<td>
-					<FORM METHOD="POST"
-						ACTION="<%=request.getContextPath()%>/member.do"
-						style="margin-bottom: 0px;">
-						<input type="hidden" name="action" value="delete" >
-						<input type="hidden" name="memNo" value="${member.memNo}"> 
-						<button type="submit" class="delete-btn" >§R°£</button>
-					</FORM>
-				</td>
+			
 			</tr>
 		</table>
 </body>
