@@ -24,18 +24,6 @@ public class MailService {
 			props.put("mail.smtp.auth", "true");
 			props.put("mail.smtp.port", "465");
 
-	        // ●設定 gmail 的帳號 & 密碼 (將藉由你的Gmail來傳送Email)
-	        // ●1) 登入你的Gmail的: 
-	        // ●2) 點選【管理你的 Google 帳戶】
-	        // ●3) 點選左側的【安全性】
-	       
-	        // ●4) 完成【兩步驟驗證】的所有要求如下:
-	        //     ●4-1) (請自行依照步驟要求操作之.....)
-	       
-	        // ●5) 完成【應用程式密碼】的所有要求如下:
-	        //     ●5-1) 下拉式選單【選取應用程式】--> 選取【郵件】
-	        //     ●5-2) 下拉式選單【選取裝置】--> 選取【Windows 電腦】
-	        //     ●5-3) 最後按【產生】密碼
 			final String myGmail = "cha103woof@gmail.com";
 			final String myGmail_password = "ookbpywobsweyrmw";
 			Session session = Session.getInstance(props, new Authenticator() {
