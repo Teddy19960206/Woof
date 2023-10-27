@@ -68,12 +68,12 @@ public class GroupCourseOrderServlet extends HttpServlet {
 
     private String getGroupInfo(HttpServletRequest request , HttpServletResponse response , Integer gcsNo){
 
+//        有session後，就可以刪除了
         MemberService memberService = new MemberServiceImpl();
         Member member = memberService.findMemberByNo("member1");
-
-
         HttpSession session = request.getSession();
         session.setAttribute("member" , member);
+
 
         GroupGourseScheduleService groupCourseScheduleService = new GroupCourseScheduleServiceImpl();
         GroupCourseSchedule groupCourseSchedule = groupCourseScheduleService.findByGcsNo(gcsNo);

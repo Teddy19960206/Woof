@@ -17,6 +17,7 @@ public class SkillsListServiceImpl implements SkillsListService{
 
     @Override
     public int TrainerAddSkill(Integer trainerNo, Integer skillNo) {
+
         SkillsList skillsList = new SkillsList();
         skillsList.setTrainerNo(trainerNo);
         skillsList.setSkillNo(skillNo);
