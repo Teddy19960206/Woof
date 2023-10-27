@@ -68,9 +68,6 @@ public class MemberServlet extends HttpServlet {
 
 				}
 				return;
-			case "afterupdate":
-				afterupdate(req, res);
-				return;
 			case "getall":
 				forwardPath = getAllmembers(req, res);
 				break;
@@ -169,7 +166,6 @@ public class MemberServlet extends HttpServlet {
 
 		
 		member.setMemNo(req.getParameter("memNo"));
-
 		member.setMemName(req.getParameter("memName"));
 		member.setMemGender(req.getParameter("memGender"));
 		member.setMemEmail(req.getParameter("memEmail"));
@@ -207,12 +203,6 @@ public class MemberServlet extends HttpServlet {
 //		res.setContentType("text/html; charset=UTF-8");
 //		RequestDispatcher dispatcher = req.getRequestDispatcher("/frontend/member/updatemember.jsp");
 //		dispatcher.forward(req, res);
-	}
-
-	private void afterupdate(HttpServletRequest req, HttpServletResponse res) throws IOException {
-		String memNo = req.getParameter("memNo");
-		
-		res.sendRedirect(req.getContextPath() + "/frontend/member/list_all_member.jsp");
 	}
 
 	private void getOne(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {

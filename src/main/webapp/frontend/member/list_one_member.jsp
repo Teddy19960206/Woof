@@ -58,11 +58,12 @@ th, td {
 			<td>
 				<h3>員工資料 - listOneEmp.jsp</h3>
 				<h4>
-					<a href="selectmember.jsp">回首頁</a>
+					<!-- <a href="/frontend/member/selectmember.jsp">回首頁</a> -->
+					<button type="button" onclick="history.back()">回首頁</button>
 				</h4>
 			</td>
 		</tr>
-	</table>	
+	</table>
 	<table>
 		<tr>
 			<th>編號</th>
@@ -78,22 +79,22 @@ th, td {
 			<th>課堂數</th>
 			<th>狀態</th>
 		</tr>
-		
-			<tr>
-				<td>${member.memNo}</td>
-				<td>${member.memName}</td>
-				<td>${member.memGender}</td>
-				<td>${member.memPhoto}</td>
-				<td>${member.memEmail}</td>
-				<td>${member.memPassword}</td>
-				<td>${member.memTel}</td>
-				<td>${member.memAddress}</td>
-				<td>${member.memBd}</td>
-				<td>${member.momoPoint}</td>
-				<td>${member.totalClass}</td>
-				<td>${member.memStatus}</td>
-			
-			</tr>
-		</table>
+
+		<tr>
+			<td>${member.memNo}</td>
+			<td>${member.memName}</td>
+			<td>${member.memGender}</td>
+			<td>${member.memPhoto}</td>
+			<td>${member.memEmail}</td>
+			<td>${member.memPassword}</td>
+			<td>${member.memTel}</td>
+			<td>${member.memAddress}</td>
+			<td>${member.memBd}</td>
+			<td>${member.momoPoint}</td>
+			<td>${member.totalClass}</td>
+			<td>${member.memStatus}</td>
+
+		</tr>
+	</table>
 </body>
 </html>
