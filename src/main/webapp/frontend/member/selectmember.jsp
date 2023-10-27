@@ -51,7 +51,7 @@ h4 {
 				<select name="memNo">
 					<c:forEach var="member" items="${memberService.allMembers}">
 						<option
-							value="${member.memNo} ${member.memGender} ${member.memPhoto} ${member.memEmail} ${member.memTel} ${member.memPassword} ${member.memAddress} ${member.memBd} ${member.momoPoint} ${member.totalClass} ${member.memStatus}">${member.memNo}</option>
+							value="${member.memNo}">${member.memNo}</option>
 					</c:forEach>
 				</select> 
 				<input type="hidden" name="action" value="getone">
@@ -64,7 +64,7 @@ h4 {
 				<select name="memNo">
 					<c:forEach var="member" items="${memberService.allMembers}">
 						<option
-							value="${member.memNo} ${member.memGender} ${member.memPhoto} ${member.memEmail} ${member.memTel} ${member.memPassword} ${member.memAddress} ${member.memBd} ${member.momoPoint} ${member.totalClass} ${member.memStatus}">${member.memName}</option>
+							value="${member.memNo}">${member.memName}</option>
 					</c:forEach>
 				</select>
 				<input type="hidden" name="action" value="getone">
