@@ -110,10 +110,23 @@ tr:nth-child(odd) {
 		</c:forEach>
 
 	</table>
+	<c:if test="${currentPage > 1}">
+		<a href="${pageContext.request.contextPath}/privatetrainingappointmentform?action=getall&page=1">至第一頁</a>&nbsp;
+	</c:if>
+	<c:if test="${currentPage - 1 != 0}">
+		<a href="${pageContext.request.contextPath}/privatetrainingappointmentform?action=getall&page=${currentPage - 1}">上一頁</a>&nbsp;
+	</c:if>
+	<c:if test="${currentPage + 1 <= PTAFPageQty}">
+		<a href="${pageContext.request.contextPath}/privatetrainingappointmentform?action=getall&page=${currentPage + 1}">下一頁</a>&nbsp;
+	</c:if>
+	<c:if test="${currentPage != PTAFPageQty}">
+		<a href="${pageContext.request.contextPath}/privatetrainingappointmentform?action=getall&page=${PTAFPageQty}">至最後一頁</a>&nbsp;
+	</c:if>
+
+<%-- 	<input type="hidden" value="返回" onclick="${pageContext.request.contextPath}/frontend/privatetrainingappointmentform/privateTrainingAppointmentForm.jsp"> --%>
+	<button class="btn btn-danger" onclick="window.location='${pageContext.request.contextPath}/frontend/privatetrainingappointmentform/privateTrainingAppointmentForm.jsp'">返回</button>
 
 
-	<input type="button" value="返回" onclick="history.back()">
-
-	</form>
+<!-- 	</form> -->
 </body>
 </html>

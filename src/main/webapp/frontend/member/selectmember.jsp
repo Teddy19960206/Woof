@@ -48,26 +48,27 @@ h4 {
 		<li><form method="POST"
 				ACTION="${pageContext.request.contextPath}/member.do">
 				<b>選擇會員編號:</b> 
-				<select name="action" id="getone">
+				<select name="memNo">
 					<c:forEach var="member" items="${memberService.allMembers}">
 						<option
-							value="${member.memNo} ${member.memGender} ${member.memPhoto} ${member.memEmail} ${member.memTel} ${member.memPassword} ${member.memAddress} ${member.memBd} ${member.momoPoint} ${member.totalClass} ${member.memStatus}">${member.memNo}</option>
+							value="${member.memNo}">${member.memNo}</option>
 					</c:forEach>
 				</select> 
-				<input type="submit" value="送出">
+				<input type="hidden" name="action" value="getone">
+				<button type="submit">提交</button>
 			</form></li>
 			
 		<li><form method="POST"
 				ACTION="${pageContext.request.contextPath}/member.do">
 				<b>選擇會員姓名:</b>
-				<select
-					name="action" id="getone">
+				<select name="memNo">
 					<c:forEach var="member" items="${memberService.allMembers}">
 						<option
-							value="${member.memNo} ${member.memGender} ${member.memPhoto} ${member.memEmail} ${member.memTel} ${member.memPassword} ${member.memAddress} ${member.memBd} ${member.momoPoint} ${member.totalClass} ${member.memStatus}">${member.memName}</option>
+							value="${member.memNo}">${member.memName}</option>
 					</c:forEach>
 				</select>
-				<input type="submit" value="送出">
+				<input type="hidden" name="action" value="getone">
+				<button type="submit">提交</button>
 			</form></li>
 	</ul>
 

@@ -55,4 +55,9 @@ public class SkillServiceImpl implements SkillService{
     public Set<Trainer> getTrainersBySkillNo(Integer skillNo) {
         return dao.getTrainerBySkill(skillNo);
     }
+
+    @Override
+    public List<Skill> getTrainerNotExistsSkill(Integer trainerNo) {
+        return dao.getNotExistsSkill(trainerNo);
+    }
 }

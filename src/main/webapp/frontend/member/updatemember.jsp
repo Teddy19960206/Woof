@@ -36,7 +36,7 @@ $(document).ready(function(){
 						$('#memPassword').val(jsonObj.memPassword);
 						$('#memTel').val(jsonObj.memTel);
 						$('#memAddress').val(jsonObj.memAddress);
-						$('#memTotalclass').val(jsonObj.totalClass);
+						$('#totalClass').val(jsonObj.totalClass);
 						$('#momoPoint').val(jsonObj.momoPoint);
 						$('#memBd').val(jsonObj.memBd);
 						$(
@@ -96,8 +96,7 @@ th, td {
 </head>
 <body bgcolor='white'>
 	<!--request.getContextPath()動態根路徑，action=update找到後端switch(action)的update-->
-	<input type="hidden" name="member" id="member"
-		value='<%=request.getParameter("memNo")%>'>
+
 	<table id="table-1">
 		<tr>
 			<td>
@@ -113,6 +112,9 @@ th, td {
 		action="${pageContext.request.contextPath}/member.do"
 		enctype="multipart/form-data" accept-charset="UTF-8">
 		<table>
+			<input type="hidden" name="memNo" id="member"
+				value='<%=request.getParameter("memNo")%>'>
+			<%-- <input type="hidden" name="memNo" value="${memNo}"/> --%>
 			<tr>
 				<td>會員姓名:</td>
 				<td><input type="TEXT" name="memName" id="memName" size="45" /></td>
@@ -171,8 +173,8 @@ th, td {
 				<td>${errorMsgs.memStatus}</td>
 			</tr>
 		</table>
-		<br> <input type="hidden" name="action" value="insert"> <input
-			type="submit" value="更新">
+		<br> <input type="hidden" name="action" value="update">
+		<button type="submit">送出</button>
 		<button type="button" onclick="history.back()">取消更新</button>
 	</form>
 </body>

@@ -58,7 +58,7 @@ public class CartListDAOImpl implements CartListDAO {
 	}
 
 	@Override
-	public CartList findByMemNo(Integer memNo) {
+	public CartList findByMemNo(String memNo) {
 		return getSession().get(CartList.class, memNo);
 	}
 
