@@ -171,7 +171,7 @@ th, td {
 				<td>${errorMsgs.memStatus}</td>
 			</tr>
 		</table>
-		<br> <input type="hidden" name="action" value="insert"> <input
+		<br> <input type="hidden" name="action" value="update"> <input
 			type="submit" value="更新">
 		<button type="button" onclick="history.back()">取消更新</button>
 	</form>
