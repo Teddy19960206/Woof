@@ -76,7 +76,7 @@ h4 {
 	<h3>會員管理</h3>
 
 	<ul>
-		<li><a href='addmember.jsp'>Add</a> a new Emp.</li>
+		<li><a href='addmember.jsp'>Add</a> a new member.</li>
 	</ul>
 </html>
 

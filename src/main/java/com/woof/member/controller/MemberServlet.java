@@ -155,8 +155,6 @@ public class MemberServlet extends HttpServlet {
 		String url = req.getContextPath() + "/frontend/member/list_all_member.jsp";
 		req.setCharacterEncoding("UTF-8");
 		res.sendRedirect(url);
-//		RequestDispatcher rd = req.getRequestDispatcher(url);
-//		rd.forward(req, res);
 	}
 
 	private void updateMember(HttpServletRequest req, HttpServletResponse res)
@@ -191,11 +189,8 @@ public class MemberServlet extends HttpServlet {
 		member.setTotalClass(Integer.valueOf(req.getParameter("totalClass")));
 		member.setMemStatus(Integer.valueOf(req.getParameter("memStatus")));
 		memberService.updateMember(member);
-//		res.sendRedirect(req.getContextPath() + "/frontend/member/list_all_member.jsp");
 		// 導到指定的URL 頁面上 把請求回應都帶過去
 		System.out.println(req.getParameter("memNo") + "================");
-
-//		req.setCharacterEncoding("UTF-8");
 //		res.setCharacterEncoding("UTF-8");
 //		req.setAttribute("memNo", req.getParameter("memNo"));
 		String url = req.getContextPath() + "/frontend/member/list_all_member.jsp";

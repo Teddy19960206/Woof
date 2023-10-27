@@ -8,12 +8,6 @@ import com.woof.member.entity.Member;
 
 public interface MemberService {
 
-	
-//	int addMember(String memName, String memGender, String memEmail,
-//			String memPassword, String memTel, String memAddress, Date memBd, Integer momoPoint, Integer totalClass,
-//			Integer memStatus);
-
-
 	void updateMember(Member member);
 
 	// Delete a member by its number or ID
@@ -32,4 +26,3 @@ public interface MemberService {
 	void addMember(Member member);
 	
 }
-//
