@@ -13,10 +13,12 @@
 <meta charset="UTF-8">
 <title>員工資料新增 - addmember.jsp</title>
 <script>
-      //日期格式
-    $(function() {
-        $("#memBd").datepicker({ dateFormat: 'yy-mm-dd' });
-    });
+	//日期格式
+	$(function() {
+		$("#memBd").datepicker({
+			dateFormat : 'yy-mm-dd'
+		});
+	});
 </script>
 <style>
 table#table-1 {
@@ -72,8 +74,15 @@ th, td {
 
 	<h3>資料新增:</h3>
 	<!-- request.getContextPath()動態根路徑，action=update找到後端switch(action)的add-->
-	<form method="post" action="${pageContext.request.contextPath}/member.do" enctype="multipart/form-data"  accept-charset="UTF-8">
+	<form method="post"
+		action="${pageContext.request.contextPath}/member.do"
+		enctype="multipart/form-data" accept-charset="UTF-8">
 		<table>
+			<tr>
+				<td>會員帳號:</td>
+				<td><input type="TEXT" name="memNo" id="memNo" size="45" /></td>
+				<td>${errorMsgs.memName}</td>
+			</tr>
 			<tr>
 				<td>會員姓名:</td>
 				<td><input type="TEXT" name="memName" id="memName" size="45" /></td>
@@ -132,7 +141,7 @@ th, td {
 				<td>${errorMsgs.memStatus}</td>
 			</tr>
 		</table>
-		<input type ="hidden" name="action" value ="add">
+		<input type="hidden" name="action" value="add">
 		<button type="submit">新增</button>
 		<button type="button" onclick="history.back()">取消新增</button>
 	</form>

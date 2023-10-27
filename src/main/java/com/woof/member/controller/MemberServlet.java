@@ -210,7 +210,7 @@ public class MemberServlet extends HttpServlet {
 	}
 
 	private void afterupdate(HttpServletRequest req, HttpServletResponse res) throws IOException {
-		Integer memNo = Integer.valueOf(req.getParameter("memNo"));
+		String memNo = req.getParameter("memNo");
 		
 		res.sendRedirect(req.getContextPath() + "/frontend/member/list_all_member.jsp");
 	}
@@ -264,14 +264,15 @@ public class MemberServlet extends HttpServlet {
 
 		    if (memNoStr != null && !memNoStr.trim().isEmpty()) {
 		        try {
-		            Integer memNo = Integer.parseInt(memNoStr); // 被放入單獨的try-catch中
+		            
 		            Member member = memberService.findMemberByNo(memNoStr);
 		            req.setAttribute("member", member);
 		        } catch (NumberFormatException e) {
-		            req.setAttribute("error", "Invalid member number provided.");
-		            RequestDispatcher dispatcher = req.getRequestDispatcher("/frontend/member/errorPage.jsp");
-		            dispatcher.forward(req, res);
-		            return; // 由於已經進行了轉發，所以返回以終止後續的代碼執行
+		        	e.printStackTrace();
+//		            req.setAttribute("error", "Invalid member number provided.");
+//		            RequestDispatcher dispatcher = req.getRequestDispatcher("/frontend/member/errorPage.jsp");
+//		            dispatcher.forward(req, res);
+//		            return; // 由於已經進行了轉發，所以返回以終止後續的代碼執行
 		        }
 
 		    } else {
