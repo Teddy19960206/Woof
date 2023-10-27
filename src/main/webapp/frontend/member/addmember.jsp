@@ -74,14 +74,12 @@ th, td {
 
 	<h3>資料新增:</h3>
 	<!-- request.getContextPath()動態根路徑，action=update找到後端switch(action)的add-->
-	<form method="post"
-		action="${pageContext.request.contextPath}/member.do"
-		enctype="multipart/form-data" accept-charset="UTF-8">
+	<form method="post" action="${pageContext.request.contextPath}/member.do" enctype="multipart/form-data" accept-charset="UTF-8">
 		<table>
 			<tr>
 				<td>會員帳號:</td>
 				<td><input type="TEXT" name="memNo" id="memNo" size="45" /></td>
-				<td>${errorMsgs.memName}</td>
+				<td>${errorMsgs.memNo}</td>
 			</tr>
 			<tr>
 				<td>會員姓名:</td>
