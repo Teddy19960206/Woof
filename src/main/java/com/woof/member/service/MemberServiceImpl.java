@@ -65,26 +65,6 @@ public class MemberServiceImpl implements MemberService {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-//	@Override
-//	public int addMember(String memName, String memGender, String memEmail, String memPassword, String memTel,
-//			String memAddress, Date memBd, Integer momoPoint, Integer totalClass, Integer memStatus) {
-//		Member member = new Member();
-//		member.setMemAddress(memAddress);
-//		member.setMemBd(memBd);
-//		member.setMemEmail(memEmail);
-//		member.setMemGender(memGender);
-//		member.setMemName(memName);
-//		member.setMemPassword(memPassword);
-//		member.setMemStatus(memStatus);
-//		member.setMemTel(memTel);
-//		member.setMomoPoint(momoPoint);
-//		member.setTotalClass(totalClass);
-//		dao.insert(member);
-//		return 1;
-//		
-//	}
-
 	@Override
 	public void addMember(Member member) {
 		
@@ -92,4 +72,3 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 }
-//

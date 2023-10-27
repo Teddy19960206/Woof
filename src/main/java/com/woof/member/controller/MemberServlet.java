@@ -206,38 +206,6 @@ public class MemberServlet extends HttpServlet {
 	}
 
 	private void getOne(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		// 從請求中取得 memNo
-//		req.setCharacterEncoding("UTF-8");
-//		String memNoStr = req.getParameter("memNo");
-//		Integer memNo = null;
-//
-//		try {
-//			memNo = Integer.parseInt(memNoStr);
-//		} catch (NumberFormatException e) {
-//			// 可以進行異常處理，例如轉發到錯誤頁面
-//			req.setAttribute("errorMessage", "無效的會員編號");
-//			req.getRequestDispatcher("/member/errorPage.jsp").forward(req, res);
-//			return;
-//		}
-//
-//		// 呼叫 Service 方法取得 Member 資料
-//		Member member = memberService.findMemberByNo(memNo);
-//		if (member == null) {
-//			// 沒有找到會員，可以進行相應的錯誤處理
-//			req.setAttribute("errorMessage", "找不到指定的會員");
-//			req.getRequestDispatcher("/member/errorPage.jsp").forward(req, res);
-//			return;
-//		}
-//
-//		// 將 Member 資料設定為請求的屬性
-//		req.setAttribute("member", member);
-//
-//		// 轉發到適當的 JSP 頁面以顯示 Member 資料
-////		req.getRequestDispatcher("/frontend/member/list_one_member.jsp").forward(req, res);
-//		// 導到指定的URL 頁面上 把請求回應都帶過去
-//		String url = req.getContextPath() + "/frontend/member/list_one_member.jsp";
-//		req.setCharacterEncoding("UTF-8");
-//		res.sendRedirect(url);
 
 		MemberService memberService = new MemberServiceImpl();
 

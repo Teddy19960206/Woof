@@ -109,15 +109,15 @@ th, td {
 						
 					</form>
 				</td>
-				<td>
-					<FORM METHOD="POST"
-						ACTION="<%=request.getContextPath()%>/member.do"
-						style="margin-bottom: 0px;">
-						<input type="hidden" name="action" value="delete" >
-						<input type="hidden" name="memNo" value="${member.memNo}"> 
-						<button type="submit" class="delete-btn" >§R°£</button>
-					</FORM>
-				</td>
+<!-- 				<td> -->
+<!-- 					<FORM METHOD="POST" -->
+<%-- 						ACTION="<%=request.getContextPath()%>/member.do" --%>
+<!-- 						style="margin-bottom: 0px;"> -->
+<!-- 						<input type="hidden" name="action" value="delete" > -->
+<%-- 						<input type="hidden" name="memNo" value="${member.memNo}">  --%>
+<!-- 						<button type="submit" class="delete-btn" >§R°£</button> -->
+<!-- 					</FORM> -->
+<!-- 				</td> -->
 			</tr>
 		</c:forEach>
 	</table>
