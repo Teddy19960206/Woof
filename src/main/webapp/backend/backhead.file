@@ -1,0 +1,9 @@
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://kit.fontawesome.com/ae360af17e.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="<%=request.getContextPath()%>/webutil/css/bootstrap.min.css" />
+<link rel="stylesheet" href="<%=request.getContextPath()%>/backend/css/style.css">
+
+

@@ -22,7 +22,7 @@ public class CartList implements Serializable {
 	
 	@Id
 	@Column(name = "MEM_NO" , nullable = false)
-	private Integer memNo;
+	private String memNo;
 	
 	@Column(name ="CART_AMOUNT")
 	private Integer cartAmount;
@@ -47,11 +47,11 @@ public class CartList implements Serializable {
 		this.prodNo = prodNo;
 	}
 
-	public Integer getMemNo() {
+	public String getMemNo() {
 		return memNo;
 	}
 
-	public void setMemNo(Integer memNo) {
+	public void setMemNo(String memNo) {
 		this.memNo = memNo;
 	}
 
@@ -67,14 +67,14 @@ public class CartList implements Serializable {
 		private static final long serialVersionUID = 1L;
 
 		private Integer prodNo;
-		private Integer memNo;
+		private String memNo;
 
 		// 一定要有無參數建構子
 		public CompositeDetail() {
 			super();
 		}
 		
-		public CompositeDetail(Integer prodNo, Integer memNo) {
+		public CompositeDetail(Integer prodNo, String memNo) {
 			super();
 			this.prodNo = prodNo;
 			this.memNo = memNo;
@@ -88,11 +88,11 @@ public class CartList implements Serializable {
 			this.prodNo = prodNo;
 		}
 
-		public Integer getMemNo() {
+		public String getMemNo() {
 			return memNo;
 		}
 
-		public void setMemNo(Integer memNo) {
+		public void setMemNo(String memNo) {
 			this.memNo = memNo;
 		}
 

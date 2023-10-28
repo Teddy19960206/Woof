@@ -18,9 +18,8 @@ public class Member implements java.io.Serializable {
 	
 	@Expose
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "MEM_NO", updatable = false, nullable = false)
-	private Integer memNo;
+	@Column(name = "MEM_NO")
+	private String memNo;
 	
 	@OneToMany(mappedBy = "member" , cascade = CascadeType.ALL)
 	private Set<PrivateTrainingAppointmentForm> getPrivateTrainingAppointmentForms;
@@ -67,11 +66,11 @@ public class Member implements java.io.Serializable {
 	@Expose
 	@Column(name = "MOMO_POINT", nullable = false)
 	private Integer momoPoint;
-	
-	@Expose
+
+    @Expose
 	@Column(name = "TOTAL_CLASS", nullable = false)
 	private Integer totalClass;
-	
+
 	@Expose
 	@Column(name = "MEM_STATUS", nullable = false, columnDefinition = "TINYINT")
 	private Integer memStatus;
@@ -81,11 +80,11 @@ public class Member implements java.io.Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Integer getMemNo() {
+	public String getMemNo() {
 		return memNo;
 	}
 
-	public void setMemNo(Integer memNo) {
+	public void setMemNo(String memNo) {
 		this.memNo = memNo;
 	}
 

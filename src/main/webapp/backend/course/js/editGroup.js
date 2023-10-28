@@ -1,11 +1,38 @@
 const p_file = document.getElementById("p_file");
 const preview = document.getElementById("preview");
+let pathName = window.document.location.pathname;
+let projectName = pathName.substring( 0 , pathName.substring(1).indexOf("/")+1);
 
-function clearPhoto() {
+// 移除圖片
+$("button#delete").on("click" , function (){
     preview.innerHTML = `<span class="text">預覽圖</span>`;
+    let id = $(this).data('id')
+    console.log(id);
+    fetchDelete(id);
+})
+
+// 到資料庫把圖片刪除
+async function fetchDelete(id) {
+    let url = `${projectName}/groupcourse/delete/${id}`;
+
+    try{
+        const response = await fetch(url ,{
+            method : "POST"
+        });
+        if (!response.ok){
+            throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+
+        console.log(data)
+
+    }catch (error){
+        console.error('Error', error);
+    }
 }
 
 
+// 讀取圖片
 function readImg(result) {
     let reader = new FileReader();
     reader.readAsDataURL(result);
@@ -15,6 +42,7 @@ function readImg(result) {
     });
 }
 
+// 當選擇新圖片時，讀取圖片並顯示在頁面上，若沒有選擇圖片，則刪除圖片
 p_file.addEventListener("change", function (e) {
     if (this.files.length > 0) {
         readImg(this.files[0]);

@@ -21,20 +21,21 @@ public class GroupCourseScheduleDAOImpl implements GroupCourseScheduleDAO{
     }
 
     @Override
-    public void insert(GroupCourseSchedule groupCourseSchedule) {
-
+    public int insert(GroupCourseSchedule groupCourseSchedule) {
+        return (Integer) getSession().save(groupCourseSchedule);
     }
 
     @Override
-    public void update(GroupCourseSchedule groupCourseSchedule) {
-
+    public int update(GroupCourseSchedule groupCourseSchedule) {
+        getSession().merge(groupCourseSchedule);
+        return 1;
     }
 
     @Override
-    public void updateCount(Integer gcsNo , Integer count) {
-        String sql = "UPDATE group_course_schedule SET count = ? WHERE GCS_NO = ?";
+    public void updateCount(Integer gcsNo , Integer regCount) {
+        String sql = "UPDATE group_course_schedule SET regCount = ? WHERE GCS_NO = ?";
         Query query = getSession().createSQLQuery(sql);
-        query.setParameter(1, count + 1);
+        query.setParameter(1, regCount + 1);
         query.setParameter(2, gcsNo);
         int result = query.executeUpdate();
         System.out.println(result);
@@ -51,10 +52,29 @@ public class GroupCourseScheduleDAOImpl implements GroupCourseScheduleDAO{
     }
 
     @Override
+    public List<GroupCourseSchedule> getListSchedule(Integer classType , Integer status) {
+
+        String hql = "FROM GroupCourseSchedule gcs WHERE gcs.groupCourse.classType.ctNo = :ctNo and gcs.gcsStatus = :status";
+
+        Query<GroupCourseSchedule> query = getSession().createQuery(hql , GroupCourseSchedule.class);
+        query.setParameter("ctNo" , classType);
+        query.setParameter("status" , status);
+
+
+        List<GroupCourseSchedule> list = query.list();
+
+
+        return list;
+    }
+
+    @Override
     public List<GroupCourseSchedule> getAllbyClassType(Integer ctNo) {
 
-        String sql = "SELECT gcs.GCS_NO , gcs.GC_NO , gcs.TRAINER_NO , gcs.GCS_START , gcs.GCS_END , gcs.MIN_LIMIT ,gcs.MAX_LIMIT , gcs.COUNT , gcs.GCS_PRICE , GCS_STATUS" +
-                " FROM GROUP_COURSE_SCHEDULE AS gcs INNER JOIN GROUP_COURSE AS gc ON gcs.GC_NO = gc.GC_NO WHERE gc.CT_NO = :ctNo";
+//      原生 sql 無法對物件，僅可明確指定
+        String sql = "SELECT gcs.GCS_NO , gcs.GC_NO , gcs.TRAINER_NO , gcs.GCS_START , gcs.GCS_END , gcs.MIN_LIMIT ," +
+                " gcs.MAX_LIMIT , gcs.REG_COUNT , gcs.GCS_PRICE, gcs.GCS_STATUS , gcs.GCS_DELAY_REASON , " +
+                "gcs.RELATED_GCS_NO , gcs.CREATED_AT , gcs.UPDATED_AT FROM GROUP_COURSE_SCHEDULE AS gcs " +
+                "INNER JOIN GROUP_COURSE AS gc ON gcs.GC_NO = gc.GC_NO WHERE gc.CT_NO = :ctNo";
 
         NativeQuery query = getSession().createNativeQuery(sql)
             .setParameter("ctNo", ctNo)
@@ -62,6 +82,7 @@ public class GroupCourseScheduleDAOImpl implements GroupCourseScheduleDAO{
 
         List<GroupCourseSchedule> results = query.list();
 
+//        HQL可以對應物件
 //        String hql = "select gcs FROM GroupCourseSchedule gcs JOIN gcs.groupCourse gc WHERE gc.classType = :ctNo";
 //        Query<GroupCourseSchedule> query = getSession().createQuery(hql, GroupCourseSchedule.class);
 //        query.setParameter("ctNo", classType);

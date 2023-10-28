@@ -8,14 +8,11 @@ public interface SkillsListDAO {
 
 
 
-    void insert(SkillsList skillsList);
+    int insert(SkillsList skillsList);
 
+    int update(SkillsList skillsList);
 
-    void delete(SkillsList skillsList);
-
-    SkillsList find(SkillsList skillsList);
-
-    List<SkillsList> findbyTrainerNo(Integer TrainerNo);
+    int delete(SkillsList skillsList);
 
     List<SkillsList> getAll();
 }

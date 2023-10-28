@@ -10,7 +10,13 @@ public interface PrivateTrainingAppointmentFormDAO {
 	
 	int update(PrivateTrainingAppointmentForm privateTrainingAppointmentForm);
 	
+	int delete(PrivateTrainingAppointmentForm privateTrainingAppointmentForm);
+	
 	PrivateTrainingAppointmentForm findByPtaNo(Integer ptaNo);
 	
 	List<PrivateTrainingAppointmentForm> getAll();
+	
+	List<PrivateTrainingAppointmentForm> getAll(int currentPage);
+	
+	long getTotal();
 }

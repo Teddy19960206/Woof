@@ -6,6 +6,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import com.woof.promotionactivity.entity.PromotionActivity;
+import com.woof.util.HibernateUtil;
 
 public class PromotionActivityDAOImpl implements PromotionActivityDAO {
 
@@ -19,9 +20,28 @@ public class PromotionActivityDAOImpl implements PromotionActivityDAO {
 		return factory.getCurrentSession();
 	}
 
+	
 	@Override
 	public int insert(PromotionActivity promotionActivity) {
-		return (Integer) getSession().save(promotionActivity);
+		System.out.println("QQQQQQQQQQQQQ");
+		
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		try {
+			session.beginTransaction();
+			session.save(promotionActivity);
+			session.getTransaction().commit();
+			return 1;
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.getTransaction().rollback();
+		} finally {
+	        if (session != null && session.isOpen()) {
+	            session.close();
+	        }
+	    }
+		return -1;
+	
+//		return (Integer) getSession().save(promotionActivity);
 	}
 
 	@Override

@@ -1,0 +1,117 @@
+img.background{
+    margin: 0;
+    width: 100vw;
+    height: 500px;
+    object-fit: cover;
+    overflow: hidden;
+}
+
+button.myBtn{
+    width: 200px;
+    height: 50px;
+    border-radius: 10px;
+    background-color: #eb702a;
+    border: none;
+    font-size: 20px;
+    color: white;
+}
+
+button.myBtn:hover{
+    background-color: #F79B66;
+    color: #084298;
+}
+
+h1.h5{
+    color: #eb702a;
+}
+
+.carousel-caption {
+    top: 50%;
+    transform: translateY(-50%);
+    bottom: auto;
+}
+
+ul > li{
+    list-style-type: none;
+    font-size: 1.2rem;
+}
+
+
+span{
+    color: #0b5ed7;
+}
+
+myTextColor{
+    color: #eb702a;
+}
+
+div.myImg{
+    width: 300px;
+
+    display: flex;
+    justify-content: center;
+}
+
+
+.button-62 {
+   background: linear-gradient(to bottom right, #EF4765, #FF9A5A);
+   border: 0;
+   border-radius: 12px;
+   color: #FFFFFF;
+   cursor: pointer;
+   display: inline-block;
+   font-family: -apple-system,system-ui,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+   font-size: 16px;
+   font-weight: 500;
+   line-height: 2.5;
+   outline: transparent;
+   padding: 0 1rem;
+   text-align: center;
+   text-decoration: none;
+   transition: box-shadow .2s ease-in-out;
+   user-select: none;
+   -webkit-user-select: none;
+   touch-action: manipulation;
+   white-space: nowrap;
+}
+
+
+.button-62:not([disabled]):hover {
+    box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5), .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
+}
+
+@media screen and (max-width: 991px){
+    div.myImg{
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 10px;
+    }
+    div.myCard{
+        margin: auto;
+    }
+    div.myBtn{
+        margin: auto;
+    }
+}
+
+@media screen and (max-width: 767px){
+    div.myBtn{
+        padding: 10px;
+    }
+}
+
+img.modal-img{
+    margin: auto;
+    width: 400px;
+}
+
+div.modal-div{
+    text-align: center;
+}
+
+@media screen and (max-width: 450px){
+    img.modal-img{
+        margin: auto;
+        width: 100%;
+    }
+}

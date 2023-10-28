@@ -1,16 +1,20 @@
-.carousel-inner>.carousel-item>img {
-	/* max-height: 500px; */
+header.header{
+	overflow: hidden;
+	object-fit: cover;
+
+}
+div#carouselExampleCaptions{
+	overflow: hidden;
+	object-fit: cover;
 }
 
-/* header div.navbar div.container div.collapse ul.navbar-nav li a {
-  color: #eb702a;
-  font-weight: bolder;
-} */
-
-/* header div.navbar div.container div.collapse ul.navbar-nav li a.active {
-  color: #79350e;
-  font-weight: bolder;
-} */
+div.carousel-item > img {
+	margin: 0;
+	width: 100vw;
+	height: 400px;
+	object-fit: cover;
+	overflow: hidden;
+}
 
 * {
 	font-family: "Noto Sans TC", sans-serif;

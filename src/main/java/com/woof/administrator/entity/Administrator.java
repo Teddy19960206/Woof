@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.Objects;
 import java.util.Set;
 
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,6 +16,9 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
+
 import com.google.gson.annotations.Expose;
 import com.woof.trainer.entity.Trainer;
 
@@ -23,9 +27,8 @@ import com.woof.trainer.entity.Trainer;
 public class Administrator implements Serializable {
 	@Expose
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ADMIN_NO", updatable = false, nullable = false)
-	private Integer adminNo;
+	private String adminNo;
 	@Expose
 	@Column(name = "ADMIN_NAME", nullable = false)
 	private String adminName;
@@ -67,13 +70,14 @@ public class Administrator implements Serializable {
 	private Integer adminStatus;
 
 	public Administrator() {
+		super();
 	}
 
-	public Integer getAdminNo() {
+	public String getAdminNo() {
 		return adminNo;
 	}
 
-	public void setAdminNo(Integer adminNo) {
+	public void setAdminNo(String adminNo) {
 		this.adminNo = adminNo;
 	}
 

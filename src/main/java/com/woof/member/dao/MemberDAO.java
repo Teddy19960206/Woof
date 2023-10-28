@@ -9,11 +9,15 @@ public interface MemberDAO {
 
 	int update(Member member);
 
-	int delete(Integer memNo);
+	int delete(String memNo);
 
-	Member findByMemberNo(Integer memNo);
-
+	Member findByMemberNo(String memNo);
+	
 	List<Member> getAll();
+	
+	List<Member> getByCompositeQuery(Map<String, String> map);
+
+	long getTotal();
 
 }
 
@@ -29,7 +33,7 @@ public interface MemberDAO {
 //
 //		public void delete(Integer memberVO);
 //
-//		public MemberVO findByPrimaryKey(Integer memNo);
+//		public MemberVO findByPrimaryKey(String memNo);
 //
 //		public List<MemberVO> getAll();
 //

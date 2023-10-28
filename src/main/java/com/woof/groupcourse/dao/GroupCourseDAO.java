@@ -11,6 +11,8 @@ public interface GroupCourseDAO {
 
     int update(GroupCourse groupCourse);
 
+    int deletePhoto(Integer gcNo);
+
     GroupCourse findbyGcNo(Integer gcNo);
 
     List<GroupCourse> getGroupCourseByCtNo(Integer ctNo);

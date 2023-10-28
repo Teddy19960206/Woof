@@ -44,11 +44,10 @@ public class GroupCourseServlet extends HttpServlet {
 
         request.setCharacterEncoding("UTF-8");
 
-
+//       取得位址資訊
         String pathInfo = request.getPathInfo();
 
-        System.out.println(pathInfo);
-
+//       判斷若是 /edit/{:_id} 取得id
         int secondSlashIndex = pathInfo.indexOf('/', 2);
         Integer result = null;
         if (secondSlashIndex > 0){
@@ -60,7 +59,7 @@ public class GroupCourseServlet extends HttpServlet {
         switch (pathInfo){
             case "/addpage":
 //                預先載入可選擇的選項
-                forwardPath =getSelectInfo(request,response);
+                forwardPath = getSelectInfo(request,response);
                 break;
             case "/addgroup":
 //                正式增加GroupCourse資料
@@ -75,11 +74,15 @@ public class GroupCourseServlet extends HttpServlet {
                 getGroupCourse(request, response);
                 return;
             default:
-//               進入edit畫面先進行讀取要修改的檔案
+//                進入edit畫面根據取得的id去抓取要修改的資料
                 if (pathInfo.startsWith("/edit/")) {
                     getSelectInfo(request,response);
                     forwardPath = edit(request , response , result);
+                } else if (pathInfo.startsWith("/delete/")) {
+                    delete(request , response , result);
+                    return;
                 } else {
+//                    若是都不是以上位址，則預設取得全部資料，並轉回"/classtype/classContent.jsp"
                     forwardPath = "/classtype/classContent.jsp";
                 }
         }
@@ -107,7 +110,10 @@ public class GroupCourseServlet extends HttpServlet {
 //            異常判斷
         }
 
-        Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+        Gson gson = new GsonBuilder()
+                .excludeFieldsWithoutExposeAnnotation()
+                .setDateFormat("yyyy-MM-dd")
+                .create();
         String json = gson.toJson(groupCourseList);
         response.setContentType("application/json;charset=UTF-8");
 
@@ -119,6 +125,8 @@ public class GroupCourseServlet extends HttpServlet {
 
         ClassTypeService classTypeService = new ClassTypeServiceImpl();
         List<ClassType> allClassTypes = classTypeService.getAllClassTypes();
+
+
         SkillService skillService = new SkillServiceImpl();
         List<Skill> allSkill = skillService.getAllSkill();
 
@@ -138,10 +146,11 @@ public class GroupCourseServlet extends HttpServlet {
 
         ClassTypeService classTypeService = new ClassTypeServiceImpl();
         Integer ctNo = Integer.valueOf(request.getParameter("classType"));
-        ClassType classTypeByNO = classTypeService.findClassTypeByNO(ctNo);
+        ClassType classTypeByNO = classTypeService.findClassTypeByNo(ctNo);
 
         Part filePart = request.getPart("photo");
         byte[] bytes = PartParsebyte.partToByteArray(filePart);
+
         String content = request.getParameter("content");
 
 
@@ -153,7 +162,7 @@ public class GroupCourseServlet extends HttpServlet {
             System.out.println("新增失敗");
         }
 
-        response.sendRedirect(request.getServletContext().getContextPath()+"/backend/course/classContent.jsp");
+        response.sendRedirect(request.getContextPath()+"/backend/course/classContent.jsp");
 
     }
 
@@ -179,7 +188,7 @@ public class GroupCourseServlet extends HttpServlet {
 
         ClassTypeService classTypeService = new ClassTypeServiceImpl();
         Integer ctNo = Integer.valueOf(request.getParameter("classType"));
-        ClassType classTypeByNO = classTypeService.findClassTypeByNO(ctNo);
+        ClassType classTypeByNO = classTypeService.findClassTypeByNo(ctNo);
 
 
         byte[] bytes = null;
@@ -205,9 +214,14 @@ public class GroupCourseServlet extends HttpServlet {
             System.out.println("更新失敗");
         }
 
-        response.sendRedirect(request.getServletContext().getContextPath()+"/backend/course/classContent.jsp");
+        response.sendRedirect(request.getContextPath()+"/backend/course/classContent.jsp");
 
     }
 
+    private void delete(HttpServletRequest request , HttpServletResponse response , Integer id) throws IOException {
+        groupCourseService.deletePhoto(id);
+
+        response.getWriter().write("ok");
+    }
 
 }

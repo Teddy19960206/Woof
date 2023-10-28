@@ -1,6 +1,11 @@
 package com.woof.member.service;
 
+import static com.woof.util.Constants.PAGE_MAX_RESULT;
+
+import java.sql.Date;
 import java.util.List;
+import java.util.Map;
+
 import org.hibernate.Session;
 
 import com.woof.member.dao.MemberDAO;
@@ -10,73 +15,60 @@ import com.woof.util.HibernateUtil;
 
 public class MemberServiceImpl implements MemberService {
 
-    private MemberDAO dao;
+	private MemberDAO dao;
 
-    public MemberServiceImpl() {
-        dao = new MemberDAOImpl(HibernateUtil.getSessionFactory());
-    }
+	public MemberServiceImpl() {
+		dao = new MemberDAOImpl(HibernateUtil.getSessionFactory());
+	}
 
-    @Override
-    public Member addMember(Member member) {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        session.beginTransaction();
-        try {
-            if (dao.insert(member) == 1) {
-                session.getTransaction().commit();
-                return member;
-            } else {
-                session.getTransaction().rollback();
-                return null;
-            }
-        } catch (Exception e) {
-            session.getTransaction().rollback();
-            throw e; // or handle the exception appropriately
-        }
-    }
+	@Override
+	public void updateMember(Member member) {
+//        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+//        session.beginTransaction();
+		dao.update(member);
+	}
 
-    @Override
-    public Member updateMember(Member member) {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        session.beginTransaction();
-        try {
-            if (dao.update(member) == 1) {
-                session.getTransaction().commit();
-                return member;
-            } else {
-                session.getTransaction().rollback();
-                return null;
-            }
-        } catch (Exception e) {
-            session.getTransaction().rollback();
-            throw e; 
-        }
-    }
+	@Override
+	public void deleteMember(String memNo) {
+//        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+//        session.beginTransaction();
+		if (dao.delete(memNo) == 1) {
+			return;
+		}
+	}
 
-    @Override
-    public void deleteMember(Integer memNo) {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        session.beginTransaction();
-        try {
-            if (dao.delete(memNo) == 1) {
-                session.getTransaction().commit();
-            } else {
-                session.getTransaction().rollback();
-            }
-        } catch (Exception e) {
-            session.getTransaction().rollback();
-            throw e; 
-        }
-    }
+	@Override
+	public Member findMemberByNo(String memNo) {
+		Member member = dao.findByMemberNo(memNo);
+		return member;
+	}
 
-    @Override
-    public Member findMemberByNo(Integer memNo) {
-        return dao.findByMemberNo(memNo);
-    }
+	@Override
+	public List<Member> getAllMembers() {
+		return dao.getAll();
+	}
 
-    @Override
-    public List<Member> getAllMembers() {
-    	List<Member>memberList=dao.getAll();
-        return memberList;
-    }
+	public byte[] getPhotoById(String memNo) {
+		return findMemberByNo(memNo).getMemPhoto();
+	}
+
+	@Override
+	public int getPageTotal() {
+		long total = dao.getTotal();
+
+		int pageQty = (int) (total % PAGE_MAX_RESULT == 0 ? (total / PAGE_MAX_RESULT) : (total / PAGE_MAX_RESULT + 1));
+		return pageQty;
+	}
+
+	@Override
+	public List<Member> getMembersByCompositeQuery(Map<String, String[]> map) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public void addMember(Member member) {
+		
+		dao.insert(member);
+	}
+	
 }
-//

@@ -54,6 +54,11 @@ public class GroupCourseServiceImpl implements GroupCourseService , AppService {
     }
 
     @Override
+    public int deletePhoto(Integer gcNo) {
+        return dao.deletePhoto(gcNo);
+    }
+
+    @Override
     public GroupCourse findGroupCourseByNo(Integer gcNo) {
         GroupCourse groupCourse = dao.findbyGcNo(gcNo);
         return groupCourse;
