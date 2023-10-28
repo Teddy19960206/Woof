@@ -51,7 +51,7 @@
   <li><a href='listAllProduct.jsp'>列出所有商品</a><br><br></li>
   
   <li>
-    <FORM METHOD="post" ACTION="/Product">
+    <FORM METHOD="post" ACTION="${pageContext.request.contextPath}/product">
         <b>輸入商品編號 (如1):</b>
         <input type="text" name="prodNo">
         <input type="hidden" name="action" value="getOne_For_Display">
@@ -62,7 +62,7 @@
   <jsp:useBean id="productSvc" scope="page" class="com.woof.product.service.ProductService" />
    
   <li>
-     <FORM METHOD="post" ACTION="product.do">
+     <FORM METHOD="post" ACTION="${pageContext.request.contextPath}/product">
        <b>選擇商品編號:</b>
        <select size="1" name="prodNo">
          <c:forEach var="product" items="${productSvc.all}">
@@ -75,7 +75,7 @@
   </li>
   
   <li>
-     <FORM METHOD="post" ACTION="product.do">
+     <FORM METHOD="post" ACTION="${pageContext.request.contextPath}/product">
        <b>選擇商品名稱:</b>
        <select size="1" name="prodNo">
          <c:forEach var="product" items="${productSvc.all}">

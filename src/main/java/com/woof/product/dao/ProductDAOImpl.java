@@ -82,7 +82,9 @@ public class ProductDAOImpl implements ProductDAO {
 		Connection con = null;
 		PreparedStatement ps = null;
 		int count = 0;
-
+		System.out.println("------------------------");
+		System.out.println("prodNo=" + prodNo);
+		System.out.println("------------------------");
 		try {
 			con = Util.getConnection();
 			ps = con.prepareStatement(DELETE_STMT);
@@ -165,9 +167,4 @@ public class ProductDAOImpl implements ProductDAO {
 		return product;
 	}
 
-	
-
 }
-
-
-

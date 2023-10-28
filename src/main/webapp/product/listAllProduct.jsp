@@ -82,13 +82,13 @@
    <td>${product.prodName}</td>
    <td>${product.prodStatus}</td>
    <td>
-     <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/product/product" style="margin-bottom: 0px;">
+     <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/product" style="margin-bottom: 0px;">
         <input type="submit" value="­×§ï">
         <input type="hidden" name="prodNo"  value="${product.prodNo}">
         <input type="hidden" name="action" value="getOne_For_Update"></FORM>
    </td>
    <td>
-     <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/product/product" style="margin-bottom: 0px;">
+     <FORM METHOD="post" ACTION="${pageContext.request.contextPath}/product" style="margin-bottom: 0px;">
         <input type="submit" value="§R°£">
         <input type="hidden" name="prodNo"  value="${product.prodNo}">
         <input type="hidden" name="action" value="delete"></FORM>
