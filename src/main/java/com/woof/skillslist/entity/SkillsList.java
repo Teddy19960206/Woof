@@ -17,7 +17,6 @@ import javax.persistence.Table;
 public class SkillsList implements Serializable {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "TRAINER_NO")
     private Integer trainerNo;
 	
@@ -54,16 +53,18 @@ public class SkillsList implements Serializable {
     public void setSkillNo(Integer skillNo) {
         this.skillNo = skillNo;
     }
-
     static class CompositeSkillsList implements Serializable{
     	
     	private static final long serialVersionUID = 1L;
     	
     	private Integer trainerNo;
     	private Integer skillNo;
-    	
+
+		public CompositeSkillsList(){
+
+		}
+
     	public CompositeSkillsList(Integer trainerNo , Integer skillNo) {
-    		super();
     		this.trainerNo = trainerNo;
     		this.skillNo = skillNo;
     	}

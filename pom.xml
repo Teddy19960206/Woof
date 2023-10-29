@@ -90,14 +90,15 @@
 		</dependency>
 
 		<dependency>
-			<groupId>com.tibame</groupId>
-			<artifactId>Spring_0201_AOP_Introduction</artifactId>
-			<version>1.0.0</version>
+			<groupId>com.sun.mail</groupId>
+			<artifactId>javax.mail</artifactId>
+			<version>1.6.2</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.mysql/mysql-connector-j -->
 		<dependency>
-			<groupId>idv.david</groupId>
-			<artifactId>HibernateEx</artifactId>
-			<version>1.0</version>
+			<groupId>com.mysql</groupId>
+			<artifactId>mysql-connector-j</artifactId>
+			<version>8.0.31</version>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
