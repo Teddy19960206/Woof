@@ -1,11 +1,14 @@
 package com.woof.faq.dao;
 
+import static com.woof.util.Constants.PAGE_MAX_RESULT;
+
 import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import com.woof.faq.entity.Faq;
+import com.woof.privatetrainingappointmentform.entity.PrivateTrainingAppointmentForm;
 
 
 public class FaqDAOImpl implements FaqDAO {
@@ -55,5 +58,21 @@ public class FaqDAOImpl implements FaqDAO {
 	public List<Faq> getAll() {
 		return getSession().createQuery("FROM Faq", Faq.class).list();
 	}
+	
+	
+	@Override
+	public List<Faq> getAll(int currentPage) {
+		int first = (currentPage - 1) * PAGE_MAX_RESULT;
+		return getSession().createQuery("FROM Faq", Faq.class)
+				.setFirstResult(first)
+				.setMaxResults(PAGE_MAX_RESULT)
+				.list();
+	}
+
+	@Override
+	public long getTotal() {
+		return getSession().createQuery("select count(*) from Faq", Long.class).uniqueResult();
+	}
+	
 
 }
