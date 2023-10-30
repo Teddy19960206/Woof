@@ -55,8 +55,8 @@
 
   <label for="status">課程報名狀態：</label>
   <select name="status" id="status">
-    <option value="0" <c:if test="${schedule.gcsStatus eq 0}">selected</c:if>>上架</option>
-    <option value="1" <c:if test="${schedule.gcsStatus eq 1}">selected</c:if>>下架</option>
+    <option value="0" <c:if test="${schedule.gcsStatus eq 0}">selected</c:if>>下架</option>
+    <option value="1" <c:if test="${schedule.gcsStatus eq 1}">selected</c:if>>上架</option>
   </select>
 
   <button type="submit">確定修改</button>

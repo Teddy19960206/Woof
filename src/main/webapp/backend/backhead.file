@@ -5,5 +5,6 @@
 <script src="https://kit.fontawesome.com/ae360af17e.js" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/webutil/css/bootstrap.min.css" />
 <link rel="stylesheet" href="<%=request.getContextPath()%>/backend/css/style.css">
+<link rel="icon" type="image/x-icon" href="<%=request.getContextPath()%>/webutil/icons/happy_1.png" />
 
 

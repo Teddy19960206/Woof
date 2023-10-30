@@ -1,5 +1,6 @@
 package com.woof.classtype.entity;
 
+import java.io.Serializable;
 import java.util.Objects;
 import java.util.Set;
 
@@ -19,7 +20,7 @@ import javax.persistence.CascadeType;
 
 @Entity
 @Table(name="class_type")
-public class ClassType {
+public class ClassType implements Serializable {
 	@Expose
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
