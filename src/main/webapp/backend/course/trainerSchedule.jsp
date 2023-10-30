@@ -9,7 +9,7 @@
 <link href="${pageContext.request.contextPath}/webutil/css/bootstrap.min.css" rel="stylesheet" />
 <script src="${pageContext.request.contextPath}/webutil/js/bootstrap.bundle.min.js"></script>
 <script src="${pageContext.request.contextPath}/webutil/js/jquery-3.7.1.min.js"></script>
-
+  <%@ include file="/backend/backhead.file" %>
 <script>
 
   let time = ["2023-10-04" , "2023-10-03" ,"2023-10-10"];
@@ -141,8 +141,10 @@
 </head>
 <body>
 
-  <div id='calendar'></div>
-
+<%@ include file="/backend/backbody.file" %>
+  <div class="container col-6 mx-auto">
+    <div id='calendar' style="width: 100%"></div>
+  </div>
   <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -177,5 +179,7 @@
     }
 
   </script>
+
+<%@ include file="/backend/backfoot.file" %>
 </body>
 </html>
