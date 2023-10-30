@@ -89,10 +89,10 @@ public class MemberServlet extends HttpServlet {
 				Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
 				req.setAttribute("errorMsgs", errorMsgs);
 				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
-				String memberNo = req.getParameter("memberNo");
+				String memberNo = req.getParameter("memberaccount");
 
 				if (memberNo == null || (memberNo.trim()).length() == 0) {
-					errorMsgs.put("memberemail", "會員帳號:請勿空白");
+					errorMsgs.put("memberaccount", "會員帳號:請勿空白");
 				}
 
 				String memberpassword = req.getParameter("memberpassword");
