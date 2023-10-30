@@ -23,7 +23,7 @@ public interface PrivateTrainingAppointmentFormService {
 
 	int getPageTotal();
 	
-	PrivateTrainingAppointmentForm findPrivateTrainingAppointmentFormByMemNo(String memNo);
+	List<PrivateTrainingAppointmentForm> findPrivateTrainingAppointmentFormByMemNo(String memNo);
 	
-	PrivateTrainingAppointmentForm findPrivateTrainingAppointmentFormByTrainerNo(Integer trainerNo);
+	List<PrivateTrainingAppointmentForm> findPrivateTrainingAppointmentFormByTrainerNo(Integer trainerNo);
 }

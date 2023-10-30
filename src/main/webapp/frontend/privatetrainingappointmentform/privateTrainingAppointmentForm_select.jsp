@@ -34,7 +34,7 @@
 
 <form action="${pageContext.request.contextPath}/privatetrainingappointmentform/privateTrainingAppointmentForm" method="post" enctype="multipart/form-data">
     <label>私人訓練預約單編號：</label>
-    <select name="pta">
+    <select name="ptaNo">
         <c:forEach items="${privateTrainingAppointmentForms}" var="privateTrainingAppointmentForm">
             <option value="${privateTrainingAppointmentForm.ptaNo}">${privateTrainingAppointmentForm.ptaNo}</option>
         </c:forEach>

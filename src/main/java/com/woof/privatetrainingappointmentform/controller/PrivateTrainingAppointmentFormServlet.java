@@ -290,17 +290,17 @@ public class PrivateTrainingAppointmentFormServlet extends HttpServlet {
 		
 		String memNo = request.getParameter("memNo");
 		
-		PrivateTrainingAppointmentForm member = privateTrainingAppointmentFormService
-				.findPrivateTrainingAppointmentFormByMemNo(memNo);
+		List<PrivateTrainingAppointmentForm> members = privateTrainingAppointmentFormService
+				.findPrivateTrainingAppointmentFormByMemNo(memNo); 
 
-		request.setAttribute("member", member);
+		request.setAttribute("members", members);
 		
 	}
 	private void getByTrainerNo(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
 		Integer trainerNo = Integer.valueOf(request.getParameter("trainerNo"));
 		
-		PrivateTrainingAppointmentForm trainer = privateTrainingAppointmentFormService
+		List<PrivateTrainingAppointmentForm> trainer = privateTrainingAppointmentFormService
 				.findPrivateTrainingAppointmentFormByTrainerNo(trainerNo);
 		
 		request.setAttribute("trainer", trainer);

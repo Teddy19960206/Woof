@@ -14,9 +14,9 @@ public interface PrivateTrainingAppointmentFormDAO {
 	
 	PrivateTrainingAppointmentForm findByPtaNo(Integer ptaNo);
 	
-	PrivateTrainingAppointmentForm findByMemNo(String memNo);
+	List<PrivateTrainingAppointmentForm> findByMemNo(String memNo);
 	
-	PrivateTrainingAppointmentForm findByTrainerNo(Integer trainerNo);
+	List<PrivateTrainingAppointmentForm> findByTrainerNo(Integer trainerNo);
 	
 	List<PrivateTrainingAppointmentForm> getAll();
 	

@@ -81,22 +81,20 @@ public class PrivateTrainingAppointmentFormServiceImpl implements PrivateTrainin
 	}
 
 	@Override
-	public PrivateTrainingAppointmentForm findPrivateTrainingAppointmentFormByMemNo(String memNo) {
-		PrivateTrainingAppointmentForm privateTrainingAppointmentForm = new PrivateTrainingAppointmentForm();
+	public List<PrivateTrainingAppointmentForm> findPrivateTrainingAppointmentFormByMemNo(String memNo) {
 
-		privateTrainingAppointmentForm = dao.findByMemNo(memNo);
+		List<PrivateTrainingAppointmentForm> member = dao.findByMemNo(memNo);
 
-		return privateTrainingAppointmentForm;
+		return member;
 
 	}
 
 	@Override
-	public PrivateTrainingAppointmentForm findPrivateTrainingAppointmentFormByTrainerNo(Integer trainerNo) {
-PrivateTrainingAppointmentForm privateTrainingAppointmentForm = new PrivateTrainingAppointmentForm();
-		
-		privateTrainingAppointmentForm = dao.findByTrainerNo(trainerNo);
-		
-		return privateTrainingAppointmentForm;
+	public List<PrivateTrainingAppointmentForm> findPrivateTrainingAppointmentFormByTrainerNo(Integer trainerNo) {
+
+		List<PrivateTrainingAppointmentForm> trainer = dao.findByTrainerNo(trainerNo);
+
+		return trainer;
 
 	}
 
