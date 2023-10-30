@@ -1,10 +1,13 @@
 package com.woof.faq.service;
 
+import static com.woof.util.Constants.PAGE_MAX_RESULT;
+
 import java.util.List;
 
 import com.woof.faq.dao.FaqDAO;
 import com.woof.faq.dao.FaqDAOImpl;
 import com.woof.faq.entity.Faq;
+import com.woof.privatetrainingappointmentform.entity.PrivateTrainingAppointmentForm;
 import com.woof.util.HibernateUtil;
 
 public class FaqServiceImpl implements FaqService{
@@ -55,6 +58,17 @@ public class FaqServiceImpl implements FaqService{
 		return dao.findByFaqNo(faqNo);
 	}
 	
-	
+	@Override
+	public List<Faq> getAllFaq(int currentPage) {
+		
+		return dao.getAll(currentPage);
+	}
+
+	@Override
+	public int getPageTotal() {
+		long total = dao.getTotal();
+		int pageQty = (int)(total % PAGE_MAX_RESULT == 0 ? (total / PAGE_MAX_RESULT) : (total / PAGE_MAX_RESULT + 1));
+		return pageQty;
+	}
 	
 }

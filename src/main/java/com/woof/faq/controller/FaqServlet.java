@@ -66,9 +66,22 @@ public class FaqServlet extends HttpServlet {
 
 	private String getAll(HttpServletRequest req, HttpServletResponse resp) {
 
-		List<Faq> all = faqService.getAllFaq();
+//		List<Faq> all = faqService.getAllFaq();
+//		req.setAttribute("all", all);
+		
+		String page = req.getParameter("page");
+		int currentPage = (page == null) ? 1 : Integer.parseInt(page);
+		
+		if (req.getSession().getAttribute("faqPageQty") == null) {
+			int faqPageQty = faqService.getPageTotal();
+			req.getSession().setAttribute("faqPageQty", faqPageQty);
+		}
+		
+		List<Faq> all = faqService.getAllFaq(currentPage);
+		
 		req.setAttribute("all", all);
-
+		req.setAttribute("currentPage", currentPage);
+		
 		return "/backend/faq/getAll.jsp";
 	}
 

@@ -69,7 +69,23 @@ request.setCharacterEncoding("UTF-8");
                 </c:forEach>
             </tbody>
         </table>
-        <a class="btn btn-secondary" href="javascript:history.back()">返回</a>
+        
+        
+    <c:if test="${currentPage > 1}">
+		<a class="btn btn-outline-secondary" href="${pageContext.request.contextPath}/faq?action=getAll&page=1">至第一頁</a>&nbsp;
+	</c:if>
+	<c:if test="${currentPage - 1 != 0}">
+		<a class="btn btn-outline-secondary" href="${pageContext.request.contextPath}/faq?action=getAll&page=${currentPage - 1}">上一頁</a>&nbsp;
+	</c:if>
+	<c:if test="${currentPage + 1 <= faqPageQty}">
+		<a class="btn btn-outline-secondary" href="${pageContext.request.contextPath}/faq?action=getAll&page=${currentPage + 1}">下一頁</a>&nbsp;
+	</c:if>
+	<c:if test="${currentPage != faqPageQty}">
+		<a class="btn btn-outline-secondary" href="${pageContext.request.contextPath}/faq?action=getAll&page=${faqPageQty}">至最後一頁</a>&nbsp;
+	</c:if>
+	
+	
+        <a class="btn btn-secondary" href="${pageContext.request.contextPath}/backend/faq/faqfirst.jsp">返回</a>
     </div>
 
 <%@ include file="/backend/backfoot.file" %>
