@@ -19,7 +19,8 @@ public class MemberDAOImpl implements MemberDAO {
 
 	@Override
 	public int insert(Member member) {
-		return (Integer) getSession().save(member);
+		 getSession().save(member);
+		return 1;
 	}
 
 	@Override

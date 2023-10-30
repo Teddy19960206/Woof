@@ -26,7 +26,8 @@ public class SkillsListDAOImpl implements SkillsListDAO {
 
     @Override
     public int insert(SkillsList skillsList) {
-        return (Integer) getSession().save(skillsList);
+        getSession().save(skillsList);
+        return 0;
     }
 
     @Override
