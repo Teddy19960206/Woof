@@ -1,12 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>LoginServlet</title>
-</head>
-<body>
+
 <script type="text/javascript">
     function refresh() {
    
@@ -22,25 +14,25 @@
          pageEncoding="gb2312"%>
 <%
 response.setHeader("Cache-Control","no-cache");
-//åœ¨è¨˜æ†¶é«”ä¸­å»ºç«‹å½±è±¡
+//¦b°O¾ÐÅé¤¤«Ø¥ß¼v¶H
   int width=60,height=20;
   BufferedImage image=new BufferedImage(width,height,BufferedImage.TYPE_INT_RGB);
-  //ç²å–ç•«ç­†
+  //Àò¨úµeµ§
   Graphics g=image.getGraphics();
-  //è¨­å®šèƒŒæ™¯è‰²
+  //³]©w­I´º¦â
   g.setColor(new Color(200,200,200));
   g.fillRect(0,0,width,height);
-  //å–éš¨æ©Ÿç”¢ç”Ÿçš„é©—è­‰ç¢¼(4ä½æ•¸å­—)
+  //¨úÀH¾÷²£¥ÍªºÅçÃÒ½X(4¦ì¼Æ¦r)
   Random rnd=new Random();
   int randNum=rnd.nextInt(8999)+1000;
   String randStr=String.valueOf(randNum);
-  //å°‡é©—è­‰ç¢¼å­˜å…¥session
+  //±NÅçÃÒ½X¦s¤Jsession
   session.setAttribute("randStr",randStr);
-  //å°‡é©—è­‰ç¢¼é¡¯ç¤ºåˆ°å½±è±¡ä¸­
+  //±NÅçÃÒ½XÅã¥Ü¨ì¼v¶H¤¤
   g.setColor(Color.black);
   g.setFont(new Font("", Font.PLAIN,20));
   g.drawString(randStr,10,17);
-  //éš¨æ©Ÿç”¢ç”Ÿ100å€‹å¹²æ“¾é»žï¼Œä½¿å½±è±¡ä¸­çš„é©—è­‰ç¢¼ä¸æ˜“è¢«å…¶ä»–ç¨‹å¼æŽ¢æ¸¬åˆ°
+  //ÀH¾÷²£¥Í100­Ó¤zÂZÂI¡A¨Ï¼v¶H¤¤ªºÅçÃÒ½X¤£©ö³Q¨ä¥Lµ{¦¡±´´ú¨ì
     for (int i = 0; i < 100; i++) {
    
    
@@ -48,11 +40,10 @@ response.setHeader("Cache-Control","no-cache");
         int y=rnd.nextInt(height);
         g.drawOval(x,y,1,1);
     }
-    //è¼¸å‡ºå½±è±¡åˆ°é é¢
+    //¿é¥X¼v¶H¨ì­¶­±
     ImageIO.write(image,"JPEG",response.getOutputStream());
     out.clear();
     out=pageContext.pushBody();
 
 %>
-</body>
-</html>
+

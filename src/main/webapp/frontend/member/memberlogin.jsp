@@ -43,7 +43,7 @@
 		<!-- <form name="login" action="/LoginCl" method="post"> -->
 		使用者帳號:<input type="text" name="memberaccount"><br> 密碼：<input
 			type="password" name="memberpassword"><br> <input
-			type="checkbox" name="keep">兩週內免登陸<br> 驗證碼：<input
+			type="checkbox" name="keep">兩週內免登錄<br> 驗證碼：<input
 			type="text" name="code" size=10>
 		<%--點選圖片可進行驗證碼重新整理--%>
 		<img name="imgValidate" src="index.jsp" onclick="refresh()"><br>
