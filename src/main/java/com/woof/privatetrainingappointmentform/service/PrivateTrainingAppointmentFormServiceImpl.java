@@ -1,4 +1,5 @@
 package com.woof.privatetrainingappointmentform.service;
+
 import static com.woof.util.Constants.PAGE_MAX_RESULT;
 import java.util.List;
 
@@ -9,30 +10,28 @@ import com.woof.privatetrainingappointmentform.dao.PrivateTrainingAppointmentFor
 import com.woof.privatetrainingappointmentform.entity.PrivateTrainingAppointmentForm;
 import com.woof.util.HibernateUtil;
 
-public class PrivateTrainingAppointmentFormServiceImpl implements PrivateTrainingAppointmentFormService{
+public class PrivateTrainingAppointmentFormServiceImpl implements PrivateTrainingAppointmentFormService {
 
 	private PrivateTrainingAppointmentFormDAO dao;
-	
+
 	public PrivateTrainingAppointmentFormServiceImpl() {
 		dao = new PrivateTrainingAppointmentFormDAOImpl(HibernateUtil.getSessionFactory());
 	}
 
 	@Override
 	public PrivateTrainingAppointmentForm findPrivateTrainingAppointmentFormByPtaNo(Integer ptaNo) {
-		
+
 		PrivateTrainingAppointmentForm privateTrainingAppointmentForm = new PrivateTrainingAppointmentForm();
-		
+
 		privateTrainingAppointmentForm = dao.findByPtaNo(ptaNo);
-		
+
 		return privateTrainingAppointmentForm;
 	}
 
 	@Override
 	public List<PrivateTrainingAppointmentForm> getAllPrivateTrainingAppointmentForms() {
-		
 
 		List<PrivateTrainingAppointmentForm> privateTrainingAppointmentFormList = dao.getAll();
-
 
 		// TODO Auto-generated method stub
 		return privateTrainingAppointmentFormList;
@@ -77,10 +76,28 @@ public class PrivateTrainingAppointmentFormServiceImpl implements PrivateTrainin
 	@Override
 	public int getPageTotal() {
 		long total = dao.getTotal();
-		int pageQty = (int)(total % PAGE_MAX_RESULT == 0 ? (total / PAGE_MAX_RESULT) : (total / PAGE_MAX_RESULT + 1));
+		int pageQty = (int) (total % PAGE_MAX_RESULT == 0 ? (total / PAGE_MAX_RESULT) : (total / PAGE_MAX_RESULT + 1));
 		return pageQty;
 	}
 
-	
-	
+	@Override
+	public PrivateTrainingAppointmentForm findPrivateTrainingAppointmentFormByMemNo(String memNo) {
+		PrivateTrainingAppointmentForm privateTrainingAppointmentForm = new PrivateTrainingAppointmentForm();
+
+		privateTrainingAppointmentForm = dao.findByMemNo(memNo);
+
+		return privateTrainingAppointmentForm;
+
+	}
+
+	@Override
+	public PrivateTrainingAppointmentForm findPrivateTrainingAppointmentFormByTrainerNo(Integer trainerNo) {
+PrivateTrainingAppointmentForm privateTrainingAppointmentForm = new PrivateTrainingAppointmentForm();
+		
+		privateTrainingAppointmentForm = dao.findByTrainerNo(trainerNo);
+		
+		return privateTrainingAppointmentForm;
+
+	}
+
 }

@@ -22,4 +22,8 @@ public interface PrivateTrainingAppointmentFormService {
 	List<PrivateTrainingAppointmentForm> getAllPTAFs(int currentPage);
 
 	int getPageTotal();
+	
+	PrivateTrainingAppointmentForm findPrivateTrainingAppointmentFormByMemNo(String memNo);
+	
+	PrivateTrainingAppointmentForm findPrivateTrainingAppointmentFormByTrainerNo(Integer trainerNo);
 }

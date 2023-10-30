@@ -43,6 +43,7 @@
     <a href="${pageContext.request.contextPath}/privatetrainingappointmentform?action=gettoupdate">更新頁面</a>
     <a href="${pageContext.request.contextPath}/privatetrainingappointmentform?action=gettoupdelete">刪除頁面</a>
     <a href="${pageContext.request.contextPath}/privatetrainingappointmentform?action=getall">查詢全部</a>
+    <a href="${pageContext.request.contextPath}/privatetrainingappointmentform?action=gettoselect">單一查詢</a>
 
     <br><br>
 </form>
