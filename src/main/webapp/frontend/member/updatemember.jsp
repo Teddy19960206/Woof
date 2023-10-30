@@ -23,38 +23,45 @@ $(document).ready(function(){
         data : {memNo : <%=request.getParameter("memNo")%>},
         //請求目標的url
         url : "<%=request.getContextPath()%>/member.do?action=query",
-					//Ajax成功後執行的function，response為回傳的值
-					success : function(data) {
-						var jsonObj = JSON.parse(data);
-						console.log(jsonObj)
-						$('#memName').val(jsonObj.memName);
-						$(
-								'input[name=memGender][value='
-										+ jsonObj.memGender + ']').prop(
-								'checked', true);
-						$('#memEmail').val(jsonObj.memEmail);
-						$('#memPassword').val(jsonObj.memPassword);
-						$('#memTel').val(jsonObj.memTel);
-						$('#memAddress').val(jsonObj.memAddress);
-						$('#memTotalclass').val(jsonObj.totalClass);
-						$('#momoPoint').val(jsonObj.momoPoint);
-						$('#memBd').val(jsonObj.memBd);
-						$(
-								'input[name=memStatus][value='
-										+ jsonObj.memStatus + ']').prop(
-								'checked', true);
-					},
-					//Ajax失敗後要執行的function，此例為印出錯誤訊息
-					error : function(xhr, ajaxOptions, thrownError) {
-						alert("哇 錯了");
-					}
-				});
+									//Ajax成功後執行的function，response為回傳的值
+									success : function(data) {
+										var jsonObj = JSON.parse(data);
+										console.log(jsonObj)
+										$('#memNo').val(jsonObj.memNo);
+										$('#memName').val(jsonObj.memName);
+										$(
+												'input[name=memGender][value='
+														+ jsonObj.memGender
+														+ ']').prop('checked',
+												true);
+										$('#memEmail').val(jsonObj.memEmail);
+										$('#memPassword').val(
+												jsonObj.memPassword);
+										$('#memTel').val(jsonObj.memTel);
+										$('#memAddress')
+												.val(jsonObj.memAddress);
+										$('#totalClass')
+												.val(jsonObj.totalClass);
+										$('#momoPoint').val(jsonObj.momoPoint);
+										$('#memBd').val(jsonObj.memBd);
+										$(
+												'input[name=memStatus][value='
+														+ jsonObj.memStatus
+														+ ']').prop('checked',
+												true);
+									},
+									//Ajax失敗後要執行的function，此例為印出錯誤訊息
+									error : function(xhr, ajaxOptions,
+											thrownError) {
+										alert("哇 錯了");
+									}
+								});
 
-				//日期格式
-				$("#memBd").datepicker({
-					dateFormat : 'yy-mm-dd'
-				});
-			})
+						//日期格式
+						$("#memBd").datepicker({
+							dateFormat : 'yy-mm-dd'
+						});
+					})
 </script>
 <style>
 table#table-1 {
@@ -96,8 +103,7 @@ th, td {
 </head>
 <body bgcolor='white'>
 	<!--request.getContextPath()動態根路徑，action=update找到後端switch(action)的update-->
-	<input type="hidden" name="member" id="member"
-		value='<%=request.getParameter("memNo")%>'>
+
 	<table id="table-1">
 		<tr>
 			<td>
@@ -113,6 +119,15 @@ th, td {
 		action="${pageContext.request.contextPath}/member.do"
 		enctype="multipart/form-data" accept-charset="UTF-8">
 		<table>
+			<input type="hidden" name="memNo" id="member"
+				value='<%=request.getParameter("memNo")%>'>
+			<%-- <input type="hidden" name="memNo" value="${memNo}"/> --%>
+			<tr>
+				<td>會員帳號:</td>
+				<td><input type="TEXT" name="memNo" id="memNo" size="45" /></td>
+				<td>${errorMsgs.memNo}</td>
+			</tr>
+			<tr>
 			<tr>
 				<td>會員姓名:</td>
 				<td><input type="TEXT" name="memName" id="memName" size="45" /></td>
@@ -171,8 +186,8 @@ th, td {
 				<td>${errorMsgs.memStatus}</td>
 			</tr>
 		</table>
-		<br> <input type="hidden" name="action" value="insert"> <input
-			type="submit" value="更新">
+		<br> <input type="hidden" name="action" value="update">
+		<button type="submit">送出</button>
 		<button type="button" onclick="history.back()">取消更新</button>
 	</form>
 </body>

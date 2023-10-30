@@ -13,7 +13,7 @@ public interface CartListDAO {
 	CartList findOne(CartList cartList);
 	
 	CartList findByProdNo(Integer prodNo);
-	CartList findByMemNo(Integer memNo);
+	CartList findByMemNo(String memNo);
 	
 	List<CartList> getAll();
 	

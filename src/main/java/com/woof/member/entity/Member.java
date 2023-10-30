@@ -18,8 +18,7 @@ public class Member implements java.io.Serializable {
 	
 	@Expose
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "MEM_NO", updatable = false, nullable = false)
+	@Column(name = "MEM_NO")
 	private String memNo;
 	
 	@OneToMany(mappedBy = "member" , cascade = CascadeType.ALL)
