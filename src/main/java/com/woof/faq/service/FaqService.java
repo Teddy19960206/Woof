@@ -3,6 +3,7 @@ package com.woof.faq.service;
 import java.util.List;
 
 import com.woof.faq.entity.Faq;
+import com.woof.privatetrainingappointmentform.entity.PrivateTrainingAppointmentForm;
 
 public interface FaqService {
 
@@ -16,4 +17,7 @@ public interface FaqService {
 
 	Faq findByFaqNo(Integer faqNo);
 
+	List<Faq> getAllFaq(int currentPage);
+
+	int getPageTotal();
 }
