@@ -19,8 +19,10 @@
   }
 
   #calendar {
-    max-width: 1100px;
-    margin: 0 auto;
+
+    max-width: 1000px;
+    margin: 20px;
+    z-index: -1;
   }
 
   a {
@@ -37,51 +39,51 @@
 <%@ include file="/backend/backbody.file" %>
 
 
-  <div id='calendar' style="width: 100%"></div>
+<div id='calendar' style="width: 100%"></div>
 
-  <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">請選擇預約時段</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body text-center">
-          <div id="showDate"></div>
-          <button type="button" class="btn btn-primary" onclick="reserveAM()">預約上午</button>
-          <button type="button" class="btn btn-primary" onclick="reservePM()">預約下午</button>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
-        </div>
+<div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">請選擇預約時段</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-center">
+        <div id="showDate"></div>
+        <button type="button" class="btn btn-primary" onclick="reserveAM()">預約上午</button>
+        <button type="button" class="btn btn-primary" onclick="reservePM()">預約下午</button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
       </div>
     </div>
   </div>
+</div>
 
-  <script>
+<script>
 
-      let time = ["2023-10-04" , "2023-10-03" ,"2023-10-10"];
+    let time = ["2023-10-04" , "2023-10-03" ,"2023-10-10"];
 
       // 不能點選的日期，背景加上灰色
-      function convertTimeToBackgroundEvents(time) {
+    function convertTimeToBackgroundEvents(time) {
       return time.map(date => {
-      return {
-      start: date,
-      display: 'background',  // 這會將事件作為背景顯示
-      color: 'gray' // 指定背景顏色
-    };
-    });
+        return {
+          start: date,
+          display: 'background',  // 這會將事件作為背景顯示
+          color: 'gray' // 指定背景顏色
+        };
+      });
     }
 
-      document.addEventListener('DOMContentLoaded', function() {
-      var calendarEl = document.getElementById('calendar');
+    document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
 
-      var calendar = new FullCalendar.Calendar(calendarEl, {
+    var calendar = new FullCalendar.Calendar(calendarEl, {
       headerToolbar: {
-      left: 'prev,next',
-      right: 'title'
-    },
+        left: 'prev,next',
+        right: 'title'
+      },
       timeZone:'local',
       locale : "zh-TW",
       initialDate: new Date(),
@@ -94,9 +96,9 @@
       select: function(arg) {
 
       if (time.some(item => arg.startStr === item)) {
-      calendar.unselect(); // 取消選擇
-      return; // 結束函數執行
-    }
+        calendar.unselect(); // 取消選擇
+        return; // 結束函數執行
+      }
       $("#showDate").text(arg.startStr);
       console.log(arg);
       myModal.show();
@@ -141,25 +143,25 @@
       calendar.render();
     });
 
-      // let prevBtn = document.getElementsByClassName("fc-prev-button");
+      let prevBtn = document.getElementsByClassName("fc-prev-button");
 
-    //   $(function(){
-    //   let prevBtn = document.getElementsByClassName("fc-prev-button");
-    //   let nextBtn = document.getElementsByClassName("fc-next-button");
-    //
-    //   prevBtn[0].disabled = true;
-    //   nextBtn[0].disabled = false;
-    //
-    //   prevBtn[0].addEventListener("click" , ()=>{
-    //   prevBtn[0].disabled = true;
-    //   nextBtn[0].disabled = false;
-    // })
-    //
-    //   nextBtn[0].addEventListener("click" , ()=>{
-    //   prevBtn[0].disabled = false;
-    //   nextBtn[0].disabled = true;
-    // })
-    // })
+      $(function(){
+      let prevBtn = document.getElementsByClassName("fc-prev-button");
+      let nextBtn = document.getElementsByClassName("fc-next-button");
+
+      prevBtn[0].disabled = true;
+      nextBtn[0].disabled = false;
+
+      prevBtn[0].addEventListener("click" , ()=>{
+      prevBtn[0].disabled = true;
+      nextBtn[0].disabled = false;
+    })
+
+      nextBtn[0].addEventListener("click" , ()=>{
+      prevBtn[0].disabled = false;
+      nextBtn[0].disabled = true;
+    })
+    })
 
       var myModal = new bootstrap.Modal(document.getElementById('myModal'), {});
 
@@ -172,10 +174,6 @@
       function reservePM(){
 
       }
-
-
-
-
   </script>
 
 <%@ include file="/backend/backfoot.file" %>

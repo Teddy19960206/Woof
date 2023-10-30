@@ -50,7 +50,7 @@ async function fetchData(){
         }
         // 取得資料後，進行拼圖，並打到頁面上
         const data = await response.json();
-        html = `<table class="table table-stripclassNamext-center" border="1">
+        html = `<table class="table table-hover text-center align-middle">
         <thead>
         <tr>
             <th>團體課程編號</th>
@@ -86,21 +86,21 @@ async function fetchData(){
             <th>${item.maxLimit}</th>
             <th>${item.regCount}</th>
             <th>${item.gcsPrice}</th>
-            <th>${item.gcsStatus}</th>
+            <th>${item.gcsStatus == 0 ? "下架" : "上架" }</th>
             <th>${item.gcsDelayReason !== undefined ? item.gcsDelayReason : '無'}</th>
             <th>${item.relatedGcsNo !== undefined ? item.relatedGcsNo : '無'}</th>
             <th>${item.createdAt}</th>
             <th>${item.updatedAt}</th>
-            <td><button type="button" class="modify-button" data-id="${item.gcsNo}" onclick="fetchDetail(${item.gcsNo})">修改</td>
-            <th><button type="button" class="detail-button" data-id="${item.gcsNo}">詳情</button></th>
+            <td><button type="button" class="modify-button bn632-hover bn26" data-id="${item.gcsNo}" onclick="fetchDetail(${item.gcsNo})">修改</td>
+            <th><button type="button" class="detail-button bn632-hover bn26" data-id="${item.gcsNo}">詳情</button></th>
         </tr>`;
         })
 
         html += `</tbody></table>`;
 
         // 將資料打到指定位置
-        let row= document.querySelector("div.row");
-        row.innerHTML = html;
+        let showSchedule= document.querySelector("div.showSchedule");
+        showSchedule.innerHTML = html;
 
     }catch (error){
         console.error('Error', error);
@@ -111,10 +111,21 @@ async function fetchData(){
 $(document).on("click" , "button.detail-button" , function (e){
     let url = `${projectName}/scheduleDetail/detail/${this.getAttribute("data-id")}`;
     className = $(this).closest("tr").find("th").eq(1).text();
+    var newUrl = `${projectName}/backend/course/schedule.jsp`; // 想要添加的新網址
+    var newState = { page: "your-page" }; // 新狀態物件
+
+    history.pushState(newState, "新頁面標題", newUrl);
     fetchDetail(url);
 });
+// 監聽按下上一頁時會重新刷新頁一慢
+window.onpopstate = function(event) {
+    location.reload();
+
+    console.log(event)
+};
 
 
+// 查看課程詳情
 async function fetchDetail(url){
     // 抓取資料，根據classType取得相對應的資料
     try{
@@ -128,7 +139,7 @@ async function fetchDetail(url){
         // 取得資料後，進行拼圖，並打到頁面上
         const data = await response.json();
 
-        html = `<table class="table table-stripclassNamext-center" border="1">
+        html = `<table class="table table-hover text-center align-middle">
         <thead>
         <tr>
             <th>編號</th>
@@ -148,17 +159,17 @@ async function fetchDetail(url){
                 <td>${className}</td>
                 <td>${item.trainer.administrator.adminName}</td>
                 <td>${item.classDate}</td>
-                <td><button type="button" class="editDetail" data-id="${item.gcsdNo}">修改</button></td>
-                <td><button type="button" class="modify" data-id="${item.gcsdNo}" disabled>確定</button></td>
-                <td><button type="button" class="deleteDetail" data-id="${item.gcsdNo}">刪除</button></td>
+                <td><button type="button" class="editDetail btn btn-primary" data-id="${item.gcsdNo}">修改</button></td>
+                <td><button type="button" class="modify btn btn-primary" data-id="${item.gcsdNo}" disabled>確定</button></td>
+                <td><button type="button" class="deleteDetail btn btn-danger" data-id="${item.gcsdNo}">刪除</button></td>
             </tr>`
         });
 
         html += "</tbody></table>";
 
 
-        let row= document.querySelector("div.row");
-        row.innerHTML = html;
+        let showSchedule= document.querySelector("div.showSchedule");
+        showSchedule.innerHTML = html;
 
         // 將資料打到指定位置
 
@@ -171,7 +182,7 @@ async function fetchDetail(url){
 $(document).on("click" , "button.editDetail" , async  function (){
     let data = await detailedit(this.getAttribute("data-id"));
     let td = $(this).closest("tr").find("td");
-    let html = `<select>`
+    let html = `<select class="form-select text-center">`
         data.forEach((item)=>{
             html += `<option value="${item.trainerNo}" ${item.administrator.adminName == td.eq(2).html() ? 'selected' : ''}>${item.administrator.adminName}</option>`;
         })
@@ -207,7 +218,6 @@ async function detailedit(id){
         }
         // 取得資料後，進行拼圖，並打到頁面上
         const data = await response.json();
-        console.log(data)
 
         return data;
 
@@ -264,8 +274,11 @@ async function detailModify(id , trainer , classDate){
 
 // 刪除detail按鈕-----------------------------------------------
 $(document).on("click" , "button.deleteDetail" , function (){
-    detailDelete(this.getAttribute("data-id"));
-    $(this).closest("tr").remove();
+    let result = confirm("確定要刪除嗎?");
+    if (result) {
+        detailDelete(this.getAttribute("data-id"));
+        $(this).closest("tr").remove();
+    }
 })
 
 async function detailDelete(id){

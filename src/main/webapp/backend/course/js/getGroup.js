@@ -33,8 +33,8 @@ async function fetchData(){
         }
         const data = await response.json();
 
-        html = `<table class="table table-stripclassNamext-center" border="1">
-        <thead>
+        html = `<table class="table table-hover text-center align-middle">
+        <thead class="">
         <tr>
             <th>課程編號</th>
             <th>技能名稱</th>
@@ -56,14 +56,14 @@ async function fetchData(){
                 html +=  `<img src="${projectName}/DBPngReader?action=groupCourse&id=${item.gcNo}" style="width: 100px; height: 100px" >`;
             }
             html += `</td>
-            <td>${item.courseContent}</td>
+            <td width="500px" class="text-start">${item.courseContent}</td>
             <td>${item.courseStatus == 0 ? "下架" : "<font color='red'>上架</font>"}</td>
-            <td><button type="button" class="modify-button" data-id="${item.gcNo}">修改</td>
+            <td><button type="button" class="modify-button bn632-hover bn26" data-id="${item.gcNo}">修改</td>
         </tr>`;
         })
         html += `</tbody></table>`;
 
-        let tbody= document.querySelector("div.row");
+        let tbody= document.querySelector("div.showGroup");
         tbody.innerHTML = html;
 
     }catch (error){
