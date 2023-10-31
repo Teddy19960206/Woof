@@ -71,8 +71,8 @@ tr:nth-child(odd) {
 <!-- 			<th></th> -->
 		</tr>
 
-<%-- 		<c:forEach var="privateTrainingAppointmentForm" --%>
-<%-- 			items="${privateTrainingAppointmentForms}"> --%>
+ 		<c:forEach var="pta" 
+ 			items="${members}"> 
 
 			<tr>
 				<td>${pta.ptaNo}</td>
@@ -99,7 +99,7 @@ tr:nth-child(odd) {
 					</FORM>
 				</td>
 
-<%-- 		</c:forEach> --%>
+ 		</c:forEach> 
 
 	</table>
 <%-- 	<c:if test="${currentPage > 1}"> --%>

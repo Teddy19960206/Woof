@@ -76,10 +76,10 @@ public class PrivateTrainingAppointmentFormServlet extends HttpServlet {
 				beforeSelect(req, resp);
 				forwardPath = "/frontend/privatetrainingappointmentform/privateTrainingAppointmentForm_select.jsp";
 				break;
-//			case "getbymemno":
-//				getByMemNo(req, resp);
-//				forwardPath = "/frontend/privatetrainingappointmentform/privateTrainingAppointmentForm_getByPKorFK.jsp";
-//				break;
+			case "getbymemno":
+				getByMemNo(req, resp);
+				forwardPath = "/frontend/privatetrainingappointmentform/privateTrainingAppointmentForm_getOne2.jsp";
+				break;
 //			case "getbytrainerno":
 //				getByTrainerNo(req, resp);
 //				forwardPath = "/frontend/privatetrainingappointmentform/privateTrainingAppointmentForm_getByPKorFK.jsp";
@@ -246,7 +246,7 @@ public class PrivateTrainingAppointmentFormServlet extends HttpServlet {
 	}
 
 	private void getOne(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
+		
 		Integer ptaNo = Integer.valueOf(request.getParameter("ptaNo"));
 
 		PrivateTrainingAppointmentForm pta = privateTrainingAppointmentFormService
@@ -273,16 +273,16 @@ public class PrivateTrainingAppointmentFormServlet extends HttpServlet {
 	}
 
 
-//	private void getByMemNo(HttpServletRequest request, HttpServletResponse response) throws IOException {
-//		
-//		String memNo = request.getParameter("memNo");
-//		
-//		List<PrivateTrainingAppointmentForm> members = privateTrainingAppointmentFormService
-//				.findPrivateTrainingAppointmentFormByMemNo(memNo); 
-//
-//		request.setAttribute("members", members);
-//		
-//	}
+	private void getByMemNo(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		
+		String memNo = request.getParameter("memNo");
+		
+		List<PrivateTrainingAppointmentForm> members = privateTrainingAppointmentFormService
+				.findPrivateTrainingAppointmentFormByMemNo(memNo); 
+
+		request.setAttribute("members", members);
+		
+	}
 //	private void getByTrainerNo(HttpServletRequest request, HttpServletResponse response) throws IOException {
 //		
 //		Integer trainerNo = Integer.valueOf(request.getParameter("trainerNo"));
