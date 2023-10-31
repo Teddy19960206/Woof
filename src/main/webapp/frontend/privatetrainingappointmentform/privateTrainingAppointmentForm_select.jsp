@@ -56,7 +56,7 @@
 <!--     </select> -->
 <!--     <br /> -->
 	
-    <button type="submit" name="action" value="getbyptano">查詢</button>
+    <button type="submit" name="action" value="getone">查詢</button>
 <!--     <button type="submit" name="action" value="getbymemno">用會員查詢</button> -->
 <!--     <button type="submit" name="action" value="getbytrainerno">用訓練師查詢</button> -->
     <button type="button" onclick="history.back()">取消查詢</button>

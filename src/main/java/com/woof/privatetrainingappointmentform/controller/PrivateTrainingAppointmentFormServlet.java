@@ -76,10 +76,6 @@ public class PrivateTrainingAppointmentFormServlet extends HttpServlet {
 				beforeSelect(req, resp);
 				forwardPath = "/frontend/privatetrainingappointmentform/privateTrainingAppointmentForm_select.jsp";
 				break;
-			case "getbyptano":
-				getByPtaNo(req, resp);
-				forwardPath = "/frontend/privatetrainingappointmentform/privateTrainingAppointmentForm_getByPK.jsp";
-				break;
 //			case "getbymemno":
 //				getByMemNo(req, resp);
 //				forwardPath = "/frontend/privatetrainingappointmentform/privateTrainingAppointmentForm_getByPKorFK.jsp";
@@ -276,16 +272,7 @@ public class PrivateTrainingAppointmentFormServlet extends HttpServlet {
 
 	}
 
-	private void getByPtaNo(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-		Integer ptaNo = Integer.valueOf(request.getParameter("ptaNo"));
-
-		PrivateTrainingAppointmentForm pta = privateTrainingAppointmentFormService
-				.findPrivateTrainingAppointmentFormByPtaNo(ptaNo);
-	
-		request.setAttribute("pta", pta);
-
-	}
 //	private void getByMemNo(HttpServletRequest request, HttpServletResponse response) throws IOException {
 //		
 //		String memNo = request.getParameter("memNo");
