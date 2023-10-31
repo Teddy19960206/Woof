@@ -8,12 +8,13 @@ import java.util.Map;
 
 import org.hibernate.Session;
 
+import com.woof.AppService;
 import com.woof.member.dao.MemberDAO;
 import com.woof.member.dao.MemberDAOImpl;
 import com.woof.member.entity.Member;
 import com.woof.util.HibernateUtil;
 
-public class MemberServiceImpl implements MemberService {
+public class MemberServiceImpl implements MemberService, AppService<String> {
 
 	private MemberDAO dao;
 
@@ -29,10 +30,10 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public void deleteMember(String memNo) {
+	public void deletePhoto(String memNo) {
 //        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 //        session.beginTransaction();
-		if (dao.delete(memNo) == 1) {
+		if (dao.deletePhoto(memNo) == 1) {
 			return;
 		}
 	}
@@ -49,7 +50,13 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	public byte[] getPhotoById(String memNo) {
-		return findMemberByNo(memNo).getMemPhoto();
+		byte[] photoBytes = null;
+		try {
+			   photoBytes = findMemberByNo(memNo).getMemPhoto();	
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return photoBytes;
 	}
 
 	@Override
@@ -70,5 +77,4 @@ public class MemberServiceImpl implements MemberService {
 		
 		dao.insert(member);
 	}
-	
 }

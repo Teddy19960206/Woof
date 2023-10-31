@@ -11,7 +11,7 @@
 <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <meta charset="UTF-8">
-<title>員工資料新增 - addmember.jsp</title>
+<title>會員資料新增 - addmember.jsp</title>
 <script>
 	//日期格式
 	$(function() {
@@ -74,7 +74,9 @@ th, td {
 
 	<h3>資料新增:</h3>
 	<!-- request.getContextPath()動態根路徑，action=update找到後端switch(action)的add-->
-	<form method="post" action="${pageContext.request.contextPath}/member.do" enctype="multipart/form-data" accept-charset="UTF-8">
+	<form method="post"
+		action="${pageContext.request.contextPath}/member.do"
+		enctype="multipart/form-data" accept-charset="UTF-8">
 		<table>
 			<tr>
 				<td>會員帳號:</td>
@@ -88,9 +90,13 @@ th, td {
 			</tr>
 			<tr>
 				<td>性別:</td>
-				<td><input type="radio" name="memGender" value="1" checked>男
-					<input type="radio" name="memGender" value="0">女</td>
+				<td><input type="radio" name="memGender" value="M" checked>男
+					<input type="radio" name="memGender" value="F">女</td>
 				<td>${errorMsgs.memGender}</td>
+			</tr>
+			<tr>
+				<td>照片:</td>
+				<td><input type="file" name="memPhoto" accept="image/*"></td>
 			</tr>
 			<tr>
 				<td>email:</td>
@@ -100,7 +106,7 @@ th, td {
 			</tr>
 			<tr>
 				<td>密碼:</td>
-				<td><input type="password" name="memPassword" id="memPassword"
+				<td><input type="TEXT" name="memPassword" id="memPassword"
 					size="45" /></td>
 				<td>${errorMsgs.memPassword}</td>
 			</tr>

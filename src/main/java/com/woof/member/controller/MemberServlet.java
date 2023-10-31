@@ -14,6 +14,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.woof.member.entity.Member;
@@ -22,6 +24,7 @@ import com.woof.member.service.MemberServiceImpl;
 import com.woof.privatetrainingappointmentform.entity.PrivateTrainingAppointmentForm;
 import com.woof.privatetrainingappointmentform.service.PrivateTrainingAppointmentFormService;
 import com.woof.privatetrainingappointmentform.service.PrivateTrainingAppointmentFormServiceImpl;
+import com.woof.util.PartParsebyte;
 
 @WebServlet("/member.do")
 @MultipartConfig
@@ -76,36 +79,13 @@ public class MemberServlet extends HttpServlet {
 				getOne(req, res);
 				return;
 			case "delete":
-				deleteMember(req, res);
+				delete(req, res);
 				return;
 			case "query":
 				processQuery(req, res);
 				return;
 			default:
 				forwardPath = "/frontend/member/selectmember.jsp";
-			}
-			// 來自memberlogin.jsp的請求
-			if ("memberlogin".equals(action)) {
-				Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
-				req.setAttribute("errorMsgs", errorMsgs);
-				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
-				String memberNo = req.getParameter("memberaccount");
-
-				if (memberNo == null || (memberNo.trim()).length() == 0) {
-					errorMsgs.put("memberaccount", "會員帳號:請勿空白");
-				}
-
-				String memberpassword = req.getParameter("memberpassword");
-
-				if (memberpassword == null || (memberpassword.trim()).length() == 0) {
-					errorMsgs.put("memberpassword", "會員密碼:請勿空白");
-				}
-				// Send the use back to the form, if there were errors
-				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req.getRequestDispatcher("/memberlogin.jsp");
-					failureView.forward(req, res);
-					return;// 程式中斷
-				}
 			}
 		}
 		req.getRequestDispatcher(forwardPath).forward(req, res);
@@ -145,6 +125,11 @@ public class MemberServlet extends HttpServlet {
 
 		java.sql.Date sqlDate = new java.sql.Date(date.getTime());
 		member.setMemBd(sqlDate);
+		//	插入圖片
+        Part filePart = req.getPart("memPhoto");
+        byte[] bytes = PartParsebyte.partToByteArray(filePart);
+        member.setMemPhoto(bytes);
+        
 		member.setMomoPoint(Integer.valueOf(req.getParameter("momoPoint")));
 		member.setTotalClass(Integer.valueOf(req.getParameter("totalClass")));
 		member.setMemStatus(Integer.valueOf(req.getParameter("memStatus")));
@@ -183,6 +168,19 @@ public class MemberServlet extends HttpServlet {
 		member.setMemPassword(req.getParameter("memPassword"));
 		member.setMemTel(req.getParameter("memTel"));
 		member.setMemAddress(req.getParameter("memAddress"));
+		//照片
+        byte[] bytes = null;
+
+        Part filePart = req.getPart("photo");
+        if (filePart != null && filePart.getSize() > 0){
+
+            bytes = PartParsebyte.partToByteArray(filePart);
+
+        }else{
+            bytes = memberService.getPhotoById(req.getParameter("memberNo"));
+        }
+        member.setMemPhoto(bytes);
+        //生日
 		String memBdString = req.getParameter("memBd");
 
 		if (memBdString != null && !memBdString.isEmpty()) {
@@ -197,7 +195,6 @@ public class MemberServlet extends HttpServlet {
 		} else {
 			req.setAttribute("memBd=null", memBdString);
 		}
-
 		member.setMomoPoint(Integer.valueOf(req.getParameter("momoPoint")));
 		member.setTotalClass(Integer.valueOf(req.getParameter("totalClass")));
 		member.setMemStatus(Integer.valueOf(req.getParameter("memStatus")));
@@ -256,9 +253,9 @@ public class MemberServlet extends HttpServlet {
 		}
 	}
 
-	private void deleteMember(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+	private void delete(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.getParameter("memNo");
-		memberService.deleteMember(req.getParameter("memNo"));
+		memberService.deletePhoto(req.getParameter("memNo"));
 		// 導到指定的URL 頁面上 把請求回應都帶過去
 		String url = req.getContextPath() + "/frontend/member/list_all_member.jsp";
 		req.setCharacterEncoding("UTF-8");
