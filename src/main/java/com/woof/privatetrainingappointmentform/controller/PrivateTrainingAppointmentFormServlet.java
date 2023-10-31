@@ -78,16 +78,16 @@ public class PrivateTrainingAppointmentFormServlet extends HttpServlet {
 				break;
 			case "getbyptano":
 				getByPtaNo(req, resp);
-				forwardPath = "/frontend/privatetrainingappointmentform/privateTrainingAppointmentForm_getByPKorFK.jsp";
+				forwardPath = "/frontend/privatetrainingappointmentform/privateTrainingAppointmentForm_getByPK.jsp";
 				break;
-			case "getbymemno":
-				getByMemNo(req, resp);
-				forwardPath = "/frontend/privatetrainingappointmentform/privateTrainingAppointmentForm_getByPKorFK.jsp";
-				break;
-			case "getbytrainerno":
-				getByTrainerNo(req, resp);
-				forwardPath = "/frontend/privatetrainingappointmentform/privateTrainingAppointmentForm_getByPKorFK.jsp";
-				break;
+//			case "getbymemno":
+//				getByMemNo(req, resp);
+//				forwardPath = "/frontend/privatetrainingappointmentform/privateTrainingAppointmentForm_getByPKorFK.jsp";
+//				break;
+//			case "getbytrainerno":
+//				getByTrainerNo(req, resp);
+//				forwardPath = "/frontend/privatetrainingappointmentform/privateTrainingAppointmentForm_getByPKorFK.jsp";
+//				break;
 			default:
 				forwardPath = "/frontend/privatetrainingappointmentform/privateTrainingAppointmentForm.jsp";
 			}
@@ -286,25 +286,25 @@ public class PrivateTrainingAppointmentFormServlet extends HttpServlet {
 		request.setAttribute("pta", pta);
 
 	}
-	private void getByMemNo(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		
-		String memNo = request.getParameter("memNo");
-		
-		List<PrivateTrainingAppointmentForm> members = privateTrainingAppointmentFormService
-				.findPrivateTrainingAppointmentFormByMemNo(memNo); 
-
-		request.setAttribute("members", members);
-		
-	}
-	private void getByTrainerNo(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		
-		Integer trainerNo = Integer.valueOf(request.getParameter("trainerNo"));
-		
-		List<PrivateTrainingAppointmentForm> trainer = privateTrainingAppointmentFormService
-				.findPrivateTrainingAppointmentFormByTrainerNo(trainerNo);
-		
-		request.setAttribute("trainer", trainer);
-		
-	}
+//	private void getByMemNo(HttpServletRequest request, HttpServletResponse response) throws IOException {
+//		
+//		String memNo = request.getParameter("memNo");
+//		
+//		List<PrivateTrainingAppointmentForm> members = privateTrainingAppointmentFormService
+//				.findPrivateTrainingAppointmentFormByMemNo(memNo); 
+//
+//		request.setAttribute("members", members);
+//		
+//	}
+//	private void getByTrainerNo(HttpServletRequest request, HttpServletResponse response) throws IOException {
+//		
+//		Integer trainerNo = Integer.valueOf(request.getParameter("trainerNo"));
+//		
+//		List<PrivateTrainingAppointmentForm> trainers = privateTrainingAppointmentFormService
+//				.findPrivateTrainingAppointmentFormByTrainerNo(trainerNo);
+//		
+//		request.setAttribute("trainers", trainers);
+//		
+//	}
 
 }

@@ -68,7 +68,7 @@ tr:nth-child(odd) {
 			<th>訓練師名稱</th>
 			<th>預約堂數</th>
 			<th></th>
-			<th></th>
+<!-- 			<th></th> -->
 		</tr>
 
 		<c:forEach var="privateTrainingAppointmentForm"
@@ -98,14 +98,14 @@ tr:nth-child(odd) {
 
 					</FORM>
 				</td>
-				<td>
-					<FORM METHOD="post"
-						action="${pageContext.request.contextPath}/privatetrainingappointmentform?action=gettodelete">
-						<button class="btn btn-danger" type="submit">刪除</button>
+<!-- 				<td> -->
+<!-- 					<FORM METHOD="post" -->
+<%-- 						action="${pageContext.request.contextPath}/privatetrainingappointmentform?action=gettodelete"> --%>
+<!-- 						<button class="btn btn-danger" type="submit">刪除</button> -->
 
-					</FORM>
+<!-- 					</FORM> -->
 
-				</td>
+<!-- 				</td> -->
 			</tr>
 		</c:forEach>
 

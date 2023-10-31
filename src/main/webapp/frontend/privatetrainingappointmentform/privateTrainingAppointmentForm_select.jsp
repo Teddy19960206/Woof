@@ -30,7 +30,7 @@
     </style>
 </head>
 <body>
-<h1>修改私人預約單</h1>
+<h1>查詢私人預約單</h1>
 
 <form action="${pageContext.request.contextPath}/privatetrainingappointmentform/privateTrainingAppointmentForm" method="post" enctype="multipart/form-data">
     <label>私人訓練預約單編號：</label>
@@ -40,25 +40,25 @@
         </c:forEach>
     </select>
     <br />
-    <label>成員名稱：</label>
-    <select name="member">
-        <c:forEach items="${members}" var="member">
-            <option value="${member.memNo}">${member.memName}</option>
-        </c:forEach>
-    </select>
-    <br />
+<!--     <label>成員名稱：</label> -->
+<!--     <select name="member"> -->
+<%--         <c:forEach items="${members}" var="member"> --%>
+<%--             <option value="${member.memNo}">${member.memName}</option> --%>
+<%--         </c:forEach> --%>
+<!--     </select> -->
+<!--     <br /> -->
 
-    <label>訓練師名稱：</label>
-    <select name="trainer">
-        <c:forEach items="${trainers}" var="trainer">
-            <option value="${trainer.trainerNo}">${trainer.administrator.adminName}</option>
-        </c:forEach>
-    </select>
-    <br />
+<!--     <label>訓練師名稱：</label> -->
+<!--     <select name="trainer"> -->
+<%--         <c:forEach items="${trainers}" var="trainer"> --%>
+<%--             <option value="${trainer.trainerNo}">${trainer.administrator.adminName}</option> --%>
+<%--         </c:forEach> --%>
+<!--     </select> -->
+<!--     <br /> -->
 	
-    <button type="submit" name="action" value="getbyptano">用預約單編號查詢</button>
-    <button type="submit" name="action" value="getbymemno">用會員查詢</button>
-    <button type="submit" name="action" value="getbytrainerno">用訓練師查詢</button>
+    <button type="submit" name="action" value="getbyptano">查詢</button>
+<!--     <button type="submit" name="action" value="getbymemno">用會員查詢</button> -->
+<!--     <button type="submit" name="action" value="getbytrainerno">用訓練師查詢</button> -->
     <button type="button" onclick="history.back()">取消查詢</button>
 </form>
 </body>
