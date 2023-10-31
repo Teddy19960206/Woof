@@ -198,7 +198,7 @@ th, td {
 			</tr>
 			<tr>
 				<td>¥Í¤é:</td>
-				<td><input type="date" name="memBd" id="memBd" size="45" /></td>
+				<td><input type="TEXT" name="memBd" id="memBd" size="45" /></td>
 
 			</tr>
 			<tr>
