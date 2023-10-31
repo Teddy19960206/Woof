@@ -40,7 +40,7 @@ request.setCharacterEncoding("UTF-8");
     <label>私人訓練預約單編號：</label>
     <input type="text" name="ptaNo" value="${param.ptaNo}" readonly>
     <br />
-    <label>成員名稱：</label>
+    <label>會員名稱：</label>
     <select name="member">
         <c:forEach items="${members}" var="member">
             <option value="${member.memNo}"
