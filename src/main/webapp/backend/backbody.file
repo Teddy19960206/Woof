@@ -30,13 +30,13 @@
                             </a>
                             <ul id="class" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                                 <li class="sidebar-item">
-                                    <a href="classContent.jsp" class="sidebar-link2">團體內容管理</a>
+                                    <a href="${pageContext.request.contextPath}/backend/course/classContent.jsp" class="sidebar-link2">團體內容管理</a>
                                 </li>
                                 <li class="sidebar-item">
-                                    <a href="trainerSchedule.jsp" class="sidebar-link2">訓練師課程查詢</a>
+                                    <a href="${pageContext.request.contextPath}/backend/course/trainerSchedule.jsp" class="sidebar-link2">訓練師課程查詢</a>
                                 </li>
                                 <li class="sidebar-item">
-                                    <a href="schedule.jsp" class="sidebar-link2">團體報名管理</a>
+                                    <a href="${pageContext.request.contextPath}/backend/course/schedule.jsp" class="sidebar-link2">團體報名管理</a>
                                 </li>
                                 <li class="sidebar-item">
                                     <a href="#" class="sidebar-link2">私人預約管理</a>
@@ -72,7 +72,7 @@
                             </a>
                             <ul id="staff" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                                 <li class="sidebar-item">
-                                    <a href="employee/trainer.jsp" class="sidebar-link2">訓練師專區</a>
+                                    <a href="${pageContext.request.contextPath}/backend/employee/trainer.jsp" class="sidebar-link2">訓練師專區</a>
                                 </li>
                                 <li class="sidebar-item">
                                     <a href="#" class="sidebar-link2">員工管理</a>
