@@ -11,7 +11,7 @@ public interface MemberService {
 	void updateMember(Member member);
 
 	// Delete a member by its number or ID
-	void deleteMember(String memNo);
+	void deletePhoto(String memNo);
 
 	// Find a member by its number or ID
 	Member findMemberByNo(String memNo);
@@ -24,5 +24,7 @@ public interface MemberService {
 	List<Member> getMembersByCompositeQuery(Map<String, String[]> map);
 
 	void addMember(Member member);
+
+	byte[] getPhotoById(String memNo);
 	
 }

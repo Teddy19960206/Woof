@@ -8,7 +8,7 @@
 
 <html>
 <head>
-<title>會員資料 - list_one_member.jsp</title>
+<title>單一會員資料 - list_one_member.jsp</title>
 
 <style>
 table#table-1 {

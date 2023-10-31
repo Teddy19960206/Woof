@@ -1,5 +1,5 @@
 package com.woof;
 
-public interface AppService {
-    byte[] getPhotoById(Integer no);
+public interface AppService<T> {
+    byte[] getPhotoById(T no);
 }

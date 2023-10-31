@@ -1,6 +1,5 @@
 <%@ page import="java.util.Date"%>
-<%@ page contentType="text/html;charset=UTF-8" language="java"
-	import="com.woof.*"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" import="com.woof.*"%>
 <html>
 <head>
 <title>welcome</title>
@@ -14,14 +13,12 @@
 	//如果開啟此頁面則會跳轉到登入頁面，防止非法登入
 	if (val == null) {
 
-		response.sendRedirect("LoginServlet.jsp");
+		response.sendRedirect("memberlogin.jsp");
 	}
 	%>
-	<jsp:useBean id="mycount" class="com.woof.member.controller.LoginCl"
-		scope="application" />
+	<jsp:useBean id="mycount" class="com.woof.member.controller.LoginCl" scope="application" />
 
-	<jsp:useBean id="user" class="com.woof.member.controller.LoginCl"
-		scope="session">
+	<jsp:useBean id="user" class="com.woof.member.controller.LoginCl" scope="session">
 		<jsp:setProperty name="user" property="name" param="uname" />
 		<jsp:setProperty name="user" property="pd" param="password" />
 	</jsp:useBean>

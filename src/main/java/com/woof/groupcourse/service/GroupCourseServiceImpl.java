@@ -12,7 +12,7 @@ import static com.woof.util.Constants.PAGE_MAX_RESULT;
 
 import java.util.List;
 
-public class GroupCourseServiceImpl implements GroupCourseService , AppService {
+public class GroupCourseServiceImpl implements GroupCourseService , AppService<String> {
 
     private GroupCourseDAO dao;
 
@@ -87,7 +87,8 @@ public class GroupCourseServiceImpl implements GroupCourseService , AppService {
         return pageQty;
     }
 
-    public byte[] getPhotoById(Integer gcNo){
+    public byte[] getPhotoById(String no){
+    	Integer gcNo = Integer.valueOf(no);
         return findGroupCourseByNo(gcNo).getCoursePhoto();
     }
 
