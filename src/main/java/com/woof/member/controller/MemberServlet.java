@@ -1,6 +1,7 @@
 package com.woof.member.controller;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.text.ParseException;
@@ -126,9 +127,15 @@ public class MemberServlet extends HttpServlet {
 		java.sql.Date sqlDate = new java.sql.Date(date.getTime());
 		member.setMemBd(sqlDate);
 		//	插入圖片
-        Part filePart = req.getPart("memPhoto");
-        byte[] bytes = PartParsebyte.partToByteArray(filePart);
-        member.setMemPhoto(bytes);
+//        Part filePart = req.getPart("memPhoto");
+//        byte[] bytes = PartParsebyte.partToByteArray(filePart);
+//        member.setMemPhoto(bytes);
+		  Part p = req.getPart("memPhoto");
+		  InputStream input = p.getInputStream();
+		  byte[] photo = new byte[input.available()];
+		  input.read(photo);
+		  input.close();
+		  member.setMemPhoto(photo);
         
 		member.setMomoPoint(Integer.valueOf(req.getParameter("momoPoint")));
 		member.setTotalClass(Integer.valueOf(req.getParameter("totalClass")));
@@ -136,6 +143,8 @@ public class MemberServlet extends HttpServlet {
 		System.out.println(req.getParameter("memAddress") + "=============================");
 		System.out.println(member.getMemAddress() + "----------------------------");
 		System.out.println(req.getParameter("memEmail") + "=============================");
+		System.out.println(req.getParameter("memPhoto")+"1111111");
+		
 		try {
 			memberService.addMember(member);
 			// 導到指定的URL 頁面上 把請求回應都帶過去
