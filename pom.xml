@@ -8,12 +8,12 @@
 		<version>2.7.0</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>Woof</groupId>
-	<artifactId>Woof</artifactId>
+	<groupId>woof</groupId>
+	<artifactId>woof</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
-	<name>Woof</name>
-	<description>Woof</description>
+	<name>woof</name>
+	<description>woof</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
