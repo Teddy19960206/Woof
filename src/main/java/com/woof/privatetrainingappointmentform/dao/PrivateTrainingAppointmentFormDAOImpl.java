@@ -72,14 +72,14 @@ public class PrivateTrainingAppointmentFormDAOImpl implements PrivateTrainingApp
 
 	@Override
 	public List<PrivateTrainingAppointmentForm> findByMemNo(String memNo) {
-		return getSession().createQuery("FROM PrivateTrainingAppointmentForm p WHERE p.member.memNo = :memNo", PrivateTrainingAppointmentForm.class)
+		return getSession().createQuery("FROM PrivateTrainingAppointmentForm WHERE member.memNo = :memNo", PrivateTrainingAppointmentForm.class)
 				.setParameter("memNo", memNo)
 				.list();
 	}
 
 	@Override
 	public List<PrivateTrainingAppointmentForm> findByTrainerNo(Integer trainerNo) {
-		return getSession().createQuery("FROM PrivateTrainingAppointmentForm p WHERE p.trainer.trainerNo = :trainerNo", PrivateTrainingAppointmentForm.class)
+		return getSession().createQuery("FROM PrivateTrainingAppointmentForm WHERE trainer.trainerNo = :trainerNo", PrivateTrainingAppointmentForm.class)
 				.setParameter("trainerNo", trainerNo)
 				.list();
 	}
