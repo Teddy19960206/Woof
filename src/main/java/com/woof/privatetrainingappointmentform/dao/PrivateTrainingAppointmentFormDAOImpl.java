@@ -69,4 +69,19 @@ public class PrivateTrainingAppointmentFormDAOImpl implements PrivateTrainingApp
 	public long getTotal() {
 		return getSession().createQuery("select count(*) from PrivateTrainingAppointmentForm", Long.class).uniqueResult();
 	}
+
+	@Override
+	public List<PrivateTrainingAppointmentForm> findByMemNo(String memNo) {
+		return getSession().createQuery("FROM PrivateTrainingAppointmentForm p WHERE p.member.memNo = :memNo", PrivateTrainingAppointmentForm.class)
+				.setParameter("memNo", memNo)
+				.list();
+	}
+
+	@Override
+	public List<PrivateTrainingAppointmentForm> findByTrainerNo(Integer trainerNo) {
+		return getSession().createQuery("FROM PrivateTrainingAppointmentForm p WHERE p.trainer.trainerNo = :trainerNo", PrivateTrainingAppointmentForm.class)
+				.setParameter("trainerNo", trainerNo)
+				.list();
+	}
+	
 }
