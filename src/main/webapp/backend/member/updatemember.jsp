@@ -13,7 +13,7 @@
 
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <meta charset="UTF-8">
-<title>所有員工資料 - updatemember.jsp</title>
+<title>更新會員資料 - updatemember.jsp</title>
 <script>
 $(document).ready(function(){
     $.ajax({

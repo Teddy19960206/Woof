@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <title>所有會員資料</title>
 <script type="text/javascript">
-//表單點擊找出對應的function
+//表單點擊找出對應的function//
   function processUpdate(jsonData){
 	  window.location.href = " <%=request.getContextPath()%>/frontend/member/updatemember.jsp?memNo=" + jsonData.memNo ;
   }

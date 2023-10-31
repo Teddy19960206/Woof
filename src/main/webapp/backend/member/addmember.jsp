@@ -13,7 +13,7 @@
 <meta charset="UTF-8">
 <title>會員資料新增 - addmember.jsp</title>
 <script>
-	//日期格式
+	//日期格式//
 	$(function() {
 		$("#memBd").datepicker({
 			dateFormat : 'yy-mm-dd'

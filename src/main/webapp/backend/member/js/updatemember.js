@@ -32,7 +32,7 @@ async function fetchDelete(memNo) {
 }
 
 
-// 讀取圖片
+// 讀取圖片//
 function readImg(result) {
     let reader = new FileReader();
     reader.readAsDataURL(result);

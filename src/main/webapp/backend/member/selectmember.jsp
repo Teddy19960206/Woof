@@ -37,7 +37,7 @@ h4 {
 		</tr>
 	</table>
 
-	<p>This is the Home page for IBM Emp: Home</p>
+	<p>This is the Home page for IBM member: Home</p>
 	<h3>資料查詢:</h3>
 	<ul>
 		<li><a href='list_all_member.jsp'>查看全部會員</a> <br> <br></li>
