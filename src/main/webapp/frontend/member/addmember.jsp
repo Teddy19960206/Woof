@@ -100,7 +100,7 @@ th, td {
 			</tr>
 			<tr>
 				<td>email:</td>
-				<td><input type="TEXT" name="memEmail" id="memEmail"
+				<td><input type="email" name="memEmail" id="memEmail"
 					placeholder="XXX@gmail.com" size="45"></td>
 				<td>${errorMsgs.memEmail}</td>
 			</tr>
@@ -112,7 +112,7 @@ th, td {
 			</tr>
 			<tr>
 				<td>電話:</td>
-				<td><input type="TEXT" name="memTel" id="memTel" size="45" /></td>
+				<td><input type="tel" name="memTel" id="memTel" size="45" /></td>
 				<td>${errorMsgs.memTel}</td>
 			</tr>
 			<tr>
@@ -128,13 +128,13 @@ th, td {
 			</tr>
 			<tr>
 				<td>毛毛幣:</td>
-				<td><input type="TEXT" name="momoPoint" id="momoPoint"
+				<td><input type="number" name="momoPoint" id="momoPoint"
 					size="45" /></td>
 				<td>${errorMsgs.momoPoint}</td>
 			</tr>
 			<tr>
 				<td>總堂數:</td>
-				<td><input type="TEXT" name="totalClass" id="totalClass"
+				<td><input type="number" name="totalClass" id="totalClass"
 					size="45" /></td>
 				<td>${errorMsgs.totalClass}</td>
 			</tr>

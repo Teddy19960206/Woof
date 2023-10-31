@@ -44,7 +44,7 @@ $(document).ready(function(){
 										$('#totalClass')
 												.val(jsonObj.totalClass);
 										$('#momoPoint').val(jsonObj.momoPoint);
-										$('#memBd').val(jsonObj.memBd);
+// 										$('#memBd').val(jsonObj.memBd);
 										$(
 												'input[name=memStatus][value='
 														+ jsonObj.memStatus
@@ -59,9 +59,7 @@ $(document).ready(function(){
 								});
 
 						//日期格式
-						$("#memBd").datepicker({
-							dateFormat : 'yy-mm-dd'
-						});
+						$("#memBd").datepicker({dateFormat : 'yy-mm-dd'});
 					})
 </script>
 <style>
@@ -149,7 +147,7 @@ th, td {
 			<%-- <input type="hidden" name="memNo" value="${memNo}"/> --%>
 			<tr>
 				<td>會員帳號:</td>
-				<td><input type="TEXT" name="memNo" id="memNo" size="45" /></td>
+				<td><input type="TEXT" name="memNo" id="memNo" size="45"/></td>
 
 			</tr>
 			<tr>
@@ -177,7 +175,7 @@ th, td {
 			</tr>
 			<tr>
 				<td>email:</td>
-				<td><input type="TEXT" name="memEmail" id="memEmail"
+				<td><input type="email" name="memEmail" id="memEmail"
 					placeholder="XXX@gmail.com" size="45"></td>
 
 			</tr>
@@ -189,7 +187,7 @@ th, td {
 			</tr>
 			<tr>
 				<td>電話:</td>
-				<td><input type="TEXT" name="memTel" id="memTel" size="45" /></td>
+				<td><input type="tel" name="memTel" id="memTel" size="45" /></td>
 
 			</tr>
 			<tr>
@@ -205,13 +203,13 @@ th, td {
 			</tr>
 			<tr>
 				<td>毛毛幣:</td>
-				<td><input type="TEXT" name="momoPoint" id="momoPoint"
+				<td><input type="number" name="momoPoint" id="momoPoint"
 					size="45" /></td>
 
 			</tr>
 			<tr>
 				<td>總堂數:</td>
-				<td><input type="TEXT" name="totalClass" id="totalClass"
+				<td><input type="number" name="totalClass" id="totalClass"
 					size="45" /></td>
 
 			</tr>

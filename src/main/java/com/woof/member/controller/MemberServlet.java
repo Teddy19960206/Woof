@@ -127,9 +127,6 @@ public class MemberServlet extends HttpServlet {
 		java.sql.Date sqlDate = new java.sql.Date(date.getTime());
 		member.setMemBd(sqlDate);
 		//	插入圖片
-//        Part filePart = req.getPart("memPhoto");
-//        byte[] bytes = PartParsebyte.partToByteArray(filePart);
-//        member.setMemPhoto(bytes);
 		  Part p = req.getPart("memPhoto");
 		  InputStream input = p.getInputStream();
 		  byte[] photo = new byte[input.available()];
@@ -177,18 +174,13 @@ public class MemberServlet extends HttpServlet {
 		member.setMemPassword(req.getParameter("memPassword"));
 		member.setMemTel(req.getParameter("memTel"));
 		member.setMemAddress(req.getParameter("memAddress"));
-		//照片
-        byte[] bytes = null;
-
-        Part filePart = req.getPart("photo");
-        if (filePart != null && filePart.getSize() > 0){
-
-            bytes = PartParsebyte.partToByteArray(filePart);
-
-        }else{
-            bytes = memberService.getPhotoById(req.getParameter("memberNo"));
-        }
-        member.setMemPhoto(bytes);
+		//	插入圖片
+		  Part p = req.getPart("memPhoto");
+		  InputStream input = p.getInputStream();
+		  byte[] photo = new byte[input.available()];
+		  input.read(photo);
+		  input.close();
+		  member.setMemPhoto(photo);
         //生日
 		String memBdString = req.getParameter("memBd");
 
