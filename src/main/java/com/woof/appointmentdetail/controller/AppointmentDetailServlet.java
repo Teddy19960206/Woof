@@ -59,4 +59,6 @@ public class AppointmentDetailServlet extends HttpServlet {
     	List<AppointmentDetail> appointmentDetails = appointmentDetailService.findAdByPtaNo(ptaNo);
     	req.setAttribute("appointmentDetails",appointmentDetails);
     }
+    
+  
 }

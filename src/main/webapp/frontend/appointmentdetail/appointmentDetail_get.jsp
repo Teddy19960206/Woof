@@ -105,10 +105,11 @@ tr:nth-child(odd) {
 		</c:forEach>
 
 	</table>
-<!-- 	<button class="btn btn-new" -->
-<!-- 		name="action" value="gettoadd">新增</button> -->
-	<button class="btn btn-back"
-		onclick="history.back()">返回</button>
+	<FORM METHOD="post"
+		action="${pageContext.request.contextPath}/appointmentdetail?action=gettoadd">
+		<button class="btn btn-new" name="action" value="gettoadd">新增</button>
+	</FORM>
+	<button class="btn btn-back" onclick="history.back()">返回</button>
 
 </body>
 </html>
