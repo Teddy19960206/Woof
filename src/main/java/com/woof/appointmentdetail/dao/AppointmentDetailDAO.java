@@ -10,9 +10,13 @@ public interface AppointmentDetailDAO {
 	
 	int update(AppointmentDetail appointmentDetail);
 	
-//	int delete(Integer adNo);
+	AppointmentDetail findByAdNo(Integer adNo);	
 	
-	AppointmentDetail findByAdNo(Integer adNo);
+	List<AppointmentDetail> findByAppTime(String appTime);	
 	
 	List<AppointmentDetail> getAll();
+	
+	List<AppointmentDetail> getAll(int currentPage);
+	
+	long getTotal();
 }

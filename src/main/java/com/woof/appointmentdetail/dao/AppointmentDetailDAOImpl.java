@@ -34,17 +34,6 @@ public class AppointmentDetailDAOImpl implements AppointmentDetailDAO {
 		}
 	}
 
-//	@Override
-//	public int delete(Integer adNo) {
-//		AppointmentDetail appointmentDetail = getSession().get(AppointmentDetail.class, adNo);
-//		if(appointmentDetail != null) {
-//			getSession().delete(appointmentDetail);
-//			return 1;
-//		}else {
-//			return -1;
-//		}
-//	}
-
 	@Override
 	public AppointmentDetail findByAdNo(Integer adNo) {
 		return getSession().get(AppointmentDetail.class, adNo);
@@ -54,4 +43,23 @@ public class AppointmentDetailDAOImpl implements AppointmentDetailDAO {
 	public List<AppointmentDetail> getAll() {
 		return getSession().createQuery("FROM AppointmentDetail", AppointmentDetail.class).list();
 	}
+
+	@Override
+	public List<AppointmentDetail> findByAppTime(String appTime) {
+		return getSession().createQuery("FROM AppointmentDetail a WHERE a.appTime = :appTime", AppointmentDetail.class).list();
+	}
+
+	@Override
+	public List<AppointmentDetail> getAll(int currentPage) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public long getTotal() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+	
 }
