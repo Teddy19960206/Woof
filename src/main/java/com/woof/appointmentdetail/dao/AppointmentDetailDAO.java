@@ -1,5 +1,6 @@
 package com.woof.appointmentdetail.dao;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import com.woof.appointmentdetail.entity.AppointmentDetail;
@@ -12,7 +13,9 @@ public interface AppointmentDetailDAO {
 	
 	AppointmentDetail findByAdNo(Integer adNo);	
 	
-	List<AppointmentDetail> findByAppTime(String appTime);	
+	List<AppointmentDetail> findByPtaNo(Integer ptaNo);	
+	
+	List<AppointmentDetail> findByAppTime(Timestamp appTime);	
 	
 	List<AppointmentDetail> getAll();
 	
