@@ -1,4 +1,3 @@
-
 <script type="text/javascript">
     function refresh() {
    
@@ -14,25 +13,25 @@
          pageEncoding="gb2312"%>
 <%
 response.setHeader("Cache-Control","no-cache");
-//¦b°O¾ÐÅé¤¤«Ø¥ß¼v¶H
+//åœ¨è¨˜æ†¶é«”ä¸­å»ºç«‹å½±è±¡
   int width=60,height=20;
   BufferedImage image=new BufferedImage(width,height,BufferedImage.TYPE_INT_RGB);
-  //Àò¨úµeµ§
+  //ç²å–ç•«ç­†
   Graphics g=image.getGraphics();
-  //³]©w­I´º¦â
+  //è¨­å®šèƒŒæ™¯è‰²
   g.setColor(new Color(200,200,200));
   g.fillRect(0,0,width,height);
-  //¨úÀH¾÷²£¥ÍªºÅçÃÒ½X(4¦ì¼Æ¦r)
+  //å–éš¨æ©Ÿç”¢ç”Ÿçš„é©—è­‰ç¢¼(4ä½æ•¸å­—)
   Random rnd=new Random();
   int randNum=rnd.nextInt(8999)+1000;
   String randStr=String.valueOf(randNum);
-  //±NÅçÃÒ½X¦s¤Jsession
+  //å°‡é©—è­‰ç¢¼å­˜å…¥session
   session.setAttribute("randStr",randStr);
-  //±NÅçÃÒ½XÅã¥Ü¨ì¼v¶H¤¤
+  //å°‡é©—è­‰ç¢¼é¡¯ç¤ºåˆ°å½±è±¡ä¸­
   g.setColor(Color.black);
   g.setFont(new Font("", Font.PLAIN,20));
   g.drawString(randStr,10,17);
-  //ÀH¾÷²£¥Í100­Ó¤zÂZÂI¡A¨Ï¼v¶H¤¤ªºÅçÃÒ½X¤£©ö³Q¨ä¥Lµ{¦¡±´´ú¨ì
+  //éš¨æ©Ÿç”¢ç”Ÿ100å€‹å¹²æ“¾é»žï¼Œä½¿å½±è±¡ä¸­çš„é©—è­‰ç¢¼ä¸æ˜“è¢«å…¶ä»–ç¨‹å¼æŽ¢æ¸¬åˆ°
     for (int i = 0; i < 100; i++) {
    
    
@@ -40,10 +39,9 @@ response.setHeader("Cache-Control","no-cache");
         int y=rnd.nextInt(height);
         g.drawOval(x,y,1,1);
     }
-    //¿é¥X¼v¶H¨ì­¶­±
+    //è¼¸å‡ºå½±è±¡åˆ°é é¢
     ImageIO.write(image,"JPEG",response.getOutputStream());
     out.clear();
     out=pageContext.pushBody();
 
 %>
-
