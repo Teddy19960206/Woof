@@ -34,7 +34,7 @@ button {
 </style>
 </head>
 <body>
-	<h1>新增私人預約單</h1>
+	<h1>新增私人預約單明細</h1>
 
 	<form action="${pageContext.request.contextPath}/appointmentdetail"
 		method="post" enctype="multipart/form-data">
