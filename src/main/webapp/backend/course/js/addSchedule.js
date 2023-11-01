@@ -10,9 +10,9 @@ $(document).on("click" , "a#addClassDate" , function (){
 
 
     $("div#input").append(`<div>
-            <label for="classDate">新增上課日期：</label>
+            <label for="classDate">新增上課日期：</label><a id="minus"><img src="${projectName}/webutil/icons/minus.svg" style="width: 20px"/></a>
             <input type="date" name="classDate" class="classDate form-control my-2" data-id="${newId}">
-            <a id="minus"><img src="${projectName}/webutil/icons/minus.svg" style="width: 20px"/></a>
+            
         </div>`);
 })
 

@@ -17,6 +17,6 @@ public interface GroupCourseOrderService {
 
     List<GroupCourseOrder> getByGroupSchedule();
 
-
+    List<GroupCourseOrder> getOrderByDate(Integer year , Integer month);
 
 }

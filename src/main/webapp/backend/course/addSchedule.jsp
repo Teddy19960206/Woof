@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>修改報名資訊</title>
+    <title>寵毛導師 Woof | 新增報名資訊</title>
     <%@ include file="/backend/backhead.file" %>
 </head>
 
@@ -42,30 +42,32 @@
 
                 <div class="container">
                     <div class="row">
-                        <hr>
-                        <div class="col-6">
+                        <div class="col-6 mx-auto">
                             <div class="col-6 mx-auto">
                                 <label for="minLimit">最少開課人數：</label>
                                 <input type="number" name="minLimit" id="minLimit" class="form-control my-2">
-
-                                <label for="maxLimit">最多開課人數：</label>
-                                <input type="number" name="maxLimit" id="maxLimit" class="form-control my-2">
                             </div>
                         </div>
-                        <div class="col-6">
+                        <div class="col-6 mx-auto mb-3">
                             <div class="col-6 mx-auto">
+                            <label for="maxLimit">最多開課人數：</label>
+                            <input type="number" name="maxLimit" id="maxLimit" class="form-control my-2">
+                            </div>
+                        </div>
+                        <div class="col-10 mx-auto mb-3">
                                 <label for="price">價格：</label>
                                 <input type="input" name="price" id="price" class="form-control my-2">
-
-                                <label for="price">延期原因：</label>
-                                <input type="input" name="price" id="delayReason" class="form-control my-2">
-
-                                <label for="price">延期的關聯課程：</label>
-                                <input type="input" name="price" id="relatedGcsNo" class="form-control my-2">
-
-
-                            </div>
                         </div>
+                        <div class="col-10 mx-auto mb-3">
+                            <label for="price">延期的關聯課程編號：</label>
+                            <select name="relatedGcsNo" id="relatedGcsNo" class="form-select">
+                            </select>
+                        </div>
+                        <div class="col-10 mx-auto mb-3">
+                            <label for="price">延期原因：</label>
+                            <input type="input" name="delayReason" id="delayReason" class="form-control my-2">
+                        </div>
+
                         <div class="text-center my-2">
                             <button type="button" id="next" class="btn btn-primary">下一步</button>
                             <button type="button" onclick="history.back()" class="btn btn-secondary">取消新增</button>
@@ -73,7 +75,7 @@
                     </div>
                 </div>
             </div>
-            <div id="addScheduleDetail" style="display:none">
+            <div id="addScheduleDetail" style="display:none" class="col-6 mx-auto">
                 <a id="addClassDate"><img src="${pageContext.request.contextPath}/webutil/icons/plus.svg" width="20px"/></a>
                 <div id="input">
                     <div>

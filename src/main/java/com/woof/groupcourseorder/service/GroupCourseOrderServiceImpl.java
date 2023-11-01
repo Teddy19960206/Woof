@@ -58,4 +58,8 @@ public class GroupCourseOrderServiceImpl implements GroupCourseOrderService{
     public List<GroupCourseOrder> getByGroupSchedule() {
         return null;
     }
+
+    public List<GroupCourseOrder> getOrderByDate(Integer year , Integer month){
+        return dao.getByDate(year , month);
+    }
 }
