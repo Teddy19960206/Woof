@@ -46,7 +46,15 @@ body > a {
     </style>
 </head>
 <body>
+	 <!-- 顯示新增成功的訊息 -->
+    <c:if test="${not empty successMessage}">
+        <p class="successMessage">${successMessage}</p>
+    </c:if>
 
+    <!-- 顯示新增失敗的訊息 -->
+    <c:if test="${not empty errorMessage}">
+        <p class="errorMessage">${errorMessage}</p>
+    </c:if>
     <h1>訓練師不授課日程</h1>
     <a href="${pageContext.request.contextPath}/nontrainingschedule?action=gettoadd">新增頁面</a>
     <a href="${pageContext.request.contextPath}/nontrainingschedule?action=gettoupdate">更新頁面</a>
@@ -55,6 +63,5 @@ body > a {
     <a href="${pageContext.request.contextPath}/nontrainingschedule?action=gettoselect">單一查詢</a>
 
     <br><br>
-</form>
 </body>
 </html>

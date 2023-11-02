@@ -41,8 +41,7 @@ public class NonTrainingScheduleServlet extends HttpServlet {
 				break;
 			case "add":
 				add(req, resp);
-				forwardPath = "/frontend/nontrainingschedule/nonTrainingSchedule.jsp";
-				break;
+				return;
 			default:
 				forwardPath = "/frontend/nontrainingschedule/nonTrainingSchedule.jsp";
 			}
