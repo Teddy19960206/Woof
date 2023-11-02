@@ -54,19 +54,6 @@
     </div>
 </div>
 
-<%--<c:if test="${currentPage > 1}">--%>
-<%--    <a href="${pageContext.request.contextPath}/emp/emp.do?action=getAll&page=1">至第一頁</a>&nbsp;--%>
-<%--</c:if>--%>
-<%--<c:if test="${currentPage - 1 != 0}">--%>
-<%--    <a href="${pageContext.request.contextPath}/emp/emp.do?action=getAll&page=${currentPage - 1}">上一頁</a>&nbsp;--%>
-<%--</c:if>--%>
-<%--<c:if test="${currentPage + 1 <= empPageQty}">--%>
-<%--    <a href="${pageContext.request.contextPath}/emp/emp.do?action=getAll&page=${currentPage + 1}">下一頁</a>&nbsp;--%>
-<%--</c:if>--%>
-<%--<c:if test="${currentPage != empPageQty}">--%>
-<%--    <a href="${pageContext.request.contextPath}/emp/emp.do?action=getAll&page=${empPageQty}">至最後一頁</a>&nbsp;--%>
-<%--</c:if>--%>
-
 
 <div class="text-center mb-5">
     <%-- 新增團體課程 --%>
