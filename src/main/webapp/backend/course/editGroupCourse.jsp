@@ -24,6 +24,7 @@
     }
     #preview img.preview_img {
         width: 100%;
+        text-align: center;
     }
     .uploadImage{
         background-color: #0d6efd;
@@ -76,7 +77,7 @@
                         <label class="m-3">圖片：</label>
                         <div class="col-6 mx-auto">
                             <label for="p_file" class="uploadImage">選擇圖片</label>
-                            <input type="file" name="image" value="" id="p_file" hidden="hidden">
+                            <input type="file" name="photo" value="" id="p_file" hidden="hidden">
                         </div>
 
                         <label class="m-3">課程狀態：</label>
@@ -93,6 +94,7 @@
                             <label>圖片預覽</label>
                         </div>
                         <div id="preview">
+                            <span class="text">預覽圖</span>
                             <img id="photo" class="preview_img"
                             src="${pageContext.request.contextPath}/DBPngReader?action=groupCourse&id=${groupCourse.gcNo}"
                             onerror="this.style.display='none'" />

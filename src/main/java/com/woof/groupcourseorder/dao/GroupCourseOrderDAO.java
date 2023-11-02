@@ -13,4 +13,5 @@ public interface GroupCourseOrderDAO {
 
     List<GroupCourseOrder> getAll();
 
+    List<GroupCourseOrder> getByDate(Integer year , Integer month);
 }

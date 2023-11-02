@@ -28,9 +28,9 @@ public class GroupScheduleDetailDAOImpl implements GroupScheduleDetailDAO{
     @Override
     public int insert(List<GroupScheduleDetail> groupScheduleDetailSet) {
         for (GroupScheduleDetail groupScheduleDetail : groupScheduleDetailSet){
-            getSession().save(groupScheduleDetail);
+            getSession().persist(groupScheduleDetail);
         }
-
+        getSession().flush();
         return 1;
     }
 
@@ -92,5 +92,16 @@ public class GroupScheduleDetailDAOImpl implements GroupScheduleDetailDAO{
     @Override
     public List<GroupScheduleDetail> getAll() {
         return getSession().createQuery("FROM GroupScheduleDetail " , GroupScheduleDetail.class).list();
+    }
+
+    @Override
+    public List<GroupScheduleDetail> getByDate(Integer year  , Integer month) {
+        String hql  = "FROM GroupScheduleDetail WHERE YEAR(classDate) = :year and MONTH(classDate) = :month";
+        Query query = getSession().createQuery(hql, GroupScheduleDetail.class);
+        query.setParameter("year" , year);
+        query.setParameter("month" , month);
+        List<GroupScheduleDetail> resultList = query.list();
+
+        return resultList;
     }
 }

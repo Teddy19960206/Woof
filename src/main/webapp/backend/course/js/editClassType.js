@@ -6,7 +6,7 @@ $(document).on("click" , "button.edit-button" , function (){
 
     $(this).prop("disabled" , true);
     let className = $(this).closest("tr").find("td").eq(1);
-    className.html(`<input type='text' name='classType' value='${className.text()}'>`);
+    className.html(`<input type='text' name='classType' class="form-control" style="width: 100px" value='${className.text()}'>`);
 })
 
 // 點擊確認修改後須先發送 fetch 到後端判斷是否更新成功，若是成功，則還原。
@@ -17,6 +17,8 @@ $(document).on("click" , "button.modify-button" ,  async function (){
 
     if ( 0 == name.length){
         throw new Error("請勿空白名稱");
+
+
     }
 
     // 獲取 classType 編號
@@ -63,7 +65,9 @@ async function fetchData(id , name , action){
         })
 
         if (!response.ok){
+            alert("不能刪除，尚有相關連的資料")
             throw new Error('Network response was not ok')
+
         }
         return 1;
     }catch (error){

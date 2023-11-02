@@ -114,6 +114,7 @@ public class GroupScheduleServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
 
         String classType = request.getParameter("classType");
+        System.out.println(classType);
 
         List<GroupCourseSchedule> groupCourseScheduleSet = null;
         if (classType != null) {
@@ -163,6 +164,8 @@ public class GroupScheduleServlet extends HttpServlet {
 
         request.setAttribute("schedule", groupCourseSchedule);
 
+        System.out.println(groupCourseSchedule);
+
         return "/backend/course/editGroupSchedule.jsp";
     }
 
@@ -202,13 +205,13 @@ public class GroupScheduleServlet extends HttpServlet {
 
         String parameter = request.getParameter("relatedGcsNo");
 
-        Integer relatedGcsNo = null;
-        if (parameter != null){
-            relatedGcsNo = Integer.valueOf(request.getParameter("relatedGcsNo"));
+        GroupCourseSchedule byGcsNo = null;
+        if (!"0".equals(parameter)){
+            Integer relatedGcsNo = Integer.valueOf(request.getParameter("relatedGcsNo"));
+            byGcsNo = groupGourseScheduleService.findByGcsNo(relatedGcsNo);
+
         }
 
-
-        GroupCourseSchedule byGcsNo = groupGourseScheduleService.findByGcsNo(scheduleNo);
 
 
         int result = groupGourseScheduleService.updateSchedule(scheduleNo, groupCourseByNo, trainerByTrainerNo, startDate, endDate, minLimit, maxLimit, regCount, price, status , delayReason ,byGcsNo);

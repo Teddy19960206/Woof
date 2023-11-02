@@ -1,7 +1,52 @@
 let pathName = window.document.location.pathname;
 let projectName = pathName.substring( 0 , pathName.substring(1).indexOf("/")+1);
+const selectElement = document.getElementById("skill");
 
-let selectElement = document.getElementById("skill");
+
+$(async function (){
+
+    let scheduleNo = $("#scheduleNo").val()
+    let related = $("#related").val();
+    let data = await getAllSchedule();
+
+    html = `<option value="0">無</option>`;
+    data.forEach(item =>{
+
+        if (item.gcsNo != scheduleNo){
+            html += `<option value="${item.gcsNo}" ${related != "" ? related == item.gcsNo? "selected" : ""  : ""}>
+            課程報名編號：${item.gcsNo} 班別：${item.groupCourse.classType.ctName} 訓練師：${item.trainer.administrator.adminName} 課程名稱：${item.groupCourse.skill.skillName}
+            </option>`;
+        }
+    })
+
+    $("#relatedGcsNo").html(html)
+})
+
+// 取得所有報名課程
+async function getAllSchedule(){
+    let url = `${projectName}/schedule/getSchedule`;
+
+    try{
+        const response = await fetch(url , {
+            method : "POST",
+            headers:{
+                "Content-Type" : "application/x-www-form-urlencoded"
+            },
+            body : "classType=0"
+        })
+        if (!response.ok){
+            throw new Error("網路異常")
+        }
+        const data = await response.json();
+
+        console.log(data)
+
+        return data;
+    }catch (error){
+        console.log(error)
+    }
+
+}
 
 selectElement.addEventListener("change" , async function (e){
 
@@ -52,3 +97,4 @@ async function fetchTrainers(id){
         console.error('Error', error);
     }
 }
+

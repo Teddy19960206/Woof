@@ -54,6 +54,9 @@ public class GroupCourseOrderServlet extends HttpServlet {
             case "/registration":
                 registration(request , response);
                 return;
+            case "/getOrderByDate":
+                getOrderByDate(request , response);
+                return;
             default:
                 if (pathInfo.startsWith("/getGroupInfo/")) {
                     forwardPath = getGroupInfo(request ,response ,result);
@@ -119,4 +122,9 @@ public class GroupCourseOrderServlet extends HttpServlet {
 
         response.sendRedirect(request.getContextPath()+"/index.html");
     }
+
+    private void getOrderByDate(HttpServletRequest request , HttpServletResponse response){
+
+    }
+
 }
