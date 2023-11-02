@@ -6,55 +6,56 @@
 <meta charset="BIG5">
 <title>AppointmentDetail</title>
 <style>
-body {
-	font-family: Arial, sans-serif;
-	background-color: #f0f0f0;
-	margin: 0;
-	padding: 0;
-}
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f5f5f5;
+    }
 
-table {
-	width: 100%;
-	border-collapse: collapse;
-}
+    table {
+        border-collapse: collapse;
+        width: 80%;
+        margin: 20px auto;
+        background-color: #fff;
+    }
 
-table, th, td {
-	border: 1px solid #ccc;
-}
+    th, td {
+        padding: 10px;
+        text-align: center;
+    }
 
-th, td {
-	padding: 10px;
-	text-align: left;
-}
+    th {
+        background-color: #333;
+        color: #fff;
+    }
 
-th {
-	background-color: #0074d9;
-	color: white;
-}
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
 
-tr:nth-child(even) {
-	background-color: #f2f2f2;
-}
+    tr:hover {
+        background-color: #ddd;
+    }
 
-tr:nth-child(odd) {
-	background-color: #ffffff;
-}
+    button {
+        padding: 5px 10px;
+        background-color: #4CAF50;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+    }
 
-.btn-success {
-	background-color: #4CAF50;
-	color: white;
-	padding: 5px 10px;
-	border: none;
-	cursor: pointer;
-}
+    .btn-new {
+        background-color: #007bff;
+    }
 
-.btn-back {
-	background-color: #f44336;
-	color: white;
-	padding: 5px 10px;
-	border: none;
-	cursor: pointer;
-}
+    .btn-back {
+        background-color: #f00;
+    }
+
+    button:hover {
+        background-color: #45a049;
+    }
+    
 </style>
 </head>
 <body>
@@ -80,22 +81,20 @@ tr:nth-child(odd) {
 				<td>
 
 					<FORM METHOD="post"
-						action="${pageContext.request.contextPath}/appointment?action=gettoupdate2">
+						action="${pageContext.request.contextPath}/appointmentdetail?action=gettoupdate">
 						<%
+						String adNo = request.getParameter("adNo");
 						String ptaNo = request.getParameter("ptaNo");
-						String member = request.getParameter("member");
-						String trainer = request.getParameter("trainer");
-						String number = request.getParameter("number");
+						String appTime = request.getParameter("appTime");
+						String appStatus = request.getParameter("appStatus");
+						String appVenue = request.getParameter("appVenue");
 						%>
-						<input type="hidden" name="action" value="gettoupdate"> <input
-							type="hidden" name="ptaNo"
-							value="${privateTrainingAppointmentForm.ptaNo}"> <input
-							type="hidden" name="member"
-							value="${privateTrainingAppointmentForm.member.memName}">
-						<input type="hidden" name="trainer"
-							value="${privateTrainingAppointmentForm.trainer.administrator.adminName}">
-						<input type="hidden" name="number"
-							value="${privateTrainingAppointmentForm.ptaClass}">
+						<input type="hidden" name="action" value="gettoupdate"> 
+						<input type="hidden" name="adNo" value="${AD.adNo}"> 
+						<input type="hidden" name="ptaNo" value="${AD.privateTrainingAppointmentForm.ptaNo}">
+						<input type="hidden" name="appTime"	value="${AD.appTime}">
+						<input type="hidden" name="appStatus" value="${AD.appStatus}">
+						<input type="hidden" name="appVenue" value="${AD.appVenue}">
 						<button class="btn btn-success" type="submit">修改</button>
 
 					</FORM>
@@ -105,11 +104,13 @@ tr:nth-child(odd) {
 		</c:forEach>
 
 	</table>
-	<FORM METHOD="post"
-		action="${pageContext.request.contextPath}/appointmentdetail?action=gettoadd">
-		<button class="btn btn-new" name="action" value="gettoadd">新增</button>
-	</FORM>
-	<button class="btn btn-back" onclick="history.back()">返回</button>
+	<div class="button-container">
+    <FORM METHOD="post" action="${pageContext.request.contextPath}/appointmentdetail?action=gettoadd">
+        <input	type="hidden" name="ptaNo"	value="${AD.privateTrainingAppointmentForm.ptaNo}">
+        <button class="btn btn-new" name="action" value="gettoadd">新增</button>
+    </FORM>
+    <button class="btn btn-back" onclick="history.back()">返回</button>
+	</div>
 
 </body>
 </html>

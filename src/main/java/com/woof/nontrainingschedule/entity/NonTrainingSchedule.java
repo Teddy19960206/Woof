@@ -25,25 +25,9 @@ public class NonTrainingSchedule {
 	@Column(name="NTS_NO" , updatable = false , nullable = false)
 	private Integer ntsNo;
 	
-	//==============================================//
 	@ManyToOne
 	@JoinColumn(name = "TRAINER_NO" , referencedColumnName = "TRAINER_NO")
 	private Trainer trainer;
-	
-//	@Expose
-//	@Column(name="TRAINER_NO" , nullable = false)
-//	private Integer trainerNo;
-//
-//	public Integer getTrainerNo() {
-//		return trainerNo;
-//	}
-//
-//	public void setTrainerNo(Integer trainerNo) {
-//		this.trainerNo = trainerNo;	
-//	}
-	
-	// Trainer做好後, 刪掉or註解拔掉
-	//===========================================//
 	
 	@Expose
 	@Column(name="NTS_DATE")

@@ -2,7 +2,7 @@ package com.woof.appointmentdetail.dao;
 
 import static com.woof.util.Constants.PAGE_MAX_RESULT;
 
-import java.sql.Timestamp;
+import java.sql.Date;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -49,7 +49,7 @@ public class AppointmentDetailDAOImpl implements AppointmentDetailDAO {
 	}
 
 	@Override
-	public List<AppointmentDetail> findByAppTime(Timestamp appTime) {
+	public List<AppointmentDetail> findByAppTime(Date appTime) {
 		return getSession().createQuery("FROM AppointmentDetail a WHERE a.appTime = :appTime", AppointmentDetail.class)
 				.setParameter("appTime", appTime)
 				.list();

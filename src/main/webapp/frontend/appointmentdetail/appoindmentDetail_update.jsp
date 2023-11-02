@@ -34,30 +34,31 @@ button {
 </style>
 </head>
 <body>
-	<h1>新增私人預約單明細</h1>
+	<h1>修改私人預約單明細</h1>
 
 	<form action="${pageContext.request.contextPath}/appointmentdetail"
 		method="post" enctype="multipart/form-data">
-		<input	type="hidden" name="ptaNo"	value="${ptaNo}">
+		<input	type="hidden" name="adNo"	value="${param.adNo}">
+		<input	type="hidden" name="ptaNo"	value="${param.ptaNo}">
 		<label for="datetimepick">選擇預約時間:</label>
-		 <input type="datetime-local" id="dateTimePicker">
+		 <input type="datetime-local" id="dateTimePicker" name="appTime" value="${param.appTime}">
 		<br />
 		<label>預約狀態：</label> 
-		<select name="appstatus">
-			<option value="0" selected>待審核</option>
-			<option value="1">拒絕</option>
-			<option value="2">接受</option>
-			<option value="3">完成</option>
-			<option value="4">取消</option>
+		<select name="appStatus">
+   		<option value="0" ${param.appStatus == '0' ? 'selected' : ''}>待審核</option>
+		<option value="1" ${param.appStatus == '1' ? 'selected' : ''}>拒絕</option>
+		<option value="2" ${param.appStatus == '2' ? 'selected' : ''}>接受</option>
+		<option value="3" ${param.appStatus == '3' ? 'selected' : ''}>完成</option>
+		<option value="4" ${param.appStatus == '4' ? 'selected' : ''}>取消</option>
 		</select>
 		 <br /> 
 		 <label>預約地點：</label>
-		<input type="text" id="addressInput" placeholder="請輸入地址">
+		<input type="text" id="addressInput" placeholder="${param.appVenue}">
 		<br />
 			
 		<button type="submit" name="action"
-			value="add">新增</button>
-		<button type="button" onclick="history.back()">取消新增</button>
+			value="add">修改</button>
+		<button type="button" onclick="history.back()">取消修改</button>
 	</form>
 </body>
 </html>

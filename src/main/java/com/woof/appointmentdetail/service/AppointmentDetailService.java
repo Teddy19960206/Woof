@@ -1,6 +1,6 @@
 package com.woof.appointmentdetail.service;
 
-import java.sql.Timestamp;
+import java.sql.Date;
 import java.util.List;
 
 import com.woof.appointmentdetail.entity.AppointmentDetail;
@@ -9,9 +9,9 @@ import com.woof.privatetrainingappointmentform.entity.PrivateTrainingAppointment
 public interface AppointmentDetailService {
 	AppointmentDetail findAdByAdNo(Integer adNo);
 	
-	int addAd(PrivateTrainingAppointmentForm pta , Timestamp appTime , Integer appStatus , String appVenue);
+	int addAd(PrivateTrainingAppointmentForm pta , Date appTime , Integer appStatus);
 	
-	int updateAd(Integer adNo , PrivateTrainingAppointmentForm pta , Timestamp appTime , Integer appStatus , String appVenue);
+	int updateAd(Integer adNo , PrivateTrainingAppointmentForm pta , Date appTime , Integer appStatus);
 	
 	List<AppointmentDetail> getAllAppointmentDetails();
 	
@@ -21,6 +21,6 @@ public interface AppointmentDetailService {
 	
 	List<AppointmentDetail> findAdByPtaNo(Integer ptaNo);
 	
-	List<AppointmentDetail> findAdByAppTime(Timestamp appTime);
+	List<AppointmentDetail> findAdByAppTime(Date appTime);
 	
 }

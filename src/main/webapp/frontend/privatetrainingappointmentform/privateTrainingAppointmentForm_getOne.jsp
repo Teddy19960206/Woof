@@ -49,7 +49,13 @@ tr:nth-child(odd) {
 	border: none;
 	cursor: pointer;
 }
-
+.btn-in {
+	background-color: orange;
+	color: white;
+	padding: 5px 10px;
+	border: none;
+	cursor: pointer;
+}
 .btn-danger {
 	background-color: #f44336;
 	color: white;
@@ -60,7 +66,7 @@ tr:nth-child(odd) {
 </style>
 </head>
 <body>
-	<%-- <form action="${pageContext.request.contextPath}/privatetrainingappointmentform/privateTrainingAppointmentForm" method="post" enctype="multipart/form-data"> --%>
+	
 	<table border=1>
 		<tr>
 			<th>私人訓練預約單編號</th>
@@ -71,8 +77,7 @@ tr:nth-child(odd) {
 			<th></th>
 		</tr>
 
-<%-- 		<c:forEach var="privateTrainingAppointmentForm" --%>
-<%-- 			items="${privateTrainingAppointmentForms}"> --%>
+
 
 			<tr>
 				<td>${pta.ptaNo}</td>
@@ -107,26 +112,13 @@ tr:nth-child(odd) {
 					</FORM>
 
 				</td>
-<%-- 		</c:forEach> --%>
+
 
 	</table>
-<%-- 	<c:if test="${currentPage > 1}"> --%>
-<%-- 		<a href="${pageContext.request.contextPath}/privatetrainingappointmentform?action=getall&page=1">至第一頁</a>&nbsp; --%>
-<%-- 	</c:if> --%>
-<%-- 	<c:if test="${currentPage - 1 != 0}"> --%>
-<%-- 		<a href="${pageContext.request.contextPath}/privatetrainingappointmentform?action=getall&page=${currentPage - 1}">上一頁</a>&nbsp; --%>
-<%-- 	</c:if> --%>
-<%-- 	<c:if test="${currentPage + 1 <= PTAFPageQty}"> --%>
-<%-- 		<a href="${pageContext.request.contextPath}/privatetrainingappointmentform?action=getall&page=${currentPage + 1}">下一頁</a>&nbsp; --%>
-<%-- 	</c:if> --%>
-<%-- 	<c:if test="${currentPage != PTAFPageQty}"> --%>
-<%-- 		<a href="${pageContext.request.contextPath}/privatetrainingappointmentform?action=getall&page=${PTAFPageQty}">至最後一頁</a>&nbsp; --%>
-<%-- 	</c:if> --%>
 
-<%-- 	<input type="hidden" value="返回" onclick="${pageContext.request.contextPath}/frontend/privatetrainingappointmentform/privateTrainingAppointmentForm.jsp"> --%>
 	<button class="btn btn-danger" onclick="history.back()">返回</button>
 
 
-<!-- 	</form> -->
+
 </body>
 </html>

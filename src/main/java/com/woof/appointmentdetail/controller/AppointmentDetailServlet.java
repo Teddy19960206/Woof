@@ -37,6 +37,14 @@ public class AppointmentDetailServlet extends HttpServlet {
 				getByPtaNo(req, resp);
 				forwardPath = "/frontend/appointmentdetail/appointmentDetail_get.jsp";
 				break;
+			case "gettoadd":
+				beforeAdd(req, resp);
+				forwardPath = "/frontend/appointmentdetail/appointmentDetail_add.jsp";
+				break;
+			case "gettoupdate":
+//				beforeUpdate(req, resp);
+				forwardPath = "/frontend/appointmentdetail/appointmentDetail_update.jsp";
+				break;
 			default:
 				forwardPath = "/frontend/privatetrainingappointmentform/privateTrainingAppointmentForm.jsp";
 			}
@@ -58,7 +66,20 @@ public class AppointmentDetailServlet extends HttpServlet {
     	Integer ptaNo = Integer.parseInt(ptaNoStr);
     	List<AppointmentDetail> appointmentDetails = appointmentDetailService.findAdByPtaNo(ptaNo);
     	req.setAttribute("appointmentDetails",appointmentDetails);
+    	req.setAttribute("ptaNo",ptaNo);
     }
     
-  
+    private void beforeAdd(HttpServletRequest req, HttpServletResponse res) {
+ 
+    	Integer ptaNo = Integer.parseInt(req.getParameter("ptaNo"));
+    	req.setAttribute("ptaNo",ptaNo); 
+    }
+    
+//    private void beforeUpdate(HttpServletRequest req, HttpServletResponse res) {
+//    	
+//    	Integer ptaNo = Integer.parseInt(req.getParameter("ptaNo"));
+//    	req.setAttribute("ptaNo",ptaNo); 
+//    }
+    
+    
 }

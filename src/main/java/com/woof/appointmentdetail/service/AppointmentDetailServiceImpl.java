@@ -2,7 +2,7 @@ package com.woof.appointmentdetail.service;
 
 import static com.woof.util.Constants.PAGE_MAX_RESULT;
 
-import java.sql.Timestamp;
+import java.sql.Date;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -28,26 +28,24 @@ public class AppointmentDetailServiceImpl implements AppointmentDetailService{
 	}
 
 	@Override
-	public int addAd(PrivateTrainingAppointmentForm pta, Timestamp appTime, Integer appStatus, String appVenue) {
+	public int addAd(PrivateTrainingAppointmentForm pta, Date appTime, Integer appStatus) {
 		AppointmentDetail appointmentDetail = new AppointmentDetail();
 		appointmentDetail.setPrivateTrainingAppointmentForm(pta);
 		appointmentDetail.setAppTime(appTime);
 		appointmentDetail.setAppStatus(appStatus);
-		appointmentDetail.setAppVenue(appVenue);
 		dao.insert(appointmentDetail);
 		System.out.println(appointmentDetail);
 		return 1;
 	}
 
 	@Override
-	public int updateAd(Integer adNo, PrivateTrainingAppointmentForm pta, Timestamp appTime, Integer appStatus,
-			String appVenue) {
+	public int updateAd(Integer adNo, PrivateTrainingAppointmentForm pta, Date appTime, Integer appStatus
+			) {
 		AppointmentDetail appointmentDetail = new AppointmentDetail();
 		appointmentDetail.setAdNo(adNo);
 		appointmentDetail.setPrivateTrainingAppointmentForm(pta);
 		appointmentDetail.setAppTime(appTime);
 		appointmentDetail.setAppStatus(appStatus);
-		appointmentDetail.setAppVenue(appVenue);
 		dao.insert(appointmentDetail);
 		System.out.println(appointmentDetail);
 		return 1;
@@ -71,7 +69,7 @@ public class AppointmentDetailServiceImpl implements AppointmentDetailService{
 	}
 
 	@Override
-	public List<AppointmentDetail> findAdByAppTime(Timestamp appTime) {
+	public List<AppointmentDetail> findAdByAppTime(Date appTime) {
 		
 		return dao.findByAppTime(appTime);
 	}

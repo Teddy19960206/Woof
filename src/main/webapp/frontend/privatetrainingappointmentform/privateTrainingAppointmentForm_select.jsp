@@ -45,9 +45,13 @@ button {
 				var="privateTrainingAppointmentForm">
 				<option value="${privateTrainingAppointmentForm.ptaNo}">${privateTrainingAppointmentForm.ptaNo}</option>
 			</c:forEach>
-		</select> <br />
+		</select> 
+		<br />
 		<button type="submit" name="action" value="getone">用預約單編號查詢</button>
-		<br /> <br /> <label>會員名稱：</label> <select name="member">
+		<br /> 
+		<br /> 
+		<label>會員名稱：</label> 
+		<select name="member">
 			<c:forEach items="${members}" var="member">
 				<option value="${member.memNo}">${member.memName}</option>
 			</c:forEach>
@@ -59,7 +63,8 @@ button {
 			</c:forEach>
 		</select> <br />
 		<button type="submit" name="action" value="getbytrainerno">用訓練師查詢</button>
-		<br /> <br />
+		<br /> 
+		<br />
 
 
 
