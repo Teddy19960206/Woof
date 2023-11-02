@@ -1,9 +1,9 @@
 package com.woof.cartlist.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -11,66 +11,61 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
-//@WebServlet("/cartlist/*")
-//public class CartListServlet extends HttpServlet {
-//	
-//    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-//        response.setContentType("application/json");
-//        PrintWriter out = response.getWriter();
-//
-//        // 模擬商品數據
-//        String productId = request.getParameter("productId");
-//        String productName = request.getParameter("productName");
-//        double productPrice = Double.parseDouble(request.getParameter("productPrice"));
-//
-//        // 獲取購物車數據（存儲在Session中）
-//        List<CartItem> cart = (List<CartItem>) request.getSession().getAttribute("cart");
-//
-//        if (cart == null) {
-//            cart = new ArrayList<>();
-//        }
-//
-//        // 將商品添加到購物車
-//        cart.add(new CartItem(productId, productName, productPrice));
-//        request.getSession().setAttribute("cart", cart);
-//
-//        // 這裡也可以將購物車數據存儲到Redis中
-//
-//        // 返回購物車內容
-//        out.print(new Gson().toJson(cart));
-//    }
-//}
-
-
-
 @WebServlet("/cartlist")
 public class CartListServlet extends HttpServlet {
-//    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        // 獲取Cookie中的購物車數據
-//        String cartCookie = null;
-//        Cookie[] cookies = request.getCookies();
-//        if (cookies != null) {
-//            for (Cookie cookie : cookies) {
-//                if ("cart".equals(cookie.getName())) {
-//                    cartCookie = cookie.getValue();
-//                    break;
-//                }
-//            }
-//        }
+	// 到時候加入會員使用複合鍵的Map
+	// Map<String, Map<String, Integer>> cart = new HashMap<>();
+	
+    private Map<String, Integer> cart = new HashMap<>();
+
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String action = request.getParameter("action");
+
+        if ("add".equals(action)) {
+            // 添加商品到購物車
+            String prodNo = request.getParameter("prodNo");
+            String prodName = request.getParameter("prodName");
+            double prodPrice = Double.parseDouble(request.getParameter("prodPrice"));
+
+            // 從登入的會員獲取會員帳號
+            // String memNo = request.getParameter("memNo"); 
+            
+            // 檢查購物車是否已經包含相同的商品，如果是，增加數量
+            if (cart.containsKey(prodName)) {
+                cart.put(prodName, cart.get(prodName) + 1);
+            } else {
+                cart.put(prodName, 1);
+            }
+
+            System.out.println("購物車有"+cart);
+            
+            response.setContentType("text/html; charset=UTF-8");
+            // 更新購物車中的數量
+            int totalItems = cart.values().stream().mapToInt(Integer::intValue).sum();
+            
+            System.out.println("一共有"+totalItems+"件");
+            
+            //console那邊可以看到
+            response.getWriter().write("商品已加到購物車");
+            response.setHeader("cartItemCount", String.valueOf(totalItems)); // 更新購物車數量的標頭信息
+        
+//         // 更新購物車中的數量
+//            int totalItems = cart.values().stream().mapToInt(Integer::intValue).sum();
 //
-//        // 如果找到了cart Cookie，將其解析為購物車數據
-//        if (cartCookie != null) {
-//            List<CartItem> cart = new Gson().fromJson(cartCookie, new TypeToken<List<CartItem>>() {}.getType());
+//            // 創建一個JSON對象，包含購物車數量
+//            Map<String, Integer> responseMap = new HashMap<>();
+//            responseMap.put("cartItemCount", totalItems);
 //
-//            // 在這裡您可以使用cart數據執行所需的操作，例如返回JSON回應
-//            String jsonResponse = new Gson().toJson(cart);
+//            // 將JSON轉換為字串
+//            String jsonResponse = new Gson().toJson(responseMap);
+//
+//            // 設置響應的內容類型為JSON
 //            response.setContentType("application/json");
+//            response.setCharacterEncoding("UTF-8");
+//
+//            // 寫入JSON響應
 //            response.getWriter().write(jsonResponse);
-//        } else {
-//            // 如果Cookie中沒有購物車數據，您可以返回一個空的JSON回應或其他相應的處理
-//            response.setContentType("application/json");
-//            response.getWriter().write("[]");
-//        }
-//    }
-//}
+        
+        }
+    }
 }
