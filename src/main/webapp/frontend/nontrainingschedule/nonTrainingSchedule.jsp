@@ -57,8 +57,6 @@ body > a {
     </c:if>
     <h1>訓練師不授課日程</h1>
     <a href="${pageContext.request.contextPath}/nontrainingschedule?action=gettoadd">新增頁面</a>
-    <a href="${pageContext.request.contextPath}/nontrainingschedule?action=gettoupdate">更新頁面</a>
-    <a href="${pageContext.request.contextPath}/nontrainingschedule?action=gettoupdelete">刪除頁面</a>
     <a href="${pageContext.request.contextPath}/nontrainingschedule?action=getall">查詢全部</a>
     <a href="${pageContext.request.contextPath}/nontrainingschedule?action=gettoselect">單一查詢</a>
 

@@ -40,7 +40,7 @@ public class NonTrainingScheduleServlet extends HttpServlet {
 		if (action != null) {
 			switch (action) {
 			case "gettoadd":
-				beforeadd(req, resp);
+				beforeAdd(req, resp);
 				forwardPath = "/frontend/nontrainingschedule/nonTrainingSchedule_add.jsp";
 				break;
 			case "add":
@@ -49,6 +49,10 @@ public class NonTrainingScheduleServlet extends HttpServlet {
 			case "getall":
 				getAll(req, resp);
 				forwardPath = "/frontend/nontrainingschedule/nonTrainingSchedule_getAll.jsp";
+				break;
+			case "gettoupdate":
+				beforeUpdate(req, resp);
+				forwardPath = "/frontend/nontrainingschedule/nonTrainingSchedule_update.jsp";
 				break;
 			default:
 				forwardPath = "/frontend/nontrainingschedule/nonTrainingSchedule.jsp";
@@ -64,7 +68,7 @@ public class NonTrainingScheduleServlet extends HttpServlet {
 
 	}
 
-	private void beforeadd(HttpServletRequest req, HttpServletResponse resp) {
+	private void beforeAdd(HttpServletRequest req, HttpServletResponse resp) {
 		
 		TrainerService trainerservice = new TrainerServiceImpl();
 		List<Trainer> allTrainers = trainerservice.getAllTrainers();
@@ -119,5 +123,9 @@ public class NonTrainingScheduleServlet extends HttpServlet {
 	
 	private void beforeUpdate(HttpServletRequest req, HttpServletResponse resp) {
 		
+		TrainerService trainerservice = new TrainerServiceImpl();
+		List<Trainer> allTrainers = trainerservice.getAllTrainers();
+		
+		req.setAttribute("trainers", allTrainers);
 	}
 }

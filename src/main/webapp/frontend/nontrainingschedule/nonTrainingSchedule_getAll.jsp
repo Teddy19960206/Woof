@@ -128,7 +128,7 @@
 			<th>不授課日期</th>
 			<th></th>
 			<th></th>
-			<th></th>
+			
 		</tr>
 
 		<c:forEach var="NTS"
@@ -138,11 +138,10 @@
 				<td>${NTS.ntsNo}</td>
 				<td>${NTS.trainer.administrator.adminName}</td>
 				<td>${NTS.ntsDate}</td>
-				<td></td>
 				<td>
 
 					<FORM METHOD="post"
-						action="${pageContext.request.contextPath}/nontrainingschudle?action=gettoupdate">
+						action="${pageContext.request.contextPath}/nontrainingschedule?action=gettoupdate">
 						<%
 						String ntsNo = request.getParameter("ntsNo");
 						String trainer = request.getParameter("trainer");
