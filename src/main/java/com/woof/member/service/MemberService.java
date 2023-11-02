@@ -1,6 +1,5 @@
 package com.woof.member.service;
 
-import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -27,4 +26,5 @@ public interface MemberService {
 
 	byte[] getPhotoById(String memNo);
 	
+	Member isExist(String memNo,String memPassword);
 }

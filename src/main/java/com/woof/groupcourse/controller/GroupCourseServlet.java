@@ -199,7 +199,7 @@ public class GroupCourseServlet extends HttpServlet {
             bytes = PartParsebyte.partToByteArray(filePart);
 
         }else{
-            bytes = groupCourseService.getPhotoById(Integer.valueOf(request.getParameter("groupCourseNo")));
+            bytes = groupCourseService.getPhotoById(request.getParameter("groupCourseNo"));
         }
 
         String content = request.getParameter("content");
