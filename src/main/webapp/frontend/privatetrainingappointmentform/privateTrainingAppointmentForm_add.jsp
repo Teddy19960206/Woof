@@ -32,7 +32,7 @@
 <body>
 <h1>新增私人預約單</h1>
 
-<form action="${pageContext.request.contextPath}/privatetrainingappointmentform/privateTrainingAppointmentForm" method="post" enctype="multipart/form-data">
+<form action="${pageContext.request.contextPath}/privatetrainingappointmentform" method="post" enctype="multipart/form-data">
     <label>會員名稱：</label>
     <select name="member">
         <c:forEach items="${members}" var="member">

@@ -1,5 +1,8 @@
 package com.woof.appointmentdetail.service;
 
+import static com.woof.util.Constants.PAGE_MAX_RESULT;
+
+import java.sql.Date;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -7,6 +10,7 @@ import org.hibernate.Session;
 import com.woof.appointmentdetail.dao.AppointmentDetailDAO;
 import com.woof.appointmentdetail.dao.AppointmentDetailDAOImpl;
 import com.woof.appointmentdetail.entity.AppointmentDetail;
+import com.woof.privatetrainingappointmentform.entity.PrivateTrainingAppointmentForm;
 import com.woof.util.HibernateUtil;
 
 public class AppointmentDetailServiceImpl implements AppointmentDetailService{
@@ -18,63 +22,61 @@ public class AppointmentDetailServiceImpl implements AppointmentDetailService{
 	}
 
 	@Override
-	public AppointmentDetail addAppointmentDetail(AppointmentDetail appointmentDetail) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+	public AppointmentDetail findAdByAdNo(Integer adNo) {
 
-		session.beginTransaction();
-		if (dao.insert(appointmentDetail) == 1){
-
-			session.getTransaction().commit();
-			return appointmentDetail;
-		}
-		session.getTransaction().rollback();
-		return null;
+		return dao.findByAdNo(adNo);
 	}
 
 	@Override
-	public AppointmentDetail updateAppointmentDetail(AppointmentDetail appointmentDetail) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-
-		session.beginTransaction();
-		int result = dao.update(appointmentDetail);
-		if (result == 1){
-
-			session.getTransaction().commit();
-			return appointmentDetail;
-		}
-		session.getTransaction().rollback();
-
-		return null;
+	public int addAd(PrivateTrainingAppointmentForm pta, Date appTime, Integer appStatus) {
+		AppointmentDetail appointmentDetail = new AppointmentDetail();
+		appointmentDetail.setPrivateTrainingAppointmentForm(pta);
+		appointmentDetail.setAppTime(appTime);
+		appointmentDetail.setAppStatus(appStatus);
+		dao.insert(appointmentDetail);
+		System.out.println(appointmentDetail);
+		return 1;
 	}
 
-//	@Override
-//	public void deleteAppointmentDetail(Integer adNo) {
-//		// TODO Auto-generated method stub
-//		
-//	}
-
 	@Override
-	public AppointmentDetail findAppointmentDetailByAdNo(Integer adNo) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		session.beginTransaction();
-		
-		AppointmentDetail appointmentDetail = session.get(AppointmentDetail.class, adNo);
-
-	    session.getTransaction().commit();
-
-	    return appointmentDetail;
+	public int updateAd(Integer adNo, PrivateTrainingAppointmentForm pta, Date appTime, Integer appStatus
+			) {
+		AppointmentDetail appointmentDetail = new AppointmentDetail();
+		appointmentDetail.setAdNo(adNo);
+		appointmentDetail.setPrivateTrainingAppointmentForm(pta);
+		appointmentDetail.setAppTime(appTime);
+		appointmentDetail.setAppStatus(appStatus);
+		dao.insert(appointmentDetail);
+		System.out.println(appointmentDetail);
+		return 1;
 	}
 
 	@Override
 	public List<AppointmentDetail> getAllAppointmentDetails() {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		return dao.getAll();
+	}
 
-		session.beginTransaction();
-		List<AppointmentDetail> appointmentDetailList = dao.getAll();
-		session.getTransaction().commit();
+	@Override
+	public List<AppointmentDetail> getAds(int currentPage) {
+		return dao.getAll(currentPage);
+	}
 
-		// TODO Auto-generated method stub
-		return appointmentDetailList;
+	@Override
+	public int getPageTotal() {
+		long total = dao.getTotal();
+		int pageQty = (int) (total % PAGE_MAX_RESULT == 0 ? (total / PAGE_MAX_RESULT) : (total / PAGE_MAX_RESULT + 1));
+		return pageQty;
+	}
+
+	@Override
+	public List<AppointmentDetail> findAdByAppTime(Date appTime) {
+		
+		return dao.findByAppTime(appTime);
+	}
+
+	@Override
+	public List<AppointmentDetail> findAdByPtaNo(Integer ptaNo) {
+		return dao.findByPtaNo(ptaNo);
 	}
 	
 }

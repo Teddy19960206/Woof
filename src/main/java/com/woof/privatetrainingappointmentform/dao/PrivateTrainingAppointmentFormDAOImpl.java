@@ -8,7 +8,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import com.woof.privatetrainingappointmentform.entity.PrivateTrainingAppointmentForm;
-import com.woof.util.HibernateUtil;
 
 
 public class PrivateTrainingAppointmentFormDAOImpl implements PrivateTrainingAppointmentFormDAO {
