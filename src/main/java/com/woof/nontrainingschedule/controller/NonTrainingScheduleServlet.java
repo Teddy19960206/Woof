@@ -6,18 +6,22 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.woof.nontrainingschedule.entity.NonTrainingSchedule;
 import com.woof.nontrainingschedule.service.NonTrainingScheduleService;
 import com.woof.nontrainingschedule.service.NonTrainingScheduleServiceImpl;
+import com.woof.privatetrainingappointmentform.entity.PrivateTrainingAppointmentForm;
 import com.woof.trainer.entity.Trainer;
 import com.woof.trainer.service.TrainerService;
 import com.woof.trainer.service.TrainerServiceImpl;
 
 @WebServlet("/nontrainingschedule/*")
+@MultipartConfig
 public class NonTrainingScheduleServlet extends HttpServlet {
 
 	private NonTrainingScheduleService nonTrainingScheduleService;
@@ -28,7 +32,7 @@ public class NonTrainingScheduleServlet extends HttpServlet {
 	}
 
 	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
 
@@ -42,6 +46,10 @@ public class NonTrainingScheduleServlet extends HttpServlet {
 			case "add":
 				add(req, resp);
 				return;
+			case "getall":
+				getAll(req, resp);
+				forwardPath = "/frontend/nontrainingschedule/nonTrainingSchedule_getAll.jsp";
+				break;
 			default:
 				forwardPath = "/frontend/nontrainingschedule/nonTrainingSchedule.jsp";
 			}
@@ -71,7 +79,7 @@ public class NonTrainingScheduleServlet extends HttpServlet {
 		
 		String selectedDateStr = req.getParameter("selectedDate");
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		System.out.println("========================");
+		System.out.println(req.getParameter("trainer")+"========================");
 		
 		int result;
 		try {
@@ -92,5 +100,24 @@ public class NonTrainingScheduleServlet extends HttpServlet {
 		}
 		resp.sendRedirect(req.getContextPath()
 				+ "/frontend/nontrainingschedule/nonTrainingSchedule.jsp");
+	}
+	
+	private void getAll(HttpServletRequest req, HttpServletResponse resp) {
+		String page = req.getParameter("page");
+		int currentPage = (page == null) ? 1 : Integer.parseInt(page);
+		if (req.getSession().getAttribute("NTSPageQty") == null) {
+			int NTSPageQty = nonTrainingScheduleService.getPageTotal();
+			req.getSession().setAttribute("NTSPageQty", NTSPageQty);
+		}
+		List<NonTrainingSchedule> allNonTrainingSchedules = nonTrainingScheduleService
+				.getAllNTSs(currentPage);
+
+		req.setAttribute("nonTrainingSchedules", allNonTrainingSchedules);
+		req.setAttribute("currentPage", currentPage);
+
+	}
+	
+	private void beforeUpdate(HttpServletRequest req, HttpServletResponse resp) {
+		
 	}
 }

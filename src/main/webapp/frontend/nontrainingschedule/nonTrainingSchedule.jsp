@@ -3,7 +3,7 @@
 
 <html>
 <head>
-    <title>NonTrainingSchedule</title>
+    <title>訓練師不授課日程</title>
     <style>
       body, p, h1, a {
     margin: 0;

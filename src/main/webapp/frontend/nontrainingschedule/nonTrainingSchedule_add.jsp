@@ -3,10 +3,70 @@
 
 <html>
 <head>
-    <title>Title</title>
+    <title>新增不授課日程</title>
     <style>
-       
-    </style>
+    body, p, h1, a {
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        text-align: center;
+    }
+
+    h1 {
+        background-color: #3498db;
+        color: #fff;
+        padding: 20px;
+    }
+
+    form {
+        max-width: 400px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    }
+
+    label {
+        display: block;
+        margin-top: 10px;
+    }
+
+    select, input[type="date"] {
+        width: 100%;
+        padding: 5px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    button {
+        background-color: #3498db;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        padding: 5px 10px;
+        cursor: pointer;
+        margin-top: 10px;
+    }
+
+    button[type="button"] {
+        background-color: #c9302c;
+    }
+
+    button:hover {
+        background-color: #2960a5;
+    }
+
+    button[type="button"]:hover {
+        background-color: #ac2925;
+    }
+</style>
+
 </head>
 <body>
 <h1>新增不授課日期</h1>
