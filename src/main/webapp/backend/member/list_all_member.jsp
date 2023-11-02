@@ -7,7 +7,7 @@
 <script type="text/javascript">
 //表單點擊找出對應的function//
   function processUpdate(jsonData){
-	  window.location.href = " <%=request.getContextPath()%>/frontend/member/updatemember.jsp?memNo=" + jsonData.memNo ;
+	  window.location.href = " <%=request.getContextPath()%>/backend/member/updatemember.jsp?memNo=" + jsonData.memNo ;
   }
 </script>
 <style>

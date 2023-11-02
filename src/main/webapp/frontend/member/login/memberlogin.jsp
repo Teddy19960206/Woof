@@ -43,7 +43,7 @@
 </script>
 <%-- 	<form method="POST"
 		ACTION="${pageContext.request.contextPath}/login.do"> --%>
-		<form name="login" action="/login.do" method="post">
+		<form name="login" action="/member.do" method="post">
 		使用者帳號:<input type="text" name="memNo"><br> 密碼：<input
 			type="password" name="memPassword"><br> 
 <!-- 			<input type="checkbox" name="keep">兩週內免登錄<br>  -->
