@@ -30,8 +30,13 @@ var calendar = new FullCalendar.Calendar(calendarEl, {
             return; // 結束函數執行
         }
 
+        let newDate = new Date(arg.startStr);
+        let year = newDate.getFullYear();
+        let month = newDate.getMonth();
+        let day = newDate.getDay();
 
-        $("#showDate").text(arg.startStr);
+
+        $("#showDate").html(`<label data-value="${arg.startStr}">${year}年${month}月${day}日</label>`);
         myModal.show();
         // var title = confirm('新增資料:');
         // if (title) {
@@ -45,7 +50,7 @@ var calendar = new FullCalendar.Calendar(calendarEl, {
         calendar.unselect()
     },
     eventClick: function(arg) {
-        if (date.some(item => arg.startStr === item)) {
+        if (date.some(item => arg.event.jsEvent.currentTarget.attributes.value === item)) {
             calendar.unselect(); // 取消選擇
             return; // 結束函數執行
         }
@@ -74,7 +79,9 @@ var calendar = new FullCalendar.Calendar(calendarEl, {
         // }
         date.setDate(date.getDate() + 7);
         fetchDetailByDate(date.getFullYear() , date.getMonth()+1);
-    }
+        fetchDetailByDate(date.getFullYear() , date.getMonth()+1);
+    },
+
 });
 
 function removeAllEvents(){
@@ -110,15 +117,12 @@ $(function(){
 
 var myModal = new bootstrap.Modal(document.getElementById('myModal'), {});
 
-function reserveAM(){
+function reserve(){
 
     let newDate = new Date($("#showDate").html());
     console.log(newDate);
 }
 
-function reservePM(){
-
-}
 
 async function fetchDetailByDate(year , month){
 
@@ -143,10 +147,22 @@ async function fetchDetailByDate(year , month){
             });
             date.push(item.classDate);
         })
-        console.log("11")
 
     }catch (error){
         console.log(error)
     }
 
 }
+
+$("#reserveBtn").on("click" ,async function (){
+    // let date = $("label").data("value");
+    //
+    // const response = await fetch(url , {
+    //     method : "POST",
+    //     body: {
+    //         date : date
+    //     }
+    // })
+
+
+})

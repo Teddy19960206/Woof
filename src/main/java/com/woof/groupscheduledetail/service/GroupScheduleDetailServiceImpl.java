@@ -42,7 +42,6 @@ public class GroupScheduleDetailServiceImpl implements GroupScheduleDetailServic
 
 
         }
-        System.out.println(groupScheduleDetails);
         dao.insert(groupScheduleDetails);
 
         return 1;

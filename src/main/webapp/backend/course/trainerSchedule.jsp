@@ -19,9 +19,10 @@
   }
 
   #calendar {
-
-    max-width: 1000px;
+    max-height: 75vh;
+    width: auto;
     margin: 20px;
+    padding-right: 30px;
     z-index: -1;
   }
 
@@ -31,6 +32,10 @@
   }
   div#showDate{
     font-size: 30px;
+  }
+  .fc-event, .event-title {
+    padding: 0 1px;
+    white-space: normal;
   }
 </style>
 </head>
@@ -45,17 +50,15 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">請選擇預約時段</h5>
+        <h5 class="modal-title" id="exampleModalLabel">確定預約該日期嗎?</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body text-center">
         <div id="showDate"></div>
-        <button type="button" class="btn btn-primary" onclick="reserveAM()">預約上午</button>
-        <button type="button" class="btn btn-primary" onclick="reservePM()">預約下午</button>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+        <button type="button" class="btn btn-primary" id="reserveBtn">確定預約</button>
       </div>
     </div>
   </div>

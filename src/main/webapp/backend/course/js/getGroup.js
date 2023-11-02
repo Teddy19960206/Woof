@@ -22,6 +22,7 @@ async function fetchData(){
     // 取得相應的資料，根據classTypeNo
     let formData = new FormData();
     formData.append("classType",document.getElementById("selectClass").value);
+    // formData.append("page" ,  )
 
     try{
         const response = await fetch(url ,{
@@ -32,6 +33,8 @@ async function fetchData(){
             throw new Error('Network response was not ok');
         }
         const data = await response.json();
+
+        console.log(data)
 
         html = `<table class="table table-hover text-center align-middle">
         <thead class="">
@@ -47,8 +50,8 @@ async function fetchData(){
         <tbody id="mybody">`;
 
         // 將取得的資料進行拼接打到頁面上
-        data.forEach((item)=>{
-            html+= `<tr>
+        data.data.forEach((item)=>{
+            html += `<tr>
             <td>${item.gcNo}</td>
             <td>${item.skill.skillName}</td>
             <td>`;
@@ -62,6 +65,25 @@ async function fetchData(){
         </tr>`;
         })
         html += `</tbody></table>`;
+
+        // 書籤
+        html += `<nav class="text-center d-flex justify-content-center">
+                  <ul class="pagination">
+                    <li class="page-item">
+                      <a class="page-link" href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                      </a>
+                    </li>
+                    <li class="page-item active"><button class="page-link" onclick="">1</button></li>
+                    <li class="page-item"><button class="page-link" onclick="">2</button></li>
+                    <li class="page-item"><button class="page-link" onclick="">3</></li>
+                    <li class="page-item">
+                      <a class="page-link" href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                      </a>
+                    </li>
+                  </ul>
+                </nav>`;
 
         let tbody= document.querySelector("div.showGroup");
         tbody.innerHTML = html;

@@ -2,6 +2,7 @@ package com.woof.groupcourse.controller;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 import com.woof.classtype.entity.ClassType;
 import com.woof.classtype.service.ClassTypeService;
 import com.woof.classtype.service.ClassTypeServiceImpl;
@@ -98,11 +99,15 @@ public class GroupCourseServlet extends HttpServlet {
 
         String classtype = request.getParameter("classType");
 
+
+        String page = request.getParameter("page");
+        int currentPage = (page == null) ? 1 : Integer.parseInt(page);
+
         List<GroupCourse> groupCourseList = null;
 
         if (classtype != null){
             if ("0".equals(classtype)){
-                groupCourseList = groupCourseService.getAllGroupCourse();
+                groupCourseList = groupCourseService.getAllGroupCourse(currentPage);
             }else{
                 groupCourseList = groupCourseService.getAllbyCtNo(Integer.valueOf(classtype));
             }
@@ -110,14 +115,21 @@ public class GroupCourseServlet extends HttpServlet {
 //            異常判斷
         }
 
+        int pageTotal = groupCourseService.getPageTotal();
+
         Gson gson = new GsonBuilder()
                 .excludeFieldsWithoutExposeAnnotation()
                 .setDateFormat("yyyy-MM-dd")
                 .create();
-        String json = gson.toJson(groupCourseList);
+
+        JsonObject jsonResponse = new JsonObject();
+        jsonResponse.addProperty("pageTotal", pageTotal);
+        jsonResponse.add("data", gson.toJsonTree(groupCourseList));
+
         response.setContentType("application/json;charset=UTF-8");
 
-        response.getWriter().write(json);
+        System.out.println(pageTotal);
+        response.getWriter().write(jsonResponse.toString());
     }
 
 //    取得ClassType 與 Skill 所有資料 顯示在Select上
