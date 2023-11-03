@@ -3,7 +3,7 @@
 	<html>
 <head>
 <meta charset="UTF-8">
-<title>會員資料</title>
+<title>所有會員資料</title>
 <script type="text/javascript">
 //表單點擊找出對應的function
   function processUpdate(jsonData){
@@ -89,7 +89,7 @@ th, td {
 				<td>${member.memNo}</td>
 				<td>${member.memName}</td>
 				<td>${member.memGender}</td>
-				<td>${member.memPhoto}</td>
+				<td><img src="${pageContext.request.contextPath}/DBPngReader?action=member&id=${member.memNo}" style="width: 100px; height: 100px"></td>
 				<td>${member.memEmail}</td>
 				<td>${member.memPassword}</td>
 				<td>${member.memTel}</td>
@@ -121,6 +121,5 @@ th, td {
 			</tr>
 		</c:forEach>
 	</table>
-
 </body>
 	</html>

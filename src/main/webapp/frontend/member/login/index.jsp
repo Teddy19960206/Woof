@@ -1,12 +1,3 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>LoginServlet</title>
-</head>
-<body>
 <script type="text/javascript">
     function refresh() {
    
@@ -54,5 +45,3 @@ response.setHeader("Cache-Control","no-cache");
     out=pageContext.pushBody();
 
 %>
-</body>
-</html>

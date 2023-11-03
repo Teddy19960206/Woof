@@ -34,6 +34,7 @@ $(document).ready(function(){
 														+ jsonObj.memGender
 														+ ']').prop('checked',
 												true);
+										$('#photo').attr('src', "${pageContext.request.contextPath}/DBPngReader?action=member&id="+jsonObj.memNo);
 										$('#memEmail').val(jsonObj.memEmail);
 										$('#memPassword').val(
 												jsonObj.memPassword);
@@ -43,7 +44,8 @@ $(document).ready(function(){
 										$('#totalClass')
 												.val(jsonObj.totalClass);
 										$('#momoPoint').val(jsonObj.momoPoint);
-										$('#memBd').val(jsonObj.memBd);
+										console.log($('#memBd'));
+ 										$('#memBd').val(jsonObj.memBd);
 										$(
 												'input[name=memStatus][value='
 														+ jsonObj.memStatus
@@ -58,9 +60,7 @@ $(document).ready(function(){
 								});
 
 						//日期格式
-						$("#memBd").datepicker({
-							dateFormat : 'yy-mm-dd'
-						});
+						/* $("#memBd").datepicker({dateFormat : 'yy-mm-dd'}); */
 					})
 </script>
 <style>
@@ -100,6 +100,30 @@ th, td {
 }
 </style>
 
+<style>
+		#preview {
+			border: 1px solid lightgray;
+			display: inline-block;/*  */
+			width: 300px;
+			min-height: 400px;
+			position: relative;
+		}
+	
+	#preview span.text {
+		position: absolute;
+		display: inline-block;
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%, -50%);
+		z-index: -1;
+		color: lightgray;
+	}
+	
+	#preview img.preview_img {
+		width: 100%;
+	} 
+</style>
+
 </head>
 <body bgcolor='white'>
 	<!--request.getContextPath()動態根路徑，action=update找到後端switch(action)的update-->
@@ -124,71 +148,83 @@ th, td {
 			<%-- <input type="hidden" name="memNo" value="${memNo}"/> --%>
 			<tr>
 				<td>會員帳號:</td>
-				<td><input type="TEXT" name="memNo" id="memNo" size="45" /></td>
-				<td>${errorMsgs.memNo}</td>
+				<td><input type="TEXT" name="memNo" id="memNo" size="45"/></td>
+
 			</tr>
 			<tr>
 			<tr>
 				<td>會員姓名:</td>
 				<td><input type="TEXT" name="memName" id="memName" size="45" /></td>
-				<td>${errorMsgs.memName}</td>
+
 			</tr>
 			<tr>
 				<td>性別:</td>
-				<td><input type="radio" name="memGender" value="1" checked>男
-					<input type="radio" name="memGender" value="0">女</td>
-				<td>${errorMsgs.memGender}</td>
+				<td><input type="radio" name="memGender" value="M" checked>男
+					<input type="radio" name="memGender" value="F">女</td>
+
+			</tr>
+			<tr>
+				<td>照片:</td>
+				<td><input type="file" name="memPhoto" accept="image/*"
+					id="p_file">
+					<div id="preview">
+						<span class="text"> </span>
+						 <img id="photo" class="preview_img" onerror="this.style.display='none'" />
+						
+					</div></td>
 			</tr>
 			<tr>
 				<td>email:</td>
-				<td><input type="TEXT" name="memEmail" id="memEmail"
+				<td><input type="email" name="memEmail" id="memEmail"
 					placeholder="XXX@gmail.com" size="45"></td>
-				<td>${errorMsgs.memEmail}</td>
+
 			</tr>
 			<tr>
 				<td>密碼:</td>
-				<td><input type="password" name="memPassword" id="memPassword"
+				<td><input type="TEXT" name="memPassword" id="memPassword"
 					size="45" /></td>
-				<td>${errorMsgs.memPassword}</td>
+
 			</tr>
 			<tr>
 				<td>電話:</td>
-				<td><input type="TEXT" name="memTel" id="memTel" size="45" /></td>
-				<td>${errorMsgs.memTel}</td>
+				<td><input type="tel" name="memTel" id="memTel" size="45" /></td>
+
 			</tr>
 			<tr>
 				<td>地址:</td>
 				<td><input type="TEXT" name="memAddress" id="memAddress"
 					size="45" /></td>
-				<td>${errorMsgs.memAdress}</td>
+
 			</tr>
 			<tr>
 				<td>生日:</td>
-				<td><input type="TEXT" name="memBd" id="memBd" size="45" /></td>
-				<td>${errorMsgs.memBd}</td>
+				<td><input type="Date" name="memBd" id="memBd" size="45" /></td>
+
 			</tr>
 			<tr>
 				<td>毛毛幣:</td>
-				<td><input type="TEXT" name="momoPoint" id="momoPoint"
+				<td><input type="number" name="momoPoint" id="momoPoint"
 					size="45" /></td>
-				<td>${errorMsgs.momoPoint}</td>
+
 			</tr>
 			<tr>
 				<td>總堂數:</td>
-				<td><input type="TEXT" name="totalClass" id="totalClass"
+				<td><input type="number" name="totalClass" id="totalClass"
 					size="45" /></td>
-				<td>${errorMsgs.totalClass}</td>
+
 			</tr>
 			<tr>
 				<td>狀態:</td>
-				<td><input type="radio" name="memStatus" value="0">停權 <input
+				<td><input type="radio" name="memStatus" value="0">停權<input
 					type="radio" name="memStatus" value="1" checked>正常</td>
-				<td>${errorMsgs.memStatus}</td>
 			</tr>
 		</table>
+		
 		<br> <input type="hidden" name="action" value="update">
 		<button type="submit">送出</button>
 		<button type="button" onclick="history.back()">取消更新</button>
+		<button type="button" name="delete" id="delete" data-id="${member.memNo}">刪除圖片</button>
 	</form>
+<script src="${pageContext.request.contextPath}/frontend/member/js/updatemember.js"></script>
 </body>
 </html>

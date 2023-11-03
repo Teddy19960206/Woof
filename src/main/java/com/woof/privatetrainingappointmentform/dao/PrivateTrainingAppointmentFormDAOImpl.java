@@ -8,7 +8,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import com.woof.privatetrainingappointmentform.entity.PrivateTrainingAppointmentForm;
-import com.woof.util.HibernateUtil;
 
 
 public class PrivateTrainingAppointmentFormDAOImpl implements PrivateTrainingAppointmentFormDAO {
@@ -79,7 +78,7 @@ public class PrivateTrainingAppointmentFormDAOImpl implements PrivateTrainingApp
 
 	@Override
 	public List<PrivateTrainingAppointmentForm> findByTrainerNo(Integer trainerNo) {
-		return getSession().createQuery("FROM PrivateTrainingAppointmentForm p WHERE p.trainer.trainerNo = :trainerNo", PrivateTrainingAppointmentForm.class)
+		return getSession().createQuery("FROM PrivateTrainingAppointmentForm WHERE trainer.trainerNo = :trainerNo", PrivateTrainingAppointmentForm.class)
 				.setParameter("trainerNo", trainerNo)
 				.list();
 	}

@@ -40,7 +40,6 @@
 		<mapping class="com.woof.administrator.entity.Administrator" />
         <mapping class="com.woof.functionpermission.entity.FunctionPermission"/>
 		<mapping class="com.woof.latestnews.entity.LatestNews"/>
-		<mapping class="com.woof.product.entity.Product"/>
 		<mapping class="com.woof.faq.entity.Faq"/>
     </session-factory>
 </hibernate-configuration>

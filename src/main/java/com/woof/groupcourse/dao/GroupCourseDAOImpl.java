@@ -68,7 +68,7 @@ public class GroupCourseDAOImpl implements GroupCourseDAO{
         int first = (currentPage - 1) * PAGE_MAX_RESULT;
         return getSession().createQuery("FROM GroupCourse" , GroupCourse.class)
                 .setFirstResult(first)
-                .setMaxResults(currentPage)
+                .setMaxResults(PAGE_MAX_RESULT)
                 .list();
     }
 

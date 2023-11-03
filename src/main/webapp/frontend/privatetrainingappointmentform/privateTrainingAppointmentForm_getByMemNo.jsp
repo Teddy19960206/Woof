@@ -49,7 +49,13 @@ tr:nth-child(odd) {
 	border: none;
 	cursor: pointer;
 }
-
+.btn-in {
+	background-color: orange;
+	color: white;
+	padding: 5px 10px;
+	border: none;
+	cursor: pointer;
+}
 .btn-danger {
 	background-color: #f44336;
 	color: white;
@@ -68,11 +74,11 @@ tr:nth-child(odd) {
 			<th>訓練師名稱</th>
 			<th>預約堂數</th>
 			<th></th>
-<!-- 			<th></th> -->
+			<th></th>
 		</tr>
 
-<%-- 		<c:forEach var="privateTrainingAppointmentForm" --%>
-<%-- 			items="${privateTrainingAppointmentForms}"> --%>
+ 		<c:forEach var="pta" 
+ 			items="${members}"> 
 
 			<tr>
 				<td>${pta.ptaNo}</td>
@@ -98,16 +104,16 @@ tr:nth-child(odd) {
 
 					</FORM>
 				</td>
-<!-- 				<td> -->
-<!-- 					<FORM METHOD="post" -->
-<%-- 						action="${pageContext.request.contextPath}/privatetrainingappointmentform?action=gettodelete"> --%>
-<!-- 						<button class="btn btn-danger" type="submit">刪除</button> -->
+				<td>
+					<FORM METHOD="post"
+						action="${pageContext.request.contextPath}/appointmentdetail?action=getdetail">
+						<input type="hidden" name="ptaNo" value="${pta.ptaNo}">
+						<button class="btn btn-in" type="submit">查看明細</button>
 
-<!-- 					</FORM> -->
+					</FORM>
 
-<!-- 				</td> -->
-			</tr>
-<%-- 		</c:forEach> --%>
+				</td>
+ 		</c:forEach> 
 
 	</table>
 <%-- 	<c:if test="${currentPage > 1}"> --%>

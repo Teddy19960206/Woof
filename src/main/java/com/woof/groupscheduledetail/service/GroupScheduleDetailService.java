@@ -25,4 +25,7 @@ public interface GroupScheduleDetailService {
 
     List<Object[]> getByTrainer(Integer trainerNo);
 
+    List<GroupScheduleDetail> getDetailByDate(Integer year , Integer month);
+
+
 }

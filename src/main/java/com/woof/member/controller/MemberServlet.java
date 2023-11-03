@@ -1,7 +1,9 @@
 package com.woof.member.controller;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -14,14 +16,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.woof.member.entity.Member;
 import com.woof.member.service.MemberService;
 import com.woof.member.service.MemberServiceImpl;
-import com.woof.privatetrainingappointmentform.entity.PrivateTrainingAppointmentForm;
-import com.woof.privatetrainingappointmentform.service.PrivateTrainingAppointmentFormService;
-import com.woof.privatetrainingappointmentform.service.PrivateTrainingAppointmentFormServiceImpl;
 
 @WebServlet("/member.do")
 @MultipartConfig
@@ -76,48 +77,46 @@ public class MemberServlet extends HttpServlet {
 				getOne(req, res);
 				return;
 			case "delete":
-				deleteMember(req, res);
+				delete(req, res);
 				return;
 			case "query":
 				processQuery(req, res);
 				return;
+			case "login":
+				isExist(req,res);
+				return;
+				
 			default:
 				forwardPath = "/frontend/member/selectmember.jsp";
-			}
-			// 來自memberlogin.jsp的請求
-			if ("memberlogin".equals(action)) {
-				Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
-				req.setAttribute("errorMsgs", errorMsgs);
-				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
-				String memberNo = req.getParameter("memberaccount");
-
-				if (memberNo == null || (memberNo.trim()).length() == 0) {
-					errorMsgs.put("memberaccount", "會員帳號:請勿空白");
-				}
-
-				String memberpassword = req.getParameter("memberpassword");
-
-				if (memberpassword == null || (memberpassword.trim()).length() == 0) {
-					errorMsgs.put("memberpassword", "會員密碼:請勿空白");
-				}
-				// Send the use back to the form, if there were errors
-				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req.getRequestDispatcher("/memberlogin.jsp");
-					failureView.forward(req, res);
-					return;// 程式中斷
-				}
 			}
 		}
 		req.getRequestDispatcher(forwardPath).forward(req, res);
 	}
 
+	private void isExist(HttpServletRequest req, HttpServletResponse res) throws IOException {
+		 String account=req.getParameter("memNo");
+	     String password=req.getParameter("memPassword");
+	     Member member = memberService.isExist(account, password);
+	     if(member!=null) {
+	    	 res.sendRedirect("welecome.jsp");
+	     }else {
+	    	 res.sendRedirect("memberlogin.jsp");
+	     }
+	}
+
 	private void processQuery(HttpServletRequest req, HttpServletResponse res) throws IOException {
 		Member member = memberService.findMemberByNo(req.getParameter("memNo"));
+		byte[]photoByte = memberService.getPhotoById(req.getParameter("memNo"));
 
 		res.setCharacterEncoding("UTF-8");
-		Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+		Gson gson = new GsonBuilder()
+				.excludeFieldsWithoutExposeAnnotation()
+				.setDateFormat("yyyy-MM-dd")
+				.create();
 
 		String str = gson.toJson(member);
+		// 將 JSON 字符串轉換為 UTF-8 編碼的字節數組
+		byte[] photoBytes = str.getBytes(StandardCharsets.UTF_8);
 //		System.out.println(str);
 		// 回應給前端
 		PrintWriter out = res.getWriter();
@@ -145,12 +144,22 @@ public class MemberServlet extends HttpServlet {
 
 		java.sql.Date sqlDate = new java.sql.Date(date.getTime());
 		member.setMemBd(sqlDate);
+		//	插入圖片
+		  Part p = req.getPart("memPhoto");
+		  InputStream input = p.getInputStream();
+		  byte[] photo = new byte[input.available()];
+		  input.read(photo);
+		  input.close();
+		  member.setMemPhoto(photo);
+        
 		member.setMomoPoint(Integer.valueOf(req.getParameter("momoPoint")));
 		member.setTotalClass(Integer.valueOf(req.getParameter("totalClass")));
 		member.setMemStatus(Integer.valueOf(req.getParameter("memStatus")));
 		System.out.println(req.getParameter("memAddress") + "=============================");
 		System.out.println(member.getMemAddress() + "----------------------------");
 		System.out.println(req.getParameter("memEmail") + "=============================");
+		System.out.println(req.getParameter("memPhoto")+"1111111");
+		
 		try {
 			memberService.addMember(member);
 			// 導到指定的URL 頁面上 把請求回應都帶過去
@@ -174,8 +183,6 @@ public class MemberServlet extends HttpServlet {
 	private void updateMember(HttpServletRequest req, HttpServletResponse res)
 			throws ParseException, IOException, ServletException {
 		Member member = new Member();
-//		req.setAttribute(getServletName(), member);
-
 		member.setMemNo(req.getParameter("memNo"));
 		member.setMemName(req.getParameter("memName"));
 		member.setMemGender(req.getParameter("memGender"));
@@ -183,6 +190,14 @@ public class MemberServlet extends HttpServlet {
 		member.setMemPassword(req.getParameter("memPassword"));
 		member.setMemTel(req.getParameter("memTel"));
 		member.setMemAddress(req.getParameter("memAddress"));
+		//	插入圖片
+		  Part p = req.getPart("memPhoto");
+		  InputStream input = p.getInputStream();
+		  byte[] photo = new byte[input.available()];
+		  input.read(photo);
+		  input.close();
+		  member.setMemPhoto(photo);
+        //生日
 		String memBdString = req.getParameter("memBd");
 
 		if (memBdString != null && !memBdString.isEmpty()) {
@@ -197,18 +212,14 @@ public class MemberServlet extends HttpServlet {
 		} else {
 			req.setAttribute("memBd=null", memBdString);
 		}
-
 		member.setMomoPoint(Integer.valueOf(req.getParameter("momoPoint")));
 		member.setTotalClass(Integer.valueOf(req.getParameter("totalClass")));
 		member.setMemStatus(Integer.valueOf(req.getParameter("memStatus")));
 		memberService.updateMember(member);
 		// 導到指定的URL 頁面上 把請求回應都帶過去
 		System.out.println(req.getParameter("memNo") + "================");
-//		res.setCharacterEncoding("UTF-8");
-//		req.setAttribute("memNo", req.getParameter("memNo"));
 		String url = req.getContextPath() + "/frontend/member/list_all_member.jsp";
 		res.sendRedirect(url);
-//		res.setContentType("text/html; charset=UTF-8");
 	}
 
 	private void getOne(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -232,10 +243,6 @@ public class MemberServlet extends HttpServlet {
 					req.setAttribute("member", member);
 				} catch (NumberFormatException e) {
 					e.printStackTrace();
-//		            req.setAttribute("error", "Invalid member number provided.");
-//		            RequestDispatcher dispatcher = req.getRequestDispatcher("/frontend/member/errorPage.jsp");
-//		            dispatcher.forward(req, res);
-//		            return; // 由於已經進行了轉發，所以返回以終止後續的代碼執行
 				}
 
 			} else {
@@ -256,9 +263,9 @@ public class MemberServlet extends HttpServlet {
 		}
 	}
 
-	private void deleteMember(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+	private void delete(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.getParameter("memNo");
-		memberService.deleteMember(req.getParameter("memNo"));
+		memberService.deletePhoto(req.getParameter("memNo"));
 		// 導到指定的URL 頁面上 把請求回應都帶過去
 		String url = req.getContextPath() + "/frontend/member/list_all_member.jsp";
 		req.setCharacterEncoding("UTF-8");

@@ -8,7 +8,7 @@
 
 <html>
 <head>
-<title>會員資料 - list_one_member.jsp</title>
+<title>單一會員資料 - list_one_member.jsp</title>
 
 <style>
 table#table-1 {
@@ -84,7 +84,7 @@ th, td {
 			<td>${member.memNo}</td>
 			<td>${member.memName}</td>
 			<td>${member.memGender}</td>
-			<td>${member.memPhoto}</td>
+			<td><img src="${pageContext.request.contextPath}/DBPngReader?action=member&id=${member.memNo}" style="width: 100px; height: 100px"></td>
 			<td>${member.memEmail}</td>
 			<td>${member.memPassword}</td>
 			<td>${member.memTel}</td>

@@ -54,7 +54,7 @@ async function splicing(data){
                 <div class="row g-0">
                     <div class="col-md-4 myImg">
                         <img src="${projectName}/DBPngReader?action=groupCourse&id=${item.groupCourse.gcNo}"
-                             class="img-fluid rounded-start">
+                             class="img-fluid rounded-start myPhoto">
                     </div>
                     <div class="col-md-8 myCard">
                         <div class="card-body">

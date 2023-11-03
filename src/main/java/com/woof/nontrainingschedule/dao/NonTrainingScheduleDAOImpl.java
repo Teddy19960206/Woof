@@ -1,5 +1,8 @@
 package com.woof.nontrainingschedule.dao;
 
+import static com.woof.util.Constants.PAGE_MAX_RESULT;
+
+import java.sql.Date;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -43,4 +46,39 @@ public class NonTrainingScheduleDAOImpl implements NonTrainingScheduleDAO{
 	public List<NonTrainingSchedule> getAll() {
 		return getSession().createQuery("FROM NonTrainingSchedule", NonTrainingSchedule.class).list();
 	}
+
+	@Override
+	public int delete(NonTrainingSchedule nonTrainingSchedule) {
+		getSession().delete(nonTrainingSchedule);
+		return 1;
+	}
+
+	@Override
+	public List<NonTrainingSchedule> findByTrainerNo(Integer trainerNo) {
+		return getSession().createQuery("FROM NonTrainingSchedule WHERE trainer.trainerNo = :trainerNo", NonTrainingSchedule.class)
+				.setParameter("trainerNo", trainerNo)
+				.list();
+	}
+
+	@Override
+	public List<NonTrainingSchedule> findByNtsDate(Date ntsDate) {
+		return getSession().createQuery("FROM NonTrainingSchedule  WHERE ntsDate = :ntsDates", NonTrainingSchedule.class)
+				.setParameter("ntsDate", ntsDate)
+				.list();
+	}
+
+	@Override
+	public List<NonTrainingSchedule> getAll(int currentPage) {
+		int first = (currentPage - 1) * PAGE_MAX_RESULT;
+		return getSession().createQuery("FROM NonTrainingSchedule", NonTrainingSchedule.class)
+				.setFirstResult(first)
+				.setMaxResults(PAGE_MAX_RESULT)
+				.list();
+	}
+
+	@Override
+	public long getTotal() {
+		return getSession().createQuery("select count(*) from NonTrainingSchedule", Long.class).uniqueResult();
+	}
+	
 }

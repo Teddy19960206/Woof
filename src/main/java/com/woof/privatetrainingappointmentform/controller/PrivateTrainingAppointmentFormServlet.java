@@ -76,18 +76,14 @@ public class PrivateTrainingAppointmentFormServlet extends HttpServlet {
 				beforeSelect(req, resp);
 				forwardPath = "/frontend/privatetrainingappointmentform/privateTrainingAppointmentForm_select.jsp";
 				break;
-			case "getbyptano":
-				getByPtaNo(req, resp);
-				forwardPath = "/frontend/privatetrainingappointmentform/privateTrainingAppointmentForm_getByPK.jsp";
+			case "getbymemno":
+				getByMemNo(req, resp);
+				forwardPath = "/frontend/privatetrainingappointmentform/privateTrainingAppointmentForm_getByMemNo.jsp";
 				break;
-//			case "getbymemno":
-//				getByMemNo(req, resp);
-//				forwardPath = "/frontend/privatetrainingappointmentform/privateTrainingAppointmentForm_getByPKorFK.jsp";
-//				break;
-//			case "getbytrainerno":
-//				getByTrainerNo(req, resp);
-//				forwardPath = "/frontend/privatetrainingappointmentform/privateTrainingAppointmentForm_getByPKorFK.jsp";
-//				break;
+			case "getbytrainerno":
+				getByTrainerNo(req, resp);
+				forwardPath = "/frontend/privatetrainingappointmentform/privateTrainingAppointmentForm_getByTrainerNo.jsp";
+				break;
 			default:
 				forwardPath = "/frontend/privatetrainingappointmentform/privateTrainingAppointmentForm.jsp";
 			}
@@ -102,7 +98,6 @@ public class PrivateTrainingAppointmentFormServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doPost(req, resp);
-		System.out.println(privateTrainingAppointmentFormService.getAllPrivateTrainingAppointmentForms());
 	}
 
 	private void add(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -250,7 +245,7 @@ public class PrivateTrainingAppointmentFormServlet extends HttpServlet {
 	}
 
 	private void getOne(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
+		
 		Integer ptaNo = Integer.valueOf(request.getParameter("ptaNo"));
 
 		PrivateTrainingAppointmentForm pta = privateTrainingAppointmentFormService
@@ -276,35 +271,28 @@ public class PrivateTrainingAppointmentFormServlet extends HttpServlet {
 
 	}
 
-	private void getByPtaNo(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-		Integer ptaNo = Integer.valueOf(request.getParameter("ptaNo"));
+	private void getByMemNo(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		
+		String memNo = request.getParameter("member");
+		
+		List<PrivateTrainingAppointmentForm> members = privateTrainingAppointmentFormService
+				.findPrivateTrainingAppointmentFormByMemNo(memNo); 
 
-		PrivateTrainingAppointmentForm pta = privateTrainingAppointmentFormService
-				.findPrivateTrainingAppointmentFormByPtaNo(ptaNo);
-	
-		request.setAttribute("pta", pta);
-
+		request.setAttribute("members", members);
+		
 	}
-//	private void getByMemNo(HttpServletRequest request, HttpServletResponse response) throws IOException {
-//		
-//		String memNo = request.getParameter("memNo");
-//		
-//		List<PrivateTrainingAppointmentForm> members = privateTrainingAppointmentFormService
-//				.findPrivateTrainingAppointmentFormByMemNo(memNo); 
-//
-//		request.setAttribute("members", members);
-//		
-//	}
-//	private void getByTrainerNo(HttpServletRequest request, HttpServletResponse response) throws IOException {
-//		
-//		Integer trainerNo = Integer.valueOf(request.getParameter("trainerNo"));
-//		
-//		List<PrivateTrainingAppointmentForm> trainers = privateTrainingAppointmentFormService
-//				.findPrivateTrainingAppointmentFormByTrainerNo(trainerNo);
-//		
-//		request.setAttribute("trainers", trainers);
-//		
-//	}
+	private void getByTrainerNo(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		
+		Integer trainerNo = Integer.valueOf(request.getParameter("trainer"));
+		
+		List<PrivateTrainingAppointmentForm> trainers = privateTrainingAppointmentFormService
+				.findPrivateTrainingAppointmentFormByTrainerNo(trainerNo);
+		
+		request.setAttribute("trainers", trainers);
+		
+	}
+	
+	
 
 }

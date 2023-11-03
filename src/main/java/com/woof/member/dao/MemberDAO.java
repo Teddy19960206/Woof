@@ -9,7 +9,7 @@ public interface MemberDAO {
 
 	int update(Member member);
 
-	int delete(String memNo);
+	int deletePhoto(String memNo);
 
 	Member findByMemberNo(String memNo);
 	
@@ -18,24 +18,7 @@ public interface MemberDAO {
 	List<Member> getByCompositeQuery(Map<String, String> map);
 
 	long getTotal();
+	
+	Member isExist(String memNo,String memPassword);
 
 }
-
-//package com.woof.member.dao;
-//	import java.util.*;
-//
-//import com.woof.member.entity.MemberVO;
-//
-//	public interface MemberDAO {
-//		public void insert(MemberVO memberVO);
-//
-//		public void update(MemberVO memberVO);
-//
-//		public void delete(Integer memberVO);
-//
-//		public MemberVO findByPrimaryKey(String memNo);
-//
-//		public List<MemberVO> getAll();
-//
-//	}
-//
