@@ -13,16 +13,14 @@ async function fetchAllTrainer(){
     let url = `${projectName}/trainer/getTrianers`;
 
     try {
-        const response = await fetch(url , {
+        const response = await  fetch(url , {
             method : "POST"
         });
         if (!response.ok){
             throw new Error("錯誤");
         }
         const data = await response.json();
-        if (data){
 
-        }
         return data;
 
     }catch (error){

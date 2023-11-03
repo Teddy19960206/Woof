@@ -19,10 +19,9 @@
   }
 
   #calendar {
-    max-height: 75vh;
-    width: auto;
+
+    max-width: 1000px;
     margin: 20px;
-    padding-right: 30px;
     z-index: -1;
   }
 
@@ -32,10 +31,6 @@
   }
   div#showDate{
     font-size: 30px;
-  }
-  .fc-event, .event-title {
-    padding: 0 1px;
-    white-space: normal;
   }
 </style>
 </head>
@@ -50,20 +45,137 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">確定預約該日期嗎?</h5>
+        <h5 class="modal-title" id="exampleModalLabel">請選擇預約時段</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body text-center">
         <div id="showDate"></div>
+        <button type="button" class="btn btn-primary" onclick="reserveAM()">預約上午</button>
+        <button type="button" class="btn btn-primary" onclick="reservePM()">預約下午</button>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-        <button type="button" class="btn btn-primary" id="reserveBtn">確定預約</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
       </div>
     </div>
   </div>
 </div>
+
+<script>
+
+    let time = ["2023-10-04" , "2023-10-03" ,"2023-10-10"];
+
+      // 不能點選的日期，背景加上灰色
+    function convertTimeToBackgroundEvents(time) {
+      return time.map(date => {
+        return {
+          start: date,
+          display: 'background',  // 這會將事件作為背景顯示
+          color: 'gray' // 指定背景顏色
+        };
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
+
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+      headerToolbar: {
+        left: 'prev,next',
+        right: 'title'
+      },
+      timeZone:'local',
+      locale : "zh-TW",
+      initialDate: new Date(),
+      // navLinks: true, // can click day/week names to navigate views
+      selectable: true,  // 可以點擊日曆事件
+      selectMirror: true, //
+      hiddenDays:[6,0], // 隱藏星期六 與 星期日
+      eventStartEditable : false, // 禁止拖拉
+
+      select: function(arg) {
+
+      if (time.some(item => arg.startStr === item)) {
+        calendar.unselect(); // 取消選擇
+        return; // 結束函數執行
+      }
+      $("#showDate").text(arg.startStr);
+      console.log(arg);
+      myModal.show();
+      // var title = confirm('新增資料:');
+      // if (title) {
+      //   calendar.addEvent({
+      //     title: title,
+      //     start: arg.start,
+      //     end: arg.end
+      //   })
+      //   console.log(arg);
+      // }
+      calendar.unselect()
+    },
+      eventClick: function(arg) {
+      if (confirm('請問確定要刪除嗎?')) {
+      // 這裡要做ajax發送delete資料庫動作
+      arg.event.remove()
+    }
+    },
+      editable: true,  // 可編輯
+      dayMaxEvents: true, // allow "more" link when too many events
+      events: [
+
+      ...convertTimeToBackgroundEvents(time),
+    {
+      title: 'All Day Event',
+      start: '2023-01-02T04:00:00',
+    },
+    {
+
+      title: 'Repeating Event',
+      start: '2023-01-09'
+    },
+    {
+      title: 'Repeating Event',
+      start: '2023-01-16 '
+    },
+      ],
+    });
+
+      calendar.render();
+    });
+
+      let prevBtn = document.getElementsByClassName("fc-prev-button");
+
+      $(function(){
+      let prevBtn = document.getElementsByClassName("fc-prev-button");
+      let nextBtn = document.getElementsByClassName("fc-next-button");
+
+      prevBtn[0].disabled = true;
+      nextBtn[0].disabled = false;
+
+      prevBtn[0].addEventListener("click" , ()=>{
+      prevBtn[0].disabled = true;
+      nextBtn[0].disabled = false;
+    })
+
+      nextBtn[0].addEventListener("click" , ()=>{
+      prevBtn[0].disabled = false;
+      nextBtn[0].disabled = true;
+    })
+    })
+
+      var myModal = new bootstrap.Modal(document.getElementById('myModal'), {});
+
+      function reserveAM(){
+
+        let newDate = new Date($("#showDate").html());
+        console.log(newDate);
+      }
+
+      function reservePM(){
+
+      }
+  </script>
+
 <%@ include file="/backend/backfoot.file" %>
-<script src="${pageContext.request.contextPath}/backend/course/js/getDetailByDate.js"></script>
 </body>
 </html>

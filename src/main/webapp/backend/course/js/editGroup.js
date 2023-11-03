@@ -46,5 +46,8 @@ function readImg(result) {
 p_file.addEventListener("change", function (e) {
     if (this.files.length > 0) {
         readImg(this.files[0]);
+    } else {
+        p_file.value = "";
+        preview.innerHTML = `<span class="text">預覽圖</span>`;
     }
 });

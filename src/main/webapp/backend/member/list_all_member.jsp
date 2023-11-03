@@ -7,7 +7,7 @@
 <script type="text/javascript">
 //表單點擊找出對應的function//
   function processUpdate(jsonData){
-	  window.location.href = " <%=request.getContextPath()%>/backend/member/updatemember.jsp?memNo=" + jsonData.memNo ;
+	  window.location.href = " <%=request.getContextPath()%>/frontend/member/updatemember.jsp?memNo=" + jsonData.memNo ;
   }
 </script>
 <style>
@@ -63,7 +63,7 @@ th, td {
 			<td>
 				<h3>所有會員資料 - listAllEmp.jsp</h3>
 				<h4>
-					<a href="/woof/backend/index.html">回首頁</a>
+					<a href="selectmember.jsp">回首頁</a>
 				</h4>
 			</td>
 		</tr>

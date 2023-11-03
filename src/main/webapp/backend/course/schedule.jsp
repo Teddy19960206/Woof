@@ -38,16 +38,37 @@
 <div class="container-fluid center-table">
     <div class="row showSchedule">
     </div>
-    <div class="text-center">
-        <a href="${pageContext.request.contextPath}/schedule/addpage">
-            <button type="button" class="btn btn-primary">新增報名課程</button>
-        </a>
-        <a href="${pageContext.request.contextPath}/backend/">
-            <button class="btn btn-secondary">返回後台首頁</button>
-        </a>
-    </div>
+    <a href="${pageContext.request.contextPath}/schedule/addpage">
+        <button type="button" class="btn btn-primary">新增報名課程</button>
+    </a>
+    <a href="${pageContext.request.contextPath}/backend/">
+        <button class="btn btn-secondary">返回後台首頁</button>
+    </a>
 </div>
 
+
+
+
+<div class="container">
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    確定要報名嗎
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消報名</button>
+                    <button type="button" class="btn btn-primary">確定報名</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <%@ include file="/backend/backfoot.file" %>
 <script src="${pageContext.request.contextPath}/backend/course/js/getSchedule.js"></script>

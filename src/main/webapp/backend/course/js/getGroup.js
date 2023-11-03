@@ -13,11 +13,7 @@ document.addEventListener("DOMContentLoaded", function (){
 
 
 // 撈取資料
-async function fetchData(page){
-
-    if (!page){
-        page = 1;
-    }
+async function fetchData(){
 
     // 發送請求，取得全部或與班別有相應的資料
 
@@ -26,7 +22,6 @@ async function fetchData(page){
     // 取得相應的資料，根據classTypeNo
     let formData = new FormData();
     formData.append("classType",document.getElementById("selectClass").value);
-    formData.append("page" , page );
 
     try{
         const response = await fetch(url ,{
@@ -37,8 +32,6 @@ async function fetchData(page){
             throw new Error('Network response was not ok');
         }
         const data = await response.json();
-
-        console.log(data)
 
         html = `<table class="table table-hover text-center align-middle">
         <thead class="">
@@ -53,9 +46,9 @@ async function fetchData(page){
         </thead>
         <tbody id="mybody">`;
 
-        // 將取得的資料進行拼接打到頁面上=========================================
-        data.data.forEach((item)=>{
-            html += `<tr>
+        // 將取得的資料進行拼接打到頁面上
+        data.forEach((item)=>{
+            html+= `<tr>
             <td>${item.gcNo}</td>
             <td>${item.skill.skillName}</td>
             <td>`;
@@ -69,52 +62,6 @@ async function fetchData(page){
         </tr>`;
         })
         html += `</tbody></table>`;
-
-        // 書籤 ==============================================================
-        html += `<nav class="text-center d-flex justify-content-center">
-                  <ul class="pagination">
-                    <li class="page-item">
-                      <button class="page-link" onclick="fetchData(${page == 1 ? 1 : page-1})">
-                        <span aria-hidden="true">&laquo;</span>
-                      </button>
-                    </li>`;
-
-        const maxPagesToShow = 3;
-        const totalPages = parseInt(data.pageTotal);
-
-        let startPage, endPage;
-
-        if (totalPages <= maxPagesToShow) {
-            // 如果總頁數 totalPages 小於或等於您希望顯示的最大頁碼按鈕數量 maxPagesToShow，則直接顯示從第一頁到最後一頁的所有頁碼按鈕。
-            startPage = 1;
-            endPage = totalPages;
-        } else if (page <= Math.floor(maxPagesToShow / 2) + 1){
-            // 當前頁位於前半部分，那麼顯示從第一頁到 maxPagesToShow 頁的按鈕。
-            startPage = 1;
-            endPage = maxPagesToShow;
-        } else if (page >= totalPages - Math.floor(maxPagesToShow / 2)) {
-            // 當前頁位於後半部分，那麼顯示從 totalPages - maxPagesToShow + 1 頁到最後一頁的按鈕。
-            startPage = totalPages - maxPagesToShow + 1;
-            endPage = totalPages;
-        } else {
-            // 當前頁位於中間部分，顯示當前頁前後各 Math.floor(maxPagesToShow / 2) 頁的按鈕。
-            startPage = page - Math.floor(maxPagesToShow / 2);
-            endPage = page + Math.floor(maxPagesToShow / 2);
-        }
-
-        for (let i = startPage; i <= endPage; i++) {
-            html += `<li class="page-item ${i === page ? "active" : ""}">
-               <button class="page-link" onclick="fetchData(${i})">${i}</button>
-             </li>`;
-        }
-
-        html += `   <li class="page-item">
-                        <button class="page-link" onclick="fetchData(${page == totalPages ? totalPages : page+1})">
-                            <span aria-hidden="true">&raquo;</span></a>
-                        </button>
-                    </li>
-                  </ul>
-                </nav>`;
 
         let tbody= document.querySelector("div.showGroup");
         tbody.innerHTML = html;

@@ -13,7 +13,7 @@
 
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <meta charset="UTF-8">
-<title>所有員工資料 - updatemember.jsp</title>
+<title>更新會員資料 - updatemember.jsp</title>
 <script>
 $(document).ready(function(){
     $.ajax({
@@ -34,7 +34,7 @@ $(document).ready(function(){
 														+ jsonObj.memGender
 														+ ']').prop('checked',
 												true);
-										$('#photo').attr('src', "${pageContext.request.contextPath}/DBPngReader?action=member&id="+jsonObj.memNo);
+										$('#memPhoto').attr('src', jsonObj.photoBase64);
 										$('#memEmail').val(jsonObj.memEmail);
 										$('#memPassword').val(
 												jsonObj.memPassword);
@@ -44,8 +44,7 @@ $(document).ready(function(){
 										$('#totalClass')
 												.val(jsonObj.totalClass);
 										$('#momoPoint').val(jsonObj.momoPoint);
-										console.log($('#memBd'));
- 										$('#memBd').val(jsonObj.memBd);
+// 										$('#memBd').val(jsonObj.memBd);
 										$(
 												'input[name=memStatus][value='
 														+ jsonObj.memStatus
@@ -60,7 +59,7 @@ $(document).ready(function(){
 								});
 
 						//日期格式
-						/* $("#memBd").datepicker({dateFormat : 'yy-mm-dd'}); */
+						$("#memBd").datepicker({dateFormat : 'yy-mm-dd'});
 					})
 </script>
 <style>
@@ -101,27 +100,27 @@ th, td {
 </style>
 
 <style>
-		#preview {
-			border: 1px solid lightgray;
-			display: inline-block;/*  */
-			width: 300px;
-			min-height: 400px;
-			position: relative;
-		}
-	
-	#preview span.text {
-		position: absolute;
-		display: inline-block;
-		left: 50%;
-		top: 50%;
-		transform: translate(-50%, -50%);
-		z-index: -1;
-		color: lightgray;
-	}
-	
-	#preview img.preview_img {
-		width: 100%;
-	} 
+#preview {
+	border: 1px solid lightgray;
+	display: inline-block;
+	width: 300px;
+	min-height: 400px;
+	position: relative;
+}
+
+#preview span.text {
+	position: absolute;
+	display: inline-block;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	z-index: -1;
+	color: lightgray;
+}
+
+#preview img.preview_img {
+	width: 100%;
+}
 </style>
 
 </head>
@@ -168,9 +167,10 @@ th, td {
 				<td><input type="file" name="memPhoto" accept="image/*"
 					id="p_file">
 					<div id="preview">
-						<span class="text"> </span>
-						 <img id="photo" class="preview_img" onerror="this.style.display='none'" />
-						
+						<span class="text"> <img id="photo" class="preview_img" 
+							src="${pageContext.request.contextPath}/DBPngReader?action=member&id=${member.memNo}"
+							onerror="this.style.display='none'" />
+						</span>
 					</div></td>
 			</tr>
 			<tr>
@@ -198,7 +198,7 @@ th, td {
 			</tr>
 			<tr>
 				<td>生日:</td>
-				<td><input type="Date" name="memBd" id="memBd" size="45" /></td>
+				<td><input type="TEXT" name="memBd" id="memBd" size="45" /></td>
 
 			</tr>
 			<tr>
@@ -219,7 +219,6 @@ th, td {
 					type="radio" name="memStatus" value="1" checked>正常</td>
 			</tr>
 		</table>
-		
 		<br> <input type="hidden" name="action" value="update">
 		<button type="submit">送出</button>
 		<button type="button" onclick="history.back()">取消更新</button>
