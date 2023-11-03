@@ -16,11 +16,13 @@ public class CartListServlet extends HttpServlet {
 	// 到時候加入會員使用複合鍵的Map
 	// Map<String, Map<String, Integer>> cart = new HashMap<>();
 	
-    private Map<String, Integer> cart = new HashMap<>();
+    private Map<Object, Integer> cart = new HashMap<>();
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String action = request.getParameter("action");
 
+        	
+        
         if ("add".equals(action)) {
             // 添加商品到購物車
             String prodNo = request.getParameter("prodNo");
@@ -42,30 +44,19 @@ public class CartListServlet extends HttpServlet {
             response.setContentType("text/html; charset=UTF-8");
             // 更新購物車中的數量
             int totalItems = cart.values().stream().mapToInt(Integer::intValue).sum();
-            
+
             System.out.println("一共有"+totalItems+"件");
             
+            Gson gson = new Gson();
+            String totalItemsJson = gson.toJson(totalItems);
+
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
             //console那邊可以看到
-            response.getWriter().write("商品已加到購物車");
-            response.setHeader("cartItemCount", String.valueOf(totalItems)); // 更新購物車數量的標頭信息
+            response.getWriter().write(totalItemsJson);
+            
         
-//         // 更新購物車中的數量
-//            int totalItems = cart.values().stream().mapToInt(Integer::intValue).sum();
-//
-//            // 創建一個JSON對象，包含購物車數量
-//            Map<String, Integer> responseMap = new HashMap<>();
-//            responseMap.put("cartItemCount", totalItems);
-//
-//            // 將JSON轉換為字串
-//            String jsonResponse = new Gson().toJson(responseMap);
-//
-//            // 設置響應的內容類型為JSON
-//            response.setContentType("application/json");
-//            response.setCharacterEncoding("UTF-8");
-//
-//            // 寫入JSON響應
-//            response.getWriter().write(jsonResponse);
-        
+  
         }
     }
 }

@@ -59,15 +59,15 @@
 						id="cart-count">0</span>
 				</div>
 				<div id="cart-list" style="display: none;">
-					<h2>購物清單</h2>
-					<ul id="cart-items-list">
-						<!-- 購物清單內容將在這裡動態添加 -->
-					</ul>
-					<p>
-						總金額: $<span id="cart-total-amount">0</span>
-					</p>
-					<button id="checkout">結帳</button>
-					<button id="continue-shopping">繼續購物</button>
+<!-- 					<h2>購物清單</h2> -->
+<!-- 					<ul id="cart-items-list"> -->
+<!-- 						購物清單內容將在這裡動態添加 -->
+<!-- 					</ul> -->
+<!-- 					<p> -->
+<!-- 						總金額: $<span id="cart-total-amount">0</span> -->
+<!-- 					</p> -->
+<!-- 					<button id="checkout">結帳</button> -->
+<!-- 					<button id="continue-shopping">繼續購物</button> -->
 				</div>
 			</div>
 		</div>
@@ -94,23 +94,19 @@
 					prodName : prodName,
 					prodPrice : prodPrice
 				},
-				success : function(data, cartItemCount) {
-					// 根據伺服器的響應執行相應操作
+				success : function(data) {
+
 					console.log(data);
-					console.log(cartItemCount);
-					
-// 					  // 解析JSON響應
-// 			        let responseData = JSON.parse(data);
-
-// 			        console.log(responseData);
-					  
-// 			        // 獲取購物車數量
-// 			        let cartItemCount = responseData.cartItemCount;
-
-// 			        // 更新購物車icon旁邊的數字
-// 			        $("#cart-count").text(cartItemCount);
+				
+			        // 更新前端HTML中的數字
+			   		 var totalItems = data;
+			        $("#cart-count").text(data);
+			  
 				}
-
+				
+				
+				
+				
 			});
 		});
 		
