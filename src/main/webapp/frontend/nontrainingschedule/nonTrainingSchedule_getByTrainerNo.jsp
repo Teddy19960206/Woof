@@ -5,7 +5,7 @@
 
 <html>
 <head>
-<title>GetAll</title>
+<title>單一查詢</title>
 <style>
     body, p, h1, a {
         margin: 0;

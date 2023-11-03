@@ -32,7 +32,7 @@ public class NonTrainingScheduleServlet extends HttpServlet {
 	}
 
 	@Override
-	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
 
@@ -40,61 +40,66 @@ public class NonTrainingScheduleServlet extends HttpServlet {
 		if (action != null) {
 			switch (action) {
 			case "gettoadd":
-				beforeAdd(req, resp);
+				beforeAdd(req, res);
 				forwardPath = "/frontend/nontrainingschedule/nonTrainingSchedule_add.jsp";
 				break;
 			case "add":
-				add(req, resp);
+				add(req, res);
 				return;
 			case "getall":
-				getAll(req, resp);
+				getAll(req, res);
 				forwardPath = "/frontend/nontrainingschedule/nonTrainingSchedule_getAll.jsp";
 				break;
 			case "gettoupdate":
-				beforeUpdate(req, resp);
+				beforeUpdate(req, res);
 				forwardPath = "/frontend/nontrainingschedule/nonTrainingSchedule_update.jsp";
 				break;
+			case "update":
+				update(req, res);
+				return;
+			case "delete":
+				deleteOne(req, res);
+				return;
 			default:
 				forwardPath = "/frontend/nontrainingschedule/nonTrainingSchedule.jsp";
 			}
-			req.getRequestDispatcher(forwardPath).forward(req, resp);
-			resp.getWriter().println(action);
+			req.getRequestDispatcher(forwardPath).forward(req, res);
+			res.getWriter().println(action);
 		}
 	}
 
 	@Override
-	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		doPost(req, resp);
+	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		doPost(req, res);
 
 	}
 
-	private void beforeAdd(HttpServletRequest req, HttpServletResponse resp) {
-		
+	private void beforeAdd(HttpServletRequest req, HttpServletResponse res) {
+
 		TrainerService trainerservice = new TrainerServiceImpl();
 		List<Trainer> allTrainers = trainerservice.getAllTrainers();
 		req.setAttribute("trainers", allTrainers);
 	}
-	
-	private void add(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-		
+
+	private void add(HttpServletRequest req, HttpServletResponse res) throws IOException {
+
 		Integer trainerNo = Integer.valueOf(req.getParameter("trainer"));
 		TrainerService trainerService = new TrainerServiceImpl();
 		Trainer trainer = trainerService.findTrainerByTrainerNo(trainerNo);
-		
+
 		String selectedDateStr = req.getParameter("selectedDate");
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		System.out.println(req.getParameter("trainer")+"========================");
-		
+
 		int result;
 		try {
-		    java.util.Date parsedDate = dateFormat.parse(selectedDateStr); // 將字串轉換為 java.util.Date
-		    java.sql.Date sqlDate = new java.sql.Date(parsedDate.getTime()); // 將 java.util.Date 轉換為 java.sql.Date
-		    System.out.println("轉換後的日期: " + sqlDate);
-		    result = nonTrainingScheduleService.addNts(trainer, sqlDate);
+			java.util.Date parsedDate = dateFormat.parse(selectedDateStr); // 將字串轉換為 java.util.Date
+			java.sql.Date sqlDate = new java.sql.Date(parsedDate.getTime()); // 將 java.util.Date 轉換為 java.sql.Date
+			System.out.println("轉換後的日期: " + sqlDate);
+			result = nonTrainingScheduleService.addNts(trainer, sqlDate);
 		} catch (Exception e) {
-		    result = -1;
+			result = -1;
 		}
-		
+
 		if (result == 1) {
 			System.out.println("新增成功");
 			req.setAttribute("successMessage", "新增成功");
@@ -102,30 +107,75 @@ public class NonTrainingScheduleServlet extends HttpServlet {
 			System.out.println("新增失敗");
 			req.setAttribute("errorMessage", "新增失敗");
 		}
-		resp.sendRedirect(req.getContextPath()
-				+ "/frontend/nontrainingschedule/nonTrainingSchedule.jsp");
+		res.sendRedirect(req.getContextPath() + "/frontend/nontrainingschedule/nonTrainingSchedule.jsp");
 	}
-	
-	private void getAll(HttpServletRequest req, HttpServletResponse resp) {
+
+	private void getAll(HttpServletRequest req, HttpServletResponse res) {
 		String page = req.getParameter("page");
 		int currentPage = (page == null) ? 1 : Integer.parseInt(page);
 		if (req.getSession().getAttribute("NTSPageQty") == null) {
 			int NTSPageQty = nonTrainingScheduleService.getPageTotal();
 			req.getSession().setAttribute("NTSPageQty", NTSPageQty);
 		}
-		List<NonTrainingSchedule> allNonTrainingSchedules = nonTrainingScheduleService
-				.getAllNTSs(currentPage);
+		List<NonTrainingSchedule> allNonTrainingSchedules = nonTrainingScheduleService.getAllNTSs(currentPage);
 
 		req.setAttribute("nonTrainingSchedules", allNonTrainingSchedules);
 		req.setAttribute("currentPage", currentPage);
 
 	}
-	
-	private void beforeUpdate(HttpServletRequest req, HttpServletResponse resp) {
-		
+
+	private void beforeUpdate(HttpServletRequest req, HttpServletResponse res) {
+
 		TrainerService trainerservice = new TrainerServiceImpl();
 		List<Trainer> allTrainers = trainerservice.getAllTrainers();
-		
+
 		req.setAttribute("trainers", allTrainers);
+	}
+
+	private void update(HttpServletRequest req, HttpServletResponse res) throws IOException {
+
+		Integer ntsNo = Integer.valueOf(req.getParameter("ntsNo"));
+
+		Integer trainerNo = Integer.valueOf(req.getParameter("trainer"));
+		TrainerService trainerService = new TrainerServiceImpl();
+		Trainer trainer = trainerService.findTrainerByTrainerNo(trainerNo);
+
+		String selectedDateStr = req.getParameter("selectedDate");
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+		int result;
+		try {
+			java.util.Date parsedDate = dateFormat.parse(selectedDateStr); // 將字串轉換為 java.util.Date
+			java.sql.Date sqlDate = new java.sql.Date(parsedDate.getTime()); // 將 java.util.Date 轉換為 java.sql.Date
+			System.out.println("轉換後的日期: " + sqlDate);
+			result = nonTrainingScheduleService.updateNts(ntsNo, trainer, sqlDate);
+		} catch (Exception e) {
+			result = -1;
+		}
+
+		if (result == 1) {
+			System.out.println("更新成功");
+			req.setAttribute("successMessage", "更新成功");
+		} else {
+			System.out.println("更新失敗");
+			req.setAttribute("errorMessage", "更新失敗");
+		}
+		res.sendRedirect(req.getContextPath() + "/frontend/nontrainingschedule/nonTrainingSchedule.jsp");
+	}
+
+	private void deleteOne(HttpServletRequest req, HttpServletResponse res) throws IOException {
+
+		Integer ntsNo = Integer.valueOf(req.getParameter("ntsNo"));
+	
+		int result = nonTrainingScheduleService.deleteNts(ntsNo);
+		
+		if (result == 1) {
+			System.out.println("刪除成功");
+			req.setAttribute("successMessage", "刪除成功");
+		} else {
+			System.out.println("刪除失敗");
+			req.setAttribute("errorMessage", "刪除失敗");
+		}
+		res.sendRedirect(req.getContextPath() + "/frontend/nontrainingschedule/nonTrainingSchedule.jsp");
 	}
 }

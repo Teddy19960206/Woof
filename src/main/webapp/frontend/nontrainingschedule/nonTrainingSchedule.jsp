@@ -46,20 +46,21 @@ body > a {
     </style>
 </head>
 <body>
-	 <!-- 顯示新增成功的訊息 -->
-    <c:if test="${not empty successMessage}">
-        <p class="successMessage">${successMessage}</p>
-    </c:if>
-
-    <!-- 顯示新增失敗的訊息 -->
-    <c:if test="${not empty errorMessage}">
-        <p class="errorMessage">${errorMessage}</p>
-    </c:if>
+	 
     <h1>訓練師不授課日程</h1>
     <a href="${pageContext.request.contextPath}/nontrainingschedule?action=gettoadd">新增頁面</a>
     <a href="${pageContext.request.contextPath}/nontrainingschedule?action=getall">查詢全部</a>
     <a href="${pageContext.request.contextPath}/nontrainingschedule?action=gettoselect">單一查詢</a>
-
+	<jsp:useBean id="trainerServer" scope="page" class="com.woof.trainer.service.TrainerServiceImpl"/>
+	<form method="POST" ACTION="${pageContext.request.contextPath}/trainer">
+    <select name="trainerNo">
+        <c:forEach var="trainer" items="${trainerServer.allTrainers}">
+            <option  value="${trainer.trainerNo}">${trainer.administrator.adminName}</option>
+        </c:forEach>
+    </select>
+    <input type="hidden" name="action" value="getone">
+    <button type="submit">提交</button>
+    <br>
     <br><br>
 </body>
 </html>
