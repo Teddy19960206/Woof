@@ -23,10 +23,6 @@ import com.google.gson.GsonBuilder;
 import com.woof.member.entity.Member;
 import com.woof.member.service.MemberService;
 import com.woof.member.service.MemberServiceImpl;
-import com.woof.privatetrainingappointmentform.entity.PrivateTrainingAppointmentForm;
-import com.woof.privatetrainingappointmentform.service.PrivateTrainingAppointmentFormService;
-import com.woof.privatetrainingappointmentform.service.PrivateTrainingAppointmentFormServiceImpl;
-import com.woof.util.PartParsebyte;
 
 @WebServlet("/member.do")
 @MultipartConfig
