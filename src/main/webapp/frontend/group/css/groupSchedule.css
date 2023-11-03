@@ -115,3 +115,7 @@ div.modal-div{
         width: 100%;
     }
 }
+
+img.myPhoto{
+    height: 250px;
+}
