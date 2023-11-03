@@ -87,6 +87,14 @@ public class GroupCourseServiceImpl implements GroupCourseService , AppService {
         return pageQty;
     }
 
+    public int getPageTotal(Integer classType , Integer status){
+        long total = dao.getTotal(classType , status);
+
+        int pageQty = (int)(total % PAGE_MAX_RESULT == 0 ? (total / PAGE_MAX_RESULT) : (total / PAGE_MAX_RESULT + 1));
+
+        return pageQty;
+    }
+
     public byte[] getPhotoById(Integer gcNo){
         return findGroupCourseByNo(gcNo).getCoursePhoto();
     }

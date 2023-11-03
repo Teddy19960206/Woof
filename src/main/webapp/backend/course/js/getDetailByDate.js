@@ -79,7 +79,6 @@ var calendar = new FullCalendar.Calendar(calendarEl, {
         // }
         date.setDate(date.getDate() + 7);
         fetchDetailByDate(date.getFullYear() , date.getMonth()+1);
-        fetchDetailByDate(date.getFullYear() , date.getMonth()+1);
     },
 
 });
