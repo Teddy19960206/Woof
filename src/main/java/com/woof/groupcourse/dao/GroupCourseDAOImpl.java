@@ -4,6 +4,13 @@ import com.woof.groupcourse.entity.GroupCourse;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
+
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.woof.util.Constants.PAGE_MAX_RESULT;
@@ -76,4 +83,28 @@ public class GroupCourseDAOImpl implements GroupCourseDAO{
     public long getTotal() {
         return getSession().createQuery("SELECT count(*) FROM GroupCourse" , Long.class).uniqueResult();
     }
+
+    @Override
+    public long getTotal(Integer classType , Integer status){
+        CriteriaBuilder builder = getSession().getCriteriaBuilder();
+        CriteriaQuery<Long> criteriaQuery = builder.createQuery(Long.class);
+        Root<GroupCourse> root = criteriaQuery.from(GroupCourse.class);
+
+        List<Predicate> predicates = new ArrayList<>();
+
+        if ("classType".equals(classType)){
+            predicates.add(builder.equal(root.get("classType").get("ctNo"),classType));
+        }
+
+        if ("courseStatus".equals(status)){
+            predicates.add(builder.equal(root.get("courseStatus") , status));
+        }
+
+        criteriaQuery.where(builder.and(predicates.toArray(new Predicate[predicates.size()])));
+        TypedQuery<Long> query = getSession().createQuery(criteriaQuery);
+
+        return query.getSingleResult();
+    }
+
+
 }

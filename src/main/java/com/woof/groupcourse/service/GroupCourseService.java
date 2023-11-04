@@ -24,5 +24,7 @@ public interface GroupCourseService {
 
     int getPageTotal();
 
+    int getPageTotal(Integer classType , Integer status);
+
 
 }

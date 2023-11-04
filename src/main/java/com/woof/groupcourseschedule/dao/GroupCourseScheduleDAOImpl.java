@@ -6,7 +6,17 @@ import org.hibernate.SessionFactory;
 import org.hibernate.query.NativeQuery;
 import org.hibernate.query.Query;
 
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
+import static com.woof.util.Constants.PAGE_MAX_RESULT;
 
 public class GroupCourseScheduleDAOImpl implements GroupCourseScheduleDAO{
 
@@ -70,23 +80,62 @@ public class GroupCourseScheduleDAOImpl implements GroupCourseScheduleDAO{
     public List<GroupCourseSchedule> getAllbyClassType(Integer ctNo) {
 
 //      原生 sql 無法對物件，僅可明確指定
-        String sql = "SELECT gcs.GCS_NO , gcs.GC_NO , gcs.TRAINER_NO , gcs.GCS_START , gcs.GCS_END , gcs.MIN_LIMIT ," +
-                " gcs.MAX_LIMIT , gcs.REG_COUNT , gcs.GCS_PRICE, gcs.GCS_STATUS , gcs.GCS_DELAY_REASON , " +
-                "gcs.RELATED_GCS_NO , gcs.CREATED_AT , gcs.UPDATED_AT FROM GROUP_COURSE_SCHEDULE AS gcs " +
-                "INNER JOIN GROUP_COURSE AS gc ON gcs.GC_NO = gc.GC_NO WHERE gc.CT_NO = :ctNo";
-
-        NativeQuery query = getSession().createNativeQuery(sql)
-            .setParameter("ctNo", ctNo)
-                .addEntity(GroupCourseSchedule.class);
-
-        List<GroupCourseSchedule> results = query.list();
-
-//        HQL可以對應物件
-//        String hql = "select gcs FROM GroupCourseSchedule gcs JOIN gcs.groupCourse gc WHERE gc.classType = :ctNo";
-//        Query<GroupCourseSchedule> query = getSession().createQuery(hql, GroupCourseSchedule.class);
-//        query.setParameter("ctNo", classType);
+//        String sql = "SELECT gcs.GCS_NO , gcs.GC_NO , gcs.TRAINER_NO , gcs.GCS_START , gcs.GCS_END , gcs.MIN_LIMIT ," +
+//                " gcs.MAX_LIMIT , gcs.REG_COUNT , gcs.GCS_PRICE, gcs.GCS_STATUS , gcs.GCS_DELAY_REASON , " +
+//                "gcs.RELATED_GCS_NO , gcs.CREATED_AT , gcs.UPDATED_AT FROM GROUP_COURSE_SCHEDULE AS gcs " +
+//                "INNER JOIN GROUP_COURSE AS gc ON gcs.GC_NO = gc.GC_NO WHERE gc.CT_NO = :ctNo";
+//
+//        NativeQuery query = getSession().createNativeQuery(sql)
+//            .setParameter("ctNo", ctNo)
+//                .addEntity(GroupCourseSchedule.class);
+//
 //        List<GroupCourseSchedule> results = query.list();
 
+//        HQL可以對應物件
+        String hql = "select gcs FROM GroupCourseSchedule gcs JOIN gcs.groupCourse gc WHERE gc.classType = :ctNo";
+        Query<GroupCourseSchedule> query = getSession().createQuery(hql, GroupCourseSchedule.class);
+        query.setParameter("ctNo", ctNo);
+        List<GroupCourseSchedule> results = query.list();
+
         return results;
+    }
+
+    public List<GroupCourseSchedule> getAllbyStatus(){
+        return null;
+    }
+
+    public List<GroupCourseSchedule> getByCompositeQuery(Map<String ,String> map , Integer currentPage){
+
+        if (map.size() == 0){
+            return getAll();
+        }
+
+        CriteriaBuilder builder =getSession().getCriteriaBuilder();
+        CriteriaQuery<GroupCourseSchedule> criteriaQuery = builder.createQuery(GroupCourseSchedule.class);
+        Root<GroupCourseSchedule> root = criteriaQuery.from(GroupCourseSchedule.class);
+
+        List<Predicate> predicates = new ArrayList<>();
+
+        for (Map.Entry<String ,String> row : map.entrySet()){
+            if ("classType".equals(row.getKey())){
+                predicates.add(builder.equal(root.get("groupCourse").get("classType").get("ctNo") , row.getValue()));
+            }
+
+            if ("status".equals(row.getKey())){
+                predicates.add(builder.equal(root.get("gcsStatus") , row.getValue()));
+            }
+        }
+
+        criteriaQuery.where(builder.and(predicates.toArray(new Predicate[predicates.size()])));
+        criteriaQuery.orderBy(builder.desc(root.get("gcsEnd")));
+        TypedQuery<GroupCourseSchedule> query = getSession().createQuery(criteriaQuery);
+
+        int first = (currentPage - 1) * PAGE_MAX_RESULT;
+        List<GroupCourseSchedule> resultList = query
+                .setFirstResult(first)
+                .setMaxResults(PAGE_MAX_RESULT)
+                .getResultList();
+
+        return resultList;
     }
 }
