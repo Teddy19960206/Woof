@@ -38,7 +38,6 @@ public class GroupCourseScheduleDAOImpl implements GroupCourseScheduleDAO{
         query.setParameter(1, regCount + 1);
         query.setParameter(2, gcsNo);
         int result = query.executeUpdate();
-        System.out.println(result);
     }
 
     @Override

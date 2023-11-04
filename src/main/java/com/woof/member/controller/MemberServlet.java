@@ -3,6 +3,7 @@ package com.woof.member.controller;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -22,10 +23,6 @@ import com.google.gson.GsonBuilder;
 import com.woof.member.entity.Member;
 import com.woof.member.service.MemberService;
 import com.woof.member.service.MemberServiceImpl;
-import com.woof.privatetrainingappointmentform.entity.PrivateTrainingAppointmentForm;
-import com.woof.privatetrainingappointmentform.service.PrivateTrainingAppointmentFormService;
-import com.woof.privatetrainingappointmentform.service.PrivateTrainingAppointmentFormServiceImpl;
-import com.woof.util.PartParsebyte;
 
 @WebServlet("/member.do")
 @MultipartConfig
@@ -85,6 +82,10 @@ public class MemberServlet extends HttpServlet {
 			case "query":
 				processQuery(req, res);
 				return;
+			case "login":
+				isExist(req,res);
+				return;
+				
 			default:
 				forwardPath = "/frontend/member/selectmember.jsp";
 			}
@@ -92,13 +93,30 @@ public class MemberServlet extends HttpServlet {
 		req.getRequestDispatcher(forwardPath).forward(req, res);
 	}
 
+	private void isExist(HttpServletRequest req, HttpServletResponse res) throws IOException {
+		 String account=req.getParameter("memNo");
+	     String password=req.getParameter("memPassword");
+	     Member member = memberService.isExist(account, password);
+	     if(member!=null) {
+	    	 res.sendRedirect("welecome.jsp");
+	     }else {
+	    	 res.sendRedirect("memberlogin.jsp");
+	     }
+	}
+
 	private void processQuery(HttpServletRequest req, HttpServletResponse res) throws IOException {
 		Member member = memberService.findMemberByNo(req.getParameter("memNo"));
+		byte[]photoByte = memberService.getPhotoById(req.getParameter("memNo"));
 
 		res.setCharacterEncoding("UTF-8");
-		Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+		Gson gson = new GsonBuilder()
+				.excludeFieldsWithoutExposeAnnotation()
+				.setDateFormat("yyyy-MM-dd")
+				.create();
 
 		String str = gson.toJson(member);
+		// 將 JSON 字符串轉換為 UTF-8 編碼的字節數組
+		byte[] photoBytes = str.getBytes(StandardCharsets.UTF_8);
 //		System.out.println(str);
 		// 回應給前端
 		PrintWriter out = res.getWriter();
@@ -165,8 +183,6 @@ public class MemberServlet extends HttpServlet {
 	private void updateMember(HttpServletRequest req, HttpServletResponse res)
 			throws ParseException, IOException, ServletException {
 		Member member = new Member();
-//		req.setAttribute(getServletName(), member);
-
 		member.setMemNo(req.getParameter("memNo"));
 		member.setMemName(req.getParameter("memName"));
 		member.setMemGender(req.getParameter("memGender"));
@@ -202,11 +218,8 @@ public class MemberServlet extends HttpServlet {
 		memberService.updateMember(member);
 		// 導到指定的URL 頁面上 把請求回應都帶過去
 		System.out.println(req.getParameter("memNo") + "================");
-//		res.setCharacterEncoding("UTF-8");
-//		req.setAttribute("memNo", req.getParameter("memNo"));
 		String url = req.getContextPath() + "/frontend/member/list_all_member.jsp";
 		res.sendRedirect(url);
-//		res.setContentType("text/html; charset=UTF-8");
 	}
 
 	private void getOne(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -230,10 +243,6 @@ public class MemberServlet extends HttpServlet {
 					req.setAttribute("member", member);
 				} catch (NumberFormatException e) {
 					e.printStackTrace();
-//		            req.setAttribute("error", "Invalid member number provided.");
-//		            RequestDispatcher dispatcher = req.getRequestDispatcher("/frontend/member/errorPage.jsp");
-//		            dispatcher.forward(req, res);
-//		            return; // 由於已經進行了轉發，所以返回以終止後續的代碼執行
 				}
 
 			} else {

@@ -1,5 +1,6 @@
 package com.woof.groupscheduledetail.controller;
 
+import com.alibaba.fastjson2.JSONObject;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.woof.groupcourseschedule.entity.GroupCourseSchedule;
@@ -21,6 +22,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+import java.lang.reflect.Modifier;
 import java.sql.Date;
 import java.util.List;
 import java.util.Set;
@@ -66,7 +68,12 @@ public class GroupScheduleDetailServlet extends HttpServlet {
                 modify(request , response);
                 return;
             case "/getClassDate":
+//               取得訓練師的所有上課時程
                 getTrainerClass(request, response);
+                return;
+            case "/getDetailByDate":
+//              取得某年某月的detail所有資料
+                getDetailByDate(request , response);
                 return;
             default:
 //                進入detail畫面根據取得的id去抓取要修改的資料
@@ -155,5 +162,22 @@ public class GroupScheduleDetailServlet extends HttpServlet {
 
         response.setContentType("application/json;charset=UTF-8");
         response.getWriter().write(json);
+    }
+
+    private void getDetailByDate(HttpServletRequest request , HttpServletResponse response) throws IOException {
+
+        Integer year = Integer.valueOf(request.getParameter("year"));
+        Integer month = Integer.valueOf(request.getParameter("month"));
+        List<GroupScheduleDetail> detailByDate = groupScheduleDetailService.getDetailByDate(year, month);
+
+        Gson gson = new GsonBuilder()
+                .excludeFieldsWithoutExposeAnnotation()
+                .setDateFormat("yyyy-MM-dd")
+                .create();
+        String json = gson.toJson(detailByDate);
+
+        response.setContentType("application/json;charset=UTF-8");
+        response.getWriter().write(json);
+
     }
 }
