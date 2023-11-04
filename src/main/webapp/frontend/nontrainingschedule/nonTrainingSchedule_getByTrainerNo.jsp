@@ -178,7 +178,7 @@
 	</table>
 <p>trainerNo: ${trainerNo}</p>
 <p>currentPage: ${currentPage}</p>
-<p>NTSPageQty: ${NTSPageQty}</p>
+<p>NTSPageQty2: ${NTSPageQty2}</p>
 	<div class="pagination-container" >
     <c:if test="${currentPage > 1}">
         <a href="${pageContext.request.contextPath}/nontrainingschedule?action=getbytrainer&page=1&trainerNo=${trainerNo}">至第一頁</a>&nbsp;
@@ -186,11 +186,11 @@
     <c:if test="${currentPage - 1 != 0}">
         <a href="${pageContext.request.contextPath}/nontrainingschedule?action=getbytrainer&page=${currentPage - 1}&trainerNo=${trainerNo}">上一頁</a>&nbsp;
     </c:if>
-    <c:if test="${currentPage + 1 <= NTSPageQty}">
+    <c:if test="${currentPage + 1 <= NTSPageQty2}">
         <a href="${pageContext.request.contextPath}/nontrainingschedule?action=getbytrainer&page=${currentPage + 1}&trainerNo=${trainerNo}">下一頁</a>&nbsp;
     </c:if>
-    <c:if test="${currentPage != NTSPageQty}">
-        <a href="${pageContext.request.contextPath}/nontrainingschedule?action=getbytrainer&page=${NTSPageQty}&trainerNo=${trainerNo}">至最後一頁</a>&nbsp;
+    <c:if test="${currentPage != NTSPageQty2}">
+        <a href="${pageContext.request.contextPath}/nontrainingschedule?action=getbytrainer&page=${NTSPageQty2}&trainerNo=${trainerNo}">至最後一頁</a>&nbsp;
     </c:if>
 </div>
 

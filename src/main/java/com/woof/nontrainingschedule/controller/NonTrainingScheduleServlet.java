@@ -15,7 +15,6 @@ import javax.servlet.http.HttpServletResponse;
 import com.woof.nontrainingschedule.entity.NonTrainingSchedule;
 import com.woof.nontrainingschedule.service.NonTrainingScheduleService;
 import com.woof.nontrainingschedule.service.NonTrainingScheduleServiceImpl;
-import com.woof.privatetrainingappointmentform.entity.PrivateTrainingAppointmentForm;
 import com.woof.trainer.entity.Trainer;
 import com.woof.trainer.service.TrainerService;
 import com.woof.trainer.service.TrainerServiceImpl;
@@ -188,10 +187,10 @@ public class NonTrainingScheduleServlet extends HttpServlet {
 		Integer trainerNo = Integer.valueOf(req.getParameter("trainerNo"));
 		String page = req.getParameter("page");
 		int currentPage = (page == null) ? 1 : Integer.parseInt(page);
-		if (req.getSession().getAttribute("NTSPageQty") == null) {
-			int NTSPageQty = nonTrainingScheduleService.getPageTotal2(trainerNo);
-			req.getSession().setAttribute("NTSPageQty", NTSPageQty);
-		}
+//		if (req.getSession().getAttribute("NTSPageQty2") == null) {
+			int NTSPageQty2 = nonTrainingScheduleService.getPageTotal2(trainerNo);
+			req.getSession().setAttribute("NTSPageQty2", NTSPageQty2);
+//		}
 		List<NonTrainingSchedule> trainers = nonTrainingScheduleService.findNtsByTrainerNo(trainerNo,currentPage);
 
 		req.setAttribute("trainers", trainers);
