@@ -1,10 +1,8 @@
 package com.woof.groupcourseschedule.dao;
 
-import com.woof.groupcourse.entity.GroupCourse;
-import com.woof.groupcourseschedule.entity.GroupCourseSchedule;
-import com.woof.trainer.entity.Trainer;
 
-import java.sql.Date;
+import com.woof.groupcourseschedule.entity.GroupCourseSchedule;
+
 import java.util.List;
 
 public interface GroupCourseScheduleDAO {
@@ -19,8 +17,15 @@ public interface GroupCourseScheduleDAO {
 
     List<GroupCourseSchedule> getAll();
 
+    List<GroupCourseSchedule> getAll(Integer classType , Integer status , Integer currentPage);
+
     List<GroupCourseSchedule> getListSchedule(Integer classType , Integer status);
 
 
     List<GroupCourseSchedule> getAllbyClassType(Integer ctNo);
+
+    List<GroupCourseSchedule> getOffStatus();
+
+
+    long getTotal(Integer classType , Integer status);
 }

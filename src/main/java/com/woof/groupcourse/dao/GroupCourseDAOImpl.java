@@ -69,34 +69,37 @@ public class GroupCourseDAOImpl implements GroupCourseDAO{
     public List<GroupCourse> getAll() {
         return getSession().createQuery("FROM GroupCourse" , GroupCourse.class).list();
     }
+//
+//    @Override
+//    public List<GroupCourse> getAll(int currentPage) {
+//        int first = (currentPage - 1) * PAGE_MAX_RESULT;
+//        return getSession().createQuery("FROM GroupCourse" , GroupCourse.class)
+//                .setFirstResult(first)
+//                .setMaxResults(PAGE_MAX_RESULT)
+//                .list();
+//    }
 
-    @Override
-    public List<GroupCourse> getAll(int currentPage) {
-        int first = (currentPage - 1) * PAGE_MAX_RESULT;
-        return getSession().createQuery("FROM GroupCourse" , GroupCourse.class)
-                .setFirstResult(first)
-                .setMaxResults(PAGE_MAX_RESULT)
-                .list();
-    }
-
-    @Override
-    public long getTotal() {
-        return getSession().createQuery("SELECT count(*) FROM GroupCourse" , Long.class).uniqueResult();
-    }
+//    @Override
+//    public long getTotal() {
+//        return getSession().createQuery("SELECT count(*) FROM GroupCourse" , Long.class).uniqueResult();
+//    }
 
     @Override
     public long getTotal(Integer classType , Integer status){
+
         CriteriaBuilder builder = getSession().getCriteriaBuilder();
         CriteriaQuery<Long> criteriaQuery = builder.createQuery(Long.class);
         Root<GroupCourse> root = criteriaQuery.from(GroupCourse.class);
 
+        criteriaQuery.select(builder.count(root));
+
         List<Predicate> predicates = new ArrayList<>();
 
-        if ("classType".equals(classType)){
+        if (classType != null){
             predicates.add(builder.equal(root.get("classType").get("ctNo"),classType));
         }
 
-        if ("courseStatus".equals(status)){
+        if (status != null){
             predicates.add(builder.equal(root.get("courseStatus") , status));
         }
 
@@ -106,5 +109,30 @@ public class GroupCourseDAOImpl implements GroupCourseDAO{
         return query.getSingleResult();
     }
 
+    public List<GroupCourse> getAll(Integer classType , Integer status , int currentPage){
 
+        CriteriaBuilder builder = getSession().getCriteriaBuilder();
+        CriteriaQuery<GroupCourse> criteriaQuery = builder.createQuery(GroupCourse.class);
+        Root<GroupCourse> root = criteriaQuery.from(GroupCourse.class);
+
+        List<Predicate> predicates = new ArrayList<>();
+
+        if (classType != null){
+            predicates.add(builder.equal(root.get("classType").get("ctNo"), classType));
+        }
+        if (status != null){
+            predicates.add(builder.equal(root.get("courseStatus"), status));
+        }
+
+        criteriaQuery.where(builder.and(predicates.toArray(predicates.toArray(new Predicate[predicates.size()]))));
+        TypedQuery<GroupCourse> query = getSession().createQuery(criteriaQuery);
+
+        int first = (currentPage -1)  * PAGE_MAX_RESULT;
+        List<GroupCourse> groupCourseList = query
+                .setFirstResult(first)
+                .setMaxResults(PAGE_MAX_RESULT)
+                .getResultList();
+
+        return groupCourseList;
+    }
 }

@@ -2,9 +2,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <%@ include file="/backend/backhead.file" %>
     <title>新增班別</title>
 </head>
 <body>
+<%@ include file="/backend/backbody.file" %>
 <h1>新增班別</h1>
 <form action="${pageContext.request.contextPath}/classtype/addClassType" method="post">
     <label for="className">班別名稱：</label>
@@ -14,5 +16,6 @@
     <button type="submit">確定新增</button>
     <button type="button" onclick="history.back()">取消新增</button>
 </form>
+<%@ include file="/backend/backfoot.file" %>
 </body>
 </html>

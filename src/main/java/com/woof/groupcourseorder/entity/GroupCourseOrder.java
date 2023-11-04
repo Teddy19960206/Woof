@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.google.gson.annotations.Expose;
 import com.woof.groupcourseschedule.entity.GroupCourseSchedule;
 import com.woof.member.entity.Member;
 
@@ -20,32 +21,40 @@ import com.woof.member.entity.Member;
 @Entity
 @Table(name = "group_course_order")
 public class GroupCourseOrder implements Serializable {
-	
+
+	@Expose
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "GCO_NO" , updatable = false)
     private Integer gcoNo;
-	
+
+	@Expose
 	@ManyToOne
 	@JoinColumn(name = "MEM_NO" , referencedColumnName = "MEM_NO")
 	private Member member;
-	
+
+	@Expose
 	@ManyToOne
 	@JoinColumn(name = "GCS_NO" , referencedColumnName = "GCS_NO")
 	private GroupCourseSchedule groupCourseSchedule;
-	
+
+	@Expose
 	@Column(name = "GCO_DATE" , nullable = false , insertable = false , updatable = false)
     private Timestamp gcoDate;
-	
+
+	@Expose
 	@Column(name = "GCO_PAYMENT_METHOD" , nullable = false , columnDefinition = "TINYINT")
     private Integer gcoPaymentMethod;
-	
+
+	@Expose
 	@Column(name = "GCO_SMMP" , nullable = false)
     private Integer gcoSmmp;
-	
+
+	@Expose
 	@Column(name = "ACTUAL_AMOUNT")
     private Integer actualAmount;
-	
+
+	@Expose
 	@Column(name = "GCO_STATUS" , nullable = false , columnDefinition = "TINYINT")
     private Integer gcoStatus;
 
