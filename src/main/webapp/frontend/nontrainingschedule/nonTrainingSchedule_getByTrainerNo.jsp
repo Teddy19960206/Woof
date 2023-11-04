@@ -138,10 +138,10 @@
 			<th></th>
 			
 		</tr>
-
+		<c:set var="trainerNo" value="" />
 		<c:forEach var="NTS"
-			items="${nonTrainingSchedules}">
-
+			items="${trainers}">
+		<c:set var="trainerNo" value="${NTS.trainer.trainerNo}" />
 			<tr>
 				<td>${NTS.ntsNo}</td>
 				<td>${NTS.trainer.administrator.adminName}</td>
@@ -176,18 +176,21 @@
 		</c:forEach>
 
 	</table>
-	<div class="pagination-container">
+<p>trainerNo: ${trainerNo}</p>
+<p>currentPage: ${currentPage}</p>
+<p>NTSPageQty2: ${NTSPageQty2}</p>
+	<div class="pagination-container" >
     <c:if test="${currentPage > 1}">
-        <a href="${pageContext.request.contextPath}/nontrainingschedule?action=getall&page=1">至第一頁</a>&nbsp;
+        <a href="${pageContext.request.contextPath}/nontrainingschedule?action=getbytrainer&page=1&trainerNo=${trainerNo}">至第一頁</a>&nbsp;
     </c:if>
     <c:if test="${currentPage - 1 != 0}">
-        <a href="${pageContext.request.contextPath}/nontrainingschedule?action=getall&page=${currentPage - 1}">上一頁</a>&nbsp;
+        <a href="${pageContext.request.contextPath}/nontrainingschedule?action=getbytrainer&page=${currentPage - 1}&trainerNo=${trainerNo}">上一頁</a>&nbsp;
     </c:if>
-    <c:if test="${currentPage + 1 <= NTSPageQty}">
-        <a href="${pageContext.request.contextPath}/nontrainingschedule?action=getall&page=${currentPage + 1}">下一頁</a>&nbsp;
+    <c:if test="${currentPage + 1 <= NTSPageQty2}">
+        <a href="${pageContext.request.contextPath}/nontrainingschedule?action=getbytrainer&page=${currentPage + 1}&trainerNo=${trainerNo}">下一頁</a>&nbsp;
     </c:if>
-    <c:if test="${currentPage != NTSPageQty}">
-        <a href="${pageContext.request.contextPath}/nontrainingschedule?action=getall&page=${NTSPageQty}">至最後一頁</a>&nbsp;
+    <c:if test="${currentPage != NTSPageQty2}">
+        <a href="${pageContext.request.contextPath}/nontrainingschedule?action=getbytrainer&page=${NTSPageQty2}&trainerNo=${trainerNo}">至最後一頁</a>&nbsp;
     </c:if>
 </div>
 

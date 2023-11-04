@@ -176,6 +176,8 @@
 		</c:forEach>
 
 	</table>
+	<p>currentPage: ${currentPage}</p>
+<p>NTSPageQty: ${NTSPageQty}</p>
 	<div class="pagination-container">
     <c:if test="${currentPage > 1}">
         <a href="${pageContext.request.contextPath}/nontrainingschedule?action=getall&page=1">至第一頁</a>&nbsp;
