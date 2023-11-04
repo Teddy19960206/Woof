@@ -176,9 +176,9 @@
 		</c:forEach>
 
 	</table>
-<p>trainerNo: ${trainerNo}</p>
-<p>currentPage: ${currentPage}</p>
-<p>NTSPageQty2: ${NTSPageQty2}</p>
+<%-- <p>trainerNo: ${trainerNo}</p> --%>
+<%-- <p>currentPage: ${currentPage}</p> --%>
+<%-- <p>NTSPageQty2: ${NTSPageQty2}</p> --%>
 	<div class="pagination-container" >
     <c:if test="${currentPage > 1}">
         <a href="${pageContext.request.contextPath}/nontrainingschedule?action=getbytrainer&page=1&trainerNo=${trainerNo}">至第一頁</a>&nbsp;
