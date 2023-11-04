@@ -4,6 +4,7 @@ let projectName = pathName.substring( 0 , pathName.substring(1).indexOf("/")+1);
 // 點擊提交按鈕則執行fetchData()
 document.getElementById("button").onclick = function (){
     fetchData();
+
 }
 
 // 進入到classContent.jsp時，會直接撈取全部課程資料
@@ -26,6 +27,7 @@ async function fetchData(page){
     // 取得相應的資料，根據classTypeNo
     let formData = new FormData();
     formData.append("classType",document.getElementById("selectClass").value);
+    formData.append("status" , document.getElementById("selectStatus").value);
     formData.append("page" , page );
 
     try{
@@ -38,10 +40,8 @@ async function fetchData(page){
         }
         const data = await response.json();
 
-        console.log(data)
-
-        html = `<table class="table table-hover text-center align-middle">
-        <thead class="">
+        html = `<table class="table table-hover text-center align-middle border">
+        <thead class="table-light">
         <tr>
             <th>課程編號</th>
             <th>技能名稱</th>
@@ -51,7 +51,7 @@ async function fetchData(page){
             <th>修改</th>
         </tr>
         </thead>
-        <tbody id="mybody">`;
+        <tbody id="mybody" class="table-group-divider">`;
 
         // 將取得的資料進行拼接打到頁面上=========================================
         data.data.forEach((item)=>{

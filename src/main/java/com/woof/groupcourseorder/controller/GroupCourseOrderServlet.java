@@ -1,5 +1,10 @@
 package com.woof.groupcourseorder.controller;
 
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
+import com.woof.groupcourseorder.entity.GroupCourseOrder;
 import com.woof.groupcourseorder.service.GroupCourseOrderService;
 import com.woof.groupcourseorder.service.GroupCourseOrderServiceImpl;
 import com.woof.groupcourseschedule.entity.GroupCourseSchedule;
@@ -17,18 +22,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.sql.Date;
+
+import java.util.List;
 
 
 @WebServlet("/groupOrder/*")
 @MultipartConfig
 public class GroupCourseOrderServlet extends HttpServlet {
 
-    GroupCourseOrderService dao;
+    GroupCourseOrderService groupCourseOrderService;
 
     @Override
     public void init() throws ServletException {
-        dao = new GroupCourseOrderServiceImpl();
+        groupCourseOrderService = new GroupCourseOrderServiceImpl();
     }
 
     @Override
@@ -54,8 +60,8 @@ public class GroupCourseOrderServlet extends HttpServlet {
             case "/registration":
                 registration(request , response);
                 return;
-            case "/getOrderByDate":
-                getOrderByDate(request , response);
+            case "/getOrder":
+                getOrder(request , response);
                 return;
             default:
                 if (pathInfo.startsWith("/getGroupInfo/")) {
@@ -123,8 +129,39 @@ public class GroupCourseOrderServlet extends HttpServlet {
         response.sendRedirect(request.getContextPath()+"/index.html");
     }
 
-    private void getOrderByDate(HttpServletRequest request , HttpServletResponse response){
+    private void getOrder(HttpServletRequest request , HttpServletResponse response) throws IOException {
 
+        String groupClassStr = request.getParameter("groupClass");
+        Integer groupClass = (groupClassStr == null ||  groupClassStr.length() == 0 ) ? null : Integer.valueOf(groupClassStr);
+//        0:未付款 1:已付款 2:已退款 3.已取消
+//        已取消，僅有使用匯款的人會有此狀態
+//        到了截止日期的一天後且尚未匯款，排程器會改變狀態變成 < 已取消 >
+        String statusStr = request.getParameter("selectStatus");
+        Integer status = (statusStr == null ||  statusStr.length() == 0 ) ? null : Integer.valueOf(statusStr);
+
+        String memNoStr = request.getParameter("memNo");
+        String memNo = (memNoStr == null || memNoStr.trim().length() == 0) ? null : memNoStr;
+
+        String page = request.getParameter("page");
+        Integer currentPage = (page == null) ? 1 : Integer.parseInt(page);
+
+        List<GroupCourseOrder> groupCourseOrderList = groupCourseOrderService.getAll(groupClass, status, memNo, currentPage);
+
+        int pageTotal = groupCourseOrderService.getPageTotal(groupClass , status , memNo);
+
+        Gson gson = new GsonBuilder()
+                .excludeFieldsWithoutExposeAnnotation()
+                        .setDateFormat("yyyy-MM-dd")
+                                .create();
+
+        JsonObject jsonResponse = new JsonObject();
+        jsonResponse.addProperty("pageTotal" , pageTotal);
+        jsonResponse.add("data" , gson.toJsonTree(groupCourseOrderList));
+
+        System.out.println(groupCourseOrderList);
+
+
+        response.setContentType("application/json;charset=UTF-8");
+        response.getWriter().write(jsonResponse.toString());
     }
-
 }

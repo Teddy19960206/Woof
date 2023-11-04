@@ -3,7 +3,7 @@ package com.woof.groupcourseschedule.dao;
 import com.woof.groupcourseschedule.entity.GroupCourseSchedule;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.query.NativeQuery;
+
 import org.hibernate.query.Query;
 
 import javax.persistence.TypedQuery;
@@ -11,10 +11,10 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import java.lang.reflect.Type;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+
 
 import static com.woof.util.Constants.PAGE_MAX_RESULT;
 
@@ -61,6 +61,36 @@ public class GroupCourseScheduleDAOImpl implements GroupCourseScheduleDAO{
     }
 
     @Override
+    public List<GroupCourseSchedule> getAll(Integer classType, Integer status, Integer currentPage) {
+
+        CriteriaBuilder builder = getSession().getCriteriaBuilder();
+        CriteriaQuery<GroupCourseSchedule> criteriaQuery = builder.createQuery(GroupCourseSchedule.class);
+        Root<GroupCourseSchedule> root = criteriaQuery.from(GroupCourseSchedule.class);
+
+        List<Predicate> predicates = new ArrayList<>();
+
+        if (classType != null){
+            predicates.add(builder.equal(root.get("groupCourse").get("classType").get("ctNo"), classType));
+        }
+
+        if (status != null){
+            predicates.add(builder.equal(root.get("gcsStatus"),status));
+        }
+
+        int first = (currentPage -1)  * PAGE_MAX_RESULT;
+        criteriaQuery.where(builder.and(predicates.toArray(new Predicate[predicates.size()])));
+        TypedQuery<GroupCourseSchedule> query = getSession().createQuery(criteriaQuery);
+
+        List<GroupCourseSchedule> list = query
+                .setFirstResult(first)
+                .setMaxResults(PAGE_MAX_RESULT)
+                .getResultList();
+
+
+        return list;
+    }
+
+    @Override
     public List<GroupCourseSchedule> getListSchedule(Integer classType , Integer status) {
 
         String hql = "FROM GroupCourseSchedule gcs WHERE gcs.groupCourse.classType.ctNo = :ctNo and gcs.gcsStatus = :status";
@@ -100,42 +130,36 @@ public class GroupCourseScheduleDAOImpl implements GroupCourseScheduleDAO{
         return results;
     }
 
-    public List<GroupCourseSchedule> getAllbyStatus(){
-        return null;
+    @Override
+    public List<GroupCourseSchedule> getOffStatus() {
+
+        String hql = "FROM GroupCourseSchedule gcs WHERE gcs.gcsStatus = 0";
+        Query<GroupCourseSchedule> query = getSession().createQuery(hql , GroupCourseSchedule.class);
+        return query.list();
     }
 
-    public List<GroupCourseSchedule> getByCompositeQuery(Map<String ,String> map , Integer currentPage){
+    @Override
+    public long getTotal(Integer classType, Integer status) {
 
-        if (map.size() == 0){
-            return getAll();
-        }
-
-        CriteriaBuilder builder =getSession().getCriteriaBuilder();
-        CriteriaQuery<GroupCourseSchedule> criteriaQuery = builder.createQuery(GroupCourseSchedule.class);
+        CriteriaBuilder builder = getSession().getCriteriaBuilder();
+        CriteriaQuery<Long> criteriaQuery = builder.createQuery(Long.class);
         Root<GroupCourseSchedule> root = criteriaQuery.from(GroupCourseSchedule.class);
+
+        criteriaQuery.select(builder.count(root));
 
         List<Predicate> predicates = new ArrayList<>();
 
-        for (Map.Entry<String ,String> row : map.entrySet()){
-            if ("classType".equals(row.getKey())){
-                predicates.add(builder.equal(root.get("groupCourse").get("classType").get("ctNo") , row.getValue()));
-            }
+        if (classType != null){
+            predicates.add(builder.equal(root.get("groupCourse").get("classType").get("ctNo"), classType));
+        }
 
-            if ("status".equals(row.getKey())){
-                predicates.add(builder.equal(root.get("gcsStatus") , row.getValue()));
-            }
+        if (status != null){
+            predicates.add(builder.equal(root.get("gcsStatus"),status));
         }
 
         criteriaQuery.where(builder.and(predicates.toArray(new Predicate[predicates.size()])));
-        criteriaQuery.orderBy(builder.desc(root.get("gcsEnd")));
-        TypedQuery<GroupCourseSchedule> query = getSession().createQuery(criteriaQuery);
+        TypedQuery<Long> query = getSession().createQuery(criteriaQuery);
 
-        int first = (currentPage - 1) * PAGE_MAX_RESULT;
-        List<GroupCourseSchedule> resultList = query
-                .setFirstResult(first)
-                .setMaxResults(PAGE_MAX_RESULT)
-                .getResultList();
-
-        return resultList;
+        return query.getSingleResult();
     }
 }

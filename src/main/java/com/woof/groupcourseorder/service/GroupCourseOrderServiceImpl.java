@@ -9,6 +9,8 @@ import com.woof.util.HibernateUtil;
 
 import java.util.List;
 
+import static com.woof.util.Constants.PAGE_MAX_RESULT;
+
 public class GroupCourseOrderServiceImpl implements GroupCourseOrderService{
 
     private GroupCourseOrderDAO dao;
@@ -61,5 +63,19 @@ public class GroupCourseOrderServiceImpl implements GroupCourseOrderService{
 
     public List<GroupCourseOrder> getOrderByDate(Integer year , Integer month){
         return dao.getByDate(year , month);
+    }
+
+    @Override
+    public List<GroupCourseOrder> getAll(Integer groupClass, Integer status, String memNo, Integer currentPage) {
+        return dao.getAll(groupClass , status ,memNo ,currentPage);
+    }
+
+    @Override
+    public int getPageTotal(Integer groupClass, Integer status, String memNo) {
+        long total = dao.getTotal(groupClass , status , memNo );
+
+        int pageQty = (int)(total % PAGE_MAX_RESULT == 0 ? (total / PAGE_MAX_RESULT) : (total / PAGE_MAX_RESULT + 1));
+
+        return pageQty;
     }
 }

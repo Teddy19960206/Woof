@@ -74,6 +74,10 @@ public class GroupCourseServlet extends HttpServlet {
 //               根據ClassType取得對應的GroupCourse
                 getGroupCourse(request, response);
                 return;
+
+            case "/getAll":
+                getAll(request , response);
+                return;
             default:
 //                進入edit畫面根據取得的id去抓取要修改的資料
                 if (pathInfo.startsWith("/edit/")) {
@@ -97,25 +101,18 @@ public class GroupCourseServlet extends HttpServlet {
 
         request.setCharacterEncoding("UTF-8");
 
-        String classtype = request.getParameter("classType");
-
-
+        String classTypeStr = request.getParameter("classType");
+        Integer classType = (classTypeStr.length() == 0 ) ? null : Integer.valueOf(classTypeStr);
+        String statusStr = request.getParameter("status");
+        Integer status = (statusStr.length() == 0) ? null : Integer.valueOf(statusStr);
         String page = request.getParameter("page");
+
         int currentPage = (page == null) ? 1 : Integer.parseInt(page);
 
-        List<GroupCourse> groupCourseList = null;
+        List<GroupCourse> groupCourseList = groupCourseService.getAllGroupCourse(classType , status ,currentPage);
 
-        if (classtype != null){
-            if ("0".equals(classtype)){
-                groupCourseList = groupCourseService.getAllGroupCourse(currentPage);
-            }else{
-                groupCourseList = groupCourseService.getAllbyCtNo(Integer.valueOf(classtype));
-            }
-        }else{
-//            異常判斷
-        }
 
-        int pageTotal = groupCourseService.getPageTotal();
+        int pageTotal = groupCourseService.getPageTotal(classType , status);
 
         Gson gson = new GsonBuilder()
                 .excludeFieldsWithoutExposeAnnotation()
@@ -128,7 +125,7 @@ public class GroupCourseServlet extends HttpServlet {
 
         response.setContentType("application/json;charset=UTF-8");
 
-        System.out.println(pageTotal);
+//        System.out.println(pageTotal);
         response.getWriter().write(jsonResponse.toString());
     }
 
@@ -236,4 +233,17 @@ public class GroupCourseServlet extends HttpServlet {
         response.getWriter().write("ok");
     }
 
+    private void getAll(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        List<GroupCourse> allGroupCourse = groupCourseService.getAllGroupCourse();
+
+        Gson gson = new GsonBuilder()
+                .excludeFieldsWithoutExposeAnnotation()
+                .setDateFormat("yyyy-MM-dd")
+                .create();
+
+        String json = gson.toJson(allGroupCourse);
+
+        response.setContentType("application/json;charset=UTF-8");
+        response.getWriter().write(json);
+    }
 }

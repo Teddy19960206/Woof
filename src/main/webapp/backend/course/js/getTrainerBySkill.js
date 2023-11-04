@@ -9,7 +9,7 @@ $(async function (){
     let related = $("#related").val();
     let data = await getAllSchedule();
 
-    html = `<option value="0">無</option>`;
+    html = `<option value="">無</option>`;
     data.forEach(item =>{
 
         if (item.gcsNo != scheduleNo){
@@ -24,15 +24,14 @@ $(async function (){
 
 // 取得所有報名課程
 async function getAllSchedule(){
-    let url = `${projectName}/schedule/getSchedule`;
+    let url = `${projectName}/schedule/getOffSechedule`;
 
     try{
         const response = await fetch(url , {
             method : "POST",
             headers:{
                 "Content-Type" : "application/x-www-form-urlencoded"
-            },
-            body : "classType=0"
+            }
         })
         if (!response.ok){
             throw new Error("網路異常")

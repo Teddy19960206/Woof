@@ -32,12 +32,18 @@ document.getElementById("button").onclick = function (){
 }
 
 // 抓取資料
-async function fetchData(){
+async function fetchData(page){
+
+    if (!page){
+        page = 1;
+    }
 
     // 抓取資料，根據classType取得相對應的資料
     let url = `${projectName}/schedule/getSchedule`;
     let formData = new FormData();
     formData.append("classType" , document.getElementById("selectClass").value);
+    formData.append("status" , document.getElementById("selectStatus").value)
+    formData.append("page" , page);
 
     try{
         const response = await fetch(url ,{
@@ -50,8 +56,8 @@ async function fetchData(){
         }
         // 取得資料後，進行拼圖，並打到頁面上
         const data = await response.json();
-        html = `<table class="table table-hover text-center align-middle">
-        <thead>
+        html = `<table class="table table-hover text-center align-middle border">
+        <thead class="table-light">
         <tr>
             <th>團體課程編號</th>
             <th>班別</th>
@@ -71,11 +77,10 @@ async function fetchData(){
             <th>詳情</th>
         </tr>
         </thead>
-        <tbody id="mybody">`;
+        <tbody id="mybody" class="table-group-divider">`;
 
         // 取得所有相關的資料
-        data.forEach((item)=>{
-            console.log(item)
+        data.data.forEach((item)=>{
             html+= `<tr>
             <th>${item.gcsNo}</th>
             <th>${item.groupCourse.classType.ctName} : ${item.groupCourse.skill.skillName}</th>
@@ -97,6 +102,53 @@ async function fetchData(){
         })
 
         html += `</tbody></table>`;
+
+
+        // 書籤 ==============================================================
+        html += `<nav class="text-center d-flex justify-content-center">
+                  <ul class="pagination">
+                    <li class="page-item">
+                      <button class="page-link" onclick="fetchData(${page == 1 ? 1 : page-1})">
+                        <span aria-hidden="true">&laquo;</span>
+                      </button>
+                    </li>`;
+
+        const maxPagesToShow = 3;
+        const totalPages = parseInt(data.pageTotal);
+
+        let startPage, endPage;
+
+        if (totalPages <= maxPagesToShow) {
+            // 如果總頁數 totalPages 小於或等於您希望顯示的最大頁碼按鈕數量 maxPagesToShow，則直接顯示從第一頁到最後一頁的所有頁碼按鈕。
+            startPage = 1;
+            endPage = totalPages;
+        } else if (page <= Math.floor(maxPagesToShow / 2) + 1){
+            // 當前頁位於前半部分，那麼顯示從第一頁到 maxPagesToShow 頁的按鈕。
+            startPage = 1;
+            endPage = maxPagesToShow;
+        } else if (page >= totalPages - Math.floor(maxPagesToShow / 2)) {
+            // 當前頁位於後半部分，那麼顯示從 totalPages - maxPagesToShow + 1 頁到最後一頁的按鈕。
+            startPage = totalPages - maxPagesToShow + 1;
+            endPage = totalPages;
+        } else {
+            // 當前頁位於中間部分，顯示當前頁前後各 Math.floor(maxPagesToShow / 2) 頁的按鈕。
+            startPage = page - Math.floor(maxPagesToShow / 2);
+            endPage = page + Math.floor(maxPagesToShow / 2);
+        }
+
+        for (let i = startPage; i <= endPage; i++) {
+            html += `<li class="page-item ${i === page ? "active" : ""}">
+               <button class="page-link" onclick="fetchData(${i})">${i}</button>
+             </li>`;
+        }
+
+        html += `   <li class="page-item">
+                        <button class="page-link" onclick="fetchData(${page == totalPages ? totalPages : page+1})">
+                            <span aria-hidden="true">&raquo;</span></a>
+                        </button>
+                    </li>
+                  </ul>
+                </nav>`;
 
         // 將資料打到指定位置
         let showSchedule= document.querySelector("div.showSchedule");
@@ -139,8 +191,8 @@ async function fetchDetail(url){
         // 取得資料後，進行拼圖，並打到頁面上
         const data = await response.json();
 
-        html = `<table class="table table-hover text-center align-middle">
-        <thead>
+        html = `<table class="table table-hover text-center align-middle border">
+        <thead class="table-light" >
         <tr>
             <th>編號</th>
             <th>班別</th>
@@ -151,7 +203,7 @@ async function fetchDetail(url){
             <th>刪除</th>
         </tr>
         </thead>
-        <tbody id="mybody">
+        <tbody id="mybody table-group-divider">
         `;
         data.forEach((item)=>{
             html += `<tr>

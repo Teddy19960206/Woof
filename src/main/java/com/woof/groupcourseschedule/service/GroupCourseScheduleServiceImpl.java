@@ -10,6 +10,8 @@ import com.woof.util.HibernateUtil;
 import java.sql.Date;
 import java.util.List;
 
+import static com.woof.util.Constants.PAGE_MAX_RESULT;
+
 public class GroupCourseScheduleServiceImpl implements GroupGourseScheduleService{
 
     private GroupCourseScheduleDAO dao;
@@ -74,6 +76,11 @@ public class GroupCourseScheduleServiceImpl implements GroupGourseScheduleServic
     }
 
     @Override
+    public List<GroupCourseSchedule> getAll(Integer classType, Integer status, Integer currentPage) {
+        return dao.getAll(classType , status , currentPage);
+    }
+
+    @Override
     public List<GroupCourseSchedule> getGroupScheduleByCtNo(Integer ctNo) {
         return dao.getAllbyClassType(ctNo);
     }
@@ -81,5 +88,19 @@ public class GroupCourseScheduleServiceImpl implements GroupGourseScheduleServic
     @Override
     public List<GroupCourseSchedule> getListSchedule(Integer classType, Integer status) {
         return dao.getListSchedule(classType , status);
+    }
+
+    @Override
+    public List<GroupCourseSchedule> getOffSechedule() {
+        return dao.getOffStatus();
+    }
+
+    @Override
+    public int getPageTotal(Integer classType, Integer status) {
+        long total = dao.getTotal(classType , status);
+
+        int pageQty = (int)(total % PAGE_MAX_RESULT == 0 ? (total / PAGE_MAX_RESULT) : (total / PAGE_MAX_RESULT + 1));
+
+        return pageQty;
     }
 }
