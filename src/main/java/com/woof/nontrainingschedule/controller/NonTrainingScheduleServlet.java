@@ -60,6 +60,10 @@ public class NonTrainingScheduleServlet extends HttpServlet {
 			case "delete":
 				deleteOne(req, res);
 				return;
+			case "getbytrainer":
+				getByTrainerNo(req, res);
+				forwardPath = "/frontend/nontrainingschedule/nonTrainingSchedule_getByTrainerNo.jsp";
+				break;	
 			default:
 				forwardPath = "/frontend/nontrainingschedule/nonTrainingSchedule.jsp";
 			}
@@ -177,5 +181,21 @@ public class NonTrainingScheduleServlet extends HttpServlet {
 			req.setAttribute("errorMessage", "刪除失敗");
 		}
 		res.sendRedirect(req.getContextPath() + "/frontend/nontrainingschedule/nonTrainingSchedule.jsp");
+	}
+	
+	private void getByTrainerNo(HttpServletRequest req, HttpServletResponse res) {
+		
+		Integer trainerNo = Integer.valueOf(req.getParameter("trainerNo"));
+		String page = req.getParameter("page");
+		int currentPage = (page == null) ? 1 : Integer.parseInt(page);
+		if (req.getSession().getAttribute("NTSPageQty") == null) {
+			int NTSPageQty = nonTrainingScheduleService.getPageTotal2(trainerNo);
+			req.getSession().setAttribute("NTSPageQty", NTSPageQty);
+		}
+		List<NonTrainingSchedule> trainers = nonTrainingScheduleService.findNtsByTrainerNo(trainerNo,currentPage);
+
+		req.setAttribute("trainers", trainers);
+		req.setAttribute("currentPage", currentPage);
+
 	}
 }

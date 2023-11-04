@@ -52,8 +52,15 @@ public class NonTrainingScheduleServiceImpl implements NonTrainingScheduleServic
 	}
 
 	@Override
-	public List<NonTrainingSchedule> findNtsByTrainerNo(Integer trainerNo) {
-		return dao.findByTrainerNo(trainerNo);
+	public List<NonTrainingSchedule> findNtsByTrainerNo(Integer trainerNo , int currentPage) {
+		return dao.findByTrainerNo(trainerNo, currentPage);
+	}
+
+	@Override
+	public int getPageTotal2(Integer trainerNo) {
+		long total = dao.getTotalByTrainerNo(trainerNo);
+		int pageQty = (int) (total % PAGE_MAX_RESULT == 0 ? (total / PAGE_MAX_RESULT) : (total / PAGE_MAX_RESULT + 1));
+		return pageQty;
 	}
 
 	@Override

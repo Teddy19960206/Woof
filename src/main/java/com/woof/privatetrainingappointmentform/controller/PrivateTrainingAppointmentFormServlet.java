@@ -284,7 +284,7 @@ public class PrivateTrainingAppointmentFormServlet extends HttpServlet {
 	}
 	private void getByTrainerNo(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
-		Integer trainerNo = Integer.valueOf(request.getParameter("trainer"));
+		Integer trainerNo = Integer.valueOf(request.getParameter("trainerNo"));
 		
 		List<PrivateTrainingAppointmentForm> trainers = privateTrainingAppointmentFormService
 				.findPrivateTrainingAppointmentFormByTrainerNo(trainerNo);
