@@ -20,7 +20,9 @@ public interface NonTrainingScheduleDAO {
 	
 	long getTotalByTrainerNo(int trainerNo);
 	
-	List<NonTrainingSchedule> findByNtsDate(Date ntsDate);
+	List<NonTrainingSchedule> findByNtsDate(Date ntsDate , int currentPage);
+	
+	long getTotalByNtsDate(Date ntsDate);
 	
 	List<NonTrainingSchedule> getAll(int currentPage);
 	

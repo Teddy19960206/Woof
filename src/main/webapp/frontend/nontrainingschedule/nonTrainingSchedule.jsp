@@ -68,6 +68,11 @@
             text-align: center;
             margin-top: 20px;
         }
+        #datePicker {
+            padding: 5px;
+            border: 1px solid #3498db;
+            border-radius: 5px;
+        }
     </style>
 </head>
 <body>
@@ -75,6 +80,7 @@
     <h1>訓練師不授課日程</h1>
     <a href="${pageContext.request.contextPath}/nontrainingschedule?action=gettoadd">新增頁面</a>
     <a href="${pageContext.request.contextPath}/nontrainingschedule?action=getall">查詢全部</a>
+    
     <h2>訓練師查詢</h2>
 	<jsp:useBean id="trainerServer" scope="page" class="com.woof.trainer.service.TrainerServiceImpl"/>
 	<form method="POST" ACTION="${pageContext.request.contextPath}/nontrainingschedule">
@@ -83,8 +89,18 @@
             <option  value="${trainer.trainerNo}">${trainer.administrator.adminName}</option>
         </c:forEach>
     </select>
+ 
     <input type="hidden" name="action" value="getbytrainer">
     <button type="submit">提交</button>
+    </form>
+    
+    <form method="POST" ACTION="${pageContext.request.contextPath}/nontrainingschedule">
+    <h2>日期查詢</h2>
+    <input type="date" id="datePicker" name="selectedDate" required>
+    <input type="hidden" name="action" value="getbyntsdate">
+    <button type="submit">提交</button>
+    </form>
+    
     <br>
     <br><br>
 </body>

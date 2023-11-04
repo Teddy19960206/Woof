@@ -72,10 +72,18 @@ public class NonTrainingScheduleDAOImpl implements NonTrainingScheduleDAO{
 	}
 
 	@Override
-	public List<NonTrainingSchedule> findByNtsDate(Date ntsDate) {
+	public List<NonTrainingSchedule> findByNtsDate(Date ntsDate , int currentPage) {
 		return getSession().createQuery("FROM NonTrainingSchedule  WHERE ntsDate = :ntsDate", NonTrainingSchedule.class)
 				.setParameter("ntsDate", ntsDate)
 				.list();
+	}
+
+	
+	@Override
+	public long getTotalByNtsDate(Date ntsDate) {
+		return getSession().createQuery("select count(*) from NonTrainingSchedule  where ntsDate = :ntsDate" , Long.class)
+				.setParameter("ntsDate", ntsDate)
+				.uniqueResult();
 	}
 
 	@Override
