@@ -51,13 +51,15 @@ button {
 		<br /> 
 		<br /> 
 		<label>會員名稱：</label> 
-		<select name="member">
+		<select name="memNo">
 			<c:forEach items="${members}" var="member">
 				<option value="${member.memNo}">${member.memName}</option>
 			</c:forEach>
 		</select> <br />
 		<button type="submit" name="action" value="getbymemno">用會員查詢</button>
-		<br /> <br /> <label>訓練師名稱：</label> <select name="trainer">
+		<br /> <br />
+		 <label>訓練師名稱：</label> 
+		 <select name="trainerNo">
 			<c:forEach items="${trainers}" var="trainer">
 				<option value="${trainer.trainerNo}">${trainer.administrator.adminName}</option>
 			</c:forEach>

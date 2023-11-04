@@ -274,22 +274,31 @@ public class PrivateTrainingAppointmentFormServlet extends HttpServlet {
 
 	private void getByMemNo(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
-		String memNo = request.getParameter("member");
+		String memNo = request.getParameter("memNo");
+		String page = request.getParameter("page");
+		int currentPage = (page == null) ? 1 : Integer.parseInt(page);
+		int PTAPageQty2 = privateTrainingAppointmentFormService.getPageTotal2(memNo);
+		request.getSession().setAttribute("PTAPageQty2", PTAPageQty2);
 		
 		List<PrivateTrainingAppointmentForm> members = privateTrainingAppointmentFormService
-				.findPrivateTrainingAppointmentFormByMemNo(memNo); 
+				.findPrivateTrainingAppointmentFormByMemNo(memNo , currentPage); 
 
 		request.setAttribute("members", members);
+		request.setAttribute("currentPage", currentPage);
 		
 	}
 	private void getByTrainerNo(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
 		Integer trainerNo = Integer.valueOf(request.getParameter("trainerNo"));
-		
+		String page = request.getParameter("page");
+		int currentPage = (page == null) ? 1 : Integer.parseInt(page);
+		int PTAPageQty3 = privateTrainingAppointmentFormService.getPageTotal3(trainerNo);
+		request.getSession().setAttribute("PTAPageQty3", PTAPageQty3);
 		List<PrivateTrainingAppointmentForm> trainers = privateTrainingAppointmentFormService
-				.findPrivateTrainingAppointmentFormByTrainerNo(trainerNo);
+				.findPrivateTrainingAppointmentFormByTrainerNo(trainerNo , currentPage);
 		
 		request.setAttribute("trainers", trainers);
+		request.setAttribute("currentPage", currentPage);
 		
 	}
 	
