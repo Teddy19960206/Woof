@@ -2,8 +2,9 @@ package com.woof.member.filter;
 
 import java.io.*;
 import javax.servlet.*;
+import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.*;
-
+@WebFilter("/member/*")
 public class LoginFilter implements Filter {
 
 	private FilterConfig config;
@@ -27,7 +28,7 @@ public class LoginFilter implements Filter {
 		Object account = session.getAttribute("account");
 		if (account == null) {
 			session.setAttribute("location", req.getRequestURI());
-			res.sendRedirect(req.getContextPath() + "/login.html");
+			res.sendRedirect(req.getContextPath() + "/frontend/member/login/login.html");
 			return;
 		} else {
 			chain.doFilter(request, response);
