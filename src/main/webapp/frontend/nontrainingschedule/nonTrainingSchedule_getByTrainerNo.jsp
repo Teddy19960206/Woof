@@ -199,7 +199,7 @@
     <c:if test="${currentPage != NTSPageQty2}">
         <a href="${pageContext.request.contextPath}/nontrainingschedule?action=getbytrainer&page=${NTSPageQty2}&trainerNo=${trainerNo}">至最後一頁</a>&nbsp;
     </c:if>
-</div>
+	</div>
 
 	</c:when>
        <c:otherwise>
