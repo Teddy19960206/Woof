@@ -158,7 +158,7 @@
 		   // 清空購物車清單
 		      $("#cart-items-list").empty();
 		      // 填充購物車清單
-		      $.each(cartJson, function(index, item) { // 直接使用 cartJson
+		      $.each(cartJson, function(index, item) { // 直接使用 cartJson.cart
 		        $("#cart-items-list").append(
 		          `<li class="list-group-item">
 		            ${item.prodNo} ${item.prodName} ${item.quantity} ${item.prodPrice}
