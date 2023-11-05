@@ -7,6 +7,6 @@
 <body>
 welcome
 <p>歡迎, ${member.memName}!</p>
-<p>您的點數為: ${momoPoints}</p>
+<p>您的毛毛幣為: ${momoPoints}</p>
 </body>
 </html>
