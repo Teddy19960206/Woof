@@ -24,7 +24,12 @@ public class NonTrainingScheduleDAOImpl implements NonTrainingScheduleDAO{
 
 	@Override
 	public int insert(NonTrainingSchedule nonTrainingSchedule) {
-		return (Integer) getSession().save(nonTrainingSchedule);
+		try {
+			getSession().save(nonTrainingSchedule);
+			return 1;
+		} catch (Exception e) {
+			return -1;
+		}
 	}
 
 	@Override

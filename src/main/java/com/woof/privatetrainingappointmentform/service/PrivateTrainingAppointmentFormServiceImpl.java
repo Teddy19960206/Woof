@@ -44,9 +44,7 @@ public class PrivateTrainingAppointmentFormServiceImpl implements PrivateTrainin
 		privateTrainingAppointmentForm.setMember(member);
 		privateTrainingAppointmentForm.setTrainer(trainer);
 		privateTrainingAppointmentForm.setPtaClass(ptaClass);
-		dao.insert(privateTrainingAppointmentForm);
-		System.out.println(privateTrainingAppointmentForm);
-		return 1;
+		return dao.insert(privateTrainingAppointmentForm);
 	}
 
 	@Override
@@ -56,16 +54,14 @@ public class PrivateTrainingAppointmentFormServiceImpl implements PrivateTrainin
 		privateTrainingAppointmentForm.setMember(member);
 		privateTrainingAppointmentForm.setTrainer(trainer);
 		privateTrainingAppointmentForm.setPtaClass(ptaClass);
-		dao.update(privateTrainingAppointmentForm);
-		return 1;
+		return dao.update(privateTrainingAppointmentForm);
 	}
 
 	@Override
 	public int deletePrivateTrainingAppointmentForm(Integer ptaNo) {
 		PrivateTrainingAppointmentForm privateTrainingAppointmentForm = new PrivateTrainingAppointmentForm();
 		privateTrainingAppointmentForm.setPtaNo(ptaNo);
-		dao.delete(privateTrainingAppointmentForm);
-		return 1;
+		return dao.delete(privateTrainingAppointmentForm);
 	}
 
 	@Override
