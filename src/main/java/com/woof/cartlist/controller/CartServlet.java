@@ -65,7 +65,7 @@ public class CartServlet extends HttpServlet {
 				newItem.put("prodNo", prodNo);
 				newItem.put("prodName", prodName);
 				newItem.put("quantity", 1);
-				newItem.put("prodprice", prodPrice);
+				newItem.put("prodPrice", prodPrice);
 				cart.add(newItem);
 			}
 
