@@ -63,10 +63,17 @@ tr:nth-child(odd) {
 	border: none;
 	cursor: pointer;
 }
+.no-data-message {
+    color: #c9302c;
+    font-weight: bold;
+    margin-top: 10px;
+    font-size: 18px;
+}
 </style>
 </head>
 <body>
-	
+	<c:choose>
+        <c:when test="${not empty members}">
 	<table border=1>
 		<tr>
 			<th>私人訓練預約單編號</th>
@@ -116,9 +123,9 @@ tr:nth-child(odd) {
  		</c:forEach> 
 
 	</table>
-<p>memNo: ${memNo}</p>
-<p>currentPage: ${currentPage}</p>
-<p>PTAPageQty2: ${PTAPageQty2}</p>
+<%-- <p>memNo: ${memNo}</p> --%>
+<%-- <p>currentPage: ${currentPage}</p> --%>
+<%-- <p>PTAPageQty2: ${PTAPageQty2}</p> --%>
 	<div class="pagination-container" >
     <c:if test="${currentPage > 1}">
         <a href="${pageContext.request.contextPath}/privatetrainingappointmentform?action=getbymemno&page=1&memNo=${memNo}">至第一頁</a>&nbsp;
@@ -133,6 +140,12 @@ tr:nth-child(odd) {
         <a href="${pageContext.request.contextPath}/privatetrainingappointmentform?action=getbymemno&page=${PTAPageQty2}&memNo=${memNo}">至最後一頁</a>&nbsp;
     </c:if>
 	</div>
+	
+	</c:when>
+       <c:otherwise>
+    		<p class="no-data-message">查無資料</p>
+		</c:otherwise>
+    </c:choose>
 	
 	<button class="btn btn-danger" onclick="history.back()">返回</button>
 
