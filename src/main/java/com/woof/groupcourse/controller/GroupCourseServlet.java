@@ -94,7 +94,7 @@ public class GroupCourseServlet extends HttpServlet {
         request.getRequestDispatcher(forwardPath).forward(request,response);
     }
 
-//    根據獲取的ClassType，去尋找所有有對應的GroupCourse資料
+    //    根據獲取的ClassType，去尋找所有有對應的GroupCourse資料
     private void getGroupCourse(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
 
@@ -129,7 +129,7 @@ public class GroupCourseServlet extends HttpServlet {
         response.getWriter().write(jsonResponse.toString());
     }
 
-//    取得ClassType 與 Skill 所有資料 顯示在Select上
+    //    取得ClassType 與 Skill 所有資料 顯示在Select上
     private String getSelectInfo(HttpServletRequest request , HttpServletResponse response){
 
         ClassTypeService classTypeService = new ClassTypeServiceImpl();
@@ -145,7 +145,7 @@ public class GroupCourseServlet extends HttpServlet {
         return "/backend/course/addGroupCourse.jsp";
     }
 
-//    新增GroupCourse資料
+    //    新增GroupCourse資料
     private void addGroupCourse(HttpServletRequest request , HttpServletResponse response) throws ServletException, IOException {
 
         Integer skillNo = Integer.valueOf(request.getParameter("skill"));
@@ -175,7 +175,7 @@ public class GroupCourseServlet extends HttpServlet {
 
     }
 
-// 進入修改資料頁面時，先把資料讀取回來進行修改
+    // 進入修改資料頁面時，先把資料讀取回來進行修改
     private String edit(HttpServletRequest request ,HttpServletResponse response , Integer id){
 
         GroupCourse groupCourse = groupCourseService.findGroupCourseByNo(id);

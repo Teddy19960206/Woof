@@ -69,8 +69,8 @@ async function fetchData(page){
             <th>已報名人數</th>
             <th>價格</th>
             <th>課程報名狀態</th>
+            <th>延期的關聯課程編號</th>
             <th>延期原因</th>
-            <th>延期關聯表格</th>
             <th>建立時間</th>
             <th>最後修改時間</th>
             <th>修改</th>
@@ -80,9 +80,7 @@ async function fetchData(page){
         <tbody id="mybody" class="table-group-divider">`;
 
         // 取得所有相關的資料
-
         data.data.forEach((item)=>{
-
             html+= `<tr>
             <th>${item.gcsNo}</th>
             <th>${item.groupCourse.classType.ctName} : ${item.groupCourse.skill.skillName}</th>
@@ -94,8 +92,8 @@ async function fetchData(page){
             <th>${item.regCount}</th>
             <th>${item.gcsPrice}</th>
             <th>${item.gcsStatus == 0 ? "下架" : "上架" }</th>
-            <th>${item.gcsDelayReason !== undefined ? item.gcsDelayReason : '無'}</th>
-            <th>${item.relatedGcsNo !== undefined ? item.relatedGcsNo : '無'}</th>
+            <th>${item.relatedGcsNo !== undefined ? item.relatedGcsNo.gcsNo : '無'}</th>
+            <th>${item.gcsDelayReason !== undefined && item.gcsDelayReason !== ""   ? item.gcsDelayReason : '無'}</th>
             <th>${item.createdAt}</th>
             <th>${item.updatedAt}</th>
             <td><button type="button" class="modify-button bn632-hover bn26" data-id="${item.gcsNo}" onclick="fetchDetail(${item.gcsNo})">修改</td>
