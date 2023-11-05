@@ -119,7 +119,7 @@ body {
 			<div class="custom-header text-center">
 				<h3>會員資料新增</h3>
 			</div>
-			<a href="login.jsp" class="btn btn-light btn-sm"
+			<a href="/woof/index.html" class="btn btn-light btn-sm"
 				style="position: absolute; top: 10px; right: 20px;">回首頁</a>
 			<form method="post"
 				action="${pageContext.request.contextPath}/member.do"
