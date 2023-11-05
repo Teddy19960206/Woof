@@ -62,7 +62,7 @@
                 <label class="form-check-label" for="remember"><b>記住帳號</b></label>
             </div>
         </form>
-        <a href='addmember.jsp' class="text-decoration-none"><b>註冊會員</b></a>
+        <a href='/woof/frontend/member/login/addmember.jsp' class="text-decoration-none"><b>註冊會員</b></a>
         <a href="#" class="text-decoration-none"> <b>忘記密碼</b></a>
     </div>
 
