@@ -25,6 +25,4 @@ public interface MemberService {
 	void addMember(Member member);
 
 	byte[] getPhotoById(String memNo);
-	
-	Member isExist(String memNo,String memPassword);
 }
