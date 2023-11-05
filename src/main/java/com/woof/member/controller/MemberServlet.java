@@ -82,9 +82,6 @@ public class MemberServlet extends HttpServlet {
 			case "query":
 				processQuery(req, res);
 				return;
-			case "login":
-				isExist(req,res);
-				return;
 				
 			default:
 				forwardPath = "/frontend/member/selectmember.jsp";
@@ -92,18 +89,6 @@ public class MemberServlet extends HttpServlet {
 		}
 		req.getRequestDispatcher(forwardPath).forward(req, res);
 	}
-
-	private void isExist(HttpServletRequest req, HttpServletResponse res) throws IOException {
-		 String account=req.getParameter("memNo");
-	     String password=req.getParameter("memPassword");
-	     Member member = memberService.isExist(account, password);
-	     if(member!=null) {
-	    	 res.sendRedirect("welecome.jsp");
-	     }else {
-	    	 res.sendRedirect("memberlogin.jsp");
-	     }
-	}
-
 	private void processQuery(HttpServletRequest req, HttpServletResponse res) throws IOException {
 		Member member = memberService.findMemberByNo(req.getParameter("memNo"));
 		byte[]photoByte = memberService.getPhotoById(req.getParameter("memNo"));
