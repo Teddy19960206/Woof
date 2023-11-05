@@ -39,7 +39,7 @@
         <h3 class="login-header text-center">
             <b>會員登入</b>
         </h3>
-        <form method="POST" action="${pageContext.request.contextPath}/member.do">
+        <form method="POST" action="${pageContext.request.contextPath}/login">
             <div class="error-msg">${errorMsgs.memberlogin}</div>
             <div class="form-group">
                 <label for="username"><b>帳號</b></label>
