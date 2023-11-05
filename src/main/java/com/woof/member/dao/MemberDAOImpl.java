@@ -63,9 +63,4 @@ public class MemberDAOImpl implements MemberDAO {
 	public List<Member> getByCompositeQuery(Map<String, String> map) {
 		return null;
 	}
-
-	@Override
-	public Member isExist(String memNo, String memPassword) {
-		return getSession().createQuery("from Member where memNo = :memNo and memPassword = :memPassword" ,Member.class).uniqueResult();
-	}
 }

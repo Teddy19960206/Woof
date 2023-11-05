@@ -18,7 +18,5 @@ public interface MemberDAO {
 	List<Member> getByCompositeQuery(Map<String, String> map);
 
 	long getTotal();
-	
-	Member isExist(String memNo,String memPassword);
 
 }
