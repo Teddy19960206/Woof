@@ -80,7 +80,7 @@ public class LoginServlet extends HttpServlet {
 		        // 處理其他潛在錯誤
 		        e.printStackTrace();
 		        req.setAttribute("error", "系統錯誤，請聯絡系統管理員。");
-		        RequestDispatcher dispatcher = req.getRequestDispatcher("/frontend/member/errorPage.jsp");
+		        RequestDispatcher dispatcher = req.getRequestDispatcher("/frontend/member/login/errorPage.jsp");
 		        dispatcher.forward(req, res);
 		    }
 			}
