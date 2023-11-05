@@ -11,8 +11,9 @@
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
 <script src="https://kit.fontawesome.com/ae360af17e.js"
 	crossorigin="anonymous"></script>
-	<script src="<%=request.getContextPath()%>/webutil/js/jquery-3.7.1.min.js"></script>
-	<script src="<%=request.getContextPath()%>/webutil/js/bootstrap.min.js"></script>
+<script
+	src="<%=request.getContextPath()%>/webutil/js/jquery-3.7.1.min.js"></script>
+<script src="<%=request.getContextPath()%>/webutil/js/bootstrap.min.js"></script>
 <title>購物車</title>
 </head>
 
@@ -33,8 +34,8 @@
 			</div>
 			<div class="col-3">
 				<div class="product">
-					<img src="<%=request.getContextPath()%>/backend/images/4.png" alt="商品 2"
-						style="max-width: 100px; max-height: 100px;">
+					<img src="<%=request.getContextPath()%>/backend/images/4.png"
+						alt="商品 2" style="max-width: 100px; max-height: 100px;">
 					<h3>商品 2</h3>
 					<p>價格: $20</p>
 					<button class="add-to-cart" data-id="2" data-name="商品 2"
@@ -43,8 +44,8 @@
 			</div>
 			<div class="col-3">
 				<div class="product">
-					<img src="<%=request.getContextPath()%>/backend/images/5.png" alt="商品 3"
-						style="max-width: 100px; max-height: 100px;">
+					<img src="<%=request.getContextPath()%>/backend/images/5.png"
+						alt="商品 3" style="max-width: 100px; max-height: 100px;">
 					<h3>商品 3</h3>
 					<p>價格: $30</p>
 					<button class="add-to-cart" data-id="3" data-name="商品 3"
@@ -54,20 +55,20 @@
 
 			<!-- 購物車部分 -->
 			<div class="col">
-				<div id="cart-icon">
-					<i class="fas fa-cart-plus fa-flip-horizontal"></i> <span
-						id="cart-count">0</span>
+				<div id="cart-icon style="cursor: pointer;">
+					<i class="fas fa-cart-plus fa-flip-horizontal"></i> 
+					<span id="cart-count">0</span>
 				</div>
 				<div id="cart-list" style="display: none;">
-<!-- 					<h2>購物清單</h2> -->
-<!-- 					<ul id="cart-items-list"> -->
-<!-- 						購物清單內容將在這裡動態添加 -->
-<!-- 					</ul> -->
-<!-- 					<p> -->
-<!-- 						總金額: $<span id="cart-total-amount">0</span> -->
-<!-- 					</p> -->
-<!-- 					<button id="checkout">結帳</button> -->
-<!-- 					<button id="continue-shopping">繼續購物</button> -->
+					<!-- 					<h2>購物清單</h2> -->
+					<!-- 					<ul id="cart-items-list"> -->
+					<!-- 						購物清單內容將在這裡動態添加 -->
+					<!-- 					</ul> -->
+					<!-- 					<p> -->
+					<!-- 						總金額: $<span id="cart-total-amount">0</span> -->
+					<!-- 					</p> -->
+					<!-- 					<button id="checkout">結帳</button> -->
+					<!-- 					<button id="continue-shopping">繼續購物</button> -->
 				</div>
 			</div>
 		</div>
@@ -80,14 +81,14 @@
 		$(".add-to-cart").on("click", function() {
 			let prodNo = $(this).data("id");
 
-// 			console.log(prodNo);
+			// 			console.log(prodNo);
 
 			let prodName = $(this).data("name");
 			let prodPrice = $(this).data("price");
 
 			$.ajax({
 				type : "POST",
-				url : "${pageContext.request.contextPath}/cartlist", 
+				url : "${pageContext.request.contextPath}/cart",
 				data : {
 					action : "add",
 					prodNo : prodNo,
@@ -97,22 +98,15 @@
 				success : function(data) {
 
 					console.log(data);
-				
-			        // 更新前端HTML中的數字
-			   		 var totalItems = data;
-			        $("#cart-count").text(data);
-			  
+
+					// 更新前端HTML中的數字
+					let totalQuantity = data.totalQuantity;
+					$("#cart-count").text(totalQuantity);
+
 				}
-				
-				
-				
-				
+
 			});
 		});
-		
-		
-		
-		
 	</script>
 
 
