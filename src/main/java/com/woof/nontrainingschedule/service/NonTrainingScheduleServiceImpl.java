@@ -24,8 +24,7 @@ public class NonTrainingScheduleServiceImpl implements NonTrainingScheduleServic
 		NonTrainingSchedule nonTrainingSchedule = new NonTrainingSchedule();
 		nonTrainingSchedule.setTrainer(trainer);
 		nonTrainingSchedule.setNtsDate(ntsDate);
-		dao.insert(nonTrainingSchedule);
-		return 1;
+		return dao.insert(nonTrainingSchedule);
 	}
 
 	@Override
@@ -34,16 +33,14 @@ public class NonTrainingScheduleServiceImpl implements NonTrainingScheduleServic
 		nonTrainingSchedule.setNtsNo(ntsNo);
 		nonTrainingSchedule.setTrainer(trainer);
 		nonTrainingSchedule.setNtsDate(ntsDate);
-		dao.update(nonTrainingSchedule);
-		return 1;
+		return dao.update(nonTrainingSchedule);
 	}
 
 	@Override
 	public int deleteNts(Integer ntsNo) {
 		NonTrainingSchedule nonTrainingSchedule = new NonTrainingSchedule();
 		nonTrainingSchedule.setNtsNo(ntsNo);
-		dao.delete(nonTrainingSchedule);
-		return 1;
+		return dao.delete(nonTrainingSchedule);
 	}
 
 	@Override

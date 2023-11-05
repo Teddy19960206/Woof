@@ -33,9 +33,7 @@ public class AppointmentDetailServiceImpl implements AppointmentDetailService{
 		appointmentDetail.setPrivateTrainingAppointmentForm(pta);
 		appointmentDetail.setAppTime(appTime);
 		appointmentDetail.setAppStatus(appStatus);
-		dao.insert(appointmentDetail);
-		System.out.println(appointmentDetail);
-		return 1;
+		return dao.insert(appointmentDetail);
 	}
 
 	@Override
@@ -46,9 +44,16 @@ public class AppointmentDetailServiceImpl implements AppointmentDetailService{
 		appointmentDetail.setPrivateTrainingAppointmentForm(pta);
 		appointmentDetail.setAppTime(appTime);
 		appointmentDetail.setAppStatus(appStatus);
-		dao.insert(appointmentDetail);
-		System.out.println(appointmentDetail);
-		return 1;
+		return dao.update(appointmentDetail);
+
+	}
+
+	
+	@Override
+	public int deleteAd(Integer adNo) {
+		AppointmentDetail appointmentDetail = new AppointmentDetail();
+		appointmentDetail.setAdNo(adNo);
+		return dao.delete(appointmentDetail);
 	}
 
 	@Override
