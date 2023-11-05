@@ -1,5 +1,7 @@
 package com.woof.administrator.service;
 
+import java.util.Base64;
+import java.util.Base64.Encoder;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -46,6 +48,13 @@ public class AdministratorServiceImpl implements AdministratorService {
 	@Override
 	public List<Administrator> getAllAdministrators() {
 		List<Administrator> administratorList = dao.getAll();
+		for(Administrator vo : administratorList) {
+			if(vo.getAdminPhoto() != null) {
+				Encoder coder = Base64.getEncoder();
+				String imgStr = coder.encodeToString(vo.getAdminPhoto());
+				vo.setImgStr(imgStr);
+			}
+		}
 		return administratorList;
 	}
 }
