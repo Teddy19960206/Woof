@@ -155,22 +155,10 @@
 		      console.log("返回的購物車數據:", cartJson); // 打印返回的數據	
 		    	
 		      
-		      let cartItems = JSON.parse(cartJson);
-		      
-		      console.log("解析過後的:", cartItems);
-		     
-		      try {
-		    	// 解析購物車 JSON 資料
-		    	  let cartItems = JSON.parse(cartJson);
-		    	  console.log("解析過後的:", cartItems);
-		    	} catch (e) {
-		    	  console.error("解析 JSON 時出錯:", e);
-		    	}
-		    	
-		      // 清空購物車清單
+		   // 清空購物車清單
 		      $("#cart-items-list").empty();
 		      // 填充購物車清單
-		      $.each(cartItems, function(index, item) {
+		      $.each(cartJson, function(index, item) { // 直接使用 cartJson
 		        $("#cart-items-list").append(
 		          `<li class="list-group-item">
 		            ${item.prodNo} ${item.prodName} ${item.quantity} ${item.prodPrice}
