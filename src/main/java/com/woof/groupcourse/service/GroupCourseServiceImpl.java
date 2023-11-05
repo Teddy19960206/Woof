@@ -12,7 +12,10 @@ import static com.woof.util.Constants.PAGE_MAX_RESULT;
 
 import java.util.List;
 
-public class GroupCourseServiceImpl implements GroupCourseService , AppService<String> {
+
+
+public class GroupCourseServiceImpl implements GroupCourseService , AppService {
+
 
     private GroupCourseDAO dao;
 
@@ -75,21 +78,38 @@ public class GroupCourseServiceImpl implements GroupCourseService , AppService<S
     }
 
     @Override
-    public List<GroupCourse> getAllGroupCourse(int currentPage) {
-        return dao.getAll(currentPage);
+    public List<GroupCourse> getAllGroupCourse(Integer classType , Integer status , Integer currentPage) {
+        return dao.getAll(classType , status , currentPage);
     }
 
-    @Override
-    public int getPageTotal() {
-        long total = dao.getTotal();
+//    @Override
+//    public List<GroupCourse> getAllGroupCourse(int currentPage) {
+//        return dao.getAll(currentPage);
+//    }
+
+//    @Override
+//    public int getPageTotal() {
+//        long total = dao.getTotal();
+//
+//        int pageQty  = (int)(total % PAGE_MAX_RESULT == 0 ? (total / PAGE_MAX_RESULT) : (total / PAGE_MAX_RESULT + 1));
+//        return pageQty;
+//    }
+
+
+    public int getPageTotal(Integer classType , Integer status){
+        long total = dao.getTotal(classType , status);
 
         int pageQty = (int)(total % PAGE_MAX_RESULT == 0 ? (total / PAGE_MAX_RESULT) : (total / PAGE_MAX_RESULT + 1));
+
         return pageQty;
     }
 
-    public byte[] getPhotoById(String no){
-    	Integer gcNo = Integer.valueOf(no);
+    public byte[] getPhotoById(Integer gcNo){
+
         return findGroupCourseByNo(gcNo).getCoursePhoto();
     }
+
+
+
 
 }

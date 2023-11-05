@@ -13,5 +13,9 @@ public interface GroupCourseOrderDAO {
 
     List<GroupCourseOrder> getAll();
 
+    List<GroupCourseOrder> getAll(Integer groupClass , Integer status , String memNo , Integer currentPage);
+
+    long getTotal(Integer groupClass , Integer status , String memNo);
+
     List<GroupCourseOrder> getByDate(Integer year , Integer month);
 }

@@ -135,7 +135,7 @@
 </head>
 <body>
 	<c:choose>
-        <c:when test="${not empty trainers}">
+        <c:when test="${not empty ntsDates}">
 	<table border=1>
 		<tr>
 			<th>訓練師不授課日程編號</th>
@@ -145,10 +145,10 @@
 			<th></th>
 			
 		</tr>
-		<c:set var="trainerNo" value="" />
+		<c:set var="ntsDate" value="${null}" />
 		<c:forEach var="NTS"
-			items="${trainers}">
-		<c:set var="trainerNo" value="${NTS.trainer.trainerNo}" />
+			items="${ntsDates}">
+		<c:set var="ntsDate" value="${NTS.ntsDate}" />
 			<tr>
 				<td>${NTS.ntsNo}</td>
 				<td>${NTS.trainer.administrator.adminName}</td>
@@ -184,23 +184,23 @@
 
 	</table>
 <%-- <p>trainerNo: ${trainerNo}</p> --%>
-<%-- <p>currentPage: ${currentPage}</p> --%>
-<%-- <p>NTSPageQty2: ${NTSPageQty2}</p> --%>
+<p>currentPage: ${currentPage}</p>
+<%-- <p>NTSPageQty3: ${NTSPageQty3}</p> --%>
 	<div class="pagination-container" >
     <c:if test="${currentPage > 1}">
-        <a href="${pageContext.request.contextPath}/nontrainingschedule?action=getbytrainer&page=1&trainerNo=${trainerNo}">至第一頁</a>&nbsp;
+        <a href="${pageContext.request.contextPath}/nontrainingschedule?action=getbyntsdate&page=1&ntsDate=${ntsDate}">至第一頁</a>&nbsp;
     </c:if>
     <c:if test="${currentPage - 1 != 0}">
-        <a href="${pageContext.request.contextPath}/nontrainingschedule?action=getbytrainer&page=${currentPage - 1}&trainerNo=${trainerNo}">上一頁</a>&nbsp;
+        <a href="${pageContext.request.contextPath}/nontrainingschedule?action=getbyntsdate&page=${currentPage - 1}&ntsDate=${ntsDate}">上一頁</a>&nbsp;
     </c:if>
-    <c:if test="${currentPage + 1 <= NTSPageQty2}">
-        <a href="${pageContext.request.contextPath}/nontrainingschedule?action=getbytrainer&page=${currentPage + 1}&trainerNo=${trainerNo}">下一頁</a>&nbsp;
+    <c:if test="${currentPage + 1 <= NTSPageQty3}">
+        <a href="${pageContext.request.contextPath}/nontrainingschedule?action=getbyntsdate&page=${currentPage + 1}&ntsDate=${ntsDate}">下一頁</a>&nbsp;
     </c:if>
-    <c:if test="${currentPage != NTSPageQty2}">
-        <a href="${pageContext.request.contextPath}/nontrainingschedule?action=getbytrainer&page=${NTSPageQty2}&trainerNo=${trainerNo}">至最後一頁</a>&nbsp;
+    <c:if test="${currentPage != NTSPageQty3}">
+        <a href="${pageContext.request.contextPath}/nontrainingschedule?action=getbyntsdate&page=${NTSPageQty3}&ntsDate=${ntsDate}">至最後一頁</a>&nbsp;
     </c:if>
-	</div>
-
+</div>
+	
 	</c:when>
        <c:otherwise>
     		<p class="no-data-message">查無資料</p>
@@ -208,7 +208,7 @@
     </c:choose>
 
 	<button class="btn btn-back" onclick="window.location='${pageContext.request.contextPath}/frontend/nontrainingschedule/nonTrainingSchedule.jsp'">返回</button>
-
+	
 
 </body>
 </html>

@@ -63,10 +63,17 @@ tr:nth-child(odd) {
 	border: none;
 	cursor: pointer;
 }
+.no-data-message {
+    color: #c9302c;
+    font-weight: bold;
+    margin-top: 10px;
+    font-size: 18px;
+}
 </style>
 </head>
 <body>
-	<%-- <form action="${pageContext.request.contextPath}/privatetrainingappointmentform/privateTrainingAppointmentForm" method="post" enctype="multipart/form-data"> --%>
+	<c:choose>
+        <c:when test="${not empty members}">
 	<table border=1>
 		<tr>
 			<th>私人訓練預約單編號</th>
@@ -76,10 +83,10 @@ tr:nth-child(odd) {
 			<th></th>
 			<th></th>
 		</tr>
-
+		<c:set var="memNo" value="" />
  		<c:forEach var="pta" 
  			items="${members}"> 
-
+		<c:set var="memNo" value="${pta.member.memNo}" />
 			<tr>
 				<td>${pta.ptaNo}</td>
 				<td>${pta.member.memName}</td>
@@ -116,23 +123,33 @@ tr:nth-child(odd) {
  		</c:forEach> 
 
 	</table>
-<%-- 	<c:if test="${currentPage > 1}"> --%>
-<%-- 		<a href="${pageContext.request.contextPath}/privatetrainingappointmentform?action=getall&page=1">至第一頁</a>&nbsp; --%>
-<%-- 	</c:if> --%>
-<%-- 	<c:if test="${currentPage - 1 != 0}"> --%>
-<%-- 		<a href="${pageContext.request.contextPath}/privatetrainingappointmentform?action=getall&page=${currentPage - 1}">上一頁</a>&nbsp; --%>
-<%-- 	</c:if> --%>
-<%-- 	<c:if test="${currentPage + 1 <= PTAFPageQty}"> --%>
-<%-- 		<a href="${pageContext.request.contextPath}/privatetrainingappointmentform?action=getall&page=${currentPage + 1}">下一頁</a>&nbsp; --%>
-<%-- 	</c:if> --%>
-<%-- 	<c:if test="${currentPage != PTAFPageQty}"> --%>
-<%-- 		<a href="${pageContext.request.contextPath}/privatetrainingappointmentform?action=getall&page=${PTAFPageQty}">至最後一頁</a>&nbsp; --%>
-<%-- 	</c:if> --%>
-
-<%-- 	<input type="hidden" value="返回" onclick="${pageContext.request.contextPath}/frontend/privatetrainingappointmentform/privateTrainingAppointmentForm.jsp"> --%>
+<%-- <p>memNo: ${memNo}</p> --%>
+<%-- <p>currentPage: ${currentPage}</p> --%>
+<%-- <p>PTAPageQty2: ${PTAPageQty2}</p> --%>
+	<div class="pagination-container" >
+    <c:if test="${currentPage > 1}">
+        <a href="${pageContext.request.contextPath}/privatetrainingappointmentform?action=getbymemno&page=1&memNo=${memNo}">至第一頁</a>&nbsp;
+    </c:if>
+    <c:if test="${currentPage - 1 != 0}">
+        <a href="${pageContext.request.contextPath}/privatetrainingappointmentform?action=getbymemno&page=${currentPage - 1}&memNo=${memNo}">上一頁</a>&nbsp;
+    </c:if>
+    <c:if test="${currentPage + 1 <= PTAPageQty2}">
+        <a href="${pageContext.request.contextPath}/privatetrainingappointmentform?action=getbymemno&page=${currentPage + 1}&memNo=${memNo}">下一頁</a>&nbsp;
+    </c:if>
+    <c:if test="${currentPage != PTAPageQty2}">
+        <a href="${pageContext.request.contextPath}/privatetrainingappointmentform?action=getbymemno&page=${PTAPageQty2}&memNo=${memNo}">至最後一頁</a>&nbsp;
+    </c:if>
+	</div>
+	
+	</c:when>
+       <c:otherwise>
+    		<p class="no-data-message">查無資料</p>
+		</c:otherwise>
+    </c:choose>
+	
 	<button class="btn btn-danger" onclick="history.back()">返回</button>
 
 
-<!-- 	</form> -->
+
 </body>
 </html>

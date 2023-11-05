@@ -16,13 +16,18 @@ public interface NonTrainingScheduleService {
 
 	NonTrainingSchedule findNtsByNtsNo(Integer ntsNo);
 	
-	List<NonTrainingSchedule> findNtsByTrainerNo(Integer trainerNo);
+	List<NonTrainingSchedule> findNtsByTrainerNo(Integer trainerNo , int currentPage);
 	
-	List<NonTrainingSchedule> findNtsByNtsDate(Date ntsDate);
+	int getPageTotal2(Integer trainerNo);
+	
+	List<NonTrainingSchedule> findNtsByNtsDate(Date ntsDate , int currentPage);
+	
+	int getPageTotal3(Date ntsDate);
 
 	List<NonTrainingSchedule> getAllNonTrainingSchedules();
 	
 	List<NonTrainingSchedule> getAllNTSs(int currentPage);
 	
 	int getPageTotal();
+	
 }

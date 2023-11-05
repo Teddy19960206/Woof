@@ -77,10 +77,4 @@ public class MemberServiceImpl implements MemberService, AppService<String> {
 		
 		dao.insert(member);
 	}
-
-	@Override
-	public Member isExist(String memNo, String memPassword) {
-		Member member = dao.isExist(memNo, memPassword);
-		return member;
-	}
 }

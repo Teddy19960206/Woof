@@ -24,7 +24,12 @@ public class NonTrainingScheduleDAOImpl implements NonTrainingScheduleDAO{
 
 	@Override
 	public int insert(NonTrainingSchedule nonTrainingSchedule) {
-		return (Integer) getSession().save(nonTrainingSchedule);
+		try {
+			getSession().save(nonTrainingSchedule);
+			return 1;
+		} catch (Exception e) {
+			return -1;
+		}
 	}
 
 	@Override
@@ -54,17 +59,36 @@ public class NonTrainingScheduleDAOImpl implements NonTrainingScheduleDAO{
 	}
 
 	@Override
-	public List<NonTrainingSchedule> findByTrainerNo(Integer trainerNo) {
+	public List<NonTrainingSchedule> findByTrainerNo(Integer trainerNo , int currentPage) {
+		int first = (currentPage - 1) * PAGE_MAX_RESULT;
 		return getSession().createQuery("FROM NonTrainingSchedule WHERE trainer.trainerNo = :trainerNo", NonTrainingSchedule.class)
 				.setParameter("trainerNo", trainerNo)
+				.setFirstResult(first)
+				.setMaxResults(PAGE_MAX_RESULT)
 				.list();
 	}
 
+	
 	@Override
-	public List<NonTrainingSchedule> findByNtsDate(Date ntsDate) {
-		return getSession().createQuery("FROM NonTrainingSchedule  WHERE ntsDate = :ntsDates", NonTrainingSchedule.class)
+	public long getTotalByTrainerNo(int trainerNo) {
+		return getSession().createQuery("select count(*) from NonTrainingSchedule  where trainer.trainerNo = :trainerNo" , Long.class)
+				.setParameter("trainerNo", trainerNo)
+				.uniqueResult();
+	}
+
+	@Override
+	public List<NonTrainingSchedule> findByNtsDate(Date ntsDate , int currentPage) {
+		return getSession().createQuery("FROM NonTrainingSchedule  WHERE ntsDate = :ntsDate", NonTrainingSchedule.class)
 				.setParameter("ntsDate", ntsDate)
 				.list();
+	}
+
+	
+	@Override
+	public long getTotalByNtsDate(Date ntsDate) {
+		return getSession().createQuery("select count(*) from NonTrainingSchedule  where ntsDate = :ntsDate" , Long.class)
+				.setParameter("ntsDate", ntsDate)
+				.uniqueResult();
 	}
 
 	@Override

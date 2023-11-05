@@ -15,8 +15,14 @@ public interface GroupGourseScheduleService {
     int updateSchedule(Integer gcsNo, GroupCourse groupCourse , Trainer trainer , Date gcsStart , Date gcsEnd , Integer minLimit , Integer maxLimit , Integer regCount , Integer gcsPrice , Integer gcsStatus , String gcsDelayReason , GroupCourseSchedule relatedGcsNo);
     GroupCourseSchedule findByGcsNo(Integer GcsNo);
     List<GroupCourseSchedule> getAll();
+
+    List<GroupCourseSchedule> getAll(Integer classType , Integer status , Integer currentPage);
     List<GroupCourseSchedule> getGroupScheduleByCtNo(Integer ctNo);
 
     List<GroupCourseSchedule> getListSchedule(Integer classType , Integer status);
+
+    List<GroupCourseSchedule> getOffSechedule();
+
+    int getPageTotal(Integer classType ,Integer status);
 
 }

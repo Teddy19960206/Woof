@@ -2,6 +2,7 @@ package com.woof.nontrainingschedule.controller;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
@@ -15,7 +16,6 @@ import javax.servlet.http.HttpServletResponse;
 import com.woof.nontrainingschedule.entity.NonTrainingSchedule;
 import com.woof.nontrainingschedule.service.NonTrainingScheduleService;
 import com.woof.nontrainingschedule.service.NonTrainingScheduleServiceImpl;
-import com.woof.privatetrainingappointmentform.entity.PrivateTrainingAppointmentForm;
 import com.woof.trainer.entity.Trainer;
 import com.woof.trainer.service.TrainerService;
 import com.woof.trainer.service.TrainerServiceImpl;
@@ -60,6 +60,14 @@ public class NonTrainingScheduleServlet extends HttpServlet {
 			case "delete":
 				deleteOne(req, res);
 				return;
+			case "getbytrainer":
+				getByTrainerNo(req, res);
+				forwardPath = "/frontend/nontrainingschedule/nonTrainingSchedule_getByTrainerNo.jsp";
+				break;
+			case "getbyntsdate":
+				getByNtsDate(req, res);
+				forwardPath = "/frontend/nontrainingschedule/nonTrainingSchedule_getByNtsDate.jsp";
+				break;
 			default:
 				forwardPath = "/frontend/nontrainingschedule/nonTrainingSchedule.jsp";
 			}
@@ -166,9 +174,9 @@ public class NonTrainingScheduleServlet extends HttpServlet {
 	private void deleteOne(HttpServletRequest req, HttpServletResponse res) throws IOException {
 
 		Integer ntsNo = Integer.valueOf(req.getParameter("ntsNo"));
-	
+
 		int result = nonTrainingScheduleService.deleteNts(ntsNo);
-		
+
 		if (result == 1) {
 			System.out.println("刪除成功");
 			req.setAttribute("successMessage", "刪除成功");
@@ -177,5 +185,46 @@ public class NonTrainingScheduleServlet extends HttpServlet {
 			req.setAttribute("errorMessage", "刪除失敗");
 		}
 		res.sendRedirect(req.getContextPath() + "/frontend/nontrainingschedule/nonTrainingSchedule.jsp");
+	}
+
+	private void getByTrainerNo(HttpServletRequest req, HttpServletResponse res) {
+
+		Integer trainerNo = Integer.valueOf(req.getParameter("trainerNo"));
+		String page = req.getParameter("page");
+		int currentPage = (page == null) ? 1 : Integer.parseInt(page);
+//		if (req.getSession().getAttribute("NTSPageQty2") == null) {
+		int NTSPageQty2 = nonTrainingScheduleService.getPageTotal2(trainerNo);
+		req.getSession().setAttribute("NTSPageQty2", NTSPageQty2);
+//		}
+		List<NonTrainingSchedule> trainers = nonTrainingScheduleService.findNtsByTrainerNo(trainerNo, currentPage);
+
+		req.setAttribute("trainers", trainers);
+		req.setAttribute("currentPage", currentPage);
+
+	}
+
+	private void getByNtsDate(HttpServletRequest req, HttpServletResponse res){
+
+		String selectedDateStr = req.getParameter("selectedDate");
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		
+		java.util.Date parsedDate = null;
+		try {
+			parsedDate = dateFormat.parse(selectedDateStr);// 將字串轉換為 java.util.Date
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		java.sql.Date sqlDate = new java.sql.Date(parsedDate.getTime()); // 將 java.util.Date 轉換為 java.sql.Date
+		
+		String page = req.getParameter("page");
+		int currentPage = (page == null) ? 1 : Integer.parseInt(page);
+		int NTSPageQty3 = nonTrainingScheduleService.getPageTotal3(sqlDate);
+		req.getSession().setAttribute("NTSPageQty3", NTSPageQty3);
+		List<NonTrainingSchedule> ntsDates = nonTrainingScheduleService.findNtsByNtsDate(sqlDate, currentPage);
+
+		req.setAttribute("ntsDates", ntsDates);
+		req.setAttribute("currentPage", currentPage);
+
 	}
 }

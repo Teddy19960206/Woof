@@ -82,9 +82,6 @@ public class MemberServlet extends HttpServlet {
 			case "query":
 				processQuery(req, res);
 				return;
-			case "login":
-				isExist(req,res);
-				return;
 				
 			default:
 				forwardPath = "/frontend/member/selectmember.jsp";
@@ -92,18 +89,6 @@ public class MemberServlet extends HttpServlet {
 		}
 		req.getRequestDispatcher(forwardPath).forward(req, res);
 	}
-
-	private void isExist(HttpServletRequest req, HttpServletResponse res) throws IOException {
-		 String account=req.getParameter("memNo");
-	     String password=req.getParameter("memPassword");
-	     Member member = memberService.isExist(account, password);
-	     if(member!=null) {
-	    	 res.sendRedirect("welecome.jsp");
-	     }else {
-	    	 res.sendRedirect("memberlogin.jsp");
-	     }
-	}
-
 	private void processQuery(HttpServletRequest req, HttpServletResponse res) throws IOException {
 		Member member = memberService.findMemberByNo(req.getParameter("memNo"));
 		byte[]photoByte = memberService.getPhotoById(req.getParameter("memNo"));
@@ -163,7 +148,7 @@ public class MemberServlet extends HttpServlet {
 		try {
 			memberService.addMember(member);
 			// 導到指定的URL 頁面上 把請求回應都帶過去
-			String url = req.getContextPath() + "/frontend/member/list_all_member.jsp";
+			String url = req.getContextPath() + "/backend/member/list_all_member.jsp";
 			req.setCharacterEncoding("UTF-8");
 			res.sendRedirect(url);
 		} catch (Exception e) {
@@ -172,7 +157,7 @@ public class MemberServlet extends HttpServlet {
 				e.printStackTrace(); // This is for logging purpose
 				String errorMsg = "Email already exists! Please use another email.";
 				req.setAttribute("errorMessage", errorMsg);
-				req.getRequestDispatcher("/frontend/member/errorPage.jsp").forward(req, res);
+				req.getRequestDispatcher("/backend/member/errorPage.jsp").forward(req, res);
 			} else {
 				// Handle other exceptions if necessary
 				throw e; // or redirect to a general error page
@@ -218,7 +203,7 @@ public class MemberServlet extends HttpServlet {
 		memberService.updateMember(member);
 		// 導到指定的URL 頁面上 把請求回應都帶過去
 		System.out.println(req.getParameter("memNo") + "================");
-		String url = req.getContextPath() + "/frontend/member/list_all_member.jsp";
+		String url = req.getContextPath() + "/backend/member/list_all_member.jsp";
 		res.sendRedirect(url);
 	}
 
@@ -247,13 +232,13 @@ public class MemberServlet extends HttpServlet {
 
 			} else {
 				req.setAttribute("error", "Invalid member number provided.");
-				RequestDispatcher dispatcher = req.getRequestDispatcher("/frontend/member/errorPage.jsp");
+				RequestDispatcher dispatcher = req.getRequestDispatcher("/backend/member/errorPage.jsp");
 				dispatcher.forward(req, res);
 				return;
 			}
 			// 設置編碼和轉發到指定的JSP頁面
 			req.setCharacterEncoding("UTF-8");
-			RequestDispatcher dispatcher = req.getRequestDispatcher("/frontend/member/list_one_member.jsp");
+			RequestDispatcher dispatcher = req.getRequestDispatcher("/backend/member/list_one_member.jsp");
 			dispatcher.forward(req, res);
 
 		} catch (Exception e) {
@@ -267,7 +252,7 @@ public class MemberServlet extends HttpServlet {
 		req.getParameter("memNo");
 		memberService.deletePhoto(req.getParameter("memNo"));
 		// 導到指定的URL 頁面上 把請求回應都帶過去
-		String url = req.getContextPath() + "/frontend/member/list_all_member.jsp";
+		String url = req.getContextPath() + "/backend/member/list_all_member.jsp";
 		req.setCharacterEncoding("UTF-8");
 		res.sendRedirect(url);
 	}

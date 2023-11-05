@@ -24,8 +24,7 @@ public class NonTrainingScheduleServiceImpl implements NonTrainingScheduleServic
 		NonTrainingSchedule nonTrainingSchedule = new NonTrainingSchedule();
 		nonTrainingSchedule.setTrainer(trainer);
 		nonTrainingSchedule.setNtsDate(ntsDate);
-		dao.insert(nonTrainingSchedule);
-		return 1;
+		return dao.insert(nonTrainingSchedule);
 	}
 
 	@Override
@@ -34,16 +33,14 @@ public class NonTrainingScheduleServiceImpl implements NonTrainingScheduleServic
 		nonTrainingSchedule.setNtsNo(ntsNo);
 		nonTrainingSchedule.setTrainer(trainer);
 		nonTrainingSchedule.setNtsDate(ntsDate);
-		dao.update(nonTrainingSchedule);
-		return 1;
+		return dao.update(nonTrainingSchedule);
 	}
 
 	@Override
 	public int deleteNts(Integer ntsNo) {
 		NonTrainingSchedule nonTrainingSchedule = new NonTrainingSchedule();
 		nonTrainingSchedule.setNtsNo(ntsNo);
-		dao.delete(nonTrainingSchedule);
-		return 1;
+		return dao.delete(nonTrainingSchedule);
 	}
 
 	@Override
@@ -52,13 +49,28 @@ public class NonTrainingScheduleServiceImpl implements NonTrainingScheduleServic
 	}
 
 	@Override
-	public List<NonTrainingSchedule> findNtsByTrainerNo(Integer trainerNo) {
-		return dao.findByTrainerNo(trainerNo);
+	public List<NonTrainingSchedule> findNtsByTrainerNo(Integer trainerNo , int currentPage) {
+		return dao.findByTrainerNo(trainerNo, currentPage);
 	}
 
 	@Override
-	public List<NonTrainingSchedule> findNtsByNtsDate(Date ntsDate) {
-		return dao.findByNtsDate(ntsDate);
+	public int getPageTotal2(Integer trainerNo) {
+		long total = dao.getTotalByTrainerNo(trainerNo);
+		int pageQty = (int) (total % PAGE_MAX_RESULT == 0 ? (total / PAGE_MAX_RESULT) : (total / PAGE_MAX_RESULT + 1));
+		return pageQty;
+	}
+
+	@Override
+	public List<NonTrainingSchedule> findNtsByNtsDate(Date ntsDate , int currentPage) {
+		return dao.findByNtsDate(ntsDate, currentPage);
+	}
+
+	
+	@Override
+	public int getPageTotal3(Date ntsDate) {
+		long total = dao.getTotalByNtsDate(ntsDate);
+		int pageQty = (int) (total % PAGE_MAX_RESULT == 0 ? (total / PAGE_MAX_RESULT) : (total / PAGE_MAX_RESULT + 1));
+		return pageQty;
 	}
 
 	@Override

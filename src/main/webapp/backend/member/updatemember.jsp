@@ -20,7 +20,7 @@ $(document).ready(function(){
         //指定http參數傳輸格式為POST
         type : "POST",
 
-        data : {memNo : <%=request.getParameter("memNo")%>},
+        data : {memNo : "<%=request.getParameter("memNo")%>"},
         //請求目標的url
         url : "<%=request.getContextPath()%>/member.do?action=query",
 									//Ajax成功後執行的function，response為回傳的值

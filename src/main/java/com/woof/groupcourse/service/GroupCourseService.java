@@ -6,6 +6,7 @@ import com.woof.skill.entity.Skill;
 
 import java.util.List;
 
+
 public interface GroupCourseService {
 
     int modify(Integer gcNo, Skill skill, ClassType classType , byte[] coursePhoto , String courseContent , Integer courseStatus);
@@ -20,9 +21,15 @@ public interface GroupCourseService {
 
     List<GroupCourse> getAllGroupCourse();
 
-    List<GroupCourse> getAllGroupCourse(int currentPage);
+    List<GroupCourse> getAllGroupCourse(Integer classType , Integer status , Integer currentPage);
 
-    int getPageTotal();
+//    List<GroupCourse> getAllGroupCourse(int currentPage);
+
+
+//    int getPageTotal();
+
+
+    int getPageTotal(Integer classType , Integer status);
 
 
 }
