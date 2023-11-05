@@ -35,25 +35,20 @@ button {
 </head>
 <body>
 	<h1>新增私人預約單明細</h1>
-
+<%-- 	<p>ptaNo = ${ptaNo}</p> --%>
 	<form action="${pageContext.request.contextPath}/appointmentdetail"
 		method="post" enctype="multipart/form-data">
 		<input	type="hidden" name="ptaNo"	value="${ptaNo}">
-		<label for="datetimepick">選擇預約時間:</label>
-		 <input type="datetime-local" id="dateTimePicker">
+		
+		<label for="datepick">選擇預約日期:</label>
+		<input type="date" id="datePicker" name="date" required>
 		<br />
 		<label>預約狀態：</label> 
-		<select name="appstatus">
-			<option value="0" selected>待審核</option>
-			<option value="1">拒絕</option>
-			<option value="2">接受</option>
-			<option value="3">完成</option>
-			<option value="4">取消</option>
+		<select name="appStatus">
+			<option value="0" selected>接受</option>
+			<option value="1">取消</option>
 		</select>
 		 <br /> 
-		 <label>預約地點：</label>
-		<input type="text" id="addressInput" placeholder="請輸入地址">
-		<br />
 			
 		<button type="submit" name="action"
 			value="add">新增</button>

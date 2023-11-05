@@ -25,13 +25,29 @@ public class AppointmentDetailDAOImpl implements AppointmentDetailDAO {
 
 	@Override
 	public int insert(AppointmentDetail appointmentDetail) {
-		return (Integer) getSession().save(appointmentDetail);
+		try {
+			getSession().save(appointmentDetail);
+			return 1;
+		} catch (Exception e) {
+			return -1;
+		}
 	}
 
 	@Override
 	public int update(AppointmentDetail appointmentDetail) {
 		try {
 			getSession().update(appointmentDetail);
+			return 1;
+		} catch (Exception e) {
+			return -1;
+		}
+	}
+
+	
+	@Override
+	public int delete(AppointmentDetail appointmentDetail) {
+		try {
+			getSession().delete(appointmentDetail);
 			return 1;
 		} catch (Exception e) {
 			return -1;

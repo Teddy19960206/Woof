@@ -81,7 +81,7 @@
     </select>
     <br />
         <label for="datePicker">選擇不授課日期：</label>
-        <input type="date" id="datePicker" name="selectedDate">
+        <input type="date" id="datePicker" name="selectedDate" required>
     <br />
 	<input type="hidden" name="action" value="add">
     <button type="submit">新增</button>
