@@ -33,9 +33,6 @@ public class Skill implements Serializable {
 	@Column(name = "SKILL_NAME" , nullable = false)
     private String skillName;
 
-
-
-
     @ManyToMany
 	@JoinTable(
 			name = "skills_list",

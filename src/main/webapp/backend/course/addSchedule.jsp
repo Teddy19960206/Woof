@@ -2,7 +2,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>修改報名資訊</title>
+
+    <%@ include file="/backend/backhead.file" %>
+    <title>寵毛導師 Woof | 新增報名資訊</title>
+
 </head>
 <body>
 <h1>新增報名課程</h1>

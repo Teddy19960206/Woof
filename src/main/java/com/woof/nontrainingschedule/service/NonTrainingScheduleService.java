@@ -1,16 +1,33 @@
 package com.woof.nontrainingschedule.service;
 
+import java.sql.Date;
 import java.util.List;
 
 import com.woof.nontrainingschedule.entity.NonTrainingSchedule;
+import com.woof.trainer.entity.Trainer;
 
 public interface NonTrainingScheduleService {
 
-	NonTrainingSchedule addNonTrainingSchedule(NonTrainingSchedule nonTrainingSchedule);
+	int addNts(Trainer trainer,Date ntsDate);
+	
+	int updateNts(Integer ntsNo, Trainer trainer ,Date ntsDate);
+	
+	int deleteNts(Integer ntsNo);
 
-	NonTrainingSchedule updateNonTrainingSchedule(NonTrainingSchedule nonTrainingSchedule);
-
-	NonTrainingSchedule findNonTrainingScheduleByNtsNo(Integer ntsNo);
+	NonTrainingSchedule findNtsByNtsNo(Integer ntsNo);
+	
+	List<NonTrainingSchedule> findNtsByTrainerNo(Integer trainerNo , int currentPage);
+	
+	int getPageTotal2(Integer trainerNo);
+	
+	List<NonTrainingSchedule> findNtsByNtsDate(Date ntsDate , int currentPage);
+	
+	int getPageTotal3(Date ntsDate);
 
 	List<NonTrainingSchedule> getAllNonTrainingSchedules();
+	
+	List<NonTrainingSchedule> getAllNTSs(int currentPage);
+	
+	int getPageTotal();
+	
 }

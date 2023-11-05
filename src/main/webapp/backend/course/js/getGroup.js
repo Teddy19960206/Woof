@@ -4,6 +4,7 @@ let projectName = pathName.substring( 0 , pathName.substring(1).indexOf("/")+1);
 // 點擊提交按鈕則執行fetchData()
 document.getElementById("button").onclick = function (){
     fetchData();
+
 }
 
 // 進入到classContent.jsp時，會直接撈取全部課程資料
@@ -23,6 +24,10 @@ async function fetchData(){
     let formData = new FormData();
     formData.append("classType",document.getElementById("selectClass").value);
 
+    formData.append("status" , document.getElementById("selectStatus").value);
+    formData.append("page" , page );
+
+
     try{
         const response = await fetch(url ,{
             method : "POST",
@@ -33,8 +38,13 @@ async function fetchData(){
         }
         const data = await response.json();
 
-        html = `<table class="table table-stripclassNamext-center" border="1">
-        <thead>
+<<<<<<< HEAD
+        html = `<table class="table table-hover text-center align-middle">
+        <thead class="">
+=======
+        html = `<table class="table table-hover text-center align-middle border">
+        <thead class="table-light">
+>>>>>>> refs/heads/ziv
         <tr>
             <th>課程編號</th>
             <th>技能名稱</th>
@@ -44,7 +54,7 @@ async function fetchData(){
             <th>修改</th>
         </tr>
         </thead>
-        <tbody id="mybody">`;
+        <tbody id="mybody" class="table-group-divider">`;
 
         // 將取得的資料進行拼接打到頁面上
         data.forEach((item)=>{
@@ -56,14 +66,14 @@ async function fetchData(){
                 html +=  `<img src="${projectName}/DBPngReader?action=groupCourse&id=${item.gcNo}" style="width: 100px; height: 100px" >`;
             }
             html += `</td>
-            <td>${item.courseContent}</td>
+            <td width="500px" class="text-start">${item.courseContent}</td>
             <td>${item.courseStatus == 0 ? "下架" : "<font color='red'>上架</font>"}</td>
-            <td><button type="button" class="modify-button" data-id="${item.gcNo}">修改</td>
+            <td><button type="button" class="modify-button bn632-hover bn26" data-id="${item.gcNo}">修改</td>
         </tr>`;
         })
         html += `</tbody></table>`;
 
-        let tbody= document.querySelector("div.row");
+        let tbody= document.querySelector("div.showGroup");
         tbody.innerHTML = html;
 
     }catch (error){

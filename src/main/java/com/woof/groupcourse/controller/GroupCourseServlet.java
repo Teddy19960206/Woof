@@ -2,6 +2,7 @@ package com.woof.groupcourse.controller;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 import com.woof.classtype.entity.ClassType;
 import com.woof.classtype.service.ClassTypeService;
 import com.woof.classtype.service.ClassTypeServiceImpl;
@@ -73,6 +74,10 @@ public class GroupCourseServlet extends HttpServlet {
 //               根據ClassType取得對應的GroupCourse
                 getGroupCourse(request, response);
                 return;
+
+            case "/getAll":
+                getAll(request , response);
+                return;
             default:
 //                進入edit畫面根據取得的id去抓取要修改的資料
                 if (pathInfo.startsWith("/edit/")) {
@@ -96,28 +101,32 @@ public class GroupCourseServlet extends HttpServlet {
 
         request.setCharacterEncoding("UTF-8");
 
-        String classtype = request.getParameter("classType");
+        String classTypeStr = request.getParameter("classType");
+        Integer classType = (classTypeStr.length() == 0 ) ? null : Integer.valueOf(classTypeStr);
+        String statusStr = request.getParameter("status");
+        Integer status = (statusStr.length() == 0) ? null : Integer.valueOf(statusStr);
+        String page = request.getParameter("page");
 
-        List<GroupCourse> groupCourseList = null;
+        int currentPage = (page == null) ? 1 : Integer.parseInt(page);
 
-        if (classtype != null){
-            if ("0".equals(classtype)){
-                groupCourseList = groupCourseService.getAllGroupCourse();
-            }else{
-                groupCourseList = groupCourseService.getAllbyCtNo(Integer.valueOf(classtype));
-            }
-        }else{
-//            異常判斷
-        }
+        List<GroupCourse> groupCourseList = groupCourseService.getAllGroupCourse(classType , status ,currentPage);
+
+
+        int pageTotal = groupCourseService.getPageTotal(classType , status);
 
         Gson gson = new GsonBuilder()
                 .excludeFieldsWithoutExposeAnnotation()
                 .setDateFormat("yyyy-MM-dd")
                 .create();
-        String json = gson.toJson(groupCourseList);
+
+        JsonObject jsonResponse = new JsonObject();
+        jsonResponse.addProperty("pageTotal", pageTotal);
+        jsonResponse.add("data", gson.toJsonTree(groupCourseList));
+
         response.setContentType("application/json;charset=UTF-8");
 
-        response.getWriter().write(json);
+//        System.out.println(pageTotal);
+        response.getWriter().write(jsonResponse.toString());
     }
 
 //    取得ClassType 與 Skill 所有資料 顯示在Select上
@@ -199,7 +208,7 @@ public class GroupCourseServlet extends HttpServlet {
             bytes = PartParsebyte.partToByteArray(filePart);
 
         }else{
-            bytes = groupCourseService.getPhotoById(Integer.valueOf(request.getParameter("groupCourseNo")));
+            bytes = groupCourseService.getPhotoById(request.getParameter("groupCourseNo"));
         }
 
         String content = request.getParameter("content");
@@ -224,4 +233,17 @@ public class GroupCourseServlet extends HttpServlet {
         response.getWriter().write("ok");
     }
 
+    private void getAll(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        List<GroupCourse> allGroupCourse = groupCourseService.getAllGroupCourse();
+
+        Gson gson = new GsonBuilder()
+                .excludeFieldsWithoutExposeAnnotation()
+                .setDateFormat("yyyy-MM-dd")
+                .create();
+
+        String json = gson.toJson(allGroupCourse);
+
+        response.setContentType("application/json;charset=UTF-8");
+        response.getWriter().write(json);
+    }
 }

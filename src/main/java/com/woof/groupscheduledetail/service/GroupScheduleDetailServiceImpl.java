@@ -42,7 +42,6 @@ public class GroupScheduleDetailServiceImpl implements GroupScheduleDetailServic
 
 
         }
-        System.out.println(groupScheduleDetails);
         dao.insert(groupScheduleDetails);
 
         return 1;
@@ -73,5 +72,10 @@ public class GroupScheduleDetailServiceImpl implements GroupScheduleDetailServic
     @Override
     public List<Object[]> getByTrainer(Integer trainerNo) {
         return dao.getByTrainer(trainerNo);
+    }
+
+    @Override
+    public List<GroupScheduleDetail> getDetailByDate(Integer year, Integer month) {
+        return dao.getByDate(year , month);
     }
 }

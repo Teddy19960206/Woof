@@ -40,7 +40,7 @@
         </c:forEach>
     </select>
     <br />
-    <label>成員名稱：</label>
+    <label>會員名稱：</label>
     <select name="member">
         <c:forEach items="${members}" var="member">
             <option value="${member.memNo}">${member.memName}</option>

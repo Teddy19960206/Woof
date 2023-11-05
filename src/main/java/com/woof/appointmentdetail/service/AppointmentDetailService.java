@@ -1,17 +1,28 @@
 package com.woof.appointmentdetail.service;
 
+import java.sql.Date;
 import java.util.List;
 
 import com.woof.appointmentdetail.entity.AppointmentDetail;
+import com.woof.privatetrainingappointmentform.entity.PrivateTrainingAppointmentForm;
 
 public interface AppointmentDetailService {
-	AppointmentDetail addAppointmentDetail(AppointmentDetail appointmentDetail);
+	AppointmentDetail findAdByAdNo(Integer adNo);
 	
-	AppointmentDetail updateAppointmentDetail(AppointmentDetail appointmentDetail);
+	int addAd(PrivateTrainingAppointmentForm pta , Date appTime , Integer appStatus);
 	
-//	void deleteAppointmentDetail(Integer adNo);
+	int updateAd(Integer adNo , PrivateTrainingAppointmentForm pta , Date appTime , Integer appStatus);
 	
-	AppointmentDetail findAppointmentDetailByAdNo(Integer adNo);
+	int deleteAd(Integer adNo);
 	
 	List<AppointmentDetail> getAllAppointmentDetails();
+	
+	List<AppointmentDetail> getAds(int currentPage);
+	
+	int getPageTotal();
+	
+	List<AppointmentDetail> findAdByPtaNo(Integer ptaNo);
+	
+	List<AppointmentDetail> findAdByAppTime(Date appTime);
+	
 }

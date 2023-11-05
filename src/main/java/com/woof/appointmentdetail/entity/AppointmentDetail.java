@@ -1,5 +1,6 @@
 package com.woof.appointmentdetail.entity;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.Objects;
 
@@ -32,15 +33,11 @@ public class AppointmentDetail {
 	
 	@Expose
 	@Column(name="APP_TIME" , nullable = false)
-	private Timestamp appTime;
+	private Date appTime;
 	
 	@Expose
 	@Column(name="APP_STATUS" , nullable = false ,  columnDefinition = "TINYINT")
 	private Integer appStatus;
-	
-	@Expose
-	@Column(name="APP_VENUE" , nullable = false)
-	private String appVenue;
 	
 	public AppointmentDetail() {
 		super();
@@ -61,10 +58,10 @@ public class AppointmentDetail {
 		this.privateTrainingAppointmentForm = privateTrainingAppointmentForm;
 	}
 
-	public Timestamp getAppTime() {
+	public Date getAppTime() {
 		return appTime;
 	}
-	public void setAppTime(Timestamp appTime) {
+	public void setAppTime(Date appTime) {
 		this.appTime = appTime;
 	}
 	public Integer getAppStatus() {
@@ -72,12 +69,6 @@ public class AppointmentDetail {
 	}
 	public void setAppStatus(Integer appStatus) {
 		this.appStatus = appStatus;
-	}
-	public String getAppVenue() {
-		return appVenue;
-	}
-	public void setAppVenue(String appVenue) {
-		this.appVenue = appVenue;
 	}
 	@Override
 	public int hashCode() {
@@ -97,7 +88,7 @@ public class AppointmentDetail {
 	@Override
 	public String toString() {
 		return "AppointmentDetail [adNo=" + adNo + ", ptaNo=" + (privateTrainingAppointmentForm != null ? privateTrainingAppointmentForm.getPtaNo() : "N/A") + ", appTime=" + appTime + ", appStatus="
-				+ appStatus + ", appVenue=" + appVenue + "]";
+				+ appStatus + "]";
 	}
 
 }

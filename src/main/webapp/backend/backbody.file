@@ -1,121 +1,218 @@
   <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
   
-  
-  <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-3 bg-color p-0 ">
-                <aside id="sidebar" class="position-sticky top-0">
-                    <img src="<%=request.getContextPath()%>/backend/images/logo.png" width="220" class="text-center">
-                    <ul class="sidebar-nav p-0">
-                        <li class="sidebar-item">
-                            <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#mem"
-                                aria-expanded="false" aria-controls="mem">
-                                <i class="fa-solid fa-user pe-3"></i>
-                                會員系統
-                            </a>
-                            <ul id="mem" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-                                <li class="sidebar-item">
-                                    <a href="#" class="sidebar-link2">會員管理</a>
-                                </li>
-                                <li class="sidebar-item">
-                                    <a href="#" class="sidebar-link2">會員查詢</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="sidebar-item">
-                            <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#class"
-                                aria-expanded="false" aria-controls="class">
-                                <i class="fa-solid fa-calendar-days pe-3"></i>
-                                課程系統
-                            </a>
-                            <ul id="class" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-                                <li class="sidebar-item">
-                                    <a href="course/classContent.jsp" class="sidebar-link2">團體內容管理</a>
-                                </li>
-                                <li class="sidebar-item">
-                                    <a href="#" class="sidebar-link2">訓練師課程查詢</a>
-                                </li>
-                                <li class="sidebar-item">
-                                    <a href="course/schedule.jsp" class="sidebar-link2">團體報名管理</a>
-                                </li>
-                                <li class="sidebar-item">
-                                    <a href="#" class="sidebar-link2">私人預約管理</a>
-                                </li>
-                                <li class="sidebar-item">
-                                    <a href="#" class="sidebar-link2">課堂檔期訂單管理</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="sidebar-item">
-                            <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#shop"
-                                aria-expanded="false" aria-controls="shop">
-                                <i class="fa-solid fa-cart-shopping pe-3"></i>
-                                商城系統
-                            </a>
-                            <ul id="shop" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-                                <li class="sidebar-item">
-                                    <a href="promotionactivity/PA.jsp" class="sidebar-link2">促銷管理</a>
-                                </li>
-                                <li class="sidebar-item">
-                                    <a href="#" class="sidebar-link2">商品管理</a>
-                                </li>
-                                <li class="sidebar-item">
-                                    <a href="#" class="sidebar-link2 ">商品訂單管理</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="sidebar-item">
-                            <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#staff"
-                                aria-expanded="false" aria-controls="staff">
-                                <i class="fa-solid fa-briefcase pe-3"></i>
-                                員工系統
-                            </a>
-                            <ul id="staff" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-                                <li class="sidebar-item">
-                                    <a href="employee/trainer.jsp" class="sidebar-link2">訓練師專區</a>
-                                </li>
-                                <li class="sidebar-item">
-                                    <a href="#" class="sidebar-link2">員工管理</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="sidebar-item">
-                            <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse"
-                                data-bs-target="#frontdesk" aria-expanded="false" aria-controls="frontdesk">
-                                <i class="fa-solid fa-dog pe-3"></i>
-                                前台管理系統
-                            </a>
-                            <ul id="frontdesk" class="sidebar-dropdown list-unstyled collapse"
-                                data-bs-parent="#sidebar">
-                                <li class="sidebar-item">
-                                    <a href="#" class="sidebar-link2">最新消息管理</a>
-                                </li>
-                                <li class="sidebar-item">
-                                    <a href="backend/faq/faqfirst.jsp" class="sidebar-link2">FAQ管理</a>
-                                </li>
-                                <li class="sidebar-item">
-                                    <a href="#" class="sidebar-link2 ">客服管理</a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </aside>
-            </div>
 
-            <div class="col-md p-0 ">
-                <div class="col-md-12 bg-light"
-                    style="height: 100px; box-shadow: 0 6px 2px -2px rgba(126, 126, 126, 0.2); height: 80px; position: sticky; top: 0;">
-                    <!-- <h1>這是頂部</h1> -->
-                    <div style="position: absolute; bottom: 0; right: 0; text-align: right; padding: 5px; ">
-                        <img src="<%=request.getContextPath()%>/backend/images/happy.png" width="30">
-                        <span style="color: rgb(80, 80, 80);">超级管理員</span>
-                        <a href="#" class="btn"
-                            style="background-color: #FABA91; font-family: 'Noto Sans TC', sans-serif; font-weight: 700; ">登出</a>
-                            <!-- <button type="button" class="btn btn-outline-secondary" style="font-family: 'Noto Sans TC', sans-serif; font-weight: 700;">登出</button> -->
-                    </div>
-                </div>
+<div class="container-fluid">
+      <div class="row">
+        <div
+          class="col-3 position-fixed bg-color p-0"
+          style="height: 100vh; z-index: 11"
+        >
+          <aside id="sidebar">
+            <a href="<%=request.getContextPath()%>/backend/index.html"><img src="<%=request.getContextPath()%>/backend/images/logo.png" width="220" class="text-center" /></a>
+            <ul class="sidebar-nav">
+              <li class="sidebar-item">
+                <a
+                  href="#"
+                  class="sidebar-link collapsed"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#mem"
+                  aria-expanded="false"
+                  aria-controls="mem"
+                >
+                  <i class="fa-solid fa-user pe-3"></i>
+                  會員系統
+                </a>
+                <ul
+                  id="mem"
+                  class="sidebar-dropdown list-unstyled collapse"
+                  data-bs-parent="#sidebar"
+                >
+                  <li class="sidebar-item">
+                    <a href="#" class="sidebar-link2">會員管理</a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a href="#" class="sidebar-link2">會員查詢</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="sidebar-item">
+                <a
+                  href="#"
+                  class="sidebar-link collapsed"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#class"
+                  aria-expanded="false"
+                  aria-controls="class"
+                >
+                  <i class="fa-solid fa-calendar-days pe-3"></i>
+                  課程系統
+                </a>
+                <ul
+                  id="class"
+                  class="sidebar-dropdown list-unstyled collapse"
+                  data-bs-parent="#sidebar"
+                >
+                  <li class="sidebar-item">
+                    <a
+                      href="${pageContext.request.contextPath}/backend/course/classContent.jsp"
+                      class="sidebar-link2"
+                      >團體內容管理</a
+                    >
+                  </li>
+                  <li class="sidebar-item">
+                    <a
+                      href="${pageContext.request.contextPath}/backend/course/trainerSchedule.jsp"
+                      class="sidebar-link2"
+                      >訓練師課程查詢</a
+                    >
+                  </li>
+                  <li class="sidebar-item">
+                    <a
+                      href="${pageContext.request.contextPath}/backend/course/schedule.jsp"
+                      class="sidebar-link2"
+                      >團體報名管理</a
+                    >
+                  </li>
+                  <li class="sidebar-item">
+                    <a href="#" class="sidebar-link2">私人預約管理</a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a href="${pageContext.request.contextPath}/backend/course/orderManagement.jsp" class="sidebar-link2">課堂檔期訂單管理</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="sidebar-item">
+                <a
+                  href="#"
+                  class="sidebar-link collapsed"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#shop"
+                  aria-expanded="false"
+                  aria-controls="shop"
+                >
+                  <i class="fa-solid fa-cart-shopping pe-3"></i>
+                  商城系統
+                </a>
+                <ul
+                  id="shop"
+                  class="sidebar-dropdown list-unstyled collapse"
+                  data-bs-parent="#sidebar"
+                >
+                  <li class="sidebar-item">
+                    <a href="promotionactivity/PA.jsp" class="sidebar-link2"
+                      >促銷管理</a
+                    >
+                  </li>
+                  <li class="sidebar-item">
+                    <a href="#" class="sidebar-link2">商品管理</a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a href="#" class="sidebar-link2">商品訂單管理</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="sidebar-item">
+                <a
+                  href="#"
+                  class="sidebar-link collapsed"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#staff"
+                  aria-expanded="false"
+                  aria-controls="staff"
+                >
+                  <i class="fa-solid fa-briefcase pe-3"></i>
+                  員工系統
+                </a>
+                <ul
+                  id="staff"
+                  class="sidebar-dropdown list-unstyled collapse"
+                  data-bs-parent="#sidebar"
+                >
+                  <li class="sidebar-item">
+                    <a
+                      href="${pageContext.request.contextPath}/backend/employee/trainer.jsp"
+                      class="sidebar-link2"
+                      >訓練師專區</a
+                    >
+                  </li>
+                  <li class="sidebar-item">
+                    <a href="#" class="sidebar-link2">員工管理</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="sidebar-item">
+                <a
+                  href="#"
+                  class="sidebar-link collapsed"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#frontdesk"
+                  aria-expanded="false"
+                  aria-controls="frontdesk"
+                >
+                  <i class="fa-solid fa-dog pe-3"></i>
+                  前台管理系統
+                </a>
+                <ul
+                  id="frontdesk"
+                  class="sidebar-dropdown list-unstyled collapse"
+                  data-bs-parent="#sidebar"
+                >
+                  <li class="sidebar-item">
+                    <a href="#" class="sidebar-link2">最新消息管理</a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a href="backend/faq/faqfirst.jsp" class="sidebar-link2"
+                      >FAQ管理</a
+                    >
+                  </li>
+                  <li class="sidebar-item">
+                    <a href="#" class="sidebar-link2">客服管理</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </aside>
+        </div>
+        <div
+          class="col-12 bg-light"
+          style="
+            box-shadow: 0 6px 2px -2px rgba(126, 126, 126, 0.2);
+            height: 80px;
+            position: fixed;
+            top: 0;
+            z-index: 8;
+          "
+        >
+          <!-- <h1>這是頂部</h1> -->
+          <div
+            style="
+              position: absolute;
+              bottom: 0;
+              right: 0;
+              text-align: right;
+              padding: 5px;
+            "
+          >
+            <img
+              src="<%=request.getContextPath()%>/backend/images/happy.png"
+              width="30"
+            />
+            <span style="color: rgb(80, 80, 80)">超级管理員</span>
+            <a
+              href="#"
+              class="btn"
+              style="
+                background-color: #faba91;
+                font-family: 'Noto Sans TC', sans-serif;
+                font-weight: 700;
+              "
+              >登出</a
+            >
+            <!-- <button type="button" class="btn btn-outline-secondary" style="font-family: 'Noto Sans TC', sans-serif; font-weight: 700;">登出</button> -->
+          </div>
+        </div>
+        <div class="col-12">
+          <!-- 這邊是讓大家放上自己要秀出來的內容 -->
 
 
-                <!-- 這邊是讓大家放上自己要秀出來的內容 -->
-
-                <div class="col-md">
+          <div class="" style="margin-left: 250px; margin-top: 80px">

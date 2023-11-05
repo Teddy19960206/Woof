@@ -2,6 +2,7 @@ package com.woof.groupcourseschedule.controller;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 import com.woof.groupcourse.entity.GroupCourse;
 import com.woof.groupcourse.service.GroupCourseService;
 import com.woof.groupcourse.service.GroupCourseServiceImpl;
@@ -86,6 +87,9 @@ public class GroupScheduleServlet extends HttpServlet {
             case "/checkout":
                 checkout(request ,response);
                 return;
+            case "/getOffSechedule":
+                getOffSechedule(request ,response);
+                return;
             default:
                 if (pathInfo.startsWith("/edit/")) {
 //                   進入修改頁面前，先撈取下拉式選項資料
@@ -113,27 +117,45 @@ public class GroupScheduleServlet extends HttpServlet {
     private void getSchedule(HttpServletRequest request, HttpServletResponse response) throws IOException {
         request.setCharacterEncoding("UTF-8");
 
-        String classType = request.getParameter("classType");
+        String classTypeStr = request.getParameter("classType");
+        Integer classType = (classTypeStr == null ||  classTypeStr.length() == 0 ) ? null : Integer.valueOf(classTypeStr);
+        String statusStr = request.getParameter("status");
+        Integer status = (statusStr == null || statusStr.length() == 0) ? null : Integer.valueOf(statusStr);
+        String page = request.getParameter("page");
 
-        List<GroupCourseSchedule> groupCourseScheduleSet = null;
-        if (classType != null) {
-            if ("0".equals(classType)) {
-                groupCourseScheduleSet = groupGourseScheduleService.getAll();
-            } else {
-                groupCourseScheduleSet = groupGourseScheduleService.getGroupScheduleByCtNo(Integer.valueOf(classType));
-            }
-        } else {
-            //異常判斷
-        }
+        Integer currentPage = (page == null) ? 1 : Integer.parseInt(page);
 
+        List<GroupCourseSchedule> groupCourseScheduleSet  = groupGourseScheduleService.getAll(classType , status ,currentPage);
+
+        int pageTotal = groupGourseScheduleService.getPageTotal(classType , status);
 
         Gson gson = new GsonBuilder()
                 .excludeFieldsWithoutExposeAnnotation()
                 .setDateFormat("yyyy-MM-dd")
                 .create();
-        String json = gson.toJson(groupCourseScheduleSet);
-        response.setContentType("application/json;charset=UTF-8");
 
+
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("pageTotal" , pageTotal);
+        jsonObject.add("data" , gson.toJsonTree(groupCourseScheduleSet));
+
+        response.setContentType("application/json;charset=UTF-8");
+        response.getWriter().write(jsonObject.toString());
+    }
+
+//   取得已下架的所有schedule
+    private void getOffSechedule(HttpServletRequest request , HttpServletResponse response) throws IOException {
+        request.setCharacterEncoding("UTF-8");
+
+        List<GroupCourseSchedule> offSechedule = groupGourseScheduleService.getOffSechedule();
+
+        Gson gson = new GsonBuilder()
+                .excludeFieldsWithoutExposeAnnotation()
+                .setDateFormat("yyyy-MM-dd")
+                .create();
+        String json = gson.toJson(offSechedule);
+
+        response.setContentType("application/json;charset=UTF-8");
         response.getWriter().write(json);
 
     }
@@ -162,6 +184,8 @@ public class GroupScheduleServlet extends HttpServlet {
         GroupCourseSchedule groupCourseSchedule = groupGourseScheduleService.findByGcsNo(id);
 
         request.setAttribute("schedule", groupCourseSchedule);
+
+        System.out.println(groupCourseSchedule);
 
         return "/backend/course/editGroupSchedule.jsp";
     }
@@ -200,15 +224,15 @@ public class GroupScheduleServlet extends HttpServlet {
 
         String delayReason = request.getParameter("delayReason");
 
-        String parameter = request.getParameter("relatedGcsNo");
+        String relatedStr = request.getParameter("relatedGcsNo");
 
-        Integer relatedGcsNo = null;
-        if (parameter != null){
-            relatedGcsNo = Integer.valueOf(request.getParameter("relatedGcsNo"));
+        GroupCourseSchedule byGcsNo = null;
+        if (relatedStr.length()!= 0){
+            Integer relatedGcsNo = Integer.valueOf(request.getParameter("relatedGcsNo"));
+            byGcsNo = groupGourseScheduleService.findByGcsNo(relatedGcsNo);
+
         }
 
-
-        GroupCourseSchedule byGcsNo = groupGourseScheduleService.findByGcsNo(scheduleNo);
 
 
         int result = groupGourseScheduleService.updateSchedule(scheduleNo, groupCourseByNo, trainerByTrainerNo, startDate, endDate, minLimit, maxLimit, regCount, price, status , delayReason ,byGcsNo);

@@ -50,7 +50,14 @@ tr:nth-child(odd) {
 	cursor: pointer;
 }
 
-.btn-danger {
+.btn-in {
+	background-color: orange;
+	color: white;
+	padding: 5px 10px;
+	border: none;
+	cursor: pointer;
+}
+.btn-back {
 	background-color: #f44336;
 	color: white;
 	padding: 5px 10px;
@@ -100,8 +107,9 @@ tr:nth-child(odd) {
 				</td>
 				<td>
 					<FORM METHOD="post"
-						action="${pageContext.request.contextPath}/privatetrainingappointmentform?action=gettodelete">
-						<button class="btn btn-danger" type="submit">刪除</button>
+						action="${pageContext.request.contextPath}/appointmentdetail?action=getdetail">
+						<input type="hidden" name="ptaNo" value="${privateTrainingAppointmentForm.ptaNo}">
+						<button class="btn btn-in" type="submit">查看明細</button>
 
 					</FORM>
 
@@ -124,7 +132,7 @@ tr:nth-child(odd) {
 	</c:if>
 
 <%-- 	<input type="hidden" value="返回" onclick="${pageContext.request.contextPath}/frontend/privatetrainingappointmentform/privateTrainingAppointmentForm.jsp"> --%>
-	<button class="btn btn-danger" onclick="window.location='${pageContext.request.contextPath}/frontend/privatetrainingappointmentform/privateTrainingAppointmentForm.jsp'">返回</button>
+	<button class="btn btn-back" onclick="window.location='${pageContext.request.contextPath}/frontend/privatetrainingappointmentform/privateTrainingAppointmentForm.jsp'">返回</button>
 
 
 <!-- 	</form> -->
