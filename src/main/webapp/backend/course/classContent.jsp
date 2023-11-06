@@ -23,8 +23,6 @@
 
 
 
-
-
 <%-- 取得團體課程列表 --%>
 
 <div class="container mx-auto">
@@ -76,6 +74,7 @@
         </div>
     </div>
 </div>
+
 
 <div class="text-center mb-5">
     <%-- 新增團體課程 --%>
