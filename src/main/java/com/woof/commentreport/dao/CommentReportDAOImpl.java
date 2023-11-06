@@ -21,13 +21,28 @@ public class CommentReportDAOImpl implements CommentReportDAO{
 
 	@Override
 	public int insert(CommentReport commentReport) {
-		return (Integer) getSession().save(commentReport);
+		try {
+			getSession().save(commentReport);
+			return 1;
+		} catch (Exception e) {
+			return -1;
+		}
 	}
 
 	@Override
 	public int update(CommentReport commentReport) {
 		try {
 			getSession().update(commentReport);
+			return 1;
+		} catch (Exception e) {
+			return -1;
+		}
+	}
+
+	@Override
+	public int delete(CommentReport commentReport) {
+		try {
+			getSession().delete(commentReport);
 			return 1;
 		} catch (Exception e) {
 			return -1;

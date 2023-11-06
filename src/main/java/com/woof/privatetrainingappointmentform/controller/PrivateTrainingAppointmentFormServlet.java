@@ -1,7 +1,11 @@
 package com.woof.privatetrainingappointmentform.controller;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.sql.Timestamp;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -84,6 +88,24 @@ public class PrivateTrainingAppointmentFormServlet extends HttpServlet {
 				getByTrainerNo(req, resp);
 				forwardPath = "/frontend/privatetrainingappointmentform/privateTrainingAppointmentForm_getByTrainerNo.jsp";
 				break;
+			case "commentbymember":
+				getByMemNo(req, resp);
+				forwardPath = "/frontend/privatetrainingappointmentform/commentByMember.jsp";
+				break;
+			case "comment":
+				forwardPath = "/frontend/privatetrainingappointmentform/commenting.jsp";
+				break;
+			case "insertcomment":
+				try {
+					updateComment(req, resp);
+				} catch (IOException e) {
+					e.printStackTrace();
+				} catch (ServletException e) {
+					e.printStackTrace();
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+				return;
 			default:
 				forwardPath = "/frontend/privatetrainingappointmentform/privateTrainingAppointmentForm.jsp";
 			}
@@ -302,6 +324,57 @@ public class PrivateTrainingAppointmentFormServlet extends HttpServlet {
 		
 	}
 	
-	
+	private void updateComment(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, ParseException {
 
+		Integer ptaNo = Integer.valueOf(request.getParameter("ptaNo"));
+
+		String memNo = request.getParameter("member");
+		MemberService memberService = new MemberServiceImpl();
+		Member member = memberService.findMemberByNo(memNo);
+
+		Integer trainerNo = Integer.valueOf(request.getParameter("trainer"));
+		TrainerService trainerService = new TrainerServiceImpl();
+		Trainer trainer = trainerService.findTrainerByTrainerNo(trainerNo);
+
+		String ptaClassStr = request.getParameter("number");
+        
+		int result;
+		Integer ptaClass = null;
+		try {
+			 ptaClass = Integer.parseInt(ptaClassStr);	
+			 result = 1;
+		} catch (NumberFormatException e) {
+			result = -1;
+		}
+		String ptaComment = request.getParameter("comment");
+		
+
+		if(privateTrainingAppointmentFormService.findPrivateTrainingAppointmentFormByPtaNo(ptaNo).getCommentTime() == null) {
+			Date now = new Date();
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			String commentTimeStr = dateFormat.format(now);
+			Date parsedDate = dateFormat.parse(commentTimeStr);
+			Timestamp commentTime = new Timestamp(parsedDate.getTime());
+			result = privateTrainingAppointmentFormService.insertComment(ptaNo, member, trainer,
+					ptaClass, ptaComment, commentTime);
+		}else {
+			Date now = new Date();
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			String commentUpTimeStr = dateFormat.format(now);
+			Date parsedDate = dateFormat.parse(commentUpTimeStr);
+			Timestamp commentUpTime = new Timestamp(parsedDate.getTime());
+			result = privateTrainingAppointmentFormService.updateComment(ptaNo, member, trainer,
+					ptaClass, ptaComment, commentUpTime);
+		}
+
+		if (result == 1) {
+			System.out.println("新增內容成功");
+			request.setAttribute("successMessage", "新增內容成功");
+		} else {
+			System.out.println("新增內容失敗");
+			request.setAttribute("errorMessage", "新增內容失敗");
+		}
+		response.sendRedirect(request.getContextPath()
+				+ "/frontend/privatetrainingappointmentform/privateTrainingAppointmentForm.jsp");
+	}
 }

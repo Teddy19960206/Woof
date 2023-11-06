@@ -1,5 +1,6 @@
 package com.woof.privatetrainingappointmentform.service;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import com.woof.member.entity.Member;
@@ -16,6 +17,12 @@ public interface PrivateTrainingAppointmentFormService {
 
 	int updatePrivateTrainingAppointmentForm(Integer ptaNo, Member member, Trainer trainer,
 			Integer ptaClass);
+	
+	int insertComment(Integer ptaNo, Member member, Trainer trainer,
+			Integer ptaClass, String ptaComment, Timestamp commentTime);
+	
+	int updateComment(Integer ptaNo, Member member, Trainer trainer,
+			Integer ptaClass, String ptaComment, Timestamp commentUpTime);
 	
 	int deletePrivateTrainingAppointmentForm(Integer ptaNo);
 	
