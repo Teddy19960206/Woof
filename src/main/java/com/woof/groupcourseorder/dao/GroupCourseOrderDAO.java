@@ -5,7 +5,7 @@ import com.woof.groupcourseorder.entity.GroupCourseOrder;
 import java.util.List;
 
 public interface GroupCourseOrderDAO {
-    void insert(GroupCourseOrder groupCourseOrder);
+    int insert(GroupCourseOrder groupCourseOrder);
 
     void update(GroupCourseOrder groupCourseOrder);
 

@@ -27,6 +27,7 @@
                     <option value="1">已付款</option>
                     <option value="2">已退款</option>
                     <option value="3">已取消</option>
+                    <option value="4">已完成</option>
                 </select>
             </div>
         </div>
