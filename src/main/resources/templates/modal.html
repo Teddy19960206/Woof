@@ -1,0 +1,59 @@
+<!-- 新增商品模態框 -->
+<div th:fragment="addProductModal">
+    <div class="modal fade" id="addProductModal" tabindex="-1" role="dialog" aria-labelledby="addProductModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addProductModalLabel">新增商品</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="addProductForm" enctype="multipart/form-data">
+                        <!-- 商品類別 -->
+                        <div class="form-group">
+                            <label for="productCategory">商品類別</label>
+                            <select class="form-control" id="productCategory" required></select>
+                        </div>
+                        <!-- 商品名稱 -->
+                        <div class="form-group">
+                            <label for="productName">商品名稱</label>
+                            <input type="text" class="form-control" id="productName" maxlength="30" required>
+                            <small id="productNameHelp" class="form-text text-muted">最多可輸入30個字</small>
+                        </div>
+                        <!-- 商品價錢 -->
+                        <div class="form-group">
+                            <label for="productPrice">商品價格</label>
+                            <input type="number" class="form-control" id="productPrice" min="0" max="999999" required>
+                        </div>
+                        <!-- 商品照片 -->
+                        <div class="form-group">
+                            <label for="productImage">商品照片</label>
+                            <input type="file" class="form-control-file" id="productImage" name="productImage">
+                        </div>
+                        <!-- 商品敘述 -->
+                        <div class="form-group">
+                            <label for="productDescription">商品敘述</label>
+                            <textarea class="form-control" id="productDescription" rows="3" maxlength="300"></textarea>
+                            <small id="productDescriptionHelp" class="form-text text-muted">最多可輸入300個字</small>
+                        </div>
+                        <!-- 上下架狀態 -->
+                        <div class="form-group">
+                            <label for="productStatus">上下架狀態</label>
+                            <select class="form-control" id="productStatus">
+                                <option value="銷售中">上架</option>
+                                <option value="下架中" selected>下架</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" id="saveProduct">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
