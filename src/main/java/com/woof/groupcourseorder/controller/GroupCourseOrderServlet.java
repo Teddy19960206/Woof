@@ -13,6 +13,7 @@ import com.woof.groupcourseschedule.service.GroupGourseScheduleService;
 import com.woof.member.entity.Member;
 import com.woof.member.service.MemberService;
 import com.woof.member.service.MemberServiceImpl;
+import com.woof.util.EmailValidator;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -22,7 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-
+import java.util.LinkedList;
 import java.util.List;
 
 
@@ -56,12 +57,14 @@ public class GroupCourseOrderServlet extends HttpServlet {
 
         String forwardPath = "";
         switch (pathInfo){
-
-            case "/registration":
-                registration(request , response);
+            case "/getOneOrder":
+                getOneOrder(request , response);
                 return;
             case "/getOrder":
                 getOrder(request , response);
+                return;
+            case "/check":
+                check(request , response);
                 return;
             default:
                 if (pathInfo.startsWith("/getGroupInfo/")) {
@@ -69,7 +72,6 @@ public class GroupCourseOrderServlet extends HttpServlet {
                 }else {
                     forwardPath = "/";
                 }
-
         }
 
         request.getRequestDispatcher(forwardPath).forward(request, response);
@@ -98,35 +100,6 @@ public class GroupCourseOrderServlet extends HttpServlet {
 
 
         return "/frontend/group/registration.jsp";
-    }
-
-    synchronized private void registration(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        Integer groupScheduleNo = Integer.valueOf(request.getParameter("GroupScheduleNo"));
-        GroupGourseScheduleService groupGourseScheduleService = new GroupCourseScheduleServiceImpl();
-        GroupCourseSchedule groupCourseSchedule = groupGourseScheduleService.findByGcsNo(groupScheduleNo);
-
-
-//         參加報名時，判斷人數是否已達上限
-        if (groupCourseSchedule.getRegCount() > groupCourseSchedule.getMaxLimit()){
-          request.getRequestDispatcher("/frontend/group/groupSchedule.jsp").forward(request , response);
-        }
-
-        HttpSession session = request.getSession();
-        Member member = (Member) session.getAttribute("member");
-
-
-        Integer payment = Integer.valueOf(request.getParameter("payment"));
-
-        Integer smmp = null;
-        String smmpCount = request.getParameter("smmpCount");
-        if (smmpCount != null){
-            smmp = Integer.valueOf(smmpCount);
-        }
-
-//        dao.addOrder(member ,  groupCourseSchedule , payment , smmp , );
-
-        response.sendRedirect(request.getContextPath()+"/index.html");
     }
 
     private void getOrder(HttpServletRequest request , HttpServletResponse response) throws IOException {
@@ -163,5 +136,76 @@ public class GroupCourseOrderServlet extends HttpServlet {
 
         response.setContentType("application/json;charset=UTF-8");
         response.getWriter().write(jsonResponse.toString());
+    }
+
+    synchronized private void check(HttpServletRequest request , HttpServletResponse response) throws ServletException, IOException {
+        //        有session後，就可以刪除了
+        MemberService memberService = new MemberServiceImpl();
+        Member member2 = memberService.findMemberByNo("member1");
+        HttpSession session = request.getSession();
+        session.setAttribute("member2" , member2);
+
+//        取得所有資訊
+        Member member = (Member) request.getSession().getAttribute("member2");
+        String smmpCount = request.getParameter("smmpCount");
+        String email = request.getParameter("email");
+        Integer actualAmount = Integer.valueOf(request.getParameter("actualAmount"));
+        Integer payment = Integer.valueOf(request.getParameter("payment"));
+        Integer groupScheduleNo = Integer.valueOf(request.getParameter("GroupScheduleNo"));
+        GroupGourseScheduleService groupGourseScheduleService = new GroupCourseScheduleServiceImpl();
+        GroupCourseSchedule groupCourseSchedule = groupGourseScheduleService.findByGcsNo(groupScheduleNo);
+
+        List<String> errorMsgs = new LinkedList<String>();
+
+        request.setAttribute("errorMsgs", errorMsgs);
+
+        Integer smmp = 0;
+        if (smmpCount != null){
+            smmp = Integer.valueOf(smmpCount);
+            if (member.getMomoPoint() < smmp){
+                errorMsgs.add("超出所擁有的毛毛幣");
+            }
+        }
+
+        if (email == null || email.trim().length() == 0){
+            errorMsgs.add("信箱請勿空白");
+        } else if (!EmailValidator.isValidEmail(email)) {
+            errorMsgs.add("信箱格式錯誤");
+        }
+
+//         參加報名時，判斷人數是否已達上限
+        if (groupCourseSchedule.getRegCount() > groupCourseSchedule.getMaxLimit()){
+            errorMsgs.add("人數報名已達上限");
+        }
+
+        if (!errorMsgs.isEmpty()){
+            request.getRequestDispatcher("/groupOrder/getGroupInfo/1")
+                    .forward(request, response);
+            return;
+        }
+
+        Integer status = 0;
+        if (payment == 1 || payment == 2){
+            status = 1;
+        }
+
+        int orderNo = groupCourseOrderService.addOrder(member, groupCourseSchedule, payment, smmp, actualAmount, status);
+        request.getSession().setAttribute("orderNo" , orderNo);
+        response.sendRedirect(request.getContextPath()+"/frontend/group/orderPage.jsp");
+    }
+
+    private void getOneOrder(HttpServletRequest request , HttpServletResponse response) throws IOException {
+        Integer orderNo = Integer.valueOf(request.getParameter("orderNo"));
+        GroupCourseOrder order = groupCourseOrderService.getOneOrder(orderNo);
+
+
+        Gson gson = new GsonBuilder()
+                .excludeFieldsWithoutExposeAnnotation()
+                .setDateFormat("yyyy-MM-dd")
+                .create();
+
+        String json = gson.toJson(order);
+        response.setContentType("application/json;charset=UTF-8");
+        response.getWriter().write(json);
     }
 }
