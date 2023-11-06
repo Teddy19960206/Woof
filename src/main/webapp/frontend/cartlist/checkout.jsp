@@ -18,12 +18,34 @@
 </head>
 
 <body>
-
 	<div class="container">
 		<h1>購物車結帳</h1>
-		<div class="row">
-			<div class="col-3"></div>
-		</div>
+		<c:if test="${not empty cart}">
+			<div class="row">
+				<div class="col-12">
+					<table class="table">
+						<thead>
+							<tr>
+								<th>商品編號</th>
+								<th>名稱</th>
+								<th>數量</th>
+								<th>價格</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach items="${cart}" var="item">
+								<tr>
+									<td><c:out value="${item.prodNo}" /></td>
+									<td><c:out value="${item.prodName}" /></td>
+									<td><c:out value="${item.quantity}" /></td>
+									<td><c:out value="${item.prodPrice}" /></td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</c:if>
 	</div>
 </body>
 

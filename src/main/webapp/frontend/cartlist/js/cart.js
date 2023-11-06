@@ -75,19 +75,24 @@ $("#cart-icon, #cart-count").on("click", function() {
 		},
 		success: function(cartJson) {
 
-
 			let html = "";
+			let totalAmount = 0;
+			
 			// 填充購物車清單
 			cartJson.forEach(item => {
+				let itemTotal = item.quantity * item.prodPrice; // 計算每個項目的總金額
+                totalAmount += itemTotal; // 計算購物車總金額
+                
 				html += `<tr>
                         <td>${item.prodNo}</td>
                         <td>${item.prodName}</td>
                         <td>${item.quantity}</td>
-                        <td>${item.prodPrice}</td>
+                        <td>NT$${itemTotal}</td>
                     </tr>`;
 			});
 
 			$("#cart-items-list").html(html);
+			$("#cart-total-amount").text(`NT$${totalAmount}`);
 
 			//	           doucument.getElementId("cart-items-list").innerHTML = html;
 			// 顯示購物車模態框
