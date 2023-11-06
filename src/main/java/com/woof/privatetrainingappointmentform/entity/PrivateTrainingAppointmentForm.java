@@ -1,5 +1,6 @@
 package com.woof.privatetrainingappointmentform.entity;
 
+import java.sql.Timestamp;
 import java.util.Objects;
 import java.util.Set;
 
@@ -51,6 +52,18 @@ public class PrivateTrainingAppointmentForm {
 	@Column(name="PTA_CLASS" , nullable = false , columnDefinition = "TINYINT")
 	private Integer ptaClass;
 	
+	@Expose
+	@Column(name="PTA_COMMENT")
+	private String ptaComment;
+	
+	@Expose
+	@Column(name="COMMENT_TIME")
+	private Timestamp commentTime	;
+	
+	@Expose
+	@Column(name="COMMENT_UPTIME")
+	private Timestamp commentUpTime;
+	
 	public PrivateTrainingAppointmentForm() {
 		
 	}
@@ -93,8 +106,23 @@ public class PrivateTrainingAppointmentForm {
 	public void setMember(Member member) {
 		this.member = member;
 	}
-
 	
+	public Timestamp getCommentTime() {
+		return commentTime;
+	}
+
+	public void setCommentTime(Timestamp commentTime) {
+		this.commentTime = commentTime;
+	}
+
+	public Timestamp getCommentUpTime() {
+		return commentUpTime;
+	}
+
+	public void setCommentUpTime(Timestamp commentUpTime) {
+		this.commentUpTime = commentUpTime;
+	}
+
 	public Trainer getTrainer() {
 		return trainer;
 	}
@@ -109,6 +137,14 @@ public class PrivateTrainingAppointmentForm {
 	public void setPtaClass(Integer ptaClass) {
 		this.ptaClass = ptaClass;
 	}
+	public String getPtaComment() {
+		return ptaComment;
+	}
+
+	public void setPtaComment(String ptaComment) {
+		this.ptaComment = ptaComment;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(ptaNo);

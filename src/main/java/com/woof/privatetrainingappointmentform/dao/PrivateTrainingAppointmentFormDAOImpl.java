@@ -35,7 +35,7 @@ public class PrivateTrainingAppointmentFormDAOImpl implements PrivateTrainingApp
 	@Override
 	public int update(PrivateTrainingAppointmentForm privateTrainingAppointmentForm) {
 		try {
-			getSession().update(privateTrainingAppointmentForm);
+			getSession().merge(privateTrainingAppointmentForm);
 			return 1;
 		} catch (Exception e) {
 			return -1;

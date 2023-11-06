@@ -30,25 +30,11 @@ public class CommentReport {
 	@ManyToOne
 	@JoinColumn(name = "MEM_NO" , referencedColumnName = "MEM_NO")
 	private Member member;
-	//===========================================//
+
 	@ManyToOne
 	@JoinColumn(name = "TRAINER_NO" , referencedColumnName = "TRAINER_NO")
 	private Trainer trainer;
 	
-//	@Expose
-//	@Column(name="TRAINER_NO" , nullable = false)
-//	private Integer trainerNo;
-//
-//	public Integer getTrainerNo() {
-//		return trainerNo;
-//	}
-//
-//	public void setTrainerNo(Integer trainerNo) {
-//		this.trainerNo = trainerNo;	
-//	}
-	
-	// Trainer做好後, 刪掉or註解拔掉
-	//===========================================//
 	@ManyToOne
 	@JoinColumn(name="PTA_NO" , referencedColumnName = "PTA_NO")
 	private PrivateTrainingAppointmentForm privateTrainingAppointmentForm;

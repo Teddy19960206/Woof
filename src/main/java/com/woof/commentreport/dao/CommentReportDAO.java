@@ -9,7 +9,9 @@ public interface CommentReportDAO {
 	int insert(CommentReport commentReport);
 	
 	int update(CommentReport commentReport);
-	
+
+	int delete(CommentReport commentReport);
+
 	CommentReport findByCrNo(Integer crNo);
 	
 	List<CommentReport> getAll();
