@@ -1,16 +1,28 @@
 package com.woof.product.service;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 public class ProductDto {
     private Integer prodNo;
+
+    @NotBlank(message = "商品類別不能為空")
     private String prodCatName;
+
+    @NotBlank(message = "商品描述不能為空")
     private String prodContent;
+
+    @NotNull(message = "商品價格不能為空")
     private Integer prodPrice;
+
+    @NotBlank(message = "商品名稱不能為空")
     private String prodName;
+
+    @NotBlank(message = "商品狀態不能為空")
     private String prodStatus;
-    private List<byte[]> productPhotos;
-    private List<String> base64ProductPhotos;
+
+    private byte[] prodPhoto;
 
 
     public Integer getProdNo() {
@@ -61,19 +73,11 @@ public class ProductDto {
         this.prodStatus = prodStatus;
     }
 
-    public List<byte[]> getProductPhotos() {
-        return productPhotos;
+    public byte[] getProdPhoto() {
+        return prodPhoto;
     }
 
-    public void setProductPhotos(List<byte[]> productPhotos) {
-        this.productPhotos = productPhotos;
-    }
-
-    public List<String> getBase64ProductPhotos() {
-        return base64ProductPhotos;
-    }
-
-    public void setBase64ProductPhotos(List<String> base64ProductPhotos) {
-        this.base64ProductPhotos = base64ProductPhotos;
+    public void setProdPhoto(byte[] prodPhoto) {
+        this.prodPhoto = prodPhoto;
     }
 }
