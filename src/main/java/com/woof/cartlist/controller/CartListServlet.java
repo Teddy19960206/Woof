@@ -30,10 +30,12 @@ public class CartListServlet extends HttpServlet {
                 //顯示為什麼在前端跑不出來
                 System.out.println("cartJson: " + cartJson);
                 
+                
                 // 設置響應
                 response.setContentType("application/json");
                 response.setCharacterEncoding("UTF-8");
                 response.getWriter().write(cartJson); // 傳回購物車的 JSON
+  
             }
         } catch (Exception e) {
             // 處理錯誤

@@ -86,96 +86,32 @@
 						aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
-					<!-- 標題行 -->
-					<div class="cart-item-title">
-						<strong>商品編號 名稱 數量 價格</strong>
-					</div>
-					<!-- 購物車清單內容將在這裡動態添加 -->
-					<ul id="cart-items-list" class="list-group">
-						<!-- 購物車商品項目 -->
-					</ul>
+					<!-- 購物車清單以表格形式顯示 -->
+					<table class="table">
+						<thead>
+							<tr>
+								<th class="col-3">商品編號</th>
+								<th class="col-3">商品名稱</th>
+								<th class="col-2">數量</th>
+								<th class="col-2">價格</th>
+							</tr>
+						</thead>
+						<tbody id="cart-items-list">
+							<!-- 購物車商品項目將在這裡動態添加 -->
+						</tbody>
+					</table>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary"
 						data-bs-dismiss="modal">繼續購物</button>
-					<button type="button" class="btn btn-primary">結帳</button>
+					<a href="<%=request.getContextPath()%>/frontend/cartlist/checkout.jsp" class="btn btn-primary">結帳</a>
 				</div>
 			</div>
 		</div>
 	</div>
 
 
-	<script>
-		// 添加商品到購物車的 AJAX 請求
-		$(".add-to-cart").on("click", function() {
-			let prodNo = $(this).data("id");
-
-			// 			console.log(prodNo);
-
-			let prodName = $(this).data("name");
-			let prodPrice = $(this).data("price");
-
-			$.ajax({
-				type : "POST",
-				url : "${pageContext.request.contextPath}/cart",
-				data : {
-					action : "add",
-					prodNo : prodNo,
-					prodName : prodName,
-					prodPrice : prodPrice
-				},
-				success : function(data) {
-
-					console.log(data);
-
-					// 更新前端HTML中的數字
-					let totalQuantity = data.totalQuantity;
-					$("#cart-count").text(totalQuantity);
-
-				}
-
-			});
-		});
-
-		
-		// 購物車圖標點擊事件
-		$("#cart-icon, #cart-count").on("click", function() {
-		  // 假設用戶已經登入，並且會員編號已經存儲在會話中
-		  let memNo = "member1"; // 這裡應該從會話中獲取真實的會員編號
-
-		  $.ajax({
-		    type: "POST",
-		    url: "${pageContext.request.contextPath}/cartlist",
-		    data: {
-		      action: "getCart",
-		      memNo: memNo
-		    },
-		    success: function(cartJson) {
-		    	
-		      console.log("返回的購物車數據:", cartJson); // 打印返回的數據	
-		    	
-		      
-		   // 清空購物車清單
-		      $("#cart-items-list").empty();
-		      // 填充購物車清單
-		      $.each(cartJson, function(index, item) { // 直接使用 cartJson.cart
-		        $("#cart-items-list").append(
-		          `<li class="list-group-item">
-		            ${item.prodNo} ${item.prodName} ${item.quantity} ${item.prodPrice}
-		          </li>`
-		        );
-		      });
-		      // 顯示購物車模態框
-		      $('#cartModal').modal('show');
-		    }
-		  });
-		});
-		
-	</script>
-
-
-
-
+	<script src="<%=request.getContextPath()%>/frontend/cartlist/js/cart.js "></script>
 
 </body>
 

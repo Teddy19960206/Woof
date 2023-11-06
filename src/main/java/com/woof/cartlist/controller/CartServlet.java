@@ -23,6 +23,30 @@ public class CartServlet extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String action = request.getParameter("action");
 
+		//自動載入購物車加總,顯示出來
+		if ("getTotalQuantity".equals(action)) {
+		    String memNo = "member1"; // 從會話中獲取真實的會員編號
+		    String cartJson = jedis.get(memNo);
+		    List<Map<String, Object>> cart;
+		    if (cartJson != null) {
+		        cart = new Gson().fromJson(cartJson, new TypeToken<List<Map<String, Object>>>() {}.getType());
+		    } else {
+		        cart = new ArrayList<>();
+		    }
+		    
+		    int totalQuantity = cart.stream()
+		            .mapToInt(item -> (int) Double.parseDouble(item.get("quantity").toString())).sum();
+		    
+		    Map<String, Object> responseMap = new HashMap<>();
+		    responseMap.put("totalQuantity", totalQuantity);
+		    
+		    String responseJson = new Gson().toJson(responseMap);
+		    
+		    response.setContentType("application/json");
+		    response.setCharacterEncoding("UTF-8");
+		    response.getWriter().write(responseJson);
+		}else
+		
 		if ("add".equals(action)) {
 //			HttpSession session = request.getSession();
 //			String memNo = (String) session.getAttribute("memNo"); // 假設會員編號已經存儲在會話中
@@ -92,6 +116,7 @@ public class CartServlet extends HttpServlet {
 		}
 	}
 
+	
 	@Override
 	public void destroy() {
 
