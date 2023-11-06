@@ -89,6 +89,29 @@ body {
 	color: #333;
 }
 </style>
+<style>
+#preview {
+	border: 1px solid lightgray;
+	display: inline-block; /*  */
+	width: 200px;
+	min-height: 250px;
+	position: relative;
+}
+
+#preview span.text {
+	position: absolute;
+	display: inline-block;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	z-index: -1;
+	color: lightgray;
+}
+
+#preview img.preview_img {
+	width: 100%;
+}
+</style>
 </head>
 <body>
 	<div class="container">
@@ -96,7 +119,7 @@ body {
 			<div class="custom-header text-center">
 				<h3>會員資料新增</h3>
 			</div>
-			<a href="login.jsp" class="btn btn-light btn-sm"
+			<a href="/woof/index.html" class="btn btn-light btn-sm"
 				style="position: absolute; top: 10px; right: 20px;">回首頁</a>
 			<form method="post"
 				action="${pageContext.request.contextPath}/member.do"
@@ -143,8 +166,15 @@ body {
 					<label for="memPhoto">會員相片:</label>
 					<div>
 						<div class="form-check form-check-inline">
+							<!-- 預覽圖片區塊 -->
+							<div id="preview" style="margin-bottom: 10px;">
+								<img id="photo" class="preview_img" src="#" alt="會員相片預覽"
+									onerror="this.style.display='none'" /> <span class="text">
+								</span>
+							</div>
+							<!-- 檔案上傳輸入框 -->
 							<input class="form-check-input" type="file" name="memPhoto"
-								accept="image/*" />
+								accept="image/*" id="p_file" />
 						</div>
 					</div>
 					<small class="error-msg">${errorMsgs.memStatus}</small>
@@ -247,5 +277,6 @@ body {
 	<!-- Bootstrap JavaScript -->
 	<script
 		src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+	<script src="${pageContext.request.contextPath}/backend/member/js/updatemember.js"></script>
 </body>
 </html>

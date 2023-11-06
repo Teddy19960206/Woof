@@ -24,7 +24,12 @@ public class NonTrainingScheduleDAOImpl implements NonTrainingScheduleDAO{
 
 	@Override
 	public int insert(NonTrainingSchedule nonTrainingSchedule) {
-		return (Integer) getSession().save(nonTrainingSchedule);
+		try {
+			getSession().save(nonTrainingSchedule);
+			return 1;
+		} catch (Exception e) {
+			return -1;
+		}
 	}
 
 	@Override
@@ -49,8 +54,12 @@ public class NonTrainingScheduleDAOImpl implements NonTrainingScheduleDAO{
 
 	@Override
 	public int delete(NonTrainingSchedule nonTrainingSchedule) {
-		getSession().delete(nonTrainingSchedule);
-		return 1;
+		try {
+			getSession().delete(nonTrainingSchedule);
+			return 1;
+		} catch (Exception e) {
+			return -1;
+		}
 	}
 
 	@Override

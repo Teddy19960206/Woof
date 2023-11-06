@@ -1,6 +1,8 @@
 package com.woof.privatetrainingappointmentform.service;
 
 import static com.woof.util.Constants.PAGE_MAX_RESULT;
+
+import java.sql.Timestamp;
 import java.util.List;
 
 import com.woof.member.entity.Member;
@@ -44,9 +46,7 @@ public class PrivateTrainingAppointmentFormServiceImpl implements PrivateTrainin
 		privateTrainingAppointmentForm.setMember(member);
 		privateTrainingAppointmentForm.setTrainer(trainer);
 		privateTrainingAppointmentForm.setPtaClass(ptaClass);
-		dao.insert(privateTrainingAppointmentForm);
-		System.out.println(privateTrainingAppointmentForm);
-		return 1;
+		return dao.insert(privateTrainingAppointmentForm);
 	}
 
 	@Override
@@ -56,16 +56,41 @@ public class PrivateTrainingAppointmentFormServiceImpl implements PrivateTrainin
 		privateTrainingAppointmentForm.setMember(member);
 		privateTrainingAppointmentForm.setTrainer(trainer);
 		privateTrainingAppointmentForm.setPtaClass(ptaClass);
-		dao.update(privateTrainingAppointmentForm);
-		return 1;
+		return dao.update(privateTrainingAppointmentForm);
+	}
+	
+	@Override
+	public int insertComment(Integer ptaNo, Member member, Trainer trainer, Integer ptaClass, String ptaComment,
+			Timestamp commentTime) {
+		PrivateTrainingAppointmentForm privateTrainingAppointmentForm = new PrivateTrainingAppointmentForm();
+		privateTrainingAppointmentForm.setPtaNo(ptaNo);
+		privateTrainingAppointmentForm.setMember(member);
+		privateTrainingAppointmentForm.setTrainer(trainer);
+		privateTrainingAppointmentForm.setPtaClass(ptaClass);
+		privateTrainingAppointmentForm.setPtaComment(ptaComment);
+		privateTrainingAppointmentForm.setCommentTime(commentTime);
+		return dao.update(privateTrainingAppointmentForm);
+	}
+
+	@Override
+	public int updateComment(Integer ptaNo, Member member, Trainer trainer, Integer ptaClass, String ptaComment,
+			Timestamp commentTime, Timestamp commentUpTime) {
+		PrivateTrainingAppointmentForm privateTrainingAppointmentForm = new PrivateTrainingAppointmentForm();
+		privateTrainingAppointmentForm.setPtaNo(ptaNo);
+		privateTrainingAppointmentForm.setMember(member);
+		privateTrainingAppointmentForm.setTrainer(trainer);
+		privateTrainingAppointmentForm.setPtaClass(ptaClass);
+		privateTrainingAppointmentForm.setPtaComment(ptaComment);
+		privateTrainingAppointmentForm.setCommentTime(commentTime);
+		privateTrainingAppointmentForm.setCommentUpTime(commentUpTime);
+		return dao.update(privateTrainingAppointmentForm);
 	}
 
 	@Override
 	public int deletePrivateTrainingAppointmentForm(Integer ptaNo) {
 		PrivateTrainingAppointmentForm privateTrainingAppointmentForm = new PrivateTrainingAppointmentForm();
 		privateTrainingAppointmentForm.setPtaNo(ptaNo);
-		dao.delete(privateTrainingAppointmentForm);
-		return 1;
+		return dao.delete(privateTrainingAppointmentForm);
 	}
 
 	@Override
@@ -103,5 +128,5 @@ public class PrivateTrainingAppointmentFormServiceImpl implements PrivateTrainin
 		int pageQty = (int) (total % PAGE_MAX_RESULT == 0 ? (total / PAGE_MAX_RESULT) : (total / PAGE_MAX_RESULT + 1));
 		return pageQty;
 	}
-
+	
 }

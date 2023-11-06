@@ -11,6 +11,8 @@ public interface AppointmentDetailDAO {
 	int insert(AppointmentDetail appointmentDetail);
 	
 	int update(AppointmentDetail appointmentDetail);
+
+	int delete(AppointmentDetail appointmentDetail);
 	
 	AppointmentDetail findByAdNo(Integer adNo);	
 	

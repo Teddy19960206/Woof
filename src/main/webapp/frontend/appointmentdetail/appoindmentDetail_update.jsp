@@ -40,24 +40,19 @@ button {
 		method="post" enctype="multipart/form-data">
 		<input	type="hidden" name="adNo"	value="${param.adNo}">
 		<input	type="hidden" name="ptaNo"	value="${param.ptaNo}">
-		<label for="datetimepick">選擇預約時間:</label>
-		 <input type="datetime-local" id="dateTimePicker" name="appTime" value="${param.appTime}">
+		<label for="datepick">選擇預約日期:</label>
+		<input type="date" id="datePicker" name="date" value="${param.appTime}">
 		<br />
 		<label>預約狀態：</label> 
 		<select name="appStatus">
-   		<option value="0" ${param.appStatus == '0' ? 'selected' : ''}>待審核</option>
-		<option value="1" ${param.appStatus == '1' ? 'selected' : ''}>拒絕</option>
-		<option value="2" ${param.appStatus == '2' ? 'selected' : ''}>接受</option>
-		<option value="3" ${param.appStatus == '3' ? 'selected' : ''}>完成</option>
-		<option value="4" ${param.appStatus == '4' ? 'selected' : ''}>取消</option>
+   		<option value="0" ${param.appStatus == '0' ? 'selected' : ''}>接受</option>
+		<option value="1" ${param.appStatus == '1' ? 'selected' : ''}>取消</option>
 		</select>
 		 <br /> 
-		 <label>預約地點：</label>
-		<input type="text" id="addressInput" placeholder="${param.appVenue}">
-		<br />
+	
 			
 		<button type="submit" name="action"
-			value="add">修改</button>
+			value="update">修改</button>
 		<button type="button" onclick="history.back()">取消修改</button>
 	</form>
 </body>

@@ -3,6 +3,7 @@ package com.woof.chatroom.dao;
 import java.util.*;
 
 import com.woof.chatroom.entity.Chatroom;
+import com.woof.member.entity.Member;
 
 public interface ChatroomDAO {
 	int insert(Chatroom chatroom);
@@ -14,6 +15,7 @@ public interface ChatroomDAO {
 	List<Chatroom> getAll();
 
 	Chatroom findByRoomNo(Integer roomNo);
+
 }
 
 //package com.woof.chatroom.dao;
