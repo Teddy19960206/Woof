@@ -58,7 +58,8 @@ $(document).ready(function(){
 										alert("哇 錯了");
 									}
 								});
-						//日期格式
+    
+						//日期格式 
 						/* $("#memBd").datepicker({dateFormat : 'yy-mm-dd'}); */
 					})
 </script>
