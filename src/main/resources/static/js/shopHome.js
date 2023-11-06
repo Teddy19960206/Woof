@@ -1,7 +1,11 @@
+//let pathName = window.document.location.pathname;
+//let projectName = pathName.substring( 0 , pathName.substring(1).indexOf("/")+1);
+//${projectName}
+
 // 定義loadProducts函數，用於加載特定類別的商品
 function loadProducts(category) {
     // 根據類別構建請求URL
-    var url = category === 'all' ? '/products' : `/productsByCategory/${category}`;
+    var url = category === 'all' ? 'products' : `productsByCategory/${category}`;
     $.ajax({
         url: url,
         type: 'GET',
@@ -13,7 +17,7 @@ function loadProducts(category) {
                 var productCard = `
                     <div class="col-md-4">
                         <div class="card mb-3 box-shadow">
-                            <img class="card-img-top product-img" src="/productImage/${product.prodNo}" alt="${product.prodName}">
+                            <img class="card-img-top product-img" src="productImage/${product.prodNo}" alt="${product.prodName}">
                             <div class="card-body">
                                 <p class="card-text">${product.prodName}</p>
                                 <div class="d-flex justify-content-between align-items-center">
@@ -34,7 +38,7 @@ function loadProducts(category) {
             // 綁定查看詳情按鈕的點擊事件
             $('#products-row').on('click', '.view-details', function() {
                 var prodNo = $(this).data('prodno');
-                window.location.href = `/productDetail.html?prodNo=${prodNo}`; // 確保這個路徑是正確的
+                window.location.href = `productDetail.html?prodNo=${prodNo}`; 
             });
 
         },
@@ -49,7 +53,7 @@ $(document).ready(function() {
     // 當文檔加載完成後執行
     // 發送請求加載商品類別
     $.ajax({
-        url: '/productCategories',
+        url: 'productCategories',
         type: 'GET',
         success: function(categories) {
             // 清空側邊欄並添加“全部”選項作為第一個選項
