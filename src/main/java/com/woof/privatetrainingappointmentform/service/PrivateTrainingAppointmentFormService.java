@@ -22,7 +22,7 @@ public interface PrivateTrainingAppointmentFormService {
 			Integer ptaClass, String ptaComment, Timestamp commentTime);
 	
 	int updateComment(Integer ptaNo, Member member, Trainer trainer,
-			Integer ptaClass, String ptaComment, Timestamp commentUpTime);
+			Integer ptaClass, String ptaComment,Timestamp commentTime, Timestamp commentUpTime);
 	
 	int deletePrivateTrainingAppointmentForm(Integer ptaNo);
 	

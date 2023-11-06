@@ -95,7 +95,7 @@ public class PrivateTrainingAppointmentFormServlet extends HttpServlet {
 			case "comment":
 				forwardPath = "/frontend/privatetrainingappointmentform/commenting.jsp";
 				break;
-			case "insertcomment":
+			case "updatecomment":
 				try {
 					updateComment(req, resp);
 				} catch (IOException e) {
@@ -348,13 +348,13 @@ public class PrivateTrainingAppointmentFormServlet extends HttpServlet {
 		}
 		String ptaComment = request.getParameter("comment");
 		
-
-		if(privateTrainingAppointmentFormService.findPrivateTrainingAppointmentFormByPtaNo(ptaNo).getCommentTime() == null) {
+		Timestamp commentTime = privateTrainingAppointmentFormService.findPrivateTrainingAppointmentFormByPtaNo(ptaNo).getCommentTime();
+		if(commentTime == null) {
 			Date now = new Date();
 			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			String commentTimeStr = dateFormat.format(now);
 			Date parsedDate = dateFormat.parse(commentTimeStr);
-			Timestamp commentTime = new Timestamp(parsedDate.getTime());
+			commentTime = new Timestamp(parsedDate.getTime());
 			result = privateTrainingAppointmentFormService.insertComment(ptaNo, member, trainer,
 					ptaClass, ptaComment, commentTime);
 		}else {
@@ -364,7 +364,7 @@ public class PrivateTrainingAppointmentFormServlet extends HttpServlet {
 			Date parsedDate = dateFormat.parse(commentUpTimeStr);
 			Timestamp commentUpTime = new Timestamp(parsedDate.getTime());
 			result = privateTrainingAppointmentFormService.updateComment(ptaNo, member, trainer,
-					ptaClass, ptaComment, commentUpTime);
+					ptaClass, ptaComment, commentTime, commentUpTime);
 		}
 
 		if (result == 1) {
@@ -375,6 +375,6 @@ public class PrivateTrainingAppointmentFormServlet extends HttpServlet {
 			request.setAttribute("errorMessage", "新增內容失敗");
 		}
 		response.sendRedirect(request.getContextPath()
-				+ "/frontend/privatetrainingappointmentform/privateTrainingAppointmentForm.jsp");
+				+ "/frontend/privatetrainingappointmentform/comment.jsp");
 	}
 }

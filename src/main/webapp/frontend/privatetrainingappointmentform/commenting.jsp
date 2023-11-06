@@ -47,25 +47,24 @@
     </style>
 </head>
 <body>
-	<form method="POST" action="${pageContext.request.contextPath}/privatetrainingappointmentform?action=insertcomment">
+	<form method="POST" action="${pageContext.request.contextPath}/privatetrainingappointmentform?action=updatecomment">
         <h2>評論內容</h2>
         <textarea name="comment" rows="5" placeholder="請輸入評論內容" required>${param.comment}</textarea>
-<%--         <input type="hidden" name="ptaNo" value="${param.ptaNo}">					 --%>
-<%-- 		<input type="hidden" name="member" value="${param.member.memNo}"> --%>
-<%-- 		<input type="hidden" name="trainer" value="${param.trainer.administrator.adminNo}"> --%>
-<%-- 		<input type="hidden" name="number" value="${param.number}"> --%>
-<%-- 		<input type="hidden" name="comment" value="${param.comment}"> --%>
-<%-- 		<input type="hidden" name="commenttime" value="${param.commentTime}"> --%>
-<%-- 		<input type="hidden" name="commentuptime" value="${param.commentUpTime}"> --%>
+        <input type="hidden" name="ptaNo" value="${param.ptaNo}">					
+		<input type="hidden" name="member" value="${param.member}">
+		<input type="hidden" name="trainer" value="${param.trainer}">
+		<input type="hidden" name="number" value="${param.number}">
+		<input type="hidden" name="commenttime" value="${param.commentTime}">
+		<input type="hidden" name="commentuptime" value="${param.commentUpTime}">
         <button type="submit">提交評論</button>
     </form>
-    <p>ptaNo = ${param.ptaNo}</p>
-    <p>member = ${param.member.memNo}</p>
-    <p>trainer = ${param.trainer.administrator.adminNo}</p>
-    <p>number = ${param.number}</p>
-    <p>comment = ${param.comment}</p>
-    <p>commentTime = ${param.commentTime}</p>
-    <p>commentUpTime = ${param.commentUpTime}</p>
+<%--     <p>ptaNo = ${param.ptaNo}</p> --%>
+<%--     <p>member = ${param.member}</p> --%>
+<%--     <p>trainer = ${param.trainer}</p> --%>
+<%--     <p>number = ${param.number}</p> --%>
+<%--     <p>comment = ${param.comment}</p> --%>
+<%--     <p>commentTime = ${param.commentTime}</p> --%>
+<%--     <p>commentUpTime = ${param.commentUpTime}</p> --%>
     
     	<button class="btn btn-back" onclick="history.back()">返回</button>
 </body>

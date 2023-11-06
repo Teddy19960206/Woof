@@ -74,13 +74,14 @@ public class PrivateTrainingAppointmentFormServiceImpl implements PrivateTrainin
 
 	@Override
 	public int updateComment(Integer ptaNo, Member member, Trainer trainer, Integer ptaClass, String ptaComment,
-			Timestamp commentUpTime) {
+			Timestamp commentTime, Timestamp commentUpTime) {
 		PrivateTrainingAppointmentForm privateTrainingAppointmentForm = new PrivateTrainingAppointmentForm();
 		privateTrainingAppointmentForm.setPtaNo(ptaNo);
 		privateTrainingAppointmentForm.setMember(member);
 		privateTrainingAppointmentForm.setTrainer(trainer);
 		privateTrainingAppointmentForm.setPtaClass(ptaClass);
 		privateTrainingAppointmentForm.setPtaComment(ptaComment);
+		privateTrainingAppointmentForm.setCommentTime(commentTime);
 		privateTrainingAppointmentForm.setCommentUpTime(commentUpTime);
 		return dao.update(privateTrainingAppointmentForm);
 	}
