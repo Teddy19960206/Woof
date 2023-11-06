@@ -35,7 +35,7 @@ public class LoginServlet extends HttpServlet {
 			HttpSession session = req.getSession();
 
 			session.removeAttribute("user");
-			res.sendRedirect(req.getContextPath() + "/memberlogin.jsp");
+			res.sendRedirect(req.getContextPath() + "/frontend/member/login/login.jsp");
 			System.out.println(session.getId() + "刪除");
 			String user = (String) session.getAttribute("user");
 			if (user == null) {
@@ -61,6 +61,12 @@ public class LoginServlet extends HttpServlet {
 		                // 登入成功，將會員信息設置到session中
 		                HttpSession session1 = req.getSession();
 		                session1.setAttribute("member", member);
+		                
+		                // 這裡調用service來獲取點數
+		                Integer momopoints = memberService.getMemberPoints(member.getMemNo());
+		                // 將點數添加到session中
+		                session1.setAttribute("momoPoints", momopoints);
+		                
 
 		                // 轉發到登入成功頁面或者其他操作
 		                res.sendRedirect(req.getContextPath() + "/frontend/member/login/welcome.jsp");
