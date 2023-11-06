@@ -17,42 +17,31 @@ public class ChatroomServiceImpl implements ChatroomService {
 
 	@Override
 	public Chatroom addChatroom(Chatroom chatroom) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		session.beginTransaction();
-			if (dao.insert(chatroom) == 1) {
-				session.getTransaction().commit();
-				return chatroom;
-			}
-			session.getTransaction().rollback();
-		return null;
+		dao.insert(chatroom);
+		return chatroom;
 	}
 
 	@Override
 	public Chatroom updateChatroom(Chatroom chatroom) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		session.beginTransaction();
-			if (dao.update(chatroom) == 1) {
-				session.getTransaction().commit();
-				return chatroom;
-			}
-			session.getTransaction().rollback();
-		return null;
+		dao.update(chatroom);
+		return chatroom;
 	}
 
 	@Override
 	public void deleteChatroom(Integer roomNo) {
-		
+		if (dao.delete(roomNo) == 1) {
+			return;
+		}
 	}
 
 	@Override
 	public Chatroom findChatroomByRoomNO(Integer roomNo) {
 		Chatroom chatroom = dao.findByRoomNo(roomNo);
 		return chatroom;
-		}
+	}
 
 	@Override
 	public List<Chatroom> getAllChatrooms() {
-			List<Chatroom> chatroomList = dao.getAll();
-			return chatroomList;
-		}
+     return dao.getAll();
 	}
+}
