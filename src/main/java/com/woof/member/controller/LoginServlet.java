@@ -28,6 +28,7 @@ public class LoginServlet extends HttpServlet {
 		res.setContentType("text/html;charset=UTF-8");
 		String action = req.getParameter("action");
 		// =======================登出============================//
+		
 		if (action != null) {
 			switch (action) {
 			case "memberlogout":
