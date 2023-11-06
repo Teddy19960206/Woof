@@ -44,6 +44,28 @@
         button:hover {
             background-color: #2960a5;
         }
+        .btn-back {
+            background-color: #ccc;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .btn-back:hover {
+            background-color: #999;
+        }
+        .btn-report {
+            background-color: #e74c3c;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .btn-report:hover {
+            background-color: #c0392b;
+        }
     </style>
 </head>
 <body>
@@ -66,6 +88,7 @@
 <%--     <p>commentTime = ${param.commentTime}</p> --%>
 <%--     <p>commentUpTime = ${param.commentUpTime}</p> --%>
     
-    	<button class="btn btn-back" onclick="history.back()">返回</button>
+    	<button class="btn-report" onclick="reportComment()">檢舉</button>
+    <button class="btn btn-back" onclick="history.back()">返回</button>
 </body>
 </html>
