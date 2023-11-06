@@ -17,7 +17,7 @@
 <script>
 $(document).ready(function(){
     $.ajax({
-        //﹚http把计肚块ΑPOST
+        ///﹚http把计肚块ΑPOST
         type : "POST",
 
         data : {memNo : "<%=request.getParameter("memNo")%>"},
