@@ -85,7 +85,7 @@ public class MemberServlet extends HttpServlet {
 				return;
 				
 			default:
-				forwardPath = "/frontend/member/selectmember.jsp";
+				forwardPath = "/backend/member/selectmember.jsp";
 			}
 		}
 		req.getRequestDispatcher(forwardPath).forward(req, res);
