@@ -1,3 +1,6 @@
+//let pathName = window.document.location.pathname;
+//let projectName = pathName.substring( 0 , pathName.substring(1).indexOf("/")+1);
+
 $(document).ready(function() {
     // 從URL獲取商品ID
     var prodNo = new URLSearchParams(window.location.search).get('prodNo');
@@ -5,11 +8,11 @@ $(document).ready(function() {
     // 如果prodNo存在，則從後端獲取商品詳情
     if (prodNo) {
         $.ajax({
-            url: `/productById/${prodNo}`,
+            url: `productById/${prodNo}`,
             type: 'GET',
             success: function(product) {
                 // 更新頁面上的商品信息
-                $('#product-image').attr('src', `/productImage/${product.prodNo}`);
+                $('#product-image').attr('src', `productImage/${product.prodNo}`);
                 $('#product-name').text(product.prodName);
                 $('#product-description').text(product.prodContent);
                 $('#product-price').text(`$${product.prodPrice}`);
