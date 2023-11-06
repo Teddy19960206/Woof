@@ -21,7 +21,7 @@ $(document).ready(function(){
         type : "POST",
 
         data : {memNo : "<%=request.getParameter("memNo")%>"},
-        //請求目標的url
+        ///請求目標的url
         url : "<%=request.getContextPath()%>/member.do?action=query",
 									//Ajax成功後執行的function，response為回傳的值
 									success : function(data) {
