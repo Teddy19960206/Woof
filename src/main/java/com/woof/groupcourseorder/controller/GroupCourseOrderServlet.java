@@ -203,8 +203,9 @@ public class GroupCourseOrderServlet extends HttpServlet {
 
 
 //          email寄送報名資訊
+            System.out.println(email);
             MailService mailService = new MailService();
-            mailService.sendMail("trick95710@gmail.com" ,
+            mailService.sendMail(email ,
                     "報名成功" ,
                             MailService.groupOrderhtml(member.getMemName() ,                 // 報名人姓名
                             groupCourseSchedule.getGroupCourse().getClassType().getCtName(), // 班級名稱
