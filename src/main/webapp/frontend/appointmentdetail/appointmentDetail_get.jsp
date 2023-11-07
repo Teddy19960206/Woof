@@ -123,9 +123,9 @@
 	</table>
 	<div class="button-container">
     <FORM METHOD="post" action="${pageContext.request.contextPath}/appointmentdetail?action=gettoadd">
-        <input	type="hidden" name="ptaNo"	value="${ptaNo}">
+        <input	type="hidden" name="ptaNo"	value="${param.ptaNo}">
         <button class="btn btn-new" name="action" value="gettoadd">新增</button>
-        <p>ptaNo = ${ptaNo}</p>
+<%--         <p>ptaNo = ${param.ptaNo}</p> --%>
     </FORM>
     <button class="btn btn-back" onclick="history.back()">返回</button>
 	</div>
