@@ -1,16 +1,12 @@
+<%@ page language="java" contentType="text/html;charset=UTF-8" %>
+<%-- <%@ page language="java" contentType="text/html;charset=UTF-8" %> --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<script
-  src="https://code.jquery.com/jquery-3.7.1.js"
-  integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
-  crossorigin="anonymous">
- </script>
  
 <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css">
 <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
 <script src="https://unpkg.com/swiper/swiper-bundle.js"></script>
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-
+<%@ include file="/meta.file" %>
 <html>
 
 <style>
@@ -125,11 +121,9 @@ section {
 }
 </style>
 
-
-
 <head>
-<meta charset="UTF-8">
 <title>administrator</title>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/frontend/group/css/registration.css"/>
 <script type="text/javascript">
   $(document).ready(function(){
       var swiper = new Swiper(".swiper", {
@@ -158,6 +152,7 @@ section {
           }
        });
   })
+  
   //表單點擊找出對應的function
   function processUpdate(jsonData){
 	  window.location.href = " <%=request.getContextPath()%>/frontend/administrator/administratorUpdate.jsp?adminNo=" + jsonData.adminNo ;
@@ -188,7 +183,7 @@ section {
 </script>
 </head>
 <body>
-
+<%@ include file="/Header.file" %>
 <jsp:useBean id="administratorService" scope="page" class="com.woof.administrator.service.AdministratorServiceImpl"/>
     <section>
     	<div style="display:inline-block;">
@@ -219,6 +214,8 @@ section {
           <div class="swiper-pagination"></div>
         </div>
     </section> 
+    <%@ include file="/Footer.file" %>
+    
 </body>
 </html>
 
