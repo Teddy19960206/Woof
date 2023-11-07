@@ -250,6 +250,14 @@
     		 <artifactId>jedis</artifactId>
   			 <version>2.9.0</version>
 		</dependency>
+		
+		<!-- Maven 的 pom.xml 中加入 JSP API 依賴 -->
+        <dependency>
+            <groupId>javax.servlet.jsp</groupId>
+            <artifactId>javax.servlet.jsp-api</artifactId>
+            <version>2.3.1</version>
+            <scope>provided</scope>
+        </dependency>
 	
 	
 	</dependencies>
