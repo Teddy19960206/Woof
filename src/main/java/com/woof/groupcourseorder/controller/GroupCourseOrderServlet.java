@@ -13,7 +13,9 @@ import com.woof.groupcourseschedule.service.GroupGourseScheduleService;
 import com.woof.member.entity.Member;
 import com.woof.member.service.MemberService;
 import com.woof.member.service.MemberServiceImpl;
+import com.woof.util.AppLogger;
 import com.woof.util.EmailValidator;
+import com.woof.util.MailService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -25,6 +27,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Level;
 
 
 @WebServlet("/groupOrder/*")
@@ -100,7 +103,7 @@ public class GroupCourseOrderServlet extends HttpServlet {
 
         String groupClassStr = request.getParameter("groupClass");
         Integer groupClass = (groupClassStr == null ||  groupClassStr.length() == 0 ) ? null : Integer.valueOf(groupClassStr);
-//        0:未付款 1:已付款 2:已退款 3.已取消
+//        0:未付款 1:已付款 2:已退款 3.已取消 4.已完成
 //        已取消，僅有使用匯款的人會有此狀態
 //        到了截止日期的一天後且尚未匯款，排程器會改變狀態變成 < 已取消 >
         String statusStr = request.getParameter("selectStatus");
@@ -132,7 +135,7 @@ public class GroupCourseOrderServlet extends HttpServlet {
         response.getWriter().write(jsonResponse.toString());
     }
 
-    synchronized private void check(HttpServletRequest request , HttpServletResponse response) throws ServletException, IOException {
+    synchronized private void check(HttpServletRequest request , HttpServletResponse response) throws IOException, ServletException {
 
 //        取得所有資訊
         Member member = (Member) request.getSession().getAttribute("member");
@@ -174,11 +177,18 @@ public class GroupCourseOrderServlet extends HttpServlet {
         }
 
         Integer status = 0;
-        if (payment == 1 || payment == 2){
+        if (payment == 0 || payment == 2){
             status = 1;
         }
-
-        int orderNo = groupCourseOrderService.addOrder(member, groupCourseSchedule, payment, smmp, actualAmount, status);
+        Integer orderNo = null;
+        try{
+            orderNo = groupCourseOrderService.addOrder(member, groupCourseSchedule, payment, smmp, actualAmount, status);
+            MailService mailService = new MailService();
+            mailService.sendMail("trick95710@gmail.com" , "報名成功" , MailService.groupOrderhtml());
+        }catch (Exception e){
+            e.printStackTrace();
+            AppLogger.getLogger().log(Level.ALL, "發生例外，新增失敗：" + e);
+        }
         request.getSession().setAttribute("orderNo" , orderNo);
         response.sendRedirect(request.getContextPath()+"/frontend/group/orderPage.jsp");
     }

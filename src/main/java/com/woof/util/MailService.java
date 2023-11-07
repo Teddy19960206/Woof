@@ -65,7 +65,7 @@ public class MailService{
 //		mailService.sendMail(to, subject, MailService.valid(url));
 	}
 
-	private static String groupOrderhtml() throws IOException {
+	public static String groupOrderhtml() throws IOException {
 
 		String html = "<!DOCTYPE >\n" +
 				"<html>\n" +
@@ -90,7 +90,7 @@ public class MailService{
 				"    >\n" +
 				"      <tr>\n" +
 				"        <td style=\"padding: 20px\" align=\"center\">\n" +
-				"          <img src=\"data:image/png;base64,"+imgBase64()+"\" width=\"50%\" />\n" +
+				"          <img src=\"https://cha103-17.s3.ap-northeast-1.amazonaws.com/happy_1.png\" width=\"50%\" />\n" +
 				"        </td>\n" +
 				"      </tr>\n" +
 				"      <tr>\n" +
@@ -190,7 +190,7 @@ public class MailService{
 		return html;
 	}
 
-	private static String valid(String url) throws IOException {
+	public static String valid(String url) throws IOException {
 
 		String html = "<!DOCTYPE >\n" +
 				"<html>\n" +
@@ -215,7 +215,7 @@ public class MailService{
 				"    >\n" +
 				"      <tr>\n" +
 				"        <td style=\"padding: 20px\" align=\"center\">\n" +
-				"          <img src=\"data:image/png;base64,"+imgBase64()+"\" width=\"50%\" />\n" +
+				"          <img src=\"https://cha103-17.s3.ap-northeast-1.amazonaws.com/happy_1.png\" width=\"50%\" />\n" +
 				"        </td>\n" +
 				"      </tr>\n" +
 				"      <tr>\n" +
@@ -259,12 +259,12 @@ public class MailService{
 				"</html>\n";
 		return html;
 	}
-	private static String imgBase64() throws IOException {
-		File imageFile = new File("src/main/resources/happy_1.png");
-		byte[] imageBytes = Files.readAllBytes(imageFile.toPath());
-		String base64Image = javax.xml.bind.DatatypeConverter.printBase64Binary(imageBytes);
-
-		return base64Image;
-	}
+//	public static String imgBase64() throws IOException {
+//		File imageFile = new File("src/main/webapp/webutil/icons/happy_1.png");
+//		byte[] imageBytes = Files.readAllBytes(imageFile.toPath());
+//		String base64Image = javax.xml.bind.DatatypeConverter.printBase64Binary(imageBytes);
+//
+//		return base64Image;
+//	}
 
 }

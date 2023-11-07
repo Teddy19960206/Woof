@@ -146,12 +146,12 @@
                         <input class="form-control verification text-center" type="text" maxlength="3" onkeypress='validate(event)' value="222">
                     </div>
 
-                    <input type="hidden" class="form-control" name="GroupScheduleNo" value="${groupScheduleNo}" readonly />
-
                     <div class="d-flex justify-content-center mt-5 myBtn">
                         <button type="submit" class="button-62">確認付款</button>
                     </div>
                 </div>
+
+                <input type="hidden" class="form-control" name="GroupScheduleNo" value="${groupScheduleNo}" readonly />
 
             </form>
 

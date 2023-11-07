@@ -10,6 +10,8 @@ const smmp = document.getElementById("smmp");
 const actualAmount = document.getElementById("actualAmount");
 const status = document.getElementById("status");
 
+const show = document.getElementById("show");
+
 $(function () {
     const orderNo = document.getElementById("orderNo").value;
     if (orderNo.length !== 0){
@@ -42,15 +44,52 @@ async function fetchData(orderNo){
         memName.value = data.member.memName;
         groupScheduleName.value = data.groupCourseSchedule.groupCourse.classType.ctName +"\t" + data.groupCourseSchedule.groupCourse.skill.skillName;
         gcoDate.value = data.gcoDate;
-        method.value = data.gcoPaymentMethod;
+
+        let payMethod;
+        switch (data.gcoPaymentMethod){
+            case 0:
+                payMethod = '信用卡';
+                break;
+            case 1:
+                payMethod = '匯款';
+                showTransfer();
+                break;
+            case 2:
+                payMethod = '綠界';
+                break;
+        }
+
+        method.value = payMethod;
         smmp.value = data.gcoSmmp;
         actualAmount.value = data.actualAmount;
-        status.value = data.gcoStatus;
+
+        let mode;
+
+        switch (data.gcoStatus){
+            case 0:
+                mode = '未付款';
+                break;
+            case 1:
+                mode = '已付款';
+                break;
+            case 2:
+                mode = '已退款';
+                break;
+            case 3:
+                mode = '已取消';
+                break;
+            case 4:
+                mode = '已完成';
+                break;
+        }
+
+        status.value = mode;
 
     }catch (error){
         console.log(error);
     }
+}
 
-
-
+function showTransfer(){
+    show.style.display = 'block';
 }
