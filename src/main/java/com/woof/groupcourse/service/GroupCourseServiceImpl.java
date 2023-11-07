@@ -107,6 +107,7 @@ public class GroupCourseServiceImpl implements GroupCourseService , AppService<S
     public byte[] getPhotoById(String gcNoStr){
 
         Integer gcNo = Integer.valueOf(gcNoStr);
+
         return findGroupCourseByNo(gcNo).getCoursePhoto();
     }
 

@@ -4,17 +4,30 @@
     <%@ include file="/meta.file" %>
     <title>寵毛導師 Woof | 檔期訂單</title>
 </head>
+<style>
+    input{
+        text-align: center;
+    }
+</style>
 <body>
 <%@ include file="/Header.file" %>
 <div class="container shadow my-3 col-5">
     <div class="">
-        <input type="hidden" id="orderNo" value="${orderNo}">
-        <h1 align="center" class="p-3">報名成功！</h1>
+
+        <h1 align="center" class="p-3">報名成功</h1>
         <div class="col-12 text-center">
             <h3>詳細訂單明細</h3>
         </div>
         <div class="col-12 my-3">
             <div class="row">
+                <label class="col-5 text-center">訂單編號</label>
+                <div class="col-5">
+                    <input type="text" class="form-control" id="orderNo" value="${orderNo}" readonly>
+                </div>
+
+            </div>
+
+            <div class="row my-3">
                 <label class="col-5 text-center">會員編號</label>
                 <div class="col-5">
                     <input type="text" class="form-control" id="memNo" readonly>
@@ -78,17 +91,17 @@
                 </div>
 
             </div>
-            <c:if test="">
+            <div id="show" style="display: none">
                 <div class="col-12 text-center">
                     <p>匯款帳號</p>
                     <p>銀行：合作金庫 (006)</p>
                     <p>匯款帳號：3333-333-333333</p>
                     <p>付款金額：<font class="text-danger">2300</font></p>
                 </div>
-            </c:if>
+            </div>
 
             <div class="text-center p-3">
-                <button class="btn btn-primary">返回首頁</button>
+                <button class="btn btn-primary" onclick="window.location.href='${pageContext.request.contextPath}/index.html'">返回首頁</button>
             </div>
         </div>
     </div>

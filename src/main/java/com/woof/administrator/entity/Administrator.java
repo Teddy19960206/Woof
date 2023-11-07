@@ -6,7 +6,6 @@ import java.util.Arrays;
 import java.util.Objects;
 import java.util.Set;
 
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
@@ -68,6 +68,17 @@ public class Administrator implements Serializable {
 	@Expose
 	@Column(name = "ADMIN_STATUS", nullable = false, columnDefinition = "TINYINT")
 	private Integer adminStatus;
+	
+	@Transient
+	private String imgStr ;
+
+	public String getImgStr() {
+		return imgStr;
+	}
+
+	public void setImgStr(String imgStr) {
+		this.imgStr = imgStr;
+	}
 
 	public Administrator() {
 		super();

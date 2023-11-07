@@ -26,7 +26,7 @@
                     <h1 class="h3 text-center" >會員資料</h1>
                     <div class="mb-md-3 row text-center">
                         <div>
-                            <img src="${pageContext.request.contextPath}/webutil/images/Carousel07.jpg" class="img-fluid rounded-circle myImg">
+                            <img src="${pageContext.request.contextPath}/DBPngReader?action=member&id=${member.memNo}" class="img-fluid rounded-circle myImg">
                         </div>
                     </div>
                 </div>
@@ -146,12 +146,12 @@
                         <input class="form-control verification text-center" type="text" maxlength="3" onkeypress='validate(event)' value="222">
                     </div>
 
-                    <input type="hidden" class="form-control" name="GroupScheduleNo" value="${groupScheduleNo}" readonly />
-
                     <div class="d-flex justify-content-center mt-5 myBtn">
                         <button type="submit" class="button-62">確認付款</button>
                     </div>
                 </div>
+
+                <input type="hidden" class="form-control" name="GroupScheduleNo" value="${groupScheduleNo}" readonly />
 
             </form>
 

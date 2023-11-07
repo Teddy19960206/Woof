@@ -11,16 +11,21 @@ import java.util.*;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
+
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 @WebServlet("/administrator.do")
+@MultipartConfig
 public class AdministratorServlet extends HttpServlet {
 
 	private AdministratorService administratorService;
@@ -96,9 +101,11 @@ public class AdministratorServlet extends HttpServlet {
 		admin.setAdminStatus(Integer.valueOf(req.getParameter("ADMIN_STATUS")));
 		administratorService.updateAdministrator(admin);
 		//導到指定的URL 頁面上 把請求回應都帶過去
-		String url = "/frontend/administrator/administrator.jsp";
-		RequestDispatcher rd =  req.getRequestDispatcher(url);
-		rd.forward(req, res);
+//		String url = "/frontend/administrator/administrator.jsp";
+//		RequestDispatcher rd =  req.getRequestDispatcher(url);
+//		rd.forward(req, res);
+		String url = req.getContextPath()+"/frontend/administrator/administrator.jsp";
+		res.sendRedirect(url);
 	}
 
 	private void processAdd(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
@@ -123,6 +130,16 @@ public class AdministratorServlet extends HttpServlet {
 		java.sql.Date sqlDate = new java.sql.Date(date.getTime());
 		admin.setAdminHd(sqlDate);
 		admin.setAdminStatus(Integer.valueOf(req.getParameter("ADMIN_STATUS")));
+		// 取得圖片 
+		// 開串流
+		Part p = req.getPart("ADMIN_PHOTO");
+		InputStream input = p.getInputStream();
+		byte[] photo = new byte[input.available()];
+		input.read(photo);
+		input.close();
+		admin.setAdminPhoto(photo);
+		
+		
 		administratorService.addAdministrator(admin);
 		
 		
