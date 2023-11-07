@@ -56,7 +56,7 @@ public class GroupCourseSchedule implements Serializable {
     private Integer maxLimit;
 
     @Expose
-	@Column(name = "REG_Count" , nullable = false , insertable = false , columnDefinition = "TINYINT")
+	@Column(name = "REG_COUNT" , nullable = false , insertable = false , columnDefinition = "TINYINT")
     private Integer regCount;
 
     @Expose

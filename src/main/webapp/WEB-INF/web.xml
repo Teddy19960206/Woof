@@ -30,6 +30,9 @@
 	<filter-mapping>
 		<filter-name>LoginFilter</filter-name>
 		<url-pattern>/member/*</url-pattern>
+		<url-pattern>/groupOrder/check</url-pattern>
+		<url-pattern>/groupOrder/getGroupInfo/*</url-pattern>
+		<url-pattern>/frontend/group/orderPage.jsp</url-pattern>
 		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>FORWARD</dispatcher>
 		<dispatcher>INCLUDE</dispatcher>

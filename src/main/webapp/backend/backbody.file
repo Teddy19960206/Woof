@@ -1,6 +1,5 @@
   <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
   
-
 <div class="container-fluid">
       <div class="row">
         <div
@@ -213,6 +212,5 @@
         </div>
         <div class="col-12">
           <!-- 這邊是讓大家放上自己要秀出來的內容 -->
-
 
           <div class="" style="margin-left: 250px; margin-top: 80px">
