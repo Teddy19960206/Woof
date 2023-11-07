@@ -7,7 +7,6 @@
 <head>
 <title>GetAll</title>
 <style>
-/* 在这里添加你的 CSS 样式 */
 body {
 	font-family: Arial, sans-serif;
 	background-color: #f0f0f0;
