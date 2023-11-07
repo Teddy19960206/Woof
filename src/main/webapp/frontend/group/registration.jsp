@@ -26,7 +26,7 @@
                     <h1 class="h3 text-center" >會員資料</h1>
                     <div class="mb-md-3 row text-center">
                         <div>
-                            <img src="${pageContext.request.contextPath}/webutil/images/Carousel07.jpg" class="img-fluid rounded-circle myImg">
+                            <img src="${pageContext.request.contextPath}/DBPngReader?action=member&id=${member.memNo}" class="img-fluid rounded-circle myImg">
                         </div>
                     </div>
                 </div>

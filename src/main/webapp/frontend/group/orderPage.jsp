@@ -4,12 +4,17 @@
     <%@ include file="/meta.file" %>
     <title>寵毛導師 Woof | 檔期訂單</title>
 </head>
+<style>
+    input{
+        text-align: center;
+    }
+</style>
 <body>
 <%@ include file="/Header.file" %>
 <div class="container shadow my-3 col-5">
     <div class="">
         <input type="hidden" id="orderNo" value="${orderNo}">
-        <h1 align="center" class="p-3">報名成功！</h1>
+        <h1 align="center" class="p-3">報名成功</h1>
         <div class="col-12 text-center">
             <h3>詳細訂單明細</h3>
         </div>
@@ -88,7 +93,7 @@
             </c:if>
 
             <div class="text-center p-3">
-                <button class="btn btn-primary">返回首頁</button>
+                <button class="btn btn-primary" onclick="window.location.href='${pageContext.request.contextPath}/index.html'">返回首頁</button>
             </div>
         </div>
     </div>

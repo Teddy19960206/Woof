@@ -79,12 +79,6 @@ public class GroupCourseOrderServlet extends HttpServlet {
 
     private String getGroupInfo(HttpServletRequest request , HttpServletResponse response , Integer gcsNo){
 
-//        有session後，就可以刪除了
-        MemberService memberService = new MemberServiceImpl();
-        Member member = memberService.findMemberByNo("member1");
-        HttpSession session = request.getSession();
-        session.setAttribute("member" , member);
-
 
         GroupGourseScheduleService groupCourseScheduleService = new GroupCourseScheduleServiceImpl();
         GroupCourseSchedule groupCourseSchedule = groupCourseScheduleService.findByGcsNo(gcsNo);
@@ -139,14 +133,9 @@ public class GroupCourseOrderServlet extends HttpServlet {
     }
 
     synchronized private void check(HttpServletRequest request , HttpServletResponse response) throws ServletException, IOException {
-        //        有session後，就可以刪除了
-        MemberService memberService = new MemberServiceImpl();
-        Member member2 = memberService.findMemberByNo("member1");
-        HttpSession session = request.getSession();
-        session.setAttribute("member2" , member2);
 
 //        取得所有資訊
-        Member member = (Member) request.getSession().getAttribute("member2");
+        Member member = (Member) request.getSession().getAttribute("member");
         String smmpCount = request.getParameter("smmpCount");
         String email = request.getParameter("email");
         Integer actualAmount = Integer.valueOf(request.getParameter("actualAmount"));
@@ -155,7 +144,7 @@ public class GroupCourseOrderServlet extends HttpServlet {
         GroupGourseScheduleService groupGourseScheduleService = new GroupCourseScheduleServiceImpl();
         GroupCourseSchedule groupCourseSchedule = groupGourseScheduleService.findByGcsNo(groupScheduleNo);
 
-        List<String> errorMsgs = new LinkedList<String>();
+        List<String> errorMsgs = new LinkedList<>();
 
         request.setAttribute("errorMsgs", errorMsgs);
 

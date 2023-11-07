@@ -2,7 +2,7 @@ let pathName = window.document.location.pathname;
 let projectName = pathName.substring( 0 , pathName.substring(1).indexOf("/")+1);
 
 const memNo = document.getElementById("memNo");
-const memName = document.getElementById("memeName");
+const memName = document.getElementById("memName");
 const groupScheduleName = document.getElementById("groupScheduleName");
 const gcoDate = document.getElementById("gcoDate");
 const method = document.getElementById("method");
@@ -11,14 +11,18 @@ const actualAmount = document.getElementById("actualAmount");
 const status = document.getElementById("status");
 
 $(function () {
-    fetchData(document.getElementById("orderNo").value);
+    const orderNo = document.getElementById("orderNo").value;
+    if (orderNo.length !== 0){
+        fetchData(orderNo);
+    }else {
+        window.location.href=`${projectName}/index.html`;
+    }
 })
 
 
 async function fetchData(orderNo){
     try{
         let orderNo = $("#orderNo").val();
-        console.log(orderNo)
         let url = `${projectName}/groupOrder/getOneOrder`;
         const response = await fetch(url , {
             method: "POST",
@@ -31,6 +35,7 @@ async function fetchData(orderNo){
         if (!response.ok){
             throw new Error("錯誤")
         }
+
         const data = await response.json();
 
         memNo.value = data.gcoNo;
@@ -40,7 +45,7 @@ async function fetchData(orderNo){
         method.value = data.gcoPaymentMethod;
         smmp.value = data.gcoSmmp;
         actualAmount.value = data.actualAmount;
-        status.value = data.gcoStatus
+        status.value = data.gcoStatus;
 
     }catch (error){
         console.log(error);

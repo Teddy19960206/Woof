@@ -104,7 +104,7 @@ async function splicing(data){
                                 </div>
                                 <p>上課日期：</p>
                             </div>
-                            <div class="classDate${count}">111</div>
+                            <div class="classDate${count}"></div>
                         </div>
                     </div>
         
