@@ -31,7 +31,7 @@ function getCartTotalQuantity() {
 // 添加商品到購物車的 AJAX 請求
 $(".add-to-cart").on("click", function() {
 	let prodNo = $(this).data("id");
-	alert("click");
+
 	// 			console.log(prodNo);
 
 	let prodName = $(this).data("name");

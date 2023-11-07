@@ -22,7 +22,7 @@ public class CartServlet extends HttpServlet {
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String action = request.getParameter("action");
-
+		System.out.println("action = " + action);
 		//自動載入購物車加總,顯示出來
 		if ("getTotalQuantity".equals(action)) {
 		    String memNo = "member1"; // 從會話中獲取真實的會員編號
