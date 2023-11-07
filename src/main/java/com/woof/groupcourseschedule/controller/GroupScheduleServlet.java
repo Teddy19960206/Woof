@@ -275,9 +275,12 @@ public class GroupScheduleServlet extends HttpServlet {
 
         GroupCourseSchedule groupCourseSchedule = groupGourseScheduleService.addSchedule(groupCourseByNo, trainerByTrainerNo, startDate, endDate, minLimit, maxLimit, price ,  delayReason ,  byGcsNo);
 
+
         Set<Date> dates = new HashSet<>();
-        String[] classDates = request.getParameterValues("classDate");
+        String[] classDates = request.getParameter("classDate").split(",");
+
         for (String classDate : classDates){
+            System.out.println(classDate);
             Date date = Date.valueOf(classDate);
             dates.add(date);
         }
@@ -285,7 +288,8 @@ public class GroupScheduleServlet extends HttpServlet {
         GroupScheduleDetailService groupScheduleDetailService = new GroupScheduleDetailServiceImpl();
         groupScheduleDetailService.add(groupCourseSchedule , groupCourseSchedule.getTrainer() ,dates );
 
-        response.sendRedirect(request.getContextPath() + "/backend/course/schedule.jsp");
+        response.getWriter().write("ok");
+
     }
 
     private void getListClass(HttpServletRequest request ,HttpServletResponse response){

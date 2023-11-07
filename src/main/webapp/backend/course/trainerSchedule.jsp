@@ -9,35 +9,7 @@
 <script src="${pageContext.request.contextPath}/webutil/js/bootstrap.bundle.min.js"></script>
 <script src="${pageContext.request.contextPath}/webutil/js/jquery-3.7.1.min.js"></script>
 <%@ include file="/backend/backhead.file" %>
-<style>
-
-  body {
-
-    padding: 0;
-    font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
-    font-size: 14px;
-  }
-
-  #calendar {
-    max-height: 75vh;
-    width: auto;
-    margin: 20px;
-    padding-right: 30px;
-    z-index: -1;
-  }
-
-  a {
-    text-decoration: none;
-    color: black;
-  }
-  div#showDate{
-    font-size: 30px;
-  }
-  .fc-event, .event-title {
-    padding: 0 1px;
-    white-space: normal;
-  }
-</style>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/backend/course/css/calendar.css" />
 </head>
 <body>
 
