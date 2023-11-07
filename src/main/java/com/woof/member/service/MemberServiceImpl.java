@@ -77,4 +77,17 @@ public class MemberServiceImpl implements MemberService, AppService<String> {
 		
 		dao.insert(member);
 	}
+	
+    // 實現獲取會員點數的方法
+    @Override
+    public Integer getMemberPoints(String memNo) {
+    	Integer momopoints = null;
+		try {
+			momopoints = findMemberByNo(memNo).getMomoPoint();	
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return momopoints;
+	}
+	
 }

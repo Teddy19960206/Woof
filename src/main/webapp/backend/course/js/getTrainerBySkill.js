@@ -1,6 +1,6 @@
 let pathName = window.document.location.pathname;
 let projectName = pathName.substring( 0 , pathName.substring(1).indexOf("/")+1);
-
+const selectElement = document.getElementById("skill");
 
 
 $(async function (){
@@ -46,7 +46,6 @@ async function getAllSchedule(){
     }
 
 }
-
 
 selectElement.addEventListener("change" , async function (e){
 
@@ -97,3 +96,4 @@ async function fetchTrainers(id){
         console.error('Error', error);
     }
 }
+

@@ -14,7 +14,7 @@ import java.util.List;
 
 
 
-public class GroupCourseServiceImpl implements GroupCourseService , AppService {
+public class GroupCourseServiceImpl implements GroupCourseService , AppService<String> {
 
 
     private GroupCourseDAO dao;
@@ -104,8 +104,9 @@ public class GroupCourseServiceImpl implements GroupCourseService , AppService {
         return pageQty;
     }
 
-    public byte[] getPhotoById(Integer gcNo){
+    public byte[] getPhotoById(String gcNoStr){
 
+        Integer gcNo = Integer.valueOf(gcNoStr);
         return findGroupCourseByNo(gcNo).getCoursePhoto();
     }
 

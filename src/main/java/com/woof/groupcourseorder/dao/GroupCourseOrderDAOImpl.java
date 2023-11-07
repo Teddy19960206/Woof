@@ -28,8 +28,8 @@ public class GroupCourseOrderDAOImpl implements GroupCourseOrderDAO{
     }
 
     @Override
-    public void insert(GroupCourseOrder groupCourseOrder) {
-        getSession().save(groupCourseOrder);
+    public int insert(GroupCourseOrder groupCourseOrder) {
+        return (int) getSession().save(groupCourseOrder);
     }
 
     @Override

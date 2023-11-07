@@ -1,6 +1,7 @@
 package com.woof.commentreport.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,9 +11,18 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.woof.commentreport.service.CommentReportService;
 import com.woof.commentreport.service.CommentReportServiceImpl;
+import com.woof.member.entity.Member;
+import com.woof.member.service.MemberService;
+import com.woof.member.service.MemberServiceImpl;
+import com.woof.trainer.entity.Trainer;
+import com.woof.trainer.service.TrainerService;
+import com.woof.trainer.service.TrainerServiceImpl;
+import com.woof.privatetrainingappointmentform.entity.PrivateTrainingAppointmentForm;
+import com.woof.privatetrainingappointmentform.service.PrivateTrainingAppointmentFormService;
+import com.woof.privatetrainingappointmentform.service.PrivateTrainingAppointmentFormServiceImpl;
 
 
-@WebServlet("/commentreport")
+@WebServlet("/commentreport/*")
 public class CommentReportServlet extends HttpServlet {
 
 private CommentReportService commentReportService;
@@ -23,20 +33,43 @@ private CommentReportService commentReportService;
 	}
 	
 	@Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setCharacterEncoding("UTF-8");
-        String appointmentdetail = req.getParameter("Type");
+    protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		req.setCharacterEncoding("UTF-8");
+		String action = req.getParameter("action");
 
-        resp.getWriter().println(appointmentdetail);
-    }
+		String forwardPath = "";
+		if (action != null) {
+			switch (action) {
+			case "gettoadd":
+				beforeAdd(req, res);
+				forwardPath = "/frontend/commentreport/commentReport_add.jsp";
+				break;
+			default:
+				forwardPath = "/frontend/commentreport/commentReport.jsp";
+			}
+			req.getRequestDispatcher(forwardPath).forward(req, res);
+			res.getWriter().println(action);
+		}
+	}
 	
     @Override
-    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doGet(req, resp);
-
-        //PrintWriter writer = resp.getWriter();
-        //System.out.println("123");
-        System.out.println(commentReportService.getAllCommentReports());
-        
+    public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+    	doPost(req, res);
+    }
+    
+    private void beforeAdd(HttpServletRequest req, HttpServletResponse res) {
+    	
+    	MemberService memberservice = new MemberServiceImpl();
+		List<Member> allMembers = memberservice.getAllMembers();
+		req.setAttribute("members", allMembers);
+	
+		TrainerService trainerservice = new TrainerServiceImpl();
+		List<Trainer> allTrainers = trainerservice.getAllTrainers();
+		req.setAttribute("trainers", allTrainers);
+		
+		PrivateTrainingAppointmentFormService privateTrainingAppointmentFormService = new PrivateTrainingAppointmentFormServiceImpl();
+		List<PrivateTrainingAppointmentForm> allPrivateTrainingAppointmentForms = privateTrainingAppointmentFormService.getAllPrivateTrainingAppointmentForms();
+		req.setAttribute("PTAs", allPrivateTrainingAppointmentForms);
+			
     }
 }

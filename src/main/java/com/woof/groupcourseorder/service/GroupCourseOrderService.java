@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface GroupCourseOrderService {
 
-    void addOrder(Member member , GroupCourseSchedule groupCourseSchedule , Integer gcoPaymentMethod , Integer gcoSmmp , Integer actualAmount , Integer gcoStatus);
+    int addOrder(Member member , GroupCourseSchedule groupCourseSchedule , Integer gcoPaymentMethod , Integer gcoSmmp , Integer actualAmount , Integer gcoStatus);
 
     void modify(Integer gcoNo , Member member , GroupCourseSchedule groupCourseSchedule , Integer gcoPaymentMethod , Integer gcoSmmp , Integer actualAmount , Integer gcoStatus);
 
