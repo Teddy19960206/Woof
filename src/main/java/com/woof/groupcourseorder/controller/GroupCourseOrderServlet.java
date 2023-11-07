@@ -10,9 +10,10 @@ import com.woof.groupcourseorder.service.GroupCourseOrderServiceImpl;
 import com.woof.groupcourseschedule.entity.GroupCourseSchedule;
 import com.woof.groupcourseschedule.service.GroupCourseScheduleServiceImpl;
 import com.woof.groupcourseschedule.service.GroupGourseScheduleService;
+import com.woof.groupscheduledetail.entity.GroupScheduleDetail;
+import com.woof.groupscheduledetail.service.GroupScheduleDetailService;
+import com.woof.groupscheduledetail.service.GroupScheduleDetailServiceImpl;
 import com.woof.member.entity.Member;
-import com.woof.member.service.MemberService;
-import com.woof.member.service.MemberServiceImpl;
 import com.woof.util.AppLogger;
 import com.woof.util.EmailValidator;
 import com.woof.util.MailService;
@@ -23,10 +24,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.LinkedList;
-import java.util.List;
+import java.sql.Date;
+import java.util.*;
 import java.util.logging.Level;
 
 
@@ -168,6 +168,9 @@ public class GroupCourseOrderServlet extends HttpServlet {
 //         參加報名時，判斷人數是否已達上限
         if (groupCourseSchedule.getRegCount() > groupCourseSchedule.getMaxLimit()){
             errorMsgs.add("人數報名已達上限");
+        }else {
+//            增加報名人數
+            groupGourseScheduleService.registrationSchedule(groupScheduleNo);
         }
 
         if (!errorMsgs.isEmpty()){
@@ -176,15 +179,37 @@ public class GroupCourseOrderServlet extends HttpServlet {
             return;
         }
 
+//        使用信用卡0 預設為已付款1
+//        使用匯款 1 預設為未付款0
+//        使用綠界 2 預設為已付款1
         Integer status = 0;
         if (payment == 0 || payment == 2){
             status = 1;
         }
         Integer orderNo = null;
         try{
+//          新增Order
             orderNo = groupCourseOrderService.addOrder(member, groupCourseSchedule, payment, smmp, actualAmount, status);
+
+            GroupScheduleDetailService groupScheduleDetailService = new GroupScheduleDetailServiceImpl();
+
+//          取得上課日期
+            List<GroupScheduleDetail> details = groupScheduleDetailService.getByGroupSchedule(groupCourseSchedule.getGcsNo());
+            Set<Date> dates = new HashSet<>();
+            for (GroupScheduleDetail detail : details){
+                dates.add(detail.getClassDate());
+            }
+
+
+
+//          email寄送報名資訊
             MailService mailService = new MailService();
-            mailService.sendMail("trick95710@gmail.com" , "報名成功" , MailService.groupOrderhtml());
+            mailService.sendMail("trick95710@gmail.com" ,
+                    "報名成功" ,
+                            MailService.groupOrderhtml(member.getMemName() ,                 // 報名人姓名
+                            groupCourseSchedule.getGroupCourse().getClassType().getCtName(), // 班級名稱
+                                dates,                                                       // 上課日期
+                            groupCourseSchedule.getGroupCourse().getCourseContent()));       // 課程內容
         }catch (Exception e){
             e.printStackTrace();
             AppLogger.getLogger().log(Level.ALL, "發生例外，新增失敗：" + e);

@@ -43,7 +43,7 @@ public class GroupCourseScheduleDAOImpl implements GroupCourseScheduleDAO{
 
     @Override
     public void updateCount(Integer gcsNo , Integer regCount) {
-        String sql = "UPDATE group_course_schedule SET regCount = ? WHERE GCS_NO = ?";
+        String sql = "UPDATE group_course_schedule SET REG_COUNT = ? WHERE GCS_NO = ?";
         Query query = getSession().createSQLQuery(sql);
         query.setParameter(1, regCount + 1);
         query.setParameter(2, gcsNo);

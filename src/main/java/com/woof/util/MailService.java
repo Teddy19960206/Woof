@@ -3,7 +3,9 @@ package com.woof.util;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.sql.Date;
 import java.util.Properties;
+import java.util.Set;
 import javax.mail.Authenticator;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -24,6 +26,7 @@ public class MailService{
 			props.put("mail.smtp.host", "smtp.gmail.com");
 			props.put("mail.smtp.socketFactory.port", "465");
 			props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+			props.put("mail.smtp.starttls.enable","true");
 			props.put("mail.smtp.auth", "true");
 			props.put("mail.smtp.port", "465");
 
@@ -60,12 +63,13 @@ public class MailService{
 
 
 		MailService mailService = new MailService();
+//		mailService.sendMail(to, subject, "1111");
 
-		mailService.sendMail(to, subject, MailService.groupOrderhtml());
+//		mailService.sendMail(to, subject, MailService.groupOrderhtml());
 //		mailService.sendMail(to, subject, MailService.valid(url));
 	}
 
-	public static String groupOrderhtml() throws IOException {
+	public static String groupOrderhtml(String name , String className , Set<Date> dates , String  content) throws IOException {
 
 		String html = "<!DOCTYPE >\n" +
 				"<html>\n" +
@@ -129,7 +133,7 @@ public class MailService{
 				"                  font-size: 30px;\n" +
 				"                \"\n" +
 				"              >\n" +
-				"                報名人姓名：小華\n" +
+				"                報名人姓名："+ name +"\n" +
 				"              </td>\n" +
 				"            </tr>\n" +
 				"            <tr height=\"60\">\n" +
@@ -141,7 +145,7 @@ public class MailService{
 				"                  font-size: 30px;\n" +
 				"                \"\n" +
 				"              >\n" +
-				"                課程名稱：成犬班\n" +
+				"                課程名稱：" + className +"\n" +
 				"              </td>\n" +
 				"            </tr>\n" +
 				"            <tr height=\"200\">\n" +
@@ -149,12 +153,14 @@ public class MailService{
 				"                style=\"color: rgb(240, 98, 46); font-weight: 800\"\n" +
 				"                align=\"center\"\n" +
 				"              >\n" +
-				"                上課時間\n" +
-				"                <div>2022-01-11</div>\n" +
-				"                <div>2022-01-11</div>\n" +
-				"                <div>2022-01-11</div>\n" +
-				"                <div>2022-01-11</div>\n" +
-				"              </td>\n" +
+				"                上課時間\n";
+
+				for (Date date : dates){
+					html += "<div>"+ date +"</div>\n";
+				}
+
+
+				html += "              </td>\n" +
 				"            </tr>\n" +
 				"            <tr>\n" +
 				"              <td>\n" +
@@ -162,7 +168,7 @@ public class MailService{
 				"                  課程內容：\n" +
 				"                </p>\n" +
 				"                <p style=\"color: rgb(240, 98, 46); font-weight: 900\">\n" +
-				"                  幼犬初級訓練課程：這個課程專為幼犬設計，旨在建立基本的服從和行為。課程包括基本指令的教學，如坐下、待命、走路，以及社交化訓練，讓您的幼犬學會與其他狗狗和人相處。\n" +
+                        content +
 				"                </p>\n" +
 				"              </td>\n" +
 				"            </tr>\n" +
@@ -259,12 +265,6 @@ public class MailService{
 				"</html>\n";
 		return html;
 	}
-//	public static String imgBase64() throws IOException {
-//		File imageFile = new File("src/main/webapp/webutil/icons/happy_1.png");
-//		byte[] imageBytes = Files.readAllBytes(imageFile.toPath());
-//		String base64Image = javax.xml.bind.DatatypeConverter.printBase64Binary(imageBytes);
-//
-//		return base64Image;
-//	}
+
 
 }
