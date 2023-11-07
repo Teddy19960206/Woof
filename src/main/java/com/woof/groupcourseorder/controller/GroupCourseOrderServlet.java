@@ -205,12 +205,15 @@ public class GroupCourseOrderServlet extends HttpServlet {
 //          email寄送報名資訊
             System.out.println(email);
             MailService mailService = new MailService();
-            mailService.sendMail(email ,
+
+            new Thread(() -> mailService.sendMail(email ,
                     "報名成功" ,
-                            MailService.groupOrderhtml(member.getMemName() ,                 // 報名人姓名
+                    MailService.groupOrderhtml(member.getMemName() ,                 // 報名人姓名
                             groupCourseSchedule.getGroupCourse().getClassType().getCtName(), // 班級名稱
-                                dates,                                                       // 上課日期
-                            groupCourseSchedule.getGroupCourse().getCourseContent()));       // 課程內容
+                            dates,                                                       // 上課日期
+                            groupCourseSchedule.getGroupCourse().getCourseContent())));
+
+                   // 課程內容
         }catch (Exception e){
             e.printStackTrace();
             AppLogger.getLogger().log(Level.ALL, "發生例外，新增失敗：" + e);

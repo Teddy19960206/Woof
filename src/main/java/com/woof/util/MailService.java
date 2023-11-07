@@ -69,7 +69,7 @@ public class MailService{
 //		mailService.sendMail(to, subject, MailService.valid(url));
 	}
 
-	public static String groupOrderhtml(String name , String className , Set<Date> dates , String  content) throws IOException {
+	public static String groupOrderhtml(String name , String className , Set<Date> dates , String  content) {
 
 		String html = "<!DOCTYPE >\n" +
 				"<html>\n" +
