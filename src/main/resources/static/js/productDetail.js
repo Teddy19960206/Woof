@@ -17,6 +17,11 @@ $(document).ready(function() {
                 $('#product-description').text(product.prodContent);
                 $('#product-price').text(`$${product.prodPrice}`);
                 
+                // 更新加入購物車按鈕的 data-* 屬性
+                $('#add-to-cart').data('id', product.prodNo);
+                $('#add-to-cart').data('name', product.prodName);
+                $('#add-to-cart').data('price', product.prodPrice);
+                
             },
             error: function(error) {
                 console.log('Error fetching product details:', error);
@@ -35,10 +40,5 @@ $(document).ready(function() {
         if (value > 1) {
             $('#product-quantity').val(value - 1);
         }
-    });
-
-    // 加入購物車按鈕的事件綁定
-    $('#add-to-cart').click(function() {
-        // ...加入購物車的邏輯...
     });
 });
