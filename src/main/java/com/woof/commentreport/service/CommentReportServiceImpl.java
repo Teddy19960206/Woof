@@ -25,8 +25,6 @@ public class CommentReportServiceImpl implements CommentReportService{
 	public int addCommentReport(Member member, Trainer trainer, PrivateTrainingAppointmentForm privateTrainingAppointmentForm,
 			String crContext, Integer crStatus, Timestamp crDate) {
 		CommentReport commentReport = new CommentReport();
-		commentReport.setMember(member);
-		commentReport.setTrainer(trainer);
 		commentReport.setPrivateTrainingAppointmentForm(privateTrainingAppointmentForm);
 		commentReport.setCrContext(crContext);
 		commentReport.setCrStatus(crStatus);

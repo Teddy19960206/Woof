@@ -27,9 +27,6 @@ public class Member implements java.io.Serializable {
 	@OneToMany(mappedBy = "member" , cascade = CascadeType.ALL)
 	private Set<ClassOrder> getClassOrders;
 	
-	@OneToMany(mappedBy = "member" , cascade = CascadeType.ALL)
-	private Set<CommentReport> getCommentReports;
-	
 	@Expose
 	@Column(name = "MEM_NAME", nullable = false)
 	private String memName;
@@ -119,14 +116,6 @@ public class Member implements java.io.Serializable {
 
 	public void setGetClassOrders(Set<ClassOrder> getClassOrders) {
 		this.getClassOrders = getClassOrders;
-	}
-
-	public Set<CommentReport> getGetCommentReports() {
-		return getCommentReports;
-	}
-
-	public void setGetCommentReports(Set<CommentReport> getCommentReports) {
-		this.getCommentReports = getCommentReports;
 	}
 
 	public byte[] getMemPhoto() {
