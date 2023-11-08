@@ -35,10 +35,10 @@ public class LoginServlet extends HttpServlet {
 
 					HttpSession session = req.getSession();
 
-					session.removeAttribute("user");
-					res.sendRedirect(req.getContextPath() + "/frontend/member/login/login.jsp");
+					session.removeAttribute("member");
+					res.sendRedirect(req.getContextPath() + "/index.html");
 					System.out.println(session.getId() + "刪除");
-					String user = (String) session.getAttribute("user");
+					String user = (String) session.getAttribute("member");
 					if (user == null) {
 						System.out.println("User is not in session.");
 					}
