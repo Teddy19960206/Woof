@@ -4,9 +4,18 @@ const calendarEl = document.getElementById('calendar');
 const myModal = new bootstrap.Modal(document.getElementById('myModal'), {});
 const next = document.getElementById("next");
 const show = document.getElementById("show");
-const reason = document.getElementById("reason");
 const errorMsg = document.getElementById("errorMsg");
 const calendarStr = document.getElementById("calendarStr");
+const submitBtn = document.getElementById("submitBtn");
+const add = document.getElementById("add");
+const params = new URLSearchParams(window.location.search);
+const reason = document.getElementById("reason");
+const reasonErr = document.getElementById("reasonErr");
+const startDate = document.getElementById("startDate");
+const startDateErr = document.getElementById("startDateErr");
+const endDate = document.getElementById("endDate");
+const endDateErr = document.getElementById("endDateErr");
+
 
 let date= [];
 
@@ -94,7 +103,6 @@ function removeAllEvents(){
 // 預約清單
 const reserveDate= [];
 
-
 // 新增預約日期
 $("#reserveBtn").on("click" , function (){
 
@@ -104,6 +112,7 @@ $("#reserveBtn").on("click" , function (){
         backgroundColor:"#0000ff"
     })
     myModal.hide();
+
     reserveDate.push($("#hideDate").text());
 });
 
@@ -141,13 +150,108 @@ async function fetchDetailByDate(year , month){
 
 next.addEventListener("click" , function (){
 
+    let hasError = false;
+    let errorMessages = {};
+
+
     if (reason.value == null || reason.value.trim().length == 0){
-        errorMsg.style.display = "inline-block";
+        setError(reasonErr , "請勿空白")
         reason.focus();
-    }else{
+        hasError = true;
+    }
+
+    // 檢查日期
+    if (!startDateErr.value || !endDateErr.value) {
+        let dateErr = false;
+
+        // 檢查開始日期
+        if (!startDate.value) {
+            setError(startDateErr, "請選擇時間");
+            hasError = true;
+            dateErr = true;
+        }
+
+        // 檢查結束日期
+        if (!endDate.value) {
+            setError(endDateErr, "請選擇時間");
+            hasError = true;
+            dateErr = true;
+        }
+
+        if (!dateErr) {
+            let now = new Date();
+            let start = new Date(startDate.value);
+            let end = new Date(endDate.value);
+
+            // 比較日期
+            if (now > start) {
+                setError(startDateErr, "請選擇大於今日日期");
+                hasError = true;
+            } else if (start > end) {
+                setError(endDateErr, "結束日期不能小於開始日期");
+                hasError = true;
+            }
+        }
+    }
+
+    if (!hasError){
+        submitBtn.style.display = "block";
         calendarStr.style.display = "block";
         show.style.display = "none";
         calendar.render();
     }
+
+
+    function setError(element, message) {
+        element.style.display = "inline-block";
+        element.innerText = message;
+        errorMessages[element.id] = message;
+    }
 })
+
+
+add.addEventListener("click" , function (){
+
+    delayFetch(params.get("no") ,reason.value );
+
+})
+
+async function delayFetch(id , reason){
+
+    let url = `${projectName}/schedule/addDelay`;
+
+    let formData = new FormData();
+    formData.append("id" , id);
+    formData.append("reason" , reason);
+    formData.append("classDate" , reserveDate.toString());
+    formData.append("startDate" , startDate.value);
+    formData.append("endDate" , endDate.value);
+
+    try{
+        const response = await fetch(url, {
+            method: "POST",
+            body : formData
+        })
+
+        if (!response.ok){
+            throw new Error("新增失敗")
+        }
+        const data = await response.json();
+
+        if (data.message){
+            alert("延期更改成功");
+            window.location.href = `${projectName}/backend/course/schedule.jsp`;
+        }else{
+            let str = "";
+            data.forEach(message =>{
+                str += message +"\n"
+            })
+            alert(str);
+            window.location.href = `${projectName}/backend/course/schedule.jsp`;
+        }
+
+    }catch (error){
+        console.log(error)
+    }
+}
 

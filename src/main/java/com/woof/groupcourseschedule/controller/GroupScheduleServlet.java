@@ -6,6 +6,8 @@ import com.google.gson.JsonObject;
 import com.woof.groupcourse.entity.GroupCourse;
 import com.woof.groupcourse.service.GroupCourseService;
 import com.woof.groupcourse.service.GroupCourseServiceImpl;
+import com.woof.groupcourseorder.entity.GroupCourseOrder;
+import com.woof.groupcourseorder.service.GroupCourseOrderServiceImpl;
 import com.woof.groupcourseschedule.entity.GroupCourseSchedule;
 import com.woof.groupcourseschedule.service.GroupCourseScheduleServiceImpl;
 import com.woof.groupcourseschedule.service.GroupGourseScheduleService;
@@ -16,6 +18,9 @@ import com.woof.skill.service.SkillServiceImpl;
 import com.woof.trainer.entity.Trainer;
 import com.woof.trainer.service.TrainerService;
 import com.woof.trainer.service.TrainerServiceImpl;
+import com.woof.util.JsonIgnoreExclusionStrategy;
+import com.woof.util.MailService;
+import org.hibernate.type.descriptor.sql.NVarcharTypeDescriptor;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -86,7 +91,12 @@ public class GroupScheduleServlet extends HttpServlet {
                 getListClass(request ,response);
                 return;
             case "/getOffSechedule":
+//                取得已下架的Schuedule
                 getOffSechedule(request ,response);
+                return;
+            case "/addDelay":
+                addDelay(request, response);
+//                延期、額外新增課程
                 return;
             default:
                 if (pathInfo.startsWith("/edit/")) {
@@ -127,11 +137,16 @@ public class GroupScheduleServlet extends HttpServlet {
 
         int pageTotal = groupGourseScheduleService.getPageTotal(classType , status);
 
+//        Gson gson = new GsonBuilder()
+//                .excludeFieldsWithoutExposeAnnotation()
+//                .setDateFormat("yyyy-MM-dd")
+//                .create();
         Gson gson = new GsonBuilder()
-                .excludeFieldsWithoutExposeAnnotation()
+                .setExclusionStrategies()
+                .addSerializationExclusionStrategy(new JsonIgnoreExclusionStrategy(true))
+                .addDeserializationExclusionStrategy(new JsonIgnoreExclusionStrategy(false))
                 .setDateFormat("yyyy-MM-dd")
                 .create();
-
 
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("pageTotal" , pageTotal);
@@ -530,6 +545,153 @@ public class GroupScheduleServlet extends HttpServlet {
             e.printStackTrace();
         }
 
+    }
+
+    private void addDelay(HttpServletRequest request , HttpServletResponse response) throws IOException {
+
+        Long currentDate =  Calendar.getInstance().getTimeInMillis();
+        Date startDate = null;
+        Date endDate = null;
+        Integer id  = null;
+        GroupCourseSchedule groupCourseSchedule = null;
+
+        List<String> errorMsgs = new LinkedList<>();
+        request.setAttribute("errorMsgs" , errorMsgs);
+
+        String idStr = request.getParameter("id");
+        if (idStr == null || idStr.trim().length() == 0){
+            errorMsgs.add("沒有關聯的課程編號");
+        }else{
+            id = Integer.valueOf(idStr);
+            groupCourseSchedule = new GroupCourseScheduleServiceImpl().findByGcsNo(id);
+        }
+
+        String reason = request.getParameter("reason");
+        if (reason == null || reason.trim().length() == 0){
+            errorMsgs.add("請填寫延期原因");
+        }
+
+
+
+//        驗證開始與結束日期
+        String startDateStr = request.getParameter("startDate");
+        if (startDateStr == null || startDateStr.trim().length() == 0) {
+            errorMsgs.add("請選擇開始日期");
+        } else {
+            try {
+                startDate = Date.valueOf(startDateStr);
+                if (startDate.getTime() < currentDate) {
+                    errorMsgs.add("請選擇大於今日的日期");
+                }
+            } catch (Exception e) {
+                errorMsgs.add("開始日期格式錯誤");
+            }
+        }
+
+        String endDateStr = request.getParameter("endDate");
+        if (endDateStr == null || endDateStr.trim().length() == 0) {
+            errorMsgs.add("請選擇結束日期");
+        } else {
+            try {
+                endDate = Date.valueOf(endDateStr);
+                if (endDate.getTime() < currentDate) {
+                    errorMsgs.add("請選擇大於今日的日期");
+                }
+            } catch (Exception e) {
+                errorMsgs.add("結束日期格式錯誤");
+            }
+        }
+
+        if (startDate != null && endDate != null && startDate.getTime() > endDate.getTime()) {
+            errorMsgs.add("開始日期不能大於結束日期");
+        }
+
+
+        Set<Date> dates = new HashSet<>();
+        String[] classDates = request.getParameter("classDate").split(",");
+
+        for (String classDate : classDates){
+            Date date = Date.valueOf(classDate);
+            dates.add(date);
+        }
+
+
+        response.setContentType("application/json;charset=UTF-8");
+        if (!errorMsgs.isEmpty()){
+            Gson gson = new Gson();
+            String json = gson.toJson(errorMsgs);
+            response.getWriter().write(json);
+        }
+
+        try {
+
+//          新增新的schedule
+            GroupCourseSchedule groupCourseScheduleNew = groupGourseScheduleService.addSchedule(
+                    groupCourseSchedule.getGroupCourse(),
+                    groupCourseSchedule.getTrainer(),
+                    startDate,
+                    endDate,
+                    groupCourseSchedule.getMinLimit(),
+                    groupCourseSchedule.getMaxLimit(),
+                    groupCourseSchedule.getGcsPrice(),
+                    reason,
+                    groupCourseSchedule);
+
+//         新增新的上課日期
+            new GroupScheduleDetailServiceImpl().add(groupCourseScheduleNew , groupCourseSchedule.getTrainer() ,dates );
+
+
+//         取得所有報名該課程的訂單
+            List<GroupCourseOrder> orderBySchedule = new GroupCourseOrderServiceImpl().getOrderBySchedule(groupCourseSchedule.getGcsNo());
+            for (GroupCourseOrder groupCourseOrder : orderBySchedule){
+
+                new GroupCourseOrderServiceImpl().modifyOfGcoNo(groupCourseOrder , groupCourseScheduleNew);
+
+                MailService mailService = new MailService();
+
+//               mailService.sendMail("trick95710@gmail.com" ,
+//                    "課程延期" ,
+//               MailService.groupOrderhtml( groupCourseOrder.getMember().getMemName()
+//                    ,groupCourseOrder.getGroupCourseSchedule().getGroupCourse().getClassType().getCtName()
+//                    ,dates,groupCourseOrder.getGroupCourseSchedule().getGroupCourse().getCourseContent()
+//                    ));
+
+                new Thread(()-> mailService.sendMail("trick95710@gmail.com" ,
+                        "課程延期" ,
+                        MailService.groupOrderhtml( groupCourseOrder.getMember().getMemName()
+                                ,groupCourseOrder.getGroupCourseSchedule().getGroupCourse().getClassType().getCtName()
+                                ,dates,groupCourseOrder.getGroupCourseSchedule().getGroupCourse().getCourseContent()
+                )));
+
+//              每更新一個order報名人數 +1
+//            groupCourseScheduleNew.setRegCount(groupCourseSchedule.getRegCount());
+            }
+
+//              更新舊課程狀態與報名人數
+            groupGourseScheduleService.updateSchedule(
+                    groupCourseSchedule.getGcsNo(),
+                    groupCourseSchedule.getGroupCourse(),
+                    groupCourseSchedule.getTrainer(),
+                    groupCourseSchedule.getGcsStart(),
+                    groupCourseSchedule.getGcsEnd(),
+                    groupCourseSchedule.getMinLimit(),
+                    groupCourseSchedule.getMaxLimit(),
+                    0,
+                    groupCourseSchedule.getGcsPrice(),
+                    4,
+                    groupCourseSchedule.getGcsDelayReason(),
+                    groupCourseSchedule.getRelatedGcsNo());
+
+
+
+            response.getWriter().write("{ \"message\":\"新增成功\" }");
+        }catch (Exception e){
+            e.printStackTrace();
+            errorMsgs.add("異常");
+            Gson gson = new Gson();
+            String json = gson.toJson(errorMsgs);
+            response.getWriter().write(json);
+        }
     }
 }
 

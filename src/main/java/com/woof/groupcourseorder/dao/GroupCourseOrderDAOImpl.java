@@ -1,6 +1,7 @@
 package com.woof.groupcourseorder.dao;
 
 import com.woof.groupcourseorder.entity.GroupCourseOrder;
+import com.woof.groupcourseschedule.entity.GroupCourseSchedule;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -34,7 +35,7 @@ public class GroupCourseOrderDAOImpl implements GroupCourseOrderDAO{
 
     @Override
     public void update(GroupCourseOrder groupCourseOrder) {
-        getSession().update(groupCourseOrder);
+        getSession().merge(groupCourseOrder);
     }
 
     @Override
@@ -119,5 +120,15 @@ public class GroupCourseOrderDAOImpl implements GroupCourseOrderDAO{
         List<GroupCourseOrder> resultList = query.list();
 
         return resultList;
+    }
+
+    @Override
+    public List<GroupCourseOrder> getAllMember(Integer scheduleNo) {
+
+        String hql = "FROM GroupCourseOrder gco WHERE gco.groupCourseSchedule.gcsNo = :scheduleNo";
+        Query query = getSession().createQuery(hql);
+        query.setParameter("scheduleNo" ,scheduleNo);
+
+        return query.list();
     }
 }

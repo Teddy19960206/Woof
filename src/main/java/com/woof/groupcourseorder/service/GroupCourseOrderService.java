@@ -12,6 +12,8 @@ public interface GroupCourseOrderService {
 
     void modify(Integer gcoNo , Member member , GroupCourseSchedule groupCourseSchedule , Integer gcoPaymentMethod , Integer gcoSmmp , Integer actualAmount , Integer gcoStatus);
 
+    void modifyOfGcoNo(GroupCourseOrder groupCourseOrder ,GroupCourseSchedule groupCourseSchedule);
+
     GroupCourseOrder getOneOrder(Integer gcoNo);
     List<GroupCourseOrder> getAll();
 
@@ -22,5 +24,7 @@ public interface GroupCourseOrderService {
     List<GroupCourseOrder> getAll(Integer groupClass , Integer status , String memNo , Integer currentPage);
 
     int getPageTotal(Integer groupClass , Integer status , String memNo);
+
+    List<GroupCourseOrder> getOrderBySchedule(Integer scheduleNo);
 
 }

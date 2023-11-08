@@ -56,7 +56,11 @@ async function fetchData(page){
         }
         // 取得資料後，進行拼圖，並打到頁面上
         const data = await response.json();
-        html = `<table class="table table-hover text-center align-middle border">
+
+        let html ="";
+        let arr = new Array();
+
+        arr.push(`<table class="table table-hover text-center align-middle border">
         <thead class="table-light">
         <tr>
             <th>團課編號</th>
@@ -76,11 +80,11 @@ async function fetchData(page){
             <th>延期</th>
         </tr>
         </thead>
-        <tbody id="mybody" class="table-group-divider">`;
+        <tbody id="mybody" class="table-group-divider">`);
 
         // 取得所有相關的資料
         data.data.forEach((item)=>{
-            html+= `<tr>
+            arr.push(`<tr>
             <th>${item.gcsNo}</th>
             <th>${item.groupCourse.classType.ctName} : ${item.groupCourse.skill.skillName}</th>
             <th>${item.trainer.administrator.adminName}</th>
@@ -96,20 +100,22 @@ async function fetchData(page){
             <td><button type="button" class="modify-button btn btn-primary" data-id="${item.gcsNo}" onclick="fetchDetail(${item.gcsNo})">修改</td>
             <th><button type="button" class="detail-button btn btn-primary" data-id="${item.gcsNo}">詳情</button></th>
             <th><button type="button" class="delay-button btn btn-primary" data-id="${item.gcsNo}" ${item.gcsStatus == 0 ? '' : 'disabled'}>延期</button></th>
-        </tr>`;
+        </tr>`);
         })
 
-        html += `</tbody></table>`;
+        arr.push(`</tbody></table>`);
 
 
         // 書籤 ==============================================================
-        html += `<nav class="text-center d-flex justify-content-center">
+        arr.push(`<nav class="text-center d-flex justify-content-center">
                   <ul class="pagination">
                     <li class="page-item">
                       <button class="page-link" onclick="fetchData(${page == 1 ? 1 : page-1})">
                         <span aria-hidden="true">&laquo;</span>
                       </button>
-                    </li>`;
+                    </li>`);
+
+
 
         const maxPagesToShow = 3;
         const totalPages = parseInt(data.pageTotal);
@@ -135,19 +141,21 @@ async function fetchData(page){
         }
 
         for (let i = startPage; i <= endPage; i++) {
-            html += `<li class="page-item ${i === page ? "active" : ""}">
+            arr.push(`<li class="page-item ${i === page ? "active" : ""}">
                <button class="page-link" onclick="fetchData(${i})">${i}</button>
-             </li>`;
+             </li>`);
         }
 
-        html += `   <li class="page-item">
+        arr.push(`<li class="page-item">
                         <button class="page-link" onclick="fetchData(${page == totalPages ? totalPages : page+1})">
                             <span aria-hidden="true">&raquo;</span></a>
                         </button>
                     </li>
                   </ul>
-                </nav>`;
+                </nav>`);
 
+
+        html = arr.join("");
         // 將資料打到指定位置
         let showSchedule= document.querySelector("div.showSchedule");
         showSchedule.innerHTML = html;

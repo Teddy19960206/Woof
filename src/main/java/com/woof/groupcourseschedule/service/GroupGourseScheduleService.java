@@ -11,6 +11,7 @@ public interface GroupGourseScheduleService {
 
 
     GroupCourseSchedule addSchedule(GroupCourse groupCourse , Trainer trainer , Date startDate , Date endDate , Integer minLimit , Integer maxLimit , Integer price , String delayReason , GroupCourseSchedule relatedGcsNo);
+
     void registrationSchedule(Integer gcsNo);
     int updateSchedule(Integer gcsNo, GroupCourse groupCourse , Trainer trainer , Date gcsStart , Date gcsEnd , Integer minLimit , Integer maxLimit , Integer regCount , Integer gcsPrice , Integer gcsStatus , String gcsDelayReason , GroupCourseSchedule relatedGcsNo);
     GroupCourseSchedule findByGcsNo(Integer GcsNo);

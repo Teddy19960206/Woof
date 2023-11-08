@@ -69,6 +69,9 @@ public class GroupCourseOrderServlet extends HttpServlet {
             case "/check":
                 check(request , response);
                 return;
+            case "/getOrderBySchedule":
+                getOrderBySchedule(request, response);
+                return;
             default:
                 if (pathInfo.startsWith("/getGroupInfo/")) {
                     forwardPath = getGroupInfo(request ,response ,result);
@@ -238,5 +241,9 @@ public class GroupCourseOrderServlet extends HttpServlet {
         String json = gson.toJson(order);
         response.setContentType("application/json;charset=UTF-8");
         response.getWriter().write(json);
+    }
+
+    private void getOrderBySchedule(HttpServletRequest request , HttpServletResponse response){
+        
     }
 }

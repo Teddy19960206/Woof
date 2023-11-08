@@ -15,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import com.woof.util.JsonIgnore;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
@@ -35,6 +36,8 @@ public class Administrator implements Serializable {
 	@Expose
 	@Column(name = "ADMIN_GENDER", nullable = false, columnDefinition = "CHAR")
 	private String adminGender;
+
+	@JsonIgnore
 	@Expose
 	@Column(name = "ADMIN_PHOTO", columnDefinition = "MEDIUMBLOB")
 	private byte[] adminPhoto;

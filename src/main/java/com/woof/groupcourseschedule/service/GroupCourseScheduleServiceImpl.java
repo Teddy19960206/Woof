@@ -38,10 +38,11 @@ public class GroupCourseScheduleServiceImpl implements GroupGourseScheduleServic
         return groupCourseSchedule;
     }
 
+
+
     @Override
     public void registrationSchedule(Integer gcsNo) {
         GroupCourseSchedule schedule = findByGcsNo(gcsNo);
-        System.out.println(schedule.getRegCount() + " regCount");
         dao.updateCount(gcsNo, schedule.getRegCount());
     }
 
