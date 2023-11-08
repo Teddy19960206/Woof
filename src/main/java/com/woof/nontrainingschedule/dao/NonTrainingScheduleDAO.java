@@ -16,11 +16,11 @@ public interface NonTrainingScheduleDAO {
 
 	List<NonTrainingSchedule> getAll();
 	
-	List<NonTrainingSchedule> findByTrainerNo(Integer trainerNo , int currentPage);
+	List<NonTrainingSchedule> findByTrainerNo(Integer trainerNo , Integer year , Integer month, int currentPage);
 	
-	long getTotalByTrainerNo(int trainerNo);
+	long getTotalByTrainerNo(Integer trainerNo , Integer year , Integer month);
 	
-	List<NonTrainingSchedule> findByNtsDate(Integer year  , Integer month);
+	List<NonTrainingSchedule> findByNtsDate(Integer year , Integer month);
 	
 	long getTotalByNtsDate(Date ntsDate);
 	

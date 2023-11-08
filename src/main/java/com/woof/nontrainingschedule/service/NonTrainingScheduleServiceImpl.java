@@ -49,13 +49,13 @@ public class NonTrainingScheduleServiceImpl implements NonTrainingScheduleServic
 	}
 
 	@Override
-	public List<NonTrainingSchedule> findNtsByTrainerNo(Integer trainerNo , int currentPage) {
-		return dao.findByTrainerNo(trainerNo, currentPage);
+	public List<NonTrainingSchedule> findNtsByTrainerNo(Integer trainerNo , Integer year , Integer month, int currentPage) {
+		return dao.findByTrainerNo(trainerNo, year, month, currentPage);
 	}
 
 	@Override
-	public int getPageTotal2(Integer trainerNo) {
-		long total = dao.getTotalByTrainerNo(trainerNo);
+	public int getPageTotal2(Integer trainerNo , Integer year , Integer month) {
+		long total = dao.getTotalByTrainerNo(trainerNo , year , month);
 		int pageQty = (int) (total % PAGE_MAX_RESULT == 0 ? (total / PAGE_MAX_RESULT) : (total / PAGE_MAX_RESULT + 1));
 		return pageQty;
 	}
