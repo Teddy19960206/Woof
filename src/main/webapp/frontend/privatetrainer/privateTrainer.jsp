@@ -9,9 +9,9 @@
 </head>
 <body>
     <h1>訓練師列表</h1>
-<jsp:useBean id="privateTrainingAppointmentFormServer" scope="page" class="com.woof.trainer.service.TrainerServiceImpl"/>
+<jsp:useBean id="trainerServer" scope="page" class="com.woof.trainer.service.TrainerServiceImpl"/>
     <form method="POST" ACTION="${pageContext.request.contextPath}/trainer">
-    <c:forEach var="trainer" items="${allTrainers}">
+    <c:forEach var="trainer" items="${trainerServer.allTrainers}">
         <div class="trainer">
 <%--             <img src="${trainer.photo}" alt="${trainer.name}的照片" width="100" height="100"> --%>
             <h2>${trainer.administrator.adminName}</h2>
