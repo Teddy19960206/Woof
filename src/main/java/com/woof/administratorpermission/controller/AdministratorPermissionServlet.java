@@ -49,10 +49,10 @@ public class AdministratorPermissionServlet extends HttpServlet {
 	    private void addAdministratorPermission(HttpServletRequest request , HttpServletResponse response){
 
 //	        若有member session 則可刪除
-	    	
+	    	String adminNo = request.getParameter("adminNo");
 	        AdministratorService administratorService = new AdministratorServiceImpl();
 	        
-	        Administrator administrator1 = administratorService.findAdministratorByAdminNo(Integer.toString(adminNo));
+	        Administrator administrator1 = administratorService.findAdministratorByAdminNo(adminNo);
 
 	        HttpSession session = request.getSession();
 	        session.setAttribute("administrator" , administrator1);
@@ -63,9 +63,9 @@ public class AdministratorPermissionServlet extends HttpServlet {
 	        FunctionPermissionService functionPermissionService = new FunctionPermissionServiceImpl();
 	        FunctionPermission functionPermission = functionPermissionService.findFunctionPermissionByFuncNo(funcNo);
 
-	        administratorPermissionService.AdministratorAddFunctionPermission(administrator.getAdministratorNo() , functionPermission.getFuncNo());
+	        administratorPermissionService.AddAdministratorPermission(administrator.getAdminNo() , functionPermission.getFuncNo());
 
 	    }
 	}
 
-}
+
