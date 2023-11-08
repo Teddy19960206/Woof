@@ -17,7 +17,7 @@ import com.google.gson.reflect.TypeToken;
 import redis.clients.jedis.Jedis;
 
 @WebServlet("/checkout")
-public class checkout extends HttpServlet {
+public class checkoutServlet extends HttpServlet {
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 	
