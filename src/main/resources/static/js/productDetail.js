@@ -22,6 +22,11 @@ $(document).ready(function() {
                 $('#add-to-cart').data('name', product.prodName);
                 $('#add-to-cart').data('price', product.prodPrice);
                 
+                console.log($('#add-to-cart').data('id'));
+				console.log($('#add-to-cart').data('name'));
+				console.log($('#add-to-cart').data('price'));
+
+                
             },
             error: function(error) {
                 console.log('Error fetching product details:', error);

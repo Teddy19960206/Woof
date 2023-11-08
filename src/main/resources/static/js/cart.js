@@ -47,7 +47,7 @@ $(".add-to-cart").on("click", function() {
 			prodPrice: prodPrice
 		},
 		success: function(data) {
-
+			console.log("AJAX call made");
 			console.log(data);
 
 			// 更新前端jsp中的數字
