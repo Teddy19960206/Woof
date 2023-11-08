@@ -59,13 +59,12 @@ public class NonTrainingScheduleServiceImpl implements NonTrainingScheduleServic
 		int pageQty = (int) (total % PAGE_MAX_RESULT == 0 ? (total / PAGE_MAX_RESULT) : (total / PAGE_MAX_RESULT + 1));
 		return pageQty;
 	}
-
+	
 	@Override
-	public List<NonTrainingSchedule> findNtsByNtsDate(Date ntsDate , int currentPage) {
-		return dao.findByNtsDate(ntsDate, currentPage);
+	public List<NonTrainingSchedule> findNtsByNtsDate(Integer year, Integer month) {
+		return dao.findByNtsDate(year, month);
 	}
 
-	
 	@Override
 	public int getPageTotal3(Date ntsDate) {
 		long total = dao.getTotalByNtsDate(ntsDate);
