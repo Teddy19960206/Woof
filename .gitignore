@@ -8,3 +8,4 @@ bin/
 *.iml
 src/main/resources/hibernate.cfg.xml
 src/main/resources/jdbc.properties
+src/main/resources/application.properties

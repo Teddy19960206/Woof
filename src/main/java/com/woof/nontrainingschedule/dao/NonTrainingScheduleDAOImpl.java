@@ -54,8 +54,12 @@ public class NonTrainingScheduleDAOImpl implements NonTrainingScheduleDAO{
 
 	@Override
 	public int delete(NonTrainingSchedule nonTrainingSchedule) {
-		getSession().delete(nonTrainingSchedule);
-		return 1;
+		try {
+			getSession().delete(nonTrainingSchedule);
+			return 1;
+		} catch (Exception e) {
+			return -1;
+		}
 	}
 
 	@Override
@@ -77,9 +81,10 @@ public class NonTrainingScheduleDAOImpl implements NonTrainingScheduleDAO{
 	}
 
 	@Override
-	public List<NonTrainingSchedule> findByNtsDate(Date ntsDate , int currentPage) {
-		return getSession().createQuery("FROM NonTrainingSchedule  WHERE ntsDate = :ntsDate", NonTrainingSchedule.class)
-				.setParameter("ntsDate", ntsDate)
+	public List<NonTrainingSchedule> findByNtsDate(Integer year  , Integer month) {
+		return getSession().createQuery("FROM NonTrainingSchedule  WHERE YEAR(ntsDate) = :year and MONTH(ntsDate) = :month", NonTrainingSchedule.class)
+				.setParameter("year", year)
+				.setParameter("month", month)
 				.list();
 	}
 

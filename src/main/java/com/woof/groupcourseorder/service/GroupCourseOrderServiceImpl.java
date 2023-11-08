@@ -20,7 +20,7 @@ public class GroupCourseOrderServiceImpl implements GroupCourseOrderService{
     }
 
     @Override
-    synchronized public void addOrder(Member member, GroupCourseSchedule groupCourseSchedule, Integer gcoPaymentMethod, Integer gcoSmmp, Integer actualAmount, Integer gcoStatus) {
+    synchronized public int addOrder(Member member, GroupCourseSchedule groupCourseSchedule, Integer gcoPaymentMethod, Integer gcoSmmp, Integer actualAmount, Integer gcoStatus) {
         GroupCourseOrder groupCourseOrder = new GroupCourseOrder();
         groupCourseOrder.setMember(member);
         groupCourseOrder.setGroupCourseSchedule(groupCourseSchedule);
@@ -29,7 +29,7 @@ public class GroupCourseOrderServiceImpl implements GroupCourseOrderService{
         groupCourseOrder.setActualAmount(actualAmount);
         groupCourseOrder.setGcoStatus(gcoStatus);
 
-        dao.insert(groupCourseOrder);
+        return dao.insert(groupCourseOrder);
     }
 
     @Override

@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <%@ include file="/meta.file" %>
@@ -7,7 +8,16 @@
 </head>
 <body>
 <%@ include file="/Header.file" %>
-
+<c:if test="${not empty errorMsgs}">
+    <script>
+        let messageArr = [];
+        <c:forEach var="message" items="${errorMsgs}">
+            messageArr.push("${message}");
+        </c:forEach>
+        let formattedString = messageArr.join("\n");
+        alert(formattedString);
+    </script>
+</c:if>
 <div class="container">
     <div class="row">
         <div class="col-md-5 col-lg-4">
@@ -16,7 +26,7 @@
                     <h1 class="h3 text-center" >會員資料</h1>
                     <div class="mb-md-3 row text-center">
                         <div>
-                            <img src="${pageContext.request.contextPath}/webutil/images/Carousel07.jpg" class="img-fluid rounded-circle myImg">
+                            <img src="${pageContext.request.contextPath}/DBPngReader?action=member&id=${member.memNo}" class="img-fluid rounded-circle myImg">
                         </div>
                     </div>
                 </div>
@@ -46,7 +56,7 @@
         </div>
 
         <div class="col-md-7 col-lg-8">
-            <form class="bg-white p-5 rounded-3" method="post" action="${pageContext.request.contextPath}/groupOrder/registration">
+            <form class="bg-white p-5 rounded-3" method="post" action="${pageContext.request.contextPath}/groupOrder/check">
                 <%-- 報名課程資訊 --%>
 
                 <div class="row">
@@ -97,7 +107,7 @@
 
                 <div class="mb-4">
                     <label for="email" class="form-label">收件信箱</label>
-                    <input type="email" class="form-control" id="email" value="${member.memEmail}" required />
+                    <input type="email" name="email" class="form-control" id="email" value="${member.memEmail}" required />
                 </div>
 
                 <%-- 付款方式
@@ -136,12 +146,12 @@
                         <input class="form-control verification text-center" type="text" maxlength="3" onkeypress='validate(event)' value="222">
                     </div>
 
-                    <input type="hidden" class="form-control" name="GroupScheduleNo" value="${groupScheduleNo}" readonly />
-
                     <div class="d-flex justify-content-center mt-5 myBtn">
                         <button type="submit" class="button-62">確認付款</button>
                     </div>
                 </div>
+
+                <input type="hidden" class="form-control" name="GroupScheduleNo" value="${groupScheduleNo}" readonly />
 
             </form>
 

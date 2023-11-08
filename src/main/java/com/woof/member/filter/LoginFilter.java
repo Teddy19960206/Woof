@@ -25,10 +25,10 @@ public class LoginFilter implements Filter {
 		// 【取得 session】
 		HttpSession session = req.getSession();
 		// 【從 session 判斷此user是否登入過】
-		Object account = session.getAttribute("account");
-		if (account == null) {
+		Object member = session.getAttribute("member");
+		if (member == null) {
 			session.setAttribute("location", req.getRequestURI());
-			res.sendRedirect(req.getContextPath() + "/frontend/member/login/login.html");
+			res.sendRedirect(req.getContextPath() + "/frontend/member/login/login.jsp");
 			return;
 		} else {
 			chain.doFilter(request, response);

@@ -29,7 +29,7 @@ import com.woof.skill.entity.Skill;
 @Entity
 @Table(name = "trainer")
 public class Trainer implements Serializable {
-	
+
 	@Expose
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,17 +37,13 @@ public class Trainer implements Serializable {
 	private Integer trainerNo;
 
 	@Expose
-	@OneToMany(mappedBy = "trainer" , cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "trainer", cascade = CascadeType.ALL)
 	private Set<NonTrainingSchedule> nonTrainingSchedules;
-	
+
 	@Expose
-	@OneToMany(mappedBy = "trainer" , cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "trainer", cascade = CascadeType.ALL)
 	private Set<PrivateTrainingAppointmentForm> privateTrainingAppointmentForms;
-	
-	@Expose
-	@OneToMany(mappedBy = "trainer" , cascade = CascadeType.ALL)
-	private Set<CommentReport> commentReports;
-	
+
 	@Expose
 	@OneToOne
 	@JoinColumn(name = "ADMIN_NO", referencedColumnName = "ADMIN_NO")
@@ -63,13 +59,12 @@ public class Trainer implements Serializable {
 					@JoinColumn(name = "SKILL_NO", referencedColumnName = "SKILL_NO") })
 	private Set<Skill> skills;
 
-
-	@OneToMany(mappedBy = "trainer" , cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "trainer", cascade = CascadeType.ALL)
 	private Set<GroupScheduleDetail> groupScheduleDetailSet;
 
 	public Trainer() {
 	}
-	
+
 	public Set<NonTrainingSchedule> getNonTrainingSchedules() {
 		return nonTrainingSchedules;
 	}
@@ -82,17 +77,11 @@ public class Trainer implements Serializable {
 		return privateTrainingAppointmentForms;
 	}
 
-	public void setPrivateTrainingAppointmentForms(Set<PrivateTrainingAppointmentForm> privateTrainingAppointmentForms) {
+	public void setPrivateTrainingAppointmentForms(
+			Set<PrivateTrainingAppointmentForm> privateTrainingAppointmentForms) {
 		this.privateTrainingAppointmentForms = privateTrainingAppointmentForms;
 	}
 
-	public Set<CommentReport> getCommentReports() {
-		return commentReports;
-	}
-
-	public void setCommentReports(Set<CommentReport> commentReports) {
-		this.commentReports = commentReports;
-	}
 
 	public Integer getTrainerNo() {
 		return trainerNo;
@@ -154,11 +143,8 @@ public class Trainer implements Serializable {
 	@Override
 	public String toString() {
 		return "Trainer [trainerNo=" + trainerNo + ", nonTrainingSchedules=" + nonTrainingSchedules
-				+ ", privateTrainingAppointmentForms=" + privateTrainingAppointmentForms + ", commentReports="
-				+ commentReports + ", administrator=" + administrator + ", experience=" + experience + ", skills="
-				+ skills + "]";
+				+ ", privateTrainingAppointmentForms=" + privateTrainingAppointmentForms + ", administrator="
+				+ administrator + ", experience=" + experience + ", skills=" + skills + "]";
 	}
-
-
 
 }

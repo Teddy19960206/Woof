@@ -28,8 +28,8 @@ public class GroupCourseOrderDAOImpl implements GroupCourseOrderDAO{
     }
 
     @Override
-    public void insert(GroupCourseOrder groupCourseOrder) {
-        getSession().save(groupCourseOrder);
+    public int insert(GroupCourseOrder groupCourseOrder) {
+        return (int) getSession().save(groupCourseOrder);
     }
 
     @Override
@@ -52,12 +52,12 @@ public class GroupCourseOrderDAOImpl implements GroupCourseOrderDAO{
     }
 
     @Override
-    public List<GroupCourseOrder> getAll(Integer groupClass, Integer status, String memNo, Integer currentPage) {
-        CriteriaBuilder builder = getSession().getCriteriaBuilder();
-        CriteriaQuery<GroupCourseOrder> criteriaQuery = builder.createQuery(GroupCourseOrder.class);
-        Root<GroupCourseOrder> root = criteriaQuery.from(GroupCourseOrder.class);
+        public List<GroupCourseOrder> getAll(Integer groupClass, Integer status, String memNo, Integer currentPage) {
+            CriteriaBuilder builder = getSession().getCriteriaBuilder();
+            CriteriaQuery<GroupCourseOrder> criteriaQuery = builder.createQuery(GroupCourseOrder.class);
+            Root<GroupCourseOrder> root = criteriaQuery.from(GroupCourseOrder.class);
 
-        List<Predicate> predicates = new ArrayList<>();
+            List<Predicate> predicates = new ArrayList<>();
 
         if (groupClass != null){
             predicates.add(builder.equal(root.get("gcoNo"), groupClass));

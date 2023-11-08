@@ -61,15 +61,40 @@ async function getOrder(page){
                   <tbody class="table-group-divider">`;
 
         data.data.forEach(item=>{
+
+
+            let paymentMethod;
+            if (item.gcoPaymentMethod === 0){
+                paymentMethod = '信用卡';
+            }else if (item.gcoPaymentMethod === 1){
+                paymentMethod = '匯款';
+            }else if (item.gcoPaymentMethod === 2){
+                paymentMethod = '綠界';
+            }
+
+            let statusText;
+
+            if (item.gcoStatus === 0){
+                statusText = '未付款';
+            }else if (item.gcoStatus === 1){
+                statusText = '已付款';
+            }else if (item.gcoStatus === 2){
+                statusText = '已退款';
+            }else if (item.gcoStatus === 3){
+                statusText = '已取消';
+            }else if (item.gcoStatus === 4){
+                statusText = '已完成';
+            }
+
             html += ` <tr>
                           <td>${item.gcoNo}</td>
                           <td>${item.member.memName}</td>
                           <td>${item.groupCourseSchedule.groupCourse.classType.ctName} : ${item.groupCourseSchedule.groupCourse.skill.skillName}</td>
                           <td>${item.gcoDate}</td>
-                          <td>${item.gcoPaymentMethod}</td>
+                          <td>${paymentMethod}</td>
                           <td>${item.gcoSmmp}</td>
                           <td>${item.actualAmount}</td>
-                          <td>${item.gcoStatus}</td>
+                          <td>${statusText}</td>
                       </tr>`;
         })
 
