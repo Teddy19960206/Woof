@@ -59,20 +59,21 @@ async function fetchData(page){
         html = `<table class="table table-hover text-center align-middle border">
         <thead class="table-light">
         <tr>
-            <th>團體課程編號</th>
+            <th>團課編號</th>
             <th>班別</th>
             <th>訓練師</th>
-            <th>開始報名時間</th>
-            <th>結束報名時間</th>
-            <th>最少開課人數</th>
-            <th>最多開課人數</th>
+            <th>開始時間</th>
+            <th>結束時間</th>
+            <th>最少人數</th>
+            <th>最多人數</th>
             <th>已報名人數</th>
             <th>價格</th>
             <th>課程報名狀態</th>
-            <th>延期的關聯課程編號</th>
+            <th>延期關聯課程編號</th>
             <th>延期原因</th>
             <th>修改</th>
             <th>上課日期</th>
+            <th>延期</th>
         </tr>
         </thead>
         <tbody id="mybody" class="table-group-divider">`;
@@ -92,8 +93,9 @@ async function fetchData(page){
             <th>${item.gcsStatus == 0 ? "下架" : "上架" }</th>
             <th>${item.relatedGcsNo !== undefined ? item.relatedGcsNo.gcsNo : '無'}</th>
             <th>${item.gcsDelayReason !== undefined && item.gcsDelayReason !== ""   ? item.gcsDelayReason : '無'}</th>
-            <td><button type="button" class="modify-button bn632-hover bn26" data-id="${item.gcsNo}" onclick="fetchDetail(${item.gcsNo})">修改</td>
-            <th><button type="button" class="detail-button bn632-hover bn26" data-id="${item.gcsNo}">詳情</button></th>
+            <td><button type="button" class="modify-button btn btn-primary" data-id="${item.gcsNo}" onclick="fetchDetail(${item.gcsNo})">修改</td>
+            <th><button type="button" class="detail-button btn btn-primary" data-id="${item.gcsNo}">詳情</button></th>
+            <th><button type="button" class="delay-button btn btn-primary" data-id="${item.gcsNo}" ${item.gcsStatus == 0 ? '' : 'disabled'}>延期</button></th>
         </tr>`;
         })
 
@@ -168,8 +170,6 @@ $(document).on("click" , "button.detail-button" , function (e){
 // 監聽按下上一頁時會重新刷新頁一慢
 window.onpopstate = function(event) {
     location.reload();
-
-    console.log(event)
 };
 
 
@@ -353,3 +353,6 @@ async function detailDelete(id){
     }
 }
 
+$(document).on("click" ,".delay-button" ,function (){
+    window.location.href = `${projectName}/backend/course/delaySchedule.jsp?no=${this.getAttribute("data-id")}`;
+})

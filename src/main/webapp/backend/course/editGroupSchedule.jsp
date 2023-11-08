@@ -6,8 +6,22 @@
   <title>寵毛導師 Woof | 修改報名資訊</title>
 </head>
 <body>
+
 <%@ include file="/backend/backbody.file" %>
-<h1 align="center" class="mt-3">修改報名資訊</h1>
+
+<c:if test="${not empty errorMsgs}">
+  <div class="col-6 mx-auto text-center">
+    <font style="color:red ;font-size: 20px">錯誤</font>
+    <ul style="list-style:none">
+      <c:forEach var="message" items="${errorMsgs}">
+        <li style="color:red">${message}</li>
+      </c:forEach>
+    </ul>
+  </div>
+</c:if>
+
+
+<h1 align="center" class="p-3">修改報名資訊</h1>
 <form action="${pageContext.request.contextPath}/schedule/modified" method="post" enctype="multipart/form-data">
   <div class="col-6 mx-auto">
     <input type="hidden" id="scheduleNo" name="scheduleNo" value="${schedule.gcsNo}">
@@ -69,12 +83,13 @@
       <option value="1" <c:if test="${schedule.gcsStatus eq 1}">selected</c:if>>上架</option>
     </select>
 
-    <label for="price">延期原因：</label>
-    <input type="text" name="delayReason" id="delayReason" class="form-control my-2" value="${schedule.gcsDelayReason}">
-
     <label for="price">延期的關聯課程編號：</label>
     <select name="relatedGcsNo" id="relatedGcsNo" class="form-select">
     </select>
+
+    <label for="price">延期原因：</label>
+    <input type="text" name="delayReason" id="delayReason" class="form-control my-2" value="${schedule.gcsDelayReason}">
+
     <div class="text-center mt-3">
       <button type="submit" class="btn btn-primary">確定修改</button>
       <button type="button" onclick="history.back()" class="btn btn-secondary">取消修改</button>

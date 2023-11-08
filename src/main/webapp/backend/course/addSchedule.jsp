@@ -9,6 +9,7 @@
 </head>
 
 <body>
+
 <%@ include file="/backend/backbody.file" %>
 <div class="container">
         <form action="${pageContext.request.contextPath}/schedule/addSchedule" method="post">
@@ -43,13 +44,13 @@
                     <div class="col-6 mx-auto">
                         <div class="col-6 mx-auto">
                             <label for="minLimit">最少開課人數：<span id="minLimitErr" style="color: red; display: none">錯誤</span></label>
-                            <input type="number" name="minLimit" id="minLimit" class="form-control my-2">
+                            <input type="number" name="minLimit" id="minLimit" min="1" max="99" class="form-control my-2">
                         </div>
                     </div>
                     <div class="col-6 mx-auto mb-3">
                         <div class="col-6 mx-auto">
                             <label for="maxLimit">最多開課人數：<span id="maxLimitErr" style="color: red; display: none">錯誤</span></label>
-                            <input type="number" name="maxLimit" id="maxLimit" class="form-control my-2">
+                            <input type="number" name="maxLimit" id="maxLimit" min="1" max="99" class="form-control my-2">
                         </div>
                     </div>
                 </div>
@@ -78,28 +79,18 @@
                     </div>
                 </div>
             </div>
-<%--            <div id="addScheduleDetail" style="display:none" class="col-6 mx-auto">--%>
-<%--                <a id="addClassDate"><img src="${pageContext.request.contextPath}/webutil/icons/plus.svg" width="20px"/></a>--%>
-<%--                <div id="input">--%>
-<%--                    <div>--%>
-<%--                        <label>新增上課日期：</label>--%>
-<%--                        <input type="date" name="classDate" class="classDate form-control my-2" data-id="${1}">--%>
-<%--                    </div>--%>
-<%--                </div>--%>
-<%--                <button type="button" id="back" class="btn btn-secondary">返回上一步</button>--%>
-<%--                <button type="submit" class="btn btn-primary">確定新增</button>--%>
-<%--            </div>--%>
-            <div id="calendar" style="display: none"><button type="button" onclick="addSchedule()">送出</button></div>
+
+            <div id="calendar" style="display: none"><button type="button" id="addBtn" class="btn btn-primary text-center my-5 col-12">送出</button></div>
 
         </form>
     </div>
 </div>
 
-<div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+<div class="modal fade" id="myModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">確定預約該日期嗎?</h5>`
+                <h5 class="modal-title">確定預約該日期嗎?</h5>`
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body text-center">

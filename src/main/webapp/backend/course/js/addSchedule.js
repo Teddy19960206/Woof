@@ -16,6 +16,8 @@ const relatedGcsNo = document.getElementById("relatedGcsNo");
 const relatedGcsNoErr = document.getElementById("relatedGcsNoErr");
 const delayReason = document.getElementById("delayReason");
 const delayReasonErr = document.getElementById("delayReasonErr");
+const addBtn = document.getElementById("addBtn")
+
 
 const calendarEl = document.getElementById('calendar');
 const myModal = new bootstrap.Modal(document.getElementById('myModal'), {});
@@ -93,6 +95,14 @@ $("button#next").on("click" , function (){
             dateErr = true;
         }
 
+        if (!dataErr && minLimit.value > 100){
+            setError(minLimitErr , "請勿輸入超過三位數")
+        }
+
+        if (!dateErr && maxLimit.value > 100){
+            setError(maxLimitErr , "請勿輸入超過三位數")
+        }
+
         if (!dateErr && minLimit.value > maxLimit.value){
             setError(minLimitErr , "最低人數不能大於最多人數")
             hasError = true;
@@ -142,8 +152,6 @@ function clearErr(){
     delayReasonErr.style.display = 'none';
 }
 
-
-// let time = ["2023-11-04" , "2023-11-03" ,"2023-11-10"];
 
 let date= [];
 
@@ -305,17 +313,28 @@ async function addSchedule(){
             alert("新增失敗");
             window.location.href = `${projectName}/backend/course/schedule.jsp`;
         }
-        const data = await response.text();
+        const data = await response.json();
 
-        if (!data) {
-            alert("新增失敗");
+        if (data.message) {
+            alert("新增成功");
+            window.location.href = `${projectName}/backend/course/schedule.jsp`;
+        }else if (data.length > 0){
+            let str = "";
+            data.forEach(message =>{
+                str += message +"\n"
+            })
+            alert(str);
+            window.location.href = `${projectName}/backend/course/addSchedule.jsp`;
         }
-        window.location.href = `${projectName}/backend/course/schedule.jsp`;
-
 
     }catch (error){
         console.log(error);
     }
 
 }
+
+
+addBtn.addEventListener("click" , function (){
+    addSchedule();
+});
 

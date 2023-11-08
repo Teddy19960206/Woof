@@ -62,9 +62,8 @@ public class GroupCourseScheduleServiceImpl implements GroupGourseScheduleServic
         groupCourseSchedule.setGcsDelayReason(gcsDelayReason);
         groupCourseSchedule.setRelatedGcsNo(relatedGcsNo);
 
-        int update = dao.update(groupCourseSchedule);
 
-        return update;
+        return  dao.update(groupCourseSchedule);
     }
 
     public GroupCourseSchedule findByGcsNo(Integer GcsNo){
