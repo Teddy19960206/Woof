@@ -294,17 +294,19 @@ async function fetchDetail(id){
                 <div class="row my-3">
                     <label class="col-5 text-center">訂單狀態</label>
                     <div class="col-7">
-                        <select name="status" class="form-select">
+                        <select id="status" name="status" class="form-select">
                             <option value="0" ${data.gcoStatus == 0 ? 'selected' : ''}>未付款</option>
                             <option value="1" ${data.gcoStatus == 1 ? 'selected' : ''}>已付款</option>
                             <option value="2" ${data.gcoStatus == 2 ? 'selected' : ''}>已退款</option>
                             <option value="3" ${data.gcoStatus == 3 ? 'selected' : ''}>已取消</option>
+                            <option value="3" ${data.gcoStatus == 4 ? 'selected' : ''}>已完成</option>
+                            <option value="3" ${data.gcoStatus == 5 ? 'selected' : ''}>退款申請中</option>
                         </select>
                     </div>
                 </div>
 
                 <div class="text-center p-3">
-                    <button class="btn btn-primary refund" ${data.gcoStatus == 1 ? '' : 'disabled'}  data-id="${data.gcoNo}">退款</button>
+                    <button class="btn btn-primary refund" ${data.gcoStatus == 5 ? '' : 'disabled'}  data-id="${data.gcoNo}">退款</button>
                     <button class="btn btn-primary modify" data-id="${data.gcoNo}">確認修改</button>
                     <button class="btn btn-secondary" onclick="window.location.href = '${projectName}/backend/course/orderManagement.jsp'">取消修改</button>
                 </div>
@@ -321,11 +323,41 @@ async function fetchDetail(id){
 
 
 $(document).on("click" , "button.modify" , function (){
-    modifyFetch($(this).data("id"));
+    modifyFetch($(this).data("id"), $("#status").val());
+
 })
 
-async function modifyFetch(id){
-    let url = `${projectName}/schedule/`;
+async function modifyFetch(id , status){
+    let url = `${projectName}/groupOrder/modify`;
+    try{
+        const response = await fetch(url , {
+            method : "POST",
+            headers :{
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body : `id=${id}&status=${status}`
+        })
+
+        if (!response.ok){
+            throw new Error("更新失敗")
+        }
+        const data = await response.json();
+
+        if (data.message){
+            alert(data.message);
+        }else{
+            let str = "";
+            data.forEach(message =>{
+                str += message +"\n"
+            })
+            alert(str);
+        }
+        window.location.href = `${projectName}/backend/course/orderManagement.jsp`;
+
+    }catch (error){
+        console.log(error);
+    }
+
 }
 
 // 退款按鈕
@@ -356,7 +388,11 @@ async function refundFetch(id){
         if (data.message){
             alert(data.message);
         }else{
-            alert("更新失敗");
+            let str = "";
+            data.forEach(message =>{
+                str += message +"\n"
+            })
+            alert(str);
         }
         window.location.href = `${projectName}/backend/course/orderManagement.jsp`;
 

@@ -6,6 +6,7 @@ import com.google.gson.annotations.Expose;
 import com.woof.classorder.entity.ClassOrder;
 import com.woof.commentreport.entity.CommentReport;
 import com.woof.privatetrainingappointmentform.entity.PrivateTrainingAppointmentForm;
+import com.woof.util.JsonIgnore;
 
 import java.sql.Date;
 import java.util.Arrays;
@@ -20,16 +21,19 @@ public class Member implements java.io.Serializable {
 	@Id
 	@Column(name = "MEM_NO")
 	private String memNo;
-	
+
+	@JsonIgnore
 	@OneToMany(mappedBy = "member" , cascade = CascadeType.ALL)
 	private Set<PrivateTrainingAppointmentForm> getPrivateTrainingAppointmentForms;
-	
+
+	@JsonIgnore
 	@OneToMany(mappedBy = "member" , cascade = CascadeType.ALL)
 	private Set<ClassOrder> getClassOrders;
-	
+
+	@JsonIgnore
 	@OneToMany(mappedBy = "member" , cascade = CascadeType.ALL)
 	private Set<CommentReport> getCommentReports;
-	
+
 	@Expose
 	@Column(name = "MEM_NAME", nullable = false)
 	private String memName;

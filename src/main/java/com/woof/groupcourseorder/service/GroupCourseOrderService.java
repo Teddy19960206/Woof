@@ -14,6 +14,7 @@ public interface GroupCourseOrderService {
 
     void modifyOfGcoNo(GroupCourseOrder groupCourseOrder ,GroupCourseSchedule groupCourseSchedule);
 
+    void modify(Integer gcoNo , Integer status);
     GroupCourseOrder getOneOrder(Integer gcoNo);
     List<GroupCourseOrder> getAll();
 

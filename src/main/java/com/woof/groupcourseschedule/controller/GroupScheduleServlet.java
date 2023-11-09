@@ -95,8 +95,8 @@ public class GroupScheduleServlet extends HttpServlet {
                 getOffSechedule(request ,response);
                 return;
             case "/addDelay":
-                addDelay(request, response);
 //                延期、額外新增課程
+                addDelay(request, response);
                 return;
             default:
                 if (pathInfo.startsWith("/edit/")) {
@@ -160,13 +160,13 @@ public class GroupScheduleServlet extends HttpServlet {
     private void getOffSechedule(HttpServletRequest request , HttpServletResponse response) throws IOException {
         request.setCharacterEncoding("UTF-8");
 
-        List<GroupCourseSchedule> offSechedule = groupGourseScheduleService.getOffSechedule();
+        List<GroupCourseSchedule> offSchedule = groupGourseScheduleService.getOffSchedule();
 
         Gson gson = new GsonBuilder()
                 .excludeFieldsWithoutExposeAnnotation()
                 .setDateFormat("yyyy-MM-dd")
                 .create();
-        String json = gson.toJson(offSechedule);
+        String json = gson.toJson(offSchedule);
 
         response.setContentType("application/json;charset=UTF-8");
         response.getWriter().write(json);
@@ -230,7 +230,7 @@ public class GroupScheduleServlet extends HttpServlet {
         request.setAttribute("errorMsgs" , errorMsgs);
 
         Integer scheduleNo = Integer.valueOf(request.getParameter("scheduleNo"));
-        Integer content = Integer.valueOf(request.getParameter("skill"));
+        Integer content = Integer.valueOf(request.getParameter("groupCourse"));
         GroupCourse groupCourseByNo = new GroupCourseServiceImpl().findGroupCourseByNo(content);
         Trainer trainer = new TrainerServiceImpl().findTrainerByTrainerNo(Integer.valueOf(request.getParameter("trainer")));
         Integer status = Integer.valueOf(request.getParameter("status"));
@@ -658,16 +658,13 @@ public class GroupScheduleServlet extends HttpServlet {
 //                    ,dates,groupCourseOrder.getGroupCourseSchedule().getGroupCourse().getCourseContent()
 //                    ));
 
-                new Thread(()-> mailService.sendMail("trick95710@gmail.com" ,
+                new Thread(()-> mailService.sendMail(groupCourseOrder.getMember().getMemEmail() ,
                         "課程延期" ,
                         MailService.groupOrderhtml( groupCourseOrder.getMember().getMemName()
                                 ,groupCourseOrder.getGroupCourseSchedule().getGroupCourse().getClassType().getCtName()
                                 ,dates,groupCourseOrder.getGroupCourseSchedule().getGroupCourse().getCourseContent()
                 ))).start();
 
-
-//              每更新一個order報名人數 +1
-//            groupCourseScheduleNew.setRegCount(groupCourseSchedule.getRegCount());
             }
 
 //              更新舊課程狀態與報名人數
@@ -696,6 +693,7 @@ public class GroupScheduleServlet extends HttpServlet {
             response.getWriter().write(json);
         }
     }
+
 }
 
 

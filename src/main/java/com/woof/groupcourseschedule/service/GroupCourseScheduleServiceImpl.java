@@ -69,6 +69,11 @@ public class GroupCourseScheduleServiceImpl implements GroupGourseScheduleServic
         return  dao.update(groupCourseSchedule);
     }
 
+    @Override
+    public void updateStatus(Integer gcsNo) {
+        dao.updateStatus(gcsNo);
+    }
+
     public GroupCourseSchedule findByGcsNo(Integer GcsNo){
         return dao.findByGcsNo(GcsNo);
     }
@@ -93,8 +98,13 @@ public class GroupCourseScheduleServiceImpl implements GroupGourseScheduleServic
     }
 
     @Override
-    public List<GroupCourseSchedule> getOffSechedule() {
+    public List<GroupCourseSchedule> getOffSchedule() {
         return dao.getOffStatus();
+    }
+
+    @Override
+    public List<GroupCourseSchedule> getAllUpSchedule() {
+        return dao.getUpStatus();
     }
 
     @Override

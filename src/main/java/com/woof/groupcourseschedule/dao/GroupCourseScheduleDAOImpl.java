@@ -52,6 +52,14 @@ public class GroupCourseScheduleDAOImpl implements GroupCourseScheduleDAO{
     }
 
     @Override
+    public void updateStatus(Integer gcsNo) {
+        String sql = "UPDATE group_course_schedule SET GCS_STATUS = 0 WHERE GCS_NO = ?";
+        Query query = getSession().createSQLQuery(sql);
+        query.setParameter(1, gcsNo);
+        query.executeUpdate();
+    }
+
+    @Override
     public GroupCourseSchedule findByGcsNo(Integer gcsNo) {
         return getSession().get(GroupCourseSchedule.class , gcsNo);
     }
@@ -100,11 +108,15 @@ public class GroupCourseScheduleDAOImpl implements GroupCourseScheduleDAO{
         query.setParameter("ctNo" , classType);
         query.setParameter("status" , status);
 
+        return query.list();
+    }
 
-        List<GroupCourseSchedule> list = query.list();
+    @Override
+    public List<GroupCourseSchedule> getUpStatus() {
+        String hql = "FROM GroupCourseSchedule gcs WHERE gcs.gcsStatus = 1";
+        Query<GroupCourseSchedule> query = getSession().createQuery(hql , GroupCourseSchedule.class);
 
-
-        return list;
+        return query.list();
     }
 
     @Override

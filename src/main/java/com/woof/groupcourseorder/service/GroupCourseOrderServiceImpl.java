@@ -54,6 +54,10 @@ public class GroupCourseOrderServiceImpl implements GroupCourseOrderService{
         dao.update(groupCourseOrder);
     }
 
+    public void modify(Integer gcoNo , Integer status){
+        dao.updateStatus(gcoNo , status);
+    }
+
     @Override
     public GroupCourseOrder getOneOrder(Integer gcoNo) {
         return dao.findByGcoNo(gcoNo);
