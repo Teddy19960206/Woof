@@ -144,7 +144,7 @@ public class AdministratorServlet extends HttpServlet {
 		
 		
 		//導到指定的URL 頁面上 把請求回應都帶過去
-		String url = req.getContextPath()+"/frontend/administrator/administrator.jsp";
+		String url = req.getContextPath()+"/frontend/administrator/logout1.jsp";
 		res.sendRedirect(url);
 	}
 
