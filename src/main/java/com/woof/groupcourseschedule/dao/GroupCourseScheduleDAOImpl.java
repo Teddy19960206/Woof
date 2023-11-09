@@ -32,7 +32,8 @@ public class GroupCourseScheduleDAOImpl implements GroupCourseScheduleDAO{
 
     @Override
     public int insert(GroupCourseSchedule groupCourseSchedule) {
-        return (Integer) getSession().save(groupCourseSchedule);
+        getSession().save(groupCourseSchedule);
+        return 1;
     }
 
     @Override
@@ -47,7 +48,7 @@ public class GroupCourseScheduleDAOImpl implements GroupCourseScheduleDAO{
         Query query = getSession().createSQLQuery(sql);
         query.setParameter(1, regCount + 1);
         query.setParameter(2, gcsNo);
-        int result = query.executeUpdate();
+        query.executeUpdate();
     }
 
     @Override

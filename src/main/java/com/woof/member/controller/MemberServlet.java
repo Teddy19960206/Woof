@@ -1,5 +1,6 @@
 package com.woof.member.controller;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
@@ -24,6 +25,7 @@ import com.woof.member.entity.Member;
 import com.woof.member.service.MemberService;
 import com.woof.member.service.MemberServiceImpl;
 import com.woof.util.MailService;
+import com.woof.util.PartParsebyte;
 
 @WebServlet("/member.do")
 @MultipartConfig
@@ -128,7 +130,6 @@ public class MemberServlet extends HttpServlet {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-
 		java.sql.Date sqlDate = new java.sql.Date(date.getTime());
 		member.setMemBd(sqlDate);
 		//	插入圖片
@@ -138,7 +139,6 @@ public class MemberServlet extends HttpServlet {
 		  input.read(photo);
 		  input.close();
 		  member.setMemPhoto(photo);
-        
 		member.setMomoPoint(Integer.valueOf(req.getParameter("momoPoint")));
 		member.setTotalClass(Integer.valueOf(req.getParameter("totalClass")));
 		member.setMemStatus(Integer.valueOf(req.getParameter("memStatus")));
@@ -181,12 +181,22 @@ public class MemberServlet extends HttpServlet {
 		member.setMemTel(req.getParameter("memTel"));
 		member.setMemAddress(req.getParameter("memAddress"));
 		//	插入圖片
-		  Part p = req.getPart("memPhoto");
-		  InputStream input = p.getInputStream();
-		  byte[] photo = new byte[input.available()];
-		  input.read(photo);
-		  input.close();
-		  member.setMemPhoto(photo);
+//		  Part p = req.getPart("memPhoto");
+//		  InputStream input = p.getInputStream();
+//		  byte[] photo = new byte[input.available()];
+//		  input.read(photo);
+//		  input.close();
+//		  member.setMemPhoto(photo);
+		Part p = req.getPart("memPhoto");
+		byte[] bytes = null;
+		
+		if (p != null && p.getSize() > 0) {
+		
+	        bytes = PartParsebyte.partToByteArray(p);
+	        member.setMemPhoto(bytes);
+		}else {
+			bytes = memberService.getPhotoById(req.getParameter("memNo"));
+		}
         //生日
 		String memBdString = req.getParameter("memBd");
 
@@ -205,9 +215,10 @@ public class MemberServlet extends HttpServlet {
 		member.setMomoPoint(Integer.valueOf(req.getParameter("momoPoint")));
 		member.setTotalClass(Integer.valueOf(req.getParameter("totalClass")));
 		member.setMemStatus(Integer.valueOf(req.getParameter("memStatus")));
+		System.out.println(req.getParameter("memNo") + "================");
+		System.out.println(req.getParameter("memPhoto") + "1111111");
 		memberService.updateMember(member);
 		// 導到指定的URL 頁面上 把請求回應都帶過去
-		System.out.println(req.getParameter("memNo") + "================");
 		String url = req.getContextPath() + "/backend/member/list_all_member.jsp";
 		res.sendRedirect(url);
 	}

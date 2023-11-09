@@ -1,6 +1,7 @@
 package com.woof.groupcourseorder.dao;
 
 import com.woof.groupcourseorder.entity.GroupCourseOrder;
+import com.woof.groupcourseschedule.entity.GroupCourseSchedule;
 
 import java.util.List;
 
@@ -18,4 +19,6 @@ public interface GroupCourseOrderDAO {
     long getTotal(Integer groupClass , Integer status , String memNo);
 
     List<GroupCourseOrder> getByDate(Integer year , Integer month);
+
+    List<GroupCourseOrder> getAllMember(Integer scheduleNo);
 }

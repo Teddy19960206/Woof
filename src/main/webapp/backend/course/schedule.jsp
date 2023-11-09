@@ -54,14 +54,14 @@
 
 
 <%-- 報名列表 --%>
-<div class="container center-table">
+<div class="container-fluid center-table">
     <div class="row showSchedule">
     </div>
     <div class="text-center">
         <a href="${pageContext.request.contextPath}/schedule/addpage">
             <button type="button" class="btn btn-primary">新增報名課程</button>
         </a>
-        <a href="${pageContext.request.contextPath}/backend/">
+        <a href="${pageContext.request.contextPath}/backend/index.html">
             <button class="btn btn-secondary">返回後台首頁</button>
         </a>
     </div>

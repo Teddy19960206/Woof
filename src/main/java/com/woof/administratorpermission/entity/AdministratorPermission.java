@@ -17,11 +17,9 @@ import javax.persistence.Table;
 @IdClass(AdministratorPermission.CompositeAdministratorPermission.class)
 public class AdministratorPermission implements Serializable {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="ADMIN_NO",updatable=false, nullable=false)
+	@Column(name="ADMIN_NO",unique = true, nullable=false)
 	private Integer adminNo;
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="FUNC_NO" ,nullable=false)
 	private Integer funcNo;
 

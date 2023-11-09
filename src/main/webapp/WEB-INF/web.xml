@@ -33,6 +33,8 @@
 		<url-pattern>/groupOrder/check</url-pattern>
 		<url-pattern>/groupOrder/getGroupInfo/*</url-pattern>
 		<url-pattern>/frontend/group/orderPage.jsp</url-pattern>
+		<url-pattern>/frontend/member/login/membercenter.jsp</url-pattern>
+		
 		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>FORWARD</dispatcher>
 		<dispatcher>INCLUDE</dispatcher>

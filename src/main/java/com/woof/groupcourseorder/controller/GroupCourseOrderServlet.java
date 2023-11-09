@@ -69,6 +69,9 @@ public class GroupCourseOrderServlet extends HttpServlet {
             case "/check":
                 check(request , response);
                 return;
+            case "/getOrderBySchedule":
+                getOrderBySchedule(request, response);
+                return;
             default:
                 if (pathInfo.startsWith("/getGroupInfo/")) {
                     forwardPath = getGroupInfo(request ,response ,result);
@@ -128,8 +131,6 @@ public class GroupCourseOrderServlet extends HttpServlet {
         jsonResponse.addProperty("pageTotal" , pageTotal);
         jsonResponse.add("data" , gson.toJsonTree(groupCourseOrderList));
 
-        System.out.println(groupCourseOrderList);
-
 
         response.setContentType("application/json;charset=UTF-8");
         response.getWriter().write(jsonResponse.toString());
@@ -166,7 +167,7 @@ public class GroupCourseOrderServlet extends HttpServlet {
         }
 
 //         參加報名時，判斷人數是否已達上限
-        if (groupCourseSchedule.getRegCount() > groupCourseSchedule.getMaxLimit()){
+        if (groupCourseSchedule.getRegCount() >= groupCourseSchedule.getMaxLimit()){
             errorMsgs.add("人數報名已達上限");
         }else {
 //            增加報名人數
@@ -201,16 +202,24 @@ public class GroupCourseOrderServlet extends HttpServlet {
             }
 
 
-
-//          email寄送報名資訊
-            System.out.println(email);
             MailService mailService = new MailService();
+
+//            new Thread(() -> mailService.sendMail(email ,
+//                    "報名成功" ,
+//                    MailService.groupOrderhtml(member.getMemName() ,                 // 報名人姓名
+//                            groupCourseSchedule.getGroupCourse().getClassType().getCtName(), // 班級名稱
+//                            dates,                                                       // 上課日期
+//                            groupCourseSchedule.getGroupCourse().getCourseContent())));
+
+
             mailService.sendMail(email ,
                     "報名成功" ,
-                            MailService.groupOrderhtml(member.getMemName() ,                 // 報名人姓名
-                            groupCourseSchedule.getGroupCourse().getClassType().getCtName(), // 班級名稱
-                                dates,                                                       // 上課日期
-                            groupCourseSchedule.getGroupCourse().getCourseContent()));       // 課程內容
+                    MailService.groupOrderhtml(member.getMemName() ,                 // 報名人姓名
+                    groupCourseSchedule.getGroupCourse().getClassType().getCtName(), // 班級名稱
+                    dates,                                                           // 上課日期
+                    groupCourseSchedule.getGroupCourse().getCourseContent()));       // 課程內容
+
+
         }catch (Exception e){
             e.printStackTrace();
             AppLogger.getLogger().log(Level.ALL, "發生例外，新增失敗：" + e);
@@ -232,5 +241,9 @@ public class GroupCourseOrderServlet extends HttpServlet {
         String json = gson.toJson(order);
         response.setContentType("application/json;charset=UTF-8");
         response.getWriter().write(json);
+    }
+
+    private void getOrderBySchedule(HttpServletRequest request , HttpServletResponse response){
+        
     }
 }
