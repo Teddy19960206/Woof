@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-<%--     <%@ include file="/meta.file" %> --%>
+    <%@ include file="/meta.file" %>
     <title>寵毛導師 Woof | 課堂數訂單</title>
 </head>
 <style>
@@ -10,7 +10,7 @@
     }
 </style>
 <body>
-<%-- <%@ include file="/Header.file" %> --%>
+<%@ include file="/Header.file" %>
 <div class="container shadow my-3 col-5">
     <div class="">
 
@@ -106,7 +106,7 @@
         </div>
     </div>
 </div>
-<%-- <%@ include file="/Footer.file" %> --%>
-<%-- <script src="${pageContext.request.contextPath}/frontend/group/js/orderPage.js"></script> --%>
+<%@ include file="/Footer.file" %>
+<script src="${pageContext.request.contextPath}/frontend/privatetrainer/js/orderPage.js"></script>
 </body>
 </html>

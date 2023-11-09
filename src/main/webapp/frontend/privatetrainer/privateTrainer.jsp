@@ -1,69 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%-- <%@ page contentType="text/html;charset=UTF-8" language="java" %> --%>
 <!DOCTYPE html>
 <html>
 <head>
+<%-- <%@ include file="/meta.file" %> --%>
     <meta charset="UTF-8">
     <title>寵毛導師 Woof | 訓練師列表</title>
     <style>
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f0f0f0;
-        margin: 0;
-        padding: 0;
-    }
-
-    h1 {
-        color: #333;
+    input{
         text-align: center;
-    }
-
-    .trainer {
-        background-color: #fff;
-        border: 1px solid #ccc;
-        margin: 10px;
-        padding: 15px;
-        box-shadow: 0px 0px 10px #aaa;
-    }
-
-    img {
-        display: block;
-        margin: 0 auto;
-        border: 2px solid #ccc;
-        border-radius: 50%;
-    }
-
-    h2 {
-        text-align: center;
-        margin-top: 10px;
-    }
-
-    p {
-        font-weight: bold;
-        margin-top: 10px;
-    }
-
-    ul {
-        list-style: none;
-        padding: 0;
-    }
-
-    li {
-        margin-top: 5px;
-    }
-
-    button {
-        background-color: #333;
-        color: #fff;
-        border: none;
-        padding: 5px 10px;
-        cursor: pointer;
-        margin-top: 10px;
-    }
-
-    button:hover {
-        background-color: #555;
     }
 </style>
  <script type="text/javascript">
@@ -81,6 +27,7 @@
     </script>
 </head>
 <body>
+<%-- <%@ include file="/Header.file" %> --%>
     <h1>訓練師列表</h1>
 <jsp:useBean id="trainerServer" scope="page" class="com.woof.trainer.service.TrainerServiceImpl"/>
 <jsp:useBean id="skillServer" scope="page" class="com.woof.skill.service.SkillServiceImpl"/>
@@ -114,5 +61,6 @@
    
     <button class="btn btn-buyclass" onclick="window.location='${pageContext.request.contextPath}/frontend/privatetrainer/buyclass.jsp'">購買課堂</button>
     <button class="btn btn-back" onclick="window.location='${pageContext.request.contextPath}/index.html'">返回</button>
+<%-- <%@ include file="/Footer.file" %> --%>
 </body>
 </html>
