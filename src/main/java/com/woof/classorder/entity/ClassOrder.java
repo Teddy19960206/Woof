@@ -50,10 +50,6 @@ public class ClassOrder {
 	private Integer coStatus;
 	
 	@Expose
-	@Column(name = "CO_CT")
-	private Timestamp coCt;
-	
-	@Expose
 	@Column(name = "ACTUAL_AMOUNT", nullable = false)
 	private Integer actualAmount;
 	
@@ -130,17 +126,6 @@ public class ClassOrder {
 		this.coStatus = coStatus;
 	}
 
-
-	public Timestamp getCoCt() {
-		return coCt;
-	}
-
-
-	public void setCoCt(Timestamp coCt) {
-		this.coCt = coCt;
-	}
-
-
 	public Integer getActualAmount() {
 		return actualAmount;
 	}
@@ -165,14 +150,5 @@ public class ClassOrder {
 			return false;
 		ClassOrder other = (ClassOrder) obj;
 		return Objects.equals(coNo, other.coNo);
-	}
-				
-	@Override
-	public String toString() {
-		return "ClassOrderVO [coNo=" + coNo + ", memNo=" + (member != null ? member.getMemNo() : "N/A") + ", coBc=" + coBc + ", coPaymentMethod="
-				+ coPaymentMethod + ", coSsmp=" + coSmmp + ", coTime=" + coTime + ", coStatus=" + coStatus + ", coCt="
-				+ coCt + ", actualAmount=" + actualAmount + "]";
-	}
-	
-	
+	}	
 }

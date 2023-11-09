@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <%@ include file="/meta.file" %>
+<%--     <%@ include file="/meta.file" %> --%>
     <title>寵毛導師 Woof | 課堂數訂單</title>
 </head>
 <style>
@@ -10,17 +10,17 @@
     }
 </style>
 <body>
-<%@ include file="/Header.file" %>
+<%-- <%@ include file="/Header.file" %> --%>
 <div class="container shadow my-3 col-5">
     <div class="">
 
-        <h1 align="center" class="p-3">報名成功</h1>
+        <h1 align="center" class="p-3">購買成功</h1>
         <div class="col-12 text-center">
             <h3>詳細訂單明細</h3>
         </div>
         <div class="col-12 my-3">
             <div class="row">
-                <label class="col-5 text-center">訂單編號</label>
+                <label class="col-5 text-center">課堂訂單編號</label>
                 <div class="col-5">
                     <input type="text" class="form-control" id="orderNo" value="${orderNo}" readonly>
                 </div>
@@ -28,7 +28,7 @@
             </div>
 
             <div class="row my-3">
-                <label class="col-5 text-center">會員編號</label>
+                <label class="col-5 text-center">會員帳號</label>
                 <div class="col-5">
                     <input type="text" class="form-control" id="memNo" readonly>
                 </div>
@@ -45,7 +45,7 @@
 
 
             <div class="row my-3">
-                <label class="col-5 text-center">團體課程名稱</label>
+                <label class="col-5 text-center">課程數量</label>
                 <div class="col-5">
                     <input type="text" class="form-control" id="groupScheduleName" readonly>
                 </div>
@@ -106,7 +106,7 @@
         </div>
     </div>
 </div>
-<%@ include file="/Footer.file" %>
-<script src="${pageContext.request.contextPath}/frontend/group/js/orderPage.js"></script>
+<%-- <%@ include file="/Footer.file" %> --%>
+<%-- <script src="${pageContext.request.contextPath}/frontend/group/js/orderPage.js"></script> --%>
 </body>
 </html>
