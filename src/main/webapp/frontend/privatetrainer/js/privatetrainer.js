@@ -74,13 +74,12 @@ async function getTrainerSkills(trainerNo){
 
 
 function showTrainerSkills(data){
-    html = `<table><tr><th>專業名稱</th></tr>`;
+    let html = `<p>專長:</p>`;
+    
+    data.forEach(item => {
+        html += `<p>${item.skillName}</p>`;
+    });
 
-    data.forEach(item =>{
-        html += `<tr><th>${item.skillName}</th></tr>`
-    })
-
-    html += `</table>`;
-
+    // 插入到 "showTrianerSkills" 元素中
     document.getElementById("showTrianerSkills").innerHTML = html;
 }
