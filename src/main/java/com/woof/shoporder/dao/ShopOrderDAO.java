@@ -1,7 +1,6 @@
 package com.woof.shoporder.dao;
 
 import java.util.List;
-import java.util.Map;
 import com.woof.shoporder.entity.ShopOrder;
 
 public interface ShopOrderDAO {

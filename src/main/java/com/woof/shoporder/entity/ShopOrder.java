@@ -2,7 +2,6 @@ package com.woof.shoporder.entity;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
-import java.util.Objects;
 import javax.persistence.*;
 
 import com.google.gson.annotations.Expose;
