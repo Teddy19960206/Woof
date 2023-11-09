@@ -122,8 +122,7 @@ body {
 			<a href="/woof/index.html" class="btn btn-light btn-sm"
 				style="position: absolute; top: 10px; right: 20px;">回首頁</a>
 			<form method="post"
-		action="${pageContext.request.contextPath}/member1.do"
-		enctype="multipart/form-data" accept-charset="UTF-8">
+		action="${pageContext.request.contextPath}/member1.do" enctype="multipart/form-data" accept-charset="UTF-8">
 				<!-- 其他表單元素 -->
 
 				<div class="form-group">
@@ -229,43 +228,7 @@ body {
 					</div>
 					<small class="error-msg">${errorMsgs.memStatus}</small>
 				</div>
-				<div class="form-group">
-					<label for="momoPoint">會員毛毛幣:</label>
-					<div>
-						<div class="form-check form-check-inline">
-							<input class="form-check-input" type="number" name="momoPoint"
-								id="momoPoint" size="45" />
-						</div>
-					</div>
-					<small class="error-msg">${errorMsgs.memStatus}</small>
-				</div>
-				<div class="form-group">
-					<label for="totalClass">總堂數:</label>
-					<div>
-						<div class="form-check form-check-inline">
-							<input class="form-check-input" type="number" name="totalClass"
-								id="totalClass" size="45" />
-						</div>
-					</div>
-					<small class="error-msg">${errorMsgs.memStatus}</small>
-				</div>
-
-				<div class="form-group">
-					<label for="memStatus">狀態:</label>
-					<div>
-						<div class="form-check form-check-inline">
-							<input class="form-check-input" type="radio" name="memStatus"
-								id="memStatus0" value="0"> <label
-								class="form-check-label" for="memStatus0">停權</label>
-						</div>
-						<div class="form-check form-check-inline">
-							<input class="form-check-input" type="radio" name="memStatus"
-								id="memStatus1" value="1" checked> <label
-								class="form-check-label" for="memStatus1">正常</label>
-						</div>
-					</div>
-					<small class="error-msg">${errorMsgs.memStatus}</small>
-				</div>
+				
 				<input type="hidden" name="action" value="add">
 				<button type="submit" class="btn btn-primary btn-custom">新增</button>
 				<button type="button" class="btn btn-secondary btn-custom"
