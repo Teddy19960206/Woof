@@ -106,13 +106,13 @@ public class Member implements java.io.Serializable {
 		this.memGender = memGender;
 	}
 
-	public Set<ShopOrder> getShopOrders() {
-		return shopOrders;
-	}
-
-	public void setShopOrders(Set<ShopOrder> shopOrders) {
-		this.shopOrders = shopOrders;
-	}
+//	public Set<ShopOrder> getShopOrders() {
+//		return shopOrders;
+//	}
+//
+//	public void setShopOrders(Set<ShopOrder> shopOrders) {
+//		this.shopOrders = shopOrders;
+//	}
 
 	public Set<PrivateTrainingAppointmentForm> getGetPrivateTrainingAppointmentForms() {
 		return getPrivateTrainingAppointmentForms;
