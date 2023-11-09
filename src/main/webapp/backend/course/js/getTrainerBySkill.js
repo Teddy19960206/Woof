@@ -9,11 +9,14 @@ $(async function (){
     let related = $("#related").val();
     let data = await getAllSchedule();
 
+    console.log(related)
+    console.log(data)
+
     html = `<option value="">無</option>`;
     data.forEach(item =>{
 
         if (item.gcsNo != scheduleNo){
-            html += `<option value="${item.gcsNo}" ${related != "" ? related == item.gcsNo? "selected" : ""  : ""}>
+            html += `<option value="${item.gcsNo}" ${related != "" ? related == item.gcsNo ? "selected" : ""  : ""}>
             課程報名編號：${item.gcsNo} 班別：${item.groupCourse.classType.ctName} 訓練師：${item.trainer.administrator.adminName} 課程名稱：${item.groupCourse.skill.skillName}
             </option>`;
         }

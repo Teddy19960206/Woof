@@ -1,9 +1,6 @@
 let pathName = window.document.location.pathname;
 let projectName = pathName.substring( 0 , pathName.substring(1).indexOf("/")+1);
 
-
-// let time = ["2023-11-04" , "2023-11-03" ,"2023-11-10"];
-
 let date= [];
 
 
@@ -18,49 +15,11 @@ var calendar = new FullCalendar.Calendar(calendarEl, {
     locale : "zh-TW",
     initialDate: new Date(),
     // navLinks: true, // can click day/week names to navigate views
-    selectable: true,  // 可以點擊日曆事件
+    selectable: false,  // 可以點擊日曆事件
     selectMirror: true, //
     hiddenDays:[], // 隱藏星期六 與 星期日
     eventStartEditable : false, // 禁止拖拉
-
-    select: function(arg) {
-
-        if (date.some(item => arg.startStr === item)) {
-            calendar.unselect(); // 取消選擇
-            return; // 結束函數執行
-        }
-
-        let newDate = new Date(arg.startStr);
-        let year = newDate.getFullYear();
-        let month = newDate.getMonth();
-        let day = newDate.getDay();
-
-
-        $("#showDate").html(`<label data-value="${arg.startStr}">${year}年${month}月${day}日</label>`);
-        myModal.show();
-        // var title = confirm('新增資料:');
-        // if (title) {
-        //   calendar.addEvent({
-        //     title: title,
-        //     start: arg.start,
-        //     end: arg.end
-        //   })
-        //   console.log(arg);
-        // }
-        calendar.unselect()
-    },
-    eventClick: function(arg) {
-        if (date.some(item => arg.event.jsEvent.currentTarget.attributes.value === item)) {
-            calendar.unselect(); // 取消選擇
-            return; // 結束函數執行
-        }
-
-        if (confirm('請問確定要刪除嗎?')) {
-            // 這裡要做ajax發送delete資料庫動作
-            arg.event.remove()
-        }
-    },
-    editable: true,  // 可編輯
+    editable: false,  // 可編輯
     dayMaxEvents: true, // allow "more" link when too many events
     events: [
 
@@ -69,14 +28,6 @@ var calendar = new FullCalendar.Calendar(calendarEl, {
         removeAllEvents();
         // 加上七天，避免取得到上個月的日期，
         let date = new Date(info.start);
-        // for (let i = 0 ; i < time.length ; i ++){
-        //     calendar.addEvent({
-        //         title: "不可點選",
-        //         start: time[i],
-        //         display: "background" ,
-        //         color : 'gray'
-        //     })
-        // }
         date.setDate(date.getDate() + 7);
         fetchDetailByDate(date.getFullYear() , date.getMonth()+1);
     },
@@ -94,27 +45,25 @@ document.addEventListener('DOMContentLoaded',  function() {
     calendar.render();
 });
 
-let prevBtn = document.getElementsByClassName("fc-prev-button");
+// let prevBtn = document.getElementsByClassName("fc-prev-button");
 
-$(function(){
-    let prevBtn = document.getElementsByClassName("fc-prev-button");
-    let nextBtn = document.getElementsByClassName("fc-next-button");
-
-    prevBtn[0].disabled = true;
-    nextBtn[0].disabled = false;
-
-    prevBtn[0].addEventListener("click" , ()=>{
-        prevBtn[0].disabled = true;
-        nextBtn[0].disabled = false;
-    })
-
-    nextBtn[0].addEventListener("click" , ()=>{
-        prevBtn[0].disabled = false;
-        nextBtn[0].disabled = true;
-    })
-})
-
-var myModal = new bootstrap.Modal(document.getElementById('myModal'), {});
+// $(function(){
+//     let prevBtn = document.getElementsByClassName("fc-prev-button");
+//     let nextBtn = document.getElementsByClassName("fc-next-button");
+//
+//     prevBtn[0].disabled = true;
+//     nextBtn[0].disabled = false;
+//
+//     prevBtn[0].addEventListener("click" , ()=>{
+//         prevBtn[0].disabled = true;
+//         nextBtn[0].disabled = false;
+//     })
+//
+//     nextBtn[0].addEventListener("click" , ()=>{
+//         prevBtn[0].disabled = false;
+//         nextBtn[0].disabled = true;
+//     })
+// })
 
 function reserve(){
 
@@ -152,16 +101,3 @@ async function fetchDetailByDate(year , month){
     }
 
 }
-
-$("#reserveBtn").on("click" ,async function (){
-    // let date = $("label").data("value");
-    //
-    // const response = await fetch(url , {
-    //     method : "POST",
-    //     body: {
-    //         date : date
-    //     }
-    // })
-
-
-})

@@ -21,7 +21,7 @@ public class GroupCourseScheduleServiceImpl implements GroupGourseScheduleServic
     }
 
     @Override
-    public GroupCourseSchedule addSchedule(GroupCourse groupCourse, Trainer trainer, Date startDate, Date endDate, Integer minLimit, Integer maxLimit, Integer price , String delayReason , GroupCourseSchedule relatedGcsNo) {
+    public GroupCourseSchedule addSchedule(GroupCourse groupCourse, Trainer trainer, Date startDate, Date endDate, Integer minLimit, Integer maxLimit,Integer regCount, Integer price, Integer gcsStatus , String delayReason , GroupCourseSchedule relatedGcsNo) {
         GroupCourseSchedule groupCourseSchedule = new GroupCourseSchedule();
         groupCourseSchedule.setGroupCourse(groupCourse);
         groupCourseSchedule.setTrainer(trainer);
@@ -29,7 +29,9 @@ public class GroupCourseScheduleServiceImpl implements GroupGourseScheduleServic
         groupCourseSchedule.setGcsEnd(endDate);
         groupCourseSchedule.setMinLimit(minLimit);
         groupCourseSchedule.setMaxLimit(maxLimit);
+        groupCourseSchedule.setRegCount(regCount);
         groupCourseSchedule.setGcsPrice(price);
+        groupCourseSchedule.setGcsStatus(gcsStatus);
         groupCourseSchedule.setGcsDelayReason(delayReason);
         groupCourseSchedule.setRelatedGcsNo(relatedGcsNo);
 

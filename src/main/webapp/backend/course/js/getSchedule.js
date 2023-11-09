@@ -84,6 +84,37 @@ async function fetchData(page){
 
         // 取得所有相關的資料
         data.data.forEach((item)=>{
+
+            let status;
+            //  0:下架 1:上架 2:確認開課 3:已取消 4:延期 5:已結束 6:退款申請中 7:退款已完成
+            switch (item.gcsStatus){
+                case 0:
+                    status = "下架";
+                    break;
+                case 1:
+                    status = "上架";
+                    break;
+                case 2:
+                    status = "確認開課";
+                    break;
+                case 3:
+                    status = "已取消";
+                    break;
+                case 4:
+                    status = "延期";
+                    break;
+                case 5:
+                    status = "已結束";
+                    break;
+                case 6:
+                    status = "退款申請中";
+                    break;
+                case 7:
+                    status = "退款已完成";
+                    break;
+
+            }
+
             arr.push(`<tr>
             <th>${item.gcsNo}</th>
             <th>${item.groupCourse.classType.ctName} : ${item.groupCourse.skill.skillName}</th>
@@ -94,7 +125,7 @@ async function fetchData(page){
             <th>${item.maxLimit}</th>
             <th>${item.regCount}</th>
             <th>${item.gcsPrice}</th>
-            <th>${item.gcsStatus == 0 ? "下架" : "上架" }</th>
+            <th>${status}</th>
             <th>${item.relatedGcsNo !== undefined ? item.relatedGcsNo.gcsNo : '無'}</th>
             <th>${item.gcsDelayReason !== undefined && item.gcsDelayReason !== ""   ? item.gcsDelayReason : '無'}</th>
             <td><button type="button" class="modify-button btn btn-primary" data-id="${item.gcsNo}" onclick="fetchDetail(${item.gcsNo})">修改</td>

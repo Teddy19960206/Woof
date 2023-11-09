@@ -503,7 +503,7 @@ public class GroupScheduleServlet extends HttpServlet {
 
 
             //        新增報名課程資訊
-            GroupCourseSchedule groupCourseSchedule = groupGourseScheduleService.addSchedule(groupCourse, trainer, startDate, endDate, minLimit, maxLimit, price ,  delayReason ,  byGcsNo);
+            GroupCourseSchedule groupCourseSchedule = groupGourseScheduleService.addSchedule(groupCourse, trainer, startDate, endDate, minLimit, maxLimit,null, price , null, delayReason ,  byGcsNo);
             new GroupScheduleDetailServiceImpl().add(groupCourseSchedule , groupCourseSchedule.getTrainer() ,dates );
 
         }catch (Exception e){
@@ -633,7 +633,9 @@ public class GroupScheduleServlet extends HttpServlet {
                     endDate,
                     groupCourseSchedule.getMinLimit(),
                     groupCourseSchedule.getMaxLimit(),
+                    groupCourseSchedule.getRegCount(),
                     groupCourseSchedule.getGcsPrice(),
+                    1,                          //延期後，直接上架
                     reason,
                     groupCourseSchedule);
 
@@ -661,7 +663,8 @@ public class GroupScheduleServlet extends HttpServlet {
                         MailService.groupOrderhtml( groupCourseOrder.getMember().getMemName()
                                 ,groupCourseOrder.getGroupCourseSchedule().getGroupCourse().getClassType().getCtName()
                                 ,dates,groupCourseOrder.getGroupCourseSchedule().getGroupCourse().getCourseContent()
-                )));
+                ))).start();
+
 
 //              每更新一個order報名人數 +1
 //            groupCourseScheduleNew.setRegCount(groupCourseSchedule.getRegCount());

@@ -134,7 +134,7 @@ public class GroupCourseScheduleDAOImpl implements GroupCourseScheduleDAO{
     @Override
     public List<GroupCourseSchedule> getOffStatus() {
 
-        String hql = "FROM GroupCourseSchedule gcs WHERE gcs.gcsStatus = 0";
+        String hql = "FROM GroupCourseSchedule gcs WHERE gcs.gcsStatus = 0 OR gcs.gcsStatus = 4";
         Query<GroupCourseSchedule> query = getSession().createQuery(hql , GroupCourseSchedule.class);
         return query.list();
     }

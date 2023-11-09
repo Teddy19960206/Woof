@@ -21,4 +21,6 @@ public interface GroupCourseOrderDAO {
     List<GroupCourseOrder> getByDate(Integer year , Integer month);
 
     List<GroupCourseOrder> getAllMember(Integer scheduleNo);
+
+    void updateStatus(Integer gcoNo , Integer status);
 }

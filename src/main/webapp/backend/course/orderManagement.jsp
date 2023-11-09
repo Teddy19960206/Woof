@@ -7,7 +7,7 @@
 <body>
 <%@ include file="/backend/backbody.file" %>
 
-<div class="container">
+<div class="container" id="allPage">
 
     <h1 align="center">課堂檔期訂單管理</h1>
     <div class="">

@@ -131,4 +131,13 @@ public class GroupCourseOrderDAOImpl implements GroupCourseOrderDAO{
 
         return query.list();
     }
+
+    @Override
+    public void updateStatus(Integer gcoNo , Integer status) {
+        String sql = "UPDATE group_course_order SET GCO_STATUS = ? WHERE GCO_NO = ?";
+        Query query = getSession().createSQLQuery(sql);
+        query.setParameter(1, status);
+        query.setParameter(2, gcoNo);
+        query.executeUpdate();
+    }
 }

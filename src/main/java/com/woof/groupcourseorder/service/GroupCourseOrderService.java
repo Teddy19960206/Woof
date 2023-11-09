@@ -27,4 +27,5 @@ public interface GroupCourseOrderService {
 
     List<GroupCourseOrder> getOrderBySchedule(Integer scheduleNo);
 
+    void refund(Integer gcoNo);
 }

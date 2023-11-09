@@ -91,4 +91,10 @@ public class GroupCourseOrderServiceImpl implements GroupCourseOrderService{
     public List<GroupCourseOrder> getOrderBySchedule(Integer scheduleNo) {
         return dao.getAllMember(scheduleNo);
     }
+
+    @Override
+    public void refund(Integer gcoNo) {
+//      狀態 2 為已退款
+        dao.updateStatus(gcoNo , 2);
+    }
 }
