@@ -122,8 +122,8 @@ body {
 			<a href="/woof/index.html" class="btn btn-light btn-sm"
 				style="position: absolute; top: 10px; right: 20px;">回首頁</a>
 			<form method="post"
-				action="${pageContext.request.contextPath}/member.do"
-				enctype="multipart/form-data" accept-charset="UTF-8">
+		action="${pageContext.request.contextPath}/member1.do"
+		enctype="multipart/form-data" accept-charset="UTF-8">
 				<!-- 其他表單元素 -->
 
 				<div class="form-group">
@@ -270,10 +270,9 @@ body {
 				<button type="submit" class="btn btn-primary btn-custom">新增</button>
 				<button type="button" class="btn btn-secondary btn-custom"
 					onclick="history.back()">取消</button>
-			</form>
+		</form>
 		</div>
 	</div>
-
 	<!-- Bootstrap JavaScript -->
 	<script
 		src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
