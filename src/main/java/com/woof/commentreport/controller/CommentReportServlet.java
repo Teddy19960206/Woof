@@ -5,7 +5,6 @@ import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,12 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.woof.commentreport.service.CommentReportService;
 import com.woof.commentreport.service.CommentReportServiceImpl;
-import com.woof.member.entity.Member;
-import com.woof.member.service.MemberService;
-import com.woof.member.service.MemberServiceImpl;
-import com.woof.trainer.entity.Trainer;
-import com.woof.trainer.service.TrainerService;
-import com.woof.trainer.service.TrainerServiceImpl;
+
 import com.woof.privatetrainingappointmentform.entity.PrivateTrainingAppointmentForm;
 import com.woof.privatetrainingappointmentform.service.PrivateTrainingAppointmentFormService;
 import com.woof.privatetrainingappointmentform.service.PrivateTrainingAppointmentFormServiceImpl;
@@ -51,7 +45,7 @@ private CommentReportService commentReportService;
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				forwardPath = "/frontend/commentreport/commentReport_add.jsp";
+//				forwardPath = "/frontend/commentreport/commentReport_add.jsp";
 				break;
 			default:
 				forwardPath = "/frontend/commentreport/commentReport.jsp";
@@ -80,7 +74,13 @@ private CommentReportService commentReportService;
 		Date parsedDate = dateFormat.parse(crDateStr);
 		Timestamp crDate = new Timestamp(parsedDate.getTime());
 		
-		int result = commentReportService.addCommentReport(pta, crDateStr, crStatus, crDate);
-			
+		int result = commentReportService.addCommentReport(pta, comment, crStatus, crDate);
+		if (result == 1) {
+			System.out.println("檢舉成功");
+			req.setAttribute("successMessage", "檢舉成功");
+		} else {
+			System.out.println("檢舉失敗");
+			req.setAttribute("errorMessage", "檢舉失敗");
+		}	
     }
 }

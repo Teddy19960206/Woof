@@ -4,9 +4,8 @@ import java.sql.Timestamp;
 import java.util.List;
 
 import com.woof.commentreport.entity.CommentReport;
-import com.woof.member.entity.Member;
 import com.woof.privatetrainingappointmentform.entity.PrivateTrainingAppointmentForm;
-import com.woof.trainer.entity.Trainer;
+
 
 public interface CommentReportService {
 

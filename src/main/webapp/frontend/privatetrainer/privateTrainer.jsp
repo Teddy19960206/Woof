@@ -71,7 +71,6 @@
     <h1>訓練師列表</h1>
 <jsp:useBean id="trainerServer" scope="page" class="com.woof.trainer.service.TrainerServiceImpl"/>
 <jsp:useBean id="skillServer" scope="page" class="com.woof.skill.service.SkillServiceImpl"/>
-<%--     <form method="POST" ACTION="${pageContext.request.contextPath}/trainer"> --%>
     <c:forEach var="trainer" items="${trainerServer.allTrainers}">
         <div class="trainer">
            <img src="${pageContext.request.contextPath}/DBPngReader?action=administrator&id=${trainer.administrator.adminNo}" style="width: 100px; height: 100px">
@@ -85,21 +84,34 @@
         		</c:forEach>
         	</ul>
             <p>評價:</p>
-            <form method="POST" ACTION="${pageContext.request.contextPath}/commentreport">
+            <form method="POST" ACTION="${pageContext.request.contextPath}/commentreport" onsubmit="return commentReport()">
             	<ul>            	
                 	<c:forEach var="pta" items="${trainer.privateTrainingAppointmentForms}">
                    		<li>${pta.ptaComment}</li>            
                    		<input type="hidden" name="ptano" value="${pta.ptaNo}">
                    		<input type="hidden" name="comment" value="${pta.ptaComment}">
+                   		<input type="hidden" name="action" value="report">                		
                     	<button>檢舉評論</button>
                 	</c:forEach>
             	</ul>
             </form>
-            
             <button>預約訓練師</button>
         </div>
     </c:forEach>
     <button>購買課堂</button>
-<!--     </form> -->
+	<script type="text/javascript">
+        // 當頁面加載完成後執行
+        function commentReport() {
+            <%-- 檢查是否有成功訊息 --%>
+            <c:if test="${not empty successMessage}">
+                alert('${successMessage}');
+            </c:if>
+
+            <%-- 檢查是否有錯誤訊息 --%>
+            <c:if test="${not empty errorMessage}">
+                alert('${errorMessage}');
+            </c:if>
+        };
+    </script>
 </body>
 </html>
