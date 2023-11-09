@@ -25,6 +25,7 @@ import com.woof.member.entity.Member;
 import com.woof.member.service.MemberService;
 import com.woof.member.service.MemberServiceImpl;
 import com.woof.util.MailService;
+import com.woof.util.PartParsebyte;
 
 @WebServlet("/member.do")
 @MultipartConfig
@@ -187,24 +188,15 @@ public class MemberServlet extends HttpServlet {
 //		  input.close();
 //		  member.setMemPhoto(photo);
 		Part p = req.getPart("memPhoto");
+		byte[] bytes = null;
+		
 		if (p != null && p.getSize() > 0) {
-		    try {
-		        InputStream input = p.getInputStream();
-		        ByteArrayOutputStream output = new ByteArrayOutputStream();
-		        byte[] buffer = new byte[1024]; // 使用緩衝區來讀取數據
-		        for (int length; (length = input.read(buffer)) > 0;) {
-		            output.write(buffer, 0, length);
-		        }
-		        byte[] photo = output.toByteArray();
-		        member.setMemPhoto(photo);
-		        output.close();
-		        input.close();
-		    } catch (IOException e) {
-		        e.printStackTrace();
-		        // 處理錯誤情況
-		    }
+		
+	        bytes = PartParsebyte.partToByteArray(p);
+	        member.setMemPhoto(bytes);
 		}else {
-		    }
+			bytes = memberService.getPhotoById(req.getParameter("memNo"));
+		}
         //生日
 		String memBdString = req.getParameter("memBd");
 
