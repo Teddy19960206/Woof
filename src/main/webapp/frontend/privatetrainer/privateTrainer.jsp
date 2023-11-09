@@ -91,8 +91,6 @@
                    		<li>${pta.ptaComment}</li>            
                    		<input type="hidden" name="ptano" value="${pta.ptaNo}">
                    		<input type="hidden" name="comment" value="${pta.ptaComment}">
-                   		<input type="hidden" name="comment" value="${pta.ptaComment}">
-                   		<input type="hidden" name="comment" value="${pta.ptaComment}">
                     	<button>檢舉評論</button>
                 	</c:forEach>
             	</ul>

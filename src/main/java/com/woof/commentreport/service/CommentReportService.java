@@ -10,7 +10,7 @@ import com.woof.trainer.entity.Trainer;
 
 public interface CommentReportService {
 
-	int addCommentReport(Member member, Trainer trainer, PrivateTrainingAppointmentForm privateTrainingAppointmentForm,
+	int addCommentReport(PrivateTrainingAppointmentForm privateTrainingAppointmentForm,
 			String crContext, Integer crStatus, Timestamp crDate);
 
 	int updateCommentReport(CommentReport commentReport);

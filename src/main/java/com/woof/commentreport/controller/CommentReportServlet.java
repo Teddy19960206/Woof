@@ -1,6 +1,10 @@
 package com.woof.commentreport.controller;
 
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -41,7 +45,12 @@ private CommentReportService commentReportService;
 		if (action != null) {
 			switch (action) {
 			case "report":
-				addCommentReport(req, res);
+				try {
+					addCommentReport(req, res);
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				forwardPath = "/frontend/commentreport/commentReport_add.jsp";
 				break;
 			default:
@@ -57,9 +66,19 @@ private CommentReportService commentReportService;
     	doPost(req, res);
     }
     
-    private void addCommentReport(HttpServletRequest req, HttpServletResponse res) {
+    private void addCommentReport(HttpServletRequest req, HttpServletResponse res) throws ParseException {
     	
+    	Integer ptaNo = Integer.valueOf(req.getParameter("ptano"));  	
+    	String comment = req.getParameter("comment");
+    	Integer crStatus = 0;
     	
+    	Date now = new Date();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String crDateStr = dateFormat.format(now);
+		Date parsedDate = dateFormat.parse(crDateStr);
+		Timestamp crDate = new Timestamp(parsedDate.getTime());
+		
+		int result = commentReportService.addCommentReport(null, null, null, crDateStr, crStatus, crDate)
 			
     }
 }
