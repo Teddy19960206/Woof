@@ -6,6 +6,7 @@ import com.google.gson.annotations.Expose;
 import com.woof.classorder.entity.ClassOrder;
 import com.woof.commentreport.entity.CommentReport;
 import com.woof.privatetrainingappointmentform.entity.PrivateTrainingAppointmentForm;
+import com.woof.shoporder.entity.ShopOrder;
 
 import java.sql.Date;
 import java.util.Arrays;
@@ -20,6 +21,9 @@ public class Member implements java.io.Serializable {
 	@Id
 	@Column(name = "MEM_NO")
 	private String memNo;
+	
+	@OneToMany(mappedBy = "member" , cascade = CascadeType.ALL)
+	private Set<ShopOrder> shopOrders;
 	
 	@OneToMany(mappedBy = "member" , cascade = CascadeType.ALL)
 	private Set<PrivateTrainingAppointmentForm> getPrivateTrainingAppointmentForms;
@@ -72,6 +76,7 @@ public class Member implements java.io.Serializable {
 	@Column(name = "MEM_STATUS", nullable = false, columnDefinition = "TINYINT")
 	private Integer memStatus;
 
+
 	public Member() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -99,6 +104,14 @@ public class Member implements java.io.Serializable {
 
 	public void setMemGender(String memGender) {
 		this.memGender = memGender;
+	}
+
+	public Set<ShopOrder> getShopOrders() {
+		return shopOrders;
+	}
+
+	public void setShopOrders(Set<ShopOrder> shopOrders) {
+		this.shopOrders = shopOrders;
 	}
 
 	public Set<PrivateTrainingAppointmentForm> getGetPrivateTrainingAppointmentForms() {

@@ -5,6 +5,8 @@ import java.sql.Timestamp;
 import java.util.Objects;
 import javax.persistence.*;
 
+import com.woof.member.entity.Member;
+
 @Entity
 @Table(name="shop_order")
 public class ShopOrder implements Serializable {
@@ -16,8 +18,9 @@ public class ShopOrder implements Serializable {
     @Column(name="SHOP_ORDER_NO", updatable = false)		//商城訂單編號
 	private Integer shopOrderNo;
 
-    @Column(name="MEM_NO", nullable=false)				//會員編號
-	private Integer memNo;
+    @ManyToOne
+    @JoinColumn(name = "MEM_NO" , referencedColumnName = "MEM_NO")
+	private Member member;
 
     @Column(name="PROD_ORDER_DATE", nullable=false)		//訂單成立時間
 	private Timestamp prodOrderDate;
@@ -63,12 +66,13 @@ public class ShopOrder implements Serializable {
 		this.shopOrderNo = shopOrderNo;
 	}
 
-	public Integer getMemNo() {
-		return memNo;
+	
+	public Member getMember() {
+		return member;
 	}
 
-	public void setMemNo(Integer memNo) {
-		this.memNo = memNo;
+	public void setMember(Member member) {
+		this.member = member;
 	}
 
 	public Timestamp getProdOrderDate() {
@@ -159,38 +163,9 @@ public class ShopOrder implements Serializable {
 		this.actualAmount = actualAmount;
 	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(actualAmount, hasReturn, memNo, moCoin, orderStatus, payMethod, prodOrderDate, prodTotal,
-				recAddress, recMobile, recName, shipMethod, shopOrderNo);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		ShopOrder other = (ShopOrder) obj;
-		return Objects.equals(actualAmount, other.actualAmount) && Objects.equals(hasReturn, other.hasReturn)
-				&& Objects.equals(memNo, other.memNo) && Objects.equals(moCoin, other.moCoin)
-				&& Objects.equals(orderStatus, other.orderStatus) && Objects.equals(payMethod, other.payMethod)
-				&& Objects.equals(prodOrderDate, other.prodOrderDate) && Objects.equals(prodTotal, other.prodTotal)
-				&& Objects.equals(recAddress, other.recAddress) && Objects.equals(recMobile, other.recMobile)
-				&& Objects.equals(recName, other.recName) && Objects.equals(shipMethod, other.shipMethod)
-				&& Objects.equals(shopOrderNo, other.shopOrderNo);
-	}
-
-	@Override
-	public String toString() {
-		return "ShopOrderVO [shopOrderNo=" + shopOrderNo + ", memNo=" + memNo + ", prodOrderDate=" + prodOrderDate
-				+ ", payMethod=" + payMethod + ", shipMethod=" + shipMethod + ", orderStatus=" + orderStatus
-				+ ", recName=" + recName + ", recMobile=" + recMobile + ", recAddress=" + recAddress + ", hasReturn="
-				+ hasReturn + ", moCoin=" + moCoin + ", prodTotal=" + prodTotal + ", actualAmount=" + actualAmount
-				+ "]";
-	}
+	
+	
+	
 }
 
 
