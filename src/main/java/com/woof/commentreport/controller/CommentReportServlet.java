@@ -68,7 +68,9 @@ private CommentReportService commentReportService;
     
     private void addCommentReport(HttpServletRequest req, HttpServletResponse res) throws ParseException {
     	
-    	Integer ptaNo = Integer.valueOf(req.getParameter("ptano"));  	
+    	Integer ptaNo = Integer.valueOf(req.getParameter("ptano"));
+    	PrivateTrainingAppointmentFormService privateTrainingAppointmentFormService = new PrivateTrainingAppointmentFormServiceImpl();
+    	PrivateTrainingAppointmentForm pta = privateTrainingAppointmentFormService.findPrivateTrainingAppointmentFormByPtaNo(ptaNo);
     	String comment = req.getParameter("comment");
     	Integer crStatus = 0;
     	
@@ -78,7 +80,7 @@ private CommentReportService commentReportService;
 		Date parsedDate = dateFormat.parse(crDateStr);
 		Timestamp crDate = new Timestamp(parsedDate.getTime());
 		
-		int result = commentReportService.addCommentReport(null, null, null, crDateStr, crStatus, crDate)
+		int result = commentReportService.addCommentReport(pta, crDateStr, crStatus, crDate);
 			
     }
 }
