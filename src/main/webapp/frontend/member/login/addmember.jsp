@@ -133,7 +133,7 @@ body {
 								id="memNo" size="45" />
 						</div>
 					</div>
-					<small class="error-msg">${errorMsgs.memStatus}</small>
+					<small class="error-msg">${errorMsgs.memNo}</small>
 				</div>
 				<div class="form-group">
 					<label for="memName">會員姓名:</label>
@@ -143,7 +143,7 @@ body {
 								id="memName" size="45" />
 						</div>
 					</div>
-					<small class="error-msg">${errorMsgs.memStatus}</small>
+					<small class="error-msg">${errorMsgs.memName}</small>
 				</div>
 				<div class="form-group">
 					<label for="memGender">性別:</label>
@@ -159,7 +159,7 @@ body {
 								class="form-check-label" for="memGenderF">女</label>
 						</div>
 					</div>
-					<small class="error-msg">${errorMsgs.memStatus}</small>
+					<small class="error-msg">${errorMsgs.memGender}</small>
 				</div>
 				<div class="form-group">
 					<label for="memPhoto">會員相片:</label>
@@ -175,9 +175,6 @@ body {
 							<input class="form-check-input" type="file" name="memPhoto"
 								accept="image/*" id="p_file" />
 						</div>
-					</div>
-					<small class="error-msg">${errorMsgs.memStatus}</small>
-				</div>
 				<div class="form-group">
 					<label for="memEmail">會員信箱:</label>
 					<div>
@@ -186,7 +183,7 @@ body {
 								id="memEmail" placeholder="XXX@gmail.com" size="45" />
 						</div>
 					</div>
-					<small class="error-msg">${errorMsgs.memStatus}</small>
+					<small class="error-msg">${errorMsgs.memEmail}</small>
 				</div>
 				<div class="form-group">
 					<label for="memPassword">密碼:</label>
@@ -196,7 +193,7 @@ body {
 								id="memPassword" size="45" />
 						</div>
 					</div>
-					<small class="error-msg">${errorMsgs.memStatus}</small>
+					<small class="error-msg">${errorMsgs.memPassword}</small>
 				</div>
 				<div class="form-group">
 					<label for="memTel">會員電話:</label>
@@ -206,7 +203,7 @@ body {
 								id="memTel" size="45" />
 						</div>
 					</div>
-					<small class="error-msg">${errorMsgs.memStatus}</small>
+					<small class="error-msg">${errorMsgs.memTel}</small>
 				</div>
 				<div class="form-group">
 					<label for="memAddress">地址:</label>
@@ -216,7 +213,7 @@ body {
 								id="memAddress" size="45" />
 						</div>
 					</div>
-					<small class="error-msg">${errorMsgs.memStatus}</small>
+					<small class="error-msg">${errorMsgs.memAddress}</small>
 				</div>
 				<div class="form-group">
 					<label for="memBd">生日:</label>
@@ -226,7 +223,6 @@ body {
 								id="memBd" size="45" />
 						</div>
 					</div>
-					<small class="error-msg">${errorMsgs.memStatus}</small>
 				</div>
 				
 				<input type="hidden" name="action" value="add">
