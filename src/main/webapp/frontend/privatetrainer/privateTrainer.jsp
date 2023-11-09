@@ -14,7 +14,7 @@
     <form method="POST" ACTION="${pageContext.request.contextPath}/trainer">
     <c:forEach var="trainer" items="${trainerServer.allTrainers}">
         <div class="trainer">
-<%--            <img src="${pageContext.request.contextPath}${trainer.photo}" alt="${trainer.name}的照片" width="100" height="100"> --%>
+           <img src="${pageContext.request.contextPath}/DBPngReader?action=administrator&id=${trainer.administrator.adminNo}" style="width: 100px; height: 100px">
             <h2>${trainer.administrator.adminName}</h2>
             
             <p>專長:</p>
