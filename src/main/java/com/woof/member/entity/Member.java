@@ -22,8 +22,8 @@ public class Member implements java.io.Serializable {
 	@Column(name = "MEM_NO")
 	private String memNo;
 	
-	@OneToMany(mappedBy = "member" , cascade = CascadeType.ALL)
-	private Set<ShopOrder> shopOrders;
+//	@OneToMany(mappedBy = "member" , cascade = CascadeType.ALL)
+//	private Set<ShopOrder> shopOrders;
 	
 	@OneToMany(mappedBy = "member" , cascade = CascadeType.ALL)
 	private Set<PrivateTrainingAppointmentForm> getPrivateTrainingAppointmentForms;

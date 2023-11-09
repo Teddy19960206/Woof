@@ -18,7 +18,7 @@ public class ShopOrder implements Serializable {
     @Column(name="SHOP_ORDER_NO", updatable = false)		//商城訂單編號
 	private Integer shopOrderNo;
 
-    @ManyToOne
+    
     @JoinColumn(name = "MEM_NO" , referencedColumnName = "MEM_NO")
 	private Member member;
 
