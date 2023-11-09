@@ -29,13 +29,16 @@ function getCartTotalQuantity() {
 
 
 // 添加商品到購物車的 AJAX 請求
-$(".add-to-cart").on("click", function() {
+// 動態泡沫事件
+$(document).on("click",".add-to-cart", function() {
+	
 	let prodNo = $(this).data("id");
-
-	// 			console.log(prodNo);
-
 	let prodName = $(this).data("name");
 	let prodPrice = $(this).data("price");
+
+	console.log(prodNo);
+	console.log(prodName);
+	console.log(prodPrice);
 
 	$.ajax({
 		type: "POST",
