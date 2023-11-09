@@ -16,11 +16,11 @@ import java.util.Map;
 @WebServlet("/logout1")
 public class LoginServlet extends HttpServlet {
 
-	private AdministratorService AdministratorService;
+	private AdministratorService administratorService;
 
 	@Override
 	public void init() throws ServletException {
-		AdministratorService = new AdministratorServiceImpl();
+		administratorService = new AdministratorServiceImpl();
 	}
 
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -32,11 +32,11 @@ public class LoginServlet extends HttpServlet {
 
 		if (action1 != null) {
 			switch (action1) {
-			case "logout1":
+			case "administratorlogout":
 
 				HttpSession session1 = req.getSession();
 
-				session1.removeAttribute("user");
+				session1.removeAttribute("administrator");
 				res.sendRedirect(req.getContextPath() + "/frontend/administrator/logout1.jsp");
 				System.out.println(session1.getId() + "刪除");
 				String user = (String) session1.getAttribute("user");
@@ -45,7 +45,7 @@ public class LoginServlet extends HttpServlet {
 				}
 				return;
 			// =================登入===============================//
-			case "administratorlogin":
+			case "administratorlogout1":
 				Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
 				req.setAttribute("errorMsgs", errorMsgs);
 				// 從請求中獲取會員編號和密碼
@@ -57,7 +57,7 @@ public class LoginServlet extends HttpServlet {
 					if (adminNoStr != null && !adminNoStr.trim().isEmpty() && adminPassword != null
 							&& !adminPassword.trim().isEmpty()) {
 						// 使用administratorService根據會員編號查找會員
-						Administrator administrator = AdministratorService.findAdministratorByAdminNo(adminNoStr);
+						Administrator administrator = administratorService.findAdministratorByAdminNo(adminNoStr);
 
 						// 檢查會員是否存在以及密碼是否匹配
 						if (administrator != null && administrator.getAdminPassword().equals(adminPassword)) {

@@ -16,6 +16,8 @@
 <script>
       //日期格式
     $(function() {
+    	 $("#ADMIN_BD").datepicker({ dateFormat: 'yy-mm-dd' });
+    	 $("#ADMIN_RD").datepicker({ dateFormat: 'yy-mm-dd' });
         $("#ADMIN_HD").datepicker({ dateFormat: 'yy-mm-dd' });
         $("#twzipcode").twzipcode({
         	zipcodeIntoDistrict: true, // 郵遞區號自動顯示在區別選單中
@@ -148,6 +150,12 @@
 			</td>
 		</tr>
 		<tr>
+			<th>管理員生日</th>
+			<td>
+				<input type="text" id="ADMIN_BD" name="ADMIN_BD">
+			</td>
+		</tr>
+		<tr>
 			<th>管理員緊急聯絡人</th>
 			<td>
 				<input type="text" name="EMERGENCY_CONTACTNAME" id="EMERGENCY_CONTACTNAME">
@@ -163,6 +171,12 @@
 			<th>管理員到職日</th>
 			<td>
 				<input type="text" name="ADMIN_HD" id="ADMIN_HD">
+			</td>
+		</tr>
+		<tr>
+			<th>管理員離職日</th>
+			<td>
+				<input type="text" name="ADMIN_RD" id="ADMIN_RD">
 			</td>
 		</tr>
 		<tr>
