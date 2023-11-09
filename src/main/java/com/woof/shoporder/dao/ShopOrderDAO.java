@@ -5,17 +5,16 @@ import java.util.Map;
 import com.woof.shoporder.entity.ShopOrder;
 
 public interface ShopOrderDAO {
+	
 	int insert(ShopOrder shopOrder);
 
 	int update(ShopOrder shopOrder);
 
-	int delete(Integer shopOrderNo);
+//	int delete(Integer shopOrderNo);
 
 	ShopOrder findByShopOrderNo(Integer shopOrderNo);
 
 	List<ShopOrder> getAll();
-
-	List<ShopOrder> getByCompositeQuery(Map<String, String> map);
 
 	List<ShopOrder> getAll(int currentPage);
 

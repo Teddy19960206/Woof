@@ -1,11 +1,8 @@
-//let pathName = window.document.location.pathname;
-//let projectName = pathName.substring( 0 , pathName.substring(1).indexOf("/")+1);
-
 $(document).ready(function() {
     // 從URL獲取商品ID
     var prodNo = new URLSearchParams(window.location.search).get('prodNo');
 
-    // 如果prodNo存在，則從後端獲取商品詳情
+
     if (prodNo) {
         $.ajax({
             url: `productById/${prodNo}`,
@@ -16,17 +13,15 @@ $(document).ready(function() {
                 $('#product-name').text(product.prodName);
                 $('#product-description').text(product.prodContent);
                 $('#product-price').text(`$${product.prodPrice}`);
-                
-                // 更新加入購物車按鈕的 data-* 屬性
-                $('#add-to-cart').data('id', product.prodNo);
-                $('#add-to-cart').data('name', product.prodName);
-                $('#add-to-cart').data('price', product.prodPrice);
-                
-                console.log($('#add-to-cart').data('id'));
-				console.log($('#add-to-cart').data('name'));
-				console.log($('#add-to-cart').data('price'));
 
-                
+                // 更新加入購物車按鈕的 data-* 屬性
+                $('.add-to-cart').attr('data-id', product.prodNo);
+                $('.add-to-cart').attr('data-name', product.prodName);
+                $('.add-to-cart').attr('data-price', product.prodPrice);
+
+                console.log($('.add-to-cart').attr('data-id'));
+                console.log($('.add-to-cart').attr('data-name'));
+                console.log($('.add-to-cart').attr('data-price'));
             },
             error: function(error) {
                 console.log('Error fetching product details:', error);

@@ -1,3 +1,6 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -72,28 +75,28 @@
                                 <a href="promotionactivity/PA.jsp" class="sidebar-link2">促銷管理</a>
                             </li>
                             <li class="sidebar-item">
-                                <a href="/woof/productPage.html" class="sidebar-link2">商品管理</a>
+                                <a id="productPage" class="sidebar-link2">商品管理</a>
                             </li>
                             <li class="sidebar-item">
                                 <a href="#" class="sidebar-link2 ">商品訂單管理</a>
                             </li>
                         </ul>
                     </li>
-                    <li class="sidebar-item">
-                        <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#staff"
-                           aria-expanded="false" aria-controls="staff">
-                            <i class="fa-solid fa-briefcase pe-3"></i>
-                            員工系統
-                        </a>
-                        <ul id="staff" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-                            <li class="sidebar-item">
-                                <a href="employee/trainer.jsp" class="sidebar-link2">訓練師專區</a>
-                            </li>
-                            <li class="sidebar-item">
-                                <a href="#" class="sidebar-link2">員工管理</a>
-                            </li>
-                        </ul>
-                    </li>
+<!--                     <li class="sidebar-item"> -->
+<!--                         <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#staff" -->
+<!--                            aria-expanded="false" aria-controls="staff"> -->
+<!--                             <i class="fa-solid fa-briefcase pe-3"></i> -->
+<!--                             員工系統 -->
+<!--                         </a> -->
+<!--                         <ul id="staff" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar"> -->
+<!--                             <li class="sidebar-item"> -->
+<!--                                 <a href="employee/trainer.jsp" class="sidebar-link2">訓練師專區</a> -->
+<!--                             </li> -->
+<!--                             <li class="sidebar-item"> -->
+<!--                                 <a href="#" class="sidebar-link2">員工管理</a> -->
+<!--                             </li> -->
+<!--                         </ul> -->
+<!--                     </li> -->
                     <li class="sidebar-item">
                         <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse"
                            data-bs-target="#frontdesk" aria-expanded="false" aria-controls="frontdesk">
@@ -110,6 +113,39 @@
                             </li>
                             <li class="sidebar-item">
                                 <a href="#" class="sidebar-link2 ">客服管理</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-item"> 
+                        <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#staff"
+                           aria-expanded="false" aria-controls="staff">
+                            <i class="fa-solid fa-user-tie pe-3"></i>
+                            員工管理
+                        </a>
+                        <ul id="staff" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                            <li class="sidebar-item">
+                                <a href="employee/trainer.jsp" class="sidebar-link2">新增員工</a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="#" class="sidebar-link2">權限管理</a>
+                            </li>
+                        </ul>
+                    </li>
+                      <li class="sidebar-item"> 
+                        <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#trainer"
+                           aria-expanded="false" aria-controls="trainer">
+                            <i class="fa-solid fa-calendar pe-3"></i>
+                            訓練師專區
+                        </a>
+                        <ul id="trainer" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                            <li class="sidebar-item">
+                                <a href="employee/trainer.jsp" class="sidebar-link2">訓練師基本資料管理</a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="#" class="sidebar-link2">訓練師班表管理</a>
+                            </li>
+                             <li class="sidebar-item">
+                                <a href="#" class="sidebar-link2">訓練師課程查詢</a>
                             </li>
                         </ul>
                     </li>
