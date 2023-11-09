@@ -58,7 +58,7 @@ body {
 				<label for="password"><b>密碼</b></label> <input type="password"
 					id="password" class="form-control" name="adminPassword"> 
 			</div>
-			<div class="error-msg">${errorMsgs.memberpassword}</div>
+			<div class="error-msg">${errorMsgs.administratorpassword}</div>
 			<div class="form-group">
 				<input type="hidden" name="action1" value="administratorlogin">
 				<button class="btn btn-access" id="loginButton" type="submit">
@@ -66,7 +66,7 @@ body {
 				</button>
 			</div>
 			<div class="form-group form-check">
-				<input type="checkbox" class="form-check-input" name="remberme"
+				<input type="checkbox" class="form-check-input" name="remember"
 					id="remember"> <label class="form-check-label"
 					for="remember"><b>記住帳號</b></label>
 			</div>
@@ -79,19 +79,19 @@ body {
 	<script>
         let username = document.getElementById("username");
         let remember = document.getElementById("remember");
-        let account = JSON.parse(localStorage.getItem("account"));
+        let account1 = JSON.parse(localStorage.getItem("account1"));
 
-        if(account){
-            username.value = account.username;
+        if(account1){
+            username.value = account1.username;
             remember.checked = true;
         }
 
         remember.onchange = function(){
             if(this.checked){
                 var data = {username: username.value};
-                localStorage.setItem("account", JSON.stringify(data));
+                localStorage.setItem("account1", JSON.stringify(data));
             } else {
-                localStorage.removeItem("account");
+                localStorage.removeItem("account1");
             }
         }
     </script>
