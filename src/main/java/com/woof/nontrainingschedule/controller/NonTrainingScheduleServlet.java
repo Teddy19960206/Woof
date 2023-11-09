@@ -190,13 +190,16 @@ public class NonTrainingScheduleServlet extends HttpServlet {
 	private void getByTrainerNo(HttpServletRequest req, HttpServletResponse res) {
 
 		Integer trainerNo = Integer.valueOf(req.getParameter("trainerNo"));
+		Integer year = Integer.valueOf(req.getParameter("year"));
+        Integer month = Integer.valueOf(req.getParameter("month"));
+		
 		String page = req.getParameter("page");
 		int currentPage = (page == null) ? 1 : Integer.parseInt(page);
 //		if (req.getSession().getAttribute("NTSPageQty2") == null) {
-		int NTSPageQty2 = nonTrainingScheduleService.getPageTotal2(trainerNo);
+		int NTSPageQty2 = nonTrainingScheduleService.getPageTotal2(trainerNo , year , month);
 		req.getSession().setAttribute("NTSPageQty2", NTSPageQty2);
 //		}
-		List<NonTrainingSchedule> trainers = nonTrainingScheduleService.findNtsByTrainerNo(trainerNo, currentPage);
+		List<NonTrainingSchedule> trainers = nonTrainingScheduleService.findNtsByTrainerNo(trainerNo, year , month , currentPage);
 
 		req.setAttribute("trainers", trainers);
 		req.setAttribute("currentPage", currentPage);
@@ -205,11 +208,12 @@ public class NonTrainingScheduleServlet extends HttpServlet {
 
 	private void getByNtsDate(HttpServletRequest req, HttpServletResponse res){
 		
+		
 		Integer year = Integer.valueOf(req.getParameter("year"));
         Integer month = Integer.valueOf(req.getParameter("month"));
         List<NonTrainingSchedule> byNtsDate = nonTrainingScheduleService.findNtsByNtsDate(year, month);
         
-//        Gson gson = new GsonBuilder()
+//      Gson gson = new GsonBuilder()
 //		String selectedDateStr = req.getParameter("selectedDate");
 //		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 //		

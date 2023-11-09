@@ -63,10 +63,12 @@ public class NonTrainingScheduleDAOImpl implements NonTrainingScheduleDAO{
 	}
 
 	@Override
-	public List<NonTrainingSchedule> findByTrainerNo(Integer trainerNo , int currentPage) {
+	public List<NonTrainingSchedule> findByTrainerNo(Integer trainerNo ,Integer year , Integer month, int currentPage) {
 		int first = (currentPage - 1) * PAGE_MAX_RESULT;
-		return getSession().createQuery("FROM NonTrainingSchedule WHERE trainer.trainerNo = :trainerNo", NonTrainingSchedule.class)
+		return getSession().createQuery("FROM NonTrainingSchedule WHERE trainer.trainerNo = :trainerNo and YEAR(ntsDate) = :year and MONTH(ntsDate) = :month", NonTrainingSchedule.class)
 				.setParameter("trainerNo", trainerNo)
+				.setParameter("year", year)
+				.setParameter("month", month)			
 				.setFirstResult(first)
 				.setMaxResults(PAGE_MAX_RESULT)
 				.list();
@@ -74,9 +76,11 @@ public class NonTrainingScheduleDAOImpl implements NonTrainingScheduleDAO{
 
 	
 	@Override
-	public long getTotalByTrainerNo(int trainerNo) {
-		return getSession().createQuery("select count(*) from NonTrainingSchedule  where trainer.trainerNo = :trainerNo" , Long.class)
+	public long getTotalByTrainerNo(Integer trainerNo , Integer year , Integer month) {
+		return getSession().createQuery("select count(*) from NonTrainingSchedule  where trainer.trainerNo = :trainerNo and YEAR(ntsDate) = :year and MONTH(ntsDate) = :month" , Long.class)
 				.setParameter("trainerNo", trainerNo)
+				.setParameter("year", year)
+				.setParameter("month", month)
 				.uniqueResult();
 	}
 
