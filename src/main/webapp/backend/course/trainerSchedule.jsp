@@ -9,35 +9,7 @@
 <script src="${pageContext.request.contextPath}/webutil/js/bootstrap.bundle.min.js"></script>
 <script src="${pageContext.request.contextPath}/webutil/js/jquery-3.7.1.min.js"></script>
 <%@ include file="/backend/backhead.file" %>
-<style>
-
-  body {
-
-    padding: 0;
-    font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
-    font-size: 14px;
-  }
-
-  #calendar {
-    max-height: 75vh;
-    width: auto;
-    margin: 20px;
-    padding-right: 30px;
-    z-index: -1;
-  }
-
-  a {
-    text-decoration: none;
-    color: black;
-  }
-  div#showDate{
-    font-size: 30px;
-  }
-  .fc-event, .event-title {
-    padding: 0 1px;
-    white-space: normal;
-  }
-</style>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/backend/course/css/calendar.css" />
 </head>
 <body>
 
@@ -46,11 +18,11 @@
 
 <div id='calendar' style="width: 100%"></div>
 
-<div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
+<div class="modal fade" id="myModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">確定預約該日期嗎?</h5>
+        <h5 class="modal-title">確定預約該日期嗎?</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body text-center">

@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.woof.util.JsonIgnore;
 import com.google.gson.annotations.Expose;
 import com.woof.groupcourse.entity.GroupCourse;
 import com.woof.trainer.entity.Trainer;
@@ -33,6 +34,7 @@ public class GroupCourseSchedule implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "GC_NO" , referencedColumnName = "GC_NO")
     private GroupCourse groupCourse;
+
 
     @Expose
 	@ManyToOne

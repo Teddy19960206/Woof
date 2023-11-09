@@ -47,6 +47,14 @@ public class GroupCourseOrderServiceImpl implements GroupCourseOrderService{
     }
 
     @Override
+    public void modifyOfGcoNo(GroupCourseOrder groupCourseOrder , GroupCourseSchedule groupCourseSchedule) {
+
+        groupCourseOrder.setGroupCourseSchedule(groupCourseSchedule);
+
+        dao.update(groupCourseOrder);
+    }
+
+    @Override
     public GroupCourseOrder getOneOrder(Integer gcoNo) {
         return dao.findByGcoNo(gcoNo);
     }
@@ -77,5 +85,10 @@ public class GroupCourseOrderServiceImpl implements GroupCourseOrderService{
         int pageQty = (int)(total % PAGE_MAX_RESULT == 0 ? (total / PAGE_MAX_RESULT) : (total / PAGE_MAX_RESULT + 1));
 
         return pageQty;
+    }
+
+    @Override
+    public List<GroupCourseOrder> getOrderBySchedule(Integer scheduleNo) {
+        return dao.getAllMember(scheduleNo);
     }
 }

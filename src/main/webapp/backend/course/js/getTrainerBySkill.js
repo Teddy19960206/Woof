@@ -1,6 +1,6 @@
 let pathName = window.document.location.pathname;
 let projectName = pathName.substring( 0 , pathName.substring(1).indexOf("/")+1);
-const selectElement = document.getElementById("skill");
+const selectElement = document.getElementById("groupCourse");
 
 
 $(async function (){
@@ -37,8 +37,6 @@ async function getAllSchedule(){
             throw new Error("網路異常")
         }
         const data = await response.json();
-
-        console.log(data)
 
         return data;
     }catch (error){
@@ -89,6 +87,7 @@ async function fetchTrainers(id){
         }
         // 取得資料後，進行拼圖，並打到頁面上
         const data = await response.json();
+
 
        return data;
 

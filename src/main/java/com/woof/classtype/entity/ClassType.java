@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.woof.util.JsonIgnore;
 import com.google.gson.annotations.Expose;
 import com.woof.groupcourse.entity.GroupCourse;
 
@@ -31,7 +32,7 @@ public class ClassType implements Serializable {
 	@Column(name = "CT_NAME" , nullable = false)
     private String ctName;
 
-
+	@JsonIgnore
 	@OneToMany(mappedBy = "classType" , cascade = CascadeType.ALL)
 	private Set<GroupCourse> groupCourses;
 

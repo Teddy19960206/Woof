@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="<%=request.getContextPath()%>/backend/course/css/button.css" />
 
 </head>
-
+<body>
 <%@ include file="/backend/backbody.file" %>
 
 
@@ -85,7 +85,7 @@
         <button class="btn btn-primary">查看班級名稱列表</button>
     </a>
     <%--<a href="${pageContext.request.contextPath}/backend/course/addClassType.jsp"><button>新增班別</button></a>--%>
-    <a href="${pageContext.request.contextPath}/backend/">
+    <a href="${pageContext.request.contextPath}/backend/index.html">
         <button class="btn btn-secondary">返回後台首頁</button>
     </a>
 </div>
