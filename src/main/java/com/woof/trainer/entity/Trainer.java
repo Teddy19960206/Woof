@@ -21,7 +21,6 @@ import javax.persistence.Table;
 import com.woof.util.JsonIgnore;
 import com.google.gson.annotations.Expose;
 import com.woof.administrator.entity.Administrator;
-import com.woof.commentreport.entity.CommentReport;
 import com.woof.groupscheduledetail.entity.GroupScheduleDetail;
 import com.woof.nontrainingschedule.entity.NonTrainingSchedule;
 import com.woof.privatetrainingappointmentform.entity.PrivateTrainingAppointmentForm;
@@ -48,11 +47,6 @@ public class Trainer implements Serializable {
 	@OneToMany(mappedBy = "trainer", cascade = CascadeType.ALL)
 	private Set<PrivateTrainingAppointmentForm> privateTrainingAppointmentForms;
 
-
-	@JsonIgnore
-	@Expose
-	@OneToMany(mappedBy = "trainer" , cascade = CascadeType.ALL)
-	private Set<CommentReport> commentReports;
 
 
 
