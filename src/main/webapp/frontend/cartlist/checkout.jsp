@@ -14,7 +14,7 @@
 <script
 	src="<%=request.getContextPath()%>/webutil/js/jquery-3.7.1.min.js"></script>
 <script src="<%=request.getContextPath()%>/webutil/js/bootstrap.min.js"></script>
-<title>結帳</title>
+<title>寵毛導師 Woof | 購物車結帳</title>
 </head>
 
 <body>
@@ -47,6 +47,9 @@
 			</div>
 		</c:if>
 	</div>
+
+	<script src="<%=request.getContextPath()%>/frontend/cartlist/js/checkout.js "></script>
+
 </body>
 
 </html>

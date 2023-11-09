@@ -69,8 +69,9 @@ request.setCharacterEncoding("UTF-8");
                 </c:forEach>
             </tbody>
         </table>
-        
-        
+
+<%--         <p>currentPage=${currentPage}</p> --%>
+<%--         <p>faqPageQty=${faqPageQty}</p> --%>
     <c:if test="${currentPage > 1}">
 		<a class="btn btn-outline-secondary" href="${pageContext.request.contextPath}/faq?action=getAll&page=1">至第一頁</a>&nbsp;
 	</c:if>

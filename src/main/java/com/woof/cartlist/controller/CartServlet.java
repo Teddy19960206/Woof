@@ -61,6 +61,7 @@ public class CartServlet extends HttpServlet {
 			String cartJson = jedis.get(memNo);
 			List<Map<String, Object>> cart;
 			if (cartJson != null) {
+				//轉成物件
 				cart = new Gson().fromJson(cartJson, new TypeToken<List<Map<String, Object>>>() {
 				}.getType());
 			} else {

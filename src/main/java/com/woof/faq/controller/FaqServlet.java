@@ -72,10 +72,10 @@ public class FaqServlet extends HttpServlet {
 		String page = req.getParameter("page");
 		int currentPage = (page == null) ? 1 : Integer.parseInt(page);
 		
-		if (req.getSession().getAttribute("faqPageQty") == null) {
+//		if (req.getSession().getAttribute("faqPageQty") == null) {
 			int faqPageQty = faqService.getPageTotal();
 			req.getSession().setAttribute("faqPageQty", faqPageQty);
-		}
+//		}
 		
 		List<Faq> all = faqService.getAllFaq(currentPage);
 		
