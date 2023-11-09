@@ -66,6 +66,19 @@
         background-color: #555;
     }
 </style>
+ <script type="text/javascript">
+        // 當頁面加載完成後執行
+        window.onload = function() {
+            // 從URL參數中取得result
+            var urlParams = new URLSearchParams(window.location.search);
+            var result = urlParams.get('result');
+            if(result === 'success'){
+                alert('檢舉成功');
+            } else if(result === 'fail'){
+                alert('檢舉失敗');
+            }
+        };
+    </script>
 </head>
 <body>
     <h1>訓練師列表</h1>
@@ -98,6 +111,8 @@
             <button>預約訓練師</button>
         </div>
     </c:forEach>
-    <button>購買課堂</button>
+   
+    <button class="btn btn-buyclass" onclick="window.location='${pageContext.request.contextPath}/frontend/privatetrainer/buyclass.jsp'">購買課堂</button>
+    <button class="btn btn-back" onclick="window.location='${pageContext.request.contextPath}/index.html'">返回</button>
 </body>
 </html>

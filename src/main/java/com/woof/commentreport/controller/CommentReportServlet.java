@@ -82,7 +82,7 @@ private CommentReportService commentReportService;
 			System.out.println("檢舉失敗");
 //			req.setAttribute("errorMessage", "檢舉失敗");
 		}
-		res.sendRedirect(req.getContextPath()
-				+ "/frontend/privatetrainer/commentReport.jsp");
+		String message = (result == 1) ? "success" : "fail";
+		res.sendRedirect(req.getContextPath() + "/frontend/privatetrainer/privateTrainer.jsp?result=" + message);
     }
 }
