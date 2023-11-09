@@ -1,3 +1,6 @@
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html lang="zh-CN">
   <head>
@@ -54,16 +57,13 @@
                 href="#">
                 寵物訓練課程介紹</a>
               <ul class="dropdown-menu ms-xl-5 border-1">
-                <li><a class="dropdown-item" href="#">私人訓練師</a></li>
+                <li><a class="dropdown-item" href="frontend/privatetrainer/privateTrainer.jsp">私人訓練師</a></li>
                 <li><a class="dropdown-item" href="frontend/group/groupSchedule.jsp">團體課程資訊</a></li>
               </ul>
             </li>
             <li class="nav-item me-3">
               <a class="nav-link" href="#">寵物商城</a>
             </li>
-            <!-- <li class="nav-item me-3">
-              <a class="nav-link" href="#">會員中心</a>
-            </li> -->
             <li class="nav-item me-3">
               <a class="nav-link" href="#">最新消息</a>
             </li>
@@ -79,6 +79,24 @@
                 <p class="d-xl-none d-inline text-center mx-3">聯絡客服</p>
               </a>
             </li>
+            <c:choose>
+             	<c:when test="${empty sessionScope.member}">
+		        </c:when>
+		        <c:otherwise>
+		            <li class="nav-item me-3">
+		              <a class="nav-link" href="#">
+		                <form method="POST"
+						action="${pageContext.request.contextPath}/login"
+						style="all: unset;">
+						<input type="hidden" name="action" value="memberlogout">
+						<button class="nav-link btn btn-link"
+							style="color: inherit; text-decoration: none;" id="logoutButton"
+							type="submit">登出</button>
+					</form>
+		              </a>
+		            </li>
+		        </c:otherwise>
+            </c:choose>
             <li class="nav-item me-3">
               <a class="nav-link" href="frontend/member/login/membercenter.jsp">
                 <img src="webutil/icons/user2.svg" style="width: 30px" />
@@ -272,60 +290,4 @@
               <div class="col-3">
                 <p>徐唯宸</p>
                 <p>楊佳宜</p>
-                <p>張昱堯</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="container p-5 border-top border-dark-subtle">
-        <div class="row text-center">
-          <div class="col-1">
-            <a href="" class="d-none d-sm-block">
-              <img src="webutil/icons/facebook.svg" width="30px" />
-            </a>
-          </div>
-          <div class="col-1">
-            <a href="" class="d-none d-sm-block">
-              <img src="webutil/icons/instagram.svg" width="30px" />
-            </a>
-          </div>
-          <div class="col-1">
-            <a href="" class="d-none d-sm-block">
-              <img src="webutil/icons/line.svg" width="30px" />
-            </a>
-          </div>
-          <div class="col-1">
-            <a href="#" class="d-none d-sm-block">
-              <img src="webutil/icons/messenger.svg" width="30px" />
-            </a>
-          </div>
-          <div class="col-1">
-            <a href="backend/index.html" class="d-none d-sm-block">
-              <img src="webutil/icons/backend.svg" width="30px" />
-            </a>
-          </div>
-          <div class="col-7">
-            <p>© 2023 All Right Reserved</p>
-          </div>
-        </div>
-      </div>
-    </footer>
-
-    <script src="webutil/js/bootstrap.bundle.min.js"></script>
-    <script src="webutil/js/jquery-3.7.1.min.js"></script>
-    <script>
-      var tooltipTriggerList = [].slice.call(
-        document.querySelectorAll('[data-bs-toggle="tooltip"]')
-      );
-      var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-        return new bootstrap.Tooltip(tooltipTriggerEl);
-      });
-
-      $(function () {
-        $("[data-toggle='popover']").popover();
-      });
-    </script>
-  </body>
-</html>
+       

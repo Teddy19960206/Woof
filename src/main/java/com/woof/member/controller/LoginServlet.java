@@ -36,7 +36,7 @@ public class LoginServlet extends HttpServlet {
 					HttpSession session = req.getSession();
 
 					session.removeAttribute("member");
-					res.sendRedirect(req.getContextPath() + "/index.html");
+					res.sendRedirect(req.getContextPath() + "/index.jsp");
 					System.out.println(session.getId() + "刪除");
 					String user = (String) session.getAttribute("member");
 					if (user == null) {
@@ -70,7 +70,7 @@ public class LoginServlet extends HttpServlet {
 
 
 								// 轉發到登入成功頁面或者其他操作
-								res.sendRedirect(req.getContextPath() + "/index.html");
+								res.sendRedirect(req.getContextPath() + "/index.jsp");
 							} else {
 								// 登入失敗，設置錯誤信息並轉發到登入頁面
 								req.setAttribute("loginError", "帳號或密碼不正確");
