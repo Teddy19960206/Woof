@@ -46,7 +46,7 @@ public class GroupCourseScheduleDAOImpl implements GroupCourseScheduleDAO{
     public void updateCount(Integer gcsNo , Integer regCount) {
         String sql = "UPDATE group_course_schedule SET REG_COUNT = ? WHERE GCS_NO = ?";
         Query query = getSession().createSQLQuery(sql);
-        query.setParameter(1, regCount + 1);
+        query.setParameter(1, regCount);
         query.setParameter(2, gcsNo);
         query.executeUpdate();
     }
@@ -146,7 +146,7 @@ public class GroupCourseScheduleDAOImpl implements GroupCourseScheduleDAO{
     @Override
     public List<GroupCourseSchedule> getOffStatus() {
 
-        String hql = "FROM GroupCourseSchedule gcs WHERE gcs.gcsStatus = 0 OR gcs.gcsStatus = 4";
+        String hql = "FROM GroupCourseSchedule gcs WHERE gcs.gcsStatus = 6 OR gcs.gcsStatus = 4";
         Query<GroupCourseSchedule> query = getSession().createQuery(hql , GroupCourseSchedule.class);
         return query.list();
     }

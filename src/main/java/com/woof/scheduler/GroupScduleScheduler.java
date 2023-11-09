@@ -5,8 +5,6 @@ import com.google.gson.GsonBuilder;
 import com.woof.groupcourseschedule.entity.GroupCourseSchedule;
 import com.woof.groupcourseschedule.service.GroupCourseScheduleServiceImpl;
 import com.woof.groupcourseschedule.service.GroupGourseScheduleService;
-import com.woof.groupscheduledetail.service.GroupScheduleDetailService;
-import com.woof.groupscheduledetail.service.GroupScheduleDetailServiceImpl;
 import com.woof.util.HibernateUtil;
 import com.woof.util.JedisUtil;
 import com.woof.util.JsonIgnoreExclusionStrategy;
@@ -17,7 +15,6 @@ import redis.clients.jedis.Jedis;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
-import java.sql.Date;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.Calendar;
@@ -62,9 +59,9 @@ public class GroupScduleScheduler extends HttpServlet {
 //               自動判斷是否滿足最低人數
 
 
-//               滿足最低人數 ： 狀態改變 -> 確定開課 status ： 2
+//               滿足最低人數 ： 狀態改變 ->  status ： 確定開課(2)
 
-//               未滿最低人數 ： 狀態改變 -> 狀態不改變但會儲存到redis通知管理員做後續處理 status ： 3
+//               未滿最低人數 ： 狀態改變 ->  status ： 審核中 (6)  並儲存到redis通知管理員做後續處理
 
                 String json = gson.toJson("");
                 Jedis jedis = JedisUtil.getResource();
@@ -78,7 +75,6 @@ public class GroupScduleScheduler extends HttpServlet {
                         groupGourseScheduleService.updateStatus(groupCourseSchedule.getGcsNo());
                     }
                 }
-
 
                 System.out.println("");
                 currentSession.getTransaction().commit();

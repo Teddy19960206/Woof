@@ -1,17 +1,12 @@
 package com.woof.groupscheduledetail.dao;
 
-import com.woof.groupcourseschedule.entity.GroupCourseSchedule;
+
 import com.woof.trainer.entity.Trainer;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-
 import java.sql.Date;
 import java.util.List;
-import java.util.Objects;
-import java.util.Set;
-
 import com.woof.groupscheduledetail.entity.GroupScheduleDetail;
-import org.hibernate.query.NativeQuery;
 import org.hibernate.query.Query;
 
 public class GroupScheduleDetailDAOImpl implements GroupScheduleDetailDAO{
@@ -67,8 +62,8 @@ public class GroupScheduleDetailDAOImpl implements GroupScheduleDetailDAO{
         Query<Object[]> query = getSession()
                 .createQuery(hql , Object[].class)
                 .setParameter("trainerNo",trainerNo);
-        List<Object[]> results = query.list();
-        return results;
+
+        return query.list();
     }
 
     @Override

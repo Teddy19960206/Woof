@@ -70,9 +70,6 @@ public class GroupCourseOrderServlet extends HttpServlet {
             case "/check":
                 check(request , response);
                 return;
-            case "/getOrderBySchedule":
-                getOrderBySchedule(request, response);
-                return;
             case "/refund":
                 refund(request , response);
                 return;
@@ -83,7 +80,7 @@ public class GroupCourseOrderServlet extends HttpServlet {
                 if (pathInfo.startsWith("/getGroupInfo/")) {
                     forwardPath = getGroupInfo(request ,response ,result);
                 }else {
-                    forwardPath = "/";
+                    forwardPath = "/index.jsp";
                 }
         }
 
@@ -102,9 +99,6 @@ public class GroupCourseOrderServlet extends HttpServlet {
 
         String className = groupCourseSchedule.getGroupCourse().getClassType().getCtName() +" - "+ groupCourseSchedule.getGroupCourse().getSkill().getSkillName();
         request.setAttribute("className" , className);
-
-
-
 
         return "/frontend/group/registration.jsp";
     }
@@ -129,10 +123,6 @@ public class GroupCourseOrderServlet extends HttpServlet {
 
         int pageTotal = groupCourseOrderService.getPageTotal(groupClass , status , memNo);
 
-//        Gson gson = new GsonBuilder()
-//                .excludeFieldsWithoutExposeAnnotation()
-//                        .setDateFormat("yyyy-MM-dd")
-//                                .create();
 
         Gson gson = new GsonBuilder()
                 .setExclusionStrategies()
@@ -220,18 +210,11 @@ public class GroupCourseOrderServlet extends HttpServlet {
 
             new Thread(() -> mailService.sendMail("trick95710@gmail.com" ,
                     "報名成功" ,
-                    MailService.groupOrderhtml(member.getMemName() ,                         // 報名人姓名
-                            groupCourseSchedule.getGroupCourse().getClassType().getCtName(), // 班級名稱
-                            dates,                                                           // 上課日期
-                            groupCourseSchedule.getGroupCourse().getCourseContent()))).start();
+                    MailService.groupOrderhtml(member.getMemName() ,                            // 報名人姓名
+                            groupCourseSchedule.getGroupCourse().getClassType().getCtName(),    // 班級名稱
+                            dates,                                                              // 上課日期
+                            groupCourseSchedule.getGroupCourse().getCourseContent()))).start(); // 課程內容
 
-
-//            mailService.sendMail(email ,
-//                    "報名成功" ,
-//                    MailService.groupOrderhtml(member.getMemName() ,                 // 報名人姓名
-//                    groupCourseSchedule.getGroupCourse().getClassType().getCtName(), // 班級名稱
-//                    dates,                                                           // 上課日期
-//                    groupCourseSchedule.getGroupCourse().getCourseContent()));       // 課程內容
 
 
         }catch (Exception e){
@@ -255,10 +238,6 @@ public class GroupCourseOrderServlet extends HttpServlet {
         String json = gson.toJson(order);
         response.setContentType("application/json;charset=UTF-8");
         response.getWriter().write(json);
-    }
-
-    private void getOrderBySchedule(HttpServletRequest request , HttpServletResponse response){
-        
     }
 
     private void refund(HttpServletRequest request , HttpServletResponse response) throws IOException {

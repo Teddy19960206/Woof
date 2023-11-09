@@ -44,8 +44,7 @@
                     <option value="3">已取消</option>
                     <option value="4">延期</option>
                     <option value="5">已結束</option>
-                    <option value="6">退款申請中</option>
-                    <option value="7">退款已完成</option>
+                    <option value="6">審核中</option>
                 </select>
             </div>
         </div>

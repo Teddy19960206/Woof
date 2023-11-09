@@ -1,10 +1,8 @@
 package com.woof.groupscheduledetail.controller;
 
-import com.alibaba.fastjson2.JSONObject;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.woof.groupcourseschedule.entity.GroupCourseSchedule;
-import com.woof.groupcourseschedule.service.GroupCourseScheduleServiceImpl;
 import com.woof.groupscheduledetail.entity.GroupScheduleDetail;
 import com.woof.groupscheduledetail.service.GroupScheduleDetailService;
 import com.woof.groupscheduledetail.service.GroupScheduleDetailServiceImpl;
@@ -13,7 +11,6 @@ import com.woof.skill.service.SkillServiceImpl;
 import com.woof.trainer.entity.Trainer;
 import com.woof.trainer.service.TrainerService;
 import com.woof.trainer.service.TrainerServiceImpl;
-import netscape.javascript.JSObject;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -22,7 +19,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
-import java.lang.reflect.Modifier;
 import java.sql.Date;
 import java.util.List;
 import java.util.Set;
@@ -89,24 +85,23 @@ public class GroupScheduleDetailServlet extends HttpServlet {
     }
 
     private void getdetail(HttpServletRequest request , HttpServletResponse response , Integer gcsNo) throws IOException {
-        GroupScheduleDetailService groupScheduleDetailService1 = new GroupScheduleDetailServiceImpl();
-        List<GroupScheduleDetail> byGroupSchedule = groupScheduleDetailService1.getByGroupSchedule(gcsNo);
+
+        List<GroupScheduleDetail> groupScheduleDetails = new GroupScheduleDetailServiceImpl().getByGroupSchedule(gcsNo);
 
 
         Gson gson = new GsonBuilder()
                 .excludeFieldsWithoutExposeAnnotation()
                 .setDateFormat("yyyy-MM-dd")
                 .create();
-        String json = gson.toJson(byGroupSchedule);
+        String json = gson.toJson(groupScheduleDetails);
         response.setContentType("application/json;charset=UTF-8");
-        System.out.println(json);
         response.getWriter().write(json);
     }
 
     private void delete(HttpServletRequest request , HttpServletResponse response) throws IOException {
         String detail = request.getParameter("Detail");
         groupScheduleDetailService.delete(Integer.valueOf(detail));
-        response.getWriter().write("ok");
+        response.getWriter().write("{ \"message\" :  \"刪除成功\" }");
     }
 
     private void edit(HttpServletRequest request , HttpServletResponse response) throws IOException {

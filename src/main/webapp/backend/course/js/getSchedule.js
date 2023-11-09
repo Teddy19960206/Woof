@@ -11,14 +11,6 @@ $(document).on("click" , "button.modify-button" , function (){
     window.location.href = url;
 });
 
-// 點擊相關資料的報名時，更新報名人數???????????????????????????????
-$(document).on("click" , "button.registration" , function (){
-
-    let url = `${projectName}/groupcourse/schedule/xxx/${this.getAttribute("data-id")}`;
-
-    window.location.href = url;
-
-})
 
 // 進入schedule.jsp時，會直接發送請求，取得所有相關資料---------------
 document.addEventListener("DOMContentLoaded", function (){
@@ -107,12 +99,8 @@ async function fetchData(page){
                     status = "已結束";
                     break;
                 case 6:
-                    status = "退款申請中";
+                    status = "審核中";
                     break;
-                case 7:
-                    status = "退款已完成";
-                    break;
-
             }
 
             arr.push(`<tr>
@@ -128,9 +116,9 @@ async function fetchData(page){
             <th>${status}</th>
             <th>${item.relatedGcsNo !== undefined ? item.relatedGcsNo.gcsNo : '無'}</th>
             <th>${item.gcsDelayReason !== undefined && item.gcsDelayReason !== ""   ? item.gcsDelayReason : '無'}</th>
-            <td><button type="button" class="modify-button btn btn-primary" data-id="${item.gcsNo}" onclick="fetchDetail(${item.gcsNo})">修改</td>
+            <td><button type="button" class="modify-button btn btn-primary" data-id="${item.gcsNo}">修改</td>
             <th><button type="button" class="detail-button btn btn-primary" data-id="${item.gcsNo}">詳情</button></th>
-            <th><button type="button" class="delay-button btn btn-primary" data-id="${item.gcsNo}" ${item.gcsStatus == 0 ? '' : 'disabled'}>延期</button></th>
+            <th><button type="button" class="delay-button btn btn-primary" data-id="${item.gcsNo}" ${item.gcsStatus == 6 ? '' : 'disabled'}>延期</button></th>
         </tr>`);
         })
 
@@ -386,6 +374,12 @@ async function detailDelete(id){
         }
         // 取得資料後，進行拼圖，並打到頁面上
         const data = await response.json();
+
+        if (data.message){
+            alert(data.message);
+        }else{
+            alert("刪除失敗");
+        }
 
     }catch (error){
         console.error('Error', error);

@@ -86,9 +86,7 @@ public class GroupCourseOrderServiceImpl implements GroupCourseOrderService{
     public int getPageTotal(Integer groupClass, Integer status, String memNo) {
         long total = dao.getTotal(groupClass , status , memNo );
 
-        int pageQty = (int)(total % PAGE_MAX_RESULT == 0 ? (total / PAGE_MAX_RESULT) : (total / PAGE_MAX_RESULT + 1));
-
-        return pageQty;
+        return (int)(total % PAGE_MAX_RESULT == 0 ? (total / PAGE_MAX_RESULT) : (total / PAGE_MAX_RESULT + 1));
     }
 
     @Override

@@ -6,16 +6,15 @@ import com.woof.trainer.entity.Trainer;
 
 import java.sql.Date;
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 
 public interface GroupScheduleDetailService {
 
-    int modify(Integer gcsdNo, Trainer trainer , Date classDate);
+    void modify(Integer gcsdNo, Trainer trainer , Date classDate);
 
-    int add(GroupCourseSchedule groupCourseSchedule , Trainer trainer , Set<Date> classDate);
+    void add(GroupCourseSchedule groupCourseSchedule , Trainer trainer , Set<Date> classDate);
 
-    int delete(Integer gcsd);
+    void delete(Integer gcsd);
 
     GroupScheduleDetail findByGcsd(Integer gcsdNo);
 

@@ -1,5 +1,5 @@
 const groupCourse = document.getElementById("groupCourse");
-const groupCourseErr = document.getElementById("skillErr");
+const groupCourseErr = document.getElementById("groupCourseErr");
 const trainer = document.getElementById("trainer");
 const trainerErr = document.getElementById("trainerErr");
 const startDate = document.getElementById("startDate");
@@ -12,10 +12,10 @@ const maxLimit = document.getElementById("maxLimit");
 const maxLimitErr = document.getElementById("maxLimitErr");
 const price = document.getElementById("price");
 const priceErr = document.getElementById("priceErr");
-const relatedGcsNo = document.getElementById("relatedGcsNo");
-const relatedGcsNoErr = document.getElementById("relatedGcsNoErr");
-const delayReason = document.getElementById("delayReason");
-const delayReasonErr = document.getElementById("delayReasonErr");
+// const relatedGcsNo = document.getElementById("relatedGcsNo");
+// const relatedGcsNoErr = document.getElementById("relatedGcsNoErr");
+// const delayReason = document.getElementById("delayReason");
+// const delayReasonErr = document.getElementById("delayReasonErr");
 const addBtn = document.getElementById("addBtn")
 
 
@@ -115,14 +115,14 @@ $("button#next").on("click" , function (){
         hasError = true;
     }
 
-    // 檢查延期關聯表格
-    if(relatedGcsNo.value.length == 0 && !delayReason.value.trim().length == 0){
-        setError(delayReasonErr , "沒有選擇對應延期關聯表格");
-        hasError = true;
-    }else if (!relatedGcsNo.value.length == 0 && delayReason.value.trim().length == 0){
-        setError(delayReasonErr , "請輸入延期原因");
-        hasError = true;
-    }
+    // // 檢查延期關聯表格
+    // if(relatedGcsNo.value.length == 0 && !delayReason.value.trim().length == 0){
+    //     setError(delayReasonErr , "沒有選擇對應延期關聯表格");
+    //     hasError = true;
+    // }else if (!relatedGcsNo.value.length == 0 && delayReason.value.trim().length == 0){
+    //     setError(delayReasonErr , "請輸入延期原因");
+    //     hasError = true;
+    // }
 
 
     if (!hasError){
@@ -141,15 +141,15 @@ $("button#next").on("click" , function (){
 
 
 function clearErr(){
-    skillErr.style.display = 'none';
+    groupCourseErr.style.display = 'none';
     trainerErr.style.display = 'none';
     startDateErr.style.display = 'none';
     endDateErr.style.display = 'none';
     minLimitErr.style.display = 'none';
     maxLimitErr.style.display = 'none';
     priceErr.style.display = 'none';
-    relatedGcsNoErr.style.display = 'none';
-    delayReasonErr.style.display = 'none';
+    // relatedGcsNoErr.style.display = 'none';
+    // delayReasonErr.style.display = 'none';
 }
 
 
@@ -297,8 +297,8 @@ async function addSchedule(){
     formData.append("minLimit" , minLimit.value);
     formData.append("maxLimit" , maxLimit.value);
     formData.append("price" , price.value);
-    formData.append("delayReason" , delayReason.value);
-    formData.append("relatedGcsNo" , relatedGcsNo.value);
+    // formData.append("delayReason" , delayReason.value);
+    // formData.append("relatedGcsNo" , relatedGcsNo.value);
 
     console.log(reserveDate.toString());
 

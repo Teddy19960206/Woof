@@ -44,8 +44,12 @@ public class GroupCourseScheduleServiceImpl implements GroupGourseScheduleServic
 
     @Override
     public void registrationSchedule(Integer gcsNo) {
-        GroupCourseSchedule schedule = findByGcsNo(gcsNo);
-        dao.updateCount(gcsNo, schedule.getRegCount());
+        dao.updateCount(gcsNo, findByGcsNo(gcsNo).getRegCount() + 1);
+    }
+
+    @Override
+    public void cancelSchedule(Integer gcsNo){
+        dao.updateCount(gcsNo , findByGcsNo(gcsNo).getRegCount() - 1);
     }
 
     @Override
@@ -111,8 +115,6 @@ public class GroupCourseScheduleServiceImpl implements GroupGourseScheduleServic
     public int getPageTotal(Integer classType, Integer status) {
         long total = dao.getTotal(classType , status);
 
-        int pageQty = (int)(total % PAGE_MAX_RESULT == 0 ? (total / PAGE_MAX_RESULT) : (total / PAGE_MAX_RESULT + 1));
-
-        return pageQty;
+        return (int)(total % PAGE_MAX_RESULT == 0 ? (total / PAGE_MAX_RESULT) : (total / PAGE_MAX_RESULT + 1));
     }
 }
