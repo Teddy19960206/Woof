@@ -18,7 +18,12 @@
             <h2>${trainer.administrator.adminName}</h2>
             
             <p>專長:</p>
-            <div id="showTrianerSkills"></div>
+<%--             <p>${trainer.skills}</p> --%>
+            <ul>          	
+ 				<c:forEach items="${trainer.skills}" var="trainerskill">
+            			<li>${trainerskill.skillName}</li>
+        		</c:forEach>
+        	</ul>
             <p>評價:</p>
             <ul>
                 <c:forEach var="comment" items="${trainer.privateTrainingAppointmentForms}">
@@ -33,7 +38,5 @@
     </c:forEach>
     <button>購買課堂</button>
     </form>
-    <script src="${pageContext.request.contextPath}/webutil/js/jquery-3.7.1.min.js"></script>
-	<script src="${pageContext.request.contextPath}/backend/employee/js/trainer.js"></script>
 </body>
 </html>
