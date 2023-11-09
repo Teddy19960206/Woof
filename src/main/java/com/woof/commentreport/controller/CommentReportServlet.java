@@ -40,8 +40,8 @@ private CommentReportService commentReportService;
 		String forwardPath = "";
 		if (action != null) {
 			switch (action) {
-			case "gettoadd":
-				beforeAdd(req, res);
+			case "report":
+				addCommentReport(req, res);
 				forwardPath = "/frontend/commentreport/commentReport_add.jsp";
 				break;
 			default:
@@ -57,19 +57,9 @@ private CommentReportService commentReportService;
     	doPost(req, res);
     }
     
-    private void beforeAdd(HttpServletRequest req, HttpServletResponse res) {
+    private void addCommentReport(HttpServletRequest req, HttpServletResponse res) {
     	
-    	MemberService memberservice = new MemberServiceImpl();
-		List<Member> allMembers = memberservice.getAllMembers();
-		req.setAttribute("members", allMembers);
-	
-		TrainerService trainerservice = new TrainerServiceImpl();
-		List<Trainer> allTrainers = trainerservice.getAllTrainers();
-		req.setAttribute("trainers", allTrainers);
-		
-		PrivateTrainingAppointmentFormService privateTrainingAppointmentFormService = new PrivateTrainingAppointmentFormServiceImpl();
-		List<PrivateTrainingAppointmentForm> allPrivateTrainingAppointmentForms = privateTrainingAppointmentFormService.getAllPrivateTrainingAppointmentForms();
-		req.setAttribute("PTAs", allPrivateTrainingAppointmentForms);
+    	
 			
     }
 }

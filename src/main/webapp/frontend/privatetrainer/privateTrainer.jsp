@@ -87,8 +87,12 @@
             <p>評價:</p>
             <form method="POST" ACTION="${pageContext.request.contextPath}/commentreport">
             	<ul>            	
-                	<c:forEach var="comment" items="${trainer.privateTrainingAppointmentForms}">
-                   		<li>${comment.ptaComment}</li>
+                	<c:forEach var="pta" items="${trainer.privateTrainingAppointmentForms}">
+                   		<li>${pta.ptaComment}</li>            
+                   		<input type="hidden" name="ptano" value="${pta.ptaNo}">
+                   		<input type="hidden" name="comment" value="${pta.ptaComment}">
+                   		<input type="hidden" name="comment" value="${pta.ptaComment}">
+                   		<input type="hidden" name="comment" value="${pta.ptaComment}">
                     	<button>檢舉評論</button>
                 	</c:forEach>
             	</ul>
