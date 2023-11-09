@@ -99,19 +99,5 @@
         </div>
     </c:forEach>
     <button>購買課堂</button>
-	<script type="text/javascript">
-        // 當頁面加載完成後執行
-        function commentReport() {
-            <%-- 檢查是否有成功訊息 --%>
-            <c:if test="${not empty successMessage}">
-                alert('${successMessage}');
-            </c:if>
-
-            <%-- 檢查是否有錯誤訊息 --%>
-            <c:if test="${not empty errorMessage}">
-                alert('${errorMessage}');
-            </c:if>
-        };
-    </script>
 </body>
 </html>

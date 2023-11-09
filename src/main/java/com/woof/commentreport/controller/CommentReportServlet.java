@@ -46,7 +46,7 @@ private CommentReportService commentReportService;
 					e.printStackTrace();
 				}
 //				forwardPath = "/frontend/commentreport/commentReport_add.jsp";
-				break;
+				return;
 			default:
 				forwardPath = "/frontend/commentreport/commentReport.jsp";
 			}
@@ -60,7 +60,7 @@ private CommentReportService commentReportService;
     	doPost(req, res);
     }
     
-    private void addCommentReport(HttpServletRequest req, HttpServletResponse res) throws ParseException {
+    private void addCommentReport(HttpServletRequest req, HttpServletResponse res) throws ParseException, IOException {
     	
     	Integer ptaNo = Integer.valueOf(req.getParameter("ptano"));
     	PrivateTrainingAppointmentFormService privateTrainingAppointmentFormService = new PrivateTrainingAppointmentFormServiceImpl();
@@ -77,10 +77,12 @@ private CommentReportService commentReportService;
 		int result = commentReportService.addCommentReport(pta, comment, crStatus, crDate);
 		if (result == 1) {
 			System.out.println("檢舉成功");
-			req.setAttribute("successMessage", "檢舉成功");
+//			req.setAttribute("successMessage", "檢舉成功");
 		} else {
 			System.out.println("檢舉失敗");
-			req.setAttribute("errorMessage", "檢舉失敗");
-		}	
+//			req.setAttribute("errorMessage", "檢舉失敗");
+		}
+		res.sendRedirect(req.getContextPath()
+				+ "/frontend/privatetrainer/commentReport.jsp");
     }
 }
