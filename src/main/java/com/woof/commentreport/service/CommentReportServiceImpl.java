@@ -22,7 +22,7 @@ public class CommentReportServiceImpl implements CommentReportService{
 	}
 
 	@Override
-	public int addCommentReport(Member member, Trainer trainer, PrivateTrainingAppointmentForm privateTrainingAppointmentForm,
+	public int addCommentReport(PrivateTrainingAppointmentForm privateTrainingAppointmentForm,
 			String crContext, Integer crStatus, Timestamp crDate) {
 		CommentReport commentReport = new CommentReport();
 		commentReport.setPrivateTrainingAppointmentForm(privateTrainingAppointmentForm);

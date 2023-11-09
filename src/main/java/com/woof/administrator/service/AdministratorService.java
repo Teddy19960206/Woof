@@ -17,5 +17,7 @@ public interface AdministratorService {
 
 	List<Administrator> getAllAdministrators();
 
+	byte[] getPhotoById(String adminNo);
+
 
 }

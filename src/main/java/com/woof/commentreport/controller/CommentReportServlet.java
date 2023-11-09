@@ -1,7 +1,10 @@
 package com.woof.commentreport.controller;
 
 import java.io.IOException;
-import java.util.List;
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,12 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.woof.commentreport.service.CommentReportService;
 import com.woof.commentreport.service.CommentReportServiceImpl;
-import com.woof.member.entity.Member;
-import com.woof.member.service.MemberService;
-import com.woof.member.service.MemberServiceImpl;
-import com.woof.trainer.entity.Trainer;
-import com.woof.trainer.service.TrainerService;
-import com.woof.trainer.service.TrainerServiceImpl;
+
 import com.woof.privatetrainingappointmentform.entity.PrivateTrainingAppointmentForm;
 import com.woof.privatetrainingappointmentform.service.PrivateTrainingAppointmentFormService;
 import com.woof.privatetrainingappointmentform.service.PrivateTrainingAppointmentFormServiceImpl;
@@ -40,10 +38,15 @@ private CommentReportService commentReportService;
 		String forwardPath = "";
 		if (action != null) {
 			switch (action) {
-			case "gettoadd":
-				beforeAdd(req, res);
-				forwardPath = "/frontend/commentreport/commentReport_add.jsp";
-				break;
+			case "report":
+				try {
+					addCommentReport(req, res);
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+//				forwardPath = "/frontend/commentreport/commentReport_add.jsp";
+				return;
 			default:
 				forwardPath = "/frontend/commentreport/commentReport.jsp";
 			}
@@ -57,19 +60,29 @@ private CommentReportService commentReportService;
     	doPost(req, res);
     }
     
-    private void beforeAdd(HttpServletRequest req, HttpServletResponse res) {
+    private void addCommentReport(HttpServletRequest req, HttpServletResponse res) throws ParseException, IOException {
     	
-    	MemberService memberservice = new MemberServiceImpl();
-		List<Member> allMembers = memberservice.getAllMembers();
-		req.setAttribute("members", allMembers);
-	
-		TrainerService trainerservice = new TrainerServiceImpl();
-		List<Trainer> allTrainers = trainerservice.getAllTrainers();
-		req.setAttribute("trainers", allTrainers);
+    	Integer ptaNo = Integer.valueOf(req.getParameter("ptano"));
+    	PrivateTrainingAppointmentFormService privateTrainingAppointmentFormService = new PrivateTrainingAppointmentFormServiceImpl();
+    	PrivateTrainingAppointmentForm pta = privateTrainingAppointmentFormService.findPrivateTrainingAppointmentFormByPtaNo(ptaNo);
+    	String comment = req.getParameter("comment");
+    	Integer crStatus = 0;
+    	
+    	Date now = new Date();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String crDateStr = dateFormat.format(now);
+		Date parsedDate = dateFormat.parse(crDateStr);
+		Timestamp crDate = new Timestamp(parsedDate.getTime());
 		
-		PrivateTrainingAppointmentFormService privateTrainingAppointmentFormService = new PrivateTrainingAppointmentFormServiceImpl();
-		List<PrivateTrainingAppointmentForm> allPrivateTrainingAppointmentForms = privateTrainingAppointmentFormService.getAllPrivateTrainingAppointmentForms();
-		req.setAttribute("PTAs", allPrivateTrainingAppointmentForms);
-			
+		int result = commentReportService.addCommentReport(pta, comment, crStatus, crDate);
+		if (result == 1) {
+			System.out.println("檢舉成功");
+//			req.setAttribute("successMessage", "檢舉成功");
+		} else {
+			System.out.println("檢舉失敗");
+//			req.setAttribute("errorMessage", "檢舉失敗");
+		}
+		String message = (result == 1) ? "success" : "fail";
+		res.sendRedirect(req.getContextPath() + "/frontend/privatetrainer/privateTrainer.jsp?result=" + message);
     }
 }

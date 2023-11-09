@@ -5,16 +5,88 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>訓練師列表</title>
+    <title>寵毛導師 Woof | 訓練師列表</title>
+    <style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f0;
+        margin: 0;
+        padding: 0;
+    }
+
+    h1 {
+        color: #333;
+        text-align: center;
+    }
+
+    .trainer {
+        background-color: #fff;
+        border: 1px solid #ccc;
+        margin: 10px;
+        padding: 15px;
+        box-shadow: 0px 0px 10px #aaa;
+    }
+
+    img {
+        display: block;
+        margin: 0 auto;
+        border: 2px solid #ccc;
+        border-radius: 50%;
+    }
+
+    h2 {
+        text-align: center;
+        margin-top: 10px;
+    }
+
+    p {
+        font-weight: bold;
+        margin-top: 10px;
+    }
+
+    ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    li {
+        margin-top: 5px;
+    }
+
+    button {
+        background-color: #333;
+        color: #fff;
+        border: none;
+        padding: 5px 10px;
+        cursor: pointer;
+        margin-top: 10px;
+    }
+
+    button:hover {
+        background-color: #555;
+    }
+</style>
+ <script type="text/javascript">
+        // 當頁面加載完成後執行
+        window.onload = function() {
+            // 從URL參數中取得result
+            var urlParams = new URLSearchParams(window.location.search);
+            var result = urlParams.get('result');
+            if(result === 'success'){
+                alert('檢舉成功');
+            } else if(result === 'fail'){
+                alert('檢舉失敗');
+            }
+        };
+    </script>
 </head>
 <body>
     <h1>訓練師列表</h1>
 <jsp:useBean id="trainerServer" scope="page" class="com.woof.trainer.service.TrainerServiceImpl"/>
 <jsp:useBean id="skillServer" scope="page" class="com.woof.skill.service.SkillServiceImpl"/>
-    <form method="POST" ACTION="${pageContext.request.contextPath}/trainer">
     <c:forEach var="trainer" items="${trainerServer.allTrainers}">
         <div class="trainer">
-<%--            <img src="${pageContext.request.contextPath}${trainer.photo}" alt="${trainer.name}的照片" width="100" height="100"> --%>
+           <img src="${pageContext.request.contextPath}/DBPngReader?action=administrator&id=${trainer.administrator.adminNo}" style="width: 100px; height: 100px">
             <h2>${trainer.administrator.adminName}</h2>
             
             <p>專長:</p>
@@ -25,18 +97,22 @@
         		</c:forEach>
         	</ul>
             <p>評價:</p>
-            <ul>
-                <c:forEach var="comment" items="${trainer.privateTrainingAppointmentForms}">
-                    <li>${comment.ptaComment}</li>
-                    <button>檢舉評論</button>
-                </c:forEach>
-            </ul>
-            
-            
+            <form method="POST" ACTION="${pageContext.request.contextPath}/commentreport" onsubmit="return commentReport()">
+            	<ul>            	
+                	<c:forEach var="pta" items="${trainer.privateTrainingAppointmentForms}">
+                   		<li>${pta.ptaComment}</li>            
+                   		<input type="hidden" name="ptano" value="${pta.ptaNo}">
+                   		<input type="hidden" name="comment" value="${pta.ptaComment}">
+                   		<input type="hidden" name="action" value="report">                		
+                    	<button>檢舉評論</button>
+                	</c:forEach>
+            	</ul>
+            </form>
             <button>預約訓練師</button>
         </div>
     </c:forEach>
-    <button>購買課堂</button>
-    </form>
+   
+    <button class="btn btn-buyclass" onclick="window.location='${pageContext.request.contextPath}/frontend/privatetrainer/buyclass.jsp'">購買課堂</button>
+    <button class="btn btn-back" onclick="window.location='${pageContext.request.contextPath}/index.html'">返回</button>
 </body>
 </html>

@@ -187,7 +187,6 @@ public class PrivateTrainingAppointmentFormServlet extends HttpServlet {
 
 	private void beforedelete(HttpServletRequest req, HttpServletResponse resp) {
 
-		PrivateTrainingAppointmentFormService privateTrainingAppointmentFormService = new PrivateTrainingAppointmentFormServiceImpl();
 		List<PrivateTrainingAppointmentForm> allPrivateTrainingAppointmentForms = privateTrainingAppointmentFormService
 				.getAllPrivateTrainingAppointmentForms();
 

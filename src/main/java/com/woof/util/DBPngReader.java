@@ -4,6 +4,7 @@ package com.woof.util;
 import com.woof.AppService;
 import com.woof.groupcourse.service.GroupCourseServiceImpl;
 import com.woof.member.service.MemberServiceImpl;
+import com.woof.administrator.service.AdministratorServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
@@ -29,11 +30,14 @@ public class DBPngReader extends HttpServlet {
             case "member":
                 appService = new MemberServiceImpl();
                 break;
+            case "administrator":
+            	appService = new AdministratorServiceImpl();
+            	break;
         }
-        String id = request.getParameter("id").trim();
-
-        byte[] picture = appService.getPhotoById(id);
         
+        
+        String id = request.getParameter("id").trim();
+        byte[] picture = appService.getPhotoById(id);
 
         response.setContentType("image/png");
         ServletOutputStream out = response.getOutputStream();
