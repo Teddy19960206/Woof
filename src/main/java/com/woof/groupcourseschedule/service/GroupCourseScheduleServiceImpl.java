@@ -74,8 +74,8 @@ public class GroupCourseScheduleServiceImpl implements GroupGourseScheduleServic
     }
 
     @Override
-    public void updateStatus(Integer gcsNo) {
-        dao.updateStatus(gcsNo);
+    public void updateStatus(Integer status , Integer gcsNo) {
+        dao.updateStatus(status ,gcsNo);
     }
 
     public GroupCourseSchedule findByGcsNo(Integer GcsNo){
@@ -109,6 +109,11 @@ public class GroupCourseScheduleServiceImpl implements GroupGourseScheduleServic
     @Override
     public List<GroupCourseSchedule> getAllUpSchedule() {
         return dao.getUpStatus();
+    }
+
+    @Override
+    public List<GroupCourseSchedule> getAllReview() {
+        return dao.getReviewSchedule();
     }
 
     @Override

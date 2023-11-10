@@ -13,6 +13,7 @@ public interface GroupCourseOrderDAO {
     List<GroupCourseOrder> getAll(Integer groupClass , Integer status , String memNo , Integer currentPage);
     List<GroupCourseOrder> getByDate(Integer year , Integer month);
     List<GroupCourseOrder> getAllMember(Integer scheduleNo);
+    List<GroupCourseOrder> getAllBySchedule(Integer gcsNo);
     long getTotal(Integer groupClass , Integer status , String memNo);
 
 }

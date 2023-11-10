@@ -19,6 +19,7 @@ public interface GroupCourseOrderService {
     List<GroupCourseOrder> getOrderByDate(Integer year , Integer month);
     List<GroupCourseOrder> getAll(Integer groupClass , Integer status , String memNo , Integer currentPage);
     List<GroupCourseOrder> getOrderBySchedule(Integer scheduleNo);
+    List<GroupCourseOrder> getAllBySchedule(Integer gcsNo);
     int getPageTotal(Integer groupClass , Integer status , String memNo);
 
 }
