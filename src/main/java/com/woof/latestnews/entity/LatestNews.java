@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.google.gson.annotations.Expose;
 
@@ -81,7 +82,15 @@ public class LatestNews implements Serializable {
 	public void setLnTime(java.sql.Timestamp lnTime) {
 		this.lnTime = lnTime;
 	}
+	@Transient
+	private String imgStr1 ;
 
+	public String getImgStr1() {
+		return imgStr1;
+	}
+	public void setImgStr1(String imgStr1) {
+		this.imgStr1 = imgStr1;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;

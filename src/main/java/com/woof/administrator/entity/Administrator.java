@@ -80,7 +80,16 @@ public class Administrator implements Serializable {
 	public Integer getAdminVerifyStatus() {
 		return adminVerifyStatus;
 	}
+	
+	@Transient
+	private String imgStr ;
 
+	public String getImgStr() {
+		return imgStr;
+	}
+	public void setImgStr(String imgStr) {
+		this.imgStr = imgStr;
+	}
 	public void setAdminVerifyStatus(Integer adminVerifyStatus) {
 		this.adminVerifyStatus = adminVerifyStatus;
 	}
@@ -95,16 +104,9 @@ public class Administrator implements Serializable {
 
 	
 	
-	@Transient
-	private String imgStr ;
+	
 
-	public String getImgStr() {
-		return imgStr;
-	}
-
-	public void setImgStr(String imgStr) {
-		this.imgStr = imgStr;
-	}
+	
 
 	public Administrator() {
 		super();
