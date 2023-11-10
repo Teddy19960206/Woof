@@ -193,10 +193,10 @@ public class MemberServlet extends HttpServlet {
 		if (p != null && p.getSize() > 0) {
 		
 	        bytes = PartParsebyte.partToByteArray(p);
-	        member.setMemPhoto(bytes);
 		}else {
 			bytes = memberService.getPhotoById(req.getParameter("memNo"));
 		}
+		member.setMemPhoto(bytes);
         //生日
 		String memBdString = req.getParameter("memBd");
 
@@ -215,8 +215,6 @@ public class MemberServlet extends HttpServlet {
 		member.setMomoPoint(Integer.valueOf(req.getParameter("momoPoint")));
 		member.setTotalClass(Integer.valueOf(req.getParameter("totalClass")));
 		member.setMemStatus(Integer.valueOf(req.getParameter("memStatus")));
-		System.out.println(req.getParameter("memNo") + "================");
-		System.out.println(req.getParameter("memPhoto") + "1111111");
 		memberService.updateMember(member);
 		// 導到指定的URL 頁面上 把請求回應都帶過去
 		String url = req.getContextPath() + "/backend/member/list_all_member.jsp";

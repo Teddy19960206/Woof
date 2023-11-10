@@ -1,6 +1,5 @@
 package com.woof.member.controller;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
@@ -24,6 +23,7 @@ import com.google.gson.GsonBuilder;
 import com.woof.member.entity.Member;
 import com.woof.member.service.MemberService;
 import com.woof.member.service.MemberServiceImpl;
+import com.woof.util.PartParsebyte;
 
 @WebServlet("/member1.do")
 @MultipartConfig
@@ -83,22 +83,20 @@ public class MemberServlet1 extends HttpServlet {
 			case "query":
 				processQuery(req, res);
 				return;
-				
+
 			default:
 				forwardPath = "/frontend/member/selectmember.jsp";
 			}
 		}
 		req.getRequestDispatcher(forwardPath).forward(req, res);
 	}
+
 	private void processQuery(HttpServletRequest req, HttpServletResponse res) throws IOException {
 		Member member = memberService.findMemberByNo(req.getParameter("memNo"));
-		byte[]photoByte = memberService.getPhotoById(req.getParameter("memNo"));
+		byte[] photoByte = memberService.getPhotoById(req.getParameter("memNo"));
 
 		res.setCharacterEncoding("UTF-8");
-		Gson gson = new GsonBuilder()
-				.excludeFieldsWithoutExposeAnnotation()
-				.setDateFormat("yyyy-MM-dd")
-				.create();
+		Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setDateFormat("yyyy-MM-dd").create();
 
 		String str = gson.toJson(member);
 		// 將 JSON 字符串轉換為 UTF-8 編碼的字節數組
@@ -111,12 +109,87 @@ public class MemberServlet1 extends HttpServlet {
 
 	private void addMember(HttpServletRequest req, HttpServletResponse res)
 			throws IOException, ParseException, ServletException {
+		
+		
+		Map<String,String> errorMsgs = new LinkedHashMap<String,String>();
+		req.setAttribute("errorMsgs", errorMsgs);
+		List<Member> members = memberService.getAllMembers();
+		
 		Member member = new Member();
+		String mememail = req.getParameter("memEmail");
+		String memNo = req.getParameter("memNo");
+		
+		
+		for(Member mem :  members) {
+//			System.out.println("---------");
+//			System.out.println(mem.getMemNo());
+//			System.out.println(memNo);
+//			System.out.println(mem.getMemNo().equals(memNo));
+			if(mem.getMemNo().equals(memNo)) {
+				errorMsgs.put("memNo","此帳號已註冊，請重新輸入");
+			}
+			if(mem.getMemEmail().equals(mememail)) {
+				errorMsgs.put("memEmail", "不能使用該信箱");
+			}
+			if(!errorMsgs.isEmpty()) {
+				break;
+			}
+		}
+		
+		if(!errorMsgs.isEmpty()) {
+			
+			req.getRequestDispatcher("frontend/member/login/addmember.jsp").forward(req, res);
+		    return;
+		}
+		/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
+		if (memNo == null || memNo.trim().length() == 0) {
+			errorMsgs.put("memNo","會員帳號請勿空白");
+		}
+		
+		String memname = req.getParameter("memName");
+		String memnameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{1,50}$";
+		if (memname == null || memname.trim().length() == 0) {
+			errorMsgs.put("memName","會員姓名: 請勿空白");
+		} else if(!memname.trim().matches(memnameReg)) { //以下練習正則(規)表示式(regular-expression)
+			errorMsgs.put("memName","會員姓名: 只能是中、英文字母、數字和_ , 且長度必需在1到50之間");
+        }
+		
+		String memgender = req.getParameter("memGender").trim();
+		if (memgender == null || memgender.trim().length() == 0) {
+			errorMsgs.put("memGender","會員性別請勿空白");
+		}
+		
+		if (mememail == null || mememail.trim().length() == 0) {
+			errorMsgs.put("memNo","會員信箱請勿空白");
+		}
+		
+		String mempwd = req.getParameter("memPassword").trim();
+		if (mempwd == null || mempwd.trim().length() == 0) {
+			errorMsgs.put("memPassword","會員密碼請勿空白");
+		}
+		
+		String memtel = req.getParameter("memTel").trim();
+		if (memtel == null || memtel.trim().length() == 0) {
+			errorMsgs.put("memTel","會員電話請勿空白");
+		} 
+		
+		String memaddress = req.getParameter("memAddress").trim();
+		if (memaddress == null || memaddress.trim().length() == 0) {
+			errorMsgs.put("memAddress","會員地址請勿空白");
+		}
+
+		// Send the use back to the form, if there were errors
+		if (!errorMsgs.isEmpty()){
+			req.getRequestDispatcher("frontend/member/login/addmember.jsp").forward(req, res);
+	    return;
+		}
+		
+		
 		// 把資料給前端
-		member.setMemNo(req.getParameter("memNo"));
+		member.setMemNo(memNo);
 		member.setMemName(req.getParameter("memName"));
 		member.setMemGender(req.getParameter("memGender"));
-		member.setMemEmail(req.getParameter("memEmail"));
+		member.setMemEmail(mememail);
 		member.setMemPassword(req.getParameter("memPassword"));
 		member.setMemTel(req.getParameter("memTel"));
 		member.setMemAddress(req.getParameter("memAddress"));
@@ -130,26 +203,22 @@ public class MemberServlet1 extends HttpServlet {
 
 		java.sql.Date sqlDate = new java.sql.Date(date.getTime());
 		member.setMemBd(sqlDate);
-		//	插入圖片
-		  Part p = req.getPart("memPhoto");
-		  InputStream input = p.getInputStream();
-		  byte[] photo = new byte[input.available()];
-		  input.read(photo);
-		  input.close();
-		  member.setMemPhoto(photo);
-        
-		member.setMomoPoint(Integer.valueOf(req.getParameter("momoPoint")));
-		member.setTotalClass(Integer.valueOf(req.getParameter("totalClass")));
-		member.setMemStatus(Integer.valueOf(req.getParameter("memStatus")));
-		System.out.println(req.getParameter("memAddress") + "=============================");
-		System.out.println(member.getMemAddress() + "----------------------------");
-		System.out.println(req.getParameter("memEmail") + "=============================");
-		System.out.println(req.getParameter("memPhoto")+"1111111");
-		
+		// 插入圖片
+		Part p = req.getPart("memPhoto");
+		InputStream input = p.getInputStream();
+		byte[] photo = new byte[input.available()];
+		input.read(photo);
+		input.close();
+		member.setMemPhoto(photo);
+		// 將會員狀態預設1
+		member.setMemStatus(1);
+		member.setMomoPoint(0);
+		member.setTotalClass(0);
+
 		try {
 			memberService.addMember(member);
 			// 導到指定的URL 頁面上 把請求回應都帶過去
-			String url = req.getContextPath() + "/frontend/member/login/membercenter.jsp";
+			String url = req.getContextPath() + "/frontend/member/login/registsucess.jsp";
 			req.setCharacterEncoding("UTF-8");
 			res.sendRedirect(url);
 		} catch (Exception e) {
@@ -176,28 +245,18 @@ public class MemberServlet1 extends HttpServlet {
 		member.setMemPassword(req.getParameter("memPassword"));
 		member.setMemTel(req.getParameter("memTel"));
 		member.setMemAddress(req.getParameter("memAddress"));
-		//	插入圖片
+		// 插入圖片
 		Part p = req.getPart("memPhoto");
+		byte[] bytes = null;
+
 		if (p != null && p.getSize() > 0) {
-		    try {
-		        InputStream input = p.getInputStream();
-		        ByteArrayOutputStream output = new ByteArrayOutputStream();
-		        byte[] buffer = new byte[1024]; // 使用緩衝區來讀取數據
-		        for (int length; (length = input.read(buffer)) > 0;) {
-		            output.write(buffer, 0, length);
-		        }
-		        byte[] photo = output.toByteArray();
-		        member.setMemPhoto(photo);
-		        // 更新會員資料至資料庫
-		        memberService.updateMember(member);
-		        output.close();
-		        input.close();
-		    } catch (IOException e) {
-		        e.printStackTrace();
-		        // 處理錯誤情況
-		    }
+
+			bytes = PartParsebyte.partToByteArray(p);
+		} else {
+			bytes = memberService.getPhotoById(req.getParameter("memNo"));
 		}
-        //生日
+		member.setMemPhoto(bytes);
+		// 生日
 		String memBdString = req.getParameter("memBd");
 
 		if (memBdString != null && !memBdString.isEmpty()) {
@@ -253,7 +312,7 @@ public class MemberServlet1 extends HttpServlet {
 			}
 			// 設置編碼和轉發到指定的JSP頁面
 			req.setCharacterEncoding("UTF-8");
-			RequestDispatcher dispatcher = req.getRequestDispatcher("/frontend/member/login/checkmomopoint.jsp");
+			RequestDispatcher dispatcher = req.getRequestDispatcher("/backend/member/list_one_member.jsp");
 			dispatcher.forward(req, res);
 
 		} catch (Exception e) {

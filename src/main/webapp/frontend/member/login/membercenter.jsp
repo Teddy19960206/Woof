@@ -75,7 +75,7 @@ body {
 									onclick="processUpdate({memNo:'${member.memNo}'});">
 							</form>
 						</li>
-						<li class="list-group-item">變更密碼</li>
+<!-- 						<li class="list-group-item">變更密碼</li> -->
 					</ul>
 				</div>
 			</div>

@@ -143,9 +143,6 @@ th, td {
   action="${pageContext.request.contextPath}/member.do"
   enctype="multipart/form-data" accept-charset="UTF-8">
   <table>
-   <input type="hidden" name="memNo" id="member"
-    value='<%=request.getParameter("memNo")%>'>
-   <%-- <input type="hidden" name="memNo" value="${memNo}"/> --%>
    <tr>
     <td>·|­û±b¸¹:</td>
     <td><input type="TEXT" name="memNo" id="memNo" size="45"/></td>
