@@ -180,6 +180,6 @@
 
 
 <%@ include file="/Footer.file" %>
-<script src="${pageContext.request.contextPath}/frontend/privatetrainer/js/registration.js"></script>
+<script src="${pageContext.request.contextPath}/frontend/privatetrainer/js/buyClass.js"></script>
 </body>
 </html>

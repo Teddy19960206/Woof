@@ -18,6 +18,7 @@ const smmpCount = document.getElementById("smmpCount");
 
 
 window.addEventListener("load" , ()=>{
+	classAcount.value = 1;
     notUseSmmpRadio.checked = true;
     inputSmmp.disabled = true;
     smmpCount.value = "";

@@ -5,7 +5,7 @@ import com.woof.classorder.entity.ClassOrder;
 
 public interface ClassOrderDAO {
 
-int insert(ClassOrder classOrder);
+	int insert(ClassOrder classOrder);
 	
 	int update(ClassOrder classOrder);
 	

@@ -3,8 +3,8 @@ let projectName = pathName.substring( 0 , pathName.substring(1).indexOf("/")+1);
 
 const memNo = document.getElementById("memNo");
 const memName = document.getElementById("memName");
-const groupScheduleName = document.getElementById("groupScheduleName");
-const gcoDate = document.getElementById("gcoDate");
+const classAcount = document.getElementById("classAcount");
+const coTime = document.getElementById("coTime");
 const method = document.getElementById("method");
 const smmp = document.getElementById("smmp");
 const actualAmount = document.getElementById("actualAmount");
@@ -13,25 +13,25 @@ const status = document.getElementById("status");
 const show = document.getElementById("show");
 
 $(function () {
-    const orderNo = document.getElementById("orderNo").value;
-    if (orderNo.length !== 0){
-        fetchData(orderNo);
+    const coNo = document.getElementById("coNo").value;
+    if (coNo.length !== 0){
+        fetchData(coNo);
     }else {
         window.location.href=`${projectName}/index.html`;
     }
 })
 
 
-async function fetchData(orderNo){
+async function fetchData(coNo){
     try{
-        let orderNo = $("#orderNo").val();
+        let coNo = $("#coNo").val();
         let url = `${projectName}/groupOrder/getOneOrder`;
         const response = await fetch(url , {
             method: "POST",
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
             },
-            body : `orderNo=`+ orderNo
+            body : `coNo=`+ coNo
 
         })
         if (!response.ok){
@@ -40,10 +40,11 @@ async function fetchData(orderNo){
 
         const data = await response.json();
 
-        memNo.value = data.gcoNo;
+        coNo.value = data.coNo;
+        memNo.value = data.memNo;
         memName.value = data.member.memName;
-        groupScheduleName.value = data.groupCourseSchedule.groupCourse.classType.ctName +"\t" + data.groupCourseSchedule.groupCourse.skill.skillName;
-        gcoDate.value = data.gcoDate;
+        classAcount.value = data.classAcount;
+        coTime.value = data.coTime;
 
         let payMethod;
         switch (data.gcoPaymentMethod){

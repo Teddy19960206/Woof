@@ -21,13 +21,18 @@ public class ClassOrderDAOImpl implements ClassOrderDAO{
 
 	@Override
 	public int insert(ClassOrder classOrder) {
-		return (Integer) getSession().save(classOrder);
+		try {
+			getSession().save(classOrder);
+			return 1;
+		} catch (Exception e) {
+			return -1;
+		}
 	}
 
 	@Override
 	public int update(ClassOrder classOrder) {
 		try {
-			getSession().update(classOrder);
+			getSession().merge(classOrder);
 			return 1;
 		} catch (Exception e) {
 			return -1;
