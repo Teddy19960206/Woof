@@ -8,9 +8,9 @@ import com.woof.shoporder.entity.ShopOrder;
 
 public interface ShopOrderService {
 
-	int addShopOrder(Member member, Timestamp prodOrderDate, Integer payMethod, Boolean shipMethod, Integer orderStatus, String recName, String recMobile, String recAddress, Boolean hasReturn, Integer moCoin, Integer orderTotalPrice, Integer actualprice);
+	int addShopOrder(Member member, Timestamp prodOrderDate, Integer payMethod, Boolean shipMethod, Integer orderStatus, String recName, String recMobile, String recAddress, Boolean hasReturn, Integer moCoin, Integer orderTotalPrice, Integer actualPrice);
 
-	int updateShopOrder(Integer orderStatus, Boolean hasReturn);
+	int updateShopOrder(Integer shopOrderNo, Member member, Timestamp prodOrderDate, Integer payMethod, Boolean shipMethod, Integer orderStatus, String recName, String recMobile, String recAddress, Boolean hasReturn, Integer moCoin, Integer orderTotalPrice, Integer actualPrice);
 
 //	int deleteShopOrder(Integer shopOrderNo);
 

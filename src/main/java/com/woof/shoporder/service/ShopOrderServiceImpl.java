@@ -21,7 +21,7 @@ public class ShopOrderServiceImpl implements ShopOrderService{
 
 	
 	@Override
-	public int addShopOrder(Member member, Timestamp prodOrderDate, Integer payMethod, Boolean shipMethod, Integer orderStatus, String recName, String recMobile, String recAddress, Boolean hasReturn, Integer moCoin, Integer orderTotalPrice, Integer actualprice) {
+	public int addShopOrder(Member member, Timestamp prodOrderDate, Integer payMethod, Boolean shipMethod, Integer orderStatus, String recName, String recMobile, String recAddress, Boolean hasReturn, Integer moCoin, Integer orderTotalPrice, Integer actualPrice) {
 		ShopOrder shopOrder = new ShopOrder();
 		shopOrder.setMember(member);
 		shopOrder.setProdOrderDate(prodOrderDate);
@@ -34,16 +34,27 @@ public class ShopOrderServiceImpl implements ShopOrderService{
 		shopOrder.setHasReturn(hasReturn);
 		shopOrder.setMoCoin(moCoin);
 		shopOrder.setOrderTotalPrice(orderTotalPrice);
-		shopOrder.setActualprice(actualprice);
+		shopOrder.setActualPrice(actualPrice);
 
 		return dao.insert(shopOrder);
 	}
 
 	@Override
-	public int updateShopOrder(Integer orderStatus, Boolean hasReturn) {
+	public int updateShopOrder(Integer shopOrderNo, Member member, Timestamp prodOrderDate, Integer payMethod, Boolean shipMethod, Integer orderStatus, String recName, String recMobile, String recAddress, Boolean hasReturn, Integer moCoin, Integer orderTotalPrice, Integer actualPrice) {
 		ShopOrder shopOrder = new ShopOrder();
+		shopOrder.setShopOrderNo(shopOrderNo);
+		shopOrder.setMember(member);
+		shopOrder.setProdOrderDate(prodOrderDate);
+		shopOrder.setPayMethod(payMethod);
+		shopOrder.setShipMethod(shipMethod);
 		shopOrder.setOrderStatus(orderStatus);
+		shopOrder.setRecName(recName);
+		shopOrder.setRecMobile(recMobile);
+		shopOrder.setRecAddress(recAddress);
 		shopOrder.setHasReturn(hasReturn);
+		shopOrder.setMoCoin(moCoin);
+		shopOrder.setOrderTotalPrice(orderTotalPrice);
+		shopOrder.setActualPrice(actualPrice);
 		
 		return dao.update(shopOrder);
 	}

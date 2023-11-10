@@ -46,33 +46,36 @@ request.setCharacterEncoding("UTF-8");
             <tbody>
                 <c:forEach var="all" items="${all}">
                     <tr>
-                        <td>${all.shopOrderNo}</td>
-                        <td>${all.member.memName}</td>
-                        <td>${all.prodOrderDate}</td>
-                        <td>
+                        <td class="order-no">${all.shopOrderNo}</td>
+                        
+                        <td class="mem-no" style="display: none;">${all.member.memNo}</td>
+        				<td class="mem">${all.member.memName}</td>
+        				
+                        <td class="prod-order-date">${all.prodOrderDate}</td>
+                        <td class="pay-method">
                         	<c:choose>
 						        <c:when test="${all.payMethod == 0}">信用卡</c:when>
 						        <c:when test="${all.payMethod == 1}">匯款</c:when>
 						    </c:choose>
                         </td>
-                        <td>
+                        <td class="ship-method">
 						    <c:choose>
 						        <c:when test="${all.shipMethod == false}">宅配</c:when>
 						        <c:when test="${all.shipMethod == true}">超商取貨</c:when>
 						    </c:choose>
 						</td>
-                        <td>${all.recName}</td>
-                        <td>${all.recMobile}</td>
-                        <td>${all.recAddress}</td>
-                        <td>
+                        <td class="rec-name">${all.recName}</td>
+                        <td class="rec-mobile">${all.recMobile}</td>
+                        <td class="rec-address">${all.recAddress}</td>
+                        <td class="has-return">
                         <c:choose>
 						        <c:when test="${all.hasReturn == false}">無退貨</c:when>
 						        <c:when test="${all.hasReturn == true}">有退貨</c:when>
 						    </c:choose>
                         </td>
-                        <td>${all.moCoin}</td>
-                        <td>${all.orderTotalPrice}</td>
-                        <td>${all.actualprice}</td>
+                        <td class="mo-coin">${all.moCoin}</td>
+                        <td class="order-total-price">${all.orderTotalPrice}</td>
+                        <td class="actual-price">${all.actualPrice}</td>
                         <td>
             <span class="status-text">
                 <c:choose>
