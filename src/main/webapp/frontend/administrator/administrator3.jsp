@@ -96,8 +96,8 @@
 	<div class="mydiv">
 		<h5>${administrator.adminName}</h5>
 	</div>
-<%--     		<td><input type="button" value="修改" onclick="processUpdate({adminNo:'${administrator.adminNo}'});"></td> --%>
-<%--     		<td><input type="button" value="刪除" onclick="processDelete({ADMIN_NO:'${administrator.adminNo}'});"></td>	 --%>
+     		<td><input type="button" value="修改" onclick="processUpdate({adminNo:'${administrator.adminNo}'});"></td> 
+     		<td><input type="button" value="刪除" onclick="processDelete({ADMIN_NO:'${administrator.adminNo}'});"></td>	
     </c:forEach>
 </body>
 </html>
