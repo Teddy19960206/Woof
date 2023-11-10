@@ -35,18 +35,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-function updateOrderStatusDisplay(orderStatus, tr) {
-    let statusText = '';
-    switch(orderStatus) {
-        case 0: statusText = '成立'; break;
-        case 1: statusText = '出貨'; break;
-        case 2: statusText = '完成'; break;
-        case 3: statusText = '取消'; break;
-        case 4: statusText = '未付款'; break;
-        default: statusText = '未知'; // 未知狀態
-    }
-    tr.querySelector('.status-text').textContent = statusText;
-}
+	function updateOrderStatusDisplay(orderStatus, tr) {
+		let statusText = '';
+		switch (orderStatus) {
+			case 0: statusText = '成立'; break;
+			case 1: statusText = '出貨'; break;
+			case 2: statusText = '完成'; break;
+			case 3: statusText = '取消'; break;
+			case 4: statusText = '未付款'; break;
+			default: statusText = '未知'; // 未知狀態
+		}
+		tr.querySelector('.status-text').textContent = statusText;
+	}
 
 	// 為每個儲存按鈕添加事件處理器
 	document.querySelectorAll('.save-btn').forEach(function(btn) {
@@ -55,31 +55,22 @@ function updateOrderStatusDisplay(orderStatus, tr) {
 
 		btn.addEventListener('click', function() {
 			let tr = this.closest('tr');
-					
+
 			let shopOrderNo = tr.querySelector('.order-no').innerText;
-		    let memNo = tr.querySelector('.mem-no').innerText;
-		    let prodOrderDate = tr.querySelector('.prod-order-date').innerText;
-		    let recName = tr.querySelector('.rec-name').innerText;
-		    let recMobile = tr.querySelector('.rec-mobile').innerText;
-		    let recAddress = tr.querySelector('.rec-address').innerText;
-		    let moCoin = parseInt(tr.querySelector('.mo-coin').innerText);
-		    let orderTotalPrice = parseInt(tr.querySelector('.order-total-price').innerText);
-		    let actualPrice = parseInt(tr.querySelector('.actual-price').innerText);
-		    let orderStatus = parseInt(tr.querySelector('.status-select').value);
-		
-		    // 轉換付款方式為整數
-		    let payMethodText = tr.querySelector('.pay-method').innerText;
-		    let payMethod = (payMethodText === '信用卡') ? 0 : 1;
-		
-		    // 轉換取貨方式為布林值
-		    let shipMethodText = tr.querySelector('.ship-method').innerText;
-		    let shipMethod = (shipMethodText === '超商取貨');
-		
-		    // 轉換是否有退貨為布林值
-		    let hasReturnText = tr.querySelector('.has-return').innerText;
-		    let hasReturn = (hasReturnText === '有退貨');
-			
-			
+			let memNo = tr.querySelector('.mem-no').innerText;
+			let prodOrderDate = tr.querySelector('.prod-order-date').innerText;
+			let payMethod = parseInt(tr.querySelector('.pay-method').innerText === '信用卡' ? 0 : 1);
+			let shipMethod = tr.querySelector('.ship-method').innerText === '超商取貨';
+			let recName = tr.querySelector('.rec-name').innerText;
+			let recMobile = tr.querySelector('.rec-mobile').innerText;
+			let recAddress = tr.querySelector('.rec-address').innerText;
+			let hasReturn = tr.querySelector('.has-return').innerText === '有退貨';
+			let moCoin = parseInt(tr.querySelector('.mo-coin').innerText);
+			let orderTotalPrice = parseInt(tr.querySelector('.order-total-price').innerText);
+			let actualPrice = parseInt(tr.querySelector('.actual-price').innerText);
+			let orderStatus = parseInt(tr.querySelector('.status-select').value);
+
+
 			console.log(shopOrderNo);
 			console.log(memNo);
 			console.log(prodOrderDate);
