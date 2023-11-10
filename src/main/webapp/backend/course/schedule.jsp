@@ -8,6 +8,9 @@
         select > option{
             text-align: center;
         }
+        table{
+            font-size: .8rem;
+        }
     </style>
     <title>寵毛導師 Woof | 團體課程報名資訊</title>
 </head>

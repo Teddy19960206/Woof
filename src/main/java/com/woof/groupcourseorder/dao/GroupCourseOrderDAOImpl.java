@@ -69,7 +69,7 @@ public class GroupCourseOrderDAOImpl implements GroupCourseOrderDAO{
         }
 
         if (memNo != null){
-            predicates.add(builder.equal(root.get("member").get("memName"), memNo));
+            predicates.add(builder.like(root.get("member").get("memName"), '%'+memNo+'%'));
         }
 
         int first = (currentPage - 1) * PAGE_MAX_RESULT;
@@ -103,7 +103,7 @@ public class GroupCourseOrderDAOImpl implements GroupCourseOrderDAO{
         }
 
         if (memNo != null){
-            predicates.add(builder.equal(root.get("member").get("memName"), memNo));
+            predicates.add(builder.like(root.get("member").get("memName"), '%'+memNo+'%'));
         }
 
         criteriaQuery.where(builder.and(predicates.toArray(new Predicate[predicates.size()])));
