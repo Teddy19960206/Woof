@@ -7,7 +7,7 @@
 
 
 
-    <title>FAQ</title>
+    <title>訂單</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         body {
@@ -29,7 +29,7 @@
     <div class="container">
         <h1>搜尋全部</h1>
         <form method="Post">
-            <a class="btn btn-primary" href="${pageContext.request.contextPath}/faq?action=getAll">查詢所有FAQ</a>
+            <a class="btn btn-primary" href="${pageContext.request.contextPath}/faq?action=getAll">查詢所有訂單</a>
         </form>
 
         <h1>新增FAQ</h1>

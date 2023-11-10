@@ -231,10 +231,10 @@ async function fetchDetail(id){
         arr.push(` <div class="container my-3">
         <div class="my-3">
             
-            <div class="col-12 text-center p-5">
+            <div class="col-12 text-center p-3">
                 <h3>修改訂單</h3>
             </div>
-            <div class="col-12 my-3">
+            <div class="col-12 my-1">
                 <div class="row">
                     <label class="col-5 text-center">訂單編號</label>
                     <div class="col-7">

@@ -1,13 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 
-   </div>
-
-                <!-- 這邊是讓大家放上自己要秀出來的內容 -->
-
-
-
+            </div>
         </div>
     </div>
-    </div>
-	<script src="<%=request.getContextPath()%>/webutil/js/jquery-3.7.1.min.js"></script>
-    <script src="<%=request.getContextPath()%>/webutil/js/bootstrap.bundle.min.js"></script>
+</div>

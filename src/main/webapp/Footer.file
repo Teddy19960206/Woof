@@ -65,15 +65,17 @@
               <img src="<%=request.getContextPath()%>/webutil/icons/messenger.svg" width="30px" />
             </a>
           </div>
-          <div class="col-8">
+          <div class="col-1">
+            <a href="<%=request.getContextPath()%>/backend/index.jsp" class="d-none d-sm-block">
+              <img src="<%=request.getContextPath()%>/webutil/icons/backend.svg" width="30px" />
+            </a>
+          </div>
+          <div class="col-7">
             <p>© 2023 All Right Reserved</p>
           </div>
         </div>
       </div>
     </footer>
-    <script src="<%=request.getContextPath()%>/webutil/js/bootstrap.bundle.min.js"></script>
-    <script src="<%=request.getContextPath()%>/webutil/js/jquery-3.7.1.min.js"></script>
-    <script src="<%=request.getContextPath()%>/webutil/js/aos.js"></script>
     <script>
       var tooltipTriggerList = [].slice.call(
         document.querySelectorAll('[data-bs-toggle="tooltip"]')

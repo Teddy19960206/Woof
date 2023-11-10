@@ -55,7 +55,7 @@ public class FaqServlet extends HttpServlet {
 			break;
 
 		default:
-			forwardPath = "/backend/index.html";
+			forwardPath = "/backend/index.jsp";
 		}
 
 		resp.setContentType("text/html; charset=UTF-8");
