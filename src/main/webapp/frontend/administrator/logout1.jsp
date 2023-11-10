@@ -53,14 +53,14 @@ body {
 				<label for="username"><b>帳號</b></label> <input type="text"
 					id="username" class="form-control" name="adminNo">
 			</div>
-			<div class="error-msg">${errorMsgs.memberemail}</div>
+			<div class="error-msg">${errorMsgs.adminemail}</div>
 			<div class="form-group">
 				<label for="password"><b>密碼</b></label> <input type="password"
 					id="password" class="form-control" name="adminPassword"> 
 			</div>
 			<div class="error-msg">${errorMsgs.administratorpassword}</div>
 			<div class="form-group">
-				<input type="hidden" name="action1" value="administratorlogin">
+				<input type="hidden" name="action1" value="administratorlogout1">
 				<button class="btn btn-access" id="loginButton" type="submit">
 					<b>登入</b>
 				</button>

@@ -26,9 +26,11 @@
 	 	    	 $('#ADMIN_PASSWORD').val(jsonObj.adminPassword);
 	 	    	 $('#ADMIN_TEL').val(jsonObj.adminTel);
 	 	    	 $('#ADMIN_ADDRESS').val(jsonObj.adminAddress);
+	 	    	 $('#ADMIN_BD').val(jsonObj.adminBd);
 	 	    	 $('#EMERGENCY_CONTACTNAME').val(jsonObj.emergencyContactName);
 	 	    	 $('#EMERGENCY_CONTACTEL').val(jsonObj.emergencyContactel);
 	 	    	 $('#ADMIN_HD').val(jsonObj.adminHd);
+	 	    	 $('#ADMIN_RD').val(jsonObj.adminRd);
 	 	    	 $('input[name=ADMIN_STATUS][value='+jsonObj.adminStatus+']').prop('checked',true);
 	 	     },
 	 	     //Ajax失敗後要執行的function，此例為印出錯誤訊息
@@ -39,6 +41,8 @@
 	    
 	 	 //日期格式
 	 	 $("#ADMIN_HD").datepicker({ dateFormat: 'yy-mm-dd' });
+	 	 $("#ADMIN_RD").datepicker({ dateFormat: 'yy-mm-dd' });
+	 	 $("#ADMIN_BD").datepicker({ dateFormat: 'yy-mm-dd' });
 	})
 	
 </script>
@@ -97,6 +101,12 @@
 			</td>
 		</tr>
 		<tr>
+			<th>管理員生日</th>
+			<td>
+				<input type="text" name="ADMIN_BD" id="ADMIN_BD">
+			</td>
+		</tr>
+		<tr>
 			<th>管理員緊急聯絡人</th>
 			<td>
 				<input type="text" name="EMERGENCY_CONTACTNAME" id="EMERGENCY_CONTACTNAME">
@@ -112,6 +122,12 @@
 			<th>管理員到職日</th>
 			<td>
 				<input type="text" name="ADMIN_HD" id="ADMIN_HD">
+			</td>
+		</tr>
+		<tr>
+			<th>管理員離職日</th>
+			<td>
+				<input type="text" name="ADMIN_RD" id="ADMIN_RD">
 			</td>
 		</tr>
 		<tr>

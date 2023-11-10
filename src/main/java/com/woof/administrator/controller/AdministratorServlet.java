@@ -87,6 +87,14 @@ public class AdministratorServlet extends HttpServlet {
 		admin.setAdminPassword (req.getParameter("ADMIN_PASSWORD"));
 		admin.setAdminTel (req.getParameter("ADMIN_TEL"));
 		admin.setAdminAddress (req.getParameter("ADMIN_ADDRESS"));
+		Date date1 = null ;
+		try {
+			date1 = new SimpleDateFormat("yyyy-mm-dd").parse(req.getParameter("ADMIN_BD"));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		java.sql.Date sqlDate1 = new java.sql.Date(date1.getTime());
+		admin.setAdminBd(sqlDate1);
 		admin.setEmergencyContactName(req.getParameter("EMERGENCY_CONTACTNAME"));
 		admin.setEmergencyContactel(req.getParameter("EMERGENCY_CONTACTEL"));
 		//java.sql的日期寫法
@@ -98,7 +106,18 @@ public class AdministratorServlet extends HttpServlet {
 		}
 		java.sql.Date sqlDate = new java.sql.Date(date.getTime());
 		admin.setAdminHd(sqlDate);
+		
+		Date date2 = null ;
+		try {
+			date2 = new SimpleDateFormat("yyyy-mm-dd").parse(req.getParameter("ADMIN_RD"));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		java.sql.Date sqlDate2 = new java.sql.Date(date2.getTime());
+		admin.setAdminRd(sqlDate2);
 		admin.setAdminStatus(Integer.valueOf(req.getParameter("ADMIN_STATUS")));
+		admin.setAdminVerifyStatus(Integer.valueOf(req.getParameter("ADMIN_VERIFY_STATUS")));
+		admin.setAdminFuncName(Integer.valueOf(req.getParameter("ADMIN_FUNC_NAME")));
 		administratorService.updateAdministrator(admin);
 		//導到指定的URL 頁面上 把請求回應都帶過去
 //		String url = "/frontend/administrator/administrator.jsp";
@@ -118,6 +137,14 @@ public class AdministratorServlet extends HttpServlet {
 		admin.setAdminPassword (req.getParameter("ADMIN_PASSWORD"));
 		admin.setAdminTel (req.getParameter("ADMIN_TEL"));
 		admin.setAdminAddress (req.getParameter("ADMIN_ADDRESS"));
+		Date date1 = null ;
+		try {
+			date1 = new SimpleDateFormat("yyyy-mm-dd").parse(req.getParameter("ADMIN_BD"));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		java.sql.Date sqlDate1 = new java.sql.Date(date1.getTime());
+		admin.setAdminBd(sqlDate1);
 		admin.setEmergencyContactName(req.getParameter("EMERGENCY_CONTACTNAME"));
 		admin.setEmergencyContactel(req.getParameter("EMERGENCY_CONTACTEL"));
 		//java.sql的日期寫法
@@ -129,7 +156,17 @@ public class AdministratorServlet extends HttpServlet {
 		}
 		java.sql.Date sqlDate = new java.sql.Date(date.getTime());
 		admin.setAdminHd(sqlDate);
+		Date date2 = null ;
+		try {
+			date2 = new SimpleDateFormat("yyyy-mm-dd").parse(req.getParameter("ADMIN_RD"));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		java.sql.Date sqlDate2 = new java.sql.Date(date2.getTime());
+		admin.setAdminRd(sqlDate2);
 		admin.setAdminStatus(Integer.valueOf(req.getParameter("ADMIN_STATUS")));
+		
+	
 		// 取得圖片 
 		// 開串流
 		Part p = req.getPart("ADMIN_PHOTO");
@@ -142,7 +179,7 @@ public class AdministratorServlet extends HttpServlet {
 		
 		administratorService.addAdministrator(admin);
 		
-		
+	
 		//導到指定的URL 頁面上 把請求回應都帶過去
 		String url = req.getContextPath()+"/frontend/administrator/logout1.jsp";
 		res.sendRedirect(url);
