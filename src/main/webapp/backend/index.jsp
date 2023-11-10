@@ -145,9 +145,15 @@
                 <div style="position: absolute; bottom: 0; right: 0; text-align: right; padding: 5px; ">
                     <img src="images/happy.png" width="30">
                     <span style="color: rgb(80, 80, 80);">超级管理員</span>
-                    <a href="#" class="btn"
-                       style="background-color: #FABA91; font-family: 'Noto Sans TC', sans-serif; font-weight: 700; ">登出</a>
-                    <!-- <button type="button" class="btn btn-outline-secondary" style="font-family: 'Noto Sans TC', sans-serif; font-weight: 700;">登出</button> -->
+<!--                     <a href="#" class="btn" -->
+<!--                        style="background-color: #FABA91; font-family: 'Noto Sans TC', sans-serif; font-weight: 700; ">登出</a> -->
+                     <form method="POST"
+						action="${pageContext.request.contextPath}/logout1"
+						style="all: unset;">
+						<input type="hidden" name="action1" value="administratorlogout">
+						<button class="btn btn-outline-secondary"style="background-color: #FABA91; font-family: 'Noto Sans TC', sans-serif; font-weight: 700; " id="logoutButton"
+							type="submit">登出</button>
+					</form>
                 </div>
             </div>
 
