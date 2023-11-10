@@ -147,11 +147,11 @@ public class MemberServlet1 extends HttpServlet {
 		}
 		
 		String memname = req.getParameter("memName");
-		String memnameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{1,50}$";
+		String memnameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_\s)]{1,50}$";
 		if (memname == null || memname.trim().length() == 0) {
 			errorMsgs.put("memName","會員姓名: 請勿空白");
 		} else if(!memname.trim().matches(memnameReg)) { //以下練習正則(規)表示式(regular-expression)
-			errorMsgs.put("memName","會員姓名: 只能是中、英文字母、數字和_ , 且長度必需在1到50之間");
+			errorMsgs.put("memName","會員姓名: 只能是中、英文字母、數字、空格和_ , 且長度必需在1到50之間");
         }
 		
 		String memgender = req.getParameter("memGender").trim();
@@ -222,18 +222,9 @@ public class MemberServlet1 extends HttpServlet {
 			req.setCharacterEncoding("UTF-8");
 			res.sendRedirect(url);
 		} catch (Exception e) {
-			if (e.getCause() instanceof SQLIntegrityConstraintViolationException) {
-				// Handle the exception
 				e.printStackTrace(); // This is for logging purpose
-				String errorMsg = "Email already exists! Please use another email.";
-				req.setAttribute("errorMessage", errorMsg);
-				req.getRequestDispatcher("/backend/member/errorPage.jsp").forward(req, res);
-			} else {
-				// Handle other exceptions if necessary
-				throw e; // or redirect to a general error page
 			}
 		}
-	}
 
 	private void updateMember(HttpServletRequest req, HttpServletResponse res)
 			throws ParseException, IOException, ServletException {
@@ -276,7 +267,6 @@ public class MemberServlet1 extends HttpServlet {
 		member.setMemStatus(Integer.valueOf(req.getParameter("memStatus")));
 		memberService.updateMember(member);
 		// 導到指定的URL 頁面上 把請求回應都帶過去
-		System.out.println(req.getParameter("memNo") + "================");
 		String url = req.getContextPath() + "/frontend/member/login/membercenter.jsp";
 		res.sendRedirect(url);
 	}

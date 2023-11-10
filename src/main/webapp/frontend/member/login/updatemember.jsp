@@ -22,7 +22,7 @@ $(document).ready(function(){
 
         data : {memNo : "<%=request.getParameter("memNo")%>"},
         ///請求目標的url
-        url : "<%=request.getContextPath()%>/member.do?action=query",
+        url : "<%=request.getContextPath()%>/member1.do?action=query",
          //Ajax成功後執行的function，response為回傳的值
          success : function(data) {
           var jsonObj = JSON.parse(data);
@@ -41,16 +41,16 @@ $(document).ready(function(){
           $('#memTel').val(jsonObj.memTel);
           $('#memAddress')
             .val(jsonObj.memAddress);
-          $('#totalClass')
+/*           $('#totalClass')
             .val(jsonObj.totalClass);
-          $('#momoPoint').val(jsonObj.momoPoint);
+          $('#momoPoint').val(jsonObj.momoPoint); */
           console.log($('#memBd'));
            $('#memBd').val(jsonObj.memBd);
-          $(
+/*           $(
             'input[name=memStatus][value='
               + jsonObj.memStatus
               + ']').prop('checked',
-            true);
+            true); */
          },
          //Ajax失敗後要執行的function，此例為印出錯誤訊息
          error : function(xhr, ajaxOptions,
@@ -143,8 +143,6 @@ th, td {
   action="${pageContext.request.contextPath}/member1.do"
   enctype="multipart/form-data" accept-charset="UTF-8">
   <table>
-   <input type="hidden" name="memNo" id="member"value='<%=request.getParameter("memNo")%>'>
-   <%-- <input type="hidden" name="memNo" value="${memNo}"/> --%>
    <tr>
     <td>會員帳號:</td>
     <td><input type="TEXT" name="memNo" id="memNo" size="45"/></td>
@@ -200,26 +198,27 @@ th, td {
     <td><input type="Date" name="memBd" id="memBd" size="45" /></td>
 
    </tr>
-   <tr>
-    <td>毛毛幣:</td>
-    <td><input type="number" name="momoPoint" id="momoPoint"
-     size="45" readonly /></td>
+<!--    <tr> -->
+<!--     <td>毛毛幣:</td> -->
+<!--     <td><input type="number" name="momoPoint" id="momoPoint" -->
+<!--      size="45" readonly /></td> -->
 
-   </tr>
-   <tr>
-    <td>總堂數:</td>
-    <td><input type="number" name="totalClass" id="totalClass"
-     size="45" readonly/></td>
+<!--    </tr> -->
+<!--    <tr> -->
+<!--     <td>總堂數:</td> -->
+<!--     <td><input type="number" name="totalClass" id="totalClass" -->
+<!--      size="45" readonly/></td> -->
 
-   </tr>
-   <tr>
-    <td>狀態:</td>
-    <td><input type="radio" name="memStatus" value="0" disabled>停權<input
-     type="radio" name="memStatus" value="1" checked   disabled>正常</td>
-   </tr>
+<!--    </tr> -->
+<!--    <tr> -->
+<!--     <td>狀態:</td> -->
+<!--     <td><input type="radio" name="memStatus" value="0" disabled>停權<input -->
+<!--      type="radio" name="memStatus" value="1" checked   disabled>正常</td> -->
+<!--    </tr> -->
   </table>
   
-  <br> <input type="hidden" name="action" value="update">
+  <br> 
+  <input type="hidden" name="action" value="update">
   <button type="submit">送出</button>
   <button type="button" onclick="history.back()">取消更新</button>
   <button type="button" name="delete" id="delete" data-id="${member.memNo}">刪除圖片</button>
