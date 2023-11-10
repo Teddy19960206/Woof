@@ -14,18 +14,17 @@
 <div class="container shadow my-3 col-5">
     <div class="">
 
-        <h1 align="center" class="p-3">購買成功</h1>
-        <div class="col-12 text-center">
-            <h3>詳細訂單明細</h3>
-        </div>
+<!--         <h1 align="center" class="p-3">購買成功</h1> -->
+<!--         <div class="col-12 text-center"> -->
+<!--             <h3>詳細訂單明細</h3> -->
+<!--         </div> -->
         <div class="col-12 my-3">
-            <div class="row">
-                <label class="col-5 text-center">課堂訂單編號</label>
-                <div class="col-5">
-                    <input type="text" class="form-control" id="orderNo" value="${orderNo}" readonly>
-                </div>
-
-            </div>
+<!--             <div class="row"> -->
+<!--                 <label class="col-5 text-center">課堂訂單編號</label> -->
+<!--                 <div class="col-5"> -->
+<%--                     <input type="text" class="form-control" id="orderNo" value="${orderNo}" readonly> --%>
+<!--                 </div> -->
+<!--             </div> -->
 
             <div class="row my-3">
                 <label class="col-5 text-center">會員帳號</label>
@@ -47,7 +46,7 @@
             <div class="row my-3">
                 <label class="col-5 text-center">課程數量</label>
                 <div class="col-5">
-                    <input type="text" class="form-control" id="groupScheduleName" readonly>
+                    <input type="text" class="form-control" id="classAcount" readonly>
                 </div>
 
             </div>
@@ -55,7 +54,7 @@
             <div class="row my-3">
                 <label class="col-5 text-center">訂單成立時間</label>
                 <div class="col-5">
-                    <input type="text" class="form-control" id="gcoDate" readonly>
+                    <input type="text" class="form-control" id="coTime" readonly>
                 </div>
 
             </div>
@@ -107,6 +106,6 @@
     </div>
 </div>
 <%@ include file="/Footer.file" %>
-<script src="${pageContext.request.contextPath}/frontend/privatetrainer/js/orderPage.js"></script>
+<script src="${pageContext.request.contextPath}/frontend/privatetrainer/js/classOrderPage.js"></script>
 </body>
 </html>
