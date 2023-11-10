@@ -141,12 +141,7 @@ public class SkillServlet extends HttpServlet {
 
 
         List<Skill> trainerNotExistsSkill = skillService.getTrainerNotExistsSkill(1);
-        System.out.println(trainerNotExistsSkill);
 
-//        Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
-//        String json = gson.toJson(trainerNotExistsSkill);
-//        response.setContentType("application/json;charset=UTF-8");
-//        response.getWriter().write(json);
         request.setAttribute("notExistSkill" , trainerNotExistsSkill);
 
         request.getRequestDispatcher("/backend/employee/trainerAddSkill.jsp").forward(request,response);

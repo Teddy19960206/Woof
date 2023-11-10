@@ -40,6 +40,11 @@
                     <option value="">顯示全部</option>
                     <option value="0">下架</option>
                     <option value="1">上架</option>
+                    <option value="2">確認開課</option>
+                    <option value="3">已取消</option>
+                    <option value="4">延期</option>
+                    <option value="5">已結束</option>
+                    <option value="6">審核中</option>
                 </select>
             </div>
         </div>

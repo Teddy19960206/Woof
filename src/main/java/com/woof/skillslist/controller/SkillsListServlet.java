@@ -1,15 +1,11 @@
 package com.woof.skillslist.controller;
 
-import com.woof.member.entity.Member;
-import com.woof.member.service.MemberService;
-import com.woof.member.service.MemberServiceImpl;
+
 import com.woof.skill.entity.Skill;
-import com.woof.skill.service.SkillService;
 import com.woof.skill.service.SkillServiceImpl;
 import com.woof.skillslist.service.SkillsListService;
 import com.woof.skillslist.service.SkillsListServiceImpl;
 import com.woof.trainer.entity.Trainer;
-import com.woof.trainer.service.TrainerService;
 import com.woof.trainer.service.TrainerServiceImpl;
 
 import javax.servlet.ServletException;
@@ -50,16 +46,14 @@ public class SkillsListServlet extends HttpServlet {
     private void addSkillsList(HttpServletRequest request , HttpServletResponse response){
 
 //        若有member session 則可刪除
-        TrainerService trainerService = new TrainerServiceImpl();
-        Trainer trainer1 = trainerService.findTrainerByTrainerNo(1);
+        Trainer trainer1 = new TrainerServiceImpl().findTrainerByTrainerNo(1);
         HttpSession session = request.getSession();
         session.setAttribute("trainer" , trainer1);
 
-        Trainer trainer = (Trainer) session.getAttribute("trainer");
 
+        Trainer trainer = (Trainer) session.getAttribute("trainer");
         Integer skillNo = Integer.valueOf(request.getParameter("skill"));
-        SkillService skillService = new SkillServiceImpl();
-        Skill skill = skillService.findBySkillNo(skillNo);
+        Skill skill = new SkillServiceImpl().findBySkillNo(skillNo);
 
         skillsListService.TrainerAddSkill(trainer.getTrainerNo() , skill.getSkillNo());
 

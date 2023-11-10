@@ -7,6 +7,8 @@ import com.woof.classorder.entity.ClassOrder;
 import com.woof.commentreport.entity.CommentReport;
 import com.woof.privatetrainingappointmentform.entity.PrivateTrainingAppointmentForm;
 import com.woof.shoporder.entity.ShopOrder;
+import com.woof.util.JsonIgnore;
+
 
 import java.sql.Date;
 import java.util.Arrays;
@@ -21,16 +23,20 @@ public class Member implements java.io.Serializable {
 	@Id
 	@Column(name = "MEM_NO")
 	private String memNo;
+
 	
 //	@OneToMany(mappedBy = "member" , cascade = CascadeType.ALL)
 //	private Set<ShopOrder> shopOrders;
-	
+
+
+	@JsonIgnore
 	@OneToMany(mappedBy = "member" , cascade = CascadeType.ALL)
 	private Set<PrivateTrainingAppointmentForm> getPrivateTrainingAppointmentForms;
-	
+
+	@JsonIgnore
 	@OneToMany(mappedBy = "member" , cascade = CascadeType.ALL)
 	private Set<ClassOrder> getClassOrders;
-	
+
 	@Expose
 	@Column(name = "MEM_NAME", nullable = false)
 	private String memName;

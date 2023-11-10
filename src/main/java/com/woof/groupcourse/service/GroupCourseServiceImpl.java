@@ -63,8 +63,8 @@ public class GroupCourseServiceImpl implements GroupCourseService , AppService<S
 
     @Override
     public GroupCourse findGroupCourseByNo(Integer gcNo) {
-        GroupCourse groupCourse = dao.findbyGcNo(gcNo);
-        return groupCourse;
+
+        return dao.findbyGcNo(gcNo);
     }
 
     @Override
@@ -81,19 +81,6 @@ public class GroupCourseServiceImpl implements GroupCourseService , AppService<S
     public List<GroupCourse> getAllGroupCourse(Integer classType , Integer status , Integer currentPage) {
         return dao.getAll(classType , status , currentPage);
     }
-
-//    @Override
-//    public List<GroupCourse> getAllGroupCourse(int currentPage) {
-//        return dao.getAll(currentPage);
-//    }
-
-//    @Override
-//    public int getPageTotal() {
-//        long total = dao.getTotal();
-//
-//        int pageQty  = (int)(total % PAGE_MAX_RESULT == 0 ? (total / PAGE_MAX_RESULT) : (total / PAGE_MAX_RESULT + 1));
-//        return pageQty;
-//    }
 
 
     public int getPageTotal(Integer classType , Integer status){

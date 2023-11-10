@@ -3,49 +3,7 @@ let projectName = pathName.substring( 0 , pathName.substring(1).indexOf("/")+1);
 const selectElement = document.getElementById("groupCourse");
 
 
-$(async function (){
-
-    let scheduleNo = $("#scheduleNo").val()
-    let related = $("#related").val();
-    let data = await getAllSchedule();
-
-    html = `<option value="">無</option>`;
-    data.forEach(item =>{
-
-        if (item.gcsNo != scheduleNo){
-            html += `<option value="${item.gcsNo}" ${related != "" ? related == item.gcsNo? "selected" : ""  : ""}>
-            課程報名編號：${item.gcsNo} 班別：${item.groupCourse.classType.ctName} 訓練師：${item.trainer.administrator.adminName} 課程名稱：${item.groupCourse.skill.skillName}
-            </option>`;
-        }
-    })
-
-    $("#relatedGcsNo").html(html)
-})
-
-// 取得所有報名課程
-async function getAllSchedule(){
-    let url = `${projectName}/schedule/getOffSechedule`;
-
-    try{
-        const response = await fetch(url , {
-            method : "POST",
-            headers:{
-                "Content-Type" : "application/x-www-form-urlencoded"
-            }
-        })
-        if (!response.ok){
-            throw new Error("網路異常")
-        }
-        const data = await response.json();
-
-        return data;
-    }catch (error){
-        console.log(error)
-    }
-
-}
-
-selectElement.addEventListener("change" , async function (e){
+selectElement.addEventListener("change" , async function (){
 
     let select = $(this).val();
 

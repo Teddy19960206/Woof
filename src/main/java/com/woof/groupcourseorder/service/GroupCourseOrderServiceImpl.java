@@ -54,6 +54,10 @@ public class GroupCourseOrderServiceImpl implements GroupCourseOrderService{
         dao.update(groupCourseOrder);
     }
 
+    public void modify(Integer gcoNo , Integer status){
+        dao.updateStatus(gcoNo , status);
+    }
+
     @Override
     public GroupCourseOrder getOneOrder(Integer gcoNo) {
         return dao.findByGcoNo(gcoNo);
@@ -82,13 +86,17 @@ public class GroupCourseOrderServiceImpl implements GroupCourseOrderService{
     public int getPageTotal(Integer groupClass, Integer status, String memNo) {
         long total = dao.getTotal(groupClass , status , memNo );
 
-        int pageQty = (int)(total % PAGE_MAX_RESULT == 0 ? (total / PAGE_MAX_RESULT) : (total / PAGE_MAX_RESULT + 1));
-
-        return pageQty;
+        return (int)(total % PAGE_MAX_RESULT == 0 ? (total / PAGE_MAX_RESULT) : (total / PAGE_MAX_RESULT + 1));
     }
 
     @Override
     public List<GroupCourseOrder> getOrderBySchedule(Integer scheduleNo) {
         return dao.getAllMember(scheduleNo);
+    }
+
+    @Override
+    public void refund(Integer gcoNo) {
+//      狀態 2 為已退款
+        dao.updateStatus(gcoNo , 2);
     }
 }

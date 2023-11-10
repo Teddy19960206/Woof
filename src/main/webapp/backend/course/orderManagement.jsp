@@ -7,7 +7,7 @@
 <body>
 <%@ include file="/backend/backbody.file" %>
 
-<div class="container">
+<div class="container" id="allPage">
 
     <h1 align="center">課堂檔期訂單管理</h1>
     <div class="">
@@ -28,6 +28,7 @@
                     <option value="2">已退款</option>
                     <option value="3">已取消</option>
                     <option value="4">已完成</option>
+                    <option value="5">退款申請中</option>
                 </select>
             </div>
         </div>

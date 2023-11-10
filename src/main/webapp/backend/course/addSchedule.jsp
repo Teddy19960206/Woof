@@ -18,7 +18,7 @@
                 <div class="row">
                     <div class="col-6">
                         <div class="col-6 mx-auto">
-                            <label>課程：<span id="skillErr" style="color: red; display: none">錯誤</span></label>
+                            <label>課程：<span id="groupCourseErr" style="color: red; display: none">錯誤</span></label>
                             <select id="groupCourse" name="groupCourse" class="form-select my-2">
                                 <option value="">請選擇課程</option>
                                 <c:forEach items="${groupCourses}" var="groupCourse">
@@ -61,15 +61,6 @@
                         <div class="col-10 mx-auto mb-3">
                                 <label for="price">價格：<span id="priceErr" style="color: red; display: none">錯誤</span></label>
                                 <input type="number" name="price" id="price" class="form-control my-2">
-                        </div>
-                        <div class="col-10 mx-auto mb-3">
-                            <label for="price">延期的關聯課程編號：<span id="relatedGcsNoErr" style="color: red; display: none">錯誤</span></label>
-                            <select name="relatedGcsNo" id="relatedGcsNo" class="form-select">
-                            </select>
-                        </div>
-                        <div class="col-10 mx-auto mb-3">
-                            <label for="delayReason">延期原因：<span id="delayReasonErr" style="color: red; display: none">錯誤</span></label>
-                            <input type="input" name="delayReason" id="delayReason" class="form-control my-2">
                         </div>
 
                         <div class="text-center my-2">
