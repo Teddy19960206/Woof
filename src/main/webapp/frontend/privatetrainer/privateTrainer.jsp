@@ -113,6 +113,6 @@
     </c:forEach>
    
     <button class="btn btn-buyclass" onclick="window.location='${pageContext.request.contextPath}/frontend/privatetrainer/buyclass.jsp'">購買課堂</button>
-    <button class="btn btn-back" onclick="window.location='${pageContext.request.contextPath}/index.html'">返回</button>
+    <button class="btn btn-back" onclick="window.location='${pageContext.request.contextPath}/index.jsp'">返回</button>
 </body>
 </html>

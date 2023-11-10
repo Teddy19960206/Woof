@@ -17,7 +17,7 @@ $(function () {
     if (orderNo.length !== 0){
         fetchData(orderNo);
     }else {
-        window.location.href=`${projectName}/index.html`;
+        window.location.href=`${projectName}/index.jsp`;
     }
 })
 

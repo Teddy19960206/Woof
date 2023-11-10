@@ -7,7 +7,9 @@
           style="height: 100vh; z-index: 11"
         >
           <aside id="sidebar">
-            <a href="<%=request.getContextPath()%>/backend/index.html"><img src="<%=request.getContextPath()%>/backend/images/logo.png" width="220" class="text-center" /></a>
+            <a href="<%=request.getContextPath()%>/backend/index.jsp">
+                <img src="<%=request.getContextPath()%>/backend/images/logo.png" width="220" class="text-center" />
+            </a>
             <ul class="sidebar-nav">
               <li class="sidebar-item">
                 <a
@@ -60,23 +62,26 @@
                   </li>
                   <li class="sidebar-item">
                     <a
-                      href="${pageContext.request.contextPath}/backend/course/trainerSchedule.jsp"
-                      class="sidebar-link2"
-                      >訓練師課程查詢</a
-                    >
-                  </li>
-                  <li class="sidebar-item">
-                    <a
                       href="${pageContext.request.contextPath}/backend/course/schedule.jsp"
                       class="sidebar-link2"
                       >團體報名管理</a
                     >
                   </li>
                   <li class="sidebar-item">
+                      <a
+                        href="${pageContext.request.contextPath}/backend/course/trainerSchedule.jsp"
+                        class="sidebar-link2"
+                        >團體上課日期查詢</a
+                      >
+                    </li>
+                    <li class="sidebar-item">
+                      <a href="${pageContext.request.contextPath}/backend/course/orderManagement.jsp" class="sidebar-link2">課堂檔期訂單管理</a>
+                    </li>
+                  <li class="sidebar-item">
                     <a href="#" class="sidebar-link2">私人預約管理</a>
                   </li>
                   <li class="sidebar-item">
-                    <a href="${pageContext.request.contextPath}/backend/course/orderManagement.jsp" class="sidebar-link2">課堂檔期訂單管理</a>
+                    <a href="#" class="sidebar-link2">私人訓練師課表查詢</a>
                   </li>
                 </ul>
               </li>
@@ -98,47 +103,19 @@
                   data-bs-parent="#sidebar"
                 >
                   <li class="sidebar-item">
-                    <a href="promotionactivity/PA.jsp" class="sidebar-link2"
+                    <a href="${pageContext.request.contextPath}/backend/promotionactivity/PA.jsp" class="sidebar-link2"
                       >促銷管理</a
                     >
                   </li>
                   <li class="sidebar-item">
-                    <a href="#" class="sidebar-link2">商品管理</a>
+                    <a href="${pageContext.request.contextPath}/productPage.html" class="sidebar-link2">商品管理</a>
                   </li>
                   <li class="sidebar-item">
                     <a href="#" class="sidebar-link2">商品訂單管理</a>
                   </li>
                 </ul>
               </li>
-              <li class="sidebar-item">
-                <a
-                  href="#"
-                  class="sidebar-link collapsed"
-                  data-bs-toggle="collapse"
-                  data-bs-target="#staff"
-                  aria-expanded="false"
-                  aria-controls="staff"
-                >
-                  <i class="fa-solid fa-briefcase pe-3"></i>
-                  員工系統
-                </a>
-                <ul
-                  id="staff"
-                  class="sidebar-dropdown list-unstyled collapse"
-                  data-bs-parent="#sidebar"
-                >
-                  <li class="sidebar-item">
-                    <a
-                      href="${pageContext.request.contextPath}/backend/employee/trainer.jsp"
-                      class="sidebar-link2"
-                      >訓練師專區</a
-                    >
-                  </li>
-                  <li class="sidebar-item">
-                    <a href="#" class="sidebar-link2">員工管理</a>
-                  </li>
-                </ul>
-              </li>
+
               <li class="sidebar-item">
                 <a
                   href="#"
@@ -160,7 +137,7 @@
                     <a href="#" class="sidebar-link2">最新消息管理</a>
                   </li>
                   <li class="sidebar-item">
-                    <a href="backend/faq/faqfirst.jsp" class="sidebar-link2"
+                    <a href="${pageContext.request.contextPath}/backend/faq/faqfirst.jsp" class="sidebar-link2"
                       >FAQ管理</a
                     >
                   </li>
@@ -168,6 +145,39 @@
                     <a href="#" class="sidebar-link2">客服管理</a>
                   </li>
                 </ul>
+              </li>
+              <li class="sidebar-item">
+                  <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#staff"
+                     aria-expanded="false" aria-controls="staff">
+                      <i class="fa-solid fa-user-tie pe-3"></i>
+                      員工管理
+                  </a>
+                  <ul id="staff" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                      <li class="sidebar-item">
+                          <a href="#" class="sidebar-link2">新增員工</a>
+                      </li>
+                      <li class="sidebar-item">
+                          <a href="#" class="sidebar-link2">權限管理</a>
+                      </li>
+                  </ul>
+              </li>
+                <li class="sidebar-item">
+                  <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#trainer"
+                     aria-expanded="false" aria-controls="trainer">
+                      <i class="fa-solid fa-calendar pe-3"></i>
+                      訓練師專區
+                  </a>
+                  <ul id="trainer" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                      <li class="sidebar-item">
+                          <a href="${pageContext.request.contextPath}/backend/employee/trainer.jsp" class="sidebar-link2">訓練師基本資料管理</a>
+                      </li>
+                      <li class="sidebar-item">
+                          <a href="#" class="sidebar-link2">訓練師班表管理</a>
+                      </li>
+                       <li class="sidebar-item">
+                          <a href="#" class="sidebar-link2">訓練師課程查詢</a>
+                      </li>
+                  </ul>
               </li>
             </ul>
           </aside>
@@ -207,10 +217,17 @@
               "
               >登出</a
             >
-            <!-- <button type="button" class="btn btn-outline-secondary" style="font-family: 'Noto Sans TC', sans-serif; font-weight: 700;">登出</button> -->
+            <a
+              href="<%=request.getContextPath()%>/index.jsp"
+              class="btn"
+              style="
+                background-color: #faba91;
+                font-family: 'Noto Sans TC', sans-serif;
+                font-weight: 700;
+              "
+              >返回前台首頁</a
+            >
           </div>
         </div>
         <div class="col-12">
-          <!-- 這邊是讓大家放上自己要秀出來的內容 -->
-
-          <div class="" style="margin-left: 250px; margin-top: 80px">
+            <div class="" style="margin-left: 250px; margin-top: 80px">

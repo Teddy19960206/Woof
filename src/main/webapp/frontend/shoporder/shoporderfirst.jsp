@@ -47,7 +47,7 @@
                 <input type="text" class="form-control" id="faqContent" name="faqContent" value="9點">
             </div>
             <button class="btn btn-success" type="submit">確定新增</button>
-            <a class="btn btn-secondary" href="${pageContext.request.contextPath}/backend/index.html">取消新增</a>
+            <a class="btn btn-secondary" href="${pageContext.request.contextPath}/backend/index.jsp">取消新增</a>
         </form>
     </div>
 

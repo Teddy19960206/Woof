@@ -4,115 +4,13 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="webutil/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="webutil/css/style.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@900&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="webutil/css/animate.min.css" />
-    <link rel="icon" type="image/x-icon" href="webutil/icons/happy_1.png" />
+    <%@ include file="/meta.file" %>
     <title>寵毛導師 Woof | 首頁</title>
   </head>
 
   <body>
     <!-- 導覽列 -->
-    <div
-      class="navbar navbar-expand-xl sticky-top py-3 mb-3 bg-white shadow -75"
-    >
-      <div class="container-fluid">
-        <a class="navbar-brand" href="index.html">
-          <img
-            src="webutil/images/logo.png"
-            width="200"
-            class="d-inline-block align-text-top animated bounce"
-          />
-        </a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div
-          class="collapse navbar-collapse justify-content-end"
-          id="navbarSupportedContent"
-        >
-          <ul class="navbar-nav animated slideInUp">
-            <li class="nav-item me-3">
-              <a class="nav-link dropdown-toggle"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-                href="#">
-                寵物訓練課程介紹</a>
-              <ul class="dropdown-menu ms-xl-5 border-1">
-                <li><a class="dropdown-item" href="frontend/privatetrainer/privateTrainer.jsp">私人訓練師</a></li>
-                <li><a class="dropdown-item" href="frontend/group/groupSchedule.jsp">團體課程資訊</a></li>
-              </ul>
-            </li>
-            <li class="nav-item me-3">
-              <a class="nav-link" href="#">寵物商城</a>
-            </li>
-            <li class="nav-item me-3">
-              <a class="nav-link" href="#">最新消息</a>
-            </li>
-            <li class="nav-item me-3">
-              <a class="nav-link" href="#">
-                <img src="webutil/icons/faq.svg" style="width: 30px" />
-                <p class="d-xl-none d-inline text-center mx-3">FAQ</p>
-              </a>
-            </li>
-            <li class="nav-item me-3">
-              <a class="nav-link" href="#"
-                ><img src="webutil/icons/service.svg" style="width: 30px" />
-                <p class="d-xl-none d-inline text-center mx-3">聯絡客服</p>
-              </a>
-            </li>
-            <c:choose>
-             	<c:when test="${empty sessionScope.member}">
-		        </c:when>
-		        <c:otherwise>
-		            <li class="nav-item me-3">
-		              <a class="nav-link" href="#">
-		                <form method="POST"
-						action="${pageContext.request.contextPath}/login"
-						style="all: unset;">
-						<input type="hidden" name="action" value="memberlogout">
-						<button class="nav-link btn btn-link"
-							style="color: inherit; text-decoration: none;" id="logoutButton"
-							type="submit">登出</button>
-					</form>
-		              </a>
-		            </li>
-		        </c:otherwise>
-            </c:choose>
-            <li class="nav-item me-3">
-              <a class="nav-link" href="frontend/member/login/membercenter.jsp">
-                <img src="webutil/icons/user2.svg" style="width: 30px" />
-                <p class="d-xl-none d-inline text-center mx-3">會員中心</p>
-              </a>
-            </li>
-            <li class="nav-item me-3">
-              <a class="nav-link" href="#">
-                <img src="webutil/icons/cart.svg" style="width: 30px" />
-                <p class="d-xl-none d-inline text-center mx-3">購物車</p>
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
+    <%@ include file="/Header.file" %>
 
     <!-- 輪播 -->
     <header id="header" class="header">
@@ -255,39 +153,7 @@
       <div class="container-fluid bg-dark w-100 h-100"></div>
     </article>
     <!-- 頁尾 -->
-    <footer class="animated fadeInUp">
-      <div class="container py-5">
-        <div class="row g-5">
-          <div class="col-lg-4 col-12 text-center">
-            <img src="webutil/images/logo.png" class="w-sm-100 w-50" />
-            <a href="#" class="text-decoration-none">
-              <h1 class="h3 mytextcolor">Woof</h1>
-            </a>
-          </div>
-          <div class="col-lg-4 col-12 border-dark-subtle">
-            <h4 class="mytextcolor mb-4 text-center">Address</h4>
-            <p>
-              <img src="webutil/icons/house.svg" /> 320桃園市中壢區復興路46號8樓804室
-              CHA103
-            </p>
-            <p><img src="webutil/icons/telephone.svg" /> 03 425 1108</p>
+    <%@ include file="/Footer.file" %>
+  </body>
+</html>
 
-            <a href="https://www.tibame.com/goodjob"
-              ><img src="webutil/icons/link.svg" alt="" width="30px" /> 緯育</a
-            >
-          </div>
-          <div class="col-lg-4 col-12 text-center">
-            <h4 class="mytextcolor mb-4">About Us</h4>
-            <div class="row">
-              <div class="col-3">
-                <p>組員：</p>
-              </div>
-              <div class="col-3">
-                <p>蕭皓鴻</p>
-                <p>鄔馨誼</p>
-                <p>羅鈺漳</p>
-              </div>
-              <div class="col-3">
-                <p>徐唯宸</p>
-                <p>楊佳宜</p>
-       
