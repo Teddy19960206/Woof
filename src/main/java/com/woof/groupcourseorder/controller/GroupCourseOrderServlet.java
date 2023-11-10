@@ -16,6 +16,7 @@ import com.woof.groupscheduledetail.service.GroupScheduleDetailServiceImpl;
 import com.woof.member.entity.Member;
 import com.woof.util.AppLogger;
 import com.woof.util.EmailValidator;
+import com.woof.util.JsonIgnoreExclusionStrategy;
 import com.woof.util.MailService;
 
 import javax.servlet.ServletException;
@@ -69,14 +70,17 @@ public class GroupCourseOrderServlet extends HttpServlet {
             case "/check":
                 check(request , response);
                 return;
-            case "/getOrderBySchedule":
-                getOrderBySchedule(request, response);
+            case "/refund":
+                refund(request , response);
+                return;
+            case "/modify":
+                modify(request, response);
                 return;
             default:
                 if (pathInfo.startsWith("/getGroupInfo/")) {
                     forwardPath = getGroupInfo(request ,response ,result);
                 }else {
-                    forwardPath = "/";
+                    forwardPath = "/index.jsp";
                 }
         }
 
@@ -95,9 +99,6 @@ public class GroupCourseOrderServlet extends HttpServlet {
 
         String className = groupCourseSchedule.getGroupCourse().getClassType().getCtName() +" - "+ groupCourseSchedule.getGroupCourse().getSkill().getSkillName();
         request.setAttribute("className" , className);
-
-
-
 
         return "/frontend/group/registration.jsp";
     }
@@ -122,10 +123,13 @@ public class GroupCourseOrderServlet extends HttpServlet {
 
         int pageTotal = groupCourseOrderService.getPageTotal(groupClass , status , memNo);
 
+
         Gson gson = new GsonBuilder()
-                .excludeFieldsWithoutExposeAnnotation()
-                        .setDateFormat("yyyy-MM-dd")
-                                .create();
+                .setExclusionStrategies()
+                .addSerializationExclusionStrategy(new JsonIgnoreExclusionStrategy(true))
+                .addDeserializationExclusionStrategy(new JsonIgnoreExclusionStrategy(false))
+                .setDateFormat("yyyy-MM-dd")
+                .create();
 
         JsonObject jsonResponse = new JsonObject();
         jsonResponse.addProperty("pageTotal" , pageTotal);
@@ -139,7 +143,7 @@ public class GroupCourseOrderServlet extends HttpServlet {
     synchronized private void check(HttpServletRequest request , HttpServletResponse response) throws IOException, ServletException {
 
 //        取得所有資訊
-        Member member = (Member) request.getSession().getAttribute("member");
+        Member member = (Member) request.getSession(false).getAttribute("member");
         String smmpCount = request.getParameter("smmpCount");
         String email = request.getParameter("email");
         Integer actualAmount = Integer.valueOf(request.getParameter("actualAmount"));
@@ -204,20 +208,13 @@ public class GroupCourseOrderServlet extends HttpServlet {
 
             MailService mailService = new MailService();
 
-//            new Thread(() -> mailService.sendMail(email ,
-//                    "報名成功" ,
-//                    MailService.groupOrderhtml(member.getMemName() ,                 // 報名人姓名
-//                            groupCourseSchedule.getGroupCourse().getClassType().getCtName(), // 班級名稱
-//                            dates,                                                       // 上課日期
-//                            groupCourseSchedule.getGroupCourse().getCourseContent())));
-
-
-            mailService.sendMail(email ,
+            new Thread(() -> mailService.sendMail("trick95710@gmail.com" ,
                     "報名成功" ,
-                    MailService.groupOrderhtml(member.getMemName() ,                 // 報名人姓名
-                    groupCourseSchedule.getGroupCourse().getClassType().getCtName(), // 班級名稱
-                    dates,                                                           // 上課日期
-                    groupCourseSchedule.getGroupCourse().getCourseContent()));       // 課程內容
+                    MailService.groupOrderhtml(member.getMemName() ,                            // 報名人姓名
+                            groupCourseSchedule.getGroupCourse().getClassType().getCtName(),    // 班級名稱
+                            dates,                                                              // 上課日期
+                            groupCourseSchedule.getGroupCourse().getCourseContent()))).start(); // 課程內容
+
 
 
         }catch (Exception e){
@@ -243,7 +240,70 @@ public class GroupCourseOrderServlet extends HttpServlet {
         response.getWriter().write(json);
     }
 
-    private void getOrderBySchedule(HttpServletRequest request , HttpServletResponse response){
-        
+    private void refund(HttpServletRequest request , HttpServletResponse response) throws IOException {
+        String idStr = request.getParameter("id");
+        Integer id= null;
+        List<String> errorMsgs = new ArrayList<>();
+
+        if (idStr == null || idStr.trim().length() == 0){
+            errorMsgs.add("沒有取得訂單編號");
+        }else{
+            id = Integer.valueOf(idStr);
+        }
+
+        response.setContentType("application/json;charset=UTF-8");
+
+        if (!errorMsgs.isEmpty()){
+            Gson gson = new Gson();
+            String json = gson.toJson(errorMsgs);
+            response.getWriter().write(json);
+            return;
+        }
+//        變更狀態成已退款
+        groupCourseOrderService.refund(id);
+
+        response.getWriter().write("{ \"message\" : \"更新成功\"}");
+    }
+
+    private void modify(HttpServletRequest request , HttpServletResponse response) throws IOException {
+
+
+        List<String> errorMsgs = new ArrayList<>();
+        Integer id = null;
+        Integer status = null;
+
+        String idStr = request.getParameter("id");
+        if (idStr == null || idStr.trim().length() == 0){
+            errorMsgs.add("取得不到訂單編號");
+        }else{
+            id = Integer.valueOf(idStr);
+        }
+
+        String statusStr = request.getParameter("status");
+        if (statusStr == null || statusStr.trim().length() == 0){
+            errorMsgs.add("取得不到訂單狀態");
+        }else{
+            status = Integer.valueOf(statusStr);
+        }
+
+
+        response.setContentType("application/json;charset=UTF-8");
+        Gson gson = new Gson();
+        String json = null;
+        if (!errorMsgs.isEmpty()){
+            json = gson.toJson(errorMsgs);
+            response.getWriter().write(json);
+            return;
+        }
+
+        try{
+            groupCourseOrderService.modify(id , status);
+            response.getWriter().write("{ \"message\" : \"更新成功\"}");
+            
+        }catch (Exception e){
+            errorMsgs.add("更新失敗");
+            json = gson.toJson(errorMsgs);
+            response.getWriter().write(json);
+        }
     }
 }

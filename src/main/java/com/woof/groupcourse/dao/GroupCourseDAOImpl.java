@@ -60,29 +60,14 @@ public class GroupCourseDAOImpl implements GroupCourseDAO{
     public List<GroupCourse> getGroupCourseByCtNo(Integer ctNo) {
         Query query  = getSession().createQuery("FROM GroupCourse where classType.ctNo = :ctNo");
         query.setParameter("ctNo",ctNo);
-        List<GroupCourse> results = query.list();
 
-        return results;
+        return query.list();
     }
 
     @Override
     public List<GroupCourse> getAll() {
         return getSession().createQuery("FROM GroupCourse" , GroupCourse.class).list();
     }
-//
-//    @Override
-//    public List<GroupCourse> getAll(int currentPage) {
-//        int first = (currentPage - 1) * PAGE_MAX_RESULT;
-//        return getSession().createQuery("FROM GroupCourse" , GroupCourse.class)
-//                .setFirstResult(first)
-//                .setMaxResults(PAGE_MAX_RESULT)
-//                .list();
-//    }
-
-//    @Override
-//    public long getTotal() {
-//        return getSession().createQuery("SELECT count(*) FROM GroupCourse" , Long.class).uniqueResult();
-//    }
 
     @Override
     public long getTotal(Integer classType , Integer status){

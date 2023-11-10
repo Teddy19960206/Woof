@@ -4,23 +4,20 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.woof.groupcourse.entity.GroupCourse;
-import com.woof.groupcourse.service.GroupCourseService;
 import com.woof.groupcourse.service.GroupCourseServiceImpl;
 import com.woof.groupcourseorder.entity.GroupCourseOrder;
 import com.woof.groupcourseorder.service.GroupCourseOrderServiceImpl;
 import com.woof.groupcourseschedule.entity.GroupCourseSchedule;
 import com.woof.groupcourseschedule.service.GroupCourseScheduleServiceImpl;
 import com.woof.groupcourseschedule.service.GroupGourseScheduleService;
-import com.woof.groupscheduledetail.service.GroupScheduleDetailService;
 import com.woof.groupscheduledetail.service.GroupScheduleDetailServiceImpl;
 import com.woof.skill.service.SkillService;
 import com.woof.skill.service.SkillServiceImpl;
 import com.woof.trainer.entity.Trainer;
-import com.woof.trainer.service.TrainerService;
 import com.woof.trainer.service.TrainerServiceImpl;
 import com.woof.util.JsonIgnoreExclusionStrategy;
 import com.woof.util.MailService;
-import org.hibernate.type.descriptor.sql.NVarcharTypeDescriptor;
+
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -30,7 +27,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Date;
-import java.time.LocalDate;
 import java.util.*;
 
 @WebServlet("/schedule/*")
@@ -91,12 +87,12 @@ public class GroupScheduleServlet extends HttpServlet {
                 getListClass(request ,response);
                 return;
             case "/getOffSechedule":
-//                取得已下架的Schuedule
+//                取得審核中的Schuedule
                 getOffSechedule(request ,response);
                 return;
             case "/addDelay":
-                addDelay(request, response);
 //                延期、額外新增課程
+                addDelay(request, response);
                 return;
             default:
                 if (pathInfo.startsWith("/edit/")) {
@@ -137,10 +133,6 @@ public class GroupScheduleServlet extends HttpServlet {
 
         int pageTotal = groupGourseScheduleService.getPageTotal(classType , status);
 
-//        Gson gson = new GsonBuilder()
-//                .excludeFieldsWithoutExposeAnnotation()
-//                .setDateFormat("yyyy-MM-dd")
-//                .create();
         Gson gson = new GsonBuilder()
                 .setExclusionStrategies()
                 .addSerializationExclusionStrategy(new JsonIgnoreExclusionStrategy(true))
@@ -160,13 +152,13 @@ public class GroupScheduleServlet extends HttpServlet {
     private void getOffSechedule(HttpServletRequest request , HttpServletResponse response) throws IOException {
         request.setCharacterEncoding("UTF-8");
 
-        List<GroupCourseSchedule> offSechedule = groupGourseScheduleService.getOffSechedule();
+        List<GroupCourseSchedule> offSchedule = groupGourseScheduleService.getOffSchedule();
 
         Gson gson = new GsonBuilder()
                 .excludeFieldsWithoutExposeAnnotation()
                 .setDateFormat("yyyy-MM-dd")
                 .create();
-        String json = gson.toJson(offSechedule);
+        String json = gson.toJson(offSchedule);
 
         response.setContentType("application/json;charset=UTF-8");
         response.getWriter().write(json);
@@ -176,8 +168,7 @@ public class GroupScheduleServlet extends HttpServlet {
     //    進入<新增>或<修改>頁面時，會先獲取select下拉式選單可選擇的資料，並到新增頁面
     private String getSelectInfo(HttpServletRequest request, HttpServletResponse response , Integer gcsNo) {
 
-        GroupCourseService groupCourseService = new GroupCourseServiceImpl();
-        List<GroupCourse> allGroupCourse = groupCourseService.getAllGroupCourse();
+        List<GroupCourse> allGroupCourse = new GroupCourseServiceImpl().getAllGroupCourse();
         if (gcsNo != null){
             Integer skillNo = groupGourseScheduleService.findByGcsNo(gcsNo).getGroupCourse().getSkill().getSkillNo();
             SkillService skillService = new SkillServiceImpl();
@@ -197,8 +188,6 @@ public class GroupScheduleServlet extends HttpServlet {
         GroupCourseSchedule groupCourseSchedule = groupGourseScheduleService.findByGcsNo(id);
 
         request.setAttribute("schedule", groupCourseSchedule);
-
-        System.out.println(groupCourseSchedule);
 
         return "/backend/course/editGroupSchedule.jsp";
     }
@@ -230,7 +219,7 @@ public class GroupScheduleServlet extends HttpServlet {
         request.setAttribute("errorMsgs" , errorMsgs);
 
         Integer scheduleNo = Integer.valueOf(request.getParameter("scheduleNo"));
-        Integer content = Integer.valueOf(request.getParameter("skill"));
+        Integer content = Integer.valueOf(request.getParameter("groupCourse"));
         GroupCourse groupCourseByNo = new GroupCourseServiceImpl().findGroupCourseByNo(content);
         Trainer trainer = new TrainerServiceImpl().findTrainerByTrainerNo(Integer.valueOf(request.getParameter("trainer")));
         Integer status = Integer.valueOf(request.getParameter("status"));
@@ -465,20 +454,20 @@ public class GroupScheduleServlet extends HttpServlet {
             }
         }
 
-        String relatedGcsNoStr = request.getParameter("relatedGcsNo");
-        delayReason = request.getParameter("delayReason");
-
-        if (relatedGcsNoStr != null && relatedGcsNoStr.trim().length() != 0){
-//           獲取關聯的groupCourse物件，延期功能使用
-            byGcsNo = groupGourseScheduleService.findByGcsNo(Integer.valueOf(relatedGcsNoStr));
-            if (delayReason == null || delayReason.trim().length() == 0){
-                errorMsgs.add("請輸入延期原因");
-            }
-        }else if (delayReason != null && delayReason.trim().length() != 0){
-            if (relatedGcsNoStr == null || relatedGcsNoStr.trim().length() == 0){
-                errorMsgs.add("請選擇關聯的延期課程");
-            }
-        }
+//        String relatedGcsNoStr = request.getParameter("relatedGcsNo");
+//        delayReason = request.getParameter("delayReason");
+//
+//        if (relatedGcsNoStr != null && relatedGcsNoStr.trim().length() != 0){
+////           獲取關聯的groupCourse物件，延期功能使用
+//            byGcsNo = groupGourseScheduleService.findByGcsNo(Integer.valueOf(relatedGcsNoStr));
+//            if (delayReason == null || delayReason.trim().length() == 0){
+//                errorMsgs.add("請輸入延期原因");
+//            }
+//        }else if (delayReason != null && delayReason.trim().length() != 0){
+//            if (relatedGcsNoStr == null || relatedGcsNoStr.trim().length() == 0){
+//                errorMsgs.add("請選擇關聯的延期課程");
+//            }
+//        }
 
         response.setContentType("application/json;charset=UTF-8");
 
@@ -503,7 +492,7 @@ public class GroupScheduleServlet extends HttpServlet {
 
 
             //        新增報名課程資訊
-            GroupCourseSchedule groupCourseSchedule = groupGourseScheduleService.addSchedule(groupCourse, trainer, startDate, endDate, minLimit, maxLimit, price ,  delayReason ,  byGcsNo);
+            GroupCourseSchedule groupCourseSchedule = groupGourseScheduleService.addSchedule(groupCourse, trainer, startDate, endDate, minLimit, maxLimit,0, price , 0, delayReason ,  byGcsNo);
             new GroupScheduleDetailServiceImpl().add(groupCourseSchedule , groupCourseSchedule.getTrainer() ,dates );
 
         }catch (Exception e){
@@ -633,7 +622,9 @@ public class GroupScheduleServlet extends HttpServlet {
                     endDate,
                     groupCourseSchedule.getMinLimit(),
                     groupCourseSchedule.getMaxLimit(),
+                    groupCourseSchedule.getRegCount(),
                     groupCourseSchedule.getGcsPrice(),
+                    1,                          //延期後，直接上架
                     reason,
                     groupCourseSchedule);
 
@@ -649,22 +640,13 @@ public class GroupScheduleServlet extends HttpServlet {
 
                 MailService mailService = new MailService();
 
-//               mailService.sendMail("trick95710@gmail.com" ,
-//                    "課程延期" ,
-//               MailService.groupOrderhtml( groupCourseOrder.getMember().getMemName()
-//                    ,groupCourseOrder.getGroupCourseSchedule().getGroupCourse().getClassType().getCtName()
-//                    ,dates,groupCourseOrder.getGroupCourseSchedule().getGroupCourse().getCourseContent()
-//                    ));
-
-                new Thread(()-> mailService.sendMail("trick95710@gmail.com" ,
+                new Thread(()-> mailService.sendMail(groupCourseOrder.getMember().getMemEmail() ,
                         "課程延期" ,
                         MailService.groupOrderhtml( groupCourseOrder.getMember().getMemName()
                                 ,groupCourseOrder.getGroupCourseSchedule().getGroupCourse().getClassType().getCtName()
                                 ,dates,groupCourseOrder.getGroupCourseSchedule().getGroupCourse().getCourseContent()
-                )));
+                ))).start();
 
-//              每更新一個order報名人數 +1
-//            groupCourseScheduleNew.setRegCount(groupCourseSchedule.getRegCount());
             }
 
 //              更新舊課程狀態與報名人數
@@ -693,6 +675,7 @@ public class GroupScheduleServlet extends HttpServlet {
             response.getWriter().write(json);
         }
     }
+
 }
 
 

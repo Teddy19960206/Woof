@@ -30,7 +30,7 @@
     <div class="row">
       <div class="col-6">
         <label>課程：</label>
-        <select id="skill" name="skill" class="form-select">
+        <select id="groupCourse" name="groupCourse" class="form-select">
           <c:forEach items="${groupCourses}" var="course">
             <option value="${course.gcNo}"
                     <c:if test="${course.skill.skillNo eq schedule.groupCourse.skill.skillNo}">selected</c:if>
@@ -81,15 +81,12 @@
     <select name="status" id="status" class="form-select">
       <option value="0" <c:if test="${schedule.gcsStatus eq 0}">selected</c:if>>下架</option>
       <option value="1" <c:if test="${schedule.gcsStatus eq 1}">selected</c:if>>上架</option>
+      <option value="2" <c:if test="${schedule.gcsStatus eq 2}">selected</c:if>>確認開課</option>
+      <option value="3" <c:if test="${schedule.gcsStatus eq 3}">selected</c:if>>已取消</option>
+      <option value="4" <c:if test="${schedule.gcsStatus eq 4}">selected</c:if>>延期</option>
+      <option value="5" <c:if test="${schedule.gcsStatus eq 5}">selected</c:if>>已結束</option>
+      <option value="6" <c:if test="${schedule.gcsStatus eq 6}">selected</c:if>>審核中</option>
     </select>
-
-    <label for="price">延期的關聯課程編號：</label>
-    <select name="relatedGcsNo" id="relatedGcsNo" class="form-select">
-    </select>
-
-    <label for="price">延期原因：</label>
-    <input type="text" name="delayReason" id="delayReason" class="form-control my-2" value="${schedule.gcsDelayReason}">
-
     <div class="text-center mt-3">
       <button type="submit" class="btn btn-primary">確定修改</button>
       <button type="button" onclick="history.back()" class="btn btn-secondary">取消修改</button>
