@@ -18,6 +18,8 @@ import com.woof.util.AppLogger;
 import com.woof.util.EmailValidator;
 import com.woof.util.JsonIgnoreExclusionStrategy;
 import com.woof.util.MailService;
+import ecpay.payment.integration.AllInOne;
+import ecpay.payment.integration.domain.AioCheckOutOneTime;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -26,7 +28,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.logging.Level;
 
@@ -36,6 +42,8 @@ import java.util.logging.Level;
 public class GroupCourseOrderServlet extends HttpServlet {
 
     GroupCourseOrderService groupCourseOrderService;
+
+    public static AllInOne all;
 
     @Override
     public void init() throws ServletException {
@@ -79,7 +87,10 @@ public class GroupCourseOrderServlet extends HttpServlet {
             default:
                 if (pathInfo.startsWith("/getGroupInfo/")) {
                     forwardPath = getGroupInfo(request ,response ,result);
-                }else {
+                } else if (pathInfo.startsWith("/ecpay/")) {
+                    ecpay(request ,response , result);
+                    return;
+                } else {
                     forwardPath = "/index.jsp";
                 }
         }
@@ -148,7 +159,10 @@ public class GroupCourseOrderServlet extends HttpServlet {
         String email = request.getParameter("email");
         Integer actualAmount = Integer.valueOf(request.getParameter("actualAmount"));
         Integer payment = Integer.valueOf(request.getParameter("payment"));
+
         Integer groupScheduleNo = Integer.valueOf(request.getParameter("GroupScheduleNo"));
+
+        System.out.println(groupScheduleNo + "----------");
         GroupGourseScheduleService groupGourseScheduleService = new GroupCourseScheduleServiceImpl();
         GroupCourseSchedule groupCourseSchedule = groupGourseScheduleService.findByGcsNo(groupScheduleNo);
 
@@ -188,18 +202,54 @@ public class GroupCourseOrderServlet extends HttpServlet {
 //        使用匯款 1 預設為未付款0
 //        使用綠界 2 預設為已付款1
         Integer status = 0;
-        if (payment == 0 || payment == 2){
+        if (payment == 0){
             status = 1;
         }
+
+
+
         Integer orderNo = null;
         try{
 //          新增Order
             orderNo = groupCourseOrderService.addOrder(member, groupCourseSchedule, payment, smmp, actualAmount, status);
 
-            GroupScheduleDetailService groupScheduleDetailService = new GroupScheduleDetailServiceImpl();
+
+            if (payment == 2){
+                // 獲取協議（http或https）
+                String scheme = request.getScheme();
+                // 獲取主機名
+                String host = request.getServerName();
+                // 獲取端口號
+                int port = request.getServerPort();
+
+                // 構建完整的URL
+                String fullURL = scheme + "://" + host + ":" + port;
+
+
+
+                all = new AllInOne("");
+
+                AioCheckOutOneTime obj = new AioCheckOutOneTime();
+                obj.setMerchantTradeNo(orderNo.toString()); // 該位數為上限
+                obj.setMerchantTradeDate(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")));
+                obj.setTotalAmount(actualAmount.toString());
+                obj.setTradeDesc("寵毛導師：團體課程報名");
+                obj.setItemName(groupCourseSchedule.getGroupCourse().getSkill().getSkillName() + groupCourseSchedule.getGroupCourse().getSkill().getSkillName());
+                obj.setReturnURL(fullURL+request.getContextPath()+"/index.jsp");
+                obj.setNeedExtraPaidInfo("N");
+                obj.setRedeem("N");
+
+//                要重新更新訂單狀態
+                obj.setClientBackURL(fullURL+request.getContextPath()+"/groupOrder/ecpay/"+orderNo);
+
+                response.setContentType("text/html;charset=UTF-8");
+                response.getWriter().print(all.aioCheckOut(obj , null));
+                return;
+            }
+
 
 //          取得上課日期
-            List<GroupScheduleDetail> details = groupScheduleDetailService.getByGroupSchedule(groupCourseSchedule.getGcsNo());
+            List<GroupScheduleDetail> details = new GroupScheduleDetailServiceImpl().getByGroupSchedule(groupCourseSchedule.getGcsNo());
             Set<Date> dates = new HashSet<>();
             for (GroupScheduleDetail detail : details){
                 dates.add(detail.getClassDate());
@@ -305,5 +355,31 @@ public class GroupCourseOrderServlet extends HttpServlet {
             json = gson.toJson(errorMsgs);
             response.getWriter().write(json);
         }
+    }
+
+    public void ecpay(HttpServletRequest request ,HttpServletResponse response ,Integer gcoNo) throws IOException {
+
+        groupCourseOrderService.modify(gcoNo, 1);
+
+        MailService mailService = new MailService();
+
+        GroupCourseOrder order = groupCourseOrderService.getOneOrder(gcoNo);
+
+        Member member = (Member) request.getSession().getAttribute("member");
+
+        List<GroupScheduleDetail> details = new GroupScheduleDetailServiceImpl().getByGroupSchedule(order.getGroupCourseSchedule().getGcsNo());
+        Set<Date> dates = new HashSet<>();
+        for (GroupScheduleDetail detail : details){
+            dates.add(detail.getClassDate());
+        }
+
+        new Thread(() -> mailService.sendMail("trick95710@gmail.com" ,
+                "報名成功" ,
+                MailService.groupOrderhtml(member.getMemName() ,                            // 報名人姓名
+                        order.getGroupCourseSchedule().getGroupCourse().getClassType().getCtName(),    // 班級名稱
+                        dates,                                                              // 上課日期
+                        order.getGroupCourseSchedule().getGroupCourse().getCourseContent()))).start(); // 課程內容
+
+        response.sendRedirect(request.getContextPath()+"/index.jsp");
     }
 }
