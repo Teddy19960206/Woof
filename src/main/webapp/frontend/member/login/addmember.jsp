@@ -150,12 +150,12 @@ body {
 					<div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="radio" name="memGender"
-								id="memGenderM" value="M"> <label
+								id="memGenderM" value="M" checked> <label
 								class="form-check-label" for="memGenderM">男</label>
 						</div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="radio" name="memGender"
-								id="memGenderF" value="F" checked> <label
+								id="memGenderF" value="F"> <label
 								class="form-check-label" for="memGenderF">女</label>
 						</div>
 					</div>
@@ -174,6 +174,8 @@ body {
 							<!-- 檔案上傳輸入框 -->
 							<input class="form-check-input" type="file" name="memPhoto"
 								accept="image/*" id="p_file" />
+						</div>
+						</div>
 						</div>
 				<div class="form-group">
 					<label for="memEmail">會員信箱:</label>

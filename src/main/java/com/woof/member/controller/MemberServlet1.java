@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -160,7 +159,7 @@ public class MemberServlet1 extends HttpServlet {
 		}
 		
 		if (mememail == null || mememail.trim().length() == 0) {
-			errorMsgs.put("memNo","會員信箱請勿空白");
+			errorMsgs.put("memEmail","會員信箱請勿空白");
 		}
 		
 		String mempwd = req.getParameter("memPassword").trim();
@@ -228,7 +227,78 @@ public class MemberServlet1 extends HttpServlet {
 
 	private void updateMember(HttpServletRequest req, HttpServletResponse res)
 			throws ParseException, IOException, ServletException {
+		Map<String,String> errorMsgs = new LinkedHashMap<String,String>();
+		req.setAttribute("errorMsgs", errorMsgs);
+//		List<Member> members = memberService.getAllMembers();
+		
 		Member member = new Member();
+		String mememail = req.getParameter("memEmail");
+		String memNo = req.getParameter("memNo");
+		
+		
+//		for(Member mem :  members) {
+////			System.out.println("---------");
+////			System.out.println(mem.getMemNo());
+////			System.out.println(memNo);
+////			System.out.println(mem.getMemNo().equals(memNo));
+//			if(mem.getMemNo().equals(memNo)) {
+//				errorMsgs.put("memNo","此帳號已註冊，請重新輸入");
+//			}
+//			if(mem.getMemEmail().equals(mememail)) {
+//				errorMsgs.put("memEmail", "不能使用該信箱");
+//			}
+//			if(!errorMsgs.isEmpty()) {
+//				break;
+//			}
+//		}
+//		
+//		if(!errorMsgs.isEmpty()) {
+//			
+//			req.getRequestDispatcher("frontend/member/login/updatemember.jsp").forward(req, res);
+//		    return;
+//		}
+		/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
+		if (memNo == null || memNo.trim().length() == 0) {
+			errorMsgs.put("memNo","會員帳號請勿空白");
+		}
+		
+		String memname = req.getParameter("memName");
+		String memnameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_\s)]{1,50}$";
+		if (memname == null || memname.trim().length() == 0) {
+			errorMsgs.put("memName","會員姓名: 請勿空白");
+		} else if(!memname.trim().matches(memnameReg)) { //以下練習正則(規)表示式(regular-expression)
+			errorMsgs.put("memName","會員姓名: 只能是中、英文字母、數字、空格和_ , 且長度必需在1到50之間");
+        }
+		
+		String memgender = req.getParameter("memGender").trim();
+		if (memgender == null || memgender.trim().length() == 0) {
+			errorMsgs.put("memGender","會員性別請勿空白");
+		}
+		
+		if (mememail == null || mememail.trim().length() == 0) {
+			errorMsgs.put("memEmail","會員信箱請勿空白");
+		}
+		
+		String mempwd = req.getParameter("memPassword").trim();
+		if (mempwd == null || mempwd.trim().length() == 0) {
+			errorMsgs.put("memPassword","會員密碼請勿空白");
+		}
+		
+		String memtel = req.getParameter("memTel").trim();
+		if (memtel == null || memtel.trim().length() == 0) {
+			errorMsgs.put("memTel","會員電話請勿空白");
+		} 
+		
+		String memaddress = req.getParameter("memAddress").trim();
+		if (memaddress == null || memaddress.trim().length() == 0) {
+			errorMsgs.put("memAddress","會員地址請勿空白");
+		}
+
+		// Send the use back to the form, if there were errors
+		if (!errorMsgs.isEmpty()){
+			req.getRequestDispatcher("frontend/member/login/updatemember.jsp").forward(req, res);
+	    return;
+		}
 		member.setMemNo(req.getParameter("memNo"));
 		member.setMemName(req.getParameter("memName"));
 		member.setMemGender(req.getParameter("memGender"));
@@ -262,13 +332,40 @@ public class MemberServlet1 extends HttpServlet {
 		} else {
 			req.setAttribute("memBd=null", memBdString);
 		}
-		member.setMomoPoint(Integer.valueOf(req.getParameter("momoPoint")));
-		member.setTotalClass(Integer.valueOf(req.getParameter("totalClass")));
-		member.setMemStatus(Integer.valueOf(req.getParameter("memStatus")));
+		  // 處理 momoPoint
+	    String momoPointStr = req.getParameter("momoPoint");
+	    if (momoPointStr != null && !momoPointStr.isEmpty()) {
+	        try {
+	            Integer momoPointInteger = Integer.valueOf(momoPointStr);
+	            member.setMomoPoint(momoPointInteger);
+	        } catch (NumberFormatException e) {
+	            e.printStackTrace();
+	            req.setAttribute("momoPointError", "The provided point is invalid.");
+	        }
+	    }
+
+	    // 處理 TotalClass
+	    String totalClassStr = req.getParameter("totalClass");
+	    if (totalClassStr != null && !totalClassStr.isEmpty()) {
+	        try {
+	            Integer totalClassInteger = Integer.valueOf(totalClassStr);
+	            member.setTotalClass(totalClassInteger);
+	        } catch (NumberFormatException e) {
+	            e.printStackTrace();
+	            // 處理錯誤
+	        }
+	    }
+
+	    member.setMemStatus(1);
 		memberService.updateMember(member);
+		   // 假設更新操作已完成，現在重新獲取最新資料
+	    Member updatedMember = memberService.findMemberByNo(member.getMemNo());
+	    System.out.println(member.getMemNo()+"=============");
+	    // 將更新後的會員資料設置為請求屬性
+	    req.setAttribute("member", updatedMember);
 		// 導到指定的URL 頁面上 把請求回應都帶過去
-		String url = req.getContextPath() + "/frontend/member/login/membercenter.jsp";
-		res.sendRedirect(url);
+		req.getRequestDispatcher( "/frontend/member/login/membercenter.jsp").forward(req, res);
+	
 	}
 
 	private void getOne(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {

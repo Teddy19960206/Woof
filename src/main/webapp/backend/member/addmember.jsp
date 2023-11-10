@@ -64,11 +64,6 @@ th, td {
 			<td>
 				<h3>會員資料新增 - addmember.jsp</h3>
 			</td>
-			<td>
-				<h4>
-					<a href="selectmember.jsp">回首頁</a>
-				</h4>
-			</td>
 		</tr>
 	</table>
 
