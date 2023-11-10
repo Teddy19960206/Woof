@@ -78,25 +78,10 @@
                                 <a id="productPage" class="sidebar-link2">商品管理</a>
                             </li>
                             <li class="sidebar-item">
-                                <a href="#" class="sidebar-link2 ">商品訂單管理</a>
+                                <a href="shoporder/shoporderfirst.jsp" class="sidebar-link2 ">商品訂單管理</a>
                             </li>
                         </ul>
                     </li>
-<!--                     <li class="sidebar-item"> -->
-<!--                         <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#staff" -->
-<!--                            aria-expanded="false" aria-controls="staff"> -->
-<!--                             <i class="fa-solid fa-briefcase pe-3"></i> -->
-<!--                             員工系統 -->
-<!--                         </a> -->
-<!--                         <ul id="staff" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar"> -->
-<!--                             <li class="sidebar-item"> -->
-<!--                                 <a href="employee/trainer.jsp" class="sidebar-link2">訓練師專區</a> -->
-<!--                             </li> -->
-<!--                             <li class="sidebar-item"> -->
-<!--                                 <a href="#" class="sidebar-link2">員工管理</a> -->
-<!--                             </li> -->
-<!--                         </ul> -->
-<!--                     </li> -->
                     <li class="sidebar-item">
                         <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse"
                            data-bs-target="#frontdesk" aria-expanded="false" aria-controls="frontdesk">
@@ -134,7 +119,7 @@
                       <li class="sidebar-item"> 
                         <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#trainer"
                            aria-expanded="false" aria-controls="trainer">
-                            <i class="fa-solid fa-calendar pe-3"></i>
+                            <i class="fa-solid fa-otter pe-3"></i>
                             訓練師專區
                         </a>
                         <ul id="trainer" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
