@@ -14,7 +14,7 @@ public interface GroupCourseScheduleDAO {
 
     void updateCount(Integer gcsNo , Integer regCount);
 
-    void updateStatus(Integer gcsNo);
+    void updateStatus(Integer status , Integer gcsNo);
 
     GroupCourseSchedule findByGcsNo(Integer gcsNo);
 
@@ -30,7 +30,7 @@ public interface GroupCourseScheduleDAO {
     List<GroupCourseSchedule> getAllbyClassType(Integer ctNo);
 
     List<GroupCourseSchedule> getOffStatus();
-
+    List<GroupCourseSchedule> getReviewSchedule();
 
     long getTotal(Integer classType , Integer status);
 }

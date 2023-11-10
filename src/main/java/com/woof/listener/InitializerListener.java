@@ -8,7 +8,7 @@ import com.woof.util.HibernateUtil;
 import com.woof.util.JedisUtil;
 
 
-@WebListener
+//@WebListener
 public class InitializerListener implements ServletContextListener {
 
 	@Override

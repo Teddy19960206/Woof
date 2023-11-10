@@ -14,7 +14,7 @@ public interface GroupGourseScheduleService {
     void registrationSchedule(Integer gcsNo);
     void cancelSchedule(Integer gcsNo);
     int updateSchedule(Integer gcsNo, GroupCourse groupCourse , Trainer trainer , Date gcsStart , Date gcsEnd , Integer minLimit , Integer maxLimit , Integer regCount , Integer gcsPrice , Integer gcsStatus , String gcsDelayReason , GroupCourseSchedule relatedGcsNo);
-    void updateStatus(Integer gcsNo);
+    void updateStatus(Integer status , Integer gcsNo);
     GroupCourseSchedule findByGcsNo(Integer GcsNo);
     List<GroupCourseSchedule> getAll();
     List<GroupCourseSchedule> getAll(Integer classType , Integer status , Integer currentPage);
@@ -22,6 +22,7 @@ public interface GroupGourseScheduleService {
     List<GroupCourseSchedule> getListSchedule(Integer classType , Integer status);
     List<GroupCourseSchedule> getOffSchedule();
     List<GroupCourseSchedule> getAllUpSchedule();
+    List<GroupCourseSchedule> getAllReview();
     int getPageTotal(Integer classType ,Integer status);
 
 }

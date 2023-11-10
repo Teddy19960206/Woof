@@ -4,6 +4,7 @@ import com.woof.groupcourseschedule.entity.GroupCourseSchedule;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import org.hibernate.query.NativeQuery;
 import org.hibernate.query.Query;
 
 import javax.persistence.TypedQuery;
@@ -52,10 +53,11 @@ public class GroupCourseScheduleDAOImpl implements GroupCourseScheduleDAO{
     }
 
     @Override
-    public void updateStatus(Integer gcsNo) {
-        String sql = "UPDATE group_course_schedule SET GCS_STATUS = 0 WHERE GCS_NO = ?";
+    public void updateStatus(Integer status , Integer gcsNo) {
+        String sql = "UPDATE group_course_schedule SET GCS_STATUS = ? WHERE GCS_NO = ?";
         Query query = getSession().createSQLQuery(sql);
-        query.setParameter(1, gcsNo);
+        query.setParameter(1, status);
+        query.setParameter(2, gcsNo);
         query.executeUpdate();
     }
 
@@ -111,10 +113,25 @@ public class GroupCourseScheduleDAOImpl implements GroupCourseScheduleDAO{
         return query.list();
     }
 
+//    取得上架中 且 結束時間 大於等於 現在時間的資料
     @Override
     public List<GroupCourseSchedule> getUpStatus() {
-        String hql = "FROM GroupCourseSchedule gcs WHERE gcs.gcsStatus = 1";
+        String hql = "FROM GroupCourseSchedule gcs WHERE gcs.gcsStatus = 1 AND gcs.gcsEnd < NOW()";
         Query<GroupCourseSchedule> query = getSession().createQuery(hql , GroupCourseSchedule.class);
+
+        return query.list();
+    }
+
+//    取得審核中的課程 status 6
+
+    @Override
+    public List<GroupCourseSchedule> getReviewSchedule(){
+
+        String sql = "SELECT * FROM group_course_schedule gcs WHERE gcs.gcs_status = 6 AND DATE_ADD(gcs.gcs_end, INTERVAL 1 DAY) <= CURRENT_DATE";
+
+        NativeQuery query =getSession().createNativeQuery(sql)
+                .addEntity(GroupCourseSchedule.class);
+
 
         return query.list();
     }
