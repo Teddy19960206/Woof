@@ -74,16 +74,31 @@ request.setCharacterEncoding("UTF-8");
                         <td>${all.orderTotalPrice}</td>
                         <td>${all.actualprice}</td>
                         <td>
-						    <c:choose>
-						        <c:when test="${all.orderStatus == 0}">成立</c:when>
-						        <c:when test="${all.orderStatus == 1}">出貨</c:when>
-						        <c:when test="${all.orderStatus == 2}">完成</c:when>
-						        <c:when test="${all.orderStatus == 3}">取消</c:when>
-						        <c:when test="${all.orderStatus == 4}">未付款</c:when>
-						        <c:otherwise>未知狀態</c:otherwise>
-						    </c:choose>
-						</td>
-                        <td>
+            <span class="status-text">
+                <c:choose>
+                    <c:when test="${all.orderStatus == 0}">成立</c:when>
+                    <c:when test="${all.orderStatus == 1}">出貨</c:when>
+                    <c:when test="${all.orderStatus == 2}">完成</c:when>
+                    <c:when test="${all.orderStatus == 3}">取消</c:when>
+                    <c:when test="${all.orderStatus == 4}">未付款</c:when>
+                </c:choose>
+            </span>
+            <select class="status-select" style="display:none;">
+                <option value="0" ${all.orderStatus == 0 ? 'selected' : ''}>成立</option>
+                <option value="1" ${all.orderStatus == 1 ? 'selected' : ''}>出貨</option>
+                <option value="2" ${all.orderStatus == 2 ? 'selected' : ''}>完成</option>
+                <option value="3" ${all.orderStatus == 3 ? 'selected' : ''}>取消</option>
+                <option value="4" ${all.orderStatus == 4 ? 'selected' : ''}>未付款</option>
+            </select>
+      				  </td>
+			<td>
+            <button class="edit-btn btn btn-primary " style="font-size: 10px; min-width: 50px;">修改</button>
+            <button class="save-btn btn btn-success" style="display:none; font-size: 10px;">確定修改</button>
+            <button class="cancel-btn btn btn-danger" style="display:none; font-size: 10px;">取消修改</button>
+        	</td>
+    </tr>
+</c:forEach>
+             
 <%--                             <form method="post" action="${pageContext.request.contextPath}/backend/faq/updatefaq.jsp"> --%>
 <%--                                 <input type="hidden" name="faqNo" value="${all.faqNo}"> --%>
 <!--                                 <input type="hidden" name="action" value="updatefaq"> -->
@@ -108,12 +123,11 @@ request.setCharacterEncoding("UTF-8");
 <!--                             </form> -->
 <!--                         </td> -->
 <!--                     </tr> -->
-                </c:forEach>
+<%--                 </c:forEach> --%>
             </tbody>
         </table>
 
-<%--         <p>currentPage=${currentPage}</p> --%>
-<%--         <p>faqPageQty=${faqPageQty}</p> --%>
+
     <c:if test="${currentPage > 1}">
 		<a class="btn btn-outline-secondary" href="${pageContext.request.contextPath}/shoporder?action=getAll&page=1">至第一頁</a>&nbsp;
 	</c:if>
@@ -132,9 +146,7 @@ request.setCharacterEncoding("UTF-8");
     </div>
 
 <%@ include file="/backend/backfoot.file" %>
+<script src="${pageContext.request.contextPath}/backend/shoporder/js/getAllshoporder.js"></script>
 
-<!--     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script> -->
-<!--     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script> -->
-<!--     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
 </body>
 </html>

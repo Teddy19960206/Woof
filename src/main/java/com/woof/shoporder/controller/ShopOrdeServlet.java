@@ -45,14 +45,15 @@ public class ShopOrdeServlet extends HttpServlet {
 			forwardPath = getAll(request, response);
 			break;
 
+//			case "updatefaq":
+//			forwardPath = updatefaq(request, response);
+//			break;
+//			
 //		case "addfaq":
 //			forwardPath = addfaq(request, response);
 //			break;
-//
-//		case "updatefaq":
-//			forwardPath = updatefaq(request, response);
-//			break;
 
+			
 		//全部不成立會跑到這邊	
 		default:
 			forwardPath = "/backend/index.jsp";
@@ -66,17 +67,14 @@ public class ShopOrdeServlet extends HttpServlet {
 
 	private String getAll(HttpServletRequest request , HttpServletResponse response) {
 
-//		List<Faq> all = faqService.getAllFaq();
-//		request.setAttribute("all", all);
-		
 		String page = request.getParameter("page");
 		int currentPage = (page == null) ? 1 : Integer.parseInt(page);
 		
 		//會卡暫存視情況隱藏
-//		if (request.getSession().getAttribute("faqPageQty") == null) {
+		if (request.getSession().getAttribute("faqPageQty") == null) {
 			int shopOrderPageQty = shopOrderService.getPageTotal();
 			request.getSession().setAttribute("shopOrderPageQty", shopOrderPageQty);
-//		}
+		}
 		
 		List<ShopOrder> all = shopOrderService.getAllShopOrder(currentPage);
 		
@@ -86,6 +84,28 @@ public class ShopOrdeServlet extends HttpServlet {
 		return "/backend/shoporder/getAllshoporder.jsp";
 	}
 
+	
+	private String updatefaq(HttpServletRequest request , HttpServletResponse response) {
+
+		int shopOrderNo = Integer.parseInt(request.getParameter("faqNo"));
+		int orderStatus = Integer.parseInt(request.getParameter("orderStatus"));
+		Boolean hasReturn = Boolean.parseBoolean(request.getParameter("hasReturn"));
+
+		int result = shopOrderService.updateShopOrder(orderStatus, hasReturn);		
+//		request.setAttribute("result", result);
+		
+//		System.out.println(result);
+
+		if (result > 0) {
+			System.out.println("更新成功");
+		} else {
+			System.out.println("更新失敗");
+		}
+		
+		response.setContentType("application/json;charset=UTF-8");
+		return "/backend/faq/faqfirst.jsp";
+	}
+	
 	
 //	private String addfaq(HttpServletrequestuest request, HttpServletresponseonse response) {
 //
@@ -110,27 +130,7 @@ public class ShopOrdeServlet extends HttpServlet {
 //		return "/backend/faq/addfaq.jsp";
 //	}
 //
-//	private String updatefaq(HttpServletrequestuest request, HttpServletresponseonse response) {
-//
-//		int faqNo = Integer.parseInt(request.getParameter("faqNo"));
-//		String faqClass = request.getParameter("faqClass");
-//		String faqTitle = request.getParameter("faqTitle");
-//		String faqContent = request.getParameter("faqContent");
-//
-//		int result = faqService.updateFaq(faqNo, faqClass, faqTitle, faqContent);		
-////		request.setAttribute("result", result);
-//		
-////		System.out.println(result);
-//
-//		if (result > 0) {
-//			System.out.println("更新成功");
-//		} else {
-//			System.out.println("更新失敗");
-//		}
-//		
-//		response.setContentType("application/json;charset=UTF-8");
-//		return "/backend/faq/faqfirst.jsp";
-//	}
+
 
 	
 
