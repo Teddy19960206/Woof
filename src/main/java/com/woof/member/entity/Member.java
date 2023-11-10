@@ -37,12 +37,6 @@ public class Member implements java.io.Serializable {
 	@OneToMany(mappedBy = "member" , cascade = CascadeType.ALL)
 	private Set<ClassOrder> getClassOrders;
 
-
-	@JsonIgnore
-	@OneToMany(mappedBy = "member" , cascade = CascadeType.ALL)
-	private Set<CommentReport> getCommentReports;
-
-
 	@Expose
 	@Column(name = "MEM_NAME", nullable = false)
 	private String memName;
