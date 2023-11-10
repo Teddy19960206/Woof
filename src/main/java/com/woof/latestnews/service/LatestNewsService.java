@@ -11,7 +11,7 @@ public interface LatestNewsService {
 
 	void deleteLatestNews(Integer lnNo);
 
-	LatestNews findLatestNewsByNo(Integer lnNo);
+	LatestNews findLatestNewsByLnNo(Integer lnNo);
 
 	List<LatestNews> getAllLatestNews();
 }
