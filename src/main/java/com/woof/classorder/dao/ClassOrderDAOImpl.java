@@ -30,6 +30,11 @@ public class ClassOrderDAOImpl implements ClassOrderDAO{
 	}
 
 	@Override
+	public ClassOrder findByCoNo(Integer coNo) {
+		return getSession().get(ClassOrder.class, coNo);
+	}
+
+	@Override
 	public int update(ClassOrder classOrder) {
 		try {
 			getSession().merge(classOrder);
@@ -39,11 +44,7 @@ public class ClassOrderDAOImpl implements ClassOrderDAO{
 		}
 	}
 
-	@Override
-	public ClassOrder findByCoNo(Integer coNo) {
-		return getSession().get(ClassOrder.class, coNo);
-	}
-
+	
 	@Override
 	public List<ClassOrder> getAll() {
 		return getSession().createQuery("FROM ClassOrder", ClassOrder.class).list();

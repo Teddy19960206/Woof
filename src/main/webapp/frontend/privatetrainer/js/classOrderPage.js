@@ -25,7 +25,7 @@ $(function () {
 async function fetchData(coNo){
     try{
         let coNo = $("#coNo").val();
-        let url = `${projectName}/groupOrder/getOneOrder`;
+        let url = `${projectName}/classorder/getOneOrder`;
         const response = await fetch(url , {
             method: "POST",
             headers: {

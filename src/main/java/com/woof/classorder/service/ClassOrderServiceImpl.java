@@ -1,11 +1,13 @@
 package com.woof.classorder.service;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.hibernate.Session;
 
 import com.woof.classorder.dao.ClassOrderDAOImpl;
 import com.woof.classorder.entity.ClassOrder;
+import com.woof.member.entity.Member;
 import com.woof.classorder.dao.ClassOrderDAO;
 import com.woof.util.HibernateUtil;
 
@@ -17,19 +19,24 @@ public class ClassOrderServiceImpl implements ClassOrderService{
 		dao = new ClassOrderDAOImpl(HibernateUtil.getSessionFactory());
 	}
 
+	
+
 	@Override
-	public ClassOrder addClassOrder(ClassOrder classOrder) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-
-		session.beginTransaction();
-		if (dao.insert(classOrder) == 1){
-
-			session.getTransaction().commit();
-			return classOrder;
-		}
-		session.getTransaction().rollback();
-		return null;
+	public int addClassOrder(Member member, Integer coBc, Integer coPaymentMethod, Integer coSmmp, Timestamp coTime,
+			Integer coStatus, Integer actualAmount) {
+		
+		ClassOrder classOrder = new ClassOrder();
+		classOrder.setMember(member);
+		classOrder.setCoBc(coBc);
+		classOrder.setCoPaymentMethod(coPaymentMethod);
+		classOrder.setCoSmmp(coSmmp);
+		classOrder.setCoTime(coTime);
+		classOrder.setCoStatus(coStatus);
+		classOrder.setActualAmount(actualAmount);
+		return dao.insert(classOrder);
 	}
+
+
 
 	@Override
 	public ClassOrder updateClassOrder(ClassOrder classOrder) {
@@ -49,10 +56,7 @@ public class ClassOrderServiceImpl implements ClassOrderService{
 
 	@Override
 	public ClassOrder findClassOrderByCoNo(Integer coNo) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		session.beginTransaction();
-		
-		return null;
+		return dao.findByCoNo(coNo);
 	}
 
 	@Override

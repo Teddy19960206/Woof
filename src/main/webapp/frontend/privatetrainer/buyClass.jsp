@@ -34,7 +34,7 @@
                     <div class="mb-md-3  row mt-5  mx-auto text-xl-start text-center">
                         <label for="member" class="col-xl-6 col-12 col-form-label">會員帳號</label>
                         <div class="col-xl-6 col-12">
-                            <input type="text" readonly class="form-control-plaintext text-center" id="member" value="${member.memNo}">
+                            <input type="text" readonly class="form-control-plaintext text-center" id="member" name="member" value="${member.memNo}">
                         </div>
                     </div>
 
@@ -56,7 +56,7 @@
         </div>
 
         <div class="col-md-7 col-lg-8">
-            <form class="bg-white p-5 rounded-3" method="post" action="${pageContext.request.contextPath}/groupOrder/check">
+            <form class="bg-white p-5 rounded-3" method="post" action="${pageContext.request.contextPath}/classorder/check">
                 <%-- 報名課程資訊 --%>
 
                 <div class="row">
@@ -83,7 +83,7 @@
                             </label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="smmp" id="notUseSmmp"  checked>
+                            <input class="form-check-input" type="radio" name="smmp" id="notUseSmmp"  checked value="0" >
                             <label class="form-check-label" for="notUseSmmp">
                                 不使用毛毛幣
                             </label>
