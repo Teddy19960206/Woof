@@ -72,9 +72,10 @@ public class ShopOrdeServlet extends HttpServlet {
 		String page = request.getParameter("page");
 		int currentPage = (page == null) ? 1 : Integer.parseInt(page);
 		
+		//會卡暫存視情況隱藏
 //		if (request.getSession().getAttribute("faqPageQty") == null) {
 			int shopOrderPageQty = shopOrderService.getPageTotal();
-			request.getSession().setAttribute("fshopOrderPageQty", shopOrderPageQty);
+			request.getSession().setAttribute("shopOrderPageQty", shopOrderPageQty);
 //		}
 		
 		List<ShopOrder> all = shopOrderService.getAllShopOrder(currentPage);
@@ -82,9 +83,10 @@ public class ShopOrdeServlet extends HttpServlet {
 		request.setAttribute("all", all);
 		request.setAttribute("currentPage", currentPage);
 		
-		return "/backend/faq/getAll.jsp";
+		return "/backend/shoporder/getAllshoporder.jsp";
 	}
-//
+
+	
 //	private String addfaq(HttpServletrequestuest request, HttpServletresponseonse response) {
 //
 //		String faqClass = request.getParameter("faqClass");
