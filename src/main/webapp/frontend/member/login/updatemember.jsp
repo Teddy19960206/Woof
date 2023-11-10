@@ -306,12 +306,12 @@ body {
 					<div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="radio" name="memStatus"
-								id="memStatus" value="0"> <label
+								id="memStatus" value="0" disabled> <label
 								class="form-check-label" for="memStatus">°±Åv</label>
 						</div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="radio" name="memStatus"
-								id="memStatus" value="1" checked> <label
+								id="memStatus" value="1" disabled> <label
 								class="form-check-label" for="memStatus">¥¿±`</label>
 						</div>
 					</div>
