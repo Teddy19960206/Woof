@@ -48,7 +48,7 @@
 	<filter-mapping>
 		<filter-name>LoginFilter1</filter-name>
 		<url-pattern>/administrator/*</url-pattern>
-		<url-pattern>/backend/index.html</url-pattern>
+		<url-pattern>/backend/*</url-pattern>
 		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>FORWARD</dispatcher>
 		<dispatcher>INCLUDE</dispatcher>

@@ -24,4 +24,6 @@ public interface TrainerService {
 
 	Set<Skill> getTrainerSkills(Integer trainerNo);
 
+	Trainer getByAdmin(String adminNo);
+
 }

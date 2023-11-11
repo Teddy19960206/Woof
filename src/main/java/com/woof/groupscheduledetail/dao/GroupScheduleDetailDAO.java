@@ -15,4 +15,5 @@ public interface GroupScheduleDetailDAO {
     List<GroupScheduleDetail> getByGroupSchedule(Integer gcsNo);
     List<GroupScheduleDetail> getAll();
     List<GroupScheduleDetail> getByDate(Integer year  , Integer month);
+    List<GroupScheduleDetail> getByDate(Integer year  , Integer month , Integer trainerNo);
 }

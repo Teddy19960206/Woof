@@ -9,7 +9,7 @@
             text-align: center;
         }
         table{
-            font-size: .8rem;
+            font-size: .9rem;
         }
     </style>
     <title>寵毛導師 Woof | 團體課程報名資訊</title>

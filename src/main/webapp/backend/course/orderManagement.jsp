@@ -7,7 +7,7 @@
 <body>
 <%@ include file="/backend/backbody.file" %>
 
-<div class="container mt-2" id="allPage">
+<div class="container py-2" id="allPage">
     <h1 align="center">課堂檔期訂單管理</h1>
     <div class="my-2 mx-auto">
         <div class="row">
