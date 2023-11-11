@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <%@ include file="/meta.file" %>
 <title>會員中心</title>
 <script type="text/javascript">
 //表單點擊找出對應的function//
@@ -21,40 +22,39 @@ body {
 	background-color: #FFF3E0;
 }
 
-.card, .navbar, .navbar-collapse {
-	background-color: sandybrown;
+.card {
+	border: none;
+	border-radius: 20px;
+	background-color: #f8f9fa;
 }
+
+.profile-img {
+	width: 100px;
+	height: 100px;
+	border-radius: 50%;
+}
+
+.icon-btn {
+	font-size: 1.5rem;
+	color: #495057;
+}
+
+.icon-btn:hover {
+	color: #0056b3;
+}
+
+.update-btn {
+	width: 50px; /* or whatever width you want */
+}
+.list-group-item {
+            border: none;
+        }
 </style>
 </head>
 <body>
-	<nav class="navbar navbar-expand-lg navbar-light">
-		<a class="navbar-brand" href="#">會員中心</a>
-		<button class="navbar-toggler" type="button" data-toggle="collapse"
-			data-target="#navbarNav" aria-controls="navbarNav"
-			aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-		<div class="collapse navbar-collapse" id="navbarNav">
-			<ul class="navbar-nav">
-				<li class="nav-item active"><a class="nav-link" href="#">首頁
-						<span class="sr-only">(current)</span>
-				</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">個人資料管理</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">訂單管理</a></li>
-				<li class="nav-item">
-					<form method="POST"
-						action="${pageContext.request.contextPath}/login"
-						style="all: unset;">
-						<input type="hidden" name="action" value="memberlogout">
-						<button class="nav-link btn btn-link"
-							style="color: inherit; text-decoration: none;" id="logoutButton"
-							type="submit">登出</button>
-					</form>
-				</li>
-			</ul>
-		</div>
-	</nav>
-
+	<%@ include file="/Header.file"%>
+	<jsp:useBean id="memberService" scope="page"
+		class="com.woof.member.service.MemberServiceImpl" />
 	<div class="container mt-5">
 		<div class="row">
 			<div class="col-12 col-md-4">
@@ -67,15 +67,15 @@ body {
 					<ul class="list-group list-group-flush">
 						<li class="list-group-item">
 							<form method="post"
-								action="${pageContext.request.contextPath}/member.do"
+								action="${pageContext.request.contextPath}/member1.do"
 								style="margin-bottom: 0px;">
 								<input type="hidden" name="action" value="update"> <input
 									type="hidden" name="memNo" value="${member.memNo}"> <input
-									type="button" class="update-btn" value="修改"
+									type="button" class="btn btn-primary btn-sm" value="更新個人資料"
 									onclick="processUpdate({memNo:'${member.memNo}'});">
 							</form>
 						</li>
-<!-- 						<li class="list-group-item">變更密碼</li> -->
+						<!-- <li class="list-group-item">變更密碼</li> -->
 					</ul>
 				</div>
 			</div>
@@ -101,7 +101,7 @@ body {
 									<th scope="row">照片</th>
 									<td><img
 										src="${pageContext.request.contextPath}/DBPngReader?action=member&id=${member.memNo}"
-										class="img-thumbnail" style="width: 100px; height: 100px">
+										class="profile-img">
 									</td>
 								</tr>
 								<tr>

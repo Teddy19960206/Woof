@@ -59,7 +59,7 @@ th, td {
 				<h3>員工資料 - listOneEmp.jsp</h3>
 				<h4>
 					<!-- <a href="/frontend/member/selectmember.jsp">回首頁</a> -->
-					<button type="button" onclick="history.back()">回首頁</button>
+					<button type="button" onclick="history.back()">返回</button>
 				</h4>
 			</td>
 		</tr>

@@ -63,7 +63,7 @@ th, td {
    <td>
     <h3>所有會員資料 - listAllEmp.jsp</h3>
     <h4>
-     <a href="/woof/backend/index.html">回首頁</a>
+     <a href="/woof/backend/index.jsp">回首頁</a>
     </h4>
    </td>
   </tr>
@@ -106,7 +106,6 @@ th, td {
       <input type="hidden" name="action" value="update"> 
       <input type="hidden" name="memNo" value="${member.memNo}"> 
       <input type="button" class="update-btn" value="修改" onclick="processUpdate({memNo:'${member.memNo}'});">
-      
      </form>
     </td>
 <!--     <td> -->
