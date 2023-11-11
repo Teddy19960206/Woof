@@ -45,7 +45,7 @@ body {
 <body>
 	<div class="login-container">
 		<h3 class="login-header text-center">
-			<b>會員登入</b>
+			<b>管理員登入</b>
 		</h3>
 		<form method="POST" action="${pageContext.request.contextPath}/logout1" onsubmit="return validateForm()">
 			<div class="error-msg">${errorMsgs.administratorlogin}</div>
@@ -71,9 +71,7 @@ body {
 					for="remember"><b>記住帳號</b></label>
 			</div>
 		</form>
-		<a href='/woof/frontend/administrator/administratorAdd.jsp'
-			class="text-decoration-none"><b>註冊會員</b></a> <a href="#"
-			class="text-decoration-none"> <b>忘記密碼</b></a>
+		</a> <a href="#" class="text-decoration-none"> <b>忘記密碼</b></a>
 	</div>
 
 	<script>

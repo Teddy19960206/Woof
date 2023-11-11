@@ -6,6 +6,7 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.*;
 
 import com.woof.administrator.entity.Administrator;
+import com.woof.member.entity.Member;
 @WebFilter("/administrator/*")
 public class LoginFilter1 implements Filter {
 
@@ -29,13 +30,20 @@ public class LoginFilter1 implements Filter {
 		// 【從 session 判斷此user是否登入過】
 		Object admin = session.getAttribute("administrator");
 		
-		System.out.println((Administrator)admin );
+		
 		if (admin  == null) {
 			session.setAttribute("location", req.getRequestURI());
 			res.sendRedirect(req.getContextPath() + "/frontend/administrator/logout1.jsp");
 			return;
 		} else {
-			chain.doFilter(request, response);
+			// 檢查會員是否被停權
+			if (((Administrator) admin).getAdminStatus() == 2) {
+				// 如果會員被停權，重定向到停權通知頁面
+				res.sendRedirect(req.getContextPath() + "/frontend/administrator/adminsuspend.jsp");
+				return;
+			} else {
+				chain.doFilter(request, response);
+			}
 		}
 	}
 }
