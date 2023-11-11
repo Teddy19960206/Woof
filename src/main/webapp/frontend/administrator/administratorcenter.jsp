@@ -9,7 +9,7 @@
 <script type="text/javascript">
 //表單點擊找出對應的function//
   function processUpdate(jsonData){
-   window.location.href = "<%=request.getContextPath()%>/frontend/administrator/administratorUpdate.jsp?adminNo=" + jsonData.adminNo ;
+   window.location.href = " <%=request.getContextPath()%>/frontend/administrator/login/updateadministrator.jsp?admiNo=" + jsonData.adminNo ;
   }
 </script>
 <link rel="stylesheet"
@@ -39,15 +39,14 @@ body {
 				<li class="nav-item active"><a class="nav-link" href="#">首頁
 						<span class="sr-only">(current)</span>
 				</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">訓練師個人資料管理</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">管理員個人資料管理</a></li>
+				<li class="nav-item"><a class="nav-link" href="#">管理員資料管理</a></li>
+				<li class="nav-item"><a class="nav-link" href="#">訓練師資料管理</a></li>
 				<li class="nav-item">
 					<form method="POST"
 						action="${pageContext.request.contextPath}/logout1"
 						style="all: unset;">
-						<input type="hidden" name="action" value="administratorlogout">
-						<button class="nav-link btn btn-link"
-							style="color: inherit; text-decoration: none;" id="logoutButton"
+						<input type="hidden" name="action1" value="administratorlogout">
+						<button class="btn btn-outline-secondary"style="background-color: #FABA91; font-family: 'Noto Sans TC', sans-serif; font-weight: 700; " id="logoutButton"
 							type="submit">登出</button>
 					</form>
 				</li>
@@ -69,13 +68,13 @@ body {
 							<form method="post"
 								action="${pageContext.request.contextPath}/administrator.do"
 								style="margin-bottom: 0px;">
-								<input type="hidden" name="action1" value="update"> <input
+								<input type="hidden" name="action" value="update"> <input
 									type="hidden" name="adminNo" value="${administrator.adminNo}"> <input
 									type="button" class="update-btn" value="修改"
 									onclick="processUpdate({adminNo:'${administrator.adminNo}'});">
 							</form>
 						</li>
-						<li class="list-group-item">變更密碼</li>
+<!-- 						<li class="list-group-item">變更密碼</li> -->
 					</ul>
 				</div>
 			</div>
@@ -86,7 +85,7 @@ body {
 						<table class="table table-bordered table-hover">
 							<tbody>
 								<tr>
-									<th scope="row">管理員編號</th>
+									<th scope="row">編號</th>
 									<td>${administrator.adminNo}</td>
 								</tr>
 								<tr>
@@ -105,7 +104,7 @@ body {
 									</td>
 								</tr>
 								<tr>
-									<th scope="row">email</th>
+									<th scope="row">信箱</th>
 									<td>${administrator.adminEmail}</td>
 								</tr>
 								<tr>
@@ -125,16 +124,28 @@ body {
 									<td>${administrator.adminBd}</td>
 								</tr>
 								<tr>
-									<th scope="row">毛毛幣</th>
-									<td>${member.momoPoint}</td>
+									<th scope="row">緊急聯絡人姓名</th>
+									<td>${administrator.emergencyContactName}</td>
 								</tr>
 								<tr>
-									<th scope="row">課堂數</th>
-									<td>${member.totalClass}</td>
+									<th scope="row">緊急連絡人電話</th>
+									<td>${administrator.emergencyContactel}</td>
+								</tr>
+								<tr>
+									<th scope="row">到職日</th>
+									<td>${administrator.adminHd}</td>
+								</tr>
+								<tr>
+									<th scope="row">離職日</th>
+									<td>${administrator.adminBd}</td>
 								</tr>
 								<tr>
 									<th scope="row">狀態</th>
-									<td>${member.memStatus}</td>
+									<td>${administrator.adminStatus}</td>
+								</tr>
+								<tr>
+									<th scope="row">功能權限</th>
+									<td>${administrator.adminFuncName}</td>
 								</tr>
 							</tbody>
 						</table>

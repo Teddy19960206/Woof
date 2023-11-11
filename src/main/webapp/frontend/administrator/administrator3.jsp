@@ -63,6 +63,9 @@
   function processUpdate(jsonData){
 	  window.location.href = " <%=request.getContextPath()%>/frontend/administrator/administratorUpdate.jsp?adminNo=" + jsonData.adminNo ;
   }
+  function processUpdate2(jsonData){
+	  window.location.href = " <%=request.getContextPath()%>/frontend/administrator/administratorUpdate2.jsp?adminNo=" + jsonData.adminNo ;
+  }
   function processDelete(jsonData){
  	 $.ajax({
      //指定http參數傳輸格式為POST
@@ -97,6 +100,7 @@
 		<h5>${administrator.adminName}</h5>
 	</div>
      		<td><input type="button" value="修改" onclick="processUpdate({adminNo:'${administrator.adminNo}'});"></td> 
+     		<td><input type="button" value="修改2" onclick="processUpdate2({adminNo:'${administrator.adminNo}'});"></td> 
      		<td><input type="button" value="刪除" onclick="processDelete({ADMIN_NO:'${administrator.adminNo}'});"></td>	
     </c:forEach>
 </body>
