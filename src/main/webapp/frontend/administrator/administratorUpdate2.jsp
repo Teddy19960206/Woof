@@ -49,6 +49,12 @@
 	<form method="post" action="<%=request.getContextPath()%>/administrator.do?action=update2">
 		<table>
 		<tr>
+			<th>管理員帳號</th>
+			<td>
+				<input type="text" name="ADMIN_NO" id="ADMIN_NO" value="<%= request.getParameter("adminNo")%>" readonly>
+			</td>
+		</tr>
+		<tr>
 			<th>管理員密碼</th>
 			<td>
 				<input type="password" name="ADMIN_PASSWORD" id="ADMIN_PASSWORD" >

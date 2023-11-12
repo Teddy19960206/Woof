@@ -34,7 +34,13 @@ public class AdministratorServiceImpl implements AdministratorService, AppServic
 		}
 		return null;
 	}
-
+	public Administrator updateAdministrator2(Administrator administrator) {
+		int i = dao.update(administrator);
+		if (i == 1) {
+			return administrator;
+		}
+		return null;
+	}
 	@Override
 	public void deleteAdministrator(String adminNo) {
 		dao.delete(adminNo);
