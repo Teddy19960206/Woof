@@ -158,7 +158,7 @@ async function getOrder(page){
         show.html(html);
 
     }catch (error){
-        console.log(error)
+        console.error('Error', error);
     }
 }
 
@@ -184,7 +184,7 @@ async function getGroupCourse(){
         groupClass.html(html);
 
     }catch (error){
-        console.log(error);
+        console.error('Error', error);
     }
 }
 
@@ -317,7 +317,7 @@ async function fetchDetail(id){
         html = arr.join("");
         allPage.innerHTML = html;
     }catch (error){
-        console.log(error);
+        console.error('Error', error);
     }
 }
 
@@ -344,18 +344,28 @@ async function modifyFetch(id , status){
         const data = await response.json();
 
         if (data.message){
-            alert(data.message);
+
+            await Swal.fire({
+                title: "Good job!",
+                text: `${data.message}`,
+                icon: "success"
+            });
+
         }else{
             let str = "";
             data.forEach(message =>{
                 str += message +"\n"
             })
-            alert(str);
+            await Swal.fire({
+                title: "Good job!",
+                text: `${str}`,
+                icon: "error"
+            });
         }
         window.location.href = `${projectName}/backend/course/orderManagement.jsp`;
 
     }catch (error){
-        console.log(error);
+        console.error('Error', error);
     }
 
 }
@@ -386,18 +396,27 @@ async function refundFetch(id){
         const data =await response.json();
 
         if (data.message){
-            alert(data.message);
+            await Swal.fire({
+                icon: "success",
+                text: `${data.message}`,
+                title: "Good job!"
+            });
+
         }else{
             let str = "";
             data.forEach(message =>{
                 str += message +"\n"
             })
-            alert(str);
+            await Swal.fire({
+                icon: "error",
+                title: "Good job!",
+                text: `${str}`
+            });
         }
         window.location.href = `${projectName}/backend/course/orderManagement.jsp`;
 
     }catch (error){
-        console.log(error);
+        console.error('Error', error);
     }
 
 }

@@ -381,9 +381,17 @@ async function detailDelete(id){
         const data = await response.json();
 
         if (data.message){
-            alert(data.message);
+            await Swal.fire({
+                icon: "success",
+                title: "Good job!",
+                text: `${data.message}`
+            });
         }else{
-            alert("刪除失敗");
+            await Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "刪除失敗"
+            });
         }
 
     }catch (error){

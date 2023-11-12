@@ -279,7 +279,7 @@ async function fetchDetailByDate(year , month){
         })
 
     }catch (error){
-        console.log(error)
+        console.error('Error', error);
     }
 
 }
@@ -310,25 +310,39 @@ async function addSchedule(){
             body: formData
         })
         if (!response.ok){
-            alert("新增失敗");
+
+            await Swal.fire({
+                icon: "error",
+                title: "異常",
+                text: "新增失敗",
+            });
             window.location.href = `${projectName}/backend/course/schedule.jsp`;
+
         }
         const data = await response.json();
 
         if (data.message) {
-            alert("新增成功");
-            window.location.href = `${projectName}/backend/course/schedule.jsp`;
+            await Swal.fire({
+                icon: "success",
+                title: "新增成功",
+                text: "恭喜'",
+            });
+
         }else if (data.length > 0){
             let str = "";
             data.forEach(message =>{
                 str += message +"\n"
             })
-            alert(str);
-            window.location.href = `${projectName}/backend/course/addSchedule.jsp`;
-        }
 
+            await Swal.fire({
+                icon: "error",
+                title: `${str}`,
+                text: "新增失敗",
+            });
+        }
+        window.location.href = `${projectName}/backend/course/schedule.jsp`;
     }catch (error){
-        console.log(error);
+        console.error('Error', error);
     }
 
 }

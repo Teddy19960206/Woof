@@ -27,7 +27,11 @@ $(document).on("click" , "button.modify-button" , async function (){
         editBtn.prop("disabled" , false);
         $(this).prop("disabled" , true);
     }else {
-        alert("更新失敗");
+        await Swal.fire({
+            title: "Oops...",
+            text: "更新失敗",
+            icon: "error"
+        });
     }
 });
 $(document).on("click" , "button.delete-button" , async function (){
@@ -36,10 +40,21 @@ $(document).on("click" , "button.delete-button" , async function (){
         let skillNo =  $(this).closest("tr").find("td").eq(0);
         let data = await deleteFetch(skillNo.text());
         if (data.message){
-            alert(data.message);
+
+            await Swal.fire({
+                title: "Good job!",
+                text: `${data.message}`,
+                icon: "success"
+            });
+
             $(this).closest("tr").remove();
         }else{
-            alert("刪除失敗")
+
+            await Swal.fire({
+                title: "Oops...",
+                text: "刪除失敗",
+                icon: "error"
+            });
         }
     }
 
@@ -68,7 +83,7 @@ async function modifyFetch(skillNo , skillName){
         return data;
 
     }catch (error){
-        console.log(error)
+        console.error('Error', error);
     }
 
 
@@ -87,7 +102,11 @@ async function deleteFetch(skillNo){
         })
 
         if (!response.ok){
-            alert("異常錯誤")
+            await Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "異常錯誤"
+            });
             return;
         }
 
@@ -96,7 +115,7 @@ async function deleteFetch(skillNo){
         return data;
 
     }catch (error){
-        console.log(error)
+        console.error('Error', error);
     }
 }
 
@@ -129,7 +148,11 @@ $(document).on("click", "button.add-button" , async function (){
         })
 
         if (!response.ok){
-            alert("新增失敗");
+            await Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "新增失敗"
+            });
             window.location.href = `${projectName}/backend/member/trainerSkill.jsp`;
             return;
         }
@@ -137,14 +160,22 @@ $(document).on("click", "button.add-button" , async function (){
         const data = await response.json();
 
         if (data.message){
-            alert(data.message);
+            await Swal.fire({
+                icon: "success",
+                title: "Good job!",
+                text: `${data.message}`
+            });
         }else{
-            alert("新增失敗");
+            await Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "新增失敗"
+            });
         }
         window.location.href = `${projectName}/backend/member/trainerSkill.jsp`;
 
     }catch (error){
-        console.log(error)
+        console.error('Error', error);
     }
 
 })

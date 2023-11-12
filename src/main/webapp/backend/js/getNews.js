@@ -41,7 +41,7 @@ async function countFetch(){
             getNews.disabled = false ;
         }
     }catch (error){
-        console.log(error)
+        console.error('Error', error);
     }
 }
 
@@ -107,7 +107,7 @@ async function newsInfoFetch(){
         }
 
     }catch (error){
-        console.log(error)
+        console.error('Error', error);
     }
 }
 
@@ -149,7 +149,7 @@ async function refundAllFetch(gcsNo){
         window.location.reload();
 
     }catch (error){
-        console.log(error)
+        console.error('Error', error);
     }
 
 

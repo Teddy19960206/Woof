@@ -143,7 +143,7 @@ async function fetchDetailByDate(year , month){
         })
 
     }catch (error){
-        console.log(error)
+        console.error('Error', error);
     }
 
 }
@@ -239,19 +239,28 @@ async function delayFetch(id , reason){
         const data = await response.json();
 
         if (data.message){
-            alert("延期更改成功");
-            window.location.href = `${projectName}/backend/course/schedule.jsp`;
+
+            await Swal.fire({
+                icon: "success",
+                title: "Good job!",
+                text: "延期更改成功"
+            });
         }else{
             let str = "";
             data.forEach(message =>{
                 str += message +"\n"
             })
-            alert(str);
-            window.location.href = `${projectName}/backend/course/schedule.jsp`;
+
+            await Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: `${str}`
+            });
         }
+        window.location.href = `${projectName}/backend/course/schedule.jsp`;
 
     }catch (error){
-        console.log(error)
+        console.error('Error', error);
     }
 }
 

@@ -97,7 +97,7 @@ async function fetchDetailByDate(year , month){
         })
 
     }catch (error){
-        console.log(error)
+        console.error('Error', error);
     }
 
 }
