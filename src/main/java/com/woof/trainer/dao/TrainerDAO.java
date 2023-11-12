@@ -32,5 +32,5 @@ public interface TrainerDAO {
 
 	Set<GroupScheduleDetail> groupScheduleDetails(Integer trainerNo);
 
-
+	Trainer getByAdmin(String adminNo);
 }

@@ -26,5 +26,6 @@ public interface GroupScheduleDetailService {
 
     List<GroupScheduleDetail> getDetailByDate(Integer year , Integer month);
 
+    List<GroupScheduleDetail> getDetailByDate(Integer year , Integer month , Integer trainerNo);
 
 }

@@ -3,7 +3,7 @@
 <html>
 <head>
     <%@ include file="/backend/backhead.file" %>
-    <title>新增班別</title>
+    <title>寵毛導師 Woof | 新增班別</title>
 </head>
 <body>
 <%@ include file="/backend/backbody.file" %>

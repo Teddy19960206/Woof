@@ -28,9 +28,9 @@ public class LoginFilter1 implements Filter {
 		// 【取得 session】
 		HttpSession session = req.getSession();
 		// 【從 session 判斷此user是否登入過】
-		Object admin = session.getAttribute("administrator");
-		
-		
+
+		Object admin = session.getAttribute("Administrator");
+
 		if (admin  == null) {
 			session.setAttribute("location", req.getRequestURI());
 			res.sendRedirect(req.getContextPath() + "/frontend/administrator/logout1.jsp");

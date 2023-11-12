@@ -95,8 +95,18 @@ public class GroupScheduleDetailDAOImpl implements GroupScheduleDetailDAO{
         Query query = getSession().createQuery(hql, GroupScheduleDetail.class);
         query.setParameter("year" , year);
         query.setParameter("month" , month);
-        List<GroupScheduleDetail> resultList = query.list();
 
-        return resultList;
+        return query.list();
+    }
+
+    @Override
+    public List<GroupScheduleDetail> getByDate(Integer year, Integer month, Integer trainerNo) {
+
+        String hql  = "FROM GroupScheduleDetail gcsd WHERE YEAR(classDate) = :year and MONTH(classDate) = :month and gcsd.trainer.trainerNo = :trainerNo";
+        Query query = getSession().createQuery(hql, GroupScheduleDetail.class);
+        query.setParameter("year" , year);
+        query.setParameter("month" , month);
+        query.setParameter("trainerNo" , trainerNo);
+        return query.list();
     }
 }

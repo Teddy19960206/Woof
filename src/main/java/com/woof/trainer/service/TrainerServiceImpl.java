@@ -74,6 +74,11 @@ public class TrainerServiceImpl  implements TrainerService{
 	public Set<Skill> getTrainerSkills(Integer trainerNo) {
 		return dao.getSkillsList(trainerNo);
 	}
+
+	@Override
+	public Trainer getByAdmin(String adminNo) {
+		return dao.getByAdmin(adminNo);
+	}
 }
 
 
