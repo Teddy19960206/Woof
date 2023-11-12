@@ -1,0 +1,27 @@
+div#calendar {
+
+    padding: 0;
+    font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
+    font-size: 14px;
+}
+
+#calendar {
+    max-height: 75vh;
+    width: auto;
+    margin: 0px;
+    margin-top:10px;
+    padding-right: 30px;
+    z-index: -1;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+div#showDate{
+    font-size: 30px;
+}
+.fc-event, .event-title {
+    padding: 0 1px;
+    white-space: normal;
+}

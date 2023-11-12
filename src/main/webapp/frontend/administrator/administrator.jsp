@@ -119,6 +119,8 @@ section {
 .swiper-3d .swiper-slide-shadow-right {
   background-image: none;
 }
+
+
 </style>
 
 <head>
@@ -156,6 +158,9 @@ section {
   //表單點擊找出對應的function
   function processUpdate(jsonData){
 	  window.location.href = " <%=request.getContextPath()%>/frontend/administrator/administratorUpdate.jsp?adminNo=" + jsonData.adminNo ;
+  }
+  function processUpdate2(jsonData){
+	  window.location.href = " <%=request.getContextPath()%>/frontend/administrator/administratorUpdate2.jsp?adminNo=" + jsonData.adminNo ;
   }
   function processDelete(jsonData){
  	 $.ajax({
@@ -207,8 +212,8 @@ section {
               </div>
          </div>
 	
-<%--     		<td><input type="button" value="修改" onclick="processUpdate({adminNo:'${administrator.adminNo}'});"></td> --%>
-<%--     		<td><input type="button" value="刪除" onclick="processDelete({ADMIN_NO:'${administrator.adminNo}'});"></td>	 --%>
+<%--     		<td><input type="button" value="修改" onclick="processUpdate({adminNo:'${administrator.adminNo}'});"></td>   --%>
+<%--     	<td><input type="button" value="刪除" onclick="processDelete({ADMIN_NO:'${administrator.adminNo}'});"></td>	  --%>
     </c:forEach>
           </div>
           <div class="swiper-pagination"></div>

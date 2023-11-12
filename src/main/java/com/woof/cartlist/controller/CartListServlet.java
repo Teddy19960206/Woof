@@ -28,7 +28,8 @@ public class CartListServlet extends HttpServlet {
                 }
 
                 //顯示為什麼在前端跑不出來
-                System.out.println("cartJson: " + cartJson);
+                System.out.println("redis cartJson: " + cartJson);
+                
                 
                 
                 // 設置響應

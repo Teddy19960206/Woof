@@ -122,8 +122,7 @@ body {
 			<a href="/woof/index.html" class="btn btn-light btn-sm"
 				style="position: absolute; top: 10px; right: 20px;">回首頁</a>
 			<form method="post"
-				action="${pageContext.request.contextPath}/member.do"
-				enctype="multipart/form-data" accept-charset="UTF-8">
+		action="${pageContext.request.contextPath}/member1.do" enctype="multipart/form-data" accept-charset="UTF-8">
 				<!-- 其他表單元素 -->
 
 				<div class="form-group">
@@ -134,7 +133,7 @@ body {
 								id="memNo" size="45" />
 						</div>
 					</div>
-					<small class="error-msg">${errorMsgs.memStatus}</small>
+					<small class="error-msg">${errorMsgs.memNo}</small>
 				</div>
 				<div class="form-group">
 					<label for="memName">會員姓名:</label>
@@ -144,23 +143,23 @@ body {
 								id="memName" size="45" />
 						</div>
 					</div>
-					<small class="error-msg">${errorMsgs.memStatus}</small>
+					<small class="error-msg">${errorMsgs.memName}</small>
 				</div>
 				<div class="form-group">
 					<label for="memGender">性別:</label>
 					<div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="radio" name="memGender"
-								id="memGenderM" value="M"> <label
+								id="memGenderM" value="M" checked> <label
 								class="form-check-label" for="memGenderM">男</label>
 						</div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="radio" name="memGender"
-								id="memGenderF" value="F" checked> <label
+								id="memGenderF" value="F"> <label
 								class="form-check-label" for="memGenderF">女</label>
 						</div>
 					</div>
-					<small class="error-msg">${errorMsgs.memStatus}</small>
+					<small class="error-msg">${errorMsgs.memGender}</small>
 				</div>
 				<div class="form-group">
 					<label for="memPhoto">會員相片:</label>
@@ -176,9 +175,8 @@ body {
 							<input class="form-check-input" type="file" name="memPhoto"
 								accept="image/*" id="p_file" />
 						</div>
-					</div>
-					<small class="error-msg">${errorMsgs.memStatus}</small>
-				</div>
+						</div>
+						</div>
 				<div class="form-group">
 					<label for="memEmail">會員信箱:</label>
 					<div>
@@ -187,7 +185,7 @@ body {
 								id="memEmail" placeholder="XXX@gmail.com" size="45" />
 						</div>
 					</div>
-					<small class="error-msg">${errorMsgs.memStatus}</small>
+					<small class="error-msg">${errorMsgs.memEmail}</small>
 				</div>
 				<div class="form-group">
 					<label for="memPassword">密碼:</label>
@@ -197,7 +195,7 @@ body {
 								id="memPassword" size="45" />
 						</div>
 					</div>
-					<small class="error-msg">${errorMsgs.memStatus}</small>
+					<small class="error-msg">${errorMsgs.memPassword}</small>
 				</div>
 				<div class="form-group">
 					<label for="memTel">會員電話:</label>
@@ -207,7 +205,7 @@ body {
 								id="memTel" size="45" />
 						</div>
 					</div>
-					<small class="error-msg">${errorMsgs.memStatus}</small>
+					<small class="error-msg">${errorMsgs.memTel}</small>
 				</div>
 				<div class="form-group">
 					<label for="memAddress">地址:</label>
@@ -217,7 +215,7 @@ body {
 								id="memAddress" size="45" />
 						</div>
 					</div>
-					<small class="error-msg">${errorMsgs.memStatus}</small>
+					<small class="error-msg">${errorMsgs.memAddress}</small>
 				</div>
 				<div class="form-group">
 					<label for="memBd">生日:</label>
@@ -227,53 +225,15 @@ body {
 								id="memBd" size="45" />
 						</div>
 					</div>
-					<small class="error-msg">${errorMsgs.memStatus}</small>
 				</div>
-				<div class="form-group">
-					<label for="momoPoint">會員毛毛幣:</label>
-					<div>
-						<div class="form-check form-check-inline">
-							<input class="form-check-input" type="number" name="momoPoint"
-								id="momoPoint" size="45" />
-						</div>
-					</div>
-					<small class="error-msg">${errorMsgs.memStatus}</small>
-				</div>
-				<div class="form-group">
-					<label for="totalClass">總堂數:</label>
-					<div>
-						<div class="form-check form-check-inline">
-							<input class="form-check-input" type="number" name="totalClass"
-								id="totalClass" size="45" />
-						</div>
-					</div>
-					<small class="error-msg">${errorMsgs.memStatus}</small>
-				</div>
-
-				<div class="form-group">
-					<label for="memStatus">狀態:</label>
-					<div>
-						<div class="form-check form-check-inline">
-							<input class="form-check-input" type="radio" name="memStatus"
-								id="memStatus0" value="0"> <label
-								class="form-check-label" for="memStatus0">停權</label>
-						</div>
-						<div class="form-check form-check-inline">
-							<input class="form-check-input" type="radio" name="memStatus"
-								id="memStatus1" value="1" checked> <label
-								class="form-check-label" for="memStatus1">正常</label>
-						</div>
-					</div>
-					<small class="error-msg">${errorMsgs.memStatus}</small>
-				</div>
+				
 				<input type="hidden" name="action" value="add">
 				<button type="submit" class="btn btn-primary btn-custom">新增</button>
 				<button type="button" class="btn btn-secondary btn-custom"
 					onclick="history.back()">取消</button>
-			</form>
+		</form>
 		</div>
 	</div>
-
 	<!-- Bootstrap JavaScript -->
 	<script
 		src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>

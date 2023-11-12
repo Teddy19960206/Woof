@@ -1,16 +1,27 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link rel="stylesheet" href="<%=request.getContextPath()%>/webutil/css/bootstrap.min.css" />
-<link rel="stylesheet" href="<%=request.getContextPath()%>/webutil/css/style.css" />
-<link rel="stylesheet" href="<%=request.getContextPath()%>/webutil/css/aos.css" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"
+
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link
-  href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@900&display=swap"
-  rel="stylesheet"
-/>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@900&display=swap"/>
+
+<script src="<%=request.getContextPath()%>/webutil/js/jquery-3.7.1.min.js"></script>
+
+<link rel="stylesheet" href="<%=request.getContextPath()%>/webutil/css/bootstrap.min.css" />
+<script src="<%=request.getContextPath()%>/webutil/js/bootstrap.bundle.min.js"></script>
+
 <link rel="stylesheet" href="<%=request.getContextPath()%>/webutil/css/animate.min.css" />
+
+
+<link rel="stylesheet" href="<%=request.getContextPath()%>/webutil/css/aos.css" />
+<script src="<%=request.getContextPath()%>/webutil/js/aos.js"></script>
+
+<link rel="stylesheet" href="<%=request.getContextPath()%>/webutil/css/style.css" />
 <link rel="icon" type="image/x-icon" href="<%=request.getContextPath()%>/webutil/icons/happy_1.png" />
- <script src="<%=request.getContextPath()%>/webutil/js/bootstrap.bundle.min.js"></script>
-    <script src="<%=request.getContextPath()%>/webutil/js/jquery-3.7.1.min.js"></script>
-    <script src="<%=request.getContextPath()%>/webutil/js/aos.js"></script>
+
+<style>
+    * {
+        font-family: "Noto Sans TC", sans-serif;
+    }
+</style>

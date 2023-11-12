@@ -6,13 +6,14 @@ import java.util.List;
 
 import org.hibernate.Session;
 
+import com.woof.AppService;
 import com.woof.administrator.dao.AdministratorDAO;
 import com.woof.administrator.dao.AdministratorDAOImpl;
 import com.woof.administrator.entity.Administrator;
 
 import com.woof.util.HibernateUtil;
 
-public class AdministratorServiceImpl implements AdministratorService {
+public class AdministratorServiceImpl implements AdministratorService, AppService<String> {
 	private AdministratorDAO dao;
 
 	public AdministratorServiceImpl() {
@@ -33,7 +34,13 @@ public class AdministratorServiceImpl implements AdministratorService {
 		}
 		return null;
 	}
-
+	public Administrator updateAdministrator2(Administrator administrator) {
+		int i = dao.update(administrator);
+		if (i == 1) {
+			return administrator;
+		}
+		return null;
+	}
 	@Override
 	public void deleteAdministrator(String adminNo) {
 		dao.delete(adminNo);
@@ -57,4 +64,16 @@ public class AdministratorServiceImpl implements AdministratorService {
 		}
 		return administratorList;
 	}
+	@Override
+	public byte[] getPhotoById(String adminNo) {
+		byte[] photoBytes = null;
+		try {
+			   
+			   photoBytes = findAdministratorByAdminNo(adminNo).getAdminPhoto();	
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return photoBytes;
+	}
+
 }

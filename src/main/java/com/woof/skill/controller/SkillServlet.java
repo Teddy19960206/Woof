@@ -53,8 +53,8 @@ public class SkillServlet extends HttpServlet {
         switch (pathInfo){
             case "/allSkill":
 //                取得所有skill
-                forwardPath = getAllSkill(request,response);
-                break;
+                getAllSkill(request,response);
+                return;
             case "/modified":
 //                修改skill
                 modified(request,response);
@@ -66,8 +66,7 @@ public class SkillServlet extends HttpServlet {
             case "/addSkill":
 //                新增skill
                 addSkill(request ,response);
-                forwardPath = getAllSkill(request, response);
-                break;
+                return;
             case "/getNotExistSKill":
                 getNotExistSKill(request, response);
                 return;
@@ -104,14 +103,17 @@ public class SkillServlet extends HttpServlet {
 
         skillService.deleteSkill(skillNo);
 
-        response.setContentType("application/json");
+        response.setContentType("application/json;charset=UTF-8");
         response.getWriter().print("{\"message\":\"刪除成功\"}");
 
     }
 
-    private void addSkill(HttpServletRequest request , HttpServletResponse response){
+    private void addSkill(HttpServletRequest request , HttpServletResponse response) throws IOException {
         String skillName = request.getParameter("skillName");
         skillService.addSkill(skillName);
+
+        response.setContentType("application/json;charset=UTF-8");
+        response.getWriter().print("{\"message\":\"新增成功\"}");
     }
 
 
@@ -141,12 +143,7 @@ public class SkillServlet extends HttpServlet {
 
 
         List<Skill> trainerNotExistsSkill = skillService.getTrainerNotExistsSkill(1);
-        System.out.println(trainerNotExistsSkill);
 
-//        Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
-//        String json = gson.toJson(trainerNotExistsSkill);
-//        response.setContentType("application/json;charset=UTF-8");
-//        response.getWriter().write(json);
         request.setAttribute("notExistSkill" , trainerNotExistsSkill);
 
         request.getRequestDispatcher("/backend/employee/trainerAddSkill.jsp").forward(request,response);

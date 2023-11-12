@@ -1,7 +1,6 @@
 package com.woof.groupscheduledetail.service;
 
-import com.woof.groupcourse.service.GroupCourseServiceImpl;
-import com.woof.groupcourseschedule.dao.GroupCourseScheduleDAO;
+
 import com.woof.groupcourseschedule.entity.GroupCourseSchedule;
 import com.woof.groupscheduledetail.dao.GroupScheduleDetailDAO;
 import com.woof.groupscheduledetail.dao.GroupScheduleDetailDAOImpl;
@@ -11,7 +10,6 @@ import com.woof.util.HibernateUtil;
 
 import java.sql.Date;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -23,13 +21,12 @@ public class GroupScheduleDetailServiceImpl implements GroupScheduleDetailServic
         dao = new GroupScheduleDetailDAOImpl(HibernateUtil.getSessionFactory());
     }
     @Override
-    public int modify(Integer gcsdNo, Trainer trainer, Date classDate) {
-
-        return dao.update(gcsdNo , trainer , classDate);
+    public void modify(Integer gcsdNo, Trainer trainer, Date classDate) {
+        dao.update(gcsdNo , trainer , classDate);
     }
 
     @Override
-    public int add(GroupCourseSchedule groupCourseSchedule,Trainer trainer , Set<Date> classDate) {
+    public void add(GroupCourseSchedule groupCourseSchedule,Trainer trainer , Set<Date> classDate) {
 
         List<GroupScheduleDetail> groupScheduleDetails = new ArrayList<>();
         for (Date date : classDate){
@@ -37,21 +34,14 @@ public class GroupScheduleDetailServiceImpl implements GroupScheduleDetailServic
             groupDetail.setTrainer(groupCourseSchedule.getTrainer());
             groupDetail.setClassDate(date);
             groupDetail.setGroupCourseSchedule(groupCourseSchedule);
-
             groupScheduleDetails.add(groupDetail);
-
-
         }
         dao.insert(groupScheduleDetails);
-
-        return 1;
     }
 
     @Override
-    public int delete(Integer gcsdNo) {
-
-        GroupScheduleDetail byGcsd = dao.findByGcsd(gcsdNo);
-        return dao.delete(byGcsd);
+    public void delete(Integer gcsdNo) {
+        dao.delete(dao.findByGcsd(gcsdNo));
     }
 
     @Override
@@ -77,5 +67,10 @@ public class GroupScheduleDetailServiceImpl implements GroupScheduleDetailServic
     @Override
     public List<GroupScheduleDetail> getDetailByDate(Integer year, Integer month) {
         return dao.getByDate(year , month);
+    }
+
+    @Override
+    public List<GroupScheduleDetail> getDetailByDate(Integer year, Integer month, Integer trainerNo) {
+        return dao.getByDate(year , month , trainerNo);
     }
 }

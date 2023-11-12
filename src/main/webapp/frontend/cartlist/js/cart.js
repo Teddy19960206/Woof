@@ -2,13 +2,13 @@ let pathName = window.document.location.pathname;
 let projectName = pathName.substring(0, pathName.substring(1).indexOf("/") + 1);
 
 
+//自動重新刷新會載入總數
 $(function() {
 	getCartTotalQuantity();
 });
 
-//自動重新刷新會載入總數
 function getCartTotalQuantity() {
-	let memNo = "member1"; // 這裡應該從session會話中獲取真實的會員編號
+	let memNo = "member1"; // 從session會話中獲取真實的會員編號
 	$.ajax({
 		type: "POST",
 		url: `${projectName}/cart`,
@@ -108,6 +108,7 @@ $(document).ready(function() {
 	$('#checkout').click(function() {
 		
 		console.log("11111");
+		
 		window.location.href = '<%=request.getContextPath()%>/checkout.jsp';
 	});
 });

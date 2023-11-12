@@ -16,9 +16,9 @@ public interface NonTrainingScheduleService {
 
 	NonTrainingSchedule findNtsByNtsNo(Integer ntsNo);
 	
-	List<NonTrainingSchedule> findNtsByTrainerNo(Integer trainerNo , int currentPage);
+	List<NonTrainingSchedule> findNtsByTrainerNo(Integer trainerNo , Integer year , Integer month, int currentPage);
 	
-	int getPageTotal2(Integer trainerNo);
+	int getPageTotal2(Integer trainerNo , Integer year , Integer month);
 	
 	List<NonTrainingSchedule> findNtsByNtsDate(Integer year, Integer month);
 	

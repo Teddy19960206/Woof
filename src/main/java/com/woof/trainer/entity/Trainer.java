@@ -18,9 +18,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.woof.util.JsonIgnore;
 import com.google.gson.annotations.Expose;
 import com.woof.administrator.entity.Administrator;
-import com.woof.commentreport.entity.CommentReport;
 import com.woof.groupscheduledetail.entity.GroupScheduleDetail;
 import com.woof.nontrainingschedule.entity.NonTrainingSchedule;
 import com.woof.privatetrainingappointmentform.entity.PrivateTrainingAppointmentForm;
@@ -36,13 +36,19 @@ public class Trainer implements Serializable {
 	@Column(name = "TRAINER_NO")
 	private Integer trainerNo;
 
+	@JsonIgnore
 	@Expose
 	@OneToMany(mappedBy = "trainer", cascade = CascadeType.ALL)
 	private Set<NonTrainingSchedule> nonTrainingSchedules;
 
+	@JsonIgnore
+
 	@Expose
 	@OneToMany(mappedBy = "trainer", cascade = CascadeType.ALL)
 	private Set<PrivateTrainingAppointmentForm> privateTrainingAppointmentForms;
+
+
+
 
 	@Expose
 	@OneToOne
@@ -53,13 +59,17 @@ public class Trainer implements Serializable {
 	@Column(name = "EXPERIENCE")
 	private String experience;
 
+	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "skills_list", joinColumns = {
 			@JoinColumn(name = "TRAINER_NO", referencedColumnName = "TRAINER_NO") }, inverseJoinColumns = {
 					@JoinColumn(name = "SKILL_NO", referencedColumnName = "SKILL_NO") })
 	private Set<Skill> skills;
 
-	@OneToMany(mappedBy = "trainer", cascade = CascadeType.ALL)
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "trainer" , cascade = CascadeType.ALL)
+
 	private Set<GroupScheduleDetail> groupScheduleDetailSet;
 
 	public Trainer() {

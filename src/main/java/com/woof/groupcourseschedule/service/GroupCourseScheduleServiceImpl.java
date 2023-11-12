@@ -21,7 +21,7 @@ public class GroupCourseScheduleServiceImpl implements GroupGourseScheduleServic
     }
 
     @Override
-    public GroupCourseSchedule addSchedule(GroupCourse groupCourse, Trainer trainer, Date startDate, Date endDate, Integer minLimit, Integer maxLimit, Integer price , String delayReason , GroupCourseSchedule relatedGcsNo) {
+    public GroupCourseSchedule addSchedule(GroupCourse groupCourse, Trainer trainer, Date startDate, Date endDate, Integer minLimit, Integer maxLimit,Integer regCount, Integer price, Integer gcsStatus , String delayReason , GroupCourseSchedule relatedGcsNo) {
         GroupCourseSchedule groupCourseSchedule = new GroupCourseSchedule();
         groupCourseSchedule.setGroupCourse(groupCourse);
         groupCourseSchedule.setTrainer(trainer);
@@ -29,7 +29,9 @@ public class GroupCourseScheduleServiceImpl implements GroupGourseScheduleServic
         groupCourseSchedule.setGcsEnd(endDate);
         groupCourseSchedule.setMinLimit(minLimit);
         groupCourseSchedule.setMaxLimit(maxLimit);
+        groupCourseSchedule.setRegCount(regCount);
         groupCourseSchedule.setGcsPrice(price);
+        groupCourseSchedule.setGcsStatus(gcsStatus);
         groupCourseSchedule.setGcsDelayReason(delayReason);
         groupCourseSchedule.setRelatedGcsNo(relatedGcsNo);
 
@@ -38,11 +40,16 @@ public class GroupCourseScheduleServiceImpl implements GroupGourseScheduleServic
         return groupCourseSchedule;
     }
 
+
+
     @Override
     public void registrationSchedule(Integer gcsNo) {
-        GroupCourseSchedule schedule = findByGcsNo(gcsNo);
-        System.out.println(schedule.getRegCount() + " regCount");
-        dao.updateCount(gcsNo, schedule.getRegCount());
+        dao.updateCount(gcsNo, findByGcsNo(gcsNo).getRegCount() + 1);
+    }
+
+    @Override
+    public void cancelSchedule(Integer gcsNo){
+        dao.updateCount(gcsNo , findByGcsNo(gcsNo).getRegCount() - 1);
     }
 
     @Override
@@ -62,9 +69,13 @@ public class GroupCourseScheduleServiceImpl implements GroupGourseScheduleServic
         groupCourseSchedule.setGcsDelayReason(gcsDelayReason);
         groupCourseSchedule.setRelatedGcsNo(relatedGcsNo);
 
-        int update = dao.update(groupCourseSchedule);
 
-        return update;
+        return  dao.update(groupCourseSchedule);
+    }
+
+    @Override
+    public void updateStatus(Integer status , Integer gcsNo) {
+        dao.updateStatus(status ,gcsNo);
     }
 
     public GroupCourseSchedule findByGcsNo(Integer GcsNo){
@@ -91,16 +102,24 @@ public class GroupCourseScheduleServiceImpl implements GroupGourseScheduleServic
     }
 
     @Override
-    public List<GroupCourseSchedule> getOffSechedule() {
+    public List<GroupCourseSchedule> getOffSchedule() {
         return dao.getOffStatus();
+    }
+
+    @Override
+    public List<GroupCourseSchedule> getAllUpSchedule() {
+        return dao.getUpStatus();
+    }
+
+    @Override
+    public List<GroupCourseSchedule> getAllReview() {
+        return dao.getReviewSchedule();
     }
 
     @Override
     public int getPageTotal(Integer classType, Integer status) {
         long total = dao.getTotal(classType , status);
 
-        int pageQty = (int)(total % PAGE_MAX_RESULT == 0 ? (total / PAGE_MAX_RESULT) : (total / PAGE_MAX_RESULT + 1));
-
-        return pageQty;
+        return (int)(total % PAGE_MAX_RESULT == 0 ? (total / PAGE_MAX_RESULT) : (total / PAGE_MAX_RESULT + 1));
     }
 }

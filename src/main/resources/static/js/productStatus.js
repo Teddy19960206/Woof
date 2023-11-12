@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function () {
 function toggleProductStatus(status) {
     let selectedProdNos = getSelectedProdNos();
     selectedProdNos.forEach(prodNo => {
-        fetch(`/toggleStatus/${prodNo}`, {
+        fetch(`toggleStatus/${prodNo}`, {
             method: 'PUT'
         }).then(response => response.json())
             .then(data => {

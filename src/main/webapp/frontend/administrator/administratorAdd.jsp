@@ -16,6 +16,8 @@
 <script>
       //日期格式
     $(function() {
+    	 $("#ADMIN_BD").datepicker({ dateFormat: 'yy-mm-dd' });
+    	 $("#ADMIN_RD").datepicker({ dateFormat: 'yy-mm-dd' });
         $("#ADMIN_HD").datepicker({ dateFormat: 'yy-mm-dd' });
         $("#twzipcode").twzipcode({
         	zipcodeIntoDistrict: true, // 郵遞區號自動顯示在區別選單中
@@ -101,24 +103,27 @@
 </head>
 <body>
 <!-- request.getContextPath()動態根路徑，action=add找到後端switch(action)的add-->
-	<form method="post" action="<%=request.getContextPath()%>/administrator.do?action=add" accept-charset="UTF-8" enctype="multipart/form-data">
+	<form method="post" action="<%=request.getContextPath()%>/administrator.do" accept-charset="UTF-8" enctype="multipart/form-data">
 		<table>
 		<tr>
 			<th>管理員帳號</th>
 			<td>
-				<input type="text" name="ADMIN_NO" id="ADMIN_NO" required>
+				<input type="text" name="adminNo" id="adminNo" >
 			</td>
+			<td><small class="error-msg">${errorMsgs.adminNo}</small></td>
 		</tr>
 		<tr>
 			<th>管理員密碼</th>
 			<td>
-				<input type="password" name="ADMIN_PASSWORD" id="ADMIN_PASSWORD" required>
+				<input type="password" name="ADMIN_PASSWORD" id="ADMIN_PASSWORD" >
 			</td>
+			<td><small class="error-msg">${errorMsgs.ADMIN_PASSWORD}</small></td>
 		</tr>
 		<tr>
 			<th>管理員名字</th>
 			<td>
-				<input type="text" name="ADMIN_NAME" id="ADMIN_NAME" required >
+				<input type="text" name="ADMIN_NAME" id="ADMIN_NAME"  >
+				<td><small class="error-msg">${errorMsgs.ADMIN_NAME}</small></td>
 			</td>
 		</tr>
 		<tr>
@@ -127,18 +132,21 @@
 				<input type="radio" name="ADMIN_GENDER" value="1" checked>男
 				<input type="radio" name="ADMIN_GENDER" value="0">女
 			</td>
+			<td><small class="error-msg">${errorMsgs.ADMIN_GENDER}</small></td>
 		</tr>
 		<tr>
 			<th>管理員信箱</th>
 			<td>
-				<input type="text" name="ADMIN_EMAIL" id="ADMIN_EMAIL" placeholder="XXX@gmail.com">
+				<input type="text" name="adminEmail" id="adminEmail" placeholder="XXX@gmail.com">
 			</td>
+			<td><small class="error-msg">${errorMsgs.adminEmail}</small></td>
 		</tr>
 		<tr>
 			<th>管理員電話</th>
 			<td>
 				<input type="text" name="ADMIN_TEL" id="ADMIN_TEL">
 			</td>
+			<td><small class="error-msg">${errorMsgs.ADMIN_TEL}</small></td>
 		</tr>
 		<tr>
 			<th>管理員地址</th>
@@ -146,23 +154,38 @@
 				<div id="twzipcode"></div>
 				<input type="text" id="ADMIN_ADDRESS" name="ADMIN_ADDRESS">
 			</td>
+				<td><small class="error-msg">${errorMsgs.ADMIN_ADDRESS}</small></td>
+		</tr>
+		<tr>
+			<th>管理員生日</th>
+			<td>
+				<input type="text" id="ADMIN_BD" name="ADMIN_BD">
+			</td>
 		</tr>
 		<tr>
 			<th>管理員緊急聯絡人</th>
 			<td>
 				<input type="text" name="EMERGENCY_CONTACTNAME" id="EMERGENCY_CONTACTNAME">
 			</td>
+				<td><small class="error-msg">${errorMsgs.EMERGENCY_CONTACTNAME}</small></td>
 		</tr>
 		<tr>
 			<th>管理員緊急聯絡人電話</th>
 			<td>
 				<input type="text" name="EMERGENCY_CONTACTEL" id="EMERGENCY_CONTACTEL">
 			</td>
+				<td><small class="error-msg">${errorMsgs.EMERGENCY_CONTACTEL}</small></td>
 		</tr>
 		<tr>
 			<th>管理員到職日</th>
 			<td>
-				<input type="text" name="ADMIN_HD" id="ADMIN_HD">
+				<input type="text" name="ADMIN_HD" id="ADMIN_HD" required >
+			</td>
+		</tr>
+		<tr>
+			<th>管理員離職日</th>
+			<td>
+				<input type="text" name="ADMIN_RD" id="ADMIN_RD">
 			</td>
 		</tr>
 		<tr>
@@ -179,12 +202,20 @@
 				<input type="file" name="ADMIN_PHOTO">
 			</td>
 		</tr>
+		<tr>
+			<th>管理員帳號權限</th>
+			<td>
+				<input type="radio" name="ADMIN_FUNC_NAME" value="0">無功能
+				<input type="radio" name="ADMIN_FUNC_NAME" value="1" checked>管理員
+				<input type="radio" name="ADMIN_FUNC_NAME" value="2">訓練師
+			</td>
+		</tr>
 		</table>
-
-		
+        
+		<input type="hidden" name="action" value="add">
 		<button type="submit">送出</button>
 		<!-- 		點擊取消後跳轉回去首頁 -->
-		<input  type="button" onclick="window.location.href='<%=request.getContextPath()%>/frontend/administrator/administrator.jsp'" value="取消">
+		<input  type="button" onclick="window.location.href='<%=request.getContextPath()%>/frontend/administrator/logout1.jsp'" value="取消">
 	</form>
 </body>
 </html>

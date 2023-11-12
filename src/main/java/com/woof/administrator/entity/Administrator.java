@@ -15,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import com.woof.util.JsonIgnore;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
@@ -35,6 +36,8 @@ public class Administrator implements Serializable {
 	@Expose
 	@Column(name = "ADMIN_GENDER", nullable = false, columnDefinition = "CHAR")
 	private String adminGender;
+
+	@JsonIgnore
 	@Expose
 	@Column(name = "ADMIN_PHOTO", columnDefinition = "MEDIUMBLOB")
 	private byte[] adminPhoto;
@@ -68,6 +71,15 @@ public class Administrator implements Serializable {
 	@Expose
 	@Column(name = "ADMIN_STATUS", nullable = false, columnDefinition = "TINYINT")
 	private Integer adminStatus;
+	@Expose
+	@Column(name = "ADMIN_VERIFY_STATUS", columnDefinition = "TINYINT")
+	private Integer adminVerifyStatus;
+	@Expose
+	@Column(name = "ADMIN_FUNC_NAME", columnDefinition = "TINYINT")
+	private Integer adminFuncName;
+	public Integer getAdminVerifyStatus() {
+		return adminVerifyStatus;
+	}
 	
 	@Transient
 	private String imgStr ;
@@ -75,10 +87,26 @@ public class Administrator implements Serializable {
 	public String getImgStr() {
 		return imgStr;
 	}
-
 	public void setImgStr(String imgStr) {
 		this.imgStr = imgStr;
 	}
+	public void setAdminVerifyStatus(Integer adminVerifyStatus) {
+		this.adminVerifyStatus = adminVerifyStatus;
+	}
+
+	public Integer getAdminFuncName() {
+		return adminFuncName;
+	}
+
+	public void setAdminFuncName(Integer adminFuncName) {
+		this.adminFuncName = adminFuncName;
+	}
+
+	
+	
+	
+
+	
 
 	public Administrator() {
 		super();
@@ -201,8 +229,9 @@ public class Administrator implements Serializable {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + Arrays.hashCode(adminPhoto);
-		result = prime * result + Objects.hash(adminAddress, adminBd, adminEmail, adminGender, adminHd, adminName,
-				adminNo, adminPassword, adminRd, adminStatus, adminTel, emergencyContactName, emergencyContactel);
+		result = prime * result + Objects.hash(adminAddress, adminBd, adminEmail, adminFuncName, adminGender, adminHd,
+				adminName, adminNo, adminPassword, adminRd, adminStatus, adminTel, adminVerifyStatus,
+				emergencyContactName, emergencyContactel, imgStr);
 		return result;
 	}
 
@@ -216,30 +245,28 @@ public class Administrator implements Serializable {
 			return false;
 		Administrator other = (Administrator) obj;
 		return Objects.equals(adminAddress, other.adminAddress) && Objects.equals(adminBd, other.adminBd)
-				&& Objects.equals(adminEmail, other.adminEmail) && Objects.equals(adminGender, other.adminGender)
-				&& Objects.equals(adminHd, other.adminHd) && Objects.equals(adminName, other.adminName)
-				&& Objects.equals(adminNo, other.adminNo) && Objects.equals(adminPassword, other.adminPassword)
-				&& Arrays.equals(adminPhoto, other.adminPhoto) && Objects.equals(adminRd, other.adminRd)
-				&& Objects.equals(adminStatus, other.adminStatus) && Objects.equals(adminTel, other.adminTel)
+				&& Objects.equals(adminEmail, other.adminEmail) && Objects.equals(adminFuncName, other.adminFuncName)
+				&& Objects.equals(adminGender, other.adminGender) && Objects.equals(adminHd, other.adminHd)
+				&& Objects.equals(adminName, other.adminName) && Objects.equals(adminNo, other.adminNo)
+				&& Objects.equals(adminPassword, other.adminPassword) && Arrays.equals(adminPhoto, other.adminPhoto)
+				&& Objects.equals(adminRd, other.adminRd) && Objects.equals(adminStatus, other.adminStatus)
+				&& Objects.equals(adminTel, other.adminTel)
+				&& Objects.equals(adminVerifyStatus, other.adminVerifyStatus)
 				&& Objects.equals(emergencyContactName, other.emergencyContactName)
-				&& Objects.equals(emergencyContactel, other.emergencyContactel);
+				&& Objects.equals(emergencyContactel, other.emergencyContactel) && Objects.equals(imgStr, other.imgStr);
 	}
 
 	@Override
 	public String toString() {
-		return "AdministratorVO [adminNo=" + adminNo + ", adminName=" + adminName + ", adminGender=" + adminGender
+		return "Administrator [adminNo=" + adminNo + ", adminName=" + adminName + ", adminGender=" + adminGender
 				+ ", adminPhoto=" + Arrays.toString(adminPhoto) + ", adminEmail=" + adminEmail + ", adminPassword="
 				+ adminPassword + ", adminTel=" + adminTel + ", adminAddress=" + adminAddress + ", adminBd=" + adminBd
 				+ ", emergencyContactName=" + emergencyContactName + ", emergencyContactel=" + emergencyContactel
-				+ ", adminHd=" + adminHd + ", adminRd=" + adminRd + ", adminStatus=" + adminStatus + ", getAdminNo()="
-				+ getAdminNo() + ", getAdminName()=" + getAdminName() + ", getAdminGender()=" + getAdminGender()
-				+ ", getAdminPhoto()=" + Arrays.toString(getAdminPhoto()) + ", getAdminEmail()=" + getAdminEmail()
-				+ ", getAdminPassword()=" + getAdminPassword() + ", getAdminTel()=" + getAdminTel()
-				+ ", getAdminAddress()=" + getAdminAddress() + ", getAdminBd()=" + getAdminBd()
-				+ ", getEmergencyContactName()=" + getEmergencyContactName() + ", getEmergencyContactel()="
-				+ getEmergencyContactel() + ", getAdminHd()=" + getAdminHd() + ", getAdminRd()=" + getAdminRd()
-				+ ", getAdminStatus()=" + getAdminStatus() + ", hashCode()=" + hashCode() + ", getClass()=" + getClass()
-				+ ", toString()=" + super.toString() + "]";
+				+ ", adminHd=" + adminHd + ", adminRd=" + adminRd + ", adminStatus=" + adminStatus
+				+ ", adminVerifyStatus=" + adminVerifyStatus + ", adminFuncName=" + adminFuncName + ", imgStr=" + imgStr
+				+ "]";
 	}
+
+
 
 }

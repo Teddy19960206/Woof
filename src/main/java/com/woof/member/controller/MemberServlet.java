@@ -1,10 +1,8 @@
 package com.woof.member.controller;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -24,6 +22,7 @@ import com.woof.member.entity.Member;
 import com.woof.member.service.MemberService;
 import com.woof.member.service.MemberServiceImpl;
 import com.woof.util.MailService;
+import com.woof.util.PartParsebyte;
 
 @WebServlet("/member.do")
 @MultipartConfig
@@ -128,7 +127,6 @@ public class MemberServlet extends HttpServlet {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-
 		java.sql.Date sqlDate = new java.sql.Date(date.getTime());
 		member.setMemBd(sqlDate);
 		//	插入圖片
@@ -137,36 +135,22 @@ public class MemberServlet extends HttpServlet {
 		  byte[] photo = new byte[input.available()];
 		  input.read(photo);
 		  input.close();
-		  member.setMemPhoto(photo);
-        
+		member.setMemPhoto(photo);
 		member.setMomoPoint(Integer.valueOf(req.getParameter("momoPoint")));
 		member.setTotalClass(Integer.valueOf(req.getParameter("totalClass")));
 		member.setMemStatus(Integer.valueOf(req.getParameter("memStatus")));
-		System.out.println(req.getParameter("memAddress") + "=============================");
-		System.out.println(member.getMemAddress() + "----------------------------");
-		System.out.println(req.getParameter("memEmail") + "=============================");
-		System.out.println(req.getParameter("memPhoto")+"1111111");
 		
 		try {
 			memberService.addMember(member);
 //			MailService mailService = new MailService();
 //			mailService.sendMail(to, subject, MailService.valid(req.getRequestURL()+"?action=valid&member="+member));
-			System.out.println(req.getRequestURL()+"11111");
+//			System.out.println(req.getRequestURL()+"11111");
 			// 導到指定的URL 頁面上 把請求回應都帶過去
 			String url = req.getContextPath() + "/backend/member/list_all_member.jsp";
 			req.setCharacterEncoding("UTF-8");
 			res.sendRedirect(url);
 		} catch (Exception e) {
-			if (e.getCause() instanceof SQLIntegrityConstraintViolationException) {
-				// Handle the exception
-				e.printStackTrace(); // This is for logging purpose
-				String errorMsg = "Email already exists! Please use another email.";
-				req.setAttribute("errorMessage", errorMsg);
-				req.getRequestDispatcher("/backend/member/errorPage.jsp").forward(req, res);
-			} else {
-				// Handle other exceptions if necessary
-				throw e; // or redirect to a general error page
-			}
+			e.printStackTrace();
 		}
 	}
 
@@ -180,13 +164,16 @@ public class MemberServlet extends HttpServlet {
 		member.setMemPassword(req.getParameter("memPassword"));
 		member.setMemTel(req.getParameter("memTel"));
 		member.setMemAddress(req.getParameter("memAddress"));
-		//	插入圖片
-		  Part p = req.getPart("memPhoto");
-		  InputStream input = p.getInputStream();
-		  byte[] photo = new byte[input.available()];
-		  input.read(photo);
-		  input.close();
-		  member.setMemPhoto(photo);
+		Part p = req.getPart("memPhoto");
+		byte[] bytes = null;
+		
+		if (p != null && p.getSize() > 0) {
+		
+	        bytes = PartParsebyte.partToByteArray(p);
+		}else {
+			bytes = memberService.getPhotoById(req.getParameter("memNo"));
+		}
+		member.setMemPhoto(bytes);
         //生日
 		String memBdString = req.getParameter("memBd");
 
@@ -206,10 +193,15 @@ public class MemberServlet extends HttpServlet {
 		member.setTotalClass(Integer.valueOf(req.getParameter("totalClass")));
 		member.setMemStatus(Integer.valueOf(req.getParameter("memStatus")));
 		memberService.updateMember(member);
+		// 假設更新操作已完成，現在重新獲取最新資料
+	    Member updatedMember = memberService.findMemberByNo(member.getMemNo());
+	    System.out.println(member.getMemNo()+"=============");
+	    // 將更新後的會員資料設置為請求屬性
+	    req.setAttribute("member", updatedMember);
 		// 導到指定的URL 頁面上 把請求回應都帶過去
-		System.out.println(req.getParameter("memNo") + "================");
-		String url = req.getContextPath() + "/backend/member/list_all_member.jsp";
-		res.sendRedirect(url);
+		req.getRequestDispatcher("/backend/member/list_all_member.jsp").forward(req, res);
+//		String url = req.getContextPath() + "/backend/member/list_all_member.jsp";
+//		res.sendRedirect(url);
 	}
 
 	private void getOne(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {

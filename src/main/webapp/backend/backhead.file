@@ -6,5 +6,6 @@
 <link rel="stylesheet" href="<%=request.getContextPath()%>/webutil/css/bootstrap.min.css" />
 <link rel="stylesheet" href="<%=request.getContextPath()%>/backend/css/style.css">
 <link rel="icon" type="image/x-icon" href="<%=request.getContextPath()%>/webutil/icons/happy_1.png" />
-
+<script src="<%=request.getContextPath()%>/webutil/js/jquery-3.7.1.min.js"></script>
+<script src="<%=request.getContextPath()%>/webutil/js/bootstrap.bundle.min.js"></script>
 

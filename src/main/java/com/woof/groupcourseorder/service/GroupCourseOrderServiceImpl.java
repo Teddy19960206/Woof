@@ -47,6 +47,18 @@ public class GroupCourseOrderServiceImpl implements GroupCourseOrderService{
     }
 
     @Override
+    public void modifyOfGcoNo(GroupCourseOrder groupCourseOrder , GroupCourseSchedule groupCourseSchedule) {
+
+        groupCourseOrder.setGroupCourseSchedule(groupCourseSchedule);
+
+        dao.update(groupCourseOrder);
+    }
+
+    public void modify(Integer gcoNo , Integer status){
+        dao.updateStatus(gcoNo , status);
+    }
+
+    @Override
     public GroupCourseOrder getOneOrder(Integer gcoNo) {
         return dao.findByGcoNo(gcoNo);
     }
@@ -74,8 +86,22 @@ public class GroupCourseOrderServiceImpl implements GroupCourseOrderService{
     public int getPageTotal(Integer groupClass, Integer status, String memNo) {
         long total = dao.getTotal(groupClass , status , memNo );
 
-        int pageQty = (int)(total % PAGE_MAX_RESULT == 0 ? (total / PAGE_MAX_RESULT) : (total / PAGE_MAX_RESULT + 1));
+        return (int)(total % PAGE_MAX_RESULT == 0 ? (total / PAGE_MAX_RESULT) : (total / PAGE_MAX_RESULT + 1));
+    }
 
-        return pageQty;
+    @Override
+    public List<GroupCourseOrder> getOrderBySchedule(Integer scheduleNo) {
+        return dao.getAllMember(scheduleNo);
+    }
+
+    @Override
+    public List<GroupCourseOrder> getAllBySchedule(Integer gcsNo) {
+        return dao.getAllBySchedule(gcsNo);
+    }
+
+    @Override
+    public void refund(Integer gcoNo) {
+//      狀態 2 為已退款
+        dao.updateStatus(gcoNo , 2);
     }
 }

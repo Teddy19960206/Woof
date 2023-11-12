@@ -10,6 +10,7 @@ import javax.persistence.*;
 import com.google.gson.annotations.Expose;
 import com.woof.classtype.entity.ClassType;
 import com.woof.skill.entity.Skill;
+import com.woof.util.JsonIgnore;
 
 
 @Entity
@@ -32,6 +33,7 @@ public class GroupCourse implements Serializable {
 	@JoinColumn(name = "CT_NO" , referencedColumnName = "CT_NO")
 	private ClassType classType;
 
+	@JsonIgnore
 	@Expose
 	@Column(name = "COURSE_PHOTO" , columnDefinition= "MEDIUMBLOB")
     private byte[] coursePhoto;

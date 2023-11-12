@@ -33,13 +33,30 @@
 		<url-pattern>/groupOrder/check</url-pattern>
 		<url-pattern>/groupOrder/getGroupInfo/*</url-pattern>
 		<url-pattern>/frontend/group/orderPage.jsp</url-pattern>
+		<url-pattern>/frontend/member/login/membercenter.jsp</url-pattern>
+		<url-pattern>/frontend/cartlist/checkout.jsp</url-pattern>
+		<url-pattern>/frontend/privatetrainer/buyClass.jsp</url-pattern>
 		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>FORWARD</dispatcher>
 		<dispatcher>INCLUDE</dispatcher>
 		<dispatcher>ERROR</dispatcher>
 		<dispatcher>ASYNC</dispatcher>
 	</filter-mapping>
-
+<filter>
+		<filter-name>LoginFilter1</filter-name>
+		<filter-class>com.woof.administrator.filter.LoginFilter1</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>LoginFilter1</filter-name>
+		<url-pattern>/administrator/*</url-pattern>
+		<url-pattern>/backend/*</url-pattern>
+		<url-pattern>/frontend/administrator/administratorcenter.jsp</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>INCLUDE</dispatcher>
+		<dispatcher>ERROR</dispatcher>
+		<dispatcher>ASYNC</dispatcher>
+	</filter-mapping>
 
 
 </web-app>

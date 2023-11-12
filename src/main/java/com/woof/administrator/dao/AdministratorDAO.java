@@ -11,16 +11,7 @@ import com.woof.trainer.entity.Trainer;
 
 public interface AdministratorDAO {
 
-//    void insert(AdministratorVO administratorVO);
-//
-//    void update(AdministratorVO administratorVO);
-//
-//    void delete(AdministratorVO administratorVO);
-//
-//    AdministratorVO findbyAdminNo(Integer adminNO);
-//
-//    List<AdministratorVO> getAll();
-	
+
 	void insert(Administrator administrator);
 
 	int update(Administrator administrator);

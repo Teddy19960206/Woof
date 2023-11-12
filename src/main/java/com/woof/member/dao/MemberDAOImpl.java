@@ -25,7 +25,7 @@ public class MemberDAOImpl implements MemberDAO {
 	@Override
 	public int update(Member member) {
 		try {
-			getSession().update(member);
+			getSession().merge(member);
 			return 1;
 		} catch (Exception e) {
 			return -1;

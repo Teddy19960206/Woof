@@ -11,14 +11,6 @@ $(document).on("click" , "button.modify-button" , function (){
     window.location.href = url;
 });
 
-// 點擊相關資料的報名時，更新報名人數???????????????????????????????
-$(document).on("click" , "button.registration" , function (){
-
-    let url = `${projectName}/groupcourse/schedule/xxx/${this.getAttribute("data-id")}`;
-
-    window.location.href = url;
-
-})
 
 // 進入schedule.jsp時，會直接發送請求，取得所有相關資料---------------
 document.addEventListener("DOMContentLoaded", function (){
@@ -56,32 +48,62 @@ async function fetchData(page){
         }
         // 取得資料後，進行拼圖，並打到頁面上
         const data = await response.json();
-        html = `<table class="table table-hover text-center align-middle border">
+
+        let html ="";
+        let arr = new Array();
+
+        arr.push(`<table class="table table-hover text-center align-middle border">
         <thead class="table-light">
         <tr>
-            <th>團體課程編號</th>
+            <th>團課編號</th>
             <th>班別</th>
             <th>訓練師</th>
-            <th>開始報名時間</th>
-            <th>結束報名時間</th>
-            <th>最少開課人數</th>
-            <th>最多開課人數</th>
+            <th>開始時間</th>
+            <th>結束時間</th>
+            <th>最少人數</th>
+            <th>最多人數</th>
             <th>已報名人數</th>
             <th>價格</th>
             <th>課程報名狀態</th>
-            <th>延期的關聯課程編號</th>
+            <th>延期關聯課程編號</th>
             <th>延期原因</th>
-            <th>建立時間</th>
-            <th>最後修改時間</th>
             <th>修改</th>
-            <th>詳情</th>
+            <th>上課日期</th>
+            <th>延期</th>
         </tr>
         </thead>
-        <tbody id="mybody" class="table-group-divider">`;
+        <tbody id="mybody" class="table-group-divider">`);
 
         // 取得所有相關的資料
         data.data.forEach((item)=>{
-            html+= `<tr>
+
+            let status;
+            //  0:下架 1:上架 2:確認開課 3:已取消 4:延期 5:已結束 6:退款申請中 7:退款已完成
+            switch (item.gcsStatus){
+                case 0:
+                    status = "下架";
+                    break;
+                case 1:
+                    status = "上架";
+                    break;
+                case 2:
+                    status = "確認開課";
+                    break;
+                case 3:
+                    status = "已取消";
+                    break;
+                case 4:
+                    status = "延期";
+                    break;
+                case 5:
+                    status = "已結束";
+                    break;
+                case 6:
+                    status = "審核中";
+                    break;
+            }
+
+            arr.push(`<tr>
             <th>${item.gcsNo}</th>
             <th>${item.groupCourse.classType.ctName} : ${item.groupCourse.skill.skillName}</th>
             <th>${item.trainer.administrator.adminName}</th>
@@ -91,27 +113,28 @@ async function fetchData(page){
             <th>${item.maxLimit}</th>
             <th>${item.regCount}</th>
             <th>${item.gcsPrice}</th>
-            <th>${item.gcsStatus == 0 ? "下架" : "上架" }</th>
+            <th>${status}</th>
             <th>${item.relatedGcsNo !== undefined ? item.relatedGcsNo.gcsNo : '無'}</th>
             <th>${item.gcsDelayReason !== undefined && item.gcsDelayReason !== ""   ? item.gcsDelayReason : '無'}</th>
-            <th>${item.createdAt}</th>
-            <th>${item.updatedAt}</th>
-            <td><button type="button" class="modify-button bn632-hover bn26" data-id="${item.gcsNo}" onclick="fetchDetail(${item.gcsNo})">修改</td>
-            <th><button type="button" class="detail-button bn632-hover bn26" data-id="${item.gcsNo}">詳情</button></th>
-        </tr>`;
+            <td><button type="button" class="modify-button btn btn-primary" data-id="${item.gcsNo}">修改</td>
+            <th><button type="button" class="detail-button btn btn-primary" data-id="${item.gcsNo}">詳情</button></th>
+            <th><button type="button" class="delay-button btn btn-primary" data-id="${item.gcsNo}" ${item.gcsStatus == 6 ? '' : 'disabled'}>延期</button></th>
+        </tr>`);
         })
 
-        html += `</tbody></table>`;
+        arr.push(`</tbody></table>`);
 
 
         // 書籤 ==============================================================
-        html += `<nav class="text-center d-flex justify-content-center">
+        arr.push(`<nav class="text-center d-flex justify-content-center">
                   <ul class="pagination">
                     <li class="page-item">
                       <button class="page-link" onclick="fetchData(${page == 1 ? 1 : page-1})">
                         <span aria-hidden="true">&laquo;</span>
                       </button>
-                    </li>`;
+                    </li>`);
+
+
 
         const maxPagesToShow = 3;
         const totalPages = parseInt(data.pageTotal);
@@ -137,19 +160,21 @@ async function fetchData(page){
         }
 
         for (let i = startPage; i <= endPage; i++) {
-            html += `<li class="page-item ${i === page ? "active" : ""}">
+            arr.push(`<li class="page-item ${i === page ? "active" : ""}">
                <button class="page-link" onclick="fetchData(${i})">${i}</button>
-             </li>`;
+             </li>`);
         }
 
-        html += `   <li class="page-item">
+        arr.push(`<li class="page-item">
                         <button class="page-link" onclick="fetchData(${page == totalPages ? totalPages : page+1})">
                             <span aria-hidden="true">&raquo;</span></a>
                         </button>
                     </li>
                   </ul>
-                </nav>`;
+                </nav>`);
 
+
+        html = arr.join("");
         // 將資料打到指定位置
         let showSchedule= document.querySelector("div.showSchedule");
         showSchedule.innerHTML = html;
@@ -172,8 +197,6 @@ $(document).on("click" , "button.detail-button" , function (e){
 // 監聽按下上一頁時會重新刷新頁一慢
 window.onpopstate = function(event) {
     location.reload();
-
-    console.log(event)
 };
 
 
@@ -352,8 +375,17 @@ async function detailDelete(id){
         // 取得資料後，進行拼圖，並打到頁面上
         const data = await response.json();
 
+        if (data.message){
+            alert(data.message);
+        }else{
+            alert("刪除失敗");
+        }
+
     }catch (error){
         console.error('Error', error);
     }
 }
 
+$(document).on("click" ,".delay-button" ,function (){
+    window.location.href = `${projectName}/backend/course/delaySchedule.jsp?no=${this.getAttribute("data-id")}`;
+})

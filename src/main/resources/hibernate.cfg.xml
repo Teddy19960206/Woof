@@ -41,5 +41,6 @@
         <mapping class="com.woof.functionpermission.entity.FunctionPermission"/>
 		<mapping class="com.woof.latestnews.entity.LatestNews"/>
 		<mapping class="com.woof.faq.entity.Faq"/>
+		<mapping class="com.woof.shoporder.entity.ShopOrder"/>
     </session-factory>
 </hibernate-configuration>

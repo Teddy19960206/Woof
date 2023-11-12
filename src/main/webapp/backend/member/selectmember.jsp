@@ -33,7 +33,9 @@ h4 {
 	<table id="table-1">
 		<tr>
 			<td><h3>會員資料</h3>
-				<h4>( MVC )</h4></td>
+				<h4>( MVC )</h4>
+				  <a href="/woof/backend/index.jsp">回首頁</a>
+				</td>
 		</tr>
 	</table>
 

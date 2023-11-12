@@ -1,17 +1,12 @@
 package com.woof.groupscheduledetail.dao;
 
-import com.woof.groupcourseschedule.entity.GroupCourseSchedule;
+
 import com.woof.trainer.entity.Trainer;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-
 import java.sql.Date;
 import java.util.List;
-import java.util.Objects;
-import java.util.Set;
-
 import com.woof.groupscheduledetail.entity.GroupScheduleDetail;
-import org.hibernate.query.NativeQuery;
 import org.hibernate.query.Query;
 
 public class GroupScheduleDetailDAOImpl implements GroupScheduleDetailDAO{
@@ -67,8 +62,8 @@ public class GroupScheduleDetailDAOImpl implements GroupScheduleDetailDAO{
         Query<Object[]> query = getSession()
                 .createQuery(hql , Object[].class)
                 .setParameter("trainerNo",trainerNo);
-        List<Object[]> results = query.list();
-        return results;
+
+        return query.list();
     }
 
     @Override
@@ -100,8 +95,18 @@ public class GroupScheduleDetailDAOImpl implements GroupScheduleDetailDAO{
         Query query = getSession().createQuery(hql, GroupScheduleDetail.class);
         query.setParameter("year" , year);
         query.setParameter("month" , month);
-        List<GroupScheduleDetail> resultList = query.list();
 
-        return resultList;
+        return query.list();
+    }
+
+    @Override
+    public List<GroupScheduleDetail> getByDate(Integer year, Integer month, Integer trainerNo) {
+
+        String hql  = "FROM GroupScheduleDetail gcsd WHERE YEAR(classDate) = :year and MONTH(classDate) = :month and gcsd.trainer.trainerNo = :trainerNo";
+        Query query = getSession().createQuery(hql, GroupScheduleDetail.class);
+        query.setParameter("year" , year);
+        query.setParameter("month" , month);
+        query.setParameter("trainerNo" , trainerNo);
+        return query.list();
     }
 }

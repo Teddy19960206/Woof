@@ -10,6 +10,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import com.woof.trainer.entity.Trainer;
+import org.hibernate.query.Query;
 
 public class TrainerDAOImpl implements TrainerDAO {
 	
@@ -69,6 +70,14 @@ public class TrainerDAOImpl implements TrainerDAO {
 	@Override
 	public List<Trainer> getAll() {
 		return getSession().createQuery("FROM Trainer", Trainer.class).list();
+	}
+
+	public Trainer getByAdmin(String adminNo){
+
+		String hql  = "FROM Trainer trainer WHERE trainer.administrator.adminNo = :adminNo";
+		Query query = getSession().createQuery(hql, Trainer.class);
+		query.setParameter("adminNo" , adminNo);
+		return (Trainer) query.getSingleResult();
 	}
 }
 

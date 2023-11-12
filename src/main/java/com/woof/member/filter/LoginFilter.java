@@ -4,6 +4,11 @@ import java.io.*;
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.*;
+
+import com.woof.member.entity.Member;
+import com.woof.member.service.MemberService;
+import com.woof.member.service.MemberServiceImpl;
+
 @WebFilter("/member/*")
 public class LoginFilter implements Filter {
 
@@ -17,8 +22,8 @@ public class LoginFilter implements Filter {
 		config = null;
 	}
 
-	public void doFilter(ServletRequest request, ServletResponse response,
-			FilterChain chain) throws ServletException, IOException {
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+			throws ServletException, IOException {
 
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse res = (HttpServletResponse) response;
@@ -31,7 +36,14 @@ public class LoginFilter implements Filter {
 			res.sendRedirect(req.getContextPath() + "/frontend/member/login/login.jsp");
 			return;
 		} else {
-			chain.doFilter(request, response);
+			// 檢查會員是否被停權
+			if (((Member) member).getMemStatus() == 0) {
+				// 如果會員被停權，重定向到停權通知頁面
+				res.sendRedirect(req.getContextPath() + "/frontend/member/login/membersuspend.jsp");
+				return;
+			} else {
+				chain.doFilter(request, response);
+			}
 		}
 	}
 }

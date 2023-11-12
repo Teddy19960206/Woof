@@ -1,6 +1,7 @@
 package com.woof.groupcourseorder.dao;
 
 import com.woof.groupcourseorder.entity.GroupCourseOrder;
+import com.woof.groupcourseschedule.entity.GroupCourseSchedule;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -34,7 +35,7 @@ public class GroupCourseOrderDAOImpl implements GroupCourseOrderDAO{
 
     @Override
     public void update(GroupCourseOrder groupCourseOrder) {
-        getSession().update(groupCourseOrder);
+        getSession().merge(groupCourseOrder);
     }
 
     @Override
@@ -68,7 +69,7 @@ public class GroupCourseOrderDAOImpl implements GroupCourseOrderDAO{
         }
 
         if (memNo != null){
-            predicates.add(builder.equal(root.get("member").get("memName"), memNo));
+            predicates.add(builder.like(root.get("member").get("memName"), '%'+memNo+'%'));
         }
 
         int first = (currentPage - 1) * PAGE_MAX_RESULT;
@@ -102,7 +103,7 @@ public class GroupCourseOrderDAOImpl implements GroupCourseOrderDAO{
         }
 
         if (memNo != null){
-            predicates.add(builder.equal(root.get("member").get("memName"), memNo));
+            predicates.add(builder.like(root.get("member").get("memName"), '%'+memNo+'%'));
         }
 
         criteriaQuery.where(builder.and(predicates.toArray(new Predicate[predicates.size()])));
@@ -120,4 +121,31 @@ public class GroupCourseOrderDAOImpl implements GroupCourseOrderDAO{
 
         return resultList;
     }
+
+    @Override
+    public List<GroupCourseOrder> getAllMember(Integer scheduleNo) {
+
+        String hql = "FROM GroupCourseOrder gco WHERE gco.groupCourseSchedule.gcsNo = :scheduleNo";
+        Query query = getSession().createQuery(hql);
+        query.setParameter("scheduleNo" ,scheduleNo);
+
+        return query.list();
+    }
+
+    @Override
+    public void updateStatus(Integer gcoNo , Integer status) {
+        String sql = "UPDATE group_course_order SET GCO_STATUS = ? WHERE GCO_NO = ?";
+        Query query = getSession().createSQLQuery(sql);
+        query.setParameter(1, status);
+        query.setParameter(2, gcoNo);
+        query.executeUpdate();
+    }
+
+
+     public List<GroupCourseOrder> getAllBySchedule(Integer gcsNo){
+        String hql = "FROM GroupCourseOrder gco WHERE gco.groupCourseSchedule.gcsNo = :gcsNo";
+        Query query = getSession().createQuery(hql);
+        query.setParameter("gcsNo" , gcsNo);
+        return query.list();
+     }
 }

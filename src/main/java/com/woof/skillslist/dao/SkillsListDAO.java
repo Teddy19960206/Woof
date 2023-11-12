@@ -6,8 +6,6 @@ import java.util.List;
 
 public interface SkillsListDAO {
 
-
-
     int insert(SkillsList skillsList);
 
     int update(SkillsList skillsList);

@@ -1,6 +1,7 @@
 package com.woof.groupcourseschedule.dao;
 
 
+import com.woof.groupcourse.entity.GroupCourse;
 import com.woof.groupcourseschedule.entity.GroupCourseSchedule;
 
 import java.util.List;
@@ -13,6 +14,8 @@ public interface GroupCourseScheduleDAO {
 
     void updateCount(Integer gcsNo , Integer regCount);
 
+    void updateStatus(Integer status , Integer gcsNo);
+
     GroupCourseSchedule findByGcsNo(Integer gcsNo);
 
     List<GroupCourseSchedule> getAll();
@@ -21,11 +24,13 @@ public interface GroupCourseScheduleDAO {
 
     List<GroupCourseSchedule> getListSchedule(Integer classType , Integer status);
 
+    List<GroupCourseSchedule> getUpStatus();
+
 
     List<GroupCourseSchedule> getAllbyClassType(Integer ctNo);
 
     List<GroupCourseSchedule> getOffStatus();
-
+    List<GroupCourseSchedule> getReviewSchedule();
 
     long getTotal(Integer classType , Integer status);
 }

@@ -19,9 +19,6 @@ public interface GroupCourseDAO {
 
     List<GroupCourse> getAll();
 
-//    List<GroupCourse> getAll(int currentPage);
-
-//    long getTotal();
 
     long getTotal(Integer classType , Integer status);
 

@@ -1,15 +1,19 @@
 package com.woof.classorder.service;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import com.woof.classorder.entity.ClassOrder;
+import com.woof.member.entity.Member;
 
 public interface ClassOrderService {
-	ClassOrder addClassOrder(ClassOrder classOrder);
+	int addClassOrder(Member member, Integer coBc, Integer coPaymentMethod, Integer coSmmp, Timestamp coTime, Integer coStatus, Integer actualAmount );
+	
+	ClassOrder findClassOrderByCoNo(Integer coNo);
 	
 	ClassOrder updateClassOrder(ClassOrder classOrder);
 	
-	ClassOrder findClassOrderByCoNo(Integer coNo);
+	
 	
 	List<ClassOrder> getAllClassOrders();
 }

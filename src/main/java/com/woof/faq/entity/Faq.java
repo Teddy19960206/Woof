@@ -9,21 +9,27 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.google.gson.annotations.Expose;
+
 @Entity
 @Table(name = "faq")
 public class Faq {
 	
+	@Expose
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "FAQ_NO" , updatable = false , nullable = false)
 	private Integer faqNo;
 	
+	@Expose
 	@Column(name ="FAQ_CLASS" , nullable = false)
 	private String faqClass;
 	
+	@Expose
 	@Column(name ="FAQ_TITLE" , nullable = false)
 	private String faqTitle;
 	
+	@Expose
 	@Column(name ="FAQ_CONTENT" , nullable = false)
 	private String faqContent;
 	

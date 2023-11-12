@@ -29,13 +29,16 @@ function getCartTotalQuantity() {
 
 
 // 添加商品到購物車的 AJAX 請求
-$(".add-to-cart").on("click", function() {
+// 動態泡沫事件
+$(document).on("click",".add-to-cart", function() {
+	
 	let prodNo = $(this).data("id");
-
-	// 			console.log(prodNo);
-
 	let prodName = $(this).data("name");
 	let prodPrice = $(this).data("price");
+
+	console.log(prodNo);
+	console.log(prodName);
+	console.log(prodPrice);
 
 	$.ajax({
 		type: "POST",
@@ -47,14 +50,25 @@ $(".add-to-cart").on("click", function() {
 			prodPrice: prodPrice
 		},
 		success: function(data) {
-
+//			console.log("AJAX call made");
 			console.log(data);
 
-			// 更新前端jsp中的數字
-			let totalQuantity = data.totalQuantity;
-			$("#cart-count").text(totalQuantity);
+			// 跑購物車清單
+    response.cartItems.forEach(item => {
+        let itemTotal = item.quantity * item.prodPrice;
+        html += `<tr>
+                    <td>${item.prodNo}</td>
+                    <td>${item.prodName}</td>
+                    <td>${item.quantity}</td>
+                    <td>NT$${itemTotal}</td>
+                </tr>`;
+    });
 
-		}
+    $("#cart-items-list").html(html);
+    $("#cart-total-amount").text(`NT$${totalAmount}`); // 更新總金額
+
+    $('#cartModal').modal('show'); // 顯示購物車模態框
+}
 
 	});
 });
