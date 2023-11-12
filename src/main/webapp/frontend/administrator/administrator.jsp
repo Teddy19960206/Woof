@@ -159,6 +159,9 @@ section {
   function processUpdate(jsonData){
 	  window.location.href = " <%=request.getContextPath()%>/frontend/administrator/administratorUpdate.jsp?adminNo=" + jsonData.adminNo ;
   }
+  function processUpdate2(jsonData){
+	  window.location.href = " <%=request.getContextPath()%>/frontend/administrator/administratorUpdate2.jsp?adminNo=" + jsonData.adminNo ;
+  }
   function processDelete(jsonData){
  	 $.ajax({
      //指定http參數傳輸格式為POST

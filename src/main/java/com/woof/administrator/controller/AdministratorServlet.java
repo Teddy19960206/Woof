@@ -160,7 +160,7 @@ private void processUpdate2(HttpServletRequest req, HttpServletResponse res) thr
 		admin.setEmergencyContactel(req.getParameter("EMERGENCY_CONTACTEL"));
 		
 
-		administratorService.updateAdministrator(admin);
+		administratorService.updateAdministrator2(admin);
 		//導到指定的URL 頁面上 把請求回應都帶過去
 //		String url = "/frontend/administrator/administrator.jsp";
 //		RequestDispatcher rd =  req.getRequestDispatcher(url);
