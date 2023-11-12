@@ -40,7 +40,10 @@ async function fetchData(page){
         }
         const data = await response.json();
 
-        html = `<table class="table table-hover text-center align-middle border">
+        let html ="";
+        let arr = new Array();
+
+        arr.push(`<table class="table table-hover text-center align-middle border">
         <thead class="table-light">
         <tr>
             <th>課程編號</th>
@@ -51,33 +54,33 @@ async function fetchData(page){
             <th>修改</th>
         </tr>
         </thead>
-        <tbody id="mybody" class="table-group-divider">`;
+        <tbody id="mybody" class="table-group-divider">`);
 
         // 將取得的資料進行拼接打到頁面上=========================================
         data.data.forEach((item)=>{
-            html += `<tr>
+            arr.push(`<tr>
             <td>${item.gcNo}</td>
             <td>${item.skill.skillName}</td>
-            <td>`;
+            <td>`);
             if(item.coursePhoto instanceof Object && Object.keys(item.coursePhoto).length > 0){
-                html +=  `<img src="${projectName}/DBPngReader?action=groupCourse&id=${item.gcNo}" style="width: 100px; height: 100px" >`;
+                arr.push(`<img src="${projectName}/DBPngReader?action=groupCourse&id=${item.gcNo}" style="width: 100px; height: 100px" >`);
             }
-            html += `</td>
+            arr.push(`</td>
             <td width="500px" class="text-start">${item.courseContent}</td>
             <td>${item.courseStatus == 0 ? "下架" : "<font color='red'>上架</font>"}</td>
             <td><button type="button" class="modify-button bn632-hover bn26" data-id="${item.gcNo}">修改</td>
-        </tr>`;
+        </tr>`);
         })
-        html += `</tbody></table>`;
+        arr.push(`</tbody></table>`);
 
         // 書籤 ==============================================================
-        html += `<nav class="text-center d-flex justify-content-center">
+        arr.push(`<nav class="text-center d-flex justify-content-center">
                   <ul class="pagination">
                     <li class="page-item">
                       <button class="page-link" onclick="fetchData(${page == 1 ? 1 : page-1})">
                         <span aria-hidden="true">&laquo;</span>
                       </button>
-                    </li>`;
+                    </li>`);
 
         const maxPagesToShow = 3;
         const totalPages = parseInt(data.pageTotal);
@@ -103,18 +106,20 @@ async function fetchData(page){
         }
 
         for (let i = startPage; i <= endPage; i++) {
-            html += `<li class="page-item ${i === page ? "active" : ""}">
+            arr.push(`<li class="page-item ${i === page ? "active" : ""}">
                <button class="page-link" onclick="fetchData(${i})">${i}</button>
-             </li>`;
+             </li>`);
         }
 
-        html += `   <li class="page-item">
+        arr.push(`   <li class="page-item">
                         <button class="page-link" onclick="fetchData(${page == totalPages ? totalPages : page+1})">
                             <span aria-hidden="true">&raquo;</span></a>
                         </button>
                     </li>
                   </ul>
-                </nav>`;
+                </nav>`);
+
+        html = arr.join("");
 
         let tbody= document.querySelector("div.showGroup");
         tbody.innerHTML = html;

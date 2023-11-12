@@ -230,11 +230,7 @@
               >登出</a
             >
             <c:if test="${sessionScope.Administrator.adminFuncName eq 1}">
-              <button type="button" class="btn btn-primary position-relative">
-                通知
-                <span class="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-danger">
-                   0
-                </span>
+              <button type="button" class="btn btn-primary position-relative" id="getNews">
               </button>
             </c:if>
               <a
