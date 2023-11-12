@@ -1,9 +1,9 @@
-//let pathName = window.document.location.pathname;
-//let projectName = pathName.substring(0, pathName.substring(1).indexOf("/") + 1);
-//
-//const useSmmpRadio = document.getElementById("UseSmmp");
-//const notUseSmmpRadio = document.getElementById("nousemocoin");
-//const inputSmmp = document.getElementById("inputSmmp");
+let pathName = window.document.location.pathname;
+let projectName = pathName.substring(0, pathName.substring(1).indexOf("/") + 1);
+
+const useSmmpRadio = document.getElementById("UseSmmp");
+const notUseSmmpRadio = document.getElementById("notusemocoin");
+const inputSmmp = document.getElementById("inputSmmp");
 //const credit = document.getElementById("credit");
 //const transfer = document.getElementById("transfer");
 //const ecPay = document.getElementById("ecPay");
@@ -11,12 +11,12 @@
 //const actualAmount = document.getElementById("actualAmount");
 //const price = document.getElementById("price");
 //const address = document.getElementById("address");
-//// 會員擁有的毛毛幣
+// 會員擁有的毛毛幣
 //const smmp = parseInt(document.getElementById("smmp").value);
-//
-//
-//// 會員使用的毛毛幣
-//const smmpCount = document.getElementById("smmpCount");
+
+
+// 會員使用的毛毛幣
+const smmpCount = document.getElementById("smmpCount");
 //
 //
 window.addEventListener("load" , ()=>{
@@ -26,24 +26,21 @@ window.addEventListener("load" , ()=>{
     smmpCount.value = "";
     actualAmount.value = price.value;
 })
-//
-//// 監聽單選按鈕的變更事件
-//useSmmpRadio.addEventListener( "change", function () {
-//    // 如果選擇使用毛毛幣，移除disabled屬性
-//    inputSmmp.removeAttribute("disabled");
-//});
-//
-//notUseSmmpRadio.addEventListener("change", function () {
-//    // 如果選擇不使用毛毛幣，增加disabled屬性
-//    inputSmmp.setAttribute("disabled", "disabled");
-//    smmpCount.value = "";
-//
-//});
-//
-//
-//
-//
-//
+
+// 監聽單選按鈕的變更事件
+useSmmpRadio.addEventListener( "change", function () {
+    // 如果選擇使用毛毛幣，移除disabled屬性
+    inputSmmp.removeAttribute("disabled");
+});
+
+notUseSmmpRadio.addEventListener("change", function () {
+    // 如果選擇不使用毛毛幣，增加disabled屬性
+    inputSmmp.setAttribute("disabled", "disabled");
+    smmpCount.value = "";
+
+});
+
+
 credit.addEventListener("change" , function (){
     html = ` <div class="d-flex mt-3">
 					       <input class="form-control text-center" style=" width: 70px" type="text" maxlength="4" onkeypress='validate(event)' value="1111" pattern="[0-9]{4}" title="請輸入4位數字" required />
@@ -85,7 +82,7 @@ ecPay.addEventListener("change" , function (){
     showPayment.innerHTML = html;
 });
 
-//
+
 //
 //smmpCount.addEventListener("keypress" , function (evt){
 //

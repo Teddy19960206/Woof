@@ -49,35 +49,57 @@
 
 			<!-- 右側欄位：用戶資訊輸入 -->
 			<div class="col-md-6">
-				<h4>收件人資訊</h4>
-				<div class="form-group">
-					<label for="address">地址</label> <input type="text"
-						class="form-control" id="address" name="address" required>
+			    <h4>收件人資訊</h4>
+			    <div class="row">
+			    	<div class="col-md">
+				   		 <div class="form-group">
+				        	<label for="name">會員姓名</label>
+				        	<input type="text" class="form-control" id="name" name="name" required>
+				   	 	 </div>
+					</div>  
+				 	<div class="col-md"> 
+					     <div class="form-group">
+				         	 <label for="phone">手機</label>
+				        	  <input type="text" class="form-control" id="phone" name="phone" required>
+				    	 </div>
+					 </div>		
 				</div>
-				<div class="form-group">
-					<label for="phone">聯絡電話</label> <input type="text"
-						class="form-control" id="phone" name="phone" required>
+				<div class="row">
+					<div class="col-md">
+						<div class="form-group">
+						    <label for="email">E-mail</label>
+						    <input type="email" class="form-control" id="email" name="email" required>
+						</div>
+					</div>
+					<div class="col-md"> 
+						<div class="form-group">
+						    <label for="address">地址</label>
+						    <input type="text" class="form-control" id="address" name="address" required>
+						</div>
+					 </div>	
 				</div>
-
-				<h4>毛毛幣折抵</h4>
+				<h4 class="mt-3">毛毛幣折抵</h4>
 					<div class="row">
 						<div class="col-4 p-0">
 							<div class="form-check">
-								<input class="form-check-input" type="radio" name="useMocoin"
-									id="usemocoin" value="usemocoin" /> <label
-									class="form-check-label" for="usemocoin">使用毛毛幣</label>
+								<input class="form-check-input" type="radio" name="smmp"
+									id="UseSmmp"/> <label
+									class="form-check-label" for="UseSmmp">使用毛毛幣</label>
 							</div>
 						</div>
 						<div class="col-4 p-0">
 							<div class="form-check">
-								<input class="form-check-input" type="radio" name="useMocoin"
-									id="nousemocoin" value="nousemocoin" /> <label
-									class="form-check-label" for="nousemocoin">不使用毛毛幣</label>
+								<input class="form-check-input" type="radio" name="smmp"
+									id="notUseSmmp" checked/> <label
+									class="form-check-label" for="notUseSmmp">不使用毛毛幣</label>
 							</div>
 						</div>
+						 <fieldset id="inputSmmp" class="mt-1">
+                            <input type="text" class="form-control text-center" style=" width: 70px" name="smmpCount" id="smmpCount" maxlength="4" pattern="[0-9]{0,4}" title="請輸入數字0~4位數" />
+                        </fieldset>
 					</div>
 					
-				<h4>付款方式</h4>
+				<h4 class="mt-3">付款方式</h4>
 				<div class="row">
 					<div class="col-4 p-0">
 						<div class="form-check form-check-inline">
