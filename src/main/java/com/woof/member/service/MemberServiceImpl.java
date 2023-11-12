@@ -89,5 +89,5 @@ public class MemberServiceImpl implements MemberService, AppService<String> {
 		}
 		return momopoints;
 	}
-	
+   
 }

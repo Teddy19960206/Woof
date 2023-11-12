@@ -63,7 +63,7 @@
                     <fieldset class="col-lg-6 col-12 my-2">
                         <div class="mb-4">
                             <label for="classAcount" class="form-label">課堂數量</label>
-                            <input type="text" class="form-control text-center" name="classAcount" id="classAcount" maxlength="4" pattern="[0-9]{0,3}" title="請輸入堂數" value=""/>
+                            <input type="text" class="form-control text-center" name="coBc" id="classAcount" maxlength="4" pattern="[0-9]{0,3}" title="請輸入堂數" value=""/>
                         </div>
                     </fieldset>
 
@@ -89,7 +89,7 @@
                             </label>
                         </div>
                         <fieldset id="inputSmmp" class="mt-1">
-                            <input type="text" class="form-control text-center" name="smmpCount" id="smmpCount" maxlength="4" pattern="[0-9]{0,4}" title="請輸入數字0~4位數" />
+                            <input type="text" class="form-control text-center" name="coSmmp" id="smmpCount" maxlength="4" pattern="[0-9]{0,4}" title="請輸入數字0~4位數" />
                         </fieldset>
                     </div>
                     <%-- 實際付款金額 --%>
@@ -98,7 +98,7 @@
                             實際付款金額
                         </label>
                         <fieldset id="actual" class="mt-1">
-                            <input type="text" class="form-control text-center" name="actualAmount" value="" id="actualAmount" maxlength="4" pattern="[0-9]{0,4}" title="請輸入數字0~4位數" disabled/>
+                            <input type="text" class="form-control text-center" name="actualAmount" value="" id="actualAmount" maxlength="4" pattern="[0-9]{0,4}" title="請輸入數字0~4位數" readonly/>
                         </fieldset>
                     </div>
                 </div>
@@ -117,19 +117,19 @@
                 <div class="my-5">
                     <h2>付款方式</h2>
                     <div class="form-check form-check-inline mt-3">
-                        <input class="form-check-input" type="radio" name="payment" value="0" id="credit" checked />
+                        <input class="form-check-input" type="radio" name="coPm" value="0" id="credit" checked />
                         <label class="form-check-label" for="credit">
                             信用卡一次付清
                         </label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="payment" value="1" id="transfer" />
+                        <input class="form-check-input" type="radio" name="coPm" value="1" id="transfer" />
                         <label class="form-check-label" for="transfer">
                             匯款
                         </label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="payment" value="2" id="ecPay" />
+                        <input class="form-check-input" type="radio" name="coPm" value="2" id="ecPay" />
                         <label class="form-check-label" for="ecPay">
                             使用綠界
                         </label>
@@ -151,7 +151,7 @@
                     </div>
                 </div>
 
-                <input type="hidden" class="form-control" name="GroupScheduleNo" value="${groupScheduleNo}" readonly />
+                <input type="hidden" class="form-control" name="coNo" value="${coNo}" readonly />
 
             </form>
 

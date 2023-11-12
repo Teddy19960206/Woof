@@ -41,13 +41,13 @@ async function fetchData(coNo){
         const data = await response.json();
 
         coNo.value = data.coNo;
-        memNo.value = data.memNo;
+        memNo.value = data.member.memNo;
         memName.value = data.member.memName;
-        classAcount.value = data.classAcount;
+        classAcount.value = data.coBc;
         coTime.value = data.coTime;
 
         let payMethod;
-        switch (data.gcoPaymentMethod){
+        switch (data.coPaymentMethod){
             case 0:
                 payMethod = '信用卡';
                 break;
@@ -61,12 +61,12 @@ async function fetchData(coNo){
         }
 
         method.value = payMethod;
-        smmp.value = data.gcoSmmp;
+        smmp.value = data.coSmmp;
         actualAmount.value = data.actualAmount;
 
         let mode;
 
-        switch (data.gcoStatus){
+        switch (data.coStatus){
             case 0:
                 mode = '未付款';
                 break;

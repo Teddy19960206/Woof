@@ -25,11 +25,12 @@
                     <input type="text" class="form-control" id="coNo" value="${coNo}" readonly>
                 </div>
             </div>
-
+           
+			
             <div class="row my-3">
                 <label class="col-5 text-center">會員帳號</label>
                 <div class="col-5">
-                    <input type="text" class="form-control" id="memNo" readonly>
+                    <input type="text" class="form-control" id="memNo" value="${memNo}" readonly>
                 </div>
 
             </div>
@@ -37,7 +38,7 @@
             <div class="row my-3">
                 <label class="col-5 text-center">會員姓名</label>
                 <div class="col-5">
-                    <input type="text" class="form-control" id="memName" readonly>
+                    <input type="text" class="form-control" id="memName" value="${memName}" readonly>
                 </div>
 
             </div>
@@ -46,7 +47,7 @@
             <div class="row my-3">
                 <label class="col-5 text-center">課程數量</label>
                 <div class="col-5">
-                    <input type="text" class="form-control" id="classAcount" readonly>
+                    <input type="text" class="form-control" id="classAcount" value="${coBc}" readonly>
                 </div>
 
             </div>
@@ -54,7 +55,7 @@
             <div class="row my-3">
                 <label class="col-5 text-center">訂單成立時間</label>
                 <div class="col-5">
-                    <input type="text" class="form-control" id="coTime" readonly>
+                    <input type="text" class="form-control" id="coTime" value="${coTime}" readonly>
                 </div>
 
             </div>
@@ -62,7 +63,7 @@
             <div class="row my-3">
                 <label class="col-5 text-center">付款方式</label>
                 <div class="col-5">
-                    <input type="text" class="form-control" id="method" readonly>
+                    <input type="text" class="form-control" id="method" value="${coPmStr}" readonly>
                 </div>
 
             </div>
@@ -70,7 +71,7 @@
             <div class="row my-3">
                 <label class="col-5 text-center">折抵毛毛幣</label>
                 <div class="col-5">
-                    <input type="text" class="form-control" id="smmp" readonly>
+                    <input type="text" class="form-control" id="smmp" value="${smmp}" readonly>
                 </div>
 
             </div>
@@ -78,7 +79,7 @@
             <div class="row my-3">
                 <label class="col-5 text-center">實付金額</label>
                 <div class="col-5">
-                    <input type="text" class="form-control" id="actualAmount" readonly>
+                    <input type="text" class="form-control" id="actualAmount" value="${actualAmount}" readonly>
                 </div>
 
             </div>
@@ -86,7 +87,7 @@
             <div class="row my-3">
                 <label class="col-5 text-center">訂單狀態</label>
                 <div class="col-5">
-                    <input type="text" class="form-control" id="status" readonly>
+                    <input type="text" class="form-control" id="status" value="${coStatusStr}" readonly>
                 </div>
 
             </div>
