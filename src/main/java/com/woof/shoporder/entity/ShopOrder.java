@@ -67,7 +67,7 @@ public class ShopOrder implements Serializable {
 
 	@Expose
     @Column(name="ACTUAL_PRICE", nullable=false)   //實付金額 含扣除毛毛幣
-	private Integer actualprice;
+	private Integer actualPrice;
 
 	public ShopOrder() {
 	}
@@ -168,15 +168,15 @@ public class ShopOrder implements Serializable {
 		this.orderTotalPrice = orderTotalPrice;
 	}
 
-	public Integer getActualprice() {
-		return actualprice;
+	public Integer getActualPrice() {
+		return actualPrice;
 	}
 
-	public void setActualprice(Integer actualprice) {
-		this.actualprice = actualprice;
+	public void setActualPrice(Integer actualPrice) {
+		this.actualPrice = actualPrice;
 	}
-	
-	
+
+
 	
 }
 
