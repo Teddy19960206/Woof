@@ -5,6 +5,8 @@ import java.math.BigDecimal;
 import java.util.Objects;
 import javax.persistence.*;
 
+//可能要重做
+
 @Entity
 @Table(name = "shop_order_detail")
 public class ShopOrderDetail implements Serializable {
