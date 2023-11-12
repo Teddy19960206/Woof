@@ -372,9 +372,25 @@ async function modifyFetch(id , status){
 
 // 退款按鈕
 $(document).on("click" , "button.refund" , function (){
-    if (confirm("確定要退款嗎")) {
-        refundFetch($(this).data("id"));
-    }
+
+    Swal.fire({
+        title: "確定要刪除嗎?",
+        text: "您將無法恢復此狀態！",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "是, 刪除"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            refundFetch($(this).data("id"));
+            Swal.fire({
+                title: "已刪除",
+                text: "刪除成功",
+                icon: "success"
+            });
+        }
+    });
 })
 
 async function refundFetch(id){

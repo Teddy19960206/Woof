@@ -103,7 +103,12 @@ async function newsInfoFetch(){
             showInfo.innerHTML = html;
         }else {
             infoModal.hide();
-            alert("沒有資料");
+
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "沒有資料"
+            });
         }
 
     }catch (error){
@@ -118,9 +123,25 @@ $(document).on("click" , "button.schedulePostpone" , function(){
 
 // 取消報名
 $(document).on("click" , "button.schudeleCancel" , function(){
-    if (confirm("確定退款嗎?")){
-        refundAllFetch(this.getAttribute("data-id"));
-    }
+
+    Swal.fire({
+        title: "確定退款嗎?",
+        text: "您將無法恢復此狀態！",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "是, 刪除"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            refundAllFetch(this.getAttribute("data-id"));
+            Swal.fire({
+                title: "已刪除",
+                text: "刪除成功",
+                icon: "success"
+            });
+        }
+    });
 }) ;
 
 
@@ -142,9 +163,17 @@ async function refundAllFetch(gcsNo){
         const data = await response.json();
 
         if (data.message){
-            alert(data.message);
+            await Swal.fire({
+                title: "Good job!",
+                text: `${data.message}`,
+                icon: "success"
+            });
         }else{
-            alert("退款失敗");
+            await Swal.fire({
+                title: "Oops...",
+                text: "退款失敗",
+                icon: "error"
+            });
         }
         window.location.reload();
 

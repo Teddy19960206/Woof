@@ -63,15 +63,45 @@ const calendar = new FullCalendar.Calendar(calendarEl, {
             return; // 結束函數執行
         }
 
-        if (confirm('請問確定要刪除嗎?')) {
-            // 這裡要做ajax發送delete資料庫動作
-            arg.event.remove()
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
 
-            let indexToRemove = reserveDate.indexOf(arg.event.startStr);
-            if (indexToRemove !== -1) {
-                reserveDate.splice(indexToRemove, 1);
+                cancelButton: "btn btn-danger",
+                confirmButton: "btn btn-success"
+            },
+            buttonsStyling: false
+        });
+        swalWithBootstrapButtons.fire({
+            title: "確定要刪除嗎?",
+            text: "您將無法恢復此狀態！",
+            icon: "警告!",
+            showCancelButton: true,
+            confirmButtonText: "是, 刪除",
+            cancelButtonText: "否, 取消!",
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // 這裡要做ajax發送delete資料庫動作
+                arg.event.remove()
+                let indexToRemove = reserveDate.indexOf(arg.event.startStr);
+                if (indexToRemove !== -1) {
+                    reserveDate.splice(indexToRemove, 1);
+                }
+
+
+                swalWithBootstrapButtons.fire({
+                    title: "已刪除",
+                    text: "刪除成功",
+                    icon: "success"
+                });
+            } else if (result.dismiss === Swal.DismissReason.cancel) {
+                swalWithBootstrapButtons.fire({
+                    title: "已取消",
+                    text: "已取消刪除的操作",
+                    icon: "error"
+                });
             }
-        }
+        });
     },
 
     editable: true,  // 可編輯
