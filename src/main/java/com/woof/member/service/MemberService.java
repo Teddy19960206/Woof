@@ -29,4 +29,5 @@ public interface MemberService {
     // 新增獲取會員點數的方法定義
     Integer getMemberPoints(String memNo);
 	
+    void updateMemberPoints(String memNo,Integer momo);
 }

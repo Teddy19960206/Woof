@@ -192,8 +192,11 @@ public class ClassOrderServlet extends HttpServlet {
 		request.getSession().setAttribute("coStatusStr", coStatusStr);
 		
 		Integer momo = member.getMomoPoint() - smmp;
-		member.setMomoPoint(momo);
-	
+		MemberService memberService = new MemberServiceImpl();
+		memberService.updateMemberPoints(memNo, momo);
+		
+		member.setMomoPoint(momo);//讓頁面的momo幣刷新
+		
 		response.sendRedirect(request.getContextPath() + "/frontend/privatetrainer/classOrder.jsp");
 	}
 }
