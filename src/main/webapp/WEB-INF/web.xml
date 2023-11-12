@@ -41,7 +41,7 @@
 		<dispatcher>ERROR</dispatcher>
 		<dispatcher>ASYNC</dispatcher>
 	</filter-mapping>
-<filter>
+	<filter>
 		<filter-name>LoginFilter1</filter-name>
 		<filter-class>com.woof.administrator.filter.LoginFilter1</filter-class>
 	</filter>
@@ -56,5 +56,20 @@
 		<dispatcher>ASYNC</dispatcher>
 	</filter-mapping>
 
+
+	<servlet>
+		<servlet-name>scheduler</servlet-name>
+		<servlet-class>com.woof.scheduler.GroupScduleScheduler</servlet-class>
+		<init-param>
+			<param-name>timer</param-name>
+			<!--	60秒  -->
+			<param-value>60000</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>scheduler</servlet-name>
+		<url-pattern>/scheduler</url-pattern>
+	</servlet-mapping>
 
 </web-app>
