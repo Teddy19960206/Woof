@@ -108,6 +108,7 @@ $(document).ready(function() {
 	$('#checkout').click(function() {
 		
 		console.log("11111");
+		
 		window.location.href = '<%=request.getContextPath()%>/checkout.jsp';
 	});
 });
