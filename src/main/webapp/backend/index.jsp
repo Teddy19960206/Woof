@@ -15,7 +15,7 @@
 <div class="container py-5">
     <div class="row">
 
-        <div class="mx-auto col-6">
+        <div class="mx-auto col-6 d-flex flex-column align-items-center justify-content-center">
             <img class="img-fluid h-50" src="images/pexels-anna-shvets-4587992.jpg" alt="寵毛導師後台首頁">
             <h2>歡迎寵毛導師的後台</h2>
 

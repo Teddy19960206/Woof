@@ -80,6 +80,9 @@
                       <li class="sidebar-item">
                         <a href="${pageContext.request.contextPath}/backend/course/orderManagement.jsp" class="sidebar-link2">課堂檔期訂單管理</a>
                       </li>
+                     <li class="sidebar-item">
+                      <a href="#" class="sidebar-link2">課堂數訂單管理</a>
+                    </li>
                     <li class="sidebar-item">
                       <a href="#" class="sidebar-link2">私人預約管理</a>
                     </li>
