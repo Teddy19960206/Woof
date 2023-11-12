@@ -45,39 +45,46 @@ window.addEventListener("load" , ()=>{
 //
 //
 credit.addEventListener("change" , function (){
-    html = `<input class="form-control d-inline text-center" type="text" maxlength="4" onkeypress='validate(event)' value="4311" pattern="[0-9]{4}" title="請輸入4位數字" required><span> - </span>
-                    <input class="form-control d-inline text-center" type="text" maxlength="4" onkeypress='validate(event)' value="9522" pattern="[0-9]{4}" title="請輸入4位數字" required><span> - </span>
-                    <input class="form-control d-inline text-center" type="text" maxlength="4" onkeypress='validate(event)' value="2222" pattern="[0-9]{4}" title="請輸入4位數字" required><span> - </span>
-                    <input class="form-control d-inline text-center  " type="text" maxlength="4" onkeypress='validate(event)' value="2222" pattern="[0-9]{4}" title="請輸入4位數字" required>
+    html = ` <div class="d-flex mt-3">
+					       <input class="form-control text-center" style=" width: 70px" type="text" maxlength="4" onkeypress='validate(event)' value="1111" pattern="[0-9]{4}" title="請輸入4位數字" required />
+					       <span class="mx-2 mt-1">-</span>
+					       <input class="form-control text-center" style=" width: 70px" type="text" maxlength="4" onkeypress='validate(event)' value="2222" pattern="[0-9]{4}" title="請輸入4位數字" required />
+					       <span class="mx-2 mt-1">-</span>
+					       <input class="form-control text-center" style=" width: 70px" type="text" maxlength="4" onkeypress='validate(event)' value="3333" pattern="[0-9]{4}" title="請輸入4位數字" required />
+					       <span class="mx-2 mt-1">-</span>
+					       <input class="form-control text-center" style=" width: 70px" type="text" maxlength="4" onkeypress='validate(event)' value="4444" pattern="[0-9]{4}" title="請輸入4位數字" required />
+					   </div>
 
-                    <div class="mt-5">
-                        <label class="mb-3">驗證碼</label>
-                        <input class="form-control verification text-center" type="text" maxlength="3" onkeypress='validate(event)' value="222">
-                    </div>
-                    <div class="d-flex justify-content-center mt-5 myBtn">
-                        <button type="submit" class="button-62">確認付款</button>
-                    </div>`;
+					<div class="mt-1">
+						<label class="mb-1">驗證碼</label> <input
+							class="form-control verification text-center" style=" width: 70px" type="text"
+							maxlength="3" onkeypress='validate(event)' value="555">
+					</div>
+					<div class="d-flex justify-content-start mt-3 myBtn">
+						<button type="submit" class="btn btn-primary">確認付款</button>
+					</div>
+				</div>`;
     showPayment.innerHTML = html;
 });
 
 transfer.addEventListener("change" , function (){
-    html = `<h5>匯款帳號</h5>
-                    <p>銀行：合作金庫 (006)</p>
-                    <p>匯款帳號：3333-333-333333</p>
-                    <div class="d-flex justify-content-center mt-5 myBtn">
-                        <button type="submit" class="button-62">確認付款</button>
-                    </div>`;
+    html = `<h5 class="mt-3">匯款帳號</h5>
+                  <p class="m-0">銀行：合作金庫 (006)</p>
+                  <p class="m-0">匯款帳號：3333-333-333333</p>
+                      <div class="d-flex justify-content-start myBtn">
+							<button type="submit" class="btn btn-primary mt-3">確認付款</button>
+						</div>`;
     showPayment.innerHTML = html;
 });
 
 ecPay.addEventListener("change" , function (){
 
-    html = `<div class="d-flex justify-content-center mt-5 myBtn">
-                        <button type="submit" class="button-62">使用綠界</button>
-                    </div>`;
+    html = `<div class="d-flex justify-content-start myBtn">
+				<button type="submit" class="btn btn-primary mt-3">使用綠界</button>
+			</div>`;
     showPayment.innerHTML = html;
 });
-//
+
 //
 //
 //smmpCount.addEventListener("keypress" , function (evt){

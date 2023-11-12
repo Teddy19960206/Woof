@@ -61,14 +61,14 @@
 
 				<h4>毛毛幣折抵</h4>
 					<div class="row">
-						<div class="col">
+						<div class="col-4 p-0">
 							<div class="form-check">
 								<input class="form-check-input" type="radio" name="useMocoin"
 									id="usemocoin" value="usemocoin" /> <label
 									class="form-check-label" for="usemocoin">使用毛毛幣</label>
 							</div>
 						</div>
-						<div class="col">
+						<div class="col-4 p-0">
 							<div class="form-check">
 								<input class="form-check-input" type="radio" name="useMocoin"
 									id="nousemocoin" value="nousemocoin" /> <label
@@ -79,46 +79,46 @@
 					
 				<h4>付款方式</h4>
 				<div class="row">
-					<div class="col">
-						<div class="form-check">
+					<div class="col-4 p-0">
+						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="radio" name="payment"
 								value="0" id="credit" checked /> <label
 								class="form-check-label" for="credit">信用卡一次付清</label>
 						</div>
 					</div>
-					<div class="col">
-						<div class="form-check">
+					<div class="col-2 p-0">
+						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="radio" name="payment"
 								value="1" id="transfer" /> <label class="form-check-label"
 								for="transfer">匯款</label>
 						</div>
 					</div>
-					<div class="col">
-						<div class="form-check">
+					<div class="col-3 p-0">
+						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="radio" name="payment"
 								value="2" id="ecPay" /> <label class="form-check-label"
 								for="ecPay">使用綠界</label>
 						</div>
 					</div>
 					<div class="form showPayment" id="showPayment">
-					    <div class="d-flex flex-row justify-content-between">
-					        <input class="form-control flex-grow-1" type="text" maxlength="4" onkeypress='validate(event)' value="4311" pattern="[0-9]{4}" title="請輸入4位數字" required />
-					        <span>-</span>
-					        <input class="form-control flex-grow-1" type="text" maxlength="4" onkeypress='validate(event)' value="9522" pattern="[0-9]{4}" title="請輸入4位數字" required />
-					        <span>-</span>
-					        <input class="form-control flex-grow-1" type="text" maxlength="4" onkeypress='validate(event)' value="2222" pattern="[0-9]{4}" title="請輸入4位數字" required />
-					        <span>-</span>
-					        <input class="form-control flex-grow-1" type="text" maxlength="4" onkeypress='validate(event)' value="2222" pattern="[0-9]{4}" title="請輸入4位數字" required />
+					    <div class="d-flex mt-3">
+					        <input class="form-control text-center" style=" width: 70px" type="text" maxlength="4" onkeypress='validate(event)' value="1111" pattern="[0-9]{4}" title="請輸入4位數字" required />
+					        <span class="mx-2 mt-1">-</span>
+					        <input class="form-control text-center" style=" width: 70px" type="text" maxlength="4" onkeypress='validate(event)' value="2222" pattern="[0-9]{4}" title="請輸入4位數字" required />
+					        <span class="mx-2 mt-1">-</span>
+					        <input class="form-control text-center" style=" width: 70px" type="text" maxlength="4" onkeypress='validate(event)' value="3333" pattern="[0-9]{4}" title="請輸入4位數字" required />
+					        <span class="mx-2 mt-1">-</span>
+					        <input class="form-control text-center" style=" width: 70px" type="text" maxlength="4" onkeypress='validate(event)' value="4444" pattern="[0-9]{4}" title="請輸入4位數字" required />
 					    </div>
 
-						<div class="mt-5">
-							<label class="mb-3">驗證碼</label> <input
-								class="form-control verification text-center" type="text"
-								maxlength="3" onkeypress='validate(event)' value="222">
+						<div class="mt-1">
+							<label class="mb-1">驗證碼</label> <input
+								class="form-control verification text-center" style=" width: 70px" type="text"
+								maxlength="3" onkeypress='validate(event)' value="555">
 						</div>
 
-						<div class="d-flex justify-content-center myBtn">
-							<button type="submit" class="button-62">確認付款</button>
+						<div class="d-flex justify-content-start mt-3 myBtn">
+							<button type="submit" class="btn btn-primary">確認付款</button>
 						</div>
 					</div>
 
@@ -132,7 +132,7 @@
 		</div>
 
 		<script
-			src="<%=request.getContextPath()%>/frontend/cartlist/checkout.js"></script>
+			src="<%=request.getContextPath()%>/frontend/cartlist/js/checkout.js"></script>
 </body>
 
 </html>
