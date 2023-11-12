@@ -29,7 +29,7 @@ public class LoginFilter1 implements Filter {
 		HttpSession session = req.getSession();
 		// 【從 session 判斷此user是否登入過】
 
-		Object admin = session.getAttribute("Administrator");
+		Object admin = session.getAttribute("administrator");
 
 		if (admin  == null) {
 			session.setAttribute("location", req.getRequestURI());
