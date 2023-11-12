@@ -74,7 +74,7 @@ public class GroupScduleScheduler extends HttpServlet {
                         groupGourseScheduleService.updateStatus(2 , groupCourseSchedule.getGcsNo());
                     }else {
 //                      滿最低人數 ： 狀態改變 ->  不變  並儲存到 redis 通知管理員做後續處理
-                        jedis.sadd("schedule:",groupCourseSchedule.toString());
+                        jedis.sadd("schedule",groupCourseSchedule.toString());
                     }
                 }
 

@@ -214,7 +214,10 @@ async function fetchDetail(url){
         // 取得資料後，進行拼圖，並打到頁面上
         const data = await response.json();
 
-        html = `<table class="table table-hover text-center align-middle border">
+        let html = "";
+        let arr = new Array();
+
+        arr.push(`<table class="table table-hover text-center align-middle border">
         <thead class="table-light" >
         <tr>
             <th>編號</th>
@@ -226,10 +229,10 @@ async function fetchDetail(url){
             <th>刪除</th>
         </tr>
         </thead>
-        <tbody id="mybody table-group-divider">
-        `;
+        <tbody id="mybody table-group-divider">`);
+
         data.forEach((item)=>{
-            html += `<tr>
+            arr.push(`<tr>
                 <td>${item.gcsdNo}</td>
                 <td>${className}</td>
                 <td>${item.trainer.administrator.adminName}</td>
@@ -237,10 +240,12 @@ async function fetchDetail(url){
                 <td><button type="button" class="editDetail btn btn-primary" data-id="${item.gcsdNo}">修改</button></td>
                 <td><button type="button" class="modify btn btn-primary" data-id="${item.gcsdNo}" disabled>確定</button></td>
                 <td><button type="button" class="deleteDetail btn btn-danger" data-id="${item.gcsdNo}">刪除</button></td>
-            </tr>`
+            </tr>`);
         });
 
-        html += "</tbody></table>";
+        arr.push("</tbody></table>");
+
+        html = arr.join("");
 
 
         let showSchedule= document.querySelector("div.showSchedule");

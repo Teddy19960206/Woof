@@ -1,7 +1,9 @@
 package com.woof.groupcourseschedule.controller;
 
+import com.alibaba.fastjson2.JSON;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.woof.groupcourse.entity.GroupCourse;
 import com.woof.groupcourse.service.GroupCourseServiceImpl;
@@ -15,10 +17,13 @@ import com.woof.skill.service.SkillService;
 import com.woof.skill.service.SkillServiceImpl;
 import com.woof.trainer.entity.Trainer;
 import com.woof.trainer.service.TrainerServiceImpl;
+import com.woof.util.JedisUtil;
 import com.woof.util.JsonIgnoreExclusionStrategy;
 import com.woof.util.MailService;
+import redis.clients.jedis.Jedis;
 
 
+import javax.json.Json;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -93,6 +98,12 @@ public class GroupScheduleServlet extends HttpServlet {
             case "/addDelay":
 //                延期、額外新增課程
                 addDelay(request, response);
+                return;
+            case "/countInfo":
+                countInfo(request ,response);
+                return;
+            case "/getNewsRedis":
+                getNewsRedis(request , response);
                 return;
             default:
                 if (pathInfo.startsWith("/edit/")) {
@@ -675,7 +686,54 @@ public class GroupScheduleServlet extends HttpServlet {
             response.getWriter().write(json);
         }
     }
+//    計算總共有幾筆資料
+    private void countInfo(HttpServletRequest request , HttpServletResponse response) throws IOException {
+        try(Jedis jedis = JedisUtil.getResource()){
+            jedis.select(0);
+            Long schedules = jedis.scard("schedules");
 
+            response.setContentType("text/html; charset=UTF-8");
+            response.getWriter().write(schedules.toString());
+        }
+    }
+    private void getNewsRedis(HttpServletRequest request , HttpServletResponse response) throws IOException {
+
+//        try (Jedis jedis = new Jedis()){
+//            List<GroupCourseSchedule> all = groupGourseScheduleService.getAll();
+//
+//            Gson gson = new GsonBuilder()
+//                    .excludeFieldsWithoutExposeAnnotation()
+//                    .setDateFormat("yyyy-MM-dd")
+//                    .create();
+//
+//
+//            for (GroupCourseSchedule groupCourseSchedule : all){
+//                jedis.sadd("schedules" , gson.toJson(groupCourseSchedule));
+//            }
+//        }
+
+
+
+
+        List<Object> jsonObjects = new ArrayList<>();
+        String json = null;
+        try (Jedis jedis = JedisUtil.getResource()) {
+            jedis.select(0);
+            Set<String> schedules = jedis.smembers("schedules");
+
+            for (String schedule : schedules){
+                Object parse = JSON.parse(schedule);
+                jsonObjects.add(parse);
+            }
+
+
+            Gson gson = new Gson();
+            json = gson.toJson(jsonObjects);
+        }
+
+        response.setContentType("application/json;charset=UTF-8");
+        response.getWriter().write(json);
+    }
 }
 
 
