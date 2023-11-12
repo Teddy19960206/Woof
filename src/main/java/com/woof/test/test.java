@@ -10,7 +10,7 @@ import ecpay.payment.integration.domain.QueryTradeInfoObj;
 import javax.servlet.annotation.WebServlet;
 import java.io.UnsupportedEncodingException;
 
-@WebServlet("/test")
+
 public class test {
 
 public static AllInOne all;
