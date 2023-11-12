@@ -12,7 +12,7 @@
             </a>
             <ul class="sidebar-nav">
 
-              <c:if test="${sessionScope.Administrator.adminFuncName eq 1}">
+              <c:if test="${sessionScope.administrator.adminFuncName eq 1}">
                 <li class="sidebar-item">
                   <a
                     href="#"
@@ -168,7 +168,7 @@
                     </ul>
                 </li>
               </c:if>
-              <c:if test="${sessionScope.Administrator.adminFuncName eq 2}">
+              <c:if test="${sessionScope.administrator.adminFuncName eq 2}">
                 <li class="sidebar-item">
                   <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#trainer"
                      aria-expanded="false" aria-controls="trainer">
@@ -229,7 +229,7 @@
               "
               >登出</a
             >
-            <c:if test="${sessionScope.Administrator.adminFuncName eq 1}">
+            <c:if test="${sessionScope.administrator.adminFuncName eq 1}">
               <button type="button" class="btn btn-primary position-relative" id="getNews">
               </button>
             </c:if>
