@@ -100,9 +100,11 @@ public class GroupScheduleServlet extends HttpServlet {
                 addDelay(request, response);
                 return;
             case "/countInfo":
+//                取得通知訊息的數量
                 countInfo(request ,response);
                 return;
             case "/getNewsRedis":
+//                取得通知訊息內容
                 getNewsRedis(request , response);
                 return;
             default:
@@ -690,7 +692,7 @@ public class GroupScheduleServlet extends HttpServlet {
     private void countInfo(HttpServletRequest request , HttpServletResponse response) throws IOException {
         try(Jedis jedis = JedisUtil.getResource()){
             jedis.select(0);
-            Long schedules = jedis.scard("schedules");
+            Long schedules = jedis.hlen("schedules");
 
             response.setContentType("text/html; charset=UTF-8");
             response.getWriter().write(schedules.toString());
@@ -698,17 +700,18 @@ public class GroupScheduleServlet extends HttpServlet {
     }
     private void getNewsRedis(HttpServletRequest request , HttpServletResponse response) throws IOException {
 
+        Gson gson = new GsonBuilder()
+                .excludeFieldsWithoutExposeAnnotation()
+                .setDateFormat("yyyy-MM-dd")
+                .create();
+
 //        try (Jedis jedis = new Jedis()){
+//            jedis.select(0);
 //            List<GroupCourseSchedule> all = groupGourseScheduleService.getAll();
-//
-//            Gson gson = new GsonBuilder()
-//                    .excludeFieldsWithoutExposeAnnotation()
-//                    .setDateFormat("yyyy-MM-dd")
-//                    .create();
 //
 //
 //            for (GroupCourseSchedule groupCourseSchedule : all){
-//                jedis.sadd("schedules" , gson.toJson(groupCourseSchedule));
+//                jedis.hset("schedules" , groupCourseSchedule.getGcsNo().toString() , gson.toJson(groupCourseSchedule));
 //            }
 //        }
 
@@ -719,15 +722,22 @@ public class GroupScheduleServlet extends HttpServlet {
         String json = null;
         try (Jedis jedis = JedisUtil.getResource()) {
             jedis.select(0);
-            Set<String> schedules = jedis.smembers("schedules");
 
-            for (String schedule : schedules){
-                Object parse = JSON.parse(schedule);
-                jsonObjects.add(parse);
+            Map<String , String> schedules = jedis.hgetAll("schedules");
+
+
+            for (Map.Entry<String ,String> entry : schedules.entrySet()){
+
+                String jsonSchedule = entry.getValue();
+                GroupCourseSchedule schedule = gson.fromJson(jsonSchedule, GroupCourseSchedule.class);
+                jsonObjects.add(schedule);
+
+//                Object parse = JSON.parse(schedule);
+//                jsonObjects.add(parse);
             }
 
 
-            Gson gson = new Gson();
+//            Gson gson = new Gson();
             json = gson.toJson(jsonObjects);
         }
 

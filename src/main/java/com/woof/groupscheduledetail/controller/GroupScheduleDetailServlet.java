@@ -74,6 +74,7 @@ public class GroupScheduleDetailServlet extends HttpServlet {
                 getDetailByDate(request , response);
                 return;
             case "/getTrainerDetail":
+//                取得訓練師課表
                 getTrainerDetail(request , response);
                 return;
             default:

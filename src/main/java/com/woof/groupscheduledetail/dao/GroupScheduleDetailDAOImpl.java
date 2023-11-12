@@ -1,6 +1,7 @@
 package com.woof.groupscheduledetail.dao;
 
 
+import com.woof.groupcourseorder.entity.GroupCourseOrder;
 import com.woof.trainer.entity.Trainer;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -109,4 +110,6 @@ public class GroupScheduleDetailDAOImpl implements GroupScheduleDetailDAO{
         query.setParameter("trainerNo" , trainerNo);
         return query.list();
     }
+
+
 }

@@ -118,6 +118,40 @@ $(document).on("click" , "button.schedulePostpone" , function(){
 
 // 取消報名
 $(document).on("click" , "button.schudeleCancel" , function(){
-    window.location.href
+    if (confirm("確定退款嗎?")){
+        refundAllFetch(this.getAttribute("data-id"));
+    }
 }) ;
+
+
+async function refundAllFetch(gcsNo){
+    let url = `${projectName}/groupOrder/refundAllBySchedule`;
+    try{
+        const response = await fetch(url ,{
+            method: "POST",
+            headers : {
+                "Content-Type" : "application/x-www-form-urlencoded"
+            },
+            body : "gcsNo="+gcsNo
+        })
+
+        if (!response.ok){
+            throw new Error("異常失敗")
+        }
+
+        const data = await response.json();
+
+        if (data.message){
+            alert(data.message);
+        }else{
+            alert("退款失敗");
+        }
+        window.location.reload();
+
+    }catch (error){
+        console.log(error)
+    }
+
+
+}
 

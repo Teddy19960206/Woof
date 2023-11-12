@@ -101,7 +101,13 @@ public class GroupCourseOrderServiceImpl implements GroupCourseOrderService{
 
     @Override
     public void refund(Integer gcoNo) {
-//      狀態 2 為已退款
+//        單筆變更狀態： 改變狀態 已退款(2)
         dao.updateStatus(gcoNo , 2);
+    }
+
+    @Override
+    public void modifyAllOrderByGcsNo(Integer gcsNo) {
+//       讓該課程報名全部的訂單，全部狀態變成 已取消(2)
+        dao.modifyAllOrderByGcsNo(gcsNo);
     }
 }
