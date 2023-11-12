@@ -21,17 +21,9 @@ public class ClassOrderDAOImpl implements ClassOrderDAO{
 
 	@Override
 	public int insert(ClassOrder classOrder) {
-		return (Integer) getSession().save(classOrder);
-	}
-
-	@Override
-	public int update(ClassOrder classOrder) {
-		try {
-			getSession().update(classOrder);
-			return 1;
-		} catch (Exception e) {
-			return -1;
-		}
+		
+		return (int)getSession().save(classOrder);
+			
 	}
 
 	@Override
@@ -39,6 +31,17 @@ public class ClassOrderDAOImpl implements ClassOrderDAO{
 		return getSession().get(ClassOrder.class, coNo);
 	}
 
+	@Override
+	public int update(ClassOrder classOrder) {
+		try {
+			getSession().merge(classOrder);
+			return 1;
+		} catch (Exception e) {
+			return -1;
+		}
+	}
+
+	
 	@Override
 	public List<ClassOrder> getAll() {
 		return getSession().createQuery("FROM ClassOrder", ClassOrder.class).list();

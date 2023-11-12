@@ -1,70 +1,75 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%-- <%@ page contentType="text/html;charset=UTF-8" language="java" %> --%>
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
+<%-- <%@ include file="/meta.file" %> --%>
+<!--     <meta charset="UTF-8"> -->
     <title>寵毛導師 Woof | 訓練師列表</title>
     <style>
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f0f0f0;
-        margin: 0;
-        padding: 0;
-    }
+	body {
+    background-color: #FAD02E;
+    font-family: Arial, sans-serif;
+}
 
-    h1 {
-        color: #333;
-        text-align: center;
-    }
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #FFF;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
 
-    .trainer {
-        background-color: #fff;
-        border: 1px solid #ccc;
-        margin: 10px;
-        padding: 15px;
-        box-shadow: 0px 0px 10px #aaa;
-    }
+h1 {
+    color: #FF5733;
+}
 
-    img {
-        display: block;
-        margin: 0 auto;
-        border: 2px solid #ccc;
-        border-radius: 50%;
-    }
+.trainer {
+    border: 1px solid #FF5733;
+    padding: 10px;
+    margin: 20px 0;
+}
 
-    h2 {
-        text-align: center;
-        margin-top: 10px;
-    }
+.trainer img {
+    max-width: 100px;
+    max-height: 100px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
 
-    p {
-        font-weight: bold;
-        margin-top: 10px;
-    }
+.trainer h2 {
+    color: #333;
+}
 
-    ul {
-        list-style: none;
-        padding: 0;
-    }
+ul {
+    list-style-type: disc;
+    padding-left: 20px;
+}
 
-    li {
-        margin-top: 5px;
-    }
+button {
+    background-color: #FF5733;
+    color: #FFF;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
 
-    button {
-        background-color: #333;
-        color: #fff;
-        border: none;
-        padding: 5px 10px;
-        cursor: pointer;
-        margin-top: 10px;
-    }
+button:hover {
+    background-color: #FF7F55;
+}
 
-    button:hover {
-        background-color: #555;
-    }
+.btn-buyclass, .btn-back {
+    display: block;
+    margin: 20px auto;
+    text-align: center;
+}
+
+footer {
+    text-align: center;
+    color: #333;
+    margin-top: 20px;
+}
 </style>
  <script type="text/javascript">
         // 當頁面加載完成後執行
@@ -81,38 +86,43 @@
     </script>
 </head>
 <body>
-    <h1>訓練師列表</h1>
+<%-- <%@ include file="/Header.file" %> --%>
+ 
 <jsp:useBean id="trainerServer" scope="page" class="com.woof.trainer.service.TrainerServiceImpl"/>
-<jsp:useBean id="skillServer" scope="page" class="com.woof.skill.service.SkillServiceImpl"/>
-    <c:forEach var="trainer" items="${trainerServer.allTrainers}">
-        <div class="trainer">
-           <img src="${pageContext.request.contextPath}/DBPngReader?action=administrator&id=${trainer.administrator.adminNo}" style="width: 100px; height: 100px">
-            <h2>${trainer.administrator.adminName}</h2>
-            
-            <p>專長:</p>
-<%--             <p>${trainer.skills}</p> --%>
-            <ul>          	
- 				<c:forEach items="${trainer.skills}" var="trainerskill">
-            			<li>${trainerskill.skillName}</li>
-        		</c:forEach>
-        	</ul>
-            <p>評價:</p>
-            <form method="POST" ACTION="${pageContext.request.contextPath}/commentreport" onsubmit="return commentReport()">
-            	<ul>            	
-                	<c:forEach var="pta" items="${trainer.privateTrainingAppointmentForms}">
-                   		<li>${pta.ptaComment}</li>            
-                   		<input type="hidden" name="ptano" value="${pta.ptaNo}">
-                   		<input type="hidden" name="comment" value="${pta.ptaComment}">
-                   		<input type="hidden" name="action" value="report">                		
-                    	<button>檢舉評論</button>
-                	</c:forEach>
-            	</ul>
-            </form>
-            <button>預約訓練師</button>
-        </div>
-    </c:forEach>
-   
-    <button class="btn btn-buyclass" onclick="window.location='${pageContext.request.contextPath}/frontend/privatetrainer/buyclass.jsp'">購買課堂</button>
+
+    <div class="container">
+        <h1>訓練師列表</h1>
+        <c:forEach var="trainer" items="${trainerServer.allTrainers}">
+            <div class="trainer">
+                <img src="${pageContext.request.contextPath}/DBPngReader?action=administrator&id=${trainer.administrator.adminNo}" alt="${trainer.administrator.adminName}">
+                <h2>${trainer.administrator.adminName}</h2>
+                <p>專長:</p>
+                <ul>
+                    <c:forEach items="${trainer.skills}" var="trainerskill">
+                        <li>${trainerskill.skillName}</li>
+                    </c:forEach>
+                </ul>
+                <p>評價:</p>
+                <form method="POST" action="${pageContext.request.contextPath}/commentreport" onsubmit="return commentReport()">
+                    <ul>
+                        <c:forEach var="pta" items="${trainer.privateTrainingAppointmentForms}">
+                            <li>${pta.ptaComment}</li>
+                            <input type="hidden" name="ptano" value="${pta.ptaNo}">
+                            <input type="hidden" name="comment" value="${pta.ptaComment}">
+                            <input type="hidden" name="action" value="report">
+                            <button>檢舉評論</button>
+                        </c:forEach>
+                    </ul>
+                </form>
+                <button>預約訓練師</button>
+            </div>
+        </c:forEach>
+    </div>
+
+    <button class="btn btn-buyclass" onclick="window.location='${pageContext.request.contextPath}/frontend/privatetrainer/buyClass.jsp'">購買課堂</button>
     <button class="btn btn-back" onclick="window.location='${pageContext.request.contextPath}/index.jsp'">返回</button>
+
+<%-- <%@ include file="/Footer.file" %> --%>
+
 </body>
 </html>
