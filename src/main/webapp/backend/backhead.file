@@ -8,4 +8,6 @@
 <link rel="icon" type="image/x-icon" href="<%=request.getContextPath()%>/webutil/icons/happy_1.png" />
 <script src="<%=request.getContextPath()%>/webutil/js/jquery-3.7.1.min.js"></script>
 <script src="<%=request.getContextPath()%>/webutil/js/bootstrap.bundle.min.js"></script>
+<link rel="stylesheet" href="<%=request.getContextPath()%>/webutil/css/sweetalert2.min.css" />
+<script src="<%=request.getContextPath()%>/webutil/js/sweetalert2.all.min.js"></script>
 

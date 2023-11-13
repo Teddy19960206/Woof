@@ -74,6 +74,7 @@ public class GroupScheduleDetailServlet extends HttpServlet {
                 getDetailByDate(request , response);
                 return;
             case "/getTrainerDetail":
+//                取得訓練師課表
                 getTrainerDetail(request , response);
                 return;
             default:
@@ -106,6 +107,7 @@ public class GroupScheduleDetailServlet extends HttpServlet {
     private void delete(HttpServletRequest request , HttpServletResponse response) throws IOException {
         String detail = request.getParameter("Detail");
         groupScheduleDetailService.delete(Integer.valueOf(detail));
+        response.setContentType("application/json;charset=UTF-8");
         response.getWriter().write("{ \"message\" :  \"刪除成功\" }");
     }
 

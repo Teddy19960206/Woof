@@ -26,7 +26,7 @@ async function fetchAllTrainer(){
         return data;
 
     }catch (error){
-        console.log("錯誤" + error);
+        console.error('Error', error);
     }
 }
 
@@ -69,7 +69,7 @@ async function fetchTrainerDetails(trainerId){
         return data;
 
     }catch (error){
-        console.log(error);
+        console.error('Error', error);
     }
 }
 

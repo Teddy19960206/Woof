@@ -158,7 +158,7 @@ async function getOrder(page){
         show.html(html);
 
     }catch (error){
-        console.log(error)
+        console.error('Error', error);
     }
 }
 
@@ -184,7 +184,7 @@ async function getGroupCourse(){
         groupClass.html(html);
 
     }catch (error){
-        console.log(error);
+        console.error('Error', error);
     }
 }
 
@@ -317,7 +317,7 @@ async function fetchDetail(id){
         html = arr.join("");
         allPage.innerHTML = html;
     }catch (error){
-        console.log(error);
+        console.error('Error', error);
     }
 }
 
@@ -344,27 +344,53 @@ async function modifyFetch(id , status){
         const data = await response.json();
 
         if (data.message){
-            alert(data.message);
+
+            await Swal.fire({
+                title: "Good job!",
+                text: `${data.message}`,
+                icon: "success"
+            });
+
         }else{
             let str = "";
             data.forEach(message =>{
                 str += message +"\n"
             })
-            alert(str);
+            await Swal.fire({
+                title: "Good job!",
+                text: `${str}`,
+                icon: "error"
+            });
         }
         window.location.href = `${projectName}/backend/course/orderManagement.jsp`;
 
     }catch (error){
-        console.log(error);
+        console.error('Error', error);
     }
 
 }
 
 // 退款按鈕
 $(document).on("click" , "button.refund" , function (){
-    if (confirm("確定要退款嗎")) {
-        refundFetch($(this).data("id"));
-    }
+
+    Swal.fire({
+        title: "確定要刪除嗎?",
+        text: "您將無法恢復此狀態！",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "是, 刪除"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            refundFetch($(this).data("id"));
+            Swal.fire({
+                title: "已刪除",
+                text: "刪除成功",
+                icon: "success"
+            });
+        }
+    });
 })
 
 async function refundFetch(id){
@@ -386,18 +412,27 @@ async function refundFetch(id){
         const data =await response.json();
 
         if (data.message){
-            alert(data.message);
+            await Swal.fire({
+                icon: "success",
+                text: `${data.message}`,
+                title: "Good job!"
+            });
+
         }else{
             let str = "";
             data.forEach(message =>{
                 str += message +"\n"
             })
-            alert(str);
+            await Swal.fire({
+                icon: "error",
+                title: "Good job!",
+                text: `${str}`
+            });
         }
         window.location.href = `${projectName}/backend/course/orderManagement.jsp`;
 
     }catch (error){
-        console.log(error);
+        console.error('Error', error);
     }
 
 }

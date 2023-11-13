@@ -354,11 +354,40 @@ async function detailModify(id , trainer , classDate){
 
 // 刪除detail按鈕-----------------------------------------------
 $(document).on("click" , "button.deleteDetail" , function (){
-    let result = confirm("確定要刪除嗎?");
-    if (result) {
-        detailDelete(this.getAttribute("data-id"));
-        $(this).closest("tr").remove();
-    }
+
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+
+            cancelButton: "btn btn-danger",
+            confirmButton: "btn btn-success"
+        },
+        buttonsStyling: false
+    });
+    swalWithBootstrapButtons.fire({
+        title: "確定要刪除嗎?",
+        text: "您將無法恢復此狀態！",
+        icon: "警告!",
+        showCancelButton: true,
+        confirmButtonText: "是, 刪除",
+        cancelButtonText: "否, 取消!",
+        reverseButtons: true
+    }).then((result) => {
+        if (result.isConfirmed) {
+            detailDelete(this.getAttribute("data-id"));
+            $(this).closest("tr").remove();
+            swalWithBootstrapButtons.fire({
+                title: "已刪除",
+                text: "刪除成功",
+                icon: "success"
+            });
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+            swalWithBootstrapButtons.fire({
+                title: "已取消",
+                text: "已取消刪除的操作",
+                icon: "error"
+            });
+        }
+    });
 })
 
 async function detailDelete(id){
@@ -381,9 +410,18 @@ async function detailDelete(id){
         const data = await response.json();
 
         if (data.message){
-            alert(data.message);
+            console.log(data.message)
+            await Swal.fire({
+                icon: "success",
+                title: "Good job!",
+                text: `${data.message}`
+            });
         }else{
-            alert("刪除失敗");
+            await Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "刪除失敗"
+            });
         }
 
     }catch (error){

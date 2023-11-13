@@ -6,8 +6,7 @@ let projectName = pathName.substring( 0 , pathName.substring(1).indexOf("/")+1);
 // 移除圖片
 $("button#delete").on("click" , function (){
     preview.innerHTML = `<span class="text">預覽圖</span>`;
-    let id = $(this).data('id')
-    console.log(id);
+    let id = $(this).data('id');
     fetchDelete(id);
 })
 

@@ -65,7 +65,13 @@ async function fetchData(id , name , action){
         })
 
         if (!response.ok){
-            alert("不能刪除，尚有相關連的資料")
+
+            await Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "不能刪除，尚有相關連的資料"
+            });
+
             throw new Error('Network response was not ok')
 
         }

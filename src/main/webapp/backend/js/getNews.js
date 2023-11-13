@@ -41,7 +41,7 @@ async function countFetch(){
             getNews.disabled = false ;
         }
     }catch (error){
-        console.log(error)
+        console.error('Error', error);
     }
 }
 
@@ -103,11 +103,16 @@ async function newsInfoFetch(){
             showInfo.innerHTML = html;
         }else {
             infoModal.hide();
-            alert("沒有資料");
+
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "沒有資料"
+            });
         }
 
     }catch (error){
-        console.log(error)
+        console.error('Error', error);
     }
 }
 
@@ -118,6 +123,64 @@ $(document).on("click" , "button.schedulePostpone" , function(){
 
 // 取消報名
 $(document).on("click" , "button.schudeleCancel" , function(){
-    window.location.href
+
+    Swal.fire({
+        title: "確定退款嗎?",
+        text: "您將無法恢復此狀態！",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "是, 刪除"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            refundAllFetch(this.getAttribute("data-id"));
+            Swal.fire({
+                title: "已刪除",
+                text: "刪除成功",
+                icon: "success"
+            });
+        }
+    });
 }) ;
+
+
+async function refundAllFetch(gcsNo){
+    let url = `${projectName}/groupOrder/refundAllBySchedule`;
+    try{
+        const response = await fetch(url ,{
+            method: "POST",
+            headers : {
+                "Content-Type" : "application/x-www-form-urlencoded"
+            },
+            body : "gcsNo="+gcsNo
+        })
+
+        if (!response.ok){
+            throw new Error("異常失敗")
+        }
+
+        const data = await response.json();
+
+        if (data.message){
+            await Swal.fire({
+                title: "Good job!",
+                text: `${data.message}`,
+                icon: "success"
+            });
+        }else{
+            await Swal.fire({
+                title: "Oops...",
+                text: "退款失敗",
+                icon: "error"
+            });
+        }
+        window.location.reload();
+
+    }catch (error){
+        console.error('Error', error);
+    }
+
+
+}
 

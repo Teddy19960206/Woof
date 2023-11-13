@@ -14,12 +14,10 @@ import com.woof.groupscheduledetail.entity.GroupScheduleDetail;
 import com.woof.groupscheduledetail.service.GroupScheduleDetailService;
 import com.woof.groupscheduledetail.service.GroupScheduleDetailServiceImpl;
 import com.woof.member.entity.Member;
-import com.woof.util.AppLogger;
-import com.woof.util.EmailValidator;
-import com.woof.util.JsonIgnoreExclusionStrategy;
-import com.woof.util.MailService;
+import com.woof.util.*;
 import ecpay.payment.integration.AllInOne;
 import ecpay.payment.integration.domain.AioCheckOutOneTime;
+import redis.clients.jedis.Jedis;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -70,18 +68,27 @@ public class GroupCourseOrderServlet extends HttpServlet {
         String forwardPath = "";
         switch (pathInfo){
             case "/getOneOrder":
+//               取得單筆訂單
                 getOneOrder(request , response);
                 return;
             case "/getOrder":
+//               取得訂單列表(複合查詢 + 分頁)
                 getOrder(request , response);
                 return;
             case "/check":
+//                報名
                 check(request , response);
                 return;
             case "/refund":
+//                退款
                 refund(request , response);
                 return;
+            case "/refundAllBySchedule":
+//                該課程全部退款
+                refundAllBySchedule(request ,response);
+                return;
             case "/modify":
+//                修改訂單
                 modify(request, response);
                 return;
             default:
@@ -162,7 +169,6 @@ public class GroupCourseOrderServlet extends HttpServlet {
 
         Integer groupScheduleNo = Integer.valueOf(request.getParameter("GroupScheduleNo"));
 
-        System.out.println(groupScheduleNo + "----------");
         GroupGourseScheduleService groupGourseScheduleService = new GroupCourseScheduleServiceImpl();
         GroupCourseSchedule groupCourseSchedule = groupGourseScheduleService.findByGcsNo(groupScheduleNo);
 
@@ -381,5 +387,37 @@ public class GroupCourseOrderServlet extends HttpServlet {
                         order.getGroupCourseSchedule().getGroupCourse().getCourseContent()))).start(); // 課程內容
 
         response.sendRedirect(request.getContextPath()+"/index.jsp");
+    }
+
+    private void refundAllBySchedule(HttpServletRequest request , HttpServletResponse response) throws IOException {
+        List<String> errorMsgs = new ArrayList<>();
+        Integer gcsNo = null;
+//        改變 status to 已退款 (2)
+        String gcsNoStr = request.getParameter("gcsNo");
+
+        if (gcsNoStr == null || gcsNoStr.trim().length() == 0){
+            errorMsgs.add("沒有該課程編號");
+        }else{
+            gcsNo = Integer.valueOf(gcsNoStr);
+        }
+
+        response.setContentType("application/json;charset=UTF-8");
+
+        try(Jedis jedis = JedisUtil.getResource()){
+            groupCourseOrderService.modifyAllOrderByGcsNo(gcsNo);
+            Long deleteCount = jedis.hdel("schedules" , gcsNoStr);
+
+            if (deleteCount > 0 ){
+                System.out.println("成功刪除");
+            }else{
+                System.out.println("刪除失敗");
+            }
+
+            response.getWriter().write("{ \"message\" : \"全部已退款\"  }");
+
+        }catch (Exception e){
+
+            response.getWriter().write("{ \"退款失敗\"}");
+        }
     }
 }

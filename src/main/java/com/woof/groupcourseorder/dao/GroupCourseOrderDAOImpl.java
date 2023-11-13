@@ -141,8 +141,16 @@ public class GroupCourseOrderDAOImpl implements GroupCourseOrderDAO{
         query.executeUpdate();
     }
 
+    @Override
+    public void modifyAllOrderByGcsNo(Integer gcsNo) {
+        String sql = "UPDATE group_course_order SET GCO_STATUS = 2 WHERE GCS_NO = ?";
+        Query query = getSession().createSQLQuery(sql);
+        query.setParameter(1, gcsNo);
+        query.executeUpdate();
+    }
 
-     public List<GroupCourseOrder> getAllBySchedule(Integer gcsNo){
+
+    public List<GroupCourseOrder> getAllBySchedule(Integer gcsNo){
         String hql = "FROM GroupCourseOrder gco WHERE gco.groupCourseSchedule.gcsNo = :gcsNo";
         Query query = getSession().createQuery(hql);
         query.setParameter("gcsNo" , gcsNo);

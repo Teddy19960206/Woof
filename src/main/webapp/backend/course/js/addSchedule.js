@@ -199,15 +199,44 @@ const calendar = new FullCalendar.Calendar(calendarEl, {
             return; // 結束函數執行
         }
 
-        if (confirm('請問確定要刪除嗎?')) {
-            // 這裡要做ajax發送delete資料庫動作
-            arg.event.remove()
 
-            let indexToRemove = reserveDate.indexOf(arg.event.startStr);
-            if (indexToRemove !== -1) {
-                reserveDate.splice(indexToRemove, 1);
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+
+                cancelButton: "btn btn-danger",
+                confirmButton: "btn btn-success"
+            },
+            buttonsStyling: false
+        });
+        swalWithBootstrapButtons.fire({
+            title: "確定要刪除嗎?",
+            text: "您將無法恢復此狀態！",
+            icon: "警告!",
+            showCancelButton: true,
+            confirmButtonText: "是, 刪除",
+            cancelButtonText: "否, 取消!",
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                arg.event.remove()
+
+                let indexToRemove = reserveDate.indexOf(arg.event.startStr);
+                if (indexToRemove !== -1) {
+                    reserveDate.splice(indexToRemove, 1);
+                }
+                swalWithBootstrapButtons.fire({
+                    title: "已刪除",
+                    text: "刪除成功",
+                    icon: "success"
+                });
+            } else if (result.dismiss === Swal.DismissReason.cancel) {
+                swalWithBootstrapButtons.fire({
+                    title: "已取消",
+                    text: "已取消刪除的操作",
+                    icon: "error"
+                });
             }
-        }
+        });
     },
 
     editable: true,  // 可編輯
@@ -279,7 +308,7 @@ async function fetchDetailByDate(year , month){
         })
 
     }catch (error){
-        console.log(error)
+        console.error('Error', error);
     }
 
 }
@@ -310,25 +339,39 @@ async function addSchedule(){
             body: formData
         })
         if (!response.ok){
-            alert("新增失敗");
+
+            await Swal.fire({
+                icon: "error",
+                title: "異常",
+                text: "新增失敗",
+            });
             window.location.href = `${projectName}/backend/course/schedule.jsp`;
+
         }
         const data = await response.json();
 
         if (data.message) {
-            alert("新增成功");
-            window.location.href = `${projectName}/backend/course/schedule.jsp`;
+            await Swal.fire({
+                icon: "success",
+                title: "新增成功",
+                text: "恭喜'",
+            });
+
         }else if (data.length > 0){
             let str = "";
             data.forEach(message =>{
                 str += message +"\n"
             })
-            alert(str);
-            window.location.href = `${projectName}/backend/course/addSchedule.jsp`;
-        }
 
+            await Swal.fire({
+                icon: "error",
+                title: `${str}`,
+                text: "新增失敗",
+            });
+        }
+        window.location.href = `${projectName}/backend/course/schedule.jsp`;
     }catch (error){
-        console.log(error);
+        console.error('Error', error);
     }
 
 }
