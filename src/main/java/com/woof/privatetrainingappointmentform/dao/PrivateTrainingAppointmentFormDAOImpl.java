@@ -2,12 +2,15 @@ package com.woof.privatetrainingappointmentform.dao;
 
 import static com.woof.util.Constants.PAGE_MAX_RESULT;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import com.woof.privatetrainingappointmentform.entity.PrivateTrainingAppointmentForm;
+import org.hibernate.query.NativeQuery;
+import org.hibernate.query.Query;
 
 
 public class PrivateTrainingAppointmentFormDAOImpl implements PrivateTrainingAppointmentFormDAO {
@@ -106,5 +109,23 @@ public class PrivateTrainingAppointmentFormDAOImpl implements PrivateTrainingApp
 				.uniqueResult();
 	}
 	
-	
+	public List<Date> getByTrainer(Integer year , Integer month , Integer trainerNo){
+
+		String sql = "SELECT ad.APP_TIME " +
+				"FROM PRIVATE_TRAINING_APPOINTMENT_FORM pta " +
+				"JOIN APPOINTMENT_DETAIL ad ON pta.PTA_NO = ad.PTA_NO " +
+				"WHERE pta.TRAINER_NO = :trainerNo AND " +
+				"MONTH(ad.APP_TIME) = :month AND " +
+				"YEAR(ad.APP_TIME) = :year";
+
+		NativeQuery query = getSession().createNativeQuery(sql);
+		query.setParameter("trainerNo", trainerNo);
+		query.setParameter("month", month);
+		query.setParameter("year", year);
+		List<Date> dates = query.list();
+
+		return dates;
+	}
+
+
 }

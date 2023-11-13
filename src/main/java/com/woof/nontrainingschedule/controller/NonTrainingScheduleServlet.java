@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.woof.nontrainingschedule.entity.NonTrainingSchedule;
 import com.woof.nontrainingschedule.service.NonTrainingScheduleService;
 import com.woof.nontrainingschedule.service.NonTrainingScheduleServiceImpl;
@@ -64,10 +66,10 @@ public class NonTrainingScheduleServlet extends HttpServlet {
 				getByTrainerNo(req, res);
 				forwardPath = "/frontend/nontrainingschedule/nonTrainingSchedule_getByTrainerNo.jsp";
 				break;
-			case "getbyntsdate":
+			case "getByNtsDate":
 				getByNtsDate(req, res);
-				forwardPath = "/frontend/nontrainingschedule/nonTrainingSchedule_getByNtsDate.jsp";
-				break;
+				return;
+
 			default:
 				forwardPath = "/frontend/nontrainingschedule/nonTrainingSchedule.jsp";
 			}
@@ -206,34 +208,24 @@ public class NonTrainingScheduleServlet extends HttpServlet {
 
 	}
 
-	private void getByNtsDate(HttpServletRequest req, HttpServletResponse res){
+	private void getByNtsDate(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
 		
-		Integer year = Integer.valueOf(req.getParameter("year"));
-        Integer month = Integer.valueOf(req.getParameter("month"));
-        List<NonTrainingSchedule> byNtsDate = nonTrainingScheduleService.findNtsByNtsDate(year, month);
-        
-//      Gson gson = new GsonBuilder()
-//		String selectedDateStr = req.getParameter("selectedDate");
-//		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-//		
-//		java.util.Date parsedDate = null;
-//		try {
-//			parsedDate = dateFormat.parse(selectedDateStr);// 將字串轉換為 java.util.Date
-//		} catch (ParseException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} 
-//		java.sql.Date sqlDate = new java.sql.Date(parsedDate.getTime()); // 將 java.util.Date 轉換為 java.sql.Date
-//		
-//		String page = req.getParameter("page");
-//		int currentPage = (page == null) ? 1 : Integer.parseInt(page);
-//		int NTSPageQty3 = nonTrainingScheduleService.getPageTotal3(sqlDate);
-//		req.getSession().setAttribute("NTSPageQty3", NTSPageQty3);
-//		List<NonTrainingSchedule> ntsDates = nonTrainingScheduleService.findNtsByNtsDate(sqlDate, currentPage);
-//
-//		req.setAttribute("ntsDates", ntsDates);
-//		req.setAttribute("currentPage", currentPage);
+		Integer year = Integer.valueOf(request.getParameter("year"));
+        Integer month = Integer.valueOf(request.getParameter("month"));
+		Integer trainerNo = Integer.valueOf(request.getParameter("trainerNo"));
+
+		List<Date> allByTrainer = nonTrainingScheduleService.getAllByTrainer(year, month, trainerNo);
+
+		Gson gson = new GsonBuilder()
+				.excludeFieldsWithoutExposeAnnotation()
+				.setDateFormat("yyyy-MM-dd")
+				.create();
+
+		String json = gson.toJson(allByTrainer);
+
+		response.setContentType("application/json;charset=UTF-8");
+		response.getWriter().write(json);
 
 	}
 }

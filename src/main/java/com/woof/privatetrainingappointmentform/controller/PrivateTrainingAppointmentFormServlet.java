@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.woof.privatetrainingappointmentform.entity.PrivateTrainingAppointmentForm;
 import com.woof.privatetrainingappointmentform.service.PrivateTrainingAppointmentFormService;
 import com.woof.privatetrainingappointmentform.service.PrivateTrainingAppointmentFormServiceImpl;
@@ -95,6 +97,10 @@ public class PrivateTrainingAppointmentFormServlet extends HttpServlet {
 			case "comment":
 				forwardPath = "/frontend/privatetrainingappointmentform/commenting.jsp";
 				break;
+			case "getAllByTrainer":
+				getAllByTrainer(req , resp);
+				return;
+
 			case "updatecomment":
 				try {
 					updateComment(req, resp);
@@ -375,5 +381,23 @@ public class PrivateTrainingAppointmentFormServlet extends HttpServlet {
 		}
 		response.sendRedirect(request.getContextPath()
 				+ "/frontend/privatetrainingappointmentform/comment.jsp");
+	}
+
+
+	private void getAllByTrainer(HttpServletRequest request , HttpServletResponse response) throws IOException {
+		Integer trainerNo = Integer.valueOf(request.getParameter("trainerNo"));
+		Integer year = Integer.valueOf(request.getParameter("year"));
+		Integer month = Integer.valueOf(request.getParameter("month"));
+
+		List<java.sql.Date> dates = privateTrainingAppointmentFormService.getByTrainer(year, month, trainerNo);
+
+		Gson gson = new GsonBuilder()
+				.excludeFieldsWithoutExposeAnnotation()
+						.setDateFormat("yyyy-MM-dd")
+								.create();
+
+		response.setContentType("application/json;charset=UTF-8");
+		response.getWriter().write(gson.toJson(dates));
+
 	}
 }

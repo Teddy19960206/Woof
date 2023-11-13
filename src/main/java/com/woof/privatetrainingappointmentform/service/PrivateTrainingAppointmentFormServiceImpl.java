@@ -2,6 +2,7 @@ package com.woof.privatetrainingappointmentform.service;
 
 import static com.woof.util.Constants.PAGE_MAX_RESULT;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -128,5 +129,10 @@ public class PrivateTrainingAppointmentFormServiceImpl implements PrivateTrainin
 		int pageQty = (int) (total % PAGE_MAX_RESULT == 0 ? (total / PAGE_MAX_RESULT) : (total / PAGE_MAX_RESULT + 1));
 		return pageQty;
 	}
-	
+
+	@Override
+	public List<Date> getByTrainer(Integer year, Integer month, Integer trainerNo) {
+		return dao.getByTrainer(year , month ,trainerNo);
+	}
+
 }

@@ -4,11 +4,13 @@ import static com.woof.util.Constants.PAGE_MAX_RESULT;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import com.woof.nontrainingschedule.entity.NonTrainingSchedule;
+import org.hibernate.query.NativeQuery;
 
 public class NonTrainingScheduleDAOImpl implements NonTrainingScheduleDAO{
 
@@ -113,5 +115,16 @@ public class NonTrainingScheduleDAOImpl implements NonTrainingScheduleDAO{
 	public long getTotal() {
 		return getSession().createQuery("select count(*) from NonTrainingSchedule", Long.class).uniqueResult();
 	}
-	
+
+	public List<Date> getAllByDate(Integer year , Integer month , Integer trainerNo){
+
+		String sql = "SELECT NTS_DATE FROM non_training_schedule WHERE TRAINER_NO = ? AND YEAR(NTS_DATE) = ? AND MONTH(NTS_DATE) = ?";
+		NativeQuery sqlQuery = getSession().createSQLQuery(sql);
+		sqlQuery.setParameter(1 , trainerNo);
+		sqlQuery.setParameter(2 , year);
+		sqlQuery.setParameter(3 , month);
+
+		return sqlQuery.list();
+
+	}
 }

@@ -1,5 +1,6 @@
 package com.woof.privatetrainingappointmentform.dao;
 
+import java.sql.Date;
 import java.util.List;
 
 import com.woof.privatetrainingappointmentform.entity.PrivateTrainingAppointmentForm;
@@ -27,4 +28,7 @@ public interface PrivateTrainingAppointmentFormDAO {
 	List<PrivateTrainingAppointmentForm> getAll(int currentPage);
 	
 	long getTotal();
+
+	List<Date> getByTrainer(Integer year , Integer month , Integer trainerNo);
+
 }

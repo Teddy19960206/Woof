@@ -88,4 +88,8 @@ public class NonTrainingScheduleServiceImpl implements NonTrainingScheduleServic
 		int pageQty = (int) (total % PAGE_MAX_RESULT == 0 ? (total / PAGE_MAX_RESULT) : (total / PAGE_MAX_RESULT + 1));
 		return pageQty;
 	}
+
+	public List<Date> getAllByTrainer(Integer year , Integer month , Integer trainerNo){
+		return dao.getAllByDate(year , month , trainerNo);
+	}
 }

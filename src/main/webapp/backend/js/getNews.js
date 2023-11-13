@@ -1,5 +1,5 @@
-// let pathName = window.document.location.pathname;
-// let projectName = pathName.substring( 0 , pathName.substring(1).indexOf("/")+1);
+let path = window.document.location.pathname;
+let project = path.substring( 0 , path.substring(1).indexOf("/")+1);
 const getNews = document.getElementById("getNews");
 const infoModal = new bootstrap.Modal(document.getElementById('infoModal'), {});
 const showInfo = document.getElementById("showInfo");
@@ -18,7 +18,7 @@ $(function(){
 
 // 取得通知數量Fetch
 async function countFetch(){
-    let url = `${projectName}/schedule/countInfo`;
+    let url = `${project}/schedule/countInfo`;
 
     try {
         const response  = await fetch(url , {
@@ -48,7 +48,7 @@ async function countFetch(){
 
 // 取得通知訊息
 async function newsInfoFetch(){
-    let url = `${projectName}/schedule/getNewsRedis`;
+    let url = `${project}/schedule/getNewsRedis`;
 
     try {
         const response  = await fetch(url , {
@@ -118,7 +118,7 @@ async function newsInfoFetch(){
 
 // 延期課程
 $(document).on("click" , "button.schedulePostpone" , function(){
-    window.location.href = `${projectName}/backend/course/delaySchedule.jsp?no=${this.getAttribute("data-id")}`;
+    window.location.href = `${project}/backend/course/delaySchedule.jsp?no=${this.getAttribute("data-id")}`;
 });
 
 // 取消報名
@@ -146,7 +146,7 @@ $(document).on("click" , "button.schudeleCancel" , function(){
 
 
 async function refundAllFetch(gcsNo){
-    let url = `${projectName}/groupOrder/refundAllBySchedule`;
+    let url = `${project}/groupOrder/refundAllBySchedule`;
     try{
         const response = await fetch(url ,{
             method: "POST",

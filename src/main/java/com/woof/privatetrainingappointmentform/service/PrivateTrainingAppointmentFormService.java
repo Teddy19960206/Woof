@@ -1,5 +1,6 @@
 package com.woof.privatetrainingappointmentform.service;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -37,4 +38,6 @@ public interface PrivateTrainingAppointmentFormService {
 	List<PrivateTrainingAppointmentForm> findPrivateTrainingAppointmentFormByTrainerNo(Integer trainerNo , int currentPage);
 	
 	int getPageTotal3(Integer trainerNo);
+
+	List<Date> getByTrainer(Integer year , Integer month , Integer trainerNo);
 }

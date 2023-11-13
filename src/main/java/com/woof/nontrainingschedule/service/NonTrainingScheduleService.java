@@ -29,5 +29,8 @@ public interface NonTrainingScheduleService {
 	List<NonTrainingSchedule> getAllNTSs(int currentPage);
 	
 	int getPageTotal();
+
+	List<Date> getAllByTrainer(Integer year , Integer month , Integer trainerNo);
+
 	
 }

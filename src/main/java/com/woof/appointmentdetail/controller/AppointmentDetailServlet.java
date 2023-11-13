@@ -169,4 +169,6 @@ public class AppointmentDetailServlet extends HttpServlet {
     	res.sendRedirect(req.getContextPath() + "/frontend/privatetrainingappointmentform/privateTrainingAppointmentForm.jsp");
 
     }
+
+
 }
