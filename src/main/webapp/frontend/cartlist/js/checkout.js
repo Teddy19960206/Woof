@@ -8,11 +8,13 @@ const credit = document.getElementById("credit");
 const transfer = document.getElementById("transfer");
 const ecPay = document.getElementById("ecPay");
 const showPayment = document.getElementById("showPayment");
+const address = document.getElementById("address");
+
 //const actualAmount = document.getElementById("actualAmount");
 //const price = document.getElementById("price");
-const address = document.getElementById("address");
+
 // 會員擁有的毛毛幣
-const smmp = parseInt(document.getElementById("smmp").value);
+//const smmp = parseInt(document.getElementById("smmp").value);
 
 
 // 會員使用的毛毛幣
@@ -20,11 +22,11 @@ const smmp = parseInt(document.getElementById("smmp").value);
 
 
 window.addEventListener("load" , ()=>{
-	address.value = "大便";
+//	address.value = "大便";
     notUseSmmpRadio.checked = true;
     inputSmmp.disabled = true;
-    smmpCount.value = "";
-    actualAmount.value = price.value;
+//    smmpCount.value = "";
+//    actualAmount.value = price.value;
 })
 
 // 監聽單選按鈕的變更事件
@@ -102,22 +104,147 @@ ecPay.addEventListener("change" , function (){
 //})
 
 
-function changeQuantity(prodNo, change) {
-    // 使用 fetch API 發送請求
-    fetch(`${projectName}/checkout`, { 
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
+
+//=============================================
+
+const prodNo = document.getElementById("prodNo");
+const memNoElement = document.getElementById("memNo");
+const memNo = memNoElement.getAttribute("data-memname");
+	
+//頁面近來自動載入方法
+window.addEventListener("load" , ()=>{	
+    let memNo = $("#memNo").data("memname");
+    
+    console.log(memNo);
+
+    fetchCart(memNo);
+    
+});
+
+function fetchCart(memNo) {
+    $.ajax({
+        type: "POST",
+        url: `${projectName}/checkout`,
+        data: {
+            action: "getCart",
+            memNo: memNo
         },
-        body: `prodNo=${encodeURIComponent(prodNo)}&change=${encodeURIComponent(change)}`
-    })
-    .then(response => response.json()) // 假設後端回應是 JSON 格式
-    .then(data => {
-        // 更新頁面上的數量顯示
-        // data 應包含最新的商品數量
-        document.querySelector(`#quantity-${prodNo}`).textContent = data.newQuantity;
-    })
-    .catch(error => {
-        console.error("更新失敗", error);
+        success: function(cartJson) {
+			
+			console.log("Returned cart data:", cartJson);	
+			
+            renderCartItems(cartJson);                  
+        },
+        error: function(error) {
+            console.error("Error fetching cart data: ", error);
+        }
     });
 }
+
+function renderCartItems(cart) {
+	
+	console.log(cart);
+	
+    let html = "";
+
+    cart.forEach(item => {
+        html += `<tr>
+                    <td style="text-align: center;"><input type="checkbox" class="itemCheckbox"></td>
+					<td id="item-row-${item.prodNo}" class="hidden" style="display: none;">${item.prodNo}</td>                    <td>${item.prodName}</td>
+                    <td>
+                    <div>
+    					<button type="button" class="btn btn-secondary btn-sm decrease-btn mx-2" onclick="changeQuantity('${item.prodNo}', -1)">-</button>				
+    						<span class="quantity">${item.quantity}</span>
+    					<button type="button" class="btn btn-secondary btn-sm increase-btn mx-2" onclick="changeQuantity('${item.prodNo}', 1)">+</button>
+                    </div>
+                    </td>
+                    <td>NT$${item.prodPrice}</td>
+                    <td>NT$計算數量乘單價</td>
+                    <td><i class="fa-solid fa-trash" onclick="deleteItem('${item.prodNo}')"></i></td>
+                </tr>`;
+    });
+
+    $("#cart-items-list").html(html);
+}
+
+
+function deleteItem(prodNo) {
+    // 儲存當前商品編號，以便在確認刪除時使用
+    $('#confirmDelete').data('prodNo', prodNo);
+
+    // 顯示模態框
+    $('#deleteConfirmationModal').modal('show');
+}
+
+$('#confirmDelete').click(function() {
+	
+    let prodNo = $(this).data('prodNo');
+    
+    $.ajax({
+        type: 'POST',
+        url: `${projectName}/checkout`,
+        data: {
+            action: 'deleteItem',
+            prodNo: prodNo,
+            memNo: memNo 
+        },
+        success: function(response) {
+            // 在叫一個方法即時更新頁面消失的商品
+            updateCartDisplay();
+        },
+        error: function(error) {
+            console.error("Error: ", 刪除失敗);
+        }
+    });
+
+function updateCartDisplay() {
+
+    $.ajax({
+        type: 'POST',
+        url: `${projectName}/checkout`,
+        data: {
+            action: 'getCart',
+            memNo: memNo 
+        },
+        success: function(response) {
+            renderCartItems(response); // 假設 response 是購物車數據的陣列
+        },
+        error: function(error) {
+            console.error("Error: ", error);
+        }
+    });
+}
+    // 關閉模態框
+    $('#deleteConfirmationModal').modal('hide');
+});
+
+
+$('#cancelDelete').on('click', function() {
+	
+  $('#deleteConfirmationModal').modal('hide'); 
+});
+
+
+////更新+-數量
+//function changeQuantity(prodNo, change) {
+//    // 使用 fetch API 發送請求
+//    fetch(`${projectName}/checkout`, { 
+//        method: 'POST',
+//        headers: {
+//            'Content-Type': 'application/x-www-form-urlencoded',
+//        },
+//        body: `prodNo=${encodeURIComponent(prodNo)}&change=${encodeURIComponent(change)}`
+//    })
+//    .then(response => response.json()) // 假設後端回應是 JSON 格式
+//    .then(data => {
+//        // 更新頁面上的數量顯示
+//        // data 應包含最新的商品數量
+//        document.querySelector(`#quantity-${item.quantity}`).textContent = data.newQuantity;
+//    })
+//    .catch(error => {
+//        console.error("更新失敗", error);
+//    });
+//}
+
+
+
