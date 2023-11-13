@@ -14,9 +14,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import com.woof.groupcourseorder.entity.GroupCourseOrder;
-import com.woof.member.dao.MemberDAO;
-import com.woof.member.dao.MemberDAOImpl;
-import com.woof.member.entity.Member;
 import com.woof.privatetrainingappointmentform.entity.PrivateTrainingAppointmentForm;
 
 
@@ -146,7 +143,7 @@ public class PrivateTrainingAppointmentFormDAOImpl implements PrivateTrainingApp
 	}
 
 	@Override
-	public long getTotalMemberAndTrainer(String memNo, Integer trainerNo) {
+	public long getTotal(String memNo, Integer trainerNo) {
 		CriteriaBuilder builder = getSession().getCriteriaBuilder();
         CriteriaQuery<Long> criteriaQuery = builder.createQuery(Long.class);
         Root<GroupCourseOrder> root = criteriaQuery.from(GroupCourseOrder.class);

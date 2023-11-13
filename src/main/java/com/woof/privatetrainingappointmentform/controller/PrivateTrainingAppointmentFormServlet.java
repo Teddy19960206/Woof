@@ -17,12 +17,16 @@ import javax.servlet.http.HttpServletResponse;
 import com.woof.privatetrainingappointmentform.entity.PrivateTrainingAppointmentForm;
 import com.woof.privatetrainingappointmentform.service.PrivateTrainingAppointmentFormService;
 import com.woof.privatetrainingappointmentform.service.PrivateTrainingAppointmentFormServiceImpl;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 import com.woof.member.entity.Member;
 import com.woof.member.service.MemberService;
 import com.woof.member.service.MemberServiceImpl;
 import com.woof.trainer.entity.Trainer;
 import com.woof.trainer.service.TrainerService;
 import com.woof.trainer.service.TrainerServiceImpl;
+import com.woof.util.JsonIgnoreExclusionStrategy;
 
 @WebServlet("/privatetrainingappointmentform/*")
 @MultipartConfig
@@ -95,6 +99,9 @@ public class PrivateTrainingAppointmentFormServlet extends HttpServlet {
 			case "comment":
 				forwardPath = "/frontend/privatetrainingappointmentform/commenting.jsp";
 				break;
+			case "getpta":
+				getPta(req, resp);
+				return;
 			case "updatecomment":
 				try {
 					updateComment(req, resp);
@@ -375,5 +382,36 @@ public class PrivateTrainingAppointmentFormServlet extends HttpServlet {
 		}
 		response.sendRedirect(request.getContextPath()
 				+ "/frontend/privatetrainingappointmentform/comment.jsp");
+	}
+	
+	private void getPta(HttpServletRequest request , HttpServletResponse response) throws IOException {
+		
+		String trainerNoStr = request.getParameter("trainerNo");
+        Integer trainerNo = (trainerNoStr == null ||  trainerNoStr.length() == 0 ) ? null : Integer.valueOf(trainerNoStr);
+		
+        String memNoStr = request.getParameter("memNo");
+        String memNo = (memNoStr == null || memNoStr.trim().length() == 0) ? null : memNoStr;
+        
+        String page = request.getParameter("page");
+        Integer currentPage = (page == null) ? 1 : Integer.parseInt(page);
+        
+        List<PrivateTrainingAppointmentForm> privateTrainingAppointmentFormList = privateTrainingAppointmentFormService.getPTAByMemberAndTrainer(memNo,trainerNo,currentPage);
+	
+        int pageTotal = privateTrainingAppointmentFormService.getPageTotal(memNo , trainerNo);
+        
+        Gson gson = new GsonBuilder()
+                .setExclusionStrategies()
+                .addSerializationExclusionStrategy(new JsonIgnoreExclusionStrategy(true))
+                .addDeserializationExclusionStrategy(new JsonIgnoreExclusionStrategy(false))
+                .setDateFormat("yyyy-MM-dd")
+                .create();
+        
+        JsonObject jsonResponse = new JsonObject();
+        jsonResponse.addProperty("pageTotal" , pageTotal);
+        jsonResponse.add("data" , gson.toJsonTree(privateTrainingAppointmentFormList));
+
+
+        response.setContentType("application/json;charset=UTF-8");
+        response.getWriter().write(jsonResponse.toString());
 	}
 }

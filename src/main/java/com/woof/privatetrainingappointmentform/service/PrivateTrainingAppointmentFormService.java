@@ -37,4 +37,9 @@ public interface PrivateTrainingAppointmentFormService {
 	List<PrivateTrainingAppointmentForm> findPrivateTrainingAppointmentFormByTrainerNo(Integer trainerNo , int currentPage);
 	
 	int getPageTotal3(Integer trainerNo);
+	
+	List<PrivateTrainingAppointmentForm> getPTAByMemberAndTrainer(String memNo , Integer trainerNo , int currentPage);
+	
+	int getPageTotal(String memNo,Integer trainerNo);
+	
 }
