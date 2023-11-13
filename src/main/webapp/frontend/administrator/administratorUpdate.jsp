@@ -32,6 +32,8 @@
 	 	    	 $('#ADMIN_HD').val(jsonObj.adminHd);
 	 	    	 $('#ADMIN_RD').val(jsonObj.adminRd);
 	 	    	 $('input[name=ADMIN_STATUS][value='+jsonObj.adminStatus+']').prop('checked',true);
+	 	    	 $('#ADMIN_VERIFY_STATUS').val(jsonObj.adminVerifyStatus);
+	 	    	$('input[name=ADMIN_FUNC_NAME][value='+jsonObj.adminFuncName+']').prop('checked',true);
 	 	     },
 	 	     //Ajax失敗後要執行的function，此例為印出錯誤訊息
 	 	     error : function(xhr, ajaxOptions, thrownError) {
@@ -83,12 +85,6 @@
 			</td>
 		</tr>
 		<tr>
-			<th>管理員密碼</th>
-			<td>
-				<input type="password" name="ADMIN_PASSWORD" id="ADMIN_PASSWORD" >
-			</td>
-		</tr>
-		<tr>
 			<th>管理員電話</th>
 			<td>
 				<input type="text" name="ADMIN_TEL" id="ADMIN_TEL">
@@ -134,8 +130,22 @@
 			<th>管理員帳號狀態</th>
 			<td>
 				<input type="radio" name="ADMIN_STATUS" value="0">離職
-				<input type="radio" name="ADMIN_STATUS" value="1" checked>在職
+				<input type="radio" name="ADMIN_STATUS" value="1" >在職
 				<input type="radio" name="ADMIN_STATUS" value="2">停職
+			</td>
+		</tr>
+		<tr>
+			<th>管理員驗證狀態</th>
+			<td>
+				<input type="text" name="ADMIN_VERIFY_STATUS" id="ADMIN_VERIFY_STATUS">
+			</td>
+		</tr>
+		<tr>
+			<th>管理員帳號狀態</th>
+			<td>
+				<input type="radio" name="ADMIN_FUNC_NAME" value="0" >無功能
+				<input type="radio" name="ADMIN_FUNC_NAME" value="1" >管理員
+				<input type="radio" name="ADMIN_FUNC_NAME" value="2">訓練師
 			</td>
 		</tr>
 		</table>

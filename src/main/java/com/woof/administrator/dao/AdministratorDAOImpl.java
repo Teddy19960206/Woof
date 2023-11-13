@@ -39,7 +39,14 @@ public class AdministratorDAOImpl implements AdministratorDAO {
 			return -1;
 		}
 	}
-
+	public int update2(Administrator administrator) {
+		try {
+			getSession().update(administrator);
+			return 1;
+		} catch (Exception e) {
+			return -1;
+		}
+	}
 	@Override
 	public int delete(String adminNo) {
 		Administrator administrator =getSession().get(Administrator.class, adminNo);

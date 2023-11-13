@@ -51,7 +51,7 @@
 		<tr>
 			<th>管理員帳號</th>
 			<td>
-				<input type="text" name="ADMIN_NO" id="ADMIN_NO" value="<%= request.getParameter("adminNo")%>" readonly>
+				<input type="text" name="ADMIN_NO" id="ADMIN_NO" value="<%= request.getParameter("adminNo")%>" >
 			</td>
 		</tr>
 		<tr>
@@ -69,7 +69,7 @@
 		<tr>
 			<th>管理員性別</th>
 			<td>
-				<input type="radio" name="ADMIN_GENDER" value="1" checked>男
+				<input type="radio" name="ADMIN_GENDER" value="1" >男
 				<input type="radio" name="ADMIN_GENDER" value="0">女
 			</td>
 		</tr>

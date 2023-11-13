@@ -60,7 +60,7 @@ public class LatestNewsServlet extends HttpServlet {
 		}
 		
 		private void processQuery(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
-			//找對應的aminno
+			//找對應的
 			LatestNews ln = latestNewsService.findLatestNewsByLnNo(Integer.parseInt(req.getParameter("LN_NO")));
 			
 			res.setCharacterEncoding("UTF-8");
@@ -111,24 +111,23 @@ public class LatestNewsServlet extends HttpServlet {
 		private void processAdd(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
 			LatestNews ln = new LatestNews();
 			//把資料給前端
-			int lnNo = Integer.parseInt(req.getParameter("LN_NO"));
-			ln.setLnNo(lnNo);
+		
 //			ln.setLnNo (req.getParameter(Integer.parseInt("LN_NO")));
-			ln.setLnTitle (req.getParameter("LN_Title"));
+			ln.setLnTitle (req.getParameter("LN_TITLE"));
 			ln.setLnContent(req.getParameter("LN_CONTENT"));
 			String lnTimeStr = req.getParameter("LN_TIME"); // 獲取 LN_TIME 參數的值
-			java.sql.Timestamp lnTime = null;
-
-			if (lnTimeStr != null && !lnTimeStr.isEmpty()) {
-			    // 嘗試將字符串轉換為 Timestamp
-			    try {
-			        lnTime = java.sql.Timestamp.valueOf(lnTimeStr);
-			    } catch (IllegalArgumentException e) {
-			        // 如果轉換失敗，你可以處理錯誤或執行其他操作
-			        e.printStackTrace(); // 這裡僅是一個簡單的示例，你可以選擇處理錯誤更適當的方式
-			    }
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			Date parseDate;
+			java.sql.Timestamp lnTime;
+			try {
+				parseDate = dateFormat.parse(lnTimeStr);
+				lnTime = new java.sql.Timestamp(parseDate.getTime());
+				ln.setLnTime(lnTime);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-			ln.setLnTime(lnTime);
+			
 			
 		
 			// 取得圖片 

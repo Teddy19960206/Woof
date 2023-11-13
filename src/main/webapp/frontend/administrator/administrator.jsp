@@ -119,7 +119,23 @@ section {
 .swiper-3d .swiper-slide-shadow-right {
   background-image: none;
 }
+.slide-buttons {
+  position: absolute;
+  bottom: 10px; /* 或根據需求調整 */
+  right: 10px; /* 或根據需求調整 */
+  display: flex;
+}
 
+.slide-buttons button {
+  margin-left: 5px;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #4CAF50;
+  color: white;
+  font-size: 0.8rem;
+}
 
 </style>
 
@@ -158,9 +174,6 @@ section {
   //表單點擊找出對應的function
   function processUpdate(jsonData){
 	  window.location.href = " <%=request.getContextPath()%>/frontend/administrator/administratorUpdate.jsp?adminNo=" + jsonData.adminNo ;
-  }
-  function processUpdate2(jsonData){
-	  window.location.href = " <%=request.getContextPath()%>/frontend/administrator/administratorUpdate2.jsp?adminNo=" + jsonData.adminNo ;
   }
   function processDelete(jsonData){
  	 $.ajax({
@@ -210,6 +223,10 @@ section {
                   ${administrator.adminAddress}
                 </p>
               </div>
+              <div class="slide-buttons">
+      <button value="修改" onclick="processUpdate({adminNo:'${administrator.adminNo}'});">修改</button>
+      <button value="刪除"  onclick="processDelete({ADMIN_NO:'${administrator.adminNo}'});">刪除</button>
+    </div>
          </div>
 	
 <%--     		<td><input type="button" value="修改" onclick="processUpdate({adminNo:'${administrator.adminNo}'});"></td>   --%>

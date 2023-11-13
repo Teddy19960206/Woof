@@ -43,7 +43,7 @@ public class AdministratorServlet extends HttpServlet {
 		switch (action) {
 		case "add":
 			processAdd(req, res);
-			 return;
+			break;
 			
 		case "update":
 			processUpdate(req, res);
@@ -83,13 +83,11 @@ public class AdministratorServlet extends HttpServlet {
 	}
 	
 	private void processUpdate(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
-	
-		
-		
-		
+
 		Administrator admin = new Administrator();
 		//把資料給前端
 		admin.setAdminNo (req.getParameter("ADMIN_NO"));
+		System.out.println(admin);
 		admin.setAdminName (req.getParameter("ADMIN_NAME"));
 		admin.setAdminGender(req.getParameter("ADMIN_GENDER"));
 		admin.setAdminEmail (req.getParameter("ADMIN_EMAIL"));
@@ -136,13 +134,12 @@ public class AdministratorServlet extends HttpServlet {
 		res.sendRedirect(url);
 	}
 private void processUpdate2(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
-	
-		
-		
-		
+
 		Administrator admin = new Administrator();
 		//把資料給前端
+		admin.setAdminNo (req.getParameter("ADMIN_NO"));
 		admin.setAdminName (req.getParameter("ADMIN_NAME"));
+		
 		admin.setAdminGender(req.getParameter("ADMIN_GENDER"));
 		admin.setAdminEmail (req.getParameter("ADMIN_EMAIL"));
 		admin.setAdminPassword (req.getParameter("ADMIN_PASSWORD"));
@@ -158,14 +155,15 @@ private void processUpdate2(HttpServletRequest req, HttpServletResponse res) thr
 		admin.setAdminBd(sqlDate4);
 		admin.setEmergencyContactName(req.getParameter("EMERGENCY_CONTACTNAME"));
 		admin.setEmergencyContactel(req.getParameter("EMERGENCY_CONTACTEL"));
-		
+		System.out.println(admin);
 
 		administratorService.updateAdministrator2(admin);
 		//導到指定的URL 頁面上 把請求回應都帶過去
-//		String url = "/frontend/administrator/administrator.jsp";
+
+//		String url = "/frontend/administrator/administratorcenter.jsp";
 //		RequestDispatcher rd =  req.getRequestDispatcher(url);
 //		rd.forward(req, res);
-		String url = req.getContextPath()+"/frontend/administrator/administrator.jsp";
+		String url = req.getContextPath()+"/frontend/administrator/administratorcenter.jsp";
 		res.sendRedirect(url);
 	}
 

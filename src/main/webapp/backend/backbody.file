@@ -160,7 +160,7 @@
                     </a>
                     <ul id="staff" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                         <li class="sidebar-item">
-                            <a href="#" class="sidebar-link2">新增員工</a>
+                             <a href="${pageContext.request.contextPath}/frontend/administrator/administrator.jsp" class="sidebar-link2">新增員工</a>
                         </li>
                         <li class="sidebar-item">
                             <a href="#" class="sidebar-link2">權限管理</a>
@@ -180,7 +180,7 @@
                   </a>
                   <ul id="trainer" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                       <li class="sidebar-item">
-                          <a href="${pageContext.request.contextPath}/backend/employee/trainer.jsp" class="sidebar-link2">訓練師基本資料管理</a>
+                          <a href="${pageContext.request.contextPath}/frontend/administrator/administratorcenter.jsp" class="sidebar-link2">訓練師基本資料管理</a>
                       </li>
                       <li class="sidebar-item">
                           <a href="#" class="sidebar-link2">訓練師班表管理</a>
@@ -222,16 +222,16 @@
               width="30"
             />
             <span style="color: rgb(80, 80, 80)">超级管理員</span>
-            <a
-              href="#"
+           
+
+            <a href="${pageContext.request.contextPath}/logout1?action1=administratorlogout"
               class="btn"
               style="
                 background-color: #faba91;
                 font-family: 'Noto Sans TC', sans-serif;
-                font-weight: 700;
-              "
-              >登出</a
-            >
+                font-weight: 700; " 
+               >登出</a>
+                
             <c:if test="${sessionScope.administrator.adminFuncName eq 1}">
               <button type="button" class="btn btn-primary position-relative" id="getNews">
               </button>
