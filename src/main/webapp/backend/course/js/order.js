@@ -89,6 +89,8 @@ async function getOrder(page){
                 statusText = '已取消';
             }else if (item.gcoStatus === 4){
                 statusText = '已完成';
+            }else if (item.gcoStatus === 5){
+                statusText = '退款申請中'
             }
 
             arr.push(` <tr>
@@ -100,7 +102,7 @@ async function getOrder(page){
                           <td>${item.gcoSmmp}</td>
                           <td>${item.actualAmount}</td>
                           <td>${statusText}</td>
-                          <td><button type="button" class="detail-btn btn btn-primary" data-id="${item.gcoNo}">修改</button></td>
+                          <td><button type="button" class="detail-btn btn btn-primary" data-id="${item.gcoNo}" ${item.gcoStatus == 4 ? 'disabled' : ''}>修改</button></td>
                       </tr>`);
         })
 
@@ -294,13 +296,13 @@ async function fetchDetail(id){
                 <div class="row my-3">
                     <label class="col-5 text-center">訂單狀態</label>
                     <div class="col-7">
-                        <select id="status" name="status" class="form-select">
+                        <select id="status" class="form-select">
                             <option value="0" ${data.gcoStatus == 0 ? 'selected' : ''}>未付款</option>
                             <option value="1" ${data.gcoStatus == 1 ? 'selected' : ''}>已付款</option>
                             <option value="2" ${data.gcoStatus == 2 ? 'selected' : ''}>已退款</option>
                             <option value="3" ${data.gcoStatus == 3 ? 'selected' : ''}>已取消</option>
-                            <option value="3" ${data.gcoStatus == 4 ? 'selected' : ''}>已完成</option>
-                            <option value="3" ${data.gcoStatus == 5 ? 'selected' : ''}>退款申請中</option>
+                            <option value="4" ${data.gcoStatus == 4 ? 'selected' : ''}>已完成</option>
+                            <option value="5" ${data.gcoStatus == 5 ? 'selected' : ''}>退款申請中</option>
                         </select>
                     </div>
                 </div>
