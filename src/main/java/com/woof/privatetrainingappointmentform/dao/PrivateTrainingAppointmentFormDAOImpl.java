@@ -2,11 +2,21 @@ package com.woof.privatetrainingappointmentform.dao;
 
 import static com.woof.util.Constants.PAGE_MAX_RESULT;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import com.woof.groupcourseorder.entity.GroupCourseOrder;
+import com.woof.member.dao.MemberDAO;
+import com.woof.member.dao.MemberDAOImpl;
+import com.woof.member.entity.Member;
 import com.woof.privatetrainingappointmentform.entity.PrivateTrainingAppointmentForm;
 
 
@@ -104,6 +114,58 @@ public class PrivateTrainingAppointmentFormDAOImpl implements PrivateTrainingApp
 		return getSession().createQuery("SELECT COUNT(*) from PrivateTrainingAppointmentForm  WHERE trainer.trainerNo = :trainerNo", Long.class)
 				.setParameter("trainerNo", trainerNo)
 				.uniqueResult();
+	}
+
+	@Override
+	public List<PrivateTrainingAppointmentForm> getAllMemberAndTrainer(String memNo, Integer trainerNo,
+			Integer currentPage) {
+		  CriteriaBuilder builder = getSession().getCriteriaBuilder();
+		  CriteriaQuery<PrivateTrainingAppointmentForm> criteriaQuery = builder.createQuery(PrivateTrainingAppointmentForm.class);
+		  Root<PrivateTrainingAppointmentForm> root = criteriaQuery.from(PrivateTrainingAppointmentForm.class);
+		  
+		  List<Predicate> predicates = new ArrayList<>();
+		  
+
+	      if (trainerNo != null){
+	          predicates.add(builder.equal(root.get("trainer").get("administrator").get("adminName") , trainerNo));
+	      }
+	       
+	      if (memNo != null){
+	          predicates.add(builder.like(root.get("member").get("memName"), '%'+memNo+'%'));
+	      }
+	      int first = (currentPage - 1) * PAGE_MAX_RESULT;
+	      criteriaQuery.where(builder.and(predicates.toArray(new Predicate[predicates.size()])));
+	      TypedQuery<PrivateTrainingAppointmentForm> query = getSession().createQuery(criteriaQuery);
+	      
+	      List<PrivateTrainingAppointmentForm> list = query
+	                .setFirstResult(first)
+	                .setMaxResults(PAGE_MAX_RESULT)
+	                .getResultList();
+
+	        return list;
+	}
+
+	@Override
+	public long getTotalMemberAndTrainer(String memNo, Integer trainerNo) {
+		CriteriaBuilder builder = getSession().getCriteriaBuilder();
+        CriteriaQuery<Long> criteriaQuery = builder.createQuery(Long.class);
+        Root<GroupCourseOrder> root = criteriaQuery.from(GroupCourseOrder.class);
+
+        criteriaQuery.select(builder.count(root));
+
+        List<Predicate> predicates = new ArrayList<>();
+
+        if (trainerNo != null){
+            predicates.add(builder.equal(root.get("trainer").get("trainerNo") , trainerNo));
+        }
+
+        if (memNo != null){
+            predicates.add(builder.like(root.get("member").get("memName"), '%'+memNo+'%'));
+        }
+
+        criteriaQuery.where(builder.and(predicates.toArray(new Predicate[predicates.size()])));
+        TypedQuery<Long> query = getSession().createQuery(criteriaQuery);
+        return query.getSingleResult();
 	}
 	
 	

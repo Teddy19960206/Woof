@@ -27,4 +27,8 @@ public interface PrivateTrainingAppointmentFormDAO {
 	List<PrivateTrainingAppointmentForm> getAll(int currentPage);
 	
 	long getTotal();
+	
+	List<PrivateTrainingAppointmentForm> getAllMemberAndTrainer(String memNo,Integer trainerNo, Integer currentPage);
+	
+	long getTotalMemberAndTrainer(String memNo,Integer trainerNo);
 }
