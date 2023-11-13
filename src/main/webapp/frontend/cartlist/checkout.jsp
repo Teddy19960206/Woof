@@ -5,6 +5,8 @@
 <html lang="en">
 
 <head>
+<%@ include file="/meta.file" %>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet"
@@ -18,37 +20,44 @@
 </head>
 
 <body>
-	<div class="container">
-		<h1>購物車結帳</h1>
+<%@ include file="/Header.file" %>
+
+	<div class="container mb-5">
+		<h2>購物車結帳</h2>
 		<div class="row">
-			<!-- 左側欄位：購物車商品和總計 -->
-			<div class="col-md-6">
-				<%-- 				<c:if test="${not empty cart}"> --%>
+			<div class="col-md-7 border-end ">
 				<table class="table">
-					<thead>
-						<tr>
-							<th>商品編號</th>
-							<th>名稱</th>
-							<th>數量</th>
-							<th>價格</th>
-						</tr>
-					</thead>
-					<tbody>
-						<c:forEach items="${cart}" var="item">
-							<tr>
-								<td><c:out value="${item.prodNo}" /></td>
-								<td><c:out value="${item.prodName}" /></td>
-								<td><c:out value="${item.quantity}" /></td>
-								<td><c:out value="${item.prodPrice}" /></td>
-							</tr>
+				    <thead>
+				        <tr>
+				            <th><input type="checkbox" id="selectAll"></th>
+				            <th>商品編號</th>
+				            <th>名稱</th>
+				            <th>數量</th>
+				            <th>價格</th>
+				            <th class="hidden"></th>
+				        </tr>
+				    </thead>
+				    <tbody>
+				        <c:forEach items="${cart}" var="item">
+						    <tr>
+						        <td><input type="checkbox" class="itemCheckbox"></td>
+						        <td><c:out value="${item.prodNo}" /></td>
+						        <td><c:out value="${item.prodName}" /></td>
+						        <td>
+						            <button type="button" class="btn btn-secondary btn-sm decrease-btn" onclick="changeQuantity('${item.prodNo}', -1)">-</button>
+						            <span class="quantity"><c:out value="${item.quantity}" /></span>
+						            <button type="button" class="btn btn-secondary btn-sm increase-btn" onclick="changeQuantity('${item.prodNo}', 1)">+</button>
+						        </td>
+						        <td><c:out value="${item.prodPrice}" /></td>
+						        <td><i class="fa-solid fa-trash" onclick="deleteItem('${item.prodNo}')"></i></td>
+						    </tr>
 						</c:forEach>
-					</tbody>
+				    </tbody>
 				</table>
-				<%-- 				</c:if> --%>
 			</div>
 
-			<!-- 右側欄位：用戶資訊輸入 -->
-			<div class="col-md-6">
+			<!-- 右側欄位：資訊輸入 -->
+			<div class="col-md-5 ps-4">
 			    <h4>收件人資訊</h4>
 			    <div class="row">
 			    	<div class="col-md">
@@ -79,25 +88,20 @@
 					 </div>	
 				</div>
 				<h4 class="mt-3">毛毛幣折抵</h4>
-					<div class="row">
-						<div class="col-4 p-0">
-							<div class="form-check">
-								<input class="form-check-input" type="radio" name="smmp"
-									id="UseSmmp"/> <label
-									class="form-check-label" for="UseSmmp">使用毛毛幣</label>
-							</div>
-						</div>
-						<div class="col-4 p-0">
-							<div class="form-check">
-								<input class="form-check-input" type="radio" name="smmp"
-									id="notUseSmmp" checked/> <label
-									class="form-check-label" for="notUseSmmp">不使用毛毛幣</label>
-							</div>
-						</div>
-						 <fieldset id="inputSmmp" class="mt-1">
-                            <input type="text" class="form-control text-center" style=" width: 70px" name="smmpCount" id="smmpCount" maxlength="4" pattern="[0-9]{0,4}" title="請輸入數字0~4位數" />
-                        </fieldset>
-					</div>
+				<div class="row">
+				<div class="col-4 p-0">	
+				<input class="form-check-input" type="radio" id="UseSmmp" name="useMocoin" value="usemocoin">
+				<label for="UseSmmp">使用毛毛幣</label>
+				</div>
+				<div class="col-4 p-0">
+				<input class="form-check-input" type="radio" id="notusemocoin" name="useMocoin" value="nousemocoin">
+				<label for="notusemocoin">不使用毛毛幣</label>
+				</div>
+				</div>
+				<!-- 毛毛幣輸入框 -->
+				<input type="text" id="inputSmmp" class="form-control text-center mt-1 " style=" width: 70px" onkeypress='validate(event)' disabled>	
+				
+					
 					
 				<h4 class="mt-3">付款方式</h4>
 				<div class="row">
@@ -143,18 +147,13 @@
 							<button type="submit" class="btn btn-primary">確認付款</button>
 						</div>
 					</div>
-
-					
-
-
-
-<!-- 					<button type="submit" class="btn btn-primary">完成訂購</button> -->
+			
 				</div>
 			</div>
 		</div>
-
-		<script
-			src="<%=request.getContextPath()%>/frontend/cartlist/js/checkout.js"></script>
+	</div>
+		<%@ include file="/Footer.file" %>
+		<script src="<%=request.getContextPath()%>/frontend/cartlist/js/checkout.js"></script>
 </body>
 
 </html>

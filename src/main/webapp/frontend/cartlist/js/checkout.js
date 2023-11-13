@@ -4,21 +4,21 @@ let projectName = pathName.substring(0, pathName.substring(1).indexOf("/") + 1);
 const useSmmpRadio = document.getElementById("UseSmmp");
 const notUseSmmpRadio = document.getElementById("notusemocoin");
 const inputSmmp = document.getElementById("inputSmmp");
-//const credit = document.getElementById("credit");
-//const transfer = document.getElementById("transfer");
-//const ecPay = document.getElementById("ecPay");
-//const showPayment = document.getElementById("showPayment");
+const credit = document.getElementById("credit");
+const transfer = document.getElementById("transfer");
+const ecPay = document.getElementById("ecPay");
+const showPayment = document.getElementById("showPayment");
 //const actualAmount = document.getElementById("actualAmount");
 //const price = document.getElementById("price");
-//const address = document.getElementById("address");
+const address = document.getElementById("address");
 // 會員擁有的毛毛幣
-//const smmp = parseInt(document.getElementById("smmp").value);
+const smmp = parseInt(document.getElementById("smmp").value);
 
 
 // 會員使用的毛毛幣
-const smmpCount = document.getElementById("smmpCount");
-//
-//
+//const smmpCount = document.getElementById("smmpCount");
+
+
 window.addEventListener("load" , ()=>{
 	address.value = "大便";
     notUseSmmpRadio.checked = true;
@@ -83,7 +83,7 @@ ecPay.addEventListener("change" , function (){
 });
 
 
-//
+
 //smmpCount.addEventListener("keypress" , function (evt){
 //
 //})
@@ -100,3 +100,24 @@ ecPay.addEventListener("change" , function (){
 //smmpCount.addEventListener("input" , function (){
 //    actualAmount.value = price.value - smmpCount.value;
 //})
+
+
+function changeQuantity(prodNo, change) {
+    // 使用 fetch API 發送請求
+    fetch(`${projectName}/checkout`, { 
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: `prodNo=${encodeURIComponent(prodNo)}&change=${encodeURIComponent(change)}`
+    })
+    .then(response => response.json()) // 假設後端回應是 JSON 格式
+    .then(data => {
+        // 更新頁面上的數量顯示
+        // data 應包含最新的商品數量
+        document.querySelector(`#quantity-${prodNo}`).textContent = data.newQuantity;
+    })
+    .catch(error => {
+        console.error("更新失敗", error);
+    });
+}
