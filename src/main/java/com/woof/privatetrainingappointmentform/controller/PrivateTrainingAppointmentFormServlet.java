@@ -74,7 +74,7 @@ public class PrivateTrainingAppointmentFormServlet extends HttpServlet {
 				return;
 			case "getall":
 				getAll(req, resp);
-				forwardPath = "/frontend/privatetrainingappointmentform/privateTrainingAppointmentForm_getAll.jsp";
+				forwardPath = "/backend/appointment/appointment.jsp";
 				break;
 			case "getone":
 				getOne(req, resp);
@@ -99,9 +99,6 @@ public class PrivateTrainingAppointmentFormServlet extends HttpServlet {
 			case "comment":
 				forwardPath = "/frontend/privatetrainingappointmentform/commenting.jsp";
 				break;
-			case "getpta":
-				getPta(req, resp);
-				return;
 			case "updatecomment":
 				try {
 					updateComment(req, resp);
@@ -384,34 +381,4 @@ public class PrivateTrainingAppointmentFormServlet extends HttpServlet {
 				+ "/frontend/privatetrainingappointmentform/comment.jsp");
 	}
 	
-	private void getPta(HttpServletRequest request , HttpServletResponse response) throws IOException {
-		
-		String trainerNoStr = request.getParameter("trainerNo");
-        Integer trainerNo = (trainerNoStr == null ||  trainerNoStr.length() == 0 ) ? null : Integer.valueOf(trainerNoStr);
-		
-        String memNoStr = request.getParameter("memNo");
-        String memNo = (memNoStr == null || memNoStr.trim().length() == 0) ? null : memNoStr;
-        
-        String page = request.getParameter("page");
-        Integer currentPage = (page == null) ? 1 : Integer.parseInt(page);
-        
-        List<PrivateTrainingAppointmentForm> privateTrainingAppointmentFormList = privateTrainingAppointmentFormService.getPTAByMemberAndTrainer(memNo,trainerNo,currentPage);
-	
-        int pageTotal = privateTrainingAppointmentFormService.getPageTotal(memNo , trainerNo);
-        
-        Gson gson = new GsonBuilder()
-                .setExclusionStrategies()
-                .addSerializationExclusionStrategy(new JsonIgnoreExclusionStrategy(true))
-                .addDeserializationExclusionStrategy(new JsonIgnoreExclusionStrategy(false))
-                .setDateFormat("yyyy-MM-dd")
-                .create();
-        
-        JsonObject jsonResponse = new JsonObject();
-        jsonResponse.addProperty("pageTotal" , pageTotal);
-        jsonResponse.add("data" , gson.toJsonTree(privateTrainingAppointmentFormList));
-
-   
-        response.setContentType("application/json;charset=UTF-8");
-        response.getWriter().write(jsonResponse.toString());
-	}
 }

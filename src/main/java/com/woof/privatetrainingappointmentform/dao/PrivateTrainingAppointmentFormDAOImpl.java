@@ -114,56 +114,20 @@ public class PrivateTrainingAppointmentFormDAOImpl implements PrivateTrainingApp
 	}
 
 	@Override
-	public List<PrivateTrainingAppointmentForm> getAllMemberAndTrainer(String memNo, Integer trainerNo,
-			Integer currentPage) {
-		  CriteriaBuilder builder = getSession().getCriteriaBuilder();
-		  CriteriaQuery<PrivateTrainingAppointmentForm> criteriaQuery = builder.createQuery(PrivateTrainingAppointmentForm.class);
-		  Root<PrivateTrainingAppointmentForm> root = criteriaQuery.from(PrivateTrainingAppointmentForm.class);
-		  
-		  List<Predicate> predicates = new ArrayList<>();
-		  
+	public List<PrivateTrainingAppointmentForm> getByMemName(String memName, int currentPage) {
+		return getSession().createQuery("FROM PrivateTrainingAppointmentForm WHERE member.memName LIKE :name",PrivateTrainingAppointmentForm.class)
+				.setParameter("name", "%" + memName + "%")
+				.setMaxResults(PAGE_MAX_RESULT)
+				.getResultList();
+		
 
-	      if (trainerNo != null){
-	          predicates.add(builder.equal(root.get("trainer").get("administrator").get("adminName") , trainerNo));
-	      }
-	       
-	      if (memNo != null){
-	          predicates.add(builder.like(root.get("member").get("memName"), '%'+memNo+'%'));
-	      }
-	      int first = (currentPage - 1) * PAGE_MAX_RESULT;
-	      criteriaQuery.where(builder.and(predicates.toArray(new Predicate[predicates.size()])));
-	      TypedQuery<PrivateTrainingAppointmentForm> query = getSession().createQuery(criteriaQuery);
-	      
-	      List<PrivateTrainingAppointmentForm> list = query
-	                .setFirstResult(first)
-	                .setMaxResults(PAGE_MAX_RESULT)
-	                .getResultList();
-
-	        return list;
 	}
 
 	@Override
-	public long getTotal(String memNo, Integer trainerNo) {
-		CriteriaBuilder builder = getSession().getCriteriaBuilder();
-        CriteriaQuery<Long> criteriaQuery = builder.createQuery(Long.class);
-        Root<GroupCourseOrder> root = criteriaQuery.from(GroupCourseOrder.class);
-
-        criteriaQuery.select(builder.count(root));
-
-        List<Predicate> predicates = new ArrayList<>();
-
-        if (trainerNo != null){
-            predicates.add(builder.equal(root.get("trainer").get("trainerNo") , trainerNo));
-        }
-
-        if (memNo != null){
-            predicates.add(builder.like(root.get("member").get("memName"), '%'+memNo+'%'));
-        }
-
-        criteriaQuery.where(builder.and(predicates.toArray(new Predicate[predicates.size()])));
-        TypedQuery<Long> query = getSession().createQuery(criteriaQuery);
-        return query.getSingleResult();
+	public long getTotalByMember(String memberName) {
+		return getSession().createQuery("SELECT COUNT(*) from PrivateTrainingAppointmentForm  WHERE member.memName LIKE :name", Long.class)
+				.setParameter("memberName", memberName)
+				.uniqueResult();
 	}
-	
-	
+
 }

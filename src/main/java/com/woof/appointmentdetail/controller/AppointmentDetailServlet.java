@@ -47,7 +47,7 @@ public class AppointmentDetailServlet extends HttpServlet {
 				break;
 			case "getdetail":
 				getByPtaNo(req, resp);
-				forwardPath = "/frontend/appointmentdetail/appointmentDetail_get.jsp";
+				forwardPath = "/backend/appointment/appointmentDetail.jsp";
 				break;
 			case "gettoadd":
 				beforeAdd(req, resp);
@@ -57,7 +57,7 @@ public class AppointmentDetailServlet extends HttpServlet {
 				add(req, resp);
 				return;
 			case "gettoupdate":
-				forwardPath = "/frontend/appointmentdetail/appoindmentDetail_update.jsp";
+				forwardPath = "/backend/appointment/appointmentDetail2.jsp";
 				break;
 			case "update":
 				update(req, resp);
@@ -199,6 +199,6 @@ public class AppointmentDetailServlet extends HttpServlet {
     		req.setAttribute("errorMessage", "刪除失敗");
     	}
     	res.sendRedirect(req.getContextPath() + "/frontend/privatetrainingappointmentform/privateTrainingAppointmentForm.jsp");
-
     }
+ 
 }

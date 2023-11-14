@@ -3,6 +3,7 @@
 
 <html>
 <head>
+<%@ include file="/backend/backhead.file" %>
 <title>Title</title>
 <style>
 
@@ -34,6 +35,7 @@ button {
 </style>
 </head>
 <body>
+<%@ include file="/backend/backbody.file" %>
 	<h1>修改私人預約單明細</h1>
 
 	<form action="${pageContext.request.contextPath}/appointmentdetail"
@@ -55,5 +57,6 @@ button {
 			value="update">修改</button>
 		<button type="button" onclick="history.back()">取消修改</button>
 	</form>
+<%@ include file="/backend/backfoot.file" %>
 </body>
 </html>

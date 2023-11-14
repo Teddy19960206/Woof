@@ -30,4 +30,6 @@ public interface MemberService {
     Integer getMemberPoints(String memNo);
 	
     void updateMemberPoints(String memNo,Integer momo);
+    
+    void updateMemberClass(String memNo, Integer totalClass);
 }

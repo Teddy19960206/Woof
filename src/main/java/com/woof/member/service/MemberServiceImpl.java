@@ -94,5 +94,11 @@ public class MemberServiceImpl implements MemberService, AppService<String> {
 	public void updateMemberPoints(String memNo, Integer momo) {
 		findMemberByNo(memNo).setMomoPoint(momo);	
 	}
+
+	@Override
+	public void updateMemberClass(String memNo, Integer totalClass) {
+		findMemberByNo(memNo).setTotalClass(totalClass);
+		
+	}
    
 }

@@ -1,74 +1,67 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-<meta charset="BIG5">
-<title>AppointmentDetail</title>
-<style>
-    body {
+    <%@ include file="/backend/backhead.file" %>
+    <title>寵毛導師 Woof | 私人預約管理</title>
+    <style>
+		body {
         font-family: Arial, sans-serif;
-        background-color: #f5f5f5;
+        background-color: #f0f0f0;
+        margin: 0;
+        padding: 0;
     }
+
     table {
+        width: 100%;
         border-collapse: collapse;
-        width: 80%;
-        margin: 20px auto;
-        background-color: #fff;
+        margin-top: 20px;
+    }
+
+    table, th, td {
+        border: 1px solid #ccc;
     }
 
     th, td {
         padding: 10px;
-        text-align: center;
+        text-align: left;
     }
 
     th {
-        background-color: #333;
-        color: #fff;
+        background-color: #0074d9;
+        color: white;
     }
 
     tr:nth-child(even) {
         background-color: #f2f2f2;
     }
 
-    tr:hover {
-        background-color: #ddd;
+    tr:nth-child(odd) {
+        background-color: #ffffff;
     }
 
-    button {
+    .btn {
+        background-color: #0074d9;
+        color: white;
         padding: 5px 10px;
-        background-color: #4CAF50;
-        color: #fff;
         border: none;
         cursor: pointer;
+        margin-right: 5px;
     }
 
-    .btn-new {
-        background-color: #007bff;
-    }
-
-    .btn-back {
-        background-color: #f00;
-    }
-
-    button:hover {
-        background-color: #45a049;
-    }
-    
     .btn-delete {
-        background-color: #c9302c;
+        background-color: #f44336;
     }
 
-	.btn-delete:hover {
-        background-color: #ac2925;
+    .button-container {
+        margin-top: 20px;
     }
-    
-</style>
+    </style>
 </head>
 <body>
-	<div class="container py-3" >
-	<div class="col">
-	<table border=1>
+<%@ include file="/backend/backbody.file" %>
+<div class="container py-3" >
+<div class="col">
+<table border=1>
 		<tr>
 			<th>預約明細編號</th>
 			<th>私人訓練預約單編號</th>
@@ -76,7 +69,7 @@
 			<th>預約狀態</th>
 			<th></th>
 			<th></th>
-
+		
 		</tr>
 		<c:set var="ptaNo" value="" />
 		<c:forEach var="AD" items="${appointmentDetails}">
@@ -85,16 +78,19 @@
 				<td>${AD.adNo}</td>
 				<td>${AD.privateTrainingAppointmentForm.ptaNo}</td>
 				<td>${AD.appTime}</td>
-				<td><c:choose>
-                <c:when test="${AD.appStatus == 0}">
-                    接受
-                </c:when>
-                <c:when test="${AD.appStatus == 1}">
-                    取消
-                </c:when>
-            </c:choose></td>
+				
+				
 				<td>
-
+					<span class="status-text">
+						<c:choose>
+                			<c:when test="${AD.appStatus == 0}">接受</c:when>
+                			<c:when test="${AD.appStatus == 1}">取消</c:when>
+            			</c:choose>
+            		</span>
+            	</td>
+				<td>
+				 
+				 
 					<FORM METHOD="post"
 						action="${pageContext.request.contextPath}/appointmentdetail?action=gettoupdate">
 						<%
@@ -103,7 +99,6 @@
 						String appTime = request.getParameter("appTime");
 						String appStatus = request.getParameter("appStatus");
 						%>
-						<input type="hidden" name="action" value="gettoupdate"> 
 						<input type="hidden" name="adNo" value="${AD.adNo}"> 
 						<input type="hidden" name="ptaNo" value="${AD.privateTrainingAppointmentForm.ptaNo}">
 						<input type="hidden" name="appTime"	value="${AD.appTime}">
@@ -130,8 +125,9 @@
     </FORM>
     <button class="btn btn-back" onclick="history.back()">返回</button>
 	</div>
-	</div>
-	</div>
-
+</div>
+</div>
+<%@ include file="/backend/backfoot.file" %>
+<script src="${pageContext.request.contextPath}/backend/appointment/js/appointmentDetail.js"></script>
 </body>
 </html>
