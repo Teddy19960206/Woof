@@ -1,5 +1,8 @@
 package com.google.api.client.extensions.servlet.auth.oauth2;
 
+import com.woof.member.entity.Member;
+import com.woof.member.service.MemberServiceImpl;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,11 +18,17 @@ public class HomeServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        PrintWriter writer = response.getWriter();
-        String info = request.getSession().getAttribute("member") == null ? "" : request.getSession().getAttribute("member").toString();
+        Member member = (Member) request.getSession(false).getAttribute("member");
 
-        if(info.equals("success")){
-            writer.print("Hello google api");
+        if(member != null){
+            Member memberByNo = new MemberServiceImpl().findMemberByNo(member.getMemNo());
+
+            if (memberByNo != null){
+                response.sendRedirect(request.getContextPath()+"/index.jsp");
+            }else{
+                response.sendRedirect(request.getContextPath()+"/plus");
+            }
+
         }else{
             response.sendRedirect(request.getContextPath()+"/plus");
         }

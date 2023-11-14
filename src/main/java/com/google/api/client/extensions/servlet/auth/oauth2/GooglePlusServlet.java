@@ -8,13 +8,14 @@ import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Arrays;
 
-@javax.servlet.annotation.WebServlet(name = "GooglePlusServlet",urlPatterns = "/plus")
+@WebServlet(name = "GooglePlusServlet",urlPatterns = "/plus")
 public class GooglePlusServlet extends AbstractAuthorizationCodeServlet {
     @Override
     protected AuthorizationCodeFlow initializeFlow() throws ServletException, IOException {
@@ -47,7 +48,7 @@ public class GooglePlusServlet extends AbstractAuthorizationCodeServlet {
     @Override
     protected String getUserId(HttpServletRequest req) throws ServletException, IOException {
         HttpSession httpSession =  req.getSession(true);
-        System.out.println("Before authenticate" + httpSession.getId());
+        System.out.println("Before authenticate : " + httpSession.getId());
         return httpSession.getId();
     }
 }

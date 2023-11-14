@@ -28,6 +28,7 @@ public class GroupCourse implements Serializable {
 	@JoinColumn(name = "SKILL_NO" , referencedColumnName = "SKILL_NO")
 	private Skill skill;
 
+
 	@Expose
 	@ManyToOne
 	@JoinColumn(name = "CT_NO" , referencedColumnName = "CT_NO")
