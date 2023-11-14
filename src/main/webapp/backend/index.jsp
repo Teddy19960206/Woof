@@ -25,7 +25,6 @@
 </div>
 
 <%@ include file="/backend/backfoot.file" %>
-<script src="js/path.js"></script>
 </body>
 
 </html>
