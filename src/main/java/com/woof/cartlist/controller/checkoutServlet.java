@@ -20,70 +20,151 @@ import redis.clients.jedis.Jedis;
 @WebServlet("/checkout")
 public class checkoutServlet extends HttpServlet {
 
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String action = request.getParameter("action");
-        Jedis jedis = null;
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		String action = request.getParameter("action");
+		Jedis jedis = null;
 
-        String memNo = request.getParameter("memNo");
-        System.out.println("印出來的會員帳號" + memNo);
+		String memNo = request.getParameter("memNo");
+		System.out.println("印出來的會員帳號" + memNo);
 
-        try {
-            jedis = new Jedis("localhost", 6379);
-            String cartJson = null; // 移到這裡
+		try {
+			jedis = new Jedis("localhost", 6379);
+			String cartJson = null; // 移到這裡
 
-            switch (action) {
-                case "getCart":
+			String prodNo = request.getParameter("prodNo");
+			System.out.println("商品" + prodNo);
 
-                    // 從 Redis 獲取當前購物車
-                    cartJson = jedis.get(memNo);
-                    if (cartJson == null) {
-                        cartJson = "[]"; 
-                    }
+			switch (action) {
 
-                    // 顯示為什麼在前端跑不出來
-                    System.out.println("redis cartJson: " + cartJson);
+			case "getCart":
 
-                    // 設置響應
-                    response.setContentType("application/json");
-                    response.setCharacterEncoding("UTF-8");
-                    response.getWriter().write(cartJson); 
-                    
-                    break;
+				// 從 Redis 獲取當前購物車
+				cartJson = jedis.get(memNo);
+				if (cartJson == null) {
+					cartJson = "[]";
+				}
 
-                 case "deleteItem":
-                    String prodNo = request.getParameter("prodNo");
+				// 顯示為什麼在前端跑不出來
+				System.out.println("redis cartJson: " + cartJson);
 
-                    System.out.println(prodNo);
-                    
-                    // 從 Redis 中獲取購物車
-                    cartJson = jedis.get(memNo);
-                    if (cartJson != null) {
-                        Type type = new TypeToken<List<Map<String, Object>>>(){}.getType();
-                        List<Map<String, Object>> cart = new Gson().fromJson(cartJson, type);
+				// 設置響應
+				response.setContentType("application/json");
+				response.setCharacterEncoding("UTF-8");
+				response.getWriter().write(cartJson);
 
-                        // 移除特定商品
-                        cart.removeIf(item -> item.get("prodNo").equals(prodNo));
+				break;
 
-                        // 更新 Redis 中的購物車
-                        cartJson = new Gson().toJson(cart);
-                        jedis.set(memNo, cartJson);
-                    }
-                    response.getWriter().write("Item deleted");
-                    break;
+			case "deleteItem":
 
-                    
-                    
-                default:
-                    response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid action");
-            }
-        } catch (Exception e) {
+				cartJson = jedis.get(memNo);
+				if (cartJson != null) {
+					Type type = new TypeToken<List<Map<String, Object>>>() {
+					}.getType();
+					List<Map<String, Object>> cart = new Gson().fromJson(cartJson, type);
 
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.getMessage());
-        } finally {
+					// 移除特定商品
+					cart.removeIf(item -> item.get("prodNo").equals(prodNo));
 
-            if (jedis != null) {
-                jedis.close();
-            }
-        }
-    }
+					// 更新 Redis 中的購物車
+					cartJson = new Gson().toJson(cart);
+					jedis.set(memNo, cartJson);
+				}
+				response.getWriter().write("Item deleted");
+				break;
+
+			case "decreaseQuantity":
+
+				int newQuantity = Integer.parseInt(request.getParameter("quantity"));
+
+				System.out.println("減少數量顯示" + newQuantity);
+
+				cartJson = jedis.get(memNo);
+				if (cartJson != null) {
+					Type type = new TypeToken<List<Map<String, Object>>>() {
+					}.getType();
+					List<Map<String, Object>> cart = new Gson().fromJson(cartJson, type);
+
+					for (Map<String, Object> item : cart) {
+						if (item.get("prodNo").equals(prodNo)) {
+							int currentQuantity = ((Number) item.get("quantity")).intValue();
+							if (currentQuantity > 1) {
+								item.put("quantity", newQuantity);
+							}
+							break;
+						}
+					}
+
+					cartJson = new Gson().toJson(cart);
+					jedis.set(memNo, cartJson);
+				}
+
+				response.setCharacterEncoding("UTF-8");
+				response.setContentType("application/json");
+				response.getWriter().write(cartJson);
+				break;
+
+			case "increaseQuantity":
+
+				int addQuantity = Integer.parseInt(request.getParameter("quantity"));
+				
+				System.out.println("增加數量顯示" + addQuantity);
+				// 增加數量的邏輯
+				cartJson = jedis.get(memNo);
+				if (cartJson != null) {
+					Type type = new TypeToken<List<Map<String, Object>>>() {
+					}.getType();
+					List<Map<String, Object>> cart = new Gson().fromJson(cartJson, type);
+
+					for (Map<String, Object> item : cart) {
+						if (item.get("prodNo").equals(prodNo)) {
+							int currentQuantity = ((Number) item.get("quantity")).intValue();
+							if (currentQuantity >= 1) {
+								item.put("quantity", addQuantity);
+							}
+							break;
+						}
+					}
+						cartJson = new Gson().toJson(cart);
+						jedis.set(memNo, cartJson);
+					}
+
+					response.setCharacterEncoding("UTF-8");
+					response.setContentType("application/json");
+					response.getWriter().write(cartJson);
+
+				break;
+
+			default:
+				response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid action");
+			}
+		} catch (Exception e) {
+
+			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.getMessage());
+		} finally {
+
+			if (jedis != null) {
+				jedis.close();
+			}
+		}
+	}
+
+//    //從redis取出資料
+//    private String getCart(Jedis jedis, String memNo) {
+//        String cartJson = jedis.get(memNo);
+//        return (cartJson != null) ? cartJson : "[]";
+//    }
+//
+//    private void updateCartInRedis(Jedis jedis, String memNo, String cartJson) {
+//        jedis.set(memNo, cartJson);
+//    }
+//    
+//    private List<Map<String, Object>> parseCart(String cartJson) {
+//        Type type = new TypeToken<List<Map<String, Object>>>(){}.getType();
+//        return new Gson().fromJson(cartJson, type);
+//    }
+//
+//    private String serializeCart(List<Map<String, Object>> cart) {
+//        return new Gson().toJson(cart);
+//    }
+
 }

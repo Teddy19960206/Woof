@@ -30,7 +30,7 @@
 				<table class="table">
 					<thead>
 						<tr>
-							<th><input type="checkbox" id="selectAll"></th>
+<!-- 							<th><input type="checkbox" id="selectAll"></th> -->
 							<th>名稱</th>
 							<th>數量</th>
 							<th>單價</th>
@@ -39,11 +39,13 @@
 						</tr>
 					</thead>
 					<tbody id="cart-items-list">
+<!-- 							有時間就做 -->
+<!-- 						<td style="text-align: center;"><input type="checkbox" class="itemCheckbox"></td> -->
 						<!-- 動態生成購物車內容 -->
 					</tbody>
 				</table>
 			</div>
-
+			<!-- 刪除模態框 -->
 			<div class="modal" id="deleteConfirmationModal" tabindex="-1" role="dialog">
 			  <div class="modal-dialog" role="document">
 			    <div class="modal-content">

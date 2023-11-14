@@ -75,6 +75,7 @@ $("#cart-icon, #cart-count").on("click", function() {
 		},
 		success: function(cartJson) {
 
+			//先宣告一個""
 			let html = "";
 			let totalAmount = 0;
 			

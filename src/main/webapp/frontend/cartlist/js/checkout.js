@@ -110,13 +110,12 @@ ecPay.addEventListener("change" , function (){
 const prodNo = document.getElementById("prodNo");
 const memNoElement = document.getElementById("memNo");
 const memNo = memNoElement.getAttribute("data-memname");
+
+console.log(memNo);	
 	
 //頁面近來自動載入方法
 window.addEventListener("load" , ()=>{	
-    let memNo = $("#memNo").data("memname");
-    
-    console.log(memNo);
-
+	
     fetchCart(memNo);
     
 });
@@ -148,26 +147,29 @@ function renderCartItems(cart) {
     let html = "";
 
     cart.forEach(item => {
+//		// 更新小計
+//		updateItemSubtotal(item.prodNo);
+        
         html += `<tr>
-                    <td style="text-align: center;"><input type="checkbox" class="itemCheckbox"></td>
-					<td id="item-row-${item.prodNo}" class="hidden" style="display: none;">${item.prodNo}</td>                    <td>${item.prodName}</td>
+					<td id="item-row-${item.prodNo}" class="hidden" style="display: none;">${item.prodNo}</td>                    
+					<td>${item.prodName}</td>
                     <td>
                     <div>
-    					<button type="button" class="btn btn-secondary btn-sm decrease-btn mx-2" onclick="changeQuantity('${item.prodNo}', -1)">-</button>				
-    						<span class="quantity">${item.quantity}</span>
-    					<button type="button" class="btn btn-secondary btn-sm increase-btn mx-2" onclick="changeQuantity('${item.prodNo}', 1)">+</button>
+    					<button type="button" class="btn btn-secondary btn-sm decrease-btn mx-2" onclick="decreaseQuantity('${item.prodNo}')">-</button>				
+    						<span class="quantity" id="quantity-${item.prodNo}">${item.quantity}</span>
+    					<button type="button" class="btn btn-secondary btn-sm increase-btn mx-2" onclick="increaseQuantity('${item.prodNo}')">+</button>			
                     </div>
                     </td>
-                    <td>NT$${item.prodPrice}</td>
-                    <td>NT$計算數量乘單價</td>
-                    <td><i class="fa-solid fa-trash" onclick="deleteItem('${item.prodNo}')"></i></td>
+                    <td>NT$<span id="price-${item.prodNo}">${item.prodPrice}</span></td>
+					<td>NT$<span id="subtotal-${item.prodNo}"></span></td>
+					<td><i class="fa-solid fa-trash" style="cursor: pointer;" onclick="deleteItem('${item.prodNo}')"></i></td>
                 </tr>`;
     });
 
     $("#cart-items-list").html(html);
 }
 
-
+//全部刪除
 function deleteItem(prodNo) {
     // 儲存當前商品編號，以便在確認刪除時使用
     $('#confirmDelete').data('prodNo', prodNo);
@@ -197,6 +199,7 @@ $('#confirmDelete').click(function() {
         }
     });
 
+//更新購物車顯示
 function updateCartDisplay() {
 
     $.ajax({
@@ -207,7 +210,8 @@ function updateCartDisplay() {
             memNo: memNo 
         },
         success: function(response) {
-            renderCartItems(response); // 假設 response 是購物車數據的陣列
+			// response 是購物車數據的陣列	
+            renderCartItems(response); 
         },
         error: function(error) {
             console.error("Error: ", error);
@@ -225,26 +229,103 @@ $('#cancelDelete').on('click', function() {
 });
 
 
-////更新+-數量
-//function changeQuantity(prodNo, change) {
-//    // 使用 fetch API 發送請求
-//    fetch(`${projectName}/checkout`, { 
-//        method: 'POST',
-//        headers: {
-//            'Content-Type': 'application/x-www-form-urlencoded',
-//        },
-//        body: `prodNo=${encodeURIComponent(prodNo)}&change=${encodeURIComponent(change)}`
-//    })
-//    .then(response => response.json()) // 假設後端回應是 JSON 格式
-//    .then(data => {
-//        // 更新頁面上的數量顯示
-//        // data 應包含最新的商品數量
-//        document.querySelector(`#quantity-${item.quantity}`).textContent = data.newQuantity;
-//    })
-//    .catch(error => {
-//        console.error("更新失敗", error);
-//    });
-//}
+//減少1按扭
+function decreaseQuantity(prodNo) {
+	
+	console.log("prodNo:", prodNo);
+
+ 	let quantitySpan = document.getElementById(`quantity-${prodNo}`);    
+    console.log("quantitySpan:", quantitySpan);
+    
+    // 檢查 quantitySpan 是否存在
+    if (quantitySpan) {
+        let quantity = parseInt(quantitySpan.innerText);
+
+		console.log("數量"+quantity);
+
+        if (quantity > 1) {
+            quantity--;
+            quantitySpan.innerText = quantity;
+
+            // 發送 AJAX 請求到後端更新數量
+            updateDecreaseQuantity(prodNo, quantity);
+        }
+    } else {
+        console.error("Quantity span not found for prodNo:", prodNo);
+    }
+//      // 更新小計
+//      updateItemSubtotal(prodNo);
+}
+
+function updateDecreaseQuantity(prodNo, newQuantity) {
+    $.ajax({
+        type: 'POST',
+        url: `${projectName}/checkout`,
+        data: {
+            action: 'decreaseQuantity',
+            prodNo: prodNo,
+            memNo: memNo,
+            quantity: newQuantity 
+        },
+        success: function(response) {
+			// 更新畫面上的購物車
+            renderCartItems(response); 
+        },
+        error: function(error) {
+            console.error("Error: ", error);
+        }
+    });
+}
 
 
+//增加1按扭
+function increaseQuantity(prodNo) {
+    let quantitySpan = document.getElementById(`quantity-${prodNo}`);
+    if (quantitySpan) {
+        let quantity = parseInt(quantitySpan.innerText);
+        quantity++;
+        updateIncreaseQuantity(prodNo, quantity);
+    } else {
+        console.error("Quantity span not found for prodNo:", prodNo);
+    }
+//        // 更新小計
+//        updateItemSubtotal(prodNo);
+}
 
+function updateIncreaseQuantity(prodNo, newQuantity) {
+	
+	console.log(newQuantity);
+	
+    $.ajax({
+        type: 'POST',
+        url: `${projectName}/checkout`,
+        data: {
+            action: 'increaseQuantity',
+            prodNo: prodNo,
+            memNo: memNo,
+            quantity: newQuantity 
+        },
+        success: function(response) {
+			// 更新畫面上的購物車
+            renderCartItems(response); 
+        },
+        error: function(error) {
+            console.error("Error: ", error);
+        }
+    });
+}
+
+// 處理每個商品的小計
+function updateItemSubtotal(prodNo) {
+    let quantitySpan = document.getElementById(`quantity-${prodNo}`);
+    let priceSpan = document.getElementById(`price-${prodNo}`);
+    let subtotalSpan = document.getElementById(`subtotal-${prodNo}`);
+
+    if (quantitySpan && priceSpan && subtotalSpan) {
+        let quantity = parseInt(quantitySpan.innerText);
+        let price = parseFloat(priceSpan.innerText);
+        let subtotal = quantity * price;
+        subtotal = Math.floor(subtotal); // 將小計整數化
+        subtotalSpan.innerText = subtotal; // 將整數小計顯示在元素中
+    }
+}
