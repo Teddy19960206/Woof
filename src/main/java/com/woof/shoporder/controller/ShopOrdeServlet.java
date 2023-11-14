@@ -56,9 +56,9 @@ public class ShopOrdeServlet extends HttpServlet {
 			forwardPath = updateshoporder(request, response);
 			break;
 
-//		case "addshoporder":
-//			forwardPath = addshoporder(request, response);
-//			break;
+		case "addshoporder":
+			forwardPath = addshoporder(request, response);
+			break;
 
 		// 全部不成立會跑到這邊
 		default:
@@ -106,7 +106,6 @@ public class ShopOrdeServlet extends HttpServlet {
 		try {
 			parsedDate = dateFormat.parse(prodOrderDatefront);
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		Timestamp prodOrderDate = new Timestamp(parsedDate.getTime());
@@ -144,28 +143,61 @@ public class ShopOrdeServlet extends HttpServlet {
 		return "/backend/shoporder/getAllshoporder.jsp";
 	}
 
-//	private String addshoporder(HttpServletrequestuest request, HttpServletresponseonse response) {
-//
-//		String faqClass = request.getParameter("faqClass");
-//		String faqTitle = request.getParameter("faqTitle");
-//		String faqContent = request.getParameter("faqContent");
+	private String addshoporder(HttpServletRequest request, HttpServletResponse response) {
 
-		// 如果有確定進入資料庫會有流水編號，再去找流水編號的值，顯示在jsp
-//		int saved = (Integer) shopOrderService.addFaq(faqClass, faqTitle, faqContent);
-//		var result = shopOrderService.findByFaqNo(saved);
-
-//		if (saved > 0) {
-////		    return 1; // FAQ添加成功
-//	        System.out.println("新增成功");
-//	    } else {
-////	        return -1; // FAQ添加失败
-//	        System.out.println("新增失敗");
-//	    }
-//		
-//		request.setAttribute("result", result);
+		String memNo = request.getParameter("memNo");
+		System.out.println("========================="+memNo);
+		MemberService memberService = new MemberServiceImpl();
+		Member member = memberService.findMemberByNo(memNo);
+      
+		System.out.println(member);
 		
-//		return "/frontend/cartlist/finishorder.jsp";
-//	}
+	    java.util.Date now = new java.util.Date();
+	    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	    String coTimeStr = dateFormat.format(now);
+        java.util.Date parsedDate = null; // 初始化為 null
+		try {
+			parsedDate = dateFormat.parse(coTimeStr);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        Timestamp prodOrderDate = new Timestamp(parsedDate.getTime());	
+	
+        int payMethod = Integer.parseInt(request.getParameter("payment"));
+        Boolean shipMethod = Boolean.parseBoolean(request.getParameter("shipMethod"));
+	
+        int orderStatus = 0;
+		request.getSession().setAttribute("orderStatus", orderStatus);
+
+		String recName = request.getParameter("memName");
+		String recMobile = request.getParameter("phone");
+		String recAddress = request.getParameter("address");
+	
+		Boolean hasReturn = false;
+		request.getSession().setAttribute("hasReturn", hasReturn);
+	
+		int moCoin = Integer.parseInt(request.getParameter("inputSmmp"));
+		int orderTotalPrice = Integer.parseInt(request.getParameter("totalPrice"));
+		int actualPrice = Integer.parseInt(request.getParameter("totalAfterCoins"));
+
+
+		int saved = (Integer) shopOrderService.addShopOrder(member, prodOrderDate, payMethod, shipMethod, orderStatus, recName, recMobile, recAddress, hasReturn, moCoin, orderTotalPrice, actualPrice);
+		// 如果有確定進入資料庫會有流水編號，再去找流水編號的值，顯示在jsp
+		var result = shopOrderService.findByShopOrderNo(saved);
+
+		if (saved > 0) {
+//		    return 1; // 訂單新增成功
+	        System.out.println("訂單新增成功");
+	    } else {
+//	        return -1; // 訂單新增失败
+	        System.out.println("新增失敗");
+	    }
+		
+		// 資料給下一個jsp
+		request.setAttribute("result", result);
+		return "/frontend/cartlist/finishorder.jsp";
+	}
 
 
 }
