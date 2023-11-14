@@ -114,8 +114,12 @@ public class TokenExchange extends HttpServlet {
                         .withAudience(clientId)
                         .build();
 
+                System.out.println(verifier);
+
                 // 驗證 JWT
                 DecodedJWT verifiedJwt = verifier.verify(idToken);
+
+                System.out.println(verifiedJwt);
 
                 String userId = verifiedJwt.getSubject(); // 獲取用戶的唯一識別碼
                 String userEmail = verifiedJwt.getClaim("email").asString(); // 獲取用戶的郵箱地址
