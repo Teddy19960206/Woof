@@ -15,6 +15,7 @@ public interface AdministratorDAO {
 	void insert(Administrator administrator);
 
 	int update(Administrator administrator);
+	int update2(Administrator administrator);
 
 	int delete(String adminNo);
 

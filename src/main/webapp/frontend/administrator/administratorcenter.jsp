@@ -3,55 +3,23 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<%@ include file="/backend/backhead.file" %>
 <title>管理員中心</title>
+
+
+
+
 <script type="text/javascript">
 //表單點擊找出對應的function//
-  function processUpdate(jsonData){
-   window.location.href = " <%=request.getContextPath()%>/frontend/administrator/login/updateadministrator.jsp?admiNo=" + jsonData.adminNo ;
+function processUpdate2(jsonData){
+	  window.location.href = " <%=request.getContextPath()%>/frontend/administrator/administratorUpdate2.jsp?adminNo=" + jsonData.adminNo ;
   }
 </script>
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.4.1/font/bootstrap-icons.min.css">
-<style>
-body {
-	background-color: #FFF3E0;
-}
-
-.card, .navbar, .navbar-collapse {
-	background-color: sandybrown;
-}
-</style>
 </head>
 <body>
+<%@ include file="/backend/backbody.file" %>
 	<nav class="navbar navbar-expand-lg navbar-light">
-		<a class="navbar-brand" href="#">管理員中心</a>
-		<button class="navbar-toggler" type="button" data-toggle="collapse"
-			data-target="#navbarNav" aria-controls="navbarNav"
-			aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-		<div class="collapse navbar-collapse" id="navbarNav">
-			<ul class="navbar-nav">
-				<li class="nav-item active"><a class="nav-link" href="#">首頁
-						<span class="sr-only">(current)</span>
-				</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">管理員資料管理</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">訓練師資料管理</a></li>
-				<li class="nav-item">
-					<form method="POST"
-						action="${pageContext.request.contextPath}/logout1"
-						style="all: unset;">
-						<input type="hidden" name="action1" value="administratorlogout">
-						<button class="btn btn-outline-secondary"style="background-color: #FABA91; font-family: 'Noto Sans TC', sans-serif; font-weight: 700; " id="logoutButton"
-							type="submit">登出</button>
-					</form>
-				</li>
-			</ul>
-		</div>
+		<a class="navbar-brand" href="#">訓練師中心</a>
 	</nav>
 
 	<div class="container mt-5">
@@ -65,14 +33,7 @@ body {
 					</div>
 					<ul class="list-group list-group-flush">
 						<li class="list-group-item">
-							<form method="post"
-								action="${pageContext.request.contextPath}/administrator.do"
-								style="margin-bottom: 0px;">
-								<input type="hidden" name="action" value="update"> <input
-									type="hidden" name="adminNo" value="${administrator.adminNo}"> <input
-									type="button" class="update-btn" value="修改"
-									onclick="processUpdate({adminNo:'${administrator.adminNo}'});">
-							</form>
+							<button value="修改" onclick="processUpdate2({adminNo:'${administrator.adminNo}'});">修改</button>
 						</li>
 <!-- 						<li class="list-group-item">變更密碼</li> -->
 					</ul>
@@ -99,7 +60,7 @@ body {
 								<tr>
 									<th scope="row">照片</th>
 									<td><img
-										src="${pageContext.request.contextPath}/DBPngReader?action=administrator&id=${administrator.adminNo}"
+<%-- 										src="${pageContext.request.contextPath}/DBPngReader?action=administrator&id=${administrator.adminNo}" --%>
 										class="img-thumbnail" style="width: 100px; height: 100px">
 									</td>
 								</tr>
@@ -135,10 +96,7 @@ body {
 									<th scope="row">到職日</th>
 									<td>${administrator.adminHd}</td>
 								</tr>
-								<tr>
-									<th scope="row">離職日</th>
-									<td>${administrator.adminBd}</td>
-								</tr>
+								
 								<tr>
 									<th scope="row">狀態</th>
 									<td>${administrator.adminStatus}</td>
@@ -156,10 +114,6 @@ body {
 		</div>
 	</div>
 
-	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-	<script
-		src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<%@ include file="/backend/backfoot.file" %>
 </body>
 </html>

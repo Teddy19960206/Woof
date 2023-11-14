@@ -8,7 +8,7 @@
 </head>
 <body>
 <h2>註冊成功！</h2>
-<a href='/woof/frontend/administrator/logout1.jsp'
-   class="text-decoration-none"><b>登入</b></a> 
+<a href='/woof/frontend/administrator/administrator.jsp'
+   class="text-decoration-none"><b>跳回管理畫面</b></a> 
 </body>
 </html>
