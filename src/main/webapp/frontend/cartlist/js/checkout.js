@@ -10,19 +10,9 @@ const ecPay = document.getElementById("ecPay");
 const showPayment = document.getElementById("showPayment");
 const address = document.getElementById("address");
 
-//const actualAmount = document.getElementById("actualAmount");
-//const price = document.getElementById("price");
-
-// 會員擁有的毛毛幣
-//const smmp = parseInt(document.getElementById("smmp").value);
-
-
-// 會員使用的毛毛幣
-//const smmpCount = document.getElementById("smmpCount");
-
 
 window.addEventListener("load" , ()=>{
-//	address.value = "大便";
+
     notUseSmmpRadio.checked = true;
     inputSmmp.disabled = true;
 //    smmpCount.value = "";
@@ -84,24 +74,25 @@ ecPay.addEventListener("change" , function (){
     showPayment.innerHTML = html;
 });
 
+//=============================================
 
+document.getElementById('inputSmmp').addEventListener('input', function (e) {
 
-//smmpCount.addEventListener("keypress" , function (evt){
-//
-//})
-//
-//smmpCount.addEventListener("keyup" , function (){
-//    if (parseInt(smmpCount.value) > smmp){
-//        $("#myModal").modal("show");
-//        smmpCount.value = '';
-//        actualAmount.value = price.value;
-//    }else{
-//    }
-//})
-//
-//smmpCount.addEventListener("input" , function (){
-//    actualAmount.value = price.value - smmpCount.value;
-//})
+	const maxCoins = parseInt(document.getElementById('remainingCoins').innerText); // 從頁面獲取毛毛幣的餘額
+	const inputCoins = parseInt(e.target.value); // 獲取輸入框中的值
+
+    if (inputCoins > maxCoins) {
+        // 如果輸入的毛毛幣數量超過了餘額，顯示模態框
+        $('#exceedModal').modal('show');
+        e.target.value = ''; // 清空輸入框
+        document.getElementById('totalAfterCoins').innerText = document.getElementById('totalPrice').innerText; // 重設扣除毛毛幣後的總計
+    } else {
+        // 正常情況下，更新扣除毛毛幣後的總計
+        const totalPrice = parseInt(document.getElementById('totalPrice').innerText);
+        const totalAfterCoins = totalPrice - (inputCoins || 0); // 防止 NaN
+        document.getElementById('totalAfterCoins').innerText = totalAfterCoins;
+    }
+});
 
 
 
@@ -145,10 +136,12 @@ function renderCartItems(cart) {
 	console.log(cart);
 	
     let html = "";
-
+	let total = 0;
+	
     cart.forEach(item => {	
 		                
         let subtotal = item.quantity * item.prodPrice;	
+        total += subtotal;
 		console.log(subtotal);	
 			
         html += `<tr>
@@ -169,6 +162,8 @@ function renderCartItems(cart) {
     });
 
     $("#cart-items-list").html(html);
+    $("#totalPrice").text(total);
+    $("#totalAfterCoins").text(total);
 }
 
 //全部刪除

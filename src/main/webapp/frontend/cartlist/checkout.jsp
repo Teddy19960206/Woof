@@ -18,12 +18,56 @@
 	src="<%=request.getContextPath()%>/webutil/js/jquery-3.7.1.min.js"></script>
 <script src="<%=request.getContextPath()%>/webutil/js/bootstrap.min.js"></script>
 <title>寵毛導師 Woof | 購物車結帳</title>
+
+<style>
+
+/* 價格的位置調整 */
+.summary-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: flex-end;
+    align-items: baseline; 
+    margin-bottom: 5px; 
+}
+
+.summary-label {
+    display: flex;
+    justify-content: flex-end; 
+    min-width: 120px;
+    margin-right: 0.5em;
+}
+
+.summary-label::after {
+    content: ":";
+}
+
+.summary-value {
+    text-align: right; 
+    min-width: 130px; 
+}
+
+.input-row .summary-value {
+    display: flex;
+    justify-content: flex-end; 
+}
+
+.form-control.text-end {
+    text-align: right;
+}
+
+</style>
+
 </head>
 
 <body>
 	<%@ include file="/Header.file"%>
-
-	<div class="container mb-5">
+	
+	<div class="container mb-5 bg-white p-5 rounded-4 shadow">
 		<h2>購物車結帳</h2>
 		<div class="row">
 			<div class="col-md-7 border-end " style="text-align: center;">
@@ -44,11 +88,54 @@
 						<!-- 動態生成購物車內容 -->
 					</tbody>
 				</table>
+				
 				<!-- 總計的地方 -->
-				<div class="mr-5" id="totalAmount" >總計: NT$<span id="totalPrice">0</span></div>
+			<div class="summary-container">
+			   <div class="summary-row">
+			        <div class="summary-label">總計</div>
+			        <div class="summary-value">NT$<span id="totalPrice"></span></div>
+			    </div>
+			    <div class="summary-row">
+			        <div class="summary-label">毛毛幣折抵</div>
+			        <div class="summary-value">
+			            <input class="form-check-input" type="radio" id="UseSmmp" name="useMocoin" value="usemocoin"> 
+			            <label for="UseSmmp">使用</label>
+			            <input class="form-check-input" type="radio" id="notusemocoin" name="useMocoin" value="nousemocoin" checked> 
+			            <label for="notusemocoin">不使用</label>
+			        </div>
+			    </div>
+			    <div class="summary-row input-row">
+			        <div class="summary-value">
+<input type="text" id="inputSmmp" class="form-control text-end" style="width: 70px" oninput="updateTotalAndCoins()" disabled>
+ 					</div>
+			    </div>
+			    <div class="summary-row">
+			        <div class="summary-label">剩餘毛毛幣</div>
+			        <div class="summary-value"><span id="remainingCoins">${member.momoPoint}</span></div>
+			    </div>
+			    <div class="summary-row">
+			        <div class="summary-label">扣除毛毛幣總金額</div>
+			        <div class="summary-value">NT$<span id="totalAfterCoins"></span></div>
+			    </div>
 			</div>
-		
+			</div>
 			
+		<!-- 超過自己所擁有的毛毛幣模態框 -->
+			<div class="modal fade" id="exceedModal" tabindex="-1" aria-labelledby="exceedModalLabel" aria-hidden="true">
+			  <div class="modal-dialog" role="document">
+			    <div class="modal-content">
+			      <div class="modal-body text-center">
+			        <div class="modal-icon mb-4">
+			          <i class="fas fa-exclamation-circle fa-3x text-warning"></i>
+			        </div>
+			        <h5>毛毛幣超過了餘額唷</h5>
+			      </div>
+			      <div class="modal-footer justify-content-center">
+			        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
+			      </div>
+			    </div>
+			  </div>
+			</div>	
 			
 			<!-- 刪除模態框 -->
 			<div class="modal" id="deleteConfirmationModal" tabindex="-1" role="dialog">
@@ -58,7 +145,7 @@
 			        <div class="modal-icon mb-4">
 			          <i class="fas fa-exclamation-circle fa-3x text-warning"></i>
 			        </div>
-			        <h5>確定要刪除此商品嗎🥹？</h5>
+			        <h5>確定要刪除此商品嗎🥹</h5>
 			      </div>
 			      <div class="modal-footer justify-content-center">
 			        <button type="button" class="btn btn-danger" id="confirmDelete">確定刪除</button>
@@ -98,33 +185,7 @@
 							class="form-control" id="address" name="address"
 							value="${member.memAddress}" required>
 					</div>
-				</div>
-				<h4 class="mt-3">毛毛幣折抵</h4>
-				<div class="row">
-					<div class="col-4 p-0">
-						<input class="form-check-input" type="radio" id="UseSmmp"
-							name="useMocoin" value="usemocoin"> <label for="UseSmmp">使用毛毛幣</label>
-					</div>
-					<div class="col-4 p-0">
-						<input class="form-check-input" type="radio" id="notusemocoin"
-							name="useMocoin" value="nousemocoin"> <label
-							for="notusemocoin">不使用毛毛幣</label>
-					</div>
-				</div>
-				<!-- 毛毛幣輸入框 -->
-				<div class="row">
-					<div class="col-2">
-						<input type="text" id="inputSmmp"
-							class="form-control text-center mt-1 " style="width: 70px"
-							onkeypress='validate(event)' disabled>
-					</div>
-					<!-- 					<div class="col-1"> -->
-					<!-- 					<i class="fa-solid fa-coins text-center ml-5" style="color: #eb702a;"></i> -->
-					<!-- 					</div> -->
-					<div class="col">
-						<input type="text" readonly class="form-control-plaintext"
-							id="smmp" style="color: #eb702a;" value="${member.momoPoint}">
-					</div>
+				
 				</div>
 
 				<h4 class="mt-3">付款方式</h4>
@@ -174,11 +235,11 @@
 								class="form-control verification text-center"
 								style="width: 70px" type="text" maxlength="3"
 								onkeypress='validate(event)' value="555">
-						</div>
+								
+						</div><form action="<%=request.getContextPath()%>/shoporder/addshoporder" method="post">
+						    <button type="submit" class="btn btn-primary">確認付款</button>
+						</form>
 
-						<div class="d-flex justify-content-start mt-3 myBtn">
-							<button type="submit" class="btn btn-primary">確認付款</button>
-						</div>
 					</div>
 
 				</div>

@@ -52,12 +52,12 @@ public class ShopOrdeServlet extends HttpServlet {
 			forwardPath = getAll(request, response);
 			break;
 
-		case "updateshoporder":
+		case "updatehoporder":
 			forwardPath = updateshoporder(request, response);
 			break;
 
-//		case "addfaq":
-//			forwardPath = addfaq(request, response);
+//		case "addshoporder":
+//			forwardPath = addshoporder(request, response);
 //			break;
 
 		// 全部不成立會跑到這邊
@@ -144,16 +144,16 @@ public class ShopOrdeServlet extends HttpServlet {
 		return "/backend/shoporder/getAllshoporder.jsp";
 	}
 
-//	private String addfaq(HttpServletrequestuest request, HttpServletresponseonse response) {
+//	private String addshoporder(HttpServletrequestuest request, HttpServletresponseonse response) {
 //
 //		String faqClass = request.getParameter("faqClass");
 //		String faqTitle = request.getParameter("faqTitle");
 //		String faqContent = request.getParameter("faqContent");
-//
-//		// 如果有確定進入資料庫會有流水編號，再去找流水編號的值，顯示在jsp
-//		int saved = (Integer) faqService.addFaq(faqClass, faqTitle, faqContent);
-//		var result = faqService.findByFaqNo(saved);
-//
+
+		// 如果有確定進入資料庫會有流水編號，再去找流水編號的值，顯示在jsp
+//		int saved = (Integer) shopOrderService.addFaq(faqClass, faqTitle, faqContent);
+//		var result = shopOrderService.findByFaqNo(saved);
+
 //		if (saved > 0) {
 ////		    return 1; // FAQ添加成功
 //	        System.out.println("新增成功");
@@ -163,9 +163,9 @@ public class ShopOrdeServlet extends HttpServlet {
 //	    }
 //		
 //		request.setAttribute("result", result);
-//		
-//		return "/backend/faq/addfaq.jsp";
+		
+//		return "/frontend/cartlist/finishorder.jsp";
 //	}
-//
+
 
 }
