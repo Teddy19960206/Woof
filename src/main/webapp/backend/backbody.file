@@ -84,7 +84,7 @@
                       <a href="#" class="sidebar-link2">課堂數訂單管理</a>
                     </li>
                     <li class="sidebar-item">
-                      <a href="#" class="sidebar-link2">私人預約管理</a>
+                      <a href="${pageContext.request.contextPath}/privatetrainingappointmentform?action=getall" class="sidebar-link2">私人預約管理</a>
                     </li>
                     <li class="sidebar-item">
                       <a href="#" class="sidebar-link2">私人訓練師課表查詢</a>

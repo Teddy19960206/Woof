@@ -1,11 +1,15 @@
 package com.woof.appointmentdetail.controller;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 import com.woof.appointmentdetail.entity.AppointmentDetail;
 import com.woof.appointmentdetail.service.AppointmentDetailService;
 import com.woof.appointmentdetail.service.AppointmentDetailServiceImpl;
 import com.woof.privatetrainingappointmentform.entity.PrivateTrainingAppointmentForm;
 import com.woof.privatetrainingappointmentform.service.PrivateTrainingAppointmentFormService;
 import com.woof.privatetrainingappointmentform.service.PrivateTrainingAppointmentFormServiceImpl;
+import com.woof.util.JsonIgnoreExclusionStrategy;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -38,6 +42,9 @@ public class AppointmentDetailServlet extends HttpServlet {
 		String forwardPath = "";
 		if (action != null) {
 			switch (action) {
+			case "getdetail2":
+				getByPtaNo2(req, resp);
+				break;
 			case "getdetail":
 				getByPtaNo(req, resp);
 				forwardPath = "/frontend/appointmentdetail/appointmentDetail_get.jsp";
@@ -80,6 +87,31 @@ public class AppointmentDetailServlet extends HttpServlet {
     	List<AppointmentDetail> appointmentDetails = appointmentDetailService.findAdByPtaNo(ptaNo);
     	req.setAttribute("appointmentDetails",appointmentDetails);
     	req.setAttribute("ptaNo",ptaNo);
+    }
+    private void getByPtaNo2(HttpServletRequest req, HttpServletResponse res) {
+    	
+    	String ptaNoStr = req.getParameter("ptaNo");
+    	Integer ptaNo = Integer.parseInt(ptaNoStr);
+    	List<AppointmentDetail> appointmentDetails = appointmentDetailService.findAdByPtaNo(ptaNo);
+    	req.setAttribute("appointmentDetails",appointmentDetails);
+    	req.setAttribute("ptaNo",ptaNo);
+    	
+    	Gson gson = new GsonBuilder()
+                .setExclusionStrategies()
+                .addSerializationExclusionStrategy(new JsonIgnoreExclusionStrategy(true))
+                .addDeserializationExclusionStrategy(new JsonIgnoreExclusionStrategy(false))
+                .setDateFormat("yyyy-MM-dd")
+                .create();
+    	
+    	JsonObject jsonResponse = new JsonObject();
+        jsonResponse.add("data" , gson.toJsonTree(appointmentDetails));
+        res.setContentType("application/json;charset=UTF-8");
+        try {
+			res.getWriter().write(jsonResponse.toString());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
     
     private void beforeAdd(HttpServletRequest req, HttpServletResponse res) {

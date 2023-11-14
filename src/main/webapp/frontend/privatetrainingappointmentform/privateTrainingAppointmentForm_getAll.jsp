@@ -5,64 +5,66 @@
 
 <html>
 <head>
-<title>GetAll</title>
+<%@ include file="/backend/backhead.file" %>
+<title>寵毛導師 Woof | 私人預約管理</title>
 <style>
-body {
-	font-family: Arial, sans-serif;
-	background-color: #f0f0f0;
-	margin: 0;
-	padding: 0;
-}
+<%@ include file="/backend/backbody.file" %>
+/* body { */
+/* 	font-family: Arial, sans-serif; */
+/* 	background-color: #f0f0f0; */
+/* 	margin: 0; */
+/* 	padding: 0; */
+/* } */
 
-table {
-	width: 100%;
-	border-collapse: collapse;
-}
+/* table { */
+/* 	width: 100%; */
+/* 	border-collapse: collapse; */
+/* } */
 
-table, th, td {
-	border: 1px solid #ccc;
-}
+/* table, th, td { */
+/* 	border: 1px solid #ccc; */
+/* } */
 
-th, td {
-	padding: 10px;
-	text-align: left;
-}
+/* th, td { */
+/* 	padding: 10px; */
+/* 	text-align: left; */
+/* } */
 
-th {
-	background-color: #0074d9;
-	color: white;
-}
+/* th { */
+/* 	background-color: #0074d9; */
+/* 	color: white; */
+/* } */
 
-tr:nth-child(even) {
-	background-color: #f2f2f2;
-}
+/* tr:nth-child(even) { */
+/* 	background-color: #f2f2f2; */
+/* } */
 
-tr:nth-child(odd) {
-	background-color: #ffffff;
-}
+/* tr:nth-child(odd) { */
+/* 	background-color: #ffffff; */
+/* } */
 
-.btn-success {
-	background-color: #4CAF50;
-	color: white;
-	padding: 5px 10px;
-	border: none;
-	cursor: pointer;
-}
+/* .btn-success { */
+/* 	background-color: #4CAF50; */
+/* 	color: white; */
+/* 	padding: 5px 10px; */
+/* 	border: none; */
+/* 	cursor: pointer; */
+/* } */
 
-.btn-in {
-	background-color: orange;
-	color: white;
-	padding: 5px 10px;
-	border: none;
-	cursor: pointer;
-}
-.btn-back {
-	background-color: #f44336;
-	color: white;
-	padding: 5px 10px;
-	border: none;
-	cursor: pointer;
-}
+/* .btn-in { */
+/* 	background-color: orange; */
+/* 	color: white; */
+/* 	padding: 5px 10px; */
+/* 	border: none; */
+/* 	cursor: pointer; */
+/* } */
+/* .btn-back { */
+/* 	background-color: #f44336; */
+/* 	color: white; */
+/* 	padding: 5px 10px; */
+/* 	border: none; */
+/* 	cursor: pointer; */
+/* } */
 </style>
 </head>
 <body>
@@ -135,5 +137,6 @@ tr:nth-child(odd) {
 
 
 <!-- 	</form> -->
+<%@ include file="/backend/backfoot.file" %>
 </body>
 </html>

@@ -410,7 +410,7 @@ public class PrivateTrainingAppointmentFormServlet extends HttpServlet {
         jsonResponse.addProperty("pageTotal" , pageTotal);
         jsonResponse.add("data" , gson.toJsonTree(privateTrainingAppointmentFormList));
 
-
+   
         response.setContentType("application/json;charset=UTF-8");
         response.getWriter().write(jsonResponse.toString());
 	}
