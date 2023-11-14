@@ -35,7 +35,6 @@ public class ResetpwdServlet extends HttpServlet{
 
             // 創建重置連結
             String resetLink = req.getRequestURL() + "?action=reset&token=" + token;
-
             // 將令牌保存到某處，例如數據庫，與用戶的郵箱地址關聯
             // 連接到 Redis
             try (Jedis jedis = new Jedis("localhost", 6379)) {
