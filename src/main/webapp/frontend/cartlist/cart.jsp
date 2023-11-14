@@ -60,15 +60,6 @@
 						id="cart-count">0</span>
 				</div>
 				<div id="cart-list" style="display: none;">
-					<!-- 					<h2>購物清單</h2> -->
-					<!-- 					<ul id="cart-items-list"> -->
-					<!-- 						購物清單內容將在這裡動態添加 -->
-					<!-- 					</ul> -->
-					<!-- 					<p> -->
-					<!-- 						總金額: $<span id="cart-total-amount">0</span> -->
-					<!-- 					</p> -->
-					<!-- 					<button id="checkout">結帳</button> -->
-					<!-- 					<button id="continue-shopping">繼續購物</button> -->
 				</div>
 			</div>
 		</div>

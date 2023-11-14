@@ -4,27 +4,19 @@ let projectName = pathName.substring(0, pathName.substring(1).indexOf("/") + 1);
 const useSmmpRadio = document.getElementById("UseSmmp");
 const notUseSmmpRadio = document.getElementById("notusemocoin");
 const inputSmmp = document.getElementById("inputSmmp");
-//const credit = document.getElementById("credit");
-//const transfer = document.getElementById("transfer");
-//const ecPay = document.getElementById("ecPay");
-//const showPayment = document.getElementById("showPayment");
-//const actualAmount = document.getElementById("actualAmount");
-//const price = document.getElementById("price");
-//const address = document.getElementById("address");
-// 會員擁有的毛毛幣
-//const smmp = parseInt(document.getElementById("smmp").value);
+const credit = document.getElementById("credit");
+const transfer = document.getElementById("transfer");
+const ecPay = document.getElementById("ecPay");
+const showPayment = document.getElementById("showPayment");
+const address = document.getElementById("address");
 
 
-// 會員使用的毛毛幣
-const smmpCount = document.getElementById("smmpCount");
-//
-//
 window.addEventListener("load" , ()=>{
-	address.value = "大便";
+
     notUseSmmpRadio.checked = true;
     inputSmmp.disabled = true;
-    smmpCount.value = "";
-    actualAmount.value = price.value;
+//    smmpCount.value = "";
+//    actualAmount.value = price.value;
 })
 
 // 監聽單選按鈕的變更事件
@@ -82,21 +74,257 @@ ecPay.addEventListener("change" , function (){
     showPayment.innerHTML = html;
 });
 
+//=============================================
 
-//
-//smmpCount.addEventListener("keypress" , function (evt){
-//
-//})
-//
-//smmpCount.addEventListener("keyup" , function (){
-//    if (parseInt(smmpCount.value) > smmp){
-//        $("#myModal").modal("show");
-//        smmpCount.value = '';
-//        actualAmount.value = price.value;
-//    }else{
-//    }
-//})
-//
-//smmpCount.addEventListener("input" , function (){
-//    actualAmount.value = price.value - smmpCount.value;
-//})
+document.getElementById('inputSmmp').addEventListener('input', function (e) {
+
+	const maxCoins = parseInt(document.getElementById('remainingCoins').innerText); // 從頁面獲取毛毛幣的餘額
+	const inputCoins = parseInt(e.target.value); // 獲取輸入框中的值
+
+    if (inputCoins > maxCoins) {
+        // 如果輸入的毛毛幣數量超過了餘額，顯示模態框
+        $('#exceedModal').modal('show');
+        e.target.value = ''; // 清空輸入框
+        document.getElementById('totalAfterCoins').innerText = document.getElementById('totalPrice').innerText; // 重設扣除毛毛幣後的總計
+    } else {
+        // 正常情況下，更新扣除毛毛幣後的總計
+        const totalPrice = parseInt(document.getElementById('totalPrice').innerText);
+        const totalAfterCoins = totalPrice - (inputCoins || 0); // 防止 NaN
+        document.getElementById('totalAfterCoins').innerText = totalAfterCoins;
+    }
+});
+
+
+
+//=============================================
+
+const prodNo = document.getElementById("prodNo");
+const memNoElement = document.getElementById("memNo");
+const memNo = memNoElement.getAttribute("data-memname");
+
+console.log(memNo);	
+	
+//頁面近來自動載入方法
+window.addEventListener("load" , ()=>{	
+	
+    fetchCart(memNo);
+    
+});
+
+function fetchCart(memNo) {
+    $.ajax({
+        type: "POST",
+        url: `${projectName}/checkout`,
+        data: {
+            action: "getCart",
+            memNo: memNo
+        },
+        success: function(cartJson) {
+			
+			console.log("Returned cart data:", cartJson);	
+			
+            renderCartItems(cartJson);                  
+        },
+        error: function(error) {
+            console.error("Error fetching cart data: ", error);
+        }
+    });
+}
+
+function renderCartItems(cart) {
+	
+	console.log(cart);
+	
+    let html = "";
+	let total = 0;
+	
+    cart.forEach(item => {	
+		                
+        let subtotal = item.quantity * item.prodPrice;	
+        total += subtotal;
+		console.log(subtotal);	
+			
+        html += `<tr>
+                    <td id="item-row-${item.prodNo}" class="hidden" style="display: none;">${item.prodNo}</td>                    
+                    <td>${item.prodName}</td>
+                    <td>
+                        <div>
+                            <button type="button" class="btn btn-secondary btn-sm decrease-btn mx-2" onclick="decreaseQuantity('${item.prodNo}')">-</button>              
+                            <span class="quantity" id="quantity-${item.prodNo}">${item.quantity}</span>
+                            <button type="button" class="btn btn-secondary btn-sm increase-btn mx-2" onclick="increaseQuantity('${item.prodNo}')">+</button>          
+                        </div>
+                    </td>
+                    <td>NT$<span id="price-${item.prodNo}">${item.prodPrice}</span></td>
+                    <td>NT$<span id="subtotal-${item.prodNo}">${subtotal}</span></td>
+                    <td><i class="fa-solid fa-trash" style="cursor: pointer;" onclick="deleteItem('${item.prodNo}')"></i></td>
+                </tr>`;
+
+    });
+
+    $("#cart-items-list").html(html);
+    $("#totalPrice").text(total);
+    $("#totalAfterCoins").text(total);
+}
+
+//全部刪除
+function deleteItem(prodNo) {
+    // 儲存當前商品編號，以便在確認刪除時使用
+    $('#confirmDelete').data('prodNo', prodNo);
+
+    // 顯示模態框
+    $('#deleteConfirmationModal').modal('show');
+}
+
+$('#confirmDelete').click(function() {
+	
+    let prodNo = $(this).data('prodNo');
+    
+    $.ajax({
+        type: 'POST',
+        url: `${projectName}/checkout`,
+        data: {
+            action: 'deleteItem',
+            prodNo: prodNo,
+            memNo: memNo 
+        },
+        success: function(response) {
+            // 在叫一個方法即時更新頁面消失的商品
+            updateCartDisplay();
+        },
+        error: function(error) {
+            console.error("Error: ", 刪除失敗);
+        }
+    });
+
+//更新購物車顯示
+function updateCartDisplay() {
+
+    $.ajax({
+        type: 'POST',
+        url: `${projectName}/checkout`,
+        data: {
+            action: 'getCart',
+            memNo: memNo 
+        },
+        success: function(response) {
+			// response 是購物車數據的陣列	
+            renderCartItems(response); 
+        },
+        error: function(error) {
+            console.error("Error: ", error);
+        }
+    });
+}
+    // 關閉模態框
+    $('#deleteConfirmationModal').modal('hide');
+});
+
+
+$('#cancelDelete').on('click', function() {
+	
+  $('#deleteConfirmationModal').modal('hide'); 
+});
+
+
+//減少1按扭
+function decreaseQuantity(prodNo) {
+	
+	console.log("prodNo:", prodNo);
+
+ 	let quantitySpan = document.getElementById(`quantity-${prodNo}`);    
+    console.log("quantitySpan:", quantitySpan);
+    
+    // 檢查 quantitySpan 是否存在
+    if (quantitySpan) {
+        let quantity = parseInt(quantitySpan.innerText);
+
+		console.log("數量"+quantity);
+
+        if (quantity > 1) {
+            quantity--;
+            quantitySpan.innerText = quantity;
+
+            // 發送 AJAX 請求到後端更新數量
+            updateDecreaseQuantity(prodNo, quantity);
+        }
+    } else {
+        console.error("Quantity span not found for prodNo:", prodNo);
+    }
+      // 更新小計
+      updateItemSubtotal(prodNo);
+}
+
+function updateDecreaseQuantity(prodNo, newQuantity) {
+    $.ajax({
+        type: 'POST',
+        url: `${projectName}/checkout`,
+        data: {
+            action: 'decreaseQuantity',
+            prodNo: prodNo,
+            memNo: memNo,
+            quantity: newQuantity 
+        },
+        success: function(response) {
+			// 更新畫面上的購物車
+            renderCartItems(response); 
+        },
+        error: function(error) {
+            console.error("Error: ", error);
+        }
+    });
+}
+
+
+//增加1按扭
+function increaseQuantity(prodNo) {
+    let quantitySpan = document.getElementById(`quantity-${prodNo}`);
+    if (quantitySpan) {
+        let quantity = parseInt(quantitySpan.innerText);
+        quantity++;
+        updateIncreaseQuantity(prodNo, quantity);
+    } else {
+        console.error("Quantity span not found for prodNo:", prodNo);
+    }
+        // 更新小計
+        updateItemSubtotal(prodNo);
+}
+
+function updateIncreaseQuantity(prodNo, newQuantity) {
+	
+	console.log(newQuantity);
+	
+    $.ajax({
+        type: 'POST',
+        url: `${projectName}/checkout`,
+        data: {
+            action: 'increaseQuantity',
+            prodNo: prodNo,
+            memNo: memNo,
+            quantity: newQuantity 
+        },
+        success: function(response) {
+			// 更新畫面上的購物車
+            renderCartItems(response); 
+        },
+        error: function(error) {
+            console.error("Error: ", error);
+        }
+    });
+}
+
+// 處理每個商品的小計
+function updateItemSubtotal(prodNo) {
+    let quantitySpan = document.getElementById(`quantity-${prodNo}`);
+    let priceSpan = document.getElementById(`price-${prodNo}`);
+    let subtotalSpan = document.getElementById(`subtotal-${prodNo}`);
+
+	console.log(priceSpan);
+	
+    if (quantitySpan && priceSpan && subtotalSpan) {
+        let quantity = parseInt(quantitySpan.innerText);
+        let price = parseFloat(priceSpan.innerText);
+        let subtotal = quantity * price;
+        subtotal = Math.floor(subtotal); // 將小計整數化
+        subtotalSpan.innerText = subtotal; // 將整數小計顯示在元素中
+    }
+}
