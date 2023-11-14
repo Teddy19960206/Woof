@@ -43,7 +43,7 @@ public class Member implements java.io.Serializable {
 
 	
 	@Expose
-	@Column(name = "MEM_GENDER", nullable = false, columnDefinition = "CHAR")
+	@Column(name = "MEM_GENDER", columnDefinition = "CHAR")
 	private String memGender;
 
 	@Expose
@@ -55,15 +55,15 @@ public class Member implements java.io.Serializable {
 	private String memEmail;
 	
 	@Expose
-	@Column(name = "MEM_PASSWORD", nullable = false)
+	@Column(name = "MEM_PASSWORD")
 	private String memPassword;
 	
 	@Expose
-	@Column(name = "MEM_TEL", nullable = false)
+	@Column(name = "MEM_TEL")
 	private String memTel;
 	
 	@Expose
-	@Column(name = "MEM_ADDRESS", nullable = false)
+	@Column(name = "MEM_ADDRESS")
 	private String memAddress;
 	
 	@Expose
@@ -71,11 +71,11 @@ public class Member implements java.io.Serializable {
 	private Date memBd;
 	
 	@Expose
-	@Column(name = "MOMO_POINT", nullable = false)
+	@Column(name = "MOMO_POINT")
 	private Integer momoPoint;
 
     @Expose
-	@Column(name = "TOTAL_CLASS", nullable = false)
+	@Column(name = "TOTAL_CLASS")
 	private Integer totalClass;
 
 	@Expose

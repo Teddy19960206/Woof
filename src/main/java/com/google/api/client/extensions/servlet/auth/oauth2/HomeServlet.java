@@ -1,4 +1,4 @@
-package com.woof.test;
+package com.google.api.client.extensions.servlet.auth.oauth2;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,7 +16,7 @@ public class HomeServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         PrintWriter writer = response.getWriter();
-        String info = request.getSession().getAttribute("l") == null ? "" : request.getSession().getAttribute("l").toString();
+        String info = request.getSession().getAttribute("member") == null ? "" : request.getSession().getAttribute("member").toString();
 
         if(info.equals("success")){
             writer.print("Hello google api");

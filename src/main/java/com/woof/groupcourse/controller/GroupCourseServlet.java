@@ -74,7 +74,6 @@ public class GroupCourseServlet extends HttpServlet {
 //               根據ClassType取得對應的GroupCourse
                 getGroupCourse(request, response);
                 return;
-
             case "/getAll":
                 getAll(request , response);
                 return;

@@ -22,6 +22,11 @@ public class LoginServlet extends HttpServlet {
 		memberService = new MemberServiceImpl();
 	}
 
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		doPost(request ,response);
+	}
+
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
 		// 中文亂碼解決方法
@@ -90,11 +95,37 @@ public class LoginServlet extends HttpServlet {
 						RequestDispatcher dispatcher = req.getRequestDispatcher("/frontend/member/login/errorPage.jsp");
 						dispatcher.forward(req, res);
 					}
+				case "google":
+					googleLogin(req,res);
+					return;
+				default :
+					res.sendRedirect(req.getContextPath()+"/index.jsp");
+					return;
 			}
 		}
 	}
-	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		this.doPost(request, response);
+	private void googleLogin(HttpServletRequest request , HttpServletResponse response) throws IOException {
+
+		String id = (String) request.getAttribute("id");
+		String name =(String) request.getAttribute("name");
+		String email =(String) request.getAttribute("email");
+
+		Member member = memberService.findMemberByNo(id);
+		HttpSession session = request.getSession();
+		if (member != null && member.getMemNo().equals(id)){
+			session.setAttribute("member", member);
+		}else{
+			Member newMember = new Member();
+			newMember.setMemNo(id);
+			newMember.setMemName(name);
+			newMember.setMemEmail(email);
+			newMember.setMemStatus(1);
+			memberService.addMember(newMember);
+
+			session.setAttribute("member", newMember);
+		}
+		response.sendRedirect(request.getContextPath()+"/index.jsp");
+
 	}
 }

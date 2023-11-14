@@ -1,7 +1,6 @@
-package com.woof.test;
+package com.google.api.client.extensions.servlet.auth.oauth2;
 
 import com.google.api.client.auth.oauth2.AuthorizationCodeFlow;
-import com.google.api.client.extensions.servlet.auth.oauth2.AbstractAuthorizationCodeCallbackServlet;
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
 import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
 import com.google.api.client.http.GenericUrl;
@@ -27,10 +26,15 @@ public class OAuth2CallbackServlet extends AbstractAuthorizationCodeCallbackServ
     }
 
     protected String getUserId(HttpServletRequest req) throws ServletException, IOException {
-        HttpSession httpSession =  req.getSession(true);
-        httpSession.setAttribute("l","success");
-        System.out.println("After authenticate" + httpSession.getId());
-        return httpSession.getId();
+        HttpSession session =  req.getSession(false);
+        if (session != null){
+            System.out.println("After authenticate" + session.getId());
+            return session.getId();
+        }else {
+            return "無資料";
+        }
+
+
     }
 
     @Override
