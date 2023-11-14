@@ -29,8 +29,7 @@
 	 	    	 $('#ADMIN_BD').val(jsonObj.adminBd);
 	 	    	 $('#EMERGENCY_CONTACTNAME').val(jsonObj.emergencyContactName);
 	 	    	 $('#EMERGENCY_CONTACTEL').val(jsonObj.emergencyContactel);
-	 	    	 $('#ADMIN_HD').val(jsonObj.adminHd);
-	 	    	 $('input[name=ADMIN_STATUS][value='+jsonObj.adminStatus+']').prop('checked',true);
+	 	    	
 	 	     },
 	 	     //Ajax失敗後要執行的function，此例為印出錯誤訊息
 	 	     error : function(xhr, ajaxOptions, thrownError) {
@@ -46,7 +45,6 @@
 	 	 //日期格式
 
 	 	 $("#ADMIN_BD").datepicker({ dateFormat: 'yy-mm-dd' });
-	 	 $("#ADMIN_HD").datepicker({ dateFormat: 'yy-mm-dd' });
 	})
 	
 	function readURL(input){
@@ -127,7 +125,7 @@
 				<input type="text" name="EMERGENCY_CONTACTEL" id="EMERGENCY_CONTACTEL">
 			</td>
 		</tr>
-
+		
 		</table>
 
 		
@@ -137,12 +135,9 @@
 	</form>
 <!-- 	顯示大頭貼的DIV -->
 <!-- 	<img> -->
-<!-- 	<div>個人大頭貼</div> -->
-<!-- <img accept="image/*" id="myphoto" name="myphoto" src="#"> -->
-<!-- <input type="file" id="ADMIN_PHOTO" name="ADMIN_PHOTO" style="display: none;" onchange="uploadPhoto()"> -->
-<!-- <input type="button" value="修改照片" onclick="document.getElementById('ADMIN_PHOTO').click();"> -->
-
-
+	<div>個人大頭貼</div>
+	<img accepy="image/*" id="myphoto" name="myphoto" src="#">
+	<input type="button" value="修改照片" onclick="(function(){$('input[name=ADMIN_PHOTO]').click();})()">
 
 </body>
 </html>

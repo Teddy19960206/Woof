@@ -59,5 +59,6 @@ public class LatestNewsServiceImpl implements LatestNewsService {
 			}
 			return latestNewsList;
 		}
+
 	}
 

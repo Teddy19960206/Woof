@@ -16,13 +16,13 @@
 <script type="text/javascript">
 	// 你的 JavaScript 函數
 		function processUpdate(jsonData){
-		window.location.href="<%=request.getContextPath()%>/frontend/latestNews/latestNewsUpdate.jsp?adminNo="+jsonData.lnNo;
+		window.location.href="<%=request.getContextPath()%>/frontend/latestNews/latestNewsUpdate.jsp?lnNo="+jsonData.lnNo;
 	}
 	function processDelete(jsonData){
 		$.ajax({
 			type:"POST",
 			data:jsonData,
-			url:"<%=request.getContextPath()%>/latestNews,do?action=del",
+			url:"<%=request.getContextPath()%>/latestNews.do?action=del",
 					success:function(data){
 						alert('刪除成功');
 						window.location.reload();
@@ -33,8 +33,7 @@
 		});
 	}
 	function processAdd(){
-		window.location.href="<%=request.getContextPath()%>
-	/frontend/latestNews/latestNewsAdd.jsp"
+		window.location.href="<%=request.getContextPath()%>/frontend/latestNews/latestNewsAdd.jsp"
 	}
 </script>
 </head>

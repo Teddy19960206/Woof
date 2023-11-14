@@ -136,7 +136,8 @@ public class AdministratorServlet extends HttpServlet {
 private void processUpdate2(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
 
 		Administrator admin = new Administrator();
-		//把資料給前端
+		//接收前端修改的資料
+		
 		admin.setAdminNo (req.getParameter("ADMIN_NO"));
 		admin.setAdminName (req.getParameter("ADMIN_NAME"));
 		
@@ -155,7 +156,6 @@ private void processUpdate2(HttpServletRequest req, HttpServletResponse res) thr
 		admin.setAdminBd(sqlDate4);
 		admin.setEmergencyContactName(req.getParameter("EMERGENCY_CONTACTNAME"));
 		admin.setEmergencyContactel(req.getParameter("EMERGENCY_CONTACTEL"));
-		System.out.println(admin);
 
 		administratorService.updateAdministrator2(admin);
 		//導到指定的URL 頁面上 把請求回應都帶過去

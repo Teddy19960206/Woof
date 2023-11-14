@@ -10,6 +10,7 @@ public interface LatestNewsService {
 	LatestNews updateLatestNews(LatestNews latestnews);
 
 	void deleteLatestNews(Integer lnNo);
+	
 
 	LatestNews findLatestNewsByLnNo(Integer lnNo);
 

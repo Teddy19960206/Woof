@@ -21,6 +21,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import com.woof.latestnews.service.LatestNewsService;
 import com.woof.latestnews.service.LatestNewsServiceImpl;
+import com.woof.util.PartParsebyte;
+import com.woof.administrator.entity.Administrator;
 import com.woof.latestnews.entity.*;
 
 @WebServlet("/latestNews.do")
@@ -76,37 +78,41 @@ public class LatestNewsServlet extends HttpServlet {
 		}
 		
 		private void processUpdate(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
-			LatestNews ln = new LatestNews();
-			//把資料給前端
-			int lnNo = Integer.parseInt(req.getParameter("LN_NO"));
-			ln.setLnNo(lnNo);
-//			ln.setLnNo (req.getParameter(Integer.parseInt("LN_NO")));
-			ln.setLnTitle (req.getParameter("LN_Title"));
-			ln.setLnContent(req.getParameter("LN_CONTENT"));
-			String lnTimeStr = req.getParameter("LN_TIME"); // 獲取 LN_TIME 參數的值
-			java.sql.Timestamp lnTime = null;
-
-			if (lnTimeStr != null && !lnTimeStr.isEmpty()) {
-			    // 嘗試將字符串轉換為 Timestamp
-			    try {
-			        lnTime = java.sql.Timestamp.valueOf(lnTimeStr);
-			    } catch (IllegalArgumentException e) {
-			        // 如果轉換失敗，你可以處理錯誤或執行其他操作
-			        e.printStackTrace(); // 這裡僅是一個簡單的示例，你可以選擇處理錯誤更適當的方式
+			 LatestNews ln = new LatestNews();
+			 String lnNoStr = req.getParameter("LN_NO");
+			    if (lnNoStr != null && !lnNoStr.isEmpty()) {
+			        ln.setLnNo(Integer.parseInt(lnNoStr));
 			    }
+			    // 設置標題和內容
+			    ln.setLnTitle(req.getParameter("LN_TITLE"));
+			    ln.setLnContent(req.getParameter("LN_CONTENT"));
+
+			    // 處理時間
+			    String lnTimeStr1 = req.getParameter("LN_TIME"); 
+			    SimpleDateFormat dateFormat1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			    try {
+			        Date parseDate1 = dateFormat1.parse(lnTimeStr1);
+			        java.sql.Timestamp lnTime1 = new java.sql.Timestamp(parseDate1.getTime());
+			        ln.setLnTime(lnTime1);
+			    } catch (ParseException e) {
+			        e.printStackTrace();
+			    }
+			    Part p = req.getPart("LN_PHOTO");
+		        InputStream input = p.getInputStream();
+		        byte[] photo = new byte[input.available()];
+		        input.read(photo);
+		        input.close();
+		        ln.setLnPhoto(photo);
+ 
+
+			    System.out.println(ln);
+
+			    latestNewsService.updateLatestNews(ln);
+
+			    // 重定向到指定的URL
+			    String url = req.getContextPath()+"/frontend/latestNews/latestNews.jsp";
+			    res.sendRedirect(url);
 			}
-			ln.setLnTime(lnTime);
-			
-			
-			
-			latestNewsService.updateLatestNews(ln);
-			//導到指定的URL 頁面上 把請求回應都帶過去
-//			String url = "/frontend/latestNews/latestNews.jsp";
-//			RequestDispatcher rd =  req.getRequestDispatcher(url);
-//			rd.forward(req, res);
-			String url = req.getContextPath()+"/frontend/latestNews/latestNews.jsp";
-			res.sendRedirect(url);
-		}
 
 		private void processAdd(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
 			LatestNews ln = new LatestNews();
