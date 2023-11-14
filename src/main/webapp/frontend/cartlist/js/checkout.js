@@ -146,24 +146,26 @@ function renderCartItems(cart) {
 	
     let html = "";
 
-    cart.forEach(item => {
-//		// 更新小計
-//		updateItemSubtotal(item.prodNo);
-        
+    cart.forEach(item => {	
+		                
+        let subtotal = item.quantity * item.prodPrice;	
+		console.log(subtotal);	
+			
         html += `<tr>
-					<td id="item-row-${item.prodNo}" class="hidden" style="display: none;">${item.prodNo}</td>                    
-					<td>${item.prodName}</td>
+                    <td id="item-row-${item.prodNo}" class="hidden" style="display: none;">${item.prodNo}</td>                    
+                    <td>${item.prodName}</td>
                     <td>
-                    <div>
-    					<button type="button" class="btn btn-secondary btn-sm decrease-btn mx-2" onclick="decreaseQuantity('${item.prodNo}')">-</button>				
-    						<span class="quantity" id="quantity-${item.prodNo}">${item.quantity}</span>
-    					<button type="button" class="btn btn-secondary btn-sm increase-btn mx-2" onclick="increaseQuantity('${item.prodNo}')">+</button>			
-                    </div>
+                        <div>
+                            <button type="button" class="btn btn-secondary btn-sm decrease-btn mx-2" onclick="decreaseQuantity('${item.prodNo}')">-</button>              
+                            <span class="quantity" id="quantity-${item.prodNo}">${item.quantity}</span>
+                            <button type="button" class="btn btn-secondary btn-sm increase-btn mx-2" onclick="increaseQuantity('${item.prodNo}')">+</button>          
+                        </div>
                     </td>
                     <td>NT$<span id="price-${item.prodNo}">${item.prodPrice}</span></td>
-					<td>NT$<span id="subtotal-${item.prodNo}"></span></td>
-					<td><i class="fa-solid fa-trash" style="cursor: pointer;" onclick="deleteItem('${item.prodNo}')"></i></td>
+                    <td>NT$<span id="subtotal-${item.prodNo}">${subtotal}</span></td>
+                    <td><i class="fa-solid fa-trash" style="cursor: pointer;" onclick="deleteItem('${item.prodNo}')"></i></td>
                 </tr>`;
+
     });
 
     $("#cart-items-list").html(html);
@@ -253,8 +255,8 @@ function decreaseQuantity(prodNo) {
     } else {
         console.error("Quantity span not found for prodNo:", prodNo);
     }
-//      // 更新小計
-//      updateItemSubtotal(prodNo);
+      // 更新小計
+      updateItemSubtotal(prodNo);
 }
 
 function updateDecreaseQuantity(prodNo, newQuantity) {
@@ -288,8 +290,8 @@ function increaseQuantity(prodNo) {
     } else {
         console.error("Quantity span not found for prodNo:", prodNo);
     }
-//        // 更新小計
-//        updateItemSubtotal(prodNo);
+        // 更新小計
+        updateItemSubtotal(prodNo);
 }
 
 function updateIncreaseQuantity(prodNo, newQuantity) {
@@ -321,6 +323,8 @@ function updateItemSubtotal(prodNo) {
     let priceSpan = document.getElementById(`price-${prodNo}`);
     let subtotalSpan = document.getElementById(`subtotal-${prodNo}`);
 
+	console.log(priceSpan);
+	
     if (quantitySpan && priceSpan && subtotalSpan) {
         let quantity = parseInt(quantitySpan.innerText);
         let price = parseFloat(priceSpan.innerText);

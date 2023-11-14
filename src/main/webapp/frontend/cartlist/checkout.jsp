@@ -44,7 +44,12 @@
 						<!-- 動態生成購物車內容 -->
 					</tbody>
 				</table>
+				<!-- 總計的地方 -->
+				<div class="mr-5" id="totalAmount" >總計: NT$<span id="totalPrice">0</span></div>
 			</div>
+		
+			
+			
 			<!-- 刪除模態框 -->
 			<div class="modal" id="deleteConfirmationModal" tabindex="-1" role="dialog">
 			  <div class="modal-dialog" role="document">
