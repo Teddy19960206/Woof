@@ -35,6 +35,9 @@
                   <li class="sidebar-item">
                     <a href="<%=request.getContextPath()%>/backend/member/selectmember.jsp" class="sidebar-link2">會員查詢</a>
                   </li>
+                  <li class="sidebar-item">
+                    <a href="<%=request.getContextPath()%>/backend/member/addmember.jsp" class="sidebar-link2">新增會員</a>
+                  </li>
                 </ul>
               </li>
               <li class="sidebar-item">

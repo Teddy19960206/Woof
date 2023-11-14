@@ -15,7 +15,7 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <meta charset="UTF-8">
-<title>updatemember.jsp</title>
+<title>更新會員資料</title>
 <script>
 	// 日期選擇器初始化
 	$(function() {
@@ -174,9 +174,9 @@ body {
 	<div class="container">
 		<div class="custom-card">
 			<div class="custom-header text-center">
-				<h3>會員資料更新</h3>
+				<h3>基本資料</h3>
 			</div>
-			<a href="/woof/index.html" class="btn btn-light btn-sm"
+			<a href="/woof/index.jsp" class="btn btn-light btn-sm"
 				style="position: absolute; top: 10px; right: 20px;">回首頁</a>
 
 			<form method="post"
@@ -319,7 +319,7 @@ body {
 
 				<br> <input type="hidden" name="action" value="update">
 				<button type="submit">送出</button>
-				<button type="button" onclick="history.back()">取消更新</button>
+				<button type="button" onclick="history.back()">取消修改</button>
 				<button type="button" name="delete" id="delete"
 					data-id="${member.memNo}">刪除圖片</button>
 			</form>

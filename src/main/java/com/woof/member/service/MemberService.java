@@ -18,6 +18,9 @@ public interface MemberService {
 	// Get all members
 	List<Member> getAllMembers();
 	
+	// Get all members
+	List<Member> getAllMembers(int currentPage);
+	
 	int getPageTotal();
 	
 	List<Member> getMembersByCompositeQuery(Map<String, String[]> map);
@@ -25,8 +28,5 @@ public interface MemberService {
 	void addMember(Member member);
 
 	byte[] getPhotoById(String memNo);
-	
-    // 新增獲取會員點數的方法定義
-    Integer getMemberPoints(String memNo);
 	
 }

@@ -1,9 +1,11 @@
 package com.woof.member.dao;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import com.woof.member.entity.Member;
 import java.util.List;
 import java.util.Map;
+import static com.woof.util.Constants.PAGE_MAX_RESULT;
 
 public class MemberDAOImpl implements MemberDAO {
 	private SessionFactory factory;
@@ -45,7 +47,6 @@ public class MemberDAOImpl implements MemberDAO {
 
 	@Override
 	public Member findByMemberNo(String memNo) {
-		// TODO Auto-generated method stub
 		return getSession().get(Member.class, memNo);
 	}
 
@@ -62,5 +63,12 @@ public class MemberDAOImpl implements MemberDAO {
 	@Override
 	public List<Member> getByCompositeQuery(Map<String, String> map) {
 		return null;
+	}
+
+	@Override
+	public List<Member> getAll(int currentPage) {
+		int first = (currentPage - 1) * PAGE_MAX_RESULT;
+		return getSession().createQuery("FROM Member", Member.class).setFirstResult(first)
+				.setMaxResults(PAGE_MAX_RESULT).list();
 	}
 }

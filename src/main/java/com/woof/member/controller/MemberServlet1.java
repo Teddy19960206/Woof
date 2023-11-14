@@ -22,6 +22,7 @@ import com.google.gson.GsonBuilder;
 import com.woof.member.entity.Member;
 import com.woof.member.service.MemberService;
 import com.woof.member.service.MemberServiceImpl;
+import com.woof.util.MailService;
 import com.woof.util.PartParsebyte;
 
 @WebServlet("/member1.do")
@@ -216,6 +217,9 @@ public class MemberServlet1 extends HttpServlet {
 
 		try {
 			memberService.addMember(member);
+			MailService mailService = new MailService();
+			mailService.sendMail(mememail,"會員驗證", MailService.valid(req.getRequestURL()+"?action=valid&member="+member));
+			System.out.println(req.getRequestURL()+"11111");
 			// 導到指定的URL 頁面上 把請求回應都帶過去
 			String url = req.getContextPath() + "/frontend/member/login/registsucess.jsp";
 			req.setCharacterEncoding("UTF-8");

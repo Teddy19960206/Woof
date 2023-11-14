@@ -69,7 +69,6 @@ public class MemberServiceImpl implements MemberService, AppService<String> {
 
 	@Override
 	public List<Member> getMembersByCompositeQuery(Map<String, String[]> map) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 	@Override
@@ -78,16 +77,9 @@ public class MemberServiceImpl implements MemberService, AppService<String> {
 		dao.insert(member);
 	}
 	
-    // 實現獲取會員點數的方法
-    @Override
-    public Integer getMemberPoints(String memNo) {
-    	Integer momopoints = null;
-		try {
-			momopoints = findMemberByNo(memNo).getMomoPoint();	
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-		return momopoints;
+	@Override
+	public List<Member> getAllMembers(int currentPage) {
+		return dao.getAll(currentPage);
 	}
 	
 }
