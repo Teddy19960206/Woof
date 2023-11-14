@@ -75,6 +75,7 @@ body {
 			class="text-decoration-none"><b>註冊會員</b></a> 
 			<a href='/woof/frontend/member/login/forgotpwd.jsp'
 			class="text-decoration-none"> <b>忘記密碼</b></a>
+		<a href="${pageContext.request.contextPath}/home">GOOGLE登入</a>
 	</div>
 
 	<script>
