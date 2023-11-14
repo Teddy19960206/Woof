@@ -4,82 +4,71 @@
 <html>
 <head>
 <title>Member</title>
+<!-- 引入 Bootstrap CSS -->
+<link
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	rel="stylesheet">
 <style>
-table#table-1 {
-	width: 450px;
-	background-color: #CCCCFF;
-	margin-top: 5px;
-	margin-bottom: 10px;
-	border: 3px ridge Gray;
-	height: 80px;
-	text-align: center;
+.btn-orange {
+	background-color: #FF8C00;
+	color: white;
 }
 
-table#table-1 h4 {
-	color: red;
-	display: block;
-	margin-bottom: 1px;
+.btn-orange:hover {
+	background-color: #FFA07A;
 }
-
-h4 {
-	color: blue;
-	display: inline;
+body {
+  background-color: #f4f4f4;
+  font-family: Arial, sans-serif;
 }
 </style>
-
 </head>
-<body bgcolor='white'>
+<body>
+	<div class="container mt-5">
+		<h3 class="mb-3">資料查詢:</h3>
+		<ul class="list-unstyled">
+			<li class="mb-2"><a href='list_all_member.jsp'
+				class="btn btn-primary">查看全部會員</a></li>
 
-	<table id="table-1">
-		<tr>
-			<td><h3>會員資料</h3>
-				<h4>( MVC )</h4>
-				  <a href="/woof/backend/index.jsp">回首頁</a>
-				</td>
-		</tr>
-	</table>
+			<jsp:useBean id="memberService" scope="page"
+				class="com.woof.member.service.MemberServiceImpl" />
 
-	<p>This is the Home page for IBM member: Home</p>
-	<h3>資料查詢:</h3>
-	<ul>
-		<li><a href='list_all_member.jsp'>查看全部會員</a> <br> <br></li>
+			<li class="mb-2">
+				<form method="POST"
+					action="${pageContext.request.contextPath}/member.do"
+					class="form-inline">
+					<label class="mr-2"><b>選擇會員編號:</b></label> <select name="memNo"
+						class="form-control mr-2">
+						<c:forEach var="member" items="${memberService.allMembers}">
+							<option value="${member.memNo}">${member.memNo}</option>
+						</c:forEach>
+					</select> <input type="hidden" name="action" value="getone">
+					<button type="submit" class="btn btn-orange">提交</button>
+				</form>
+			</li>
 
-		<jsp:useBean id="memberService" scope="page"
-			class="com.woof.member.service.MemberServiceImpl" />
-
-		<li><form method="POST"
-				ACTION="${pageContext.request.contextPath}/member.do">
-				<b>選擇會員編號:</b> 
-				<select name="memNo">
-					<c:forEach var="member" items="${memberService.allMembers}">
-						<option
-							value="${member.memNo}">${member.memNo}</option>
-					</c:forEach>
-				</select> 
-				<input type="hidden" name="action" value="getone">
-				<button type="submit">提交</button>
-			</form></li>
-			
-		<li><form method="POST"
-				ACTION="${pageContext.request.contextPath}/member.do">
-				<b>選擇會員姓名:</b>
-				<select name="memNo">
-					<c:forEach var="member" items="${memberService.allMembers}">
-						<option
-							value="${member.memNo}">${member.memName}</option>
-					</c:forEach>
-				</select>
-				<input type="hidden" name="action" value="getone">
-				<button type="submit">提交</button>
-			</form></li>
-	</ul>
-
-
-	<h3>會員管理</h3>
-
-	<ul>
-		<li><a href='addmember.jsp'>Add</a> a new member.</li>
-	</ul>
+			<li>
+				<form method="POST"
+					action="${pageContext.request.contextPath}/member.do"
+					class="form-inline">
+					<label class="mr-2"><b>選擇會員姓名:</b></label> <select name="memNo"
+						class="form-control mr-2">
+						<c:forEach var="member" items="${memberService.allMembers}">
+							<option value="${member.memNo}">${member.memName}</option>
+						</c:forEach>
+					</select> <input type="hidden" name="action" value="getone">
+					<button type="submit" class="btn btn-orange">提交</button>
+				</form>
+			</li>
+		</ul>
+	</div>
+	<!-- 引入 Bootstrap JavaScript (依賴 Popper.js) -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
 </html>
 
 

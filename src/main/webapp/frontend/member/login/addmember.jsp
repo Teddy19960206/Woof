@@ -117,7 +117,7 @@ body {
 	<div class="container">
 		<div class="custom-card">
 			<div class="custom-header text-center">
-				<h3>會員資料新增</h3>
+				<h3>會員註冊</h3>
 			</div>
 			<a href="/woof/index.html" class="btn btn-light btn-sm"
 				style="position: absolute; top: 10px; right: 20px;">回首頁</a>

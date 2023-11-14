@@ -16,7 +16,9 @@ public interface MemberDAO {
 	List<Member> getAll();
 	
 	List<Member> getByCompositeQuery(Map<String, String> map);
-
+	
+	List<Member> getAll(int currentPage);
+	
 	long getTotal();
 
 }

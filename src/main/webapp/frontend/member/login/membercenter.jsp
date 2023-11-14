@@ -71,7 +71,7 @@ body {
 								style="margin-bottom: 0px;">
 								<input type="hidden" name="action" value="update"> <input
 									type="hidden" name="memNo" value="${member.memNo}"> <input
-									type="button" class="btn btn-primary btn-sm" value="更新個人資料"
+									type="button" class="btn btn-primary btn-sm" value="修改基本資料"
 									onclick="processUpdate({memNo:'${member.memNo}'});">
 							</form>
 						</li>

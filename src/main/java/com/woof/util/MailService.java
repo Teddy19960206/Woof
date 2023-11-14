@@ -265,6 +265,23 @@ public class MailService{
 				"</html>\n";
 		return html;
 	}
+	
+	public static String passwordResetEmail(String resetLink) {
+	    String html = "<!DOCTYPE html>\n" +
+	            "<html>\n" +
+	            "<head>\n" +
+	            "    <meta charset='UTF-8'>\n" +
+	            "    <title>密碼重置</title>\n" +
+	            "</head>\n" +
+	            "<body>\n" +
+	            "    <h2>密碼重置請求</h2>\n" +
+	            "    <p>請點擊下面的連結以重置您的密碼：</p>\n" +
+	            "    <a href='" + resetLink + "'>重置密碼</a>\n" +
+	            "</body>\n" +
+	            "</html>";
+	    return html;
+	}
+
 
 	public static String classOrderhtml(Integer coBc,String memName) {
 		String html ="<!DOCTYPE >\n" +

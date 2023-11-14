@@ -12,6 +12,7 @@
             </a>
             <ul class="sidebar-nav">
 
+
               <c:if test="${sessionScope.administrator.adminFuncName eq 1}">
                 <li class="sidebar-item">
                   <a
@@ -31,11 +32,14 @@
                     data-bs-parent="#sidebar"
                   >
                     <li class="sidebar-item">
-                      <a href="#" class="sidebar-link2">會員管理</a>
+                      <a href="<%=request.getContextPath()%>/backend/member/list_all_member.jsp" class="sidebar-link2">會員管理</a>
                     </li>
                     <li class="sidebar-item">
-                      <a href="#" class="sidebar-link2">會員查詢</a>
+                      <a href="<%=request.getContextPath()%>/backend/member/selectmember.jsp" class="sidebar-link2">會員查詢</a>
                     </li>
+                    <li class="sidebar-item">
+                      <a href="<%=request.getContextPath()%>/backend/member/addmember.jsp" class="sidebar-link2">新增會員</a>
+                  	</li>
                   </ul>
                 </li>
                 <li class="sidebar-item">
@@ -56,6 +60,20 @@
                     data-bs-parent="#sidebar"
                   >
                     <li class="sidebar-item">
+					  <a
+                      href="${pageContext.request.contextPath}/backend/course/classContent.jsp"
+                      class="sidebar-link2"
+                      >團體內容管理</a
+                    >
+                  </li>
+                  <li class="sidebar-item">
+                    <a
+                      href="${pageContext.request.contextPath}/backend/course/schedule.jsp"
+                      class="sidebar-link2"
+                      >團體報名管理</a
+                    >
+                  </li>
+                  <li class="sidebar-item">
 
                       <a
                         href="${pageContext.request.contextPath}/backend/course/classContent.jsp"

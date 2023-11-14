@@ -22,6 +22,7 @@ import com.google.gson.GsonBuilder;
 import com.woof.member.entity.Member;
 import com.woof.member.service.MemberService;
 import com.woof.member.service.MemberServiceImpl;
+import com.woof.util.MailService;
 import com.woof.util.PartParsebyte;
 
 @WebServlet("/member1.do")
@@ -82,12 +83,24 @@ public class MemberServlet1 extends HttpServlet {
 			case "query":
 				processQuery(req, res);
 				return;
+			case "valid":
+				validMember(req,res);
+				return;
 
 			default:
 				forwardPath = "/frontend/member/selectmember.jsp";
 			}
 		}
 		req.getRequestDispatcher(forwardPath).forward(req, res);
+	}
+
+	private void validMember(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		System.out.println(req.getParameter("memNo")+"555555");
+		Member member= memberService.findMemberByNo(req.getParameter("memNo"));
+		member.setMemStatus(1);
+		memberService.updateMember(member);
+		// 導到指定的URL 頁面上 把請求回應都帶過去
+		req.getRequestDispatcher( "/frontend/member/login/registsucess.jsp").forward(req, res);
 	}
 
 	private void processQuery(HttpServletRequest req, HttpServletResponse res) throws IOException {
@@ -210,14 +223,19 @@ public class MemberServlet1 extends HttpServlet {
 		input.close();
 		member.setMemPhoto(photo);
 		// 將會員狀態預設1
-		member.setMemStatus(1);
+		member.setMemStatus(0);
 		member.setMomoPoint(0);
 		member.setTotalClass(0);
 
 		try {
 			memberService.addMember(member);
+			MailService mailService = new MailService();
+			String realURL = req.getScheme() + "://" + req.getServerName() + ":" + req.getServerPort();
+//			System.out.println(realURL+req.getContextPath()+ "/member1.do?action=valid&member="+member.getMemNo());
+			mailService.sendMail(mememail,"會員驗證", MailService.valid(realURL+req.getContextPath()+ "/member1.do?action=valid&memNo="+member.getMemNo()));
+			System.out.println(req.getRequestURL()+"11111");
 			// 導到指定的URL 頁面上 把請求回應都帶過去
-			String url = req.getContextPath() + "/frontend/member/login/registsucess.jsp";
+			String url = req.getContextPath() + "/frontend/member/login/validemail.jsp";
 			req.setCharacterEncoding("UTF-8");
 			res.sendRedirect(url);
 		} catch (Exception e) {
