@@ -83,8 +83,14 @@ public class MemberServiceImpl implements MemberService, AppService<String> {
 	}
 
 	@Override
+	public Integer getMemberPoints(String memNo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Override
 	public void updateMemberPoints(String memNo, Integer momo) {
 		findMemberByNo(memNo).setMomoPoint(momo);	
 	}
-   
+
 }
