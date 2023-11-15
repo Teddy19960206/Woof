@@ -89,5 +89,20 @@ public class ShopOrderServiceImpl implements ShopOrderService{
 		int pageQty = (int)(total % PAGE_MAX_RESULT == 0 ? (total / PAGE_MAX_RESULT) : (total / PAGE_MAX_RESULT + 1));
 		return pageQty;
 	}
+
+
+	@Override
+	public List<ShopOrder> findByMemNo(String memNo, int currentPage) {
+		return dao.findByMemNo(memNo , currentPage);
+	}
+
+
+	@Override
+	public int getPageTotal2(String memNo) {
+		long total = dao.getTotalMember(memNo);
+		int pageQty = (int) (total % PAGE_MAX_RESULT == 0 ? (total / PAGE_MAX_RESULT) : (total / PAGE_MAX_RESULT + 1));
+		return pageQty;
+	}
+	
 	
 }

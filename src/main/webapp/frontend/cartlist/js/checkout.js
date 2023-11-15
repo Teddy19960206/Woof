@@ -10,7 +10,6 @@ const ecPay = document.getElementById("ecPay");
 const showPayment = document.getElementById("showPayment");
 const address = document.getElementById("address");
 
-
 window.addEventListener("load" , ()=>{
 
     notUseSmmpRadio.checked = true;
@@ -80,19 +79,26 @@ ecPay.addEventListener("change" , function (){
 //=============================================
 
 document.getElementById('inputSmmp').addEventListener('input', function (e) {
+    const maxCoinsElement = document.getElementById('remainingCoins');
+    const maxCoins = parseInt(maxCoinsElement.innerText); // 從頁面獲取毛毛幣的餘額
+    let inputCoins = parseInt(e.target.value); 
 
-	const maxCoins = parseInt(document.getElementById('remainingCoins').innerText); // 從頁面獲取毛毛幣的餘額
-	const inputCoins = parseInt(e.target.value); // 獲取輸入框中的值
+	console.log(maxCoins);
+
+    if (isNaN(inputCoins)) {
+        inputCoins = 0; // 如果輸入不是數字，設為0
+    }
 
     if (inputCoins > maxCoins) {
         // 如果輸入的毛毛幣數量超過了餘額，顯示模態框
         $('#exceedModal').modal('show');
         e.target.value = ''; // 清空輸入框
+        maxCoinsElement.innerText = maxCoins; 
         document.getElementById('totalAfterCoins').value = document.getElementById('totalPrice').value; // 重設扣除毛毛幣後的總計
     } else {
         // 正常情況下，更新扣除毛毛幣後的總計
         const totalPrice = parseInt(document.getElementById('totalPrice').value);
-        const totalAfterCoins = totalPrice - (inputCoins || 0); // 防止 NaN
+        const totalAfterCoins = totalPrice - inputCoins; // 防止 NaN
         document.getElementById('totalAfterCoins').value = totalAfterCoins;
     }
 });

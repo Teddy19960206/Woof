@@ -23,14 +23,14 @@
 
 /* 價格的位置調整 */
 .summary-container {
-/* 	display: flex; */
- 	flex-direction: column; 
+	/* 	display: flex; */
+	flex-direction: column;
 }
 
 .summary-row {
- 	display: flex; 
-  	justify-content: space-between;  
- 	align-items: center; 
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 	margin-bottom: 5px;
 }
 
@@ -39,9 +39,9 @@
 }
 
 .summary-value, .input-row .summary-value {
-/* 	text-align: right; */
- 	display: flex; 
-	justify-content: flex-end;
+	/* 	text-align: right; */
+	display: flex;
+ 	justify-content: flex-end; 
 }
 </style>
 
@@ -57,7 +57,7 @@
 			<h2>購物車結帳</h2>
 			<div class="row">
 				<div class="col-md-7 border-end " style="text-align: center;">
-					<table class="table">
+					<table class="table table-hover">
 						<thead>
 							<tr>
 								<!-- 							<th><input type="checkbox" id="selectAll"></th> -->
@@ -80,20 +80,26 @@
 						<div class="summary-row">
 							<div class="summary-label">總計:</div>
 							<div class="summary-value">
-								NT$<input id="totalPrice" name="totalPrice" class="form-control border-0 text-end" style="width: 100px; height: 22px;" value="0" readonly="readonly">
-								
+								NT$<input id="totalPrice" name="totalPrice"
+									class="form-control border-0 text-end  p-0"
+									style="width: 120px; height: 22px;" value="0"
+									readonly="readonly">
+
 							</div>
 						</div>
 						<div class="summary-row">
 							<div class="summary-label">毛毛幣折抵:</div>
 							<div class="summary-value ">
-								<input class="form-check-input ml-5" type="radio" name="mocoinOption" value="usemocoin" id="UseSmmp">使用
-								<input class="form-check-input" type="radio" name="mocoinOption" value="nousemocoin" id="notusemocoin" checked>不使用
+								<input class="form-check-input ml-5" type="radio"
+									name="mocoinOption" value="usemocoin" id="UseSmmp">使用 <input
+									class="form-check-input" type="radio" name="mocoinOption"
+									value="nousemocoin" id="notusemocoin" checked>不使用
 							</div>
 						</div>
 						<div class="summary-value">
 							<input type="text" id="inputSmmp" name="inputSmmp" value="0"
-								class="form-control text-end mb-1" style="width: 70px; height: 25px;" disabled>
+								class="form-control text-end mb-1 p-0"
+								style="width: 50px; height: 25px;" disabled>
 						</div>
 						<div class="summary-row">
 							<div class="summary-label">剩餘毛毛幣:</div>
@@ -104,13 +110,16 @@
 						<div class="summary-row">
 							<div class="summary-label">扣除毛毛幣總金額:</div>
 							<div class="summary-value">
-<!-- 								NT$<span id="totalAfterCoins" name="totalAfterCoins"></span> -->
-								NT$<input id="totalAfterCoins" name="totalAfterCoins" class="form-control border-0 text-end" style="width: 100px; height: 22px;" value="0" readonly="readonly">
-								
+								<!-- 								NT$<span id="totalAfterCoins" name="totalAfterCoins"></span> -->
+								NT$<input id="totalAfterCoins" name="totalAfterCoins"
+									class="form-control border-0 text-end p-0"
+									style="width: 120px; height: 22px;" value="0"
+									readonly="readonly">
+
 							</div>
 						</div>
 					</div>
-					
+
 				</div>
 
 				<!-- 超過自己所擁有的毛毛幣模態框 -->
@@ -158,15 +167,16 @@
 					<div class="row">
 						<div class="col-md">
 							<div class="form-group">
-								<label for="name" class="mt-3">會員姓名</label> <input type="hidden" id="memNo"
-									name="memNo" value="${member.memNo}" data-memname="${member.memNo}" /> <input
-									type="text" class="form-control" id="name" name="memName"
+								<label for="name" class="mt-3">會員姓名</label> <input type="hidden"
+									id="memNo" name="memNo" value="${member.memNo}"
+									data-memname="${member.memNo}" /> <input type="text"
+									class="form-control" id="name" name="memName"
 									value="${member.memName}" required>
 							</div>
 						</div>
 						<div class="col-md">
 							<div class="form-group">
-								<label for="phone">手機</label> <input type="text"
+								<label for="phone" class="mt-3">手機</label> <input type="text"
 									class="form-control" id="phone" name="phone"
 									value="${member.memTel}" required>
 							</div>
@@ -177,17 +187,20 @@
 							class="form-control" id="email" name="email"
 							value="${member.memEmail}" required>
 						<h4 class="mt-3">取貨方式</h4>
-						<div>
-							<input class="form-check-input" type="radio" id="shipMethod"
-								name="shipMethod" value="false" checked> <label
-								for="shipMethod">宅配</label>
+						<div class="row">
+							<div>
+								<input class="form-check-input" type="radio" id="shipMethod"
+									name="shipMethod" value="false" checked> <label
+									for="shipMethod">宅配</label> <input class="form-check-input"
+									type="radio" id="convenienceStore" name="shipMethod"
+									value="true"> <label for="shipMethod">超商</label>
+							</div>
 						</div>
 						<div>
 							<label for="address" class="mt-3">地址</label> <input type="text"
 								class="form-control" id="address" name="address"
 								value="${member.memAddress}" required>
 						</div>
-
 					</div>
 
 					<h4 class="mt-3">付款方式</h4>
@@ -195,15 +208,12 @@
 						<div>
 							<input class="form-check-input" type="radio" name="payment"
 								value="0" id="credit" checked /> <label
-								class="form-check-label" for="credit">信用卡一次付清</label> 
-								<input
+								class="form-check-label" for="credit">信用卡一次付清</label> <input
 								class="form-check-input" type="radio" name="payment" value="1"
 								id="transfer" /> <label class="form-check-label" for="transfer">匯款
-								</label>
-								<input class="form-check-input" type="radio" name="payment"
+							</label> <input class="form-check-input" type="radio" name="payment"
 								value="2" id="ecPay" /> <label class="form-check-label"
 								for="ecPay">使用綠界</label>
-
 						</div>
 						<div class="form showPayment" id="showPayment">
 							<div class="d-flex mt-3">

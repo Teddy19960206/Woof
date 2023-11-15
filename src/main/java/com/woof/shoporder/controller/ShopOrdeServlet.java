@@ -20,6 +20,7 @@ import com.woof.faq.service.FaqServiceImpl;
 import com.woof.member.entity.Member;
 import com.woof.member.service.MemberService;
 import com.woof.member.service.MemberServiceImpl;
+import com.woof.privatetrainingappointmentform.entity.PrivateTrainingAppointmentForm;
 import com.woof.shoporder.entity.ShopOrder;
 import com.woof.shoporder.service.ShopOrderService;
 import com.woof.shoporder.service.ShopOrderServiceImpl;
@@ -58,6 +59,10 @@ public class ShopOrdeServlet extends HttpServlet {
 
 		case "addshoporder":
 			forwardPath = addshoporder(request, response);
+			break;
+			
+		case "getByMemNo":
+//			forwardPath = getByMemNo(request, response);
 			break;
 
 		// 全部不成立會跑到這邊
@@ -217,6 +222,23 @@ public class ShopOrdeServlet extends HttpServlet {
 		// 資料給下一個jsp
 		request.setAttribute("result", result);
 		return "/frontend/cartlist/finishorder.jsp";
+	}
+	
+	
+private void getByMemNo(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		
+		String memNo = request.getParameter("memNo");
+		String page = request.getParameter("page");
+		int currentPage = (page == null) ? 1 : Integer.parseInt(page);
+		int PTAPageQty2 = shopOrderService.getPageTotal2(memNo);
+		request.getSession().setAttribute("PTAPageQty2", PTAPageQty2);
+		
+		List<ShopOrder> members = shopOrderService.findByMemNo(memNo , currentPage); 
+
+		request.setAttribute("members", members);
+		request.setAttribute("currentPage", currentPage);
+		
+//		return "/backend/shoporder/getAllshoporder.jsp";
 	}
 
 }
