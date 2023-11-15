@@ -115,8 +115,8 @@ public class PrivateTrainingAppointmentFormDAOImpl implements PrivateTrainingApp
 
 	@Override
 	public List<PrivateTrainingAppointmentForm> getByMemName(String memName, int currentPage) {
-		return getSession().createQuery("FROM PrivateTrainingAppointmentForm WHERE member.memName LIKE :name",PrivateTrainingAppointmentForm.class)
-				.setParameter("name", "%" + memName + "%")
+		return getSession().createQuery("FROM PrivateTrainingAppointmentForm p WHERE p.member.memName LIKE :memName",PrivateTrainingAppointmentForm.class)
+				.setParameter("memName", "%" + memName + "%")
 				.setMaxResults(PAGE_MAX_RESULT)
 				.getResultList();
 		
@@ -124,10 +124,32 @@ public class PrivateTrainingAppointmentFormDAOImpl implements PrivateTrainingApp
 	}
 
 	@Override
-	public long getTotalByMember(String memberName) {
-		return getSession().createQuery("SELECT COUNT(*) from PrivateTrainingAppointmentForm  WHERE member.memName LIKE :name", Long.class)
-				.setParameter("memberName", memberName)
-				.uniqueResult();
+	public long getTotalByMemName(String memName) {
+		long totalCount = getSession()
+		        .createQuery("SELECT COUNT(*) from PrivateTrainingAppointmentForm p WHERE p.member.memName LIKE :memName", Long.class)
+		        .setParameter("memName", "%" + memName + "%")
+		        .uniqueResult();
+
+//		    System.out.println("===============================Total count for member " + memName + " is: " + totalCount); // 在這裡印出值
+
+		    return totalCount;
 	}
 
+	@Override
+	public List<PrivateTrainingAppointmentForm> getByBoth(String memName, Integer trainerNo, int currentPage) {
+		return getSession().createQuery("FROM PrivateTrainingAppointmentForm p WHERE p.trainer.trainerNo = :trainerNo AND p.member.memName LIKE :memName",PrivateTrainingAppointmentForm.class)
+				.setParameter("trainerNo", trainerNo)
+				.setParameter("memName", "%" + memName + "%")
+				.setMaxResults(PAGE_MAX_RESULT)
+				.getResultList();
+	}
+
+	@Override
+	public long getTotalByBoth(String memName, Integer trainerNo) {
+		return getSession().createQuery("SELECT COUNT(*) FROM PrivateTrainingAppointmentForm p WHERE p.trainer.trainerNo = :trainerNo AND p.member.memName LIKE :memName", Long.class)
+				.setParameter("trainerNo", trainerNo)
+				.setParameter("memName", "%" + memName + "%")
+		        .uniqueResult();
+	}
+	
 }

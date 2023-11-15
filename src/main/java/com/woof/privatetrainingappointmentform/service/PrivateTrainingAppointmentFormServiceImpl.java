@@ -137,7 +137,19 @@ public class PrivateTrainingAppointmentFormServiceImpl implements PrivateTrainin
 
 	@Override
 	public int getPageTotal4(String memName) {
-		long total = dao.getTotalByMember(memName);
+		long total = dao.getTotalByMemName(memName);
+		int pageQty = (int) (total % PAGE_MAX_RESULT == 0 ? (total / PAGE_MAX_RESULT) : (total / PAGE_MAX_RESULT + 1));
+		return pageQty;
+	}
+
+	@Override
+	public List<PrivateTrainingAppointmentForm> findByBoth(String memName, Integer trainerNo, int currentPage) {
+		return dao.getByBoth(memName, trainerNo, currentPage);
+	}
+
+	@Override
+	public int getPageTotal5(String memName, Integer trainerNo) {
+		long total = dao.getTotalByBoth(memName,trainerNo);
 		int pageQty = (int) (total % PAGE_MAX_RESULT == 0 ? (total / PAGE_MAX_RESULT) : (total / PAGE_MAX_RESULT + 1));
 		return pageQty;
 	}

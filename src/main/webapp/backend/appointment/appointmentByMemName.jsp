@@ -1,4 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <html>
 <head>
     <%@ include file="/backend/backhead.file" %>
@@ -85,10 +87,12 @@ tr:nth-child(odd) {
 </head>
 <body>
 <%@ include file="/backend/backbody.file" %>
+<%-- <p>${param.memName}</p> --%>
+<%-- <p>PTAFPageQty4 = ${PTAPageQty4}</p> --%>
 <jsp:useBean id="trainerServer" scope="page" class="com.woof.trainer.service.TrainerServiceImpl"/>
 <div class="container py-3" >
 	<div class="row">
-		<form method="POST" ACTION="${pageContext.request.contextPath}/privatetrainingappointmentform?action=getbymemname">
+		<form method="POST" ACTION="${pageContext.request.contextPath}/privatetrainingappointmentform?action=getpta">
         	<div class="col-3 select">
 	        	<label for="trainerSelect" class="col-form-label">訓練師名稱：</label>
 	          	<select name="trainerNo" class="form-select">
@@ -100,11 +104,10 @@ tr:nth-child(odd) {
     		</div>
             <div class="col-3">
                 <label class="col-form-label">會員名稱</label>
-                <input type="text" name="memName" id="memName" class="form-control" />
+                <input type="text" name="memName" id="memName" class="form-control"/>
             </div>
             <div class="col-3">
                 <label class="col-form-label">開始查詢</label>
-                <%String memName = request.getParameter("memName"); %>
                 <button type="submit" id="button" class="btn btn-primary d-block">提交</button>
 			</div>
 		</form>
@@ -119,14 +122,14 @@ tr:nth-child(odd) {
 			<th></th>
 		</tr>
 
-		<c:forEach var="privateTrainingAppointmentForm"
-			items="${privateTrainingAppointmentForms}">
+		<c:forEach var="pta"
+			items="${members}">
 
 			<tr>
-				<td>${privateTrainingAppointmentForm.ptaNo}</td>
-				<td>${privateTrainingAppointmentForm.member.memName}</td>
-				<td>${privateTrainingAppointmentForm.trainer.administrator.adminName}</td>
-				<td>${privateTrainingAppointmentForm.ptaClass}</td>
+				<td>${pta.ptaNo}</td>
+				<td>${pta.member.memName}</td>
+				<td>${pta.trainer.administrator.adminName}</td>
+				<td>${pta.ptaClass}</td>
 				<td>
 
 					<FORM METHOD="post"
@@ -138,10 +141,10 @@ tr:nth-child(odd) {
 						String number = request.getParameter("number");
 						%>
 						<input type="hidden" name="action" value="gettoupdate">
-						<input type="hidden" name="ptaNo" value="${privateTrainingAppointmentForm.ptaNo}">					
-						<input type="hidden" name="member" value="${privateTrainingAppointmentForm.member.memName}">
-						<input type="hidden" name="trainer" value="${privateTrainingAppointmentForm.trainer.administrator.adminName}">
-						<input type="hidden" name="number" value="${privateTrainingAppointmentForm.ptaClass}">
+						<input type="hidden" name="ptaNo" value="${pta.ptaNo}">					
+						<input type="hidden" name="member" value="${pta.member.memName}">
+						<input type="hidden" name="trainer" value="${pta.trainer.administrator.adminName}">
+						<input type="hidden" name="number" value="${pta.ptaClass}">
 						<button class="btn btn-success" type="submit">修改</button>
 
 					</FORM>
@@ -159,18 +162,21 @@ tr:nth-child(odd) {
 		</c:forEach>
 
 	</table>
+<%-- 	<p>memName = ${param.memName}</p> --%>
+	<p>currentPage = ${currentPage}</p>
+	<p>PTAFPageQty4 = ${PTAPageQty4}</p>
 	<div class="pagination">
 	<c:if test="${currentPage > 1}">
-		<a href="${pageContext.request.contextPath}/privatetrainingappointmentform?action=getall&page=1">至第一頁</a>&nbsp;
+		<a href="${pageContext.request.contextPath}/privatetrainingappointmentform?action=getbymemname&page=1&memName=${param.memName}">至第一頁</a>&nbsp;
 	</c:if>
 	<c:if test="${currentPage - 1 != 0}">
-		<a href="${pageContext.request.contextPath}/privatetrainingappointmentform?action=getall&page=${currentPage - 1}">上一頁</a>&nbsp;
+		<a href="${pageContext.request.contextPath}/privatetrainingappointmentform?action=getbymemname&page=${currentPage - 1}&memName=${param.memName}">上一頁</a>&nbsp;
 	</c:if>
-	<c:if test="${currentPage + 1 <= PTAFPageQty}">
-		<a href="${pageContext.request.contextPath}/privatetrainingappointmentform?action=getall&page=${currentPage + 1}">下一頁</a>&nbsp;
+	<c:if test="${currentPage + 1 <= PTAFPageQty4}">
+		<a href="${pageContext.request.contextPath}/privatetrainingappointmentform?action=getbymemname&page=${currentPage + 1}&memName=${param.memName}">下一頁</a>&nbsp;
 	</c:if>
-	<c:if test="${currentPage != PTAFPageQty}">
-		<a href="${pageContext.request.contextPath}/privatetrainingappointmentform?action=getall&page=${PTAFPageQty}">至最後一頁</a>&nbsp;
+	<c:if test="${currentPage != PTAFPageQty4}">
+		<a href="${pageContext.request.contextPath}/privatetrainingappointmentform?action=getbymemname&page=${PTAFPageQty4}&memName=${param.memName}">至最後一頁</a>&nbsp;
 	</c:if>
 
 	<button class="btn btn-back" onclick="window.location='${pageContext.request.contextPath}/backend/index.jsp'">返回</button>

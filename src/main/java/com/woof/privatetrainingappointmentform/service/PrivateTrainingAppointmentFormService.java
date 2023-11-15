@@ -42,4 +42,8 @@ public interface PrivateTrainingAppointmentFormService {
 	
 	int getPageTotal4(String memName);
 	
+	List<PrivateTrainingAppointmentForm> findByBoth(String memName , Integer trainerNo , int currentPage);
+	
+	int getPageTotal5(String memName , Integer trainerNo);
+	
 }
