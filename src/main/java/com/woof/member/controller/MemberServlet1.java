@@ -121,8 +121,6 @@ public class MemberServlet1 extends HttpServlet {
 
 	private void addMember(HttpServletRequest req, HttpServletResponse res)
 			throws IOException, ParseException, ServletException {
-		
-		
 		Map<String,String> errorMsgs = new LinkedHashMap<String,String>();
 		req.setAttribute("errorMsgs", errorMsgs);
 		List<Member> members = memberService.getAllMembers();

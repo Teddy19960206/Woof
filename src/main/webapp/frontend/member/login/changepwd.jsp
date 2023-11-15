@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>忘記密碼</title>
+    <title>更改密碼</title>
     <style>
         body {
             background-color: #f4f4f4; /* 背景顏色 */
@@ -68,20 +68,53 @@
         }
     </style>
 </head>
+<script src="https://kit.fontawesome.com/3f37e88a3b.js" crossorigin="anonymous"></script>
+<script type="text/javascript">
+/************隱藏密碼************/
+function togglePasswordVisibility(fieldId) {
+    var passwordField = document.getElementById(fieldId);
+    var toggleIcon = document.getElementById(fieldId === 'memPassword' ? 'toggleNewPassword' : 'toggleConfirmPassword');
+
+    if (passwordField.type === "password") {
+        passwordField.type = "text";
+        toggleIcon.classList.remove("fa-eye-slash");
+        toggleIcon.classList.add("fa-eye");
+    } else {
+        passwordField.type = "password";
+        toggleIcon.classList.remove("fa-eye");
+        toggleIcon.classList.add("fa-eye-slash");
+    }
+    passwordVisible = !passwordVisible;
+}
+
+</script>
 <body>
     <div class="container">
         <div class="custom-card">
             <div class="custom-header">
-                <h3>忘記密碼</h3>
+                <h3>更改密碼</h3>
             </div>
             <form method="post" action="${pageContext.request.contextPath}/resetPassword.do">
                 <div class="form-group">
-                    <label for="memEmail">電子郵件地址:</label>
-                    <input type="email" class="form-control" id="memEmail" name="memEmail" placeholder="請輸入您的電子郵件" required>
-                    <small class="error-msg">${errorMsgs.memEmail}</small>
+                    <label for="memPassword">新密碼:</label>
+                    <div style="position: relative;">
+                    <input class="form-control" type="password" name="memPassword" id="memPassword" />
+                     <i class="fa fa-eye-slash" style="position: absolute; right: 10px; top: 10px; cursor: pointer;" onclick="togglePasswordVisibility('memPassword')" id="toggleNewPassword"></i>
+                    </div>
+                    <small class="error-msg">${errorMsgs.memPassword}</small>
                 </div>
-                <input type="hidden" name="action" value="reset">
-                <button type="submit" class="btn btn-primary">送出</button>
+                <div class="form-group">
+                    <label for="memPassword">確認新密碼:</label>
+                     <div style="position: relative;">
+                    <input class="form-control" type="password" name="confirmMemPassword" id="confirmMemPassword" />
+                    <i class="fa fa-eye-slash" style="position: absolute; right: 10px; top: 10px; cursor: pointer;" onclick="togglePasswordVisibility('confirmMemPassword')" id="toggleConfirmPassword"></i>
+                    </div>
+                    <small class="error-msg">${errorMsgs.confirmMemPassword}</small>
+                </div>
+                <input type="hidden" name="token" value="${param.token}" />
+                <input type="hidden" name="action" value="changepwd">
+                <input type="hidden" name="memEmail" value="${param.memEmail}">
+                <button type="submit" class="btn btn-primary">更改</button>
             </form>
         </div>
     </div>

@@ -13,6 +13,8 @@ public interface MemberDAO {
 
 	Member findByMemberNo(String memNo);
 	
+	Member findByMemberEmail(String memEmail);
+	
 	List<Member> getAll();
 	
 	List<Member> getByCompositeQuery(Map<String, String> map);

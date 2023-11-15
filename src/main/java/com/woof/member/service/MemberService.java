@@ -14,6 +14,8 @@ public interface MemberService {
 
 	// Find a member by its number or ID
 	Member findMemberByNo(String memNo);
+	
+	Member findMemberByEmail(String memEmail);
 
 	// Get all members
 	List<Member> getAllMembers();

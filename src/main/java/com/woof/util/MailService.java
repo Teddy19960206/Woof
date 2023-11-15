@@ -203,7 +203,7 @@ public class MailService{
 				"  <head>\n" +
 				"    <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\n" +
 				"    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\n" +
-				"    <title></title>\n" +
+				"    <title>會員驗證</title>\n" +
 				"    <style>\n" +
 				"      * {\n" +
 				"        font-family: Microsoft JhengHei, PMingLiU, sans-serif;\n" +
@@ -267,16 +267,68 @@ public class MailService{
 	}
 	
 	public static String passwordResetEmail(String resetLink) {
-	    String html = "<!DOCTYPE html>\n" +
-	            "<html>\n" +
-	            "<head>\n" +
-	            "    <meta charset='UTF-8'>\n" +
+	    String html = "<!DOCTYPE >\n" +
+				"<html>\n" +
+				"  <head>\n" +
+				"    <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\n" +
+				"    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\n" +
 	            "    <title>密碼重置</title>\n" +
-	            "</head>\n" +
-	            "<body>\n" +
-	            "    <h2>密碼重置請求</h2>\n" +
-	            "    <p>請點擊下面的連結以重置您的密碼：</p>\n" +
-	            "    <a href='" + resetLink + "'>重置密碼</a>\n" +
+	        	"    <style>\n" +
+				"      * {\n" +
+				"        font-family: Microsoft JhengHei, PMingLiU, sans-serif;\n" +
+				"      }\n" +
+				"    </style>\n" +
+				"  </head>\n" +
+				"\n" +
+				"  <body >\n" +
+				"    <table\n" +
+				"      align=\"center\"\n" +
+				"      cellpadding=\"0\"\n" +
+				"      cellspacing=\"0\"\n" +
+				"      width=\"100%\"" +
+				"      style=\"table-layout: fixed;background-color: white;\"\n" +
+				"    >\n" +
+				"      <tr>\n" +
+				"        <td style=\"padding: 20px\" align=\"center\">\n" +
+				"          <img src=\"https://cha103-17.s3.ap-northeast-1.amazonaws.com/happy_1.png\" width=\"50%\" />\n" +
+				"        </td>\n" +
+				"      </tr>\n" +
+				"      <tr>\n" +
+				"        <td height=\"100\" width=\"250\">\n" +
+				"          <table\n" +
+				"            cellpadding=\"0\"\n" +
+				"            cellspacing=\"0\"\n" +
+				"            width=\"100%\"\n" +
+				"            height=\"50\"\n" +
+				"            style=\"padding: 20px\"\n" +
+				"          >\n" +
+				"            <tr\n" +
+				"              height=\"60\"\n" +
+				"              style=\"color: rgb(240, 98, 46); font-weight: 800; font-size: 30px\"\n" +
+				"            >\n" +
+	            "    <h2 style=\"font-size: 24px;\">密碼重置請求</h2>\n" +
+	            "    <p style=\"font-size: 24px;\">請於30分鐘內點擊下面的連結以重置您的密碼：</p>\n" +
+	            "    <a href='" + resetLink + "' style='font-size: 18px;'>重置密碼</a>\n" +
+				"            </tr>\n" +
+				"          </table>\n" +
+				"        </td>\n" +
+				"      </tr>\n" +
+				"      <tr>\n" +
+				"        <td\n" +
+				"          style=\"\n" +
+				"            background-color: rgb(240, 98, 46);\n" +
+				"            color: white;\n" +
+				"            font-weight: 900;\n" +
+				"          \"\n" +
+				"          height=\"150\"\n" +
+				"          align=\"center\"\n" +
+				"        >\n" +
+				"          <div>寵毛導師 Woof</div>\n" +
+				"          <div>連絡電話：03 425 1108</div>\n" +
+				"          <div>地址： 320桃園市中壢區復興路46號8樓804室 CHA103</div>\n" +
+				"        </td>\n" +
+				"      </tr>\n" +
+				"    </table>\n" +
 	            "</body>\n" +
 	            "</html>";
 	    return html;

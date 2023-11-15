@@ -93,4 +93,8 @@ public class MemberServiceImpl implements MemberService, AppService<String> {
 		findMemberByNo(memNo).setMomoPoint(momo);	
 	}
 
+	public Member findMemberByEmail(String memEmail) {
+		Member member = dao.findByMemberEmail(memEmail);
+		return member;
+	}
 }

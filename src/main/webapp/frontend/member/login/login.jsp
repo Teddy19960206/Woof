@@ -40,6 +40,24 @@ body {
 	margin-bottom: 10px;
 }
 </style>
+<script src="https://kit.fontawesome.com/3f37e88a3b.js" crossorigin="anonymous"></script>
+<script type="text/javascript">
+/************隱藏密碼************/
+function togglePasswordVisibility(fieldId) {
+    var passwordField = document.getElementById(fieldId);
+    var toggleIcon = document.getElementById(fieldId === 'password' ? 'toggleNewPassword' : 'toggleConfirmPassword');
+    if (passwordField.type === "password") {
+        passwordField.type = "text";
+        toggleIcon.classList.remove("fa-eye-slash");
+        toggleIcon.classList.add("fa-eye");
+    } else {
+        passwordField.type = "password";
+        toggleIcon.classList.remove("fa-eye");
+        toggleIcon.classList.add("fa-eye-slash");
+    }
+    passwordVisible = !passwordVisible;
+}
+</script>
 <title>login</title>
 </head>
 <body>
@@ -48,17 +66,19 @@ body {
 			<b>會員登入</b>
 		</h3>
 		<form method="POST" action="${pageContext.request.contextPath}/login" onsubmit="return validateForm()">
-			<div class="error-msg">${errorMsgs.memberlogin}</div>
 			<div class="form-group">
 				<label for="username"><b>帳號</b></label> <input type="text"
 					id="username" class="form-control" name="memNo">
+			<div class="error-msg">${errorMsgs.loginError1}</div>
 			</div>
-			<div class="error-msg">${errorMsgs.memberemail}</div>
 			<div class="form-group">
-				<label for="password"><b>密碼</b></label> <input type="password"
-					id="password" class="form-control" name="memPassword"> 
+				<label for="password"><b>密碼</b></label> 
+				<div style="position: relative;">
+				<input type="password" id="password" class="form-control" name="memPassword"> 
+					<i class="fa fa-eye-slash" style="position: absolute; right: 10px; top: 10px; cursor: pointer;" onclick="togglePasswordVisibility('password')" id="toggleNewPassword"></i>
 			</div>
-			<div class="error-msg">${errorMsgs.memberpassword}</div>
+			<div class="error-msg">${errorMsgs.loginError}</div>
+			</div>
 			<div class="form-group">
 				<input type="hidden" name="action" value="memberlogin">
 				<button class="btn btn-access" id="loginButton" type="submit">
@@ -72,10 +92,12 @@ body {
 			</div>
 		</form>
 		<a href='/woof/frontend/member/login/addmember.jsp'
-			class="text-decoration-none"><b>註冊會員</b></a> 
+			class="text-decoration-none"><b>註冊</b></a> 
 			<a href='/woof/frontend/member/login/forgotpwd.jsp'
-			class="text-decoration-none"> <b>忘記密碼</b></a>
-		<a href="${pageContext.request.contextPath}/home">GOOGLE登入</a>
+			class="text-decoration-none"> <b>忘記密碼？</b></a>
+			<a href=""
+			class="text-decoration-none"><i class="fa-brands fa-google"></i></a>
+
 	</div>
 
 	<script>
@@ -101,7 +123,6 @@ body {
         function validateForm() {
             var username = document.getElementById("username").value;
             var password = document.getElementById("password").value;
-
             if(username === "") {
                 alert("帳號不能為空");
                 return false;
@@ -112,7 +133,6 @@ body {
             }
             return true;
         }
-        // 省略其他腳本
     </script>
     
 
