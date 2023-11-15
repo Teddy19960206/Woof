@@ -81,5 +81,10 @@ public class MemberServiceImpl implements MemberService, AppService<String> {
 	public List<Member> getAllMembers(int currentPage) {
 		return dao.getAll(currentPage);
 	}
-	
+
+	@Override
+	public Member findMemberByEmail(String memEmail) {
+		Member member = dao.findByMemberEmail(memEmail);
+		return member;
+	}
 }

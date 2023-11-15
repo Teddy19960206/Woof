@@ -5,6 +5,9 @@ import org.hibernate.SessionFactory;
 import com.woof.member.entity.Member;
 import java.util.List;
 import java.util.Map;
+
+import javax.persistence.Query;
+
 import static com.woof.util.Constants.PAGE_MAX_RESULT;
 
 public class MemberDAOImpl implements MemberDAO {
@@ -70,5 +73,16 @@ public class MemberDAOImpl implements MemberDAO {
 		int first = (currentPage - 1) * PAGE_MAX_RESULT;
 		return getSession().createQuery("FROM Member", Member.class).setFirstResult(first)
 				.setMaxResults(PAGE_MAX_RESULT).list();
+	}
+
+	@Override
+	public Member findByMemberEmail(String memEmail) {
+		
+		String hql = "FROM Member mem WHERE mem.memEmail = :memEmail";
+		Query query = getSession().createQuery(hql , Member.class);
+		query.setParameter("memEmail", memEmail);
+		
+		return (Member) query.getSingleResult();
+		
 	}
 }
