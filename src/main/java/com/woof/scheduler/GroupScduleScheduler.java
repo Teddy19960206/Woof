@@ -8,6 +8,9 @@ import com.woof.groupcourseorder.service.GroupCourseOrderServiceImpl;
 import com.woof.groupcourseschedule.entity.GroupCourseSchedule;
 import com.woof.groupcourseschedule.service.GroupCourseScheduleServiceImpl;
 import com.woof.groupcourseschedule.service.GroupGourseScheduleService;
+import com.woof.groupscheduledetail.entity.GroupScheduleDetail;
+import com.woof.groupscheduledetail.service.GroupScheduleDetailService;
+import com.woof.groupscheduledetail.service.GroupScheduleDetailServiceImpl;
 import com.woof.util.HibernateUtil;
 import com.woof.util.JedisUtil;
 import com.woof.util.JsonIgnoreExclusionStrategy;
@@ -31,6 +34,8 @@ public class GroupScduleScheduler extends HttpServlet {
     private GroupGourseScheduleService groupGourseScheduleService = new GroupCourseScheduleServiceImpl();
 
     private GroupCourseOrderService groupCourseOrderService = new GroupCourseOrderServiceImpl();
+
+    private GroupScheduleDetailService groupScheduleDetailService = new GroupScheduleDetailServiceImpl();
 
     private Gson gson = new GsonBuilder()
             .setExclusionStrategies()
@@ -88,15 +93,26 @@ public class GroupScduleScheduler extends HttpServlet {
 
 
 //              尋找Schedule 確認開課 (2) 後 該課程的所有上課時間 都已經小於現在時間時， 狀態改變成 5 (已結束)
-//              且報名該課程的人 order ，狀態改變成 4 (已結束)
+                List<GroupCourseSchedule> allConfirmSchedule = groupGourseScheduleService.getAllConfirmSchedule();
+                for (GroupCourseSchedule groupCourseSchedule : allConfirmSchedule){
 
+                    Calendar today = Calendar.getInstance();
+                    today.set(Calendar.HOUR_OF_DAY , 0);
+                    today.set(Calendar.MINUTE, 0);
+                    today.set(Calendar.SECOND, 0);
+                    today.set(Calendar.MILLISECOND, 0);
 
+//              且報名該課程的人 order ，狀態改變成 4 (已完成)
+                   if ( groupScheduleDetailService.getMaxDate(groupCourseSchedule.getGcsNo()).getClassDate().before(today.getTime())){
+                        groupCourseOrderService.finishOrder(groupCourseSchedule.getGcsNo());
+                   }
+                }
 
                 currentSession.getTransaction().commit();
             }catch (Exception e){
-                e.printStackTrace();
-                currentSession.getTransaction().rollback();;
-            }
+                    e.printStackTrace();
+                    currentSession.getTransaction().rollback();;
+                }
             }
         };
 

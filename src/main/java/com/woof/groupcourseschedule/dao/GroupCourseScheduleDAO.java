@@ -31,6 +31,7 @@ public interface GroupCourseScheduleDAO {
 
     List<GroupCourseSchedule> getOffStatus();
     List<GroupCourseSchedule> getReviewSchedule();
+    List<GroupCourseSchedule> getAllConfirmSchedule();
 
     long getTotal(Integer classType , Integer status);
 }

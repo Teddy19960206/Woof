@@ -155,5 +155,13 @@ public class GroupCourseOrderDAOImpl implements GroupCourseOrderDAO{
         Query query = getSession().createQuery(hql);
         query.setParameter("gcsNo" , gcsNo);
         return query.list();
-     }
+    }
+
+    public void modifyAllOrderBySchedule(Integer gcsNo , Integer gcoStatus){
+        String hql = "UPDATE GroupCourseOrder gco SET gco.gcoStatus = :status WHERE gco.groupCourseSchedule.gcsNo = :gcsNo";
+        Query query = getSession().createQuery(hql);
+        query.setParameter("status" , gcoStatus);
+        query.setParameter("gcsNo" , gcsNo);
+        query.executeUpdate();
+    }
 }
