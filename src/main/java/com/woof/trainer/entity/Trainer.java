@@ -61,9 +61,10 @@ public class Trainer implements Serializable {
 
 	@JsonIgnore
 	@ManyToMany
-	@JoinTable(name = "skills_list", joinColumns = {
-			@JoinColumn(name = "TRAINER_NO", referencedColumnName = "TRAINER_NO") }, inverseJoinColumns = {
-					@JoinColumn(name = "SKILL_NO", referencedColumnName = "SKILL_NO") })
+	@JoinTable(
+			name = "skills_list",
+			joinColumns = {@JoinColumn(name = "TRAINER_NO", referencedColumnName = "TRAINER_NO") },
+			inverseJoinColumns = {@JoinColumn(name = "SKILL_NO", referencedColumnName = "SKILL_NO") })
 	private Set<Skill> skills;
 
 

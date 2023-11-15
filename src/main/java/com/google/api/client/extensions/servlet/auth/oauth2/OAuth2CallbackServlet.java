@@ -9,13 +9,14 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.plus.PlusScopes;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Collections;
 
-@javax.servlet.annotation.WebServlet(name = "OAuth2CallbackServlet",urlPatterns = "/oauth2callback")
+@WebServlet(name = "OAuth2CallbackServlet",urlPatterns = "/oauth2callback")
 public class OAuth2CallbackServlet extends AbstractAuthorizationCodeCallbackServlet {
 
     @Override
@@ -28,7 +29,7 @@ public class OAuth2CallbackServlet extends AbstractAuthorizationCodeCallbackServ
     protected String getUserId(HttpServletRequest req) throws ServletException, IOException {
         HttpSession session =  req.getSession(false);
         if (session != null){
-            System.out.println("After authenticate" + session.getId());
+            System.out.println("After authenticate : " + session.getId());
             return session.getId();
         }else {
             return "無資料";

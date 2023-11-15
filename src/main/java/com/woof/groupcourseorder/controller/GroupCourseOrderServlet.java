@@ -407,12 +407,8 @@ public class GroupCourseOrderServlet extends HttpServlet {
             groupCourseOrderService.modifyAllOrderByGcsNo(gcsNo);
             Long deleteCount = jedis.hdel("schedules" , gcsNoStr);
 
-            if (deleteCount > 0 ){
-                System.out.println("成功刪除");
-            }else{
-                System.out.println("刪除失敗");
-            }
-
+//            將該課程狀態改變成 已取消(3)
+            new GroupCourseScheduleServiceImpl().updateStatus(3 , gcsNo);
             response.getWriter().write("{ \"message\" : \"全部已退款\"  }");
 
         }catch (Exception e){

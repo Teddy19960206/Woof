@@ -117,6 +117,11 @@ public class GroupCourseScheduleServiceImpl implements GroupGourseScheduleServic
     }
 
     @Override
+    public List<GroupCourseSchedule> getAllConfirmSchedule() {
+        return dao.getAllConfirmSchedule();
+    }
+
+    @Override
     public int getPageTotal(Integer classType, Integer status) {
         long total = dao.getTotal(classType , status);
 

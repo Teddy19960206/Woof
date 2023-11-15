@@ -11,6 +11,7 @@ public interface GroupScheduleDetailDAO {
     int update(Integer gcsdNo, Trainer trainer, Date classDate);
     int delete(GroupScheduleDetail groupScheduleDetail);
     GroupScheduleDetail findByGcsd(Integer gcsd);
+    GroupScheduleDetail getMaxDate(Integer gcsNo) ;
     List<Object[]> getByTrainer(Integer trainerNo);
     List<GroupScheduleDetail> getByGroupSchedule(Integer gcsNo);
     List<GroupScheduleDetail> getAll();

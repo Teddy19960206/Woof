@@ -30,7 +30,7 @@ public static AllInOne all;
 
     public static String genAioCheckOutOneTime(){
         AioCheckOutOneTime obj = new AioCheckOutOneTime();
-        obj.setMerchantTradeNo("2001544545"); // 該位數為上限
+        obj.setMerchantTradeNo("2001544545"); // 該位數為上限 該編號不能重複使用 每次執行一次後就要換新的
         obj.setMerchantTradeDate("2017/01/01 08:05:23");
         obj.setTotalAmount("50");
         obj.setTradeDesc("test Description");
@@ -40,6 +40,8 @@ public static AllInOne all;
         obj.setRedeem("Y");
         obj.setClientBackURL("http://211.23.128.214:5000");
         String form = all.aioCheckOut(obj, null);
+
+//        若是要傳送中文字 記得要再resposne 加上 setCharset("")
         return form;
     }
 

@@ -23,6 +23,7 @@ public interface GroupGourseScheduleService {
     List<GroupCourseSchedule> getOffSchedule();
     List<GroupCourseSchedule> getAllUpSchedule();
     List<GroupCourseSchedule> getAllReview();
+    List<GroupCourseSchedule> getAllConfirmSchedule();
     int getPageTotal(Integer classType ,Integer status);
 
 }

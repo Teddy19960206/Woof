@@ -17,6 +17,7 @@ public interface GroupScheduleDetailService {
     void delete(Integer gcsd);
 
     GroupScheduleDetail findByGcsd(Integer gcsdNo);
+    GroupScheduleDetail getMaxDate(Integer gcsNo);
 
     List<GroupScheduleDetail> getAll();
 

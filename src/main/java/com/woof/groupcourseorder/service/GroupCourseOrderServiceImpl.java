@@ -106,6 +106,12 @@ public class GroupCourseOrderServiceImpl implements GroupCourseOrderService{
     }
 
     @Override
+    public void finishOrder(Integer gcsNo) {
+//        讓該課程報名全部的訂單，狀態變成 已完成 (4)
+        dao.modifyAllOrderBySchedule(gcsNo , 4);
+    }
+
+    @Override
     public void modifyAllOrderByGcsNo(Integer gcsNo) {
 //       讓該課程報名全部的訂單，全部狀態變成 已取消(2)
         dao.modifyAllOrderByGcsNo(gcsNo);

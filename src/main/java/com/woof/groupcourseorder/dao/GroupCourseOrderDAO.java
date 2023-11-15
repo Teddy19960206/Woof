@@ -9,6 +9,7 @@ public interface GroupCourseOrderDAO {
     void update(GroupCourseOrder groupCourseOrder);
     void updateStatus(Integer gcoNo , Integer status);
     void modifyAllOrderByGcsNo(Integer gcsNo);
+    void modifyAllOrderBySchedule(Integer gcsNo , Integer gcoStatus);
     GroupCourseOrder findByGcoNo(Integer gcoNo);
     List<GroupCourseOrder> getAll();
     List<GroupCourseOrder> getAll(Integer groupClass , Integer status , String memNo , Integer currentPage);

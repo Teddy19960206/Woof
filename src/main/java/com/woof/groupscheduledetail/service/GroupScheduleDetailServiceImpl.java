@@ -50,6 +50,11 @@ public class GroupScheduleDetailServiceImpl implements GroupScheduleDetailServic
     }
 
     @Override
+    public GroupScheduleDetail getMaxDate(Integer gcsNo) {
+        return dao.getMaxDate(gcsNo);
+    }
+
+    @Override
     public List<GroupScheduleDetail> getAll() {
         return dao.getAll();
     }

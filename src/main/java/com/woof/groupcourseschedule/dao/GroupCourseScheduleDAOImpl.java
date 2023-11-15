@@ -137,6 +137,17 @@ public class GroupCourseScheduleDAOImpl implements GroupCourseScheduleDAO{
     }
 
     @Override
+    public List<GroupCourseSchedule> getAllConfirmSchedule(){
+
+        String sql = "SELECT * FROM group_course_schedule gcs WHERE gcs.gcs_status = 2";
+
+        NativeQuery query =getSession().createNativeQuery(sql)
+                .addEntity(GroupCourseSchedule.class);
+
+
+        return query.list();
+    }
+    @Override
     public List<GroupCourseSchedule> getAllbyClassType(Integer ctNo) {
 
 //      原生 sql 無法對物件，僅可明確指定

@@ -54,7 +54,6 @@ public class TokenExchange extends HttpServlet {
             String clientId = web.path("client_id").asText();
             String clientSecret = web.path("client_secret").asText();
             JsonNode redirectUris = web.path("redirect_uris");
-            String text = redirectUris.get(2).asText();
 
             String authorizationCode = request.getParameter("code");
             if (authorizationCode != null && !authorizationCode.isEmpty()) {
@@ -65,22 +64,20 @@ public class TokenExchange extends HttpServlet {
                 conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
                 conn.setDoOutput(true);
 
-
+//                redirect_uri 需要與該servlet相同
                 String params = "code=" + URLEncoder.encode(authorizationCode, "UTF-8") +
                         "&client_id=" + URLEncoder.encode(clientId, "UTF-8") +
                         "&client_secret=" + URLEncoder.encode(clientSecret, "UTF-8") +
                         "&redirect_uri=http://localhost:8081/woof/token" +
                         "&grant_type=authorization_code";
-                System.out.println(URLEncoder.encode(authorizationCode, "UTF-8"));
-                System.out.println(clientId);
-                System.out.println(clientSecret);
-                System.out.println(text + "  ------------");
 
                 OutputStream os = conn.getOutputStream();
                 os.write(params.getBytes());
                 os.flush();
                 os.close();
 
+
+//              接收response資料
                 int responseCode = conn.getResponseCode();
 
                 if (responseCode != HttpURLConnection.HTTP_OK) {
@@ -100,7 +97,6 @@ public class TokenExchange extends HttpServlet {
 
                 System.out.println(responseBuffer);
 
-                // TODO: 解析 JSON 响应以获取访问令牌和刷新令牌
                 JSONObject jsonObject = new JSONObject(responseBuffer.toString());
                 String idToken = jsonObject.getString("id_token");
 
@@ -118,18 +114,16 @@ public class TokenExchange extends HttpServlet {
                         .withAudience(clientId)
                         .build();
 
+                System.out.println(verifier);
+
                 // 驗證 JWT
                 DecodedJWT verifiedJwt = verifier.verify(idToken);
+
+                System.out.println(verifiedJwt);
 
                 String userId = verifiedJwt.getSubject(); // 獲取用戶的唯一識別碼
                 String userEmail = verifiedJwt.getClaim("email").asString(); // 獲取用戶的郵箱地址
                 String userName = verifiedJwt.getClaim("name").asString();
-                // 其他聲明...
-
-                System.out.println(userId + " / id");
-                System.out.println(userName + " / name");
-                System.out.println(userEmail+ " / email");
-                System.out.println(verifiedJwt + "/ verJWT");
 
                 request.setAttribute("id" , userId);
                 request.setAttribute("name" , userName);
