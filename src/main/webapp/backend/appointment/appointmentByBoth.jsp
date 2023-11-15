@@ -1,11 +1,9 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
-
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <html>
 <head>
-<%@ include file="/backend/backhead.file" %>
+    <%@ include file="/backend/backhead.file" %>
     <title>寵毛導師 Woof | 私人預約管理</title>
     <style>
     body {
@@ -91,7 +89,7 @@ tr:nth-child(odd) {
 <%@ include file="/backend/backbody.file" %>
 <p>trainerNo = ${param.trainerNo}</p>
 <p>memName = ${param.memName}</p>
-<%-- <p>PTAFPageQty4 = ${PTAPageQty4}</p> --%>
+<%-- <p>PTAFPageQty5 = ${PTAPageQty5}</p> --%>
 <jsp:useBean id="trainerServer" scope="page" class="com.woof.trainer.service.TrainerServiceImpl"/>
 <div class="container py-3" >
 	<div class="row">
@@ -130,7 +128,7 @@ tr:nth-child(odd) {
 		</tr>
 
 		<c:forEach var="pta"
-			items="${trainers}">
+			items="${both}">
 
 			<tr>
 				<td>${pta.ptaNo}</td>
@@ -169,26 +167,27 @@ tr:nth-child(odd) {
 		</c:forEach>
 
 	</table>
-<p>trainerNo: ${trainerNo}</p>
-<p>currentPage: ${currentPage}</p>
-<p>PTAPageQty3: ${PTAPageQty3}</p>
-	<div class="pagination-container" >
-    <c:if test="${currentPage > 1}">
-        <a href="${pageContext.request.contextPath}/privatetrainingappointmentform?action=getbytrainerno&page=1&trainerNo=${trainerNo}">至第一頁</a>&nbsp;
-    </c:if>
-    <c:if test="${currentPage - 1 != 0}">
-        <a href="${pageContext.request.contextPath}/privatetrainingappointmentform?action=getbytrainerno&page=${currentPage - 1}&trainerNo=${trainerNo}">上一頁</a>&nbsp;
-    </c:if>
-    <c:if test="${currentPage + 1 <= PTAPageQty3}">
-        <a href="${pageContext.request.contextPath}/privatetrainingappointmentform?action=getbytrainerno&page=${currentPage + 1}&trainerNo=${trainerNo}">下一頁</a>&nbsp;
-    </c:if>
-    <c:if test="${currentPage != PTAPageQty3}">
-        <a href="${pageContext.request.contextPath}/privatetrainingappointmentform?action=getbytrainerno&page=${PTAPageQty3}&trainerNo=${trainerNo}">至最後一頁</a>&nbsp;
-    </c:if>
-	</div>
-    
-	<button class="btn btn-back" onclick="window.location='${pageContext.request.contextPath}/backend/index.jsp'">返回</button>
+	<p>both = ${both}</p>
+	<p>currentPage = ${currentPage}</p>
+	<p>PTAFPageQty5 = ${PTAPageQty5}</p>
+	<div class="pagination">
+	<c:if test="${currentPage > 1}">
+		<a href="${pageContext.request.contextPath}/privatetrainingappointmentform?action=getbymemname&page=1&both=${both}">至第一頁</a>&nbsp;
+	</c:if>
+	<c:if test="${currentPage - 1 != 0}">
+		<a href="${pageContext.request.contextPath}/privatetrainingappointmentform?action=getbymemname&page=${currentPage - 1}&both=${both}">上一頁</a>&nbsp;
+	</c:if>
+	<c:if test="${currentPage + 1 <= PTAFPageQty5}">
+		<a href="${pageContext.request.contextPath}/privatetrainingappointmentform?action=getbymemname&page=${currentPage + 1}&both=${both}">下一頁</a>&nbsp;
+	</c:if>
+	<c:if test="<% currentPage != PTAFPageQty5 %>">
+		<a href="${pageContext.request.contextPath}/privatetrainingappointmentform?action=getbymemname&page=${PTAFPageQty5}&both=${both}">至最後一頁</a>&nbsp;
+	</c:if>
 
+	<button class="btn btn-back" onclick="window.location='${pageContext.request.contextPath}/backend/index.jsp'">返回</button>
+    </div>
+   </div>
+</div>
 
 <%@ include file="/backend/backfoot.file" %>
 </body>

@@ -86,9 +86,11 @@ tr:nth-child(odd) {
 <body>
 <%@ include file="/backend/backbody.file" %>
 <jsp:useBean id="trainerServer" scope="page" class="com.woof.trainer.service.TrainerServiceImpl"/>
+<p>trainerNo = ${param.trainerNo}</p>
+<p>memName = ${param.memName}</p>
 <div class="container py-3" >
 	<div class="row">
-		<form method="POST" ACTION="${pageContext.request.contextPath}/privatetrainingappointmentform?action=getbymemname">
+		<form method="POST" ACTION="${pageContext.request.contextPath}/privatetrainingappointmentform?action=getboth">
         	<div class="col-3 select">
 	        	<label for="trainerSelect" class="col-form-label">訓練師名稱：</label>
 	          	<select name="trainerNo" class="form-select">
@@ -104,7 +106,10 @@ tr:nth-child(odd) {
             </div>
             <div class="col-3">
                 <label class="col-form-label">開始查詢</label>
-                <%String memName = request.getParameter("memName"); %>
+                <%
+                String memName = request.getParameter("memName");
+                String trainerNo = request.getParameter("trainerNo");
+                %>
                 <button type="submit" id="button" class="btn btn-primary d-block">提交</button>
 			</div>
 		</form>

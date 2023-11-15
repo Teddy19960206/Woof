@@ -94,7 +94,7 @@ public class PrivateTrainingAppointmentFormServlet extends HttpServlet {
 				break;
 			case "getbytrainerno":
 				getByTrainerNo(req, resp);
-				forwardPath = "/frontend/privatetrainingappointmentform/privateTrainingAppointmentForm_getByTrainerNo.jsp";
+				forwardPath = "/backend/appointment/appointmentByTrainerNo.jsp";
 				break;
 			case "commentbymember":
 				getByMemNo(req, resp);
@@ -103,6 +103,13 @@ public class PrivateTrainingAppointmentFormServlet extends HttpServlet {
 			case "comment":
 				forwardPath = "/frontend/privatetrainingappointmentform/commenting.jsp";
 				break;
+			case "getbyboth":
+				getByBoth(req,resp);
+				forwardPath = "/backend/appointment/appointmentByBoth.jsp";
+				break;
+			case "getboth":
+				getByMemberOrTrainer(req,resp);	
+				return;
 			case "updatecomment":
 				try {
 					updateComment(req, resp);
@@ -420,12 +427,56 @@ public class PrivateTrainingAppointmentFormServlet extends HttpServlet {
 		request.setAttribute("currentPage", currentPage);
 		
 	}
-	private void getByMemberAndTrainer(HttpServletRequest request, HttpServletResponse response) {
+	private void getByMemberOrTrainer(HttpServletRequest request, HttpServletResponse response) {
 		
-		String trainerNoStr = request.getParameter("trainerNo");
-        Integer trainerNo = (trainerNoStr == null ||  trainerNoStr.length() == 0 ) ? null : Integer.valueOf(trainerNoStr);
+		Integer trainerNo = Integer.valueOf(request.getParameter("trainerNo"));
 		
         String memNameStr = request.getParameter("memName");
         String memName = (memNameStr == null || memNameStr.trim().length() == 0) ? null : memNameStr;
+        
+        String forwardPath = "";
+        
+        if(trainerNo == 0 && memNameStr == null) {
+        	getAll(request, response);
+        	forwardPath = "/backend/appointment/appointment.jsp";
+        	System.out.println("1111111111111111111111111111111111111111111111111 trainerNo == 0 && memName == null");
+        }else if(trainerNo == 0 && memName != null){
+        	try {
+				getByMemName(request, response);
+				forwardPath = "/backend/appointment/appointmentByMemName.jsp";
+				System.out.println("22222222222222222222222222222222222222222222 trainerNo == 0 && memName != null");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        }else if(trainerNo != 0 && memName == null){
+        	try {
+				getByTrainerNo(request, response);
+				forwardPath = "/backend/appointment/appointmentByTrainerNo.jsp";
+				System.out.println("33333333333333333333333333333333333333333 trainerNo != 0 && memName == null");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        }else if(trainerNo != 0 && memName != null){
+        	try {
+				getByBoth(request, response);
+				forwardPath = "/backend/appointment/appointmentByBoth.jsp";
+				System.out.println("444444444444444444444444444444444444 trainerNo != 0 && memName != null");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        }
+        try {
+			request.getRequestDispatcher(forwardPath).forward(request, response);
+		} catch (ServletException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+//		resp.getWriter().println(action);
 	}
 }

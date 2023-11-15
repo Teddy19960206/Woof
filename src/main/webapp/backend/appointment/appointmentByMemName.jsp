@@ -87,12 +87,13 @@ tr:nth-child(odd) {
 </head>
 <body>
 <%@ include file="/backend/backbody.file" %>
-<%-- <p>${param.memName}</p> --%>
+<p>trainerNo = ${param.trainerNo}</p>
+<p>memName = ${param.memName}</p>
 <%-- <p>PTAFPageQty4 = ${PTAPageQty4}</p> --%>
 <jsp:useBean id="trainerServer" scope="page" class="com.woof.trainer.service.TrainerServiceImpl"/>
 <div class="container py-3" >
 	<div class="row">
-		<form method="POST" ACTION="${pageContext.request.contextPath}/privatetrainingappointmentform?action=getpta">
+		<form method="POST" ACTION="${pageContext.request.contextPath}/privatetrainingappointmentform?action=getboth">
         	<div class="col-3 select">
 	        	<label for="trainerSelect" class="col-form-label">訓練師名稱：</label>
 	          	<select name="trainerNo" class="form-select">
@@ -108,6 +109,10 @@ tr:nth-child(odd) {
             </div>
             <div class="col-3">
                 <label class="col-form-label">開始查詢</label>
+                <%
+                String memName = request.getParameter("memName");
+                String trainerNo = request.getParameter("trainerNo");
+                %>
                 <button type="submit" id="button" class="btn btn-primary d-block">提交</button>
 			</div>
 		</form>
@@ -162,7 +167,7 @@ tr:nth-child(odd) {
 		</c:forEach>
 
 	</table>
-<%-- 	<p>memName = ${param.memName}</p> --%>
+	<p>memName = ${param.memName}</p>
 	<p>currentPage = ${currentPage}</p>
 	<p>PTAFPageQty4 = ${PTAPageQty4}</p>
 	<div class="pagination">
@@ -175,7 +180,7 @@ tr:nth-child(odd) {
 	<c:if test="${currentPage + 1 <= PTAFPageQty4}">
 		<a href="${pageContext.request.contextPath}/privatetrainingappointmentform?action=getbymemname&page=${currentPage + 1}&memName=${param.memName}">下一頁</a>&nbsp;
 	</c:if>
-	<c:if test="${currentPage != PTAFPageQty4}">
+	<c:if test="<% currentPage != PTAFPageQty4 %>">
 		<a href="${pageContext.request.contextPath}/privatetrainingappointmentform?action=getbymemname&page=${PTAFPageQty4}&memName=${param.memName}">至最後一頁</a>&nbsp;
 	</c:if>
 
