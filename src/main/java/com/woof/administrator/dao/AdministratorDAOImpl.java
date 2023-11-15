@@ -47,7 +47,7 @@ public class AdministratorDAOImpl implements AdministratorDAO {
 			//並把HD 和 Status放回 不接受前端參數修改
 			//---------------------------------------
 			administrator.setAdminHd(originalData.getAdminHd());
-			
+			administrator.setAdminRd(originalData.getAdminRd());
 			administrator.setAdminStatus(originalData.getAdminStatus());
 			administrator.setAdminVerifyStatus(originalData.getAdminVerifyStatus());
 			administrator.setAdminFuncName(originalData.getAdminFuncName());

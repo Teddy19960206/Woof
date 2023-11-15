@@ -229,8 +229,7 @@ section {
     </div>
          </div>
 	
-<%--     		<td><input type="button" value="修改" onclick="processUpdate({adminNo:'${administrator.adminNo}'});"></td>   --%>
-<%--     	<td><input type="button" value="刪除" onclick="processDelete({ADMIN_NO:'${administrator.adminNo}'});"></td>	  --%>
+
     </c:forEach>
           </div>
           <div class="swiper-pagination"></div>
