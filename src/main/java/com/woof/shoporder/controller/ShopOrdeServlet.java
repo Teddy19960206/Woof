@@ -20,6 +20,7 @@ import com.woof.faq.service.FaqServiceImpl;
 import com.woof.member.entity.Member;
 import com.woof.member.service.MemberService;
 import com.woof.member.service.MemberServiceImpl;
+import com.woof.privatetrainingappointmentform.entity.PrivateTrainingAppointmentForm;
 import com.woof.shoporder.entity.ShopOrder;
 import com.woof.shoporder.service.ShopOrderService;
 import com.woof.shoporder.service.ShopOrderServiceImpl;
@@ -59,6 +60,10 @@ public class ShopOrdeServlet extends HttpServlet {
 		case "addshoporder":
 			forwardPath = addshoporder(request, response);
 			break;
+			
+		case "getByMemNo":
+//			forwardPath = getByMemNo(request, response);
+			break;
 
 		// 全部不成立會跑到這邊
 		default:
@@ -94,12 +99,10 @@ public class ShopOrdeServlet extends HttpServlet {
 
 		int shopOrderNo = Integer.parseInt(request.getParameter("shopOrderNo"));
 
-		
 		String memNo = request.getParameter("memNo");
-        MemberService memberService = new MemberServiceImpl();
-        Member member = memberService.findMemberByNo(memNo);		
-		
-        
+		MemberService memberService = new MemberServiceImpl();
+		Member member = memberService.findMemberByNo(memNo);
+
 		String prodOrderDatefront = request.getParameter("prodOrderDate");
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Date parsedDate = null; // 初始化為 null
@@ -109,7 +112,6 @@ public class ShopOrdeServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 		Timestamp prodOrderDate = new Timestamp(parsedDate.getTime());
-
 
 		int payMethod = Integer.parseInt(request.getParameter("payMethod"));
 		Boolean shipMethod = Boolean.parseBoolean(request.getParameter("shipMethod"));
@@ -121,8 +123,7 @@ public class ShopOrdeServlet extends HttpServlet {
 		int orderTotalPrice = Integer.parseInt(request.getParameter("orderTotalPrice"));
 		int actualPrice = Integer.parseInt(request.getParameter("actualPrice"));
 		int orderStatus = Integer.parseInt(request.getParameter("orderStatus"));
-		
-		
+
 		System.out.println(shopOrderNo);
 		System.out.println(orderStatus);
 		System.out.println(hasReturn);
@@ -146,58 +147,98 @@ public class ShopOrdeServlet extends HttpServlet {
 	private String addshoporder(HttpServletRequest request, HttpServletResponse response) {
 
 		String memNo = request.getParameter("memNo");
-		System.out.println("========================="+memNo);
+		
+		System.out.println("======================================" + memNo);
+		
 		MemberService memberService = new MemberServiceImpl();
 		Member member = memberService.findMemberByNo(memNo);
-      
-		System.out.println(member);
-		
-	    java.util.Date now = new java.util.Date();
-	    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-	    String coTimeStr = dateFormat.format(now);
-        java.util.Date parsedDate = null; // 初始化為 null
+
+		System.out.println("======================================" + member);
+
+		java.util.Date now = new java.util.Date();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String coTimeStr = dateFormat.format(now);
+		java.util.Date parsedDate = null; // 初始化為 null
 		try {
 			parsedDate = dateFormat.parse(coTimeStr);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        Timestamp prodOrderDate = new Timestamp(parsedDate.getTime());	
-	
-        int payMethod = Integer.parseInt(request.getParameter("payment"));
-        Boolean shipMethod = Boolean.parseBoolean(request.getParameter("shipMethod"));
-	
-        int orderStatus = 0;
+		Timestamp prodOrderDate = new Timestamp(parsedDate.getTime());
+
+		System.out.println("======================================" + prodOrderDate);
+
+		int payMethod = Integer.parseInt(request.getParameter("payment"));
+		
+		System.out.println("======================================" + payMethod);
+		
+		Boolean shipMethod = Boolean.parseBoolean(request.getParameter("shipMethod"));
+
+		System.out.println("======================================" + shipMethod);
+		
+		int orderStatus = 0;
 		request.getSession().setAttribute("orderStatus", orderStatus);
 
 		String recName = request.getParameter("memName");
+		
+		System.out.println("======================================" + recName);
+
 		String recMobile = request.getParameter("phone");
+		
+		System.out.println("======================================" + recMobile);
+		
 		String recAddress = request.getParameter("address");
-	
+		
+		System.out.println("======================================" + recAddress);
+
 		Boolean hasReturn = false;
 		request.getSession().setAttribute("hasReturn", hasReturn);
-	
+
+		
 		int moCoin = Integer.parseInt(request.getParameter("inputSmmp"));
+
+		System.out.println("======================================" + moCoin);
+		
 		int orderTotalPrice = Integer.parseInt(request.getParameter("totalPrice"));
 		int actualPrice = Integer.parseInt(request.getParameter("totalAfterCoins"));
 
-
-		int saved = (Integer) shopOrderService.addShopOrder(member, prodOrderDate, payMethod, shipMethod, orderStatus, recName, recMobile, recAddress, hasReturn, moCoin, orderTotalPrice, actualPrice);
+		
+		int saved = (Integer) shopOrderService.addShopOrder(member, prodOrderDate, payMethod, shipMethod, orderStatus,
+				recName, recMobile, recAddress, hasReturn, moCoin, orderTotalPrice, actualPrice);
 		// 如果有確定進入資料庫會有流水編號，再去找流水編號的值，顯示在jsp
 		var result = shopOrderService.findByShopOrderNo(saved);
 
+		
+		
 		if (saved > 0) {
 //		    return 1; // 訂單新增成功
-	        System.out.println("訂單新增成功");
-	    } else {
+			System.out.println("訂單新增成功");
+		} else {
 //	        return -1; // 訂單新增失败
-	        System.out.println("新增失敗");
-	    }
-		
+			System.out.println("新增失敗");
+		}
+
 		// 資料給下一個jsp
 		request.setAttribute("result", result);
 		return "/frontend/cartlist/finishorder.jsp";
 	}
+	
+	
+private void getByMemNo(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		
+		String memNo = request.getParameter("memNo");
+		String page = request.getParameter("page");
+		int currentPage = (page == null) ? 1 : Integer.parseInt(page);
+		int PTAPageQty2 = shopOrderService.getPageTotal2(memNo);
+		request.getSession().setAttribute("PTAPageQty2", PTAPageQty2);
+		
+		List<ShopOrder> members = shopOrderService.findByMemNo(memNo , currentPage); 
 
+		request.setAttribute("members", members);
+		request.setAttribute("currentPage", currentPage);
+		
+//		return "/backend/shoporder/getAllshoporder.jsp";
+	}
 
 }
