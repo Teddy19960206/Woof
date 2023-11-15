@@ -204,6 +204,8 @@ public class ShopOrdeServlet extends HttpServlet {
 		// 如果有確定進入資料庫會有流水編號，再去找流水編號的值，顯示在jsp
 		var result = shopOrderService.findByShopOrderNo(saved);
 
+		
+		
 		if (saved > 0) {
 //		    return 1; // 訂單新增成功
 			System.out.println("訂單新增成功");

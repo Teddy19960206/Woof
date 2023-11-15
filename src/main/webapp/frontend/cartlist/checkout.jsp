@@ -23,14 +23,14 @@
 
 /* 價格的位置調整 */
 .summary-container {
-	display: flex;
-	flex-direction: column;
+/* 	display: flex; */
+ 	flex-direction: column; 
 }
 
 .summary-row {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
+ 	display: flex; 
+  	justify-content: space-between;  
+ 	align-items: center; 
 	margin-bottom: 5px;
 }
 
@@ -39,8 +39,8 @@
 }
 
 .summary-value, .input-row .summary-value {
-	text-align: right;
-	display: flex;
+/* 	text-align: right; */
+ 	display: flex; 
 	justify-content: flex-end;
 }
 </style>
@@ -80,22 +80,20 @@
 						<div class="summary-row">
 							<div class="summary-label">總計:</div>
 							<div class="summary-value">
-								NT$<span id="totalPrice" name="totalPrice" ></span>
+								NT$<input id="totalPrice" name="totalPrice" class="form-control border-0 text-end" style="width: 100px; height: 22px;" value="0" readonly="readonly">
+								
 							</div>
 						</div>
 						<div class="summary-row">
 							<div class="summary-label">毛毛幣折抵:</div>
-							<div class="summary-value">
-								<input type="hidden" id="hiddenTotalPrice" name="totalPrice" value="">
-								<input class="form-check-input" type="radio" name="mocoinOption" value="usemocoin" id="UseSmmp">使用
+							<div class="summary-value ">
+								<input class="form-check-input ml-5" type="radio" name="mocoinOption" value="usemocoin" id="UseSmmp">使用
 								<input class="form-check-input" type="radio" name="mocoinOption" value="nousemocoin" id="notusemocoin" checked>不使用
 							</div>
 						</div>
 						<div class="summary-value">
-							<input type="hidden" id="hiddenTotalAfterCoins" name="totalAfterCoins" value="">
 							<input type="text" id="inputSmmp" name="inputSmmp" value="0"
-								class="form-control text-end" style="width: 70px"
-								oninput="updateTotalAndCoins()" disabled>
+								class="form-control text-end mb-1" style="width: 70px; height: 25px;" disabled>
 						</div>
 						<div class="summary-row">
 							<div class="summary-label">剩餘毛毛幣:</div>
@@ -106,10 +104,13 @@
 						<div class="summary-row">
 							<div class="summary-label">扣除毛毛幣總金額:</div>
 							<div class="summary-value">
-								NT$<span id="totalAfterCoins" name="totalAfterCoins"></span>
+<!-- 								NT$<span id="totalAfterCoins" name="totalAfterCoins"></span> -->
+								NT$<input id="totalAfterCoins" name="totalAfterCoins" class="form-control border-0 text-end" style="width: 100px; height: 22px;" value="0" readonly="readonly">
+								
 							</div>
 						</div>
 					</div>
+					
 				</div>
 
 				<!-- 超過自己所擁有的毛毛幣模態框 -->
@@ -157,7 +158,7 @@
 					<div class="row">
 						<div class="col-md">
 							<div class="form-group">
-								<label for="name">會員姓名</label> <input type="hidden" id="memNo"
+								<label for="name" class="mt-3">會員姓名</label> <input type="hidden" id="memNo"
 									name="memNo" value="${member.memNo}" data-memname="${member.memNo}" /> <input
 									type="text" class="form-control" id="name" name="memName"
 									value="${member.memName}" required>
@@ -182,7 +183,7 @@
 								for="shipMethod">宅配</label>
 						</div>
 						<div>
-							<label for="address">地址</label> <input type="text"
+							<label for="address" class="mt-3">地址</label> <input type="text"
 								class="form-control" id="address" name="address"
 								value="${member.memAddress}" required>
 						</div>
