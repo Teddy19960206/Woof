@@ -64,6 +64,12 @@ body {
 				<button class="btn btn-access" id="loginButton" type="submit">
 					<b>登入</b>
 				</button>
+
+				<a href="${pageContext.request.contextPath}/home">
+					<img src="${pageContext.request.contextPath}/webutil/icons/google.svg" style="width: 20px; margin-left: 20px; margin-right: 2px"></img>
+					<p id="google" style="display: inline-block">Google登入</p>
+				</a>
+
 			</div>
 			<div class="form-group form-check">
 				<input type="checkbox" class="form-check-input" name="remberme"
@@ -74,7 +80,6 @@ body {
 		<a href='/woof/frontend/member/login/addmember.jsp'
 			class="text-decoration-none"><b>註冊會員</b></a> <a href="#"
 			class="text-decoration-none"> <b>忘記密碼</b></a>
-		<a href="${pageContext.request.contextPath}/home">GOOGLE登入</a>
 	</div>
 
 	<script>

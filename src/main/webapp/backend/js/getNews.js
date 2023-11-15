@@ -131,9 +131,11 @@ $(document).on("click" , "button.schudeleCancel" , function(){
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
-        confirmButtonText: "是, 刪除"
+        confirmButtonText: "是, 退款"
     }).then((result) => {
         if (result.isConfirmed) {
+            // 需發送到後端進行修改 ？？？？？？？？？？？？？？？？？？
+
             refundAllFetch(this.getAttribute("data-id"));
             Swal.fire({
                 title: "已刪除",
