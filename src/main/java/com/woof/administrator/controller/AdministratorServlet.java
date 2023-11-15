@@ -125,6 +125,12 @@ public class AdministratorServlet extends HttpServlet {
 		admin.setAdminStatus(Integer.valueOf(req.getParameter("ADMIN_STATUS")));
 		admin.setAdminVerifyStatus(Integer.valueOf(req.getParameter("ADMIN_VERIFY_STATUS")));
 		admin.setAdminFuncName(Integer.valueOf(req.getParameter("ADMIN_FUNC_NAME")));
+		  Part p = req.getPart("ADMIN_PHOTO");
+	        InputStream input = p.getInputStream();
+	        byte[] photo = new byte[input.available()];
+	        input.read(photo);
+	        input.close();
+	        admin.setAdminPhoto(photo);
 		administratorService.updateAdministrator(admin);
 		//導到指定的URL 頁面上 把請求回應都帶過去
 //		String url = "/frontend/administrator/administrator.jsp";
@@ -156,7 +162,12 @@ private void processUpdate2(HttpServletRequest req, HttpServletResponse res) thr
 		admin.setAdminBd(sqlDate4);
 		admin.setEmergencyContactName(req.getParameter("EMERGENCY_CONTACTNAME"));
 		admin.setEmergencyContactel(req.getParameter("EMERGENCY_CONTACTEL"));
-
+		  Part p = req.getPart("ADMIN_PHOTO");
+	        InputStream input = p.getInputStream();
+	        byte[] photo = new byte[input.available()];
+	        input.read(photo);
+	        input.close();
+	        admin.setAdminPhoto(photo);
 		administratorService.updateAdministrator2(admin);
 		//導到指定的URL 頁面上 把請求回應都帶過去
 

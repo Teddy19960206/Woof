@@ -37,11 +37,16 @@
 	 	      alert("哇 錯了");
 	 	     }
 	 	});	
-	 	 
-	 	 $("#ADMIN_PHOTO").change(function(){
-	 		 //當選擇的檔案 發生改變
-	 		 readURL(this);
-	 	 })
+	 	  $("#ADMIN_PHOTO").change(function() {
+	 	        if (this.files && this.files[0]) {
+	 	            var reader = new FileReader();
+	 	            reader.onload = function(e) {
+	 	                $('#myphoto').attr('src', e.target.result);
+	 	            }
+	 	            reader.readAsDataURL(this.files[0]);
+	 	        }
+	 	    });
+	 
 	    
 	 	 //日期格式
 
@@ -49,20 +54,12 @@
 	 	 $("#ADMIN_HD").datepicker({ dateFormat: 'yy-mm-dd' });
 	})
 	
-	function readURL(input){
-		if(input.files && input.files[0]){
-			var reader = new FileReader();
-			reader.onload = function(e){
-				$('#myphoto').attr('src',e.target.result);
-			}
-			reader.readAsDataURL(input.files[0]);
-		}
-	}
+	
 </script>
 </head>
 <body>
 <!--                               request.getContextPath()動態根路徑，action=update找到後端switch(action)的update-->
-	<form method="post" action="<%=request.getContextPath()%>/administrator.do?action=update2">
+	<form method="post" action="<%=request.getContextPath()%>/administrator.do?action=update2" enctype="multipart/form-data">
 		<input type="file" style="display:none;" id="ADMIN_PHOTO" name="ADMIN_PHOTO"> 
 		<table>
 		<tr>
@@ -129,18 +126,18 @@
 		</tr>
 
 		</table>
-
+<!-- 	顯示大頭貼的DIV -->
+<!-- 	<img> -->
+ <div>個人大頭貼</div>
+   <img src="#" id="myphoto" name="myphoto" accept="image/*">
+<input type="file" id="ADMIN_PHOTO" name="ADMIN_PHOTO" style="display:none;" accept="image/*">
+<input type="button" value="修改照片" onclick="$('#ADMIN_PHOTO').click();" >
 		
 		<button type="submit">送出</button>
                     <!-- 		取消後跳轉回去首頁 -->
 		<input  type="button" onclick="window.location.href='<%=request.getContextPath()%>/frontend/administrator/administratorcenter.jsp'" value="取消">
 	</form>
-<!-- 	顯示大頭貼的DIV -->
-<!-- 	<img> -->
-<!-- 	<div>個人大頭貼</div> -->
-<!-- <img accept="image/*" id="myphoto" name="myphoto" src="#"> -->
-<!-- <input type="file" id="ADMIN_PHOTO" name="ADMIN_PHOTO" style="display: none;" onchange="uploadPhoto()"> -->
-<!-- <input type="button" value="修改照片" onclick="document.getElementById('ADMIN_PHOTO').click();"> -->
+
 
 
 

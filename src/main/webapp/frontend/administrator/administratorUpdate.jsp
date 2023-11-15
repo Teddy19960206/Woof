@@ -40,6 +40,16 @@
 	 	      alert("哇 錯了");
 	 	     }
 	 	});	
+	 	    $("#ADMIN_PHOTO").change(function() {
+	 	        if (this.files && this.files[0]) {
+	 	            var reader = new FileReader();
+	 	            reader.onload = function(e) {
+	 	                $('#myphoto').attr('src', e.target.result);
+	 	            }
+	 	            reader.readAsDataURL(this.files[0]);
+	 	        }
+	 	    });
+	 	
 	    
 	 	 //日期格式
 	 	 $("#ADMIN_HD").datepicker({ dateFormat: 'yy-mm-dd' });
@@ -51,7 +61,7 @@
 </head>
 <body>
 <!--                               request.getContextPath()動態根路徑，action=update找到後端switch(action)的update-->
-	<form method="post" action="<%=request.getContextPath()%>/administrator.do?action=update">
+	<form method="post" action="<%=request.getContextPath()%>/administrator.do?action=update"  enctype="multipart/form-data">
 		<table>
 		<tr>
 			<th>管理員帳號</th>
@@ -148,8 +158,12 @@
 				<input type="radio" name="ADMIN_FUNC_NAME" value="2">訓練師
 			</td>
 		</tr>
+		
 		</table>
-
+  <div>個人大頭貼</div>
+   <img src="#" id="myphoto" name="myphoto" accept="image/*">
+<input type="file" id="ADMIN_PHOTO" name="ADMIN_PHOTO" style="display:none;" accept="image/*">
+<input type="button" value="修改照片" onclick="$('#ADMIN_PHOTO').click();" >
 		
 		<button type="submit">送出</button>
                     <!-- 		取消後跳轉回去首頁 -->
