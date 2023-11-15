@@ -4,9 +4,25 @@
 <html lang="zh-TW">
 <head>
 <%@ include file="/backend/backhead.file" %>
-<title>管理員中心</title>
+<title>訓練師中心</title>
 
+<style>
+a[name="adminNo"] {
+    font-family: 'Arial', sans-serif; /* 設置字體 */
+    color: #ffffff; /* 文字顏色 */
+    background-color: #007bff; /* 背景顏色 */
+    padding: 10px 15px; /* 內邊距 */
+    text-decoration: none; /* 移除文字下劃線 */
+    border-radius: 4px; /* 邊框圓角 */
+    transition: all 0.3s ease; /* 添加過渡效果 */
+}
 
+a[name="adminNo"]:hover {
+    background-color: #0056b3; /* 滑鼠懸停時的背景顏色 */
+    color: #ffcc00; /* 滑鼠懸停時的文字顏色 */
+}
+
+</style>
 
 
 <script type="text/javascript">
@@ -31,12 +47,17 @@ function processUpdate2(jsonData){
 						您好，
 						<c:out value="${administrator.adminName}！" />
 					</div>
-					<ul class="list-group list-group-flush">
-						<li class="list-group-item">
-							<button value="修改" onclick="processUpdate2({adminNo:'${administrator.adminNo}'});">修改</button>
-						</li>
-<!-- 						<li class="list-group-item">變更密碼</li> -->
-					</ul>
+					 <ul class="list-group list-group-flush">
+      <li class="list-group-item">
+       <form method="post"
+        action="${pageContext.request.contextPath}/administrator.do"
+        style="margin-bottom: 0px;">
+        <input type="hidden" name="action" value="update2"> <input
+         type="hidden" name="adminNo" value="${administrator.adminNo}"> <a name="adminNo"
+         onclick="processUpdate2({adminNo:'${administrator.adminNo}'});"
+        >修改基本資料</a>
+       </form>
+      </li>
 				</div>
 			</div>
 			<div class="col-12 col-md-8">
@@ -60,7 +81,7 @@ function processUpdate2(jsonData){
 								<tr>
 									<th scope="row">照片</th>
 									<td><img
-<%-- 										src="${pageContext.request.contextPath}/DBPngReader?action=administrator&id=${administrator.adminNo}" --%>
+									src="${pageContext.request.contextPath}/DBPngReader?action=administrator&id=${administrator.adminNo}" 
 										class="img-thumbnail" style="width: 100px; height: 100px">
 									</td>
 								</tr>

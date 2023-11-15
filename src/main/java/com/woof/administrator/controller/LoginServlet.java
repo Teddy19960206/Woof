@@ -48,7 +48,7 @@ public class LoginServlet extends HttpServlet {
 			case "administratorlogout1":
 				Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
 				req.setAttribute("errorMsgs", errorMsgs);
-				// 從請求中獲取會員編號和密碼
+				// 從請求中獲取管理員no和密碼
 				String adminNoStr = req.getParameter("adminNo");
 				String adminPassword = req.getParameter("adminPassword");
 
@@ -56,12 +56,12 @@ public class LoginServlet extends HttpServlet {
 					// 驗證帳號和密碼不為空
 					if (adminNoStr != null && !adminNoStr.trim().isEmpty() && adminPassword != null
 							&& !adminPassword.trim().isEmpty()) {
-						// 使用administratorService根據會員編號查找會員
+						// 使用administratorService根據管理員no查找會員
 						Administrator administrator = administratorService.findAdministratorByAdminNo(adminNoStr);
 
-						// 檢查會員是否存在以及密碼是否匹配
+						// 檢查管理員是否存在以及密碼是否匹配
 						if (administrator != null && administrator.getAdminPassword().equals(adminPassword)) {
-							// 登入成功，將會員信息設置到session中
+							// 登入成功，將管理員信息設置到session中
 							HttpSession session = req.getSession();
 							session.setAttribute("administrator", administrator);
 							
@@ -84,7 +84,7 @@ public class LoginServlet extends HttpServlet {
 				} catch (Exception e) {
 					// 處理其他潛在錯誤
 					e.printStackTrace();
-					req.setAttribute("error", "系統錯誤，請聯絡系統管理員。");
+					req.setAttribute("error", "系統錯誤，請聯絡總管理員。");
 					RequestDispatcher dispatcher = req.getRequestDispatcher("/frontend/administrator/errorPage.jsp");
 					dispatcher.forward(req, res);
 				}

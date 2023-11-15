@@ -40,6 +40,7 @@
 	 	      alert("哇 錯了");
 	 	     }
 	 	});	
+	 	// 圖片
 	 	    $("#ADMIN_PHOTO").change(function() {
 	 	        if (this.files && this.files[0]) {
 	 	            var reader = new FileReader();
