@@ -114,7 +114,7 @@ function togglePasswordVisibility(fieldId) {
                 <input type="hidden" name="token" value="${param.token}" />
                 <input type="hidden" name="action" value="changepwd">
                 <input type="hidden" name="memEmail" value="${param.memEmail}">
-                <button type="submit" class="btn btn-primary">提交</button>
+                <button type="submit" class="btn btn-primary">更改</button>
             </form>
         </div>
     </div>

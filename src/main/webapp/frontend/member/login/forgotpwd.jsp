@@ -81,7 +81,7 @@
                     <small class="error-msg">${errorMsgs.memEmail}</small>
                 </div>
                 <input type="hidden" name="action" value="reset">
-                <button type="submit" class="btn btn-primary">提交</button>
+                <button type="submit" class="btn btn-primary">送出</button>
             </form>
         </div>
     </div>
