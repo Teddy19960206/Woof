@@ -123,7 +123,6 @@ body {
 						<!-- 再次使用 sessionScope 來獲取用戶名 -->
 						您好，
 						<c:out value="${member.memName}！" />
-						  ૮˙ﻌ˙ა
 					</div>
 					<ul class="list-group list-group-flush">
 						<li class="list-group-item">
@@ -133,21 +132,21 @@ body {
 								<input type="hidden" name="action" value="update"> <input
 									type="hidden" name="memNo" value="${member.memNo}"> <a
 									onclick="processUpdate({memNo:'${member.memNo}'});"
-									style="cursor: pointer;">修改基本資料</a>
+									style="cursor: pointer;"><i class="fa-solid fa-user"></i> 修改基本資料</a>
 							</form>
 						</li>
 						<li class="list-group-item"><a
-							onclick="toggleOrderManagement()" style="cursor: pointer;">訂單管理</a>
+							onclick="toggleOrderManagement()" style="cursor: pointer;"><i class="fa-solid fa-clipboard-list"></i> 訂單管理</a>
 							<div class="left-icon">
 							<ul id="orderManagementOptions" style="display: none;">
 								<li class="list-group-item"><a
-									onclick="toggleCourseManagement()" style="cursor: pointer;">課程管理</a>
+									onclick="toggleCourseManagement()" style="cursor: pointer;"><i class="fa-solid fa-school"></i> 課程管理</a>
 									<ul id="courseManagementOptions" style="display: none;">
 										<li class="list-group-item"><a href="#">私人訓練師</a></li>
 										<li class="list-group-item"><a href="#">團體報名訂單管理</a></li>
 									</ul></li>
 									<li class="list-group-item"><a
-									onclick="toggleShopOrderManagement()" style="cursor: pointer;">商城訂單查詢</a>
+									onclick="toggleShopOrderManagement()" style="cursor: pointer;"><i class="fa-solid fa-shop"></i> 商城訂單查詢</a>
 									<ul id="shopManagementOptions" style="display: none;">
 								<li class="list-group-item"><a href="#">訂單查詢</a></li>
 								<li class="list-group-item"><a href="#">訂單追蹤</a></li>
@@ -212,14 +211,9 @@ body {
 									<th scope="row">課堂數</th>
 									<td>${member.totalClass}</td>
 								</tr>
-								<tr>
-									<th scope="row">狀態</th>
-									<td>${member.memStatus}</td>
-								</tr>
 							</tbody>
 						</table>
 					</div>
-
 				</div>
 			</div>
 		</div>

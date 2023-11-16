@@ -29,7 +29,7 @@ body {
 	margin-bottom: 10px;
 }
 .span {
-  font-size: 14px;
+  font-size: 16px;
   margin-left: 5px;
   color: #2d79f3;
   font-weight: 500;
@@ -38,8 +38,8 @@ body {
 .p {
   text-align: center;
   color: black;
-  font-size: 14px;
-  margin: 5px 0;
+  font-size: 16px;
+  margin: 15px 0;
 }
 .flex-row {
     display: flex;
@@ -134,10 +134,9 @@ function togglePasswordVisibility(fieldId) {
 <path style="fill:#F14336;" d="M419.404,58.936l-82.933,67.896c-23.335-14.586-50.919-23.012-80.471-23.012
 	c-66.729,0-123.429,42.957-143.965,102.724l-83.397-68.276h-0.014C71.23,56.123,157.06,0,256,0
 	C318.115,0,375.068,22.126,419.404,58.936z"></path>
-
 </svg>
    
-        Google 
+        google
         
       </button>
 		</div>

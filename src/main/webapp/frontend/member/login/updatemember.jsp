@@ -259,7 +259,7 @@ body {
 <%-- 					<small class="error-msg">${errorMsgs.memEmail}</small> --%>
 				</div>
 				<div class="form-group">
-					<label for="memPassword">密碼:</label>
+					<label for="memPassword">密碼(需大於六個字):</label>
 					<div>
 						<div class="form-check form-check-inline">
 							<input class="form__input" pattern=".{6,}" type="TEXT" name="memPassword"
