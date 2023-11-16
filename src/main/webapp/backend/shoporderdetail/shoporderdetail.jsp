@@ -8,7 +8,7 @@ request.setCharacterEncoding("UTF-8");
 <!DOCTYPE html>
 <html>
 <head>
-<title>全部訂單</title>
+<title>訂單明細</title>
 <!--     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> -->
 <style>
 </style>
@@ -21,7 +21,7 @@ request.setCharacterEncoding("UTF-8");
 	<%@ include file="/backend/backbody.file"%>
 
 	<div class="container">
-		<h3>全部訂單</h3>
+		<h3>訂單明細</h3>
 		<table class="table table-bordered small-table"
 			style="font-size: 12px;">
 			<thead>
@@ -128,22 +128,6 @@ request.setCharacterEncoding("UTF-8");
 		</table>
 
 
-		<c:if test="${currentPage > 1}">
-			<a class="btn btn-outline-secondary"
-				href="${pageContext.request.contextPath}/shoporder?action=getAll&page=1">至第一頁</a>&nbsp;
-	</c:if>
-		<c:if test="${currentPage - 1 != 0}">
-			<a class="btn btn-outline-secondary"
-				href="${pageContext.request.contextPath}/shoporder?action=getAll&page=${currentPage - 1}">上一頁</a>&nbsp;
-	</c:if>
-		<c:if test="${currentPage + 1 <= shopOrderPageQty}">
-			<a class="btn btn-outline-secondary"
-				href="${pageContext.request.contextPath}/shoporder?action=getAll&page=${currentPage + 1}">下一頁</a>&nbsp;
-	</c:if>
-		<c:if test="${currentPage != shopOrderPageQty}">
-			<a class="btn btn-outline-secondary"
-				href="${pageContext.request.contextPath}/shoporder?action=getAll&page=${shopOrderPageQty}">至最後一頁</a>&nbsp;
-	</c:if>
 
 
 		<a class="btn btn-secondary"
