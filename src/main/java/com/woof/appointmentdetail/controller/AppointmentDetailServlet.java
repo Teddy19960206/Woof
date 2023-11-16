@@ -1,11 +1,21 @@
 package com.woof.appointmentdetail.controller;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 import com.woof.appointmentdetail.entity.AppointmentDetail;
 import com.woof.appointmentdetail.service.AppointmentDetailService;
 import com.woof.appointmentdetail.service.AppointmentDetailServiceImpl;
+import com.woof.member.entity.Member;
+import com.woof.member.service.MemberService;
+import com.woof.member.service.MemberServiceImpl;
 import com.woof.privatetrainingappointmentform.entity.PrivateTrainingAppointmentForm;
 import com.woof.privatetrainingappointmentform.service.PrivateTrainingAppointmentFormService;
 import com.woof.privatetrainingappointmentform.service.PrivateTrainingAppointmentFormServiceImpl;
+import com.woof.trainer.entity.Trainer;
+import com.woof.trainer.service.TrainerService;
+import com.woof.trainer.service.TrainerServiceImpl;
+import com.woof.util.JsonIgnoreExclusionStrategy;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -38,26 +48,32 @@ public class AppointmentDetailServlet extends HttpServlet {
 		String forwardPath = "";
 		if (action != null) {
 			switch (action) {
+			case "getdetail2":
+				getByPtaNo2(req, resp);
+				break;
 			case "getdetail":
 				getByPtaNo(req, resp);
-				forwardPath = "/frontend/appointmentdetail/appointmentDetail_get.jsp";
+				forwardPath = "/backend/appointment/appointmentDetail.jsp";
 				break;
 			case "gettoadd":
 				beforeAdd(req, resp);
-				forwardPath = "/frontend/appointmentdetail/appointmentDetail_add.jsp";
+				forwardPath = "/backend/appointment/appointmentAdd.jsp";
 				break;
 			case "add":
 				add(req, resp);
-				return;
+				forwardPath = "/backend/appointment/appointmentDetail.jsp";
+				break;
 			case "gettoupdate":
-				forwardPath = "/frontend/appointmentdetail/appoindmentDetail_update.jsp";
+				forwardPath = "/backend/appointment/appointmentDetailUpdate.jsp";
 				break;
 			case "update":
 				update(req, resp);
-				return;
+				forwardPath = "/backend/appointment/appointmentDetail.jsp";
+				break;
 			case "delete":
 				delete(req, resp);
-				return;
+				forwardPath = "/backend/appointment/appointmentDetail.jsp";
+				break;
 			default:
 				forwardPath = "/frontend/privatetrainingappointmentform/privateTrainingAppointmentForm.jsp";
 			}
@@ -80,6 +96,31 @@ public class AppointmentDetailServlet extends HttpServlet {
     	List<AppointmentDetail> appointmentDetails = appointmentDetailService.findAdByPtaNo(ptaNo);
     	req.setAttribute("appointmentDetails",appointmentDetails);
     	req.setAttribute("ptaNo",ptaNo);
+    }
+    private void getByPtaNo2(HttpServletRequest req, HttpServletResponse res) {
+    	
+    	String ptaNoStr = req.getParameter("ptaNo");
+    	Integer ptaNo = Integer.parseInt(ptaNoStr);
+    	List<AppointmentDetail> appointmentDetails = appointmentDetailService.findAdByPtaNo(ptaNo);
+    	req.setAttribute("appointmentDetails",appointmentDetails);
+    	req.setAttribute("ptaNo",ptaNo);
+    	
+    	Gson gson = new GsonBuilder()
+                .setExclusionStrategies()
+                .addSerializationExclusionStrategy(new JsonIgnoreExclusionStrategy(true))
+                .addDeserializationExclusionStrategy(new JsonIgnoreExclusionStrategy(false))
+                .setDateFormat("yyyy-MM-dd")
+                .create();
+    	
+    	JsonObject jsonResponse = new JsonObject();
+        jsonResponse.add("data" , gson.toJsonTree(appointmentDetails));
+        res.setContentType("application/json;charset=UTF-8");
+        try {
+			res.getWriter().write(jsonResponse.toString());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
     
     private void beforeAdd(HttpServletRequest req, HttpServletResponse res) {
@@ -118,7 +159,21 @@ public class AppointmentDetailServlet extends HttpServlet {
 			System.out.println("新增失敗");
 			req.setAttribute("errorMessage", "新增失敗");
 		}
-		res.sendRedirect(req.getContextPath() + "/frontend/privatetrainingappointmentform/privateTrainingAppointmentForm.jsp");
+		Integer ptaClass = (int) appointmentDetailService.getTotalByPtaNo(ptaNo);
+		
+		String memNo = req.getParameter("member");
+		MemberService memberService = new MemberServiceImpl();
+		Member member = memberService.findMemberByNo(memNo);
+
+		Integer trainerNo = Integer.valueOf(req.getParameter("trainer"));
+		TrainerService trainerService = new TrainerServiceImpl();
+		Trainer trainer = trainerService.findTrainerByTrainerNo(trainerNo);
+		
+		PrivateTrainingAppointmentFormService privateTrainingAppointmentFormService = new PrivateTrainingAppointmentFormServiceImpl();
+		 privateTrainingAppointmentFormService.updatePrivateTrainingAppointmentForm(ptaNo, member, trainer,
+					ptaClass);
+		getByPtaNo(req,res);
+//		res.sendRedirect(req.getContextPath() + "/frontend/privatetrainingappointmentform/privateTrainingAppointmentForm.jsp");
 	}
     private void update(HttpServletRequest req, HttpServletResponse res) throws IOException {
     	
@@ -152,7 +207,8 @@ public class AppointmentDetailServlet extends HttpServlet {
     		System.out.println("更新失敗");
     		req.setAttribute("errorMessage", "更新失敗");
     	}
-    	res.sendRedirect(req.getContextPath() + "/frontend/privatetrainingappointmentform/privateTrainingAppointmentForm.jsp");
+    	getByPtaNo(req,res);
+//    	res.sendRedirect(req.getContextPath() + "/frontend/privatetrainingappointmentform/privateTrainingAppointmentForm.jsp");
     }
     
     private void delete(HttpServletRequest req, HttpServletResponse res) throws IOException {
@@ -166,9 +222,21 @@ public class AppointmentDetailServlet extends HttpServlet {
     		System.out.println("刪除失敗");
     		req.setAttribute("errorMessage", "刪除失敗");
     	}
-    	res.sendRedirect(req.getContextPath() + "/frontend/privatetrainingappointmentform/privateTrainingAppointmentForm.jsp");
+    	Integer ptaNo = Integer.parseInt(req.getParameter("ptaNo"));
+    	Integer ptaClass = (int) appointmentDetailService.getTotalByPtaNo(ptaNo);
+		
+		String memNo = req.getParameter("member");
+		MemberService memberService = new MemberServiceImpl();
+		Member member = memberService.findMemberByNo(memNo);
 
+		Integer trainerNo = Integer.valueOf(req.getParameter("trainer"));
+		TrainerService trainerService = new TrainerServiceImpl();
+		Trainer trainer = trainerService.findTrainerByTrainerNo(trainerNo);
+		
+		PrivateTrainingAppointmentFormService privateTrainingAppointmentFormService = new PrivateTrainingAppointmentFormServiceImpl();
+		 privateTrainingAppointmentFormService.updatePrivateTrainingAppointmentForm(ptaNo, member, trainer,
+					ptaClass);
+    	getByPtaNo(req,res);
+//    	res.sendRedirect(req.getContextPath() + "/backend/appointment/appointmentDetail.jsp");
     }
-
-
 }

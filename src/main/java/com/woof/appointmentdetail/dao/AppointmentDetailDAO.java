@@ -25,4 +25,6 @@ public interface AppointmentDetailDAO {
 	List<AppointmentDetail> getAll(int currentPage);
 	
 	long getTotal();
+	
+	long getTotalByPtaNo(Integer ptaNo);
 }

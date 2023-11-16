@@ -5,8 +5,10 @@
 
 <html>
 <head>
+<%@ include file="/backend/backhead.file" %>
 <title>GetAll</title>
 <style>
+<%@ include file="/backend/backbody.file" %>
 body {
 	font-family: Arial, sans-serif;
 	background-color: #f0f0f0;
@@ -135,5 +137,6 @@ tr:nth-child(odd) {
 
 
 <!-- 	</form> -->
+<%@ include file="/backend/backfoot.file" %>
 </body>
 </html>

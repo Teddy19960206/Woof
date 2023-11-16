@@ -3,11 +3,18 @@ package com.woof.privatetrainingappointmentform.dao;
 import static com.woof.util.Constants.PAGE_MAX_RESULT;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import com.woof.groupcourseorder.entity.GroupCourseOrder;
 import com.woof.privatetrainingappointmentform.entity.PrivateTrainingAppointmentForm;
 import org.hibernate.query.NativeQuery;
 import org.hibernate.query.Query;
@@ -128,4 +135,44 @@ public class PrivateTrainingAppointmentFormDAOImpl implements PrivateTrainingApp
 	}
 
 
+
+	@Override
+	public List<PrivateTrainingAppointmentForm> getByMemName(String memName, int currentPage) {
+		return getSession().createQuery("FROM PrivateTrainingAppointmentForm p WHERE p.member.memName LIKE :memName",PrivateTrainingAppointmentForm.class)
+				.setParameter("memName", "%" + memName + "%")
+				.setMaxResults(PAGE_MAX_RESULT)
+				.getResultList();
+		
+
+	}
+
+	@Override
+	public long getTotalByMemName(String memName) {
+		long totalCount = getSession()
+		        .createQuery("SELECT COUNT(*) from PrivateTrainingAppointmentForm p WHERE p.member.memName LIKE :memName", Long.class)
+		        .setParameter("memName", "%" + memName + "%")
+		        .uniqueResult();
+
+//		    System.out.println("===============================Total count for member " + memName + " is: " + totalCount); // 在這裡印出值
+
+		    return totalCount;
+	}
+
+	@Override
+	public List<PrivateTrainingAppointmentForm> getByBoth(String memName, Integer trainerNo, int currentPage) {
+		return getSession().createQuery("FROM PrivateTrainingAppointmentForm p WHERE p.trainer.trainerNo = :trainerNo AND p.member.memName LIKE :memName",PrivateTrainingAppointmentForm.class)
+				.setParameter("trainerNo", trainerNo)
+				.setParameter("memName", "%" + memName + "%")
+				.setMaxResults(PAGE_MAX_RESULT)
+				.getResultList();
+	}
+
+	@Override
+	public long getTotalByBoth(String memName, Integer trainerNo) {
+		return getSession().createQuery("SELECT COUNT(*) FROM PrivateTrainingAppointmentForm p WHERE p.trainer.trainerNo = :trainerNo AND p.member.memName LIKE :memName", Long.class)
+				.setParameter("trainerNo", trainerNo)
+				.setParameter("memName", "%" + memName + "%")
+		        .uniqueResult();
+	}
+	
 }
