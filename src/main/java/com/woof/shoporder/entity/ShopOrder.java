@@ -30,7 +30,7 @@ public class ShopOrder implements Serializable {
 	private Timestamp prodOrderDate;
 
 	@Expose
-    @Column(name="PAY_METHOD", nullable=false, columnDefinition = "TINYINT")   //付款方式 0:信用卡 1:匯款 
+    @Column(name="PAY_METHOD", nullable=false, columnDefinition = "TINYINT")   //付款方式 0:信用卡 1:匯款 2:綠界
 	private Integer payMethod;
 
 	@Expose
@@ -38,7 +38,7 @@ public class ShopOrder implements Serializable {
 	private Boolean shipMethod;
 
 	@Expose
-    @Column(name="ORDER_STATUS", nullable=false, columnDefinition = "TINYINT")   //訂單狀態 0:成立 1:出貨 2:完成 3:取消 4:未付款
+    @Column(name="ORDER_STATUS", nullable=false, columnDefinition = "TINYINT")   //訂單狀態 0:成立 1:出貨 2:完成 3:取消 4:未付款 5:已付款
 	private Integer orderStatus;
 
 	@Expose

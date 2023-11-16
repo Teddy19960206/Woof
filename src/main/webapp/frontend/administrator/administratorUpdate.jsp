@@ -1,5 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <html>
 <head>
 <!-- 日期的套版 -->
@@ -32,12 +32,25 @@
 	 	    	 $('#ADMIN_HD').val(jsonObj.adminHd);
 	 	    	 $('#ADMIN_RD').val(jsonObj.adminRd);
 	 	    	 $('input[name=ADMIN_STATUS][value='+jsonObj.adminStatus+']').prop('checked',true);
+	 	    	 $('#ADMIN_VERIFY_STATUS').val(jsonObj.adminVerifyStatus);
+	 	    	$('input[name=ADMIN_FUNC_NAME][value='+jsonObj.adminFuncName+']').prop('checked',true);
 	 	     },
 	 	     //Ajax失敗後要執行的function，此例為印出錯誤訊息
 	 	     error : function(xhr, ajaxOptions, thrownError) {
 	 	      alert("哇 錯了");
 	 	     }
 	 	});	
+	 	// 圖片
+	 	    $("#ADMIN_PHOTO").change(function() {
+	 	        if (this.files && this.files[0]) {
+	 	            var reader = new FileReader();
+	 	            reader.onload = function(e) {
+	 	                $('#myphoto').attr('src', e.target.result);
+	 	            }
+	 	            reader.readAsDataURL(this.files[0]);
+	 	        }
+	 	    });
+	 	
 	    
 	 	 //日期格式
 	 	 $("#ADMIN_HD").datepicker({ dateFormat: 'yy-mm-dd' });
@@ -49,7 +62,7 @@
 </head>
 <body>
 <!--                               request.getContextPath()動態根路徑，action=update找到後端switch(action)的update-->
-	<form method="post" action="<%=request.getContextPath()%>/administrator.do?action=update">
+	<form method="post" action="<%=request.getContextPath()%>/administrator.do?action=update"  enctype="multipart/form-data">
 		<table>
 		<tr>
 			<th>管理員帳號</th>
@@ -80,12 +93,6 @@
 			<th>管理員信箱</th>
 			<td>
 				<input type="text" name="ADMIN_EMAIL" id="ADMIN_EMAIL" placeholder="XXX@gmail.com">
-			</td>
-		</tr>
-		<tr>
-			<th>管理員密碼</th>
-			<td>
-				<input type="password" name="ADMIN_PASSWORD" id="ADMIN_PASSWORD" >
 			</td>
 		</tr>
 		<tr>
@@ -134,12 +141,30 @@
 			<th>管理員帳號狀態</th>
 			<td>
 				<input type="radio" name="ADMIN_STATUS" value="0">離職
-				<input type="radio" name="ADMIN_STATUS" value="1" checked>在職
+				<input type="radio" name="ADMIN_STATUS" value="1" >在職
 				<input type="radio" name="ADMIN_STATUS" value="2">停職
 			</td>
 		</tr>
+		<tr>
+			<th>管理員驗證狀態</th>
+			<td>
+				<input type="text" name="ADMIN_VERIFY_STATUS" id="ADMIN_VERIFY_STATUS">
+			</td>
+		</tr>
+		<tr>
+			<th>管理員帳號狀態</th>
+			<td>
+				<input type="radio" name="ADMIN_FUNC_NAME" value="0" >無功能
+				<input type="radio" name="ADMIN_FUNC_NAME" value="1" >管理員
+				<input type="radio" name="ADMIN_FUNC_NAME" value="2">訓練師
+			</td>
+		</tr>
+		
 		</table>
-
+  <div>個人大頭貼</div>
+   <img src="#" id="myphoto" name="myphoto" accept="image/*">
+<input type="file" id="ADMIN_PHOTO" name="ADMIN_PHOTO" style="display:none;" accept="image/*">
+<input type="button" value="修改照片" onclick="$('#ADMIN_PHOTO').click();" >
 		
 		<button type="submit">送出</button>
                     <!-- 		取消後跳轉回去首頁 -->

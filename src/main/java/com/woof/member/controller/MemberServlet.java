@@ -142,9 +142,6 @@ public class MemberServlet extends HttpServlet {
 		
 		try {
 			memberService.addMember(member);
-//			MailService mailService = new MailService();
-//			mailService.sendMail(to, subject, MailService.valid(req.getRequestURL()+"?action=valid&member="+member));
-//			System.out.println(req.getRequestURL()+"11111");
 			// 導到指定的URL 頁面上 把請求回應都帶過去
 			String url = req.getContextPath() + "/backend/member/list_all_member.jsp";
 			req.setCharacterEncoding("UTF-8");

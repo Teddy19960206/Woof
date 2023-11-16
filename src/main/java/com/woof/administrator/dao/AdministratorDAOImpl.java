@@ -39,7 +39,25 @@ public class AdministratorDAOImpl implements AdministratorDAO {
 			return -1;
 		}
 	}
-
+	public int update2(Administrator administrator) {
+		Administrator originalData  = findByadminNo(administrator.getAdminNo());
+		
+		try {
+			//修改之前 先查出該管理員的原始資料
+			//並把HD 和 Status放回 不接受前端參數修改
+			//---------------------------------------
+			administrator.setAdminHd(originalData.getAdminHd());
+			administrator.setAdminRd(originalData.getAdminRd());
+			administrator.setAdminStatus(originalData.getAdminStatus());
+			administrator.setAdminVerifyStatus(originalData.getAdminVerifyStatus());
+			administrator.setAdminFuncName(originalData.getAdminFuncName());
+			getSession().merge(administrator);
+			//---------------------------------------
+			return 1;
+		} catch (Exception e) {
+			return -1;
+		}
+	}
 	@Override
 	public int delete(String adminNo) {
 		Administrator administrator =getSession().get(Administrator.class, adminNo);

@@ -53,7 +53,7 @@ body {
 				<label for="username"><b>帳號</b></label> <input type="text"
 					id="username" class="form-control" name="adminNo">
 			</div>
-			<div class="error-msg">${errorMsgs.adminemail}</div>
+			<div class="error-msg">${errorMsgs.adminNo}</div>
 			<div class="form-group">
 				<label for="password"><b>密碼</b></label> <input type="password"
 					id="password" class="form-control" name="adminPassword"> 

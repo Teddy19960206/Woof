@@ -29,29 +29,43 @@
 	 	    	 $('#ADMIN_BD').val(jsonObj.adminBd);
 	 	    	 $('#EMERGENCY_CONTACTNAME').val(jsonObj.emergencyContactName);
 	 	    	 $('#EMERGENCY_CONTACTEL').val(jsonObj.emergencyContactel);
-	 	    	
+	 	    	 $('#ADMIN_HD').val(jsonObj.adminHd);
+	 	    	 $('input[name=ADMIN_STATUS][value='+jsonObj.adminStatus+']').prop('checked',true);
 	 	     },
 	 	     //Ajax失敗後要執行的function，此例為印出錯誤訊息
 	 	     error : function(xhr, ajaxOptions, thrownError) {
 	 	      alert("哇 錯了");
 	 	     }
 	 	});	
+	 	  $("#ADMIN_PHOTO").change(function() {
+	 	        if (this.files && this.files[0]) {
+	 	            var reader = new FileReader();
+	 	            reader.onload = function(e) {
+	 	                $('#myphoto').attr('src', e.target.result);
+	 	            }
+	 	            reader.readAsDataURL(this.files[0]);
+	 	        }
+	 	    });
+	 
 	    
 	 	 //日期格式
 
 	 	 $("#ADMIN_BD").datepicker({ dateFormat: 'yy-mm-dd' });
+	 	 $("#ADMIN_HD").datepicker({ dateFormat: 'yy-mm-dd' });
 	})
+	
 	
 </script>
 </head>
 <body>
 <!--                               request.getContextPath()動態根路徑，action=update找到後端switch(action)的update-->
-	<form method="post" action="<%=request.getContextPath()%>/administrator.do?action=update2">
+	<form method="post" action="<%=request.getContextPath()%>/administrator.do?action=update2" enctype="multipart/form-data">
+		<input type="file" style="display:none;" id="ADMIN_PHOTO" name="ADMIN_PHOTO"> 
 		<table>
 		<tr>
 			<th>管理員帳號</th>
 			<td>
-				<input type="text" name="ADMIN_NO" id="ADMIN_NO" value="<%= request.getParameter("adminNo")%>" readonly>
+				<input type="text" name="ADMIN_NO" id="ADMIN_NO" value="<%= request.getParameter("adminNo")%>" >
 			</td>
 		</tr>
 		<tr>
@@ -69,7 +83,7 @@
 		<tr>
 			<th>管理員性別</th>
 			<td>
-				<input type="radio" name="ADMIN_GENDER" value="1" checked>男
+				<input type="radio" name="ADMIN_GENDER" value="1" >男
 				<input type="radio" name="ADMIN_GENDER" value="0">女
 			</td>
 		</tr>
@@ -110,13 +124,22 @@
 				<input type="text" name="EMERGENCY_CONTACTEL" id="EMERGENCY_CONTACTEL">
 			</td>
 		</tr>
-	
-		</table>
 
+		</table>
+<!-- 	顯示大頭貼的DIV -->
+<!-- 	<img> -->
+ <div>個人大頭貼</div>
+   <img src="#" id="myphoto" name="myphoto" accept="image/*">
+<input type="file" id="ADMIN_PHOTO" name="ADMIN_PHOTO" style="display:none;" accept="image/*">
+<input type="button" value="修改照片" onclick="$('#ADMIN_PHOTO').click();" >
 		
 		<button type="submit">送出</button>
                     <!-- 		取消後跳轉回去首頁 -->
 		<input  type="button" onclick="window.location.href='<%=request.getContextPath()%>/frontend/administrator/administratorcenter.jsp'" value="取消">
 	</form>
+
+
+
+
 </body>
 </html>

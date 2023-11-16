@@ -35,7 +35,7 @@ public class AdministratorServiceImpl implements AdministratorService, AppServic
 		return null;
 	}
 	public Administrator updateAdministrator2(Administrator administrator) {
-		int i = dao.update(administrator);
+		int i = dao.update2(administrator);
 		if (i == 1) {
 			return administrator;
 		}

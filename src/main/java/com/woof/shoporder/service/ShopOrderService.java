@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.util.List;
 
 import com.woof.member.entity.Member;
+import com.woof.privatetrainingappointmentform.entity.PrivateTrainingAppointmentForm;
 import com.woof.shoporder.entity.ShopOrder;
 
 public interface ShopOrderService {
@@ -21,4 +22,8 @@ public interface ShopOrderService {
 	List<ShopOrder> getAllShopOrder(int currentPage);
 
 	int getPageTotal();
+	
+List<ShopOrder> findByMemNo(String memNo , int currentPage);
+	
+int getPageTotal2(String memNo);
 }

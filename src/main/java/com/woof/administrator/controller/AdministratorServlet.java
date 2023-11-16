@@ -43,7 +43,7 @@ public class AdministratorServlet extends HttpServlet {
 		switch (action) {
 		case "add":
 			processAdd(req, res);
-			 return;
+			break;
 			
 		case "update":
 			processUpdate(req, res);
@@ -83,13 +83,11 @@ public class AdministratorServlet extends HttpServlet {
 	}
 	
 	private void processUpdate(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
-	
-		
-		
-		
+
 		Administrator admin = new Administrator();
-		//把資料給前端
+		//接收前端修改的資料
 		admin.setAdminNo (req.getParameter("ADMIN_NO"));
+		System.out.println(admin);
 		admin.setAdminName (req.getParameter("ADMIN_NAME"));
 		admin.setAdminGender(req.getParameter("ADMIN_GENDER"));
 		admin.setAdminEmail (req.getParameter("ADMIN_EMAIL"));
@@ -127,6 +125,14 @@ public class AdministratorServlet extends HttpServlet {
 		admin.setAdminStatus(Integer.valueOf(req.getParameter("ADMIN_STATUS")));
 		admin.setAdminVerifyStatus(Integer.valueOf(req.getParameter("ADMIN_VERIFY_STATUS")));
 		admin.setAdminFuncName(Integer.valueOf(req.getParameter("ADMIN_FUNC_NAME")));
+		  
+		//取得圖片
+		Part p = req.getPart("ADMIN_PHOTO");
+	        InputStream input = p.getInputStream();
+	        byte[] photo = new byte[input.available()];
+	        input.read(photo);
+	        input.close();
+	        admin.setAdminPhoto(photo);
 		administratorService.updateAdministrator(admin);
 		//導到指定的URL 頁面上 把請求回應都帶過去
 //		String url = "/frontend/administrator/administrator.jsp";
@@ -136,18 +142,19 @@ public class AdministratorServlet extends HttpServlet {
 		res.sendRedirect(url);
 	}
 private void processUpdate2(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
-	
-		
-		
-		
+
 		Administrator admin = new Administrator();
-		//把資料給前端
+		//接收前端修改的資料
+		
+		admin.setAdminNo (req.getParameter("ADMIN_NO"));
 		admin.setAdminName (req.getParameter("ADMIN_NAME"));
+		
 		admin.setAdminGender(req.getParameter("ADMIN_GENDER"));
 		admin.setAdminEmail (req.getParameter("ADMIN_EMAIL"));
 		admin.setAdminPassword (req.getParameter("ADMIN_PASSWORD"));
 		admin.setAdminTel (req.getParameter("ADMIN_TEL"));
 		admin.setAdminAddress (req.getParameter("ADMIN_ADDRESS"));
+//		日期
 		Date date4 = null ;
 		try {
 			date4 = new SimpleDateFormat("yyyy-mm-dd").parse(req.getParameter("ADMIN_BD"));
@@ -158,18 +165,32 @@ private void processUpdate2(HttpServletRequest req, HttpServletResponse res) thr
 		admin.setAdminBd(sqlDate4);
 		admin.setEmergencyContactName(req.getParameter("EMERGENCY_CONTACTNAME"));
 		admin.setEmergencyContactel(req.getParameter("EMERGENCY_CONTACTEL"));
-		
-
+//		圖片寫法  
+		Part p = req.getPart("ADMIN_PHOTO");
+	        InputStream input = p.getInputStream();
+	        byte[] photo = new byte[input.available()];
+	        input.read(photo);
+	        input.close();
+	        admin.setAdminPhoto(photo);
 		administratorService.updateAdministrator2(admin);
 		//導到指定的URL 頁面上 把請求回應都帶過去
-//		String url = "/frontend/administrator/administrator.jsp";
-//		RequestDispatcher rd =  req.getRequestDispatcher(url);
-//		rd.forward(req, res);
-		String url = req.getContextPath()+"/frontend/administrator/administrator.jsp";
-		res.sendRedirect(url);
-	}
+		  // 假設更新操作已完成，現在重新獲取最新資料
+	     Administrator updatedAdmin = administratorService.findAdministratorByAdminNo(admin.getAdminNo());
+	     System.out.println(admin.getAdminNo()+"=============");
+	     // 將更新後的管理員資料設置為請求屬性
+	     req.setAttribute("administrator", updatedAdmin);
+	  // 導到指定的URL 頁面上 把請求回應都帶過去
+	  req.getRequestDispatcher( "/frontend/administrator/administratorcenter.jsp").forward(req, res);
+	 
+	 }
+
+
+//		String url = req.getContextPath()+"/frontend/administrator/administratorcenter.jsp";
+//		res.sendRedirect(url);
+	
 
 	private void processAdd(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
+		//驗證
 		Map<String,String> errorMsgs = new LinkedHashMap<String,String>();
 		req.setAttribute("errorMsgs", errorMsgs);
 		List<Administrator> administrators = administratorService.getAllAdministrators();
@@ -305,7 +326,7 @@ private void processUpdate2(HttpServletRequest req, HttpServletResponse res) thr
 		input.close();
 		admin.setAdminPhoto(photo);
 		admin.setAdminFuncName(Integer.valueOf(req.getParameter("ADMIN_FUNC_NAME")));
-		
+		//把資料裝起來
 		administratorService.addAdministrator(admin);
 		
 	

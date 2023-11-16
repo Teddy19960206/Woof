@@ -7,6 +7,7 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import com.woof.privatetrainingappointmentform.entity.PrivateTrainingAppointmentForm;
 import com.woof.shoporder.entity.ShopOrder;
 
 
@@ -72,6 +73,22 @@ public class ShopOrderDAOImpl implements ShopOrderDAO {
 	public long getTotal() {
 		return getSession().createQuery("select count(*) from ShopOrder", Long.class).uniqueResult();
 	}
-	
 
+	@Override
+	public List<ShopOrder> findByMemNo(String memNo, int currentPage) {
+		return getSession().createQuery("FROM ShopOrder s WHERE s.member.memNo = :memNo", ShopOrder.class)
+				.setParameter("memNo", memNo)
+				.setMaxResults(PAGE_MAX_RESULT)
+				.list();
+	}
+
+	@Override
+	public long getTotalMember(String memNo) {
+		return getSession().createQuery("SELECT COUNT(*) from ShopOrder s WHERE s.member.memNo = :memNo", Long.class)
+				.setParameter("memNo", memNo)
+				// 回傳他有幾個
+				.uniqueResult();
+	}
+	
+	
 }

@@ -36,9 +36,9 @@ public class LoginFilter1 implements Filter {
 			res.sendRedirect(req.getContextPath() + "/frontend/administrator/logout1.jsp");
 			return;
 		} else {
-			// 檢查會員是否被停權
+			// 檢查管理員是否被停權
 			if (((Administrator) admin).getAdminStatus() == 2) {
-				// 如果會員被停權，重定向到停權通知頁面
+				// 如果管理員被停權，重定向到停權通知頁面
 				res.sendRedirect(req.getContextPath() + "/frontend/administrator/adminsuspend.jsp");
 				return;
 			} else {

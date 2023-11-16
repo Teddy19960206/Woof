@@ -8,7 +8,7 @@
 </head>
 <body>
 	error
-	<h3>Error:</h3>
+	<h3>Error</h3>
 	<p>${errorMessage}</p>
 </body>
 </html>
