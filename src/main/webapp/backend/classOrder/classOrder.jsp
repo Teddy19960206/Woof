@@ -2,7 +2,7 @@
 <html>
 <head>
     <%@ include file="/backend/backhead.file" %>
-    <title>寵毛導師 Woof | 私人預約管理</title>
+    <title>寵毛導師 Woof | 課堂訂單管理</title>
     <style>
     body {
     font-family: Arial, sans-serif;
@@ -85,24 +85,10 @@ tr:nth-child(odd) {
 </head>
 <body>
 <%@ include file="/backend/backbody.file" %>
-<jsp:useBean id="trainerServer" scope="page" class="com.woof.trainer.service.TrainerServiceImpl"/>
-<%-- <p>trainerNo = ${param.trainerNo}</p> --%>
-<%-- <p>memName = ${param.memName}</p> --%>
-<form method="POST" ACTION="${pageContext.request.contextPath}/privatetrainingappointmentform?action=getboth" class="row g-3 align-items-center">
+<jsp:useBean id="classOrderServer" scope="page" class="com.woof.classorder.service.ClassOrderServiceImpl"/>
+<form method="POST" ACTION="${pageContext.request.contextPath}/classoredr/getByCoNo" class="row g-3 align-items-center">
 	<div class="container py-3">
     	<div class="row">
-            <!-- 下拉式選單 -->
-            <div class="col-3">
-                <label for="trainerSelect" class="col-form-label">訓練師名稱</label>
-                <div class="col-12">
-                <select name="trainerNo" class="form-select">
-                    <option value="0">顯示全部</option>
-                    <c:forEach var="trainer" items="${trainerServer.allTrainers}">
-                        <option value="${trainer.trainerNo}">${trainer.administrator.adminName}</option>
-                    </c:forEach>
-                </select>
-                </div>
-            </div>
             <!-- 會員名稱輸入框 -->
             <div class="col-3">
                 <label class="col-form-label">會員名稱</label>
@@ -123,12 +109,14 @@ tr:nth-child(odd) {
 
 <table border= 1 >
 		<tr>
-			<th>私人訓練預約單編號</th>
+			<th>課堂訂單編號</th>
 			<th>會員名稱</th>
-			<th>訓練師名稱</th>
-			<th>預約堂數</th>
-<!-- 			<th></th> -->
-			<th></th>
+			<th>購買課堂數量</th>
+			<th>付款方式</th>
+			<th>折抵毛毛幣</th>
+			<th>訂單時間</th>
+			<th>訂單狀態</th>
+			<th>實付金額</th>
 		</tr>
 
 		<c:forEach var="privateTrainingAppointmentForm"

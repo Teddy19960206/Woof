@@ -12,6 +12,7 @@ public interface ClassOrderDAO {
 	List<ClassOrder> getAll();
 	
 	
+	
 	int update(ClassOrder classOrder);
 	
 }
