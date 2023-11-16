@@ -167,8 +167,8 @@ tr:hover {
       style="margin-bottom: 0px;">
       <input type="hidden" name="action" value="delete" > 
       <input type="hidden" name="memNo" value="${member.memNo}" onclick="confirmDelete('${member.memNo}')"> 
-     <button type="submit" class="delete-btn" onclick="confirmDelete('${member.memNo}')" >刪除</button>
-      </FORM>
+     <input type="button" class="delete-btn" value="刪除" onclick="confirmDelete('${member.memNo}')">
+      </form>
      </td>
    </tr>
   </c:forEach>
