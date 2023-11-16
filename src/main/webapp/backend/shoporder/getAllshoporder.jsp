@@ -9,7 +9,6 @@ request.setCharacterEncoding("UTF-8");
 <html>
 <head>
 <title>全部訂單</title>
-<!--     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> -->
 <style>
 </style>
 
@@ -20,33 +19,32 @@ request.setCharacterEncoding("UTF-8");
 
 	<%@ include file="/backend/backbody.file"%>
 
-	<div class="container">
+	<div class="container text-center p-2">
 		<h3>全部訂單</h3>
-		<table class="table table-bordered small-table"
-			style="font-size: 12px;">
-			<thead>
-				<tr>
-					<th>訂單編號</th>
+		<table class="table table-hover" style="font-size: 12px;">
+			<thead class="align-middle" >
+				<tr class="text-nowrap">
+					<th>編號</th>
 					<th>會員帳號</th>
 					<!--                     <th>會員名稱</th> -->
-					<th>訂單成立時間</th>
+					<th>成立時間</th>
 					<th>付款方式</th>
 					<th>取貨方式</th>
-					<th>收件人姓名</th>
-					<th>收件人電話</th>
-					<th>收件人地址</th>
+					<th>收件人</th>
+					<th>電話</th>
+					<th>地址</th>
 					<th>是否退貨</th>
-					<th>折抵毛毛幣</th>
-					<th>訂單總計</th>
+					<th>毛毛幣</th>
+					<th>總計</th>
 					<th>實付金額</th>
 					<th>狀態</th>
 					<th>更新</th>
 					<th>明細</th>
 				</tr>
 			</thead>
-			<tbody>
+			<tbody class="align-middle">
 				<c:forEach var="all" items="${all}">
-					<tr>
+					<tr class="text-nowrap">
 						<td class="order-no">${all.shopOrderNo}</td>
 
 						<td class="mem-no">${all.member.memNo}</td>
@@ -86,20 +84,21 @@ request.setCharacterEncoding("UTF-8");
 								<option value="4" ${all.orderStatus == 4 ? 'selected' : ''}>未付款</option>
 						</select></td>
 						<td>
-							<button class="edit-btn btn btn-primary "
-								style="font-size: 10px; min-width: 50px;">修改</button>
+						<div class="d-flex flex-column">
+							<button class="edit-btn btn btn-primary"
+								style="font-size: 10px; min-width: 30px;">修改</button>
 							<button class="save-btn btn btn-success"
-								style="display: none; font-size: 10px;">確定修改</button>
-							<button class="cancel-btn btn btn-danger"
-								style="display: none; font-size: 10px;">取消修改</button>
-						</td>
+								style="display: none; font-size: 10px; min-width: 50px;">確定</button>
+							<button class="cancel-btn btn btn-danger mt-1"
+								style="display: none; font-size: 10px; min-width: 50px;">取消</button>	
+						</div>
 						<td>
-						<form method="post" action="${pageContext.request.contextPath}/backend/faq/updatefaq.jsp">
-						    <input type="hidden" name="faqNo" value="${all.faqNo}">
-						    <input type="hidden" name="faqClass" value="${all.faqClass}">
-						    <input type="hidden" name="faqTitle" value="${all.faqTitle}">
-						    <input type="hidden" name="faqContent" value="${all.faqContent}">
-							<button class="btn btn-secondary small-btn" style="font-size: 10px;" type="submit">查詢</button>
+						<form method="post" action="${pageContext.request.contextPath}/backend/shoporderdetail/shoporderdetail.jsp">
+						    <input type="hidden" name="" value="">
+						    <input type="hidden" name="" value="">
+						    <input type="hidden" name="" value="">
+						    <input type="hidden" name="" value="">
+							<button class="btn btn-secondary small-btn" style="font-size: 10px; min-width: 50px;" type="submit">查詢</button>
 						</form>	
 						</td>
 					</tr>

@@ -9,7 +9,6 @@ request.setCharacterEncoding("UTF-8");
 <html>
 <head>
 <title>訂單明細</title>
-<!--     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> -->
 <style>
 </style>
 
@@ -20,10 +19,9 @@ request.setCharacterEncoding("UTF-8");
 
 	<%@ include file="/backend/backbody.file"%>
 
-	<div class="container">
+	<div class="container text-center p-2">
 		<h3>訂單明細</h3>
-		<table class="table table-bordered small-table"
-			style="font-size: 12px;">
+		<table class="table table-hover">
 			<thead>
 				<tr>
 					<th>訂單編號</th>
