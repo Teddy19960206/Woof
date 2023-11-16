@@ -407,7 +407,6 @@ public class PrivateTrainingAppointmentFormServlet extends HttpServlet {
 //		System.out.println("============================================================"+members);
 		request.setAttribute("members", members);
 		request.setAttribute("currentPage", currentPage);
-		
 	}
 	private void getByBoth(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
@@ -429,22 +428,22 @@ public class PrivateTrainingAppointmentFormServlet extends HttpServlet {
 	}
 	private void getByMemberOrTrainer(HttpServletRequest request, HttpServletResponse response) {
 		
-		Integer trainerNo = Integer.valueOf(request.getParameter("trainerNo"));
+		String trainerNoStr = request.getParameter("trainerNo");
+		Integer trainerNo = (trainerNoStr == null || trainerNoStr.trim().length() == 0) ? 0 : Integer.valueOf(trainerNoStr);
 		
         String memNameStr = request.getParameter("memName");
         String memName = (memNameStr == null || memNameStr.trim().length() == 0) ? null : memNameStr;
         
         String forwardPath = "";
-        
-        if(trainerNo == 0 && memNameStr == null) {
+        if(trainerNo == 0 && memName == null) {
         	getAll(request, response);
         	forwardPath = "/backend/appointment/appointment.jsp";
-        	System.out.println("1111111111111111111111111111111111111111111111111 trainerNo == 0 && memName == null");
+//        	System.out.println("1111111111111111111111111111111111111111111111111 trainerNo == 0 && memName == null");
         }else if(trainerNo == 0 && memName != null){
         	try {
 				getByMemName(request, response);
 				forwardPath = "/backend/appointment/appointmentByMemName.jsp";
-				System.out.println("22222222222222222222222222222222222222222222 trainerNo == 0 && memName != null");
+//				System.out.println("22222222222222222222222222222222222222222222 trainerNo == 0 && memName != null");
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -453,7 +452,7 @@ public class PrivateTrainingAppointmentFormServlet extends HttpServlet {
         	try {
 				getByTrainerNo(request, response);
 				forwardPath = "/backend/appointment/appointmentByTrainerNo.jsp";
-				System.out.println("33333333333333333333333333333333333333333 trainerNo != 0 && memName == null");
+//				System.out.println("33333333333333333333333333333333333333333 trainerNo != 0 && memName == null");
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -462,7 +461,7 @@ public class PrivateTrainingAppointmentFormServlet extends HttpServlet {
         	try {
 				getByBoth(request, response);
 				forwardPath = "/backend/appointment/appointmentByBoth.jsp";
-				System.out.println("444444444444444444444444444444444444 trainerNo != 0 && memName != null");
+//				System.out.println("444444444444444444444444444444444444 trainerNo != 0 && memName != null");
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

@@ -91,6 +91,14 @@ public class AppointmentDetailDAOImpl implements AppointmentDetailDAO {
 				.setParameter("ptaNo", ptaNo)
 				.list();
 	}
+
+	@Override
+	public long getTotalByPtaNo(Integer ptaNo) {
+		return getSession().createQuery("select count(*) from AppointmentDetail a where a.privateTrainingAppointmentForm.ptaNo = :ptaNo", Long.class)
+				.setParameter("ptaNo", ptaNo)
+				.uniqueResult()
+				.longValue();
+	}
 	
 	
 }

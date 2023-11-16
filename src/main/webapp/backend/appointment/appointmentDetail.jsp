@@ -39,7 +39,7 @@
         background-color: #ffffff;
     }
 
-    .btn {
+    .butn {
         background-color: #0074d9;
         color: white;
         padding: 5px 10px;
@@ -59,6 +59,8 @@
 </head>
 <body>
 <%@ include file="/backend/backbody.file" %>
+<%-- <p>trainer = ${param.trainerNo}</p> --%>
+<%-- <p>member = ${param.memNo}</p> --%>
 <div class="container py-3" >
 <div class="col">
 <table border=1>
@@ -103,13 +105,16 @@
 						<input type="hidden" name="ptaNo" value="${AD.privateTrainingAppointmentForm.ptaNo}">
 						<input type="hidden" name="appTime"	value="${AD.appTime}">
 						<input type="hidden" name="appStatus" value="${AD.appStatus}">
-						<button class="btn btn-success" type="submit">修改</button>
+						<button class="butn btn-success" type="submit">修改</button>
 
 					</FORM>
 				</td>
 				<td>
 					<FORM METHOD="post" action="${pageContext.request.contextPath}/appointmentdetail?action=delete">
 						<input type="hidden" name="adNo" value="${AD.adNo}">
+						<input type="hidden" name="ptaNo" value="${AD.privateTrainingAppointmentForm.ptaNo}">
+						<input type="hidden" name="member" value="${param.memNo}">
+						<input type="hidden" name="trainer" value="${param.trainerNo}">
 						<button class="btn btn-delete" type="submit">刪除</button>
 					</FORM>
 				</td>
@@ -120,10 +125,14 @@
 	<div class="button-container">
     <FORM METHOD="post" action="${pageContext.request.contextPath}/appointmentdetail?action=gettoadd">
         <input	type="hidden" name="ptaNo"	value="${param.ptaNo}">
-        <button class="btn btn-new" name="action" value="gettoadd">新增</button>
+        <input	type="hidden" name="trainerNo" value="${param.trainerNo}">
+        <input	type="hidden" name="memNo"	value="${param.memNo}">
+        <button class="butn btn-new" type="submit">新增</button>
 <%--         <p>ptaNo = ${param.ptaNo}</p> --%>
     </FORM>
-    <button class="btn btn-back" onclick="history.back()">返回</button>
+    <FORM METHOD="post" action="${pageContext.request.contextPath}/privatetrainingappointmentform?action=getall">
+    <button class="butn btn-back" type="submit">返回</button>
+    </FORM>
 	</div>
 </div>
 </div>
