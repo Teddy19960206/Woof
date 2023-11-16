@@ -69,6 +69,11 @@ public class GroupCourseOrderServiceImpl implements GroupCourseOrderService{
     }
 
     @Override
+    public List<GroupCourseOrder> getOrdersbyMember(String memberNo) {
+        return dao.getAllByMember(memberNo);
+    }
+
+    @Override
     public List<GroupCourseOrder> getByGroupSchedule() {
         return null;
     }
@@ -115,5 +120,9 @@ public class GroupCourseOrderServiceImpl implements GroupCourseOrderService{
     public void modifyAllOrderByGcsNo(Integer gcsNo) {
 //       讓該課程報名全部的訂單，全部狀態變成 已取消(2)
         dao.modifyAllOrderByGcsNo(gcsNo);
+    }
+
+    public String formatOrderId(long orderId) {
+        return "woofGroup" + String.format("%08d", orderId);
     }
 }

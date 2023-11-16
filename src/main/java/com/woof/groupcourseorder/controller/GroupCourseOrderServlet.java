@@ -11,7 +11,6 @@ import com.woof.groupcourseschedule.entity.GroupCourseSchedule;
 import com.woof.groupcourseschedule.service.GroupCourseScheduleServiceImpl;
 import com.woof.groupcourseschedule.service.GroupGourseScheduleService;
 import com.woof.groupscheduledetail.entity.GroupScheduleDetail;
-import com.woof.groupscheduledetail.service.GroupScheduleDetailService;
 import com.woof.groupscheduledetail.service.GroupScheduleDetailServiceImpl;
 import com.woof.member.entity.Member;
 import com.woof.util.*;
@@ -26,9 +25,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Date;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -236,7 +233,7 @@ public class GroupCourseOrderServlet extends HttpServlet {
                 all = new AllInOne("");
 
                 AioCheckOutOneTime obj = new AioCheckOutOneTime();
-                obj.setMerchantTradeNo(orderNo.toString()); // 該位數為上限
+                obj.setMerchantTradeNo(formatOrderId(orderNo));
                 obj.setMerchantTradeDate(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")));
                 obj.setTotalAmount(actualAmount.toString());
                 obj.setTradeDesc("寵毛導師：團體課程報名");
@@ -284,7 +281,6 @@ public class GroupCourseOrderServlet extends HttpServlet {
     private void getOneOrder(HttpServletRequest request , HttpServletResponse response) throws IOException {
         Integer orderNo = Integer.valueOf(request.getParameter("orderNo"));
         GroupCourseOrder order = groupCourseOrderService.getOneOrder(orderNo);
-
 
         Gson gson = new GsonBuilder()
                 .excludeFieldsWithoutExposeAnnotation()
@@ -415,5 +411,9 @@ public class GroupCourseOrderServlet extends HttpServlet {
 
             response.getWriter().write("{ \"退款失敗\"}");
         }
+    }
+
+    public String formatOrderId(long orderId) {
+        return "woofGroup" + String.format("%08d", orderId);
     }
 }

@@ -53,14 +53,14 @@ function reserve(){
 
 async function fetchDetailByDate(year , month){
 
-    let url = `${projectName}/scheduleDetail/getTrainerDetail`;
+    let url = `${projectName}/scheduleDetail/getDetails`;
     try{
         const response = await fetch(url , {
             method : "POST",
             headers:{
                 "Content-Type" : "application/x-www-form-urlencoded"
             },
-            body : "year="+year+"&month="+month
+            body : "year="+year+"&month="+month+"&applyTrainerFilter=true&applyStatusFilter=true"
         })
         if (!response.ok){
             throw new Error("網路異常")

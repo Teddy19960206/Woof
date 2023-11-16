@@ -39,6 +39,31 @@ public class GroupCourseOrderDAOImpl implements GroupCourseOrderDAO{
     }
 
     @Override
+    public void updateStatus(Integer gcoNo , Integer status) {
+        String sql = "UPDATE group_course_order SET GCO_STATUS = ? WHERE GCO_NO = ?";
+        Query query = getSession().createSQLQuery(sql);
+        query.setParameter(1, status);
+        query.setParameter(2, gcoNo);
+        query.executeUpdate();
+    }
+
+    @Override
+    public void modifyAllOrderByGcsNo(Integer gcsNo) {
+        String sql = "UPDATE group_course_order SET GCO_STATUS = 2 WHERE GCS_NO = ?";
+        Query query = getSession().createSQLQuery(sql);
+        query.setParameter(1, gcsNo);
+        query.executeUpdate();
+    }
+
+    public void modifyAllOrderBySchedule(Integer gcsNo , Integer gcoStatus){
+        String hql = "UPDATE GroupCourseOrder gco SET gco.gcoStatus = :status WHERE gco.groupCourseSchedule.gcsNo = :gcsNo";
+        Query query = getSession().createQuery(hql);
+        query.setParameter("status" , gcoStatus);
+        query.setParameter("gcsNo" , gcsNo);
+        query.executeUpdate();
+    }
+
+    @Override
     public GroupCourseOrder findByGcoNo(Integer gcoNo) {
         GroupCourseOrder groupCourseOrder = getSession().get(GroupCourseOrder.class, gcoNo);
         return groupCourseOrder;
@@ -52,13 +77,47 @@ public class GroupCourseOrderDAOImpl implements GroupCourseOrderDAO{
 
     }
 
-    @Override
-        public List<GroupCourseOrder> getAll(Integer groupClass, Integer status, String memNo, Integer currentPage) {
-            CriteriaBuilder builder = getSession().getCriteriaBuilder();
-            CriteriaQuery<GroupCourseOrder> criteriaQuery = builder.createQuery(GroupCourseOrder.class);
-            Root<GroupCourseOrder> root = criteriaQuery.from(GroupCourseOrder.class);
+    public List<GroupCourseOrder> getAllByMember(String memberNo){
+        String hql = "FROM GroupCourseOrder gco WHERE gco.member.memNo = :memNo ORDER BY gco.gcoNo DESC";
+        Query query = getSession().createQuery(hql);
+        query.setParameter("memNo" , memberNo);
+        return query.list();
+    }
 
-            List<Predicate> predicates = new ArrayList<>();
+    @Override
+    public List<GroupCourseOrder> getByDate(Integer year , Integer month) {
+        String hql = "FROM GroupCourseOrder WHERE YEAR(GroupCourseOrder.gcoDate) = :year and month(GroupCourseOrder .gcoDate) = :month";
+        Query query = getSession().createQuery(hql);
+        query.setParameter("year" , year);
+        query.setParameter("month" , month);
+
+        return query.list();
+    }
+
+    @Override
+    public List<GroupCourseOrder> getAllMember(Integer scheduleNo) {
+
+        String hql = "FROM GroupCourseOrder gco WHERE gco.groupCourseSchedule.gcsNo = :scheduleNo";
+        Query query = getSession().createQuery(hql);
+        query.setParameter("scheduleNo" ,scheduleNo);
+
+        return query.list();
+    }
+    @Override
+    public List<GroupCourseOrder> getAllBySchedule(Integer gcsNo){
+        String hql = "FROM GroupCourseOrder gco WHERE gco.groupCourseSchedule.gcsNo = :gcsNo";
+        Query query = getSession().createQuery(hql);
+        query.setParameter("gcsNo" , gcsNo);
+        return query.list();
+    }
+
+    @Override
+    public List<GroupCourseOrder> getAll(Integer groupClass, Integer status, String memNo, Integer currentPage) {
+        CriteriaBuilder builder = getSession().getCriteriaBuilder();
+        CriteriaQuery<GroupCourseOrder> criteriaQuery = builder.createQuery(GroupCourseOrder.class);
+        Root<GroupCourseOrder> root = criteriaQuery.from(GroupCourseOrder.class);
+
+        List<Predicate> predicates = new ArrayList<>();
 
         if (groupClass != null){
             predicates.add(builder.equal(root.get("gcoNo"), groupClass));
@@ -83,7 +142,6 @@ public class GroupCourseOrderDAOImpl implements GroupCourseOrderDAO{
 
         return list;
     }
-
     @Override
     public long getTotal(Integer groupClass, Integer status, String memNo) {
         CriteriaBuilder builder = getSession().getCriteriaBuilder();
@@ -111,57 +169,6 @@ public class GroupCourseOrderDAOImpl implements GroupCourseOrderDAO{
         return query.getSingleResult();
     }
 
-    @Override
-    public List<GroupCourseOrder> getByDate(Integer year , Integer month) {
-        String hql = "FROM GroupCourseOrder WHERE YEAR(GroupCourseOrder.gcoDate) = :year and month(GroupCourseOrder .gcoDate) = :month";
-        Query query = getSession().createQuery(hql);
-        query.setParameter("year" , year);
-        query.setParameter("month" , month);
-        List<GroupCourseOrder> resultList = query.list();
-
-        return resultList;
-    }
-
-    @Override
-    public List<GroupCourseOrder> getAllMember(Integer scheduleNo) {
-
-        String hql = "FROM GroupCourseOrder gco WHERE gco.groupCourseSchedule.gcsNo = :scheduleNo";
-        Query query = getSession().createQuery(hql);
-        query.setParameter("scheduleNo" ,scheduleNo);
-
-        return query.list();
-    }
-
-    @Override
-    public void updateStatus(Integer gcoNo , Integer status) {
-        String sql = "UPDATE group_course_order SET GCO_STATUS = ? WHERE GCO_NO = ?";
-        Query query = getSession().createSQLQuery(sql);
-        query.setParameter(1, status);
-        query.setParameter(2, gcoNo);
-        query.executeUpdate();
-    }
-
-    @Override
-    public void modifyAllOrderByGcsNo(Integer gcsNo) {
-        String sql = "UPDATE group_course_order SET GCO_STATUS = 2 WHERE GCS_NO = ?";
-        Query query = getSession().createSQLQuery(sql);
-        query.setParameter(1, gcsNo);
-        query.executeUpdate();
-    }
 
 
-    public List<GroupCourseOrder> getAllBySchedule(Integer gcsNo){
-        String hql = "FROM GroupCourseOrder gco WHERE gco.groupCourseSchedule.gcsNo = :gcsNo";
-        Query query = getSession().createQuery(hql);
-        query.setParameter("gcsNo" , gcsNo);
-        return query.list();
-    }
-
-    public void modifyAllOrderBySchedule(Integer gcsNo , Integer gcoStatus){
-        String hql = "UPDATE GroupCourseOrder gco SET gco.gcoStatus = :status WHERE gco.groupCourseSchedule.gcsNo = :gcsNo";
-        Query query = getSession().createQuery(hql);
-        query.setParameter("status" , gcoStatus);
-        query.setParameter("gcsNo" , gcsNo);
-        query.executeUpdate();
-    }
 }

@@ -12,6 +12,7 @@ public interface GroupCourseOrderDAO {
     void modifyAllOrderBySchedule(Integer gcsNo , Integer gcoStatus);
     GroupCourseOrder findByGcoNo(Integer gcoNo);
     List<GroupCourseOrder> getAll();
+    List<GroupCourseOrder> getAllByMember(String memberNo);
     List<GroupCourseOrder> getAll(Integer groupClass , Integer status , String memNo , Integer currentPage);
     List<GroupCourseOrder> getByDate(Integer year , Integer month);
     List<GroupCourseOrder> getAllMember(Integer scheduleNo);

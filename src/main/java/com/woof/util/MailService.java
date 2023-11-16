@@ -82,7 +82,7 @@ public class MailService{
 				.append("<tr height=\"60\"><td align=\"center\" style=\"color: rgb(240, 98, 46); font-weight: 900; font-size: 30px\">報名成功 !!!</td></tr>")
 				.append("<tr height=\"60\"><td align=\"center\" style=\"color: rgb(240, 98, 46); font-weight: 900; font-size: 30px\">報名人姓名：").append(name).append("</td></tr>")
 				.append("<tr height=\"60\"><td align=\"center\" style=\"color: rgb(240, 98, 46); font-weight: 800; font-size: 30px\">課程名稱：").append(className).append("</td></tr>")
-				.append("<tr height=\"200\"><td style=\"color: rgb(240, 98, 46); font-weight: 800\" align=\"center\">上課時間");
+				.append("<tr height=\"200\"><td style=\"color: rgb(240, 98, 46); font-weight: 800; font-size : 30px\" align=\"center\">上課時間");
 
 		for (Date date : dates) {
 			html.append("<div><h3>").append(date).append("</h3></div>");

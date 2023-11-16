@@ -64,6 +64,8 @@ async function fetchData(page){
             <td>`);
             if(item.coursePhoto instanceof Object && Object.keys(item.coursePhoto).length > 0){
                 arr.push(`<img src="${projectName}/DBPngReader?action=groupCourse&id=${item.gcNo}" style="width: 100px; height: 100px" >`);
+            }else {
+                arr.push(`<img src="${projectName}/webutil/images/no-image.png" style="width: 100px; height: 100px" >`)
             }
             arr.push(`</td>
             <td width="500px" class="text-start">${item.courseContent}</td>

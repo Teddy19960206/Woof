@@ -89,7 +89,7 @@
                             </label>
                         </div>
                         <fieldset id="inputSmmp" class="mt-1">
-                            <input type="text" class="form-control text-center" name="smmpCount" id="smmpCount" maxlength="4" pattern="[0-9]{0,4}" title="請輸入數字0~4位數" />
+                            <input type="number" class="form-control text-center" name="smmpCount" id="smmpCount" maxlength="4" pattern="[0-9]{0,4}" title="請輸入數字0~4位數" />
                         </fieldset>
                     </div>
                     <%-- 實際付款金額 --%>
@@ -136,6 +136,8 @@
                     </div>
                 </div>
                 <div class="form showPayment mb-5" id="showPayment">
+                    <label for="payname">付款人姓名</label>
+                    <input type="text" class="form-control text-center mb-5" id="payname"/>
                     <input class="form-control d-inline text-center" type="text" maxlength="4" onkeypress='validate(event)' value="4311" pattern="[0-9]{4}" title="請輸入4位數字" required /><span> - </span>
                     <input class="form-control d-inline text-center" type="text" maxlength="4" onkeypress='validate(event)' value="9522" pattern="[0-9]{4}" title="請輸入4位數字" required /><span> - </span>
                     <input class="form-control d-inline text-center" type="text" maxlength="4" onkeypress='validate(event)' value="2222" pattern="[0-9]{4}" title="請輸入4位數字" required /><span> - </span>

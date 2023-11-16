@@ -43,7 +43,7 @@ public class TokenExchange extends HttpServlet {
         exchangeCodeForToken(request,response);
     }
 
-    public void exchangeCodeForToken(HttpServletRequest request , HttpServletResponse response) {
+    public void exchangeCodeForToken(HttpServletRequest request , HttpServletResponse response) throws IOException {
 
         try (InputStream is = GooglePlusServlet.class.getResourceAsStream("/client_secret.json")){
 
@@ -112,6 +112,7 @@ public class TokenExchange extends HttpServlet {
                 JWTVerifier verifier = JWT.require(Algorithm.RSA256(publicKey, null))
                         .withIssuer("https://accounts.google.com")
                         .withAudience(clientId)
+                        .acceptLeeway(3)  // 增加容忍時間 3秒 避免 時間差對不上
                         .build();
 
                 System.out.println(verifier);
@@ -124,10 +125,12 @@ public class TokenExchange extends HttpServlet {
                 String userId = verifiedJwt.getSubject(); // 獲取用戶的唯一識別碼
                 String userEmail = verifiedJwt.getClaim("email").asString(); // 獲取用戶的郵箱地址
                 String userName = verifiedJwt.getClaim("name").asString();
+                String userPic = verifiedJwt.getClaim("picture").asString();
 
                 request.setAttribute("id" , userId);
                 request.setAttribute("name" , userName);
                 request.setAttribute("email" , userEmail);
+                request.setAttribute("picture" , userPic);
 
                 request.getRequestDispatcher("/login?action=google").forward(request,response);
 
@@ -137,6 +140,7 @@ public class TokenExchange extends HttpServlet {
 
         } catch (Exception e) {
             e.printStackTrace();
+            response.sendRedirect(request.getContextPath()+"/index.jsp");
         }
     }
 
