@@ -57,7 +57,6 @@ public class GroupScduleScheduler extends HttpServlet {
                 System.out.println("執行排成器");
                 Jedis jedis = JedisUtil.getResource();
 
-                Set<GroupCourseSchedule> groupCourseScheduleSet = new HashSet<>();
 
 //               尋找審核中的課程，並到截止日期 + 1 day 時。
                 List<GroupCourseSchedule> allReview = groupGourseScheduleService.getAllReview();

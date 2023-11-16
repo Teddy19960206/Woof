@@ -136,15 +136,23 @@ public class GroupScheduleDetailServlet extends HttpServlet {
     private void modify(HttpServletRequest request , HttpServletResponse response) throws IOException {
         Integer gcsdNo = Integer.valueOf(request.getParameter("gcsdNo"));
         Integer trainerNo = Integer.valueOf(request.getParameter("trainerNo"));
-        Date date = Date.valueOf(request.getParameter("classDate"));
+        Date date = null;
 
-        TrainerService trainerService = new TrainerServiceImpl();
-        Trainer trainerByTrainerNo = trainerService.findTrainerByTrainerNo(trainerNo);
+        Trainer trainerByTrainerNo = new TrainerServiceImpl().findTrainerByTrainerNo(trainerNo);
+
+        String classDateStr = request.getParameter("classDate");
+
+
+        if (classDateStr == null || classDateStr.trim().length() == 0){
+            date = groupScheduleDetailService.findByGcsd(gcsdNo).getClassDate();
+        }else{
+            date = Date.valueOf(classDateStr);
+        }
 
         groupScheduleDetailService.modify(gcsdNo , trainerByTrainerNo , date);
 
         response.setContentType("application/json;charset=UTF-8");
-        response.getWriter().write("ok");
+        response.getWriter().write("{\"message\" : \"更新成功\" }");
     }
 
     private void getTrainerClass(HttpServletRequest request , HttpServletResponse response) throws IOException {

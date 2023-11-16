@@ -74,20 +74,6 @@
                     >
                   </li>
                   <li class="sidebar-item">
-
-                      <a
-                        href="${pageContext.request.contextPath}/backend/course/classContent.jsp"
-                        class="sidebar-link2"
-                        >團體內容管理</a
-                      >
-                    </li>
-                    <li class="sidebar-item">
-                      <a
-                        href="${pageContext.request.contextPath}/backend/course/schedule.jsp"
-                        class="sidebar-link2"
-                        >團體報名管理</a
-                      >
-                    </li>
                     <li class="sidebar-item">
                         <a
                           href="${pageContext.request.contextPath}/backend/course/trainerSchedule.jsp"

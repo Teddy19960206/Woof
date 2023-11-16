@@ -225,7 +225,6 @@ async function fetchDetail(url){
             <th>訓練師</th>
             <th>上課日期</th>
             <th>修改</th>
-            <th>確定</th>
             <th>刪除</th>
         </tr>
         </thead>
@@ -237,8 +236,7 @@ async function fetchDetail(url){
                 <td>${className}</td>
                 <td>${item.trainer.administrator.adminName}</td>
                 <td>${item.classDate}</td>
-                <td><button type="button" class="editDetail btn btn-primary" data-id="${item.gcsdNo}">修改</button></td>
-                <td><button type="button" class="modify btn btn-primary" data-id="${item.gcsdNo}" disabled>確定</button></td>
+                <td><button type="button" class="editDetail btn btn-primary" data-id="${item.gcsdNo}" data-trainer="${item.trainer.administrator.adminName}">修改</button></td>
                 <td><button type="button" class="deleteDetail btn btn-danger" data-id="${item.gcsdNo}">刪除</button></td>
             </tr>`);
         });
@@ -260,51 +258,54 @@ async function fetchDetail(url){
 
 // detail修改按鈕----------------------------------------------
 $(document).on("click" , "button.editDetail" , async  function (){
-    let data = await detailedit(this.getAttribute("data-id"));
-    let td = $(this).closest("tr").find("td");
-    let html = `<select class="form-select text-center">`
-        data.forEach((item)=>{
-            html += `<option value="${item.trainerNo}" ${item.administrator.adminName == td.eq(2).html() ? 'selected' : ''}>${item.administrator.adminName}</option>`;
-        })
-        html += `</select>`;
-    td.eq(2).html(html);
+    // let data = await detailedit(this.getAttribute("data-id"));
+    // let td = $(this).closest("tr").find("td");
+    // let html = `<select class="form-select text-center">`
+    //     data.forEach((item)=>{
+    //         html += `<option value="${item.trainerNo}" ${item.administrator.adminName == td.eq(2).html() ? 'selected' : ''}>${item.administrator.adminName}</option>`;
+    //     })
+    //     html += `</select>`;
+    // td.eq(2).html(html);
+    //
+    //
+    // let date = `<input type="date" value="${td.eq(3).html()}">`;
+    // td.eq(3).html(date)
+    //
+    // let button = $(this).closest("tr").find("button");
+    // button.eq(0).prop("disabled" , true);
+    // button.eq(1).prop("disabled" , false);
 
-
-    let date = `<input type="date" value="${td.eq(3).html()}">`;
-    td.eq(3).html(date)
-
-    let button = $(this).closest("tr").find("button");
-    button.eq(0).prop("disabled" , true);
-    button.eq(1).prop("disabled" , false);
+    window.location.href = `${projectName}/backend/course/editDetail.jsp?id=${this.getAttribute("data-id")}&trainer=${this.getAttribute("data-trainer")}`;
 
 })
 
 
-async function detailedit(id){
-
-    let url = `${projectName}/scheduleDetail/edit`;
-
-    let formData = new FormData();
-    formData.append("Detail" ,id );
-
-    try{
-        const response = await fetch(url ,{
-            method : "POST",
-            body : formData
-        });
-
-        if (!response.ok){
-            throw new Error('Network response was not ok');
-        }
-        // 取得資料後，進行拼圖，並打到頁面上
-        const data = await response.json();
-
-        return data;
-
-    }catch (error){
-        console.error('Error', error);
-    }
-}
+// ????????????? 拽取訓練師 已改
+// async function detailedit(id){
+//
+//     let url = `${projectName}/scheduleDetail/edit`;
+//
+//     let formData = new FormData();
+//     formData.append("Detail" ,id );
+//
+//     try{
+//         const response = await fetch(url ,{
+//             method : "POST",
+//             body : formData
+//         });
+//
+//         if (!response.ok){
+//             throw new Error('Network response was not ok');
+//         }
+//         // 取得資料後，進行拼圖，並打到頁面上
+//         const data = await response.json();
+//
+//         return data;
+//
+//     }catch (error){
+//         console.error('Error', error);
+//     }
+// }
 
 
 // 修改後，按下確認按鈕正式進行資料庫修改-----------------------------

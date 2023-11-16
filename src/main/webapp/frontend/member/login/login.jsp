@@ -85,11 +85,6 @@ function togglePasswordVisibility(fieldId) {
 					<b>登入</b>
 				</button>
 
-				<a href="${pageContext.request.contextPath}/home">
-					<img src="${pageContext.request.contextPath}/webutil/icons/google.svg" style="width: 20px; margin-left: 20px; margin-right: 2px"></img>
-					<p id="google" style="display: inline-block">Google登入</p>
-				</a>
-
 			</div>
 			<div class="form-group form-check">
 				<input type="checkbox" class="form-check-input" name="remberme"
@@ -101,7 +96,7 @@ function togglePasswordVisibility(fieldId) {
 			class="text-decoration-none"><b>註冊會員</b></a> 
 			<a href='/woof/frontend/member/login/forgotpwd.jsp'
 			class="text-decoration-none"> <b>忘記密碼？</b></a>
-			<a href=""
+			<a href="${pageContext.request.contextPath}/home"
 			class="text-decoration-none"><i class="fa-brands fa-google"></i></a>
 
 	</div>
