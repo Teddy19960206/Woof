@@ -127,7 +127,7 @@ tr:nth-child(odd) {
 			<th>會員名稱</th>
 			<th>訓練師名稱</th>
 			<th>預約堂數</th>
-			<th></th>
+<!-- 			<th></th> -->
 			<th></th>
 		</tr>
 
@@ -139,25 +139,25 @@ tr:nth-child(odd) {
 				<td>${privateTrainingAppointmentForm.member.memName}</td>
 				<td>${privateTrainingAppointmentForm.trainer.administrator.adminName}</td>
 				<td>${privateTrainingAppointmentForm.ptaClass}</td>
-				<td>
+<!-- 				<td> -->
 
-					<FORM METHOD="post"
-						action="${pageContext.request.contextPath}/privatetrainingappointmentform?action=gettoupdate2">
-						<%
-						String ptaNo = request.getParameter("ptaNo");
-						String member = request.getParameter("member");
-						String trainer = request.getParameter("trainer");
-						String number = request.getParameter("number");
-						%>
-						<input type="hidden" name="action" value="gettoupdate">
-						<input type="hidden" name="ptaNo" value="${privateTrainingAppointmentForm.ptaNo}">					
-						<input type="hidden" name="member" value="${privateTrainingAppointmentForm.member.memName}">
-						<input type="hidden" name="trainer" value="${privateTrainingAppointmentForm.trainer.administrator.adminName}">
-						<input type="hidden" name="number" value="${privateTrainingAppointmentForm.ptaClass}">
-						<button class="btn btn-success" type="submit">修改</button>
+<!-- 					<FORM METHOD="post" -->
+<%-- 						action="${pageContext.request.contextPath}/privatetrainingappointmentform?action=gettoupdate2"> --%>
+<%-- 						<% --%>
+<!--  							String ptaNo = request.getParameter("ptaNo"); -->
+<!-- 	 						String member = request.getParameter("member"); -->
+<!-- 	 						String trainer = request.getParameter("trainer"); -->
+<!-- 	 						String number = request.getParameter("number"); -->
+<%-- 						%> --%>
+<!-- 						<input type="hidden" name="action" value="gettoupdate"> -->
+<%-- 						<input type="hidden" name="ptaNo" value="${privateTrainingAppointmentForm.ptaNo}">					 --%>
+<%-- 						<input type="hidden" name="member" value="${privateTrainingAppointmentForm.member.memName}"> --%>
+<%-- 						<input type="hidden" name="trainer" value="${privateTrainingAppointmentForm.trainer.administrator.adminName}"> --%>
+<%-- 						<input type="hidden" name="number" value="${privateTrainingAppointmentForm.ptaClass}"> --%>
+<!-- 						<button class="btn btn-success" type="submit">修改</button> -->
 
-					</FORM>
-				</td>
+<!-- 					</FORM> -->
+<!-- 				</td> -->
 				<td>
 					<FORM METHOD="post"
 						action="${pageContext.request.contextPath}/appointmentdetail?action=getdetail">
