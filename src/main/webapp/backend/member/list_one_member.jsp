@@ -142,7 +142,7 @@ tr:hover {
     <td>${member.memNo}</td>
     <td>${member.memName}</td>
     <td>${member.memGender}</td>
-    <td><img src="${pageContext.request.contextPath}/DBPngReader?action=member&id=${member.memNo}" style="width: 100px; height: 100px"></td>
+    <td><img src="${pageContext.request.contextPath}/DBPngReader?action=member&id=${member.memNo}" onerror="this.onerror=null; this.src='/woof/backend/member/jpg/dog.jpg';" style="width: 100px; height: 100px"></td>
     <td>${member.memEmail}</td>
     <td>${member.memPassword}</td>
     <td>${member.memTel}</td>

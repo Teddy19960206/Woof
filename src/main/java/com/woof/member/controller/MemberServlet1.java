@@ -138,7 +138,7 @@ public class MemberServlet1 extends HttpServlet {
 				errorMsgs.put("memNo","此帳號已註冊，請重新輸入");
 			}
 			if(mem.getMemEmail().equals(mememail)) {
-				errorMsgs.put("memEmail", "不能使用該信箱");
+				errorMsgs.put("memEmail", "該信箱已註冊，請重新輸入");
 			}
 			if(!errorMsgs.isEmpty()) {
 				break;

@@ -194,7 +194,7 @@ body {
 					<div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="TEXT" name="memNo"
-								id="memNo" size="45" />
+								id="memNo" size="45" required/>
 						</div>
 					</div>
 <%-- 					<small class="error-msg">${errorMsgs.memNo}</small> --%>
@@ -204,7 +204,7 @@ body {
 					<div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="TEXT" name="memName"
-								id="memName" size="45" />
+								id="memName" size="45" required />
 						</div>
 					</div>
 					<small class="error-msg">${errorMsgs.memName}</small>
@@ -245,7 +245,7 @@ body {
 					<div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="email" name="memEmail"
-								id="memEmail" placeholder="XXX@gmail.com" size="45" />
+								id="memEmail" placeholder="XXX@gmail.com" size="45" required />
 						</div>
 					</div>
 <%-- 					<small class="error-msg">${errorMsgs.memEmail}</small> --%>
@@ -255,7 +255,7 @@ body {
 					<div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="TEXT" name="memPassword"
-								id="memPassword" size="45" />
+								id="memPassword" size="45" required />
 						</div>
 					</div>
 					<small class="error-msg">${errorMsgs.memPassword}</small>
@@ -265,7 +265,7 @@ body {
 					<div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="tel" name="memTel"
-								id="memTel" size="45" />
+								id="memTel" size="45" required />
 						</div>
 					</div>
 					<small class="error-msg">${errorMsgs.memTel}</small>
@@ -275,7 +275,7 @@ body {
 					<div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="Text" name="memAddress"
-								id="memAddress" size="45" />
+								id="memAddress" size="45" required />
 						</div>
 					</div>
 					<small class="error-msg">${errorMsgs.memAddress}</small>

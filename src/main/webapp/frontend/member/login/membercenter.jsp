@@ -182,7 +182,7 @@ body {
 									<th scope="row">照片</th>
 									<td><img
 										src="${pageContext.request.contextPath}/DBPngReader?action=member&id=${member.memNo}"
-										class="profile-img"></td>
+										onerror="this.onerror=null; this.src='/woof/frontend/member/jpg/dog.jpg';" class="profile-img"></td>
 								</tr>
 								<tr>
 									<th scope="row">email</th>

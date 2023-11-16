@@ -112,6 +112,11 @@ body {
 #preview img.preview_img {
 	width: 100%;
 }
+/* 紅色星號 */
+.required {
+    color: red;
+}
+
 </style>
 </head>
 <body>
@@ -126,21 +131,21 @@ body {
 				<!-- 其他表單元素 -->
 
 				<div class="form-group">
-					<label for="memNo">會員帳號:</label>
+					<label for="memNo"><span class="required">*</span>會員帳號:</label>
 					<div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="TEXT" name="memNo"
-								id="memNo" size="45" />
+								id="memNo" size="45" required/>
 						</div>
 					</div>
 					<small class="error-msg">${errorMsgs.memNo}</small>
 				</div>
 				<div class="form-group">
-					<label for="memName">會員姓名:</label>
+					<label for="memName"><span class="required">*</span>會員姓名:</label>
 					<div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="TEXT" name="memName"
-								id="memName" size="45" />
+								id="memName" size="45" required />
 						</div>
 					</div>
 					<small class="error-msg">${errorMsgs.memName}</small>
@@ -178,41 +183,41 @@ body {
 						</div>
 						</div>
 				<div class="form-group">
-					<label for="memEmail">會員信箱:</label>
+					<label for="memEmail"><span class="required">*</span>會員信箱:</label>
 					<div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="email" name="memEmail"
-								id="memEmail" placeholder="XXX@gmail.com" size="45" />
+								id="memEmail" placeholder="XXX@gmail.com" size="45" required />
 						</div>
 					</div>
 					<small class="error-msg">${errorMsgs.memEmail}</small>
 				</div>
 				<div class="form-group">
-					<label for="memPassword">密碼:</label>
+					<label for="memPassword"><span class="required">*</span>密碼:</label>
 					<div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="TEXT" name="memPassword"
-								id="memPassword" size="45" />
+								id="memPassword" size="45" required />
 						</div>
 					</div>
 					<small class="error-msg">${errorMsgs.memPassword}</small>
 				</div>
 				<div class="form-group">
-					<label for="memTel">會員電話:</label>
+					<label for="memTel"><span class="required">*</span>會員電話:</label>
 					<div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="tel" name="memTel"
-								id="memTel" size="45" />
+								id="memTel" size="45" required />
 						</div>
 					</div>
 					<small class="error-msg">${errorMsgs.memTel}</small>
 				</div>
 				<div class="form-group">
-					<label for="memAddress">地址:</label>
+					<label for="memAddress"><span class="required">*</span>地址:</label>
 					<div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="Text" name="memAddress"
-								id="memAddress" size="45" />
+								id="memAddress" size="45" required/>
 						</div>
 					</div>
 					<small class="error-msg">${errorMsgs.memAddress}</small>

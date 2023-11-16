@@ -312,8 +312,6 @@ public class MemberServlet extends HttpServlet {
 	    req.setAttribute("member", updatedMember);
 		// 導到指定的URL 頁面上 把請求回應都帶過去
 		req.getRequestDispatcher("/backend/member/list_all_member.jsp").forward(req, res);
-//		String url = req.getContextPath() + "/backend/member/list_all_member.jsp";
-//		res.sendRedirect(url);
 	}
 
 	private void getOne(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
