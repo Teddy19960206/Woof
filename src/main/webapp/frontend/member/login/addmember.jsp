@@ -228,7 +228,7 @@ body {
 				</div>
 				
 				<input type="hidden" name="action" value="add">
-				<button type="submit" class="btn btn-primary btn-custom">新增</button>
+				<button type="submit" class="btn btn-primary btn-custom">註冊</button>
 				<button type="button" class="btn btn-secondary btn-custom"
 					onclick="history.back()">取消</button>
 		</form>

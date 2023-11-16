@@ -258,8 +258,8 @@ body {
 					</div>
 				</div>
 		<input type="hidden" name="action" value="add">
-		<button type="submit">新增</button>
-		<button type="button" onclick="history.back()">取消新增</button>
+		<button type="submit" class="btn btn-primary btn-custom">新增</button>
+		<button type="button" onclick="history.back()" class="btn btn-secondary btn-custom">取消新增</button>
 	</form>
 		</div>
 	</div>
