@@ -95,6 +95,7 @@ public class AppointmentDetailServlet extends HttpServlet {
     	Integer ptaNo = Integer.parseInt(ptaNoStr);
     	List<AppointmentDetail> appointmentDetails = appointmentDetailService.findAdByPtaNo(ptaNo);
     	req.setAttribute("appointmentDetails",appointmentDetails);
+//    	req.getSession().setAttribute("ptaNo",ptaNo);
     	req.setAttribute("ptaNo",ptaNo);
     }
     private void getByPtaNo2(HttpServletRequest req, HttpServletResponse res) {

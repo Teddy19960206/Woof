@@ -78,9 +78,9 @@ public class PrivateTrainingAppointmentFormServlet extends HttpServlet {
 				getAll(req, resp);
 				forwardPath = "/backend/appointment/appointment.jsp";
 				break;
-			case "getbymemname":
-				getByMemName(req, resp);
-				forwardPath = "/backend/appointment/appointmentByMemName.jsp";
+			case "getbymemno":
+				getByMemNo(req, resp);
+				forwardPath = "/backend/appointment/appointmentByMemNo.jsp";
 				break;
 			case "getone":
 				getOne(req, resp);
@@ -89,10 +89,6 @@ public class PrivateTrainingAppointmentFormServlet extends HttpServlet {
 			case "gettoselect":
 				beforeSelect(req, resp);
 				forwardPath = "/frontend/privatetrainingappointmentform/privateTrainingAppointmentForm_select.jsp";
-				break;
-			case "getbymemno":
-				getByMemNo(req, resp);
-				forwardPath = "/frontend/privatetrainingappointmentform/privateTrainingAppointmentForm_getByMemNo.jsp";
 				break;
 			case "getbytrainerno":
 				getByTrainerNo(req, resp);
@@ -109,7 +105,6 @@ public class PrivateTrainingAppointmentFormServlet extends HttpServlet {
 			case "getAllByTrainer":
 				getAllByTrainer(req , resp);
 				return;
-
 
 			case "getbyboth":
 				getByBoth(req,resp);
@@ -317,21 +312,21 @@ public class PrivateTrainingAppointmentFormServlet extends HttpServlet {
 	}
 
 
-	private void getByMemNo(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		
-		String memNo = request.getParameter("memNo");
-		String page = request.getParameter("page");
-		int currentPage = (page == null) ? 1 : Integer.parseInt(page);
-		int PTAPageQty2 = privateTrainingAppointmentFormService.getPageTotal2(memNo);
-		request.getSession().setAttribute("PTAPageQty2", PTAPageQty2);
-		
-		List<PrivateTrainingAppointmentForm> members = privateTrainingAppointmentFormService
-				.findPrivateTrainingAppointmentFormByMemNo(memNo , currentPage); 
-
-		request.setAttribute("members", members);
-		request.setAttribute("currentPage", currentPage);
-		
-	}
+//	private void getByMemNo(HttpServletRequest request, HttpServletResponse response) throws IOException {
+//		
+//		String memNo = request.getParameter("memNo");
+//		String page = request.getParameter("page");
+//		int currentPage = (page == null) ? 1 : Integer.parseInt(page);
+//		int PTAPageQty2 = privateTrainingAppointmentFormService.getPageTotal2(memNo);
+//		request.getSession().setAttribute("PTAPageQty2", PTAPageQty2);
+//		
+//		List<PrivateTrainingAppointmentForm> members = privateTrainingAppointmentFormService
+//				.findPrivateTrainingAppointmentFormByMemNo(memNo , currentPage); 
+//
+//		request.setAttribute("members", members);
+//		request.setAttribute("currentPage", currentPage);
+//		
+//	}
 	private void getByTrainerNo(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
 		Integer trainerNo = Integer.valueOf(request.getParameter("trainerNo"));
@@ -421,35 +416,35 @@ public class PrivateTrainingAppointmentFormServlet extends HttpServlet {
 
 
 	
-	private void getByMemName(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	private void getByMemNo(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
-		String memName = request.getParameter("memName");
+		String memNo = request.getParameter("memNo");
 //		System.out.println("======================================================="+memName);
 		String page = request.getParameter("page");
 		int currentPage = (page == null) ? 1 : Integer.parseInt(page);
-		int PTAPageQty4 = privateTrainingAppointmentFormService.getPageTotal4(memName);
-		System.out.println("==================================================================="+PTAPageQty4);
+		int PTAPageQty4 = privateTrainingAppointmentFormService.getPageTotal4(memNo);
+//		System.out.println("==================================================================="+PTAPageQty4);
 		request.getSession().setAttribute("PTAPageQty4", PTAPageQty4);
 		
 		List<PrivateTrainingAppointmentForm> members = privateTrainingAppointmentFormService
-				.findPrivateTrainingAppointmentFormByMemName(memName , currentPage); 
+				.findPrivateTrainingAppointmentFormByMemNo(memNo , currentPage); 
 //		System.out.println("============================================================"+members);
 		request.setAttribute("members", members);
 		request.setAttribute("currentPage", currentPage);
 	}
 	private void getByBoth(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
-		String memName = request.getParameter("memName");
+		String memNo = request.getParameter("memNo");
 		Integer trainerNo = Integer.valueOf(request.getParameter("trainerNo"));
 //		System.out.println("======================================================="+memName);
 		String page = request.getParameter("page");
 		int currentPage = (page == null) ? 1 : Integer.parseInt(page);
-		int PTAPageQty5 = privateTrainingAppointmentFormService.getPageTotal5(memName,trainerNo);
-		System.out.println("==================================================================="+PTAPageQty5);
+		int PTAPageQty5 = privateTrainingAppointmentFormService.getPageTotal5(memNo,trainerNo);
+//		System.out.println("==================================================================="+PTAPageQty5);
 		request.getSession().setAttribute("PTAPageQty5", PTAPageQty5);
 		
 		List<PrivateTrainingAppointmentForm> both = privateTrainingAppointmentFormService
-				.findByBoth(memName ,trainerNo, currentPage); 
+				.findByBoth(memNo ,trainerNo, currentPage); 
 //		System.out.println("============================================================"+members);
 		request.setAttribute("both", both);
 		request.setAttribute("currentPage", currentPage);
@@ -460,24 +455,24 @@ public class PrivateTrainingAppointmentFormServlet extends HttpServlet {
 		String trainerNoStr = request.getParameter("trainerNo");
 		Integer trainerNo = (trainerNoStr == null || trainerNoStr.trim().length() == 0) ? 0 : Integer.valueOf(trainerNoStr);
 		
-        String memNameStr = request.getParameter("memName");
-        String memName = (memNameStr == null || memNameStr.trim().length() == 0) ? null : memNameStr;
+        String memNoStr = request.getParameter("memNo");
+        String memNo = (memNoStr == null || memNoStr.trim().length() == 0) ? null : memNoStr;
         
         String forwardPath = "";
-        if(trainerNo == 0 && memName == null) {
+        if(trainerNo == 0 && memNo == null) {
         	getAll(request, response);
         	forwardPath = "/backend/appointment/appointment.jsp";
 //        	System.out.println("1111111111111111111111111111111111111111111111111 trainerNo == 0 && memName == null");
-        }else if(trainerNo == 0 && memName != null){
+        }else if(trainerNo == 0 && memNo != null){
         	try {
-				getByMemName(request, response);
-				forwardPath = "/backend/appointment/appointmentByMemName.jsp";
+				getByMemNo(request, response);
+				forwardPath = "/backend/appointment/appointmentByMemNo.jsp";
 //				System.out.println("22222222222222222222222222222222222222222222 trainerNo == 0 && memName != null");
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-        }else if(trainerNo != 0 && memName == null){
+        }else if(trainerNo != 0 && memNo == null){
         	try {
 				getByTrainerNo(request, response);
 				forwardPath = "/backend/appointment/appointmentByTrainerNo.jsp";
@@ -486,7 +481,7 @@ public class PrivateTrainingAppointmentFormServlet extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-        }else if(trainerNo != 0 && memName != null){
+        }else if(trainerNo != 0 && memNo != null){
         	try {
 				getByBoth(request, response);
 				forwardPath = "/backend/appointment/appointmentByBoth.jsp";

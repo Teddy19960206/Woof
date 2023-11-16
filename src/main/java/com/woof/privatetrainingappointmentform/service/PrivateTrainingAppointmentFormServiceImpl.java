@@ -106,17 +106,17 @@ public class PrivateTrainingAppointmentFormServiceImpl implements PrivateTrainin
 		return pageQty;
 	}
 
-	@Override
-	public List<PrivateTrainingAppointmentForm> findPrivateTrainingAppointmentFormByMemNo(String memNo , int currentPage) {
-		return dao.findByMemNo(memNo , currentPage);
-	}
-	
-	@Override
-	public int getPageTotal2(String memNo) {
-		long total = dao.getTotalMember(memNo);
-		int pageQty = (int) (total % PAGE_MAX_RESULT == 0 ? (total / PAGE_MAX_RESULT) : (total / PAGE_MAX_RESULT + 1));
-		return pageQty;
-	}
+//	@Override
+//	public List<PrivateTrainingAppointmentForm> findPrivateTrainingAppointmentFormByMemNo(String memNo , int currentPage) {
+//		return dao.findByMemNo(memNo , currentPage);
+//	}
+//	
+//	@Override
+//	public int getPageTotal2(String memNo) {
+//		long total = dao.getTotalMember(memNo);
+//		int pageQty = (int) (total % PAGE_MAX_RESULT == 0 ? (total / PAGE_MAX_RESULT) : (total / PAGE_MAX_RESULT + 1));
+//		return pageQty;
+//	}
 	
 	@Override
 	public List<PrivateTrainingAppointmentForm> findPrivateTrainingAppointmentFormByTrainerNo(Integer trainerNo , int currentPage) {
@@ -135,26 +135,26 @@ public class PrivateTrainingAppointmentFormServiceImpl implements PrivateTrainin
 		return dao.getByTrainer(year , month ,trainerNo);
 	}
 
-	public List<PrivateTrainingAppointmentForm> findPrivateTrainingAppointmentFormByMemName(String memName,
+	public List<PrivateTrainingAppointmentForm> findPrivateTrainingAppointmentFormByMemNo(String memNo,
 			int currentPage) {
-		return dao.getByMemName(memName,currentPage);
+		return dao.getByMemNo(memNo,currentPage);
 	}
 
 	@Override
-	public int getPageTotal4(String memName) {
-		long total = dao.getTotalByMemName(memName);
+	public int getPageTotal4(String memNo) {
+		long total = dao.getTotalByMemNo(memNo);
 		int pageQty = (int) (total % PAGE_MAX_RESULT == 0 ? (total / PAGE_MAX_RESULT) : (total / PAGE_MAX_RESULT + 1));
 		return pageQty;
 	}
 
 	@Override
-	public List<PrivateTrainingAppointmentForm> findByBoth(String memName, Integer trainerNo, int currentPage) {
-		return dao.getByBoth(memName, trainerNo, currentPage);
+	public List<PrivateTrainingAppointmentForm> findByBoth(String memNo, Integer trainerNo, int currentPage) {
+		return dao.getByBoth(memNo, trainerNo, currentPage);
 	}
 
 	@Override
-	public int getPageTotal5(String memName, Integer trainerNo) {
-		long total = dao.getTotalByBoth(memName,trainerNo);
+	public int getPageTotal5(String memNo, Integer trainerNo) {
+		long total = dao.getTotalByBoth(memNo,trainerNo);
 		int pageQty = (int) (total % PAGE_MAX_RESULT == 0 ? (total / PAGE_MAX_RESULT) : (total / PAGE_MAX_RESULT + 1));
 		return pageQty;
 	}
