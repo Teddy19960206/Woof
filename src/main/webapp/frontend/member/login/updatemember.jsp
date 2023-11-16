@@ -73,11 +73,9 @@ $(document).ready(function(){
           alert("哇 錯了");
          }
         });
-    
-      //日期格式 
-      /* $("#memBd").datepicker({dateFormat : 'yy-mm-dd'}); */
      })
 </script>
+<script src="https://kit.fontawesome.com/3f37e88a3b.js" crossorigin="anonymous"></script>
 <style>
 body {
 	background-color: #fff4e5; /* 淺橘色背景 */
@@ -132,6 +130,11 @@ body {
 	color: #333;
 	border: none;
 }
+.btn-third {
+	background-color: #f0f0f0; /* 淡紅色按鈕 */
+	color: #333;
+	border: none;
+}
 
 .btn-primary:hover, .btn-primary:focus {
 	background-color: #fb8c00; /* 按鈕懸停橘色 */
@@ -141,6 +144,10 @@ body {
 .btn-secondary:hover, .btn-secondary:focus {
 	background-color: #e0e0e0; /* 按鈕懸停淺灰色 */
 	color: #333;
+}
+.btn-third:hover, .btn-third:focus {
+	background-color: #e0e0e0; /* 按鈕懸停淡紅色 */
+	color: red;
 }
 </style>
 
@@ -176,8 +183,7 @@ body {
 			<div class="custom-header text-center">
 				<h3>基本資料</h3>
 			</div>
-			<a href="/woof/index.jsp" class="btn btn-light btn-sm"
-				style="position: absolute; top: 10px; right: 20px;">回首頁</a>
+				<a href="/woof/index.jsp" style="position: absolute; top: 10px; right: 20px;"><i class="fa-solid fa-house"></i></a>
 
 			<form method="post"
 				action="${pageContext.request.contextPath}/member1.do"
@@ -318,9 +324,9 @@ body {
 				</div>
 
 				<br> <input type="hidden" name="action" value="update">
-				<button type="submit">送出</button>
-				<button type="button" onclick="history.back()">取消修改</button>
-				<button type="button" name="delete" id="delete"
+				<button type="submit" class="btn btn-primary btn-custom">修改</button>
+				<button type="button" onclick="history.back()" class="btn btn-secondary btn-custom">取消修改</button>
+				<button type="button" name="delete" id="delete" class="btn btn-third btn-custom"
 					data-id="${member.memNo}">刪除圖片</button>
 			</form>
 		</div>

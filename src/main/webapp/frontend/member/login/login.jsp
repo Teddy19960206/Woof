@@ -67,11 +67,13 @@ function togglePasswordVisibility(fieldId) {
 		</h3>
 		<form method="POST" action="${pageContext.request.contextPath}/login" onsubmit="return validateForm()">
 			<div class="form-group">
+			<i class="fa-solid fa-paw"></i>
 				<label for="username"><b>帳號</b></label> <input type="text"
 					id="username" class="form-control" name="memNo">
 			<div class="error-msg">${errorMsgs.loginError1}</div>
 			</div>
 			<div class="form-group">
+			<i class="fa-solid fa-lock"></i>
 				<label for="password"><b>密碼</b></label> 
 				<div style="position: relative;">
 				<input type="password" id="password" class="form-control" name="memPassword"> 
