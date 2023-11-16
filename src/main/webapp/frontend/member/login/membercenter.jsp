@@ -13,10 +13,7 @@
    window.location.href = " <%=request.getContextPath()%>/frontend/member/login/updatemember.jsp?memNo=" + jsonData.memNo ;
   }
 </script>
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.4.1/font/bootstrap-icons.min.css">
+
 <style>
 body {
 	background-color: #FFF3E0;
@@ -144,7 +141,7 @@ body {
 									onclick="toggleCourseManagement()" style="cursor: pointer;">課程管理</a>
 									<ul id="courseManagementOptions" style="display: none;">
 										<li class="list-group-item"><a href="#">私人訓練師</a></li>
-										<li class="list-group-item"><a href="#">團體報名訂單管理</a></li>
+										<li class="list-group-item"><a href="${pageContext.request.contextPath}/frontend/member/login/groupOrder.jsp">團體報名訂單管理</a></li>
 									</ul></li>
 									<li class="list-group-item"><a
 									onclick="toggleShopOrderManagement()" style="cursor: pointer;">商城訂單查詢</a>
@@ -153,7 +150,7 @@ body {
 								<li class="list-group-item"><a href="#">訂單追蹤</a></li>
 								<li class="list-group-item"><a href="#">商品退貨</a></li>
 							</ul>
-							</li>
+						</li>
 					</ul>
 					</div>
 					</li>

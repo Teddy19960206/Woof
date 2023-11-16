@@ -25,8 +25,5 @@ public interface GroupScheduleDetailService {
 
     List<Object[]> getByTrainer(Integer trainerNo);
 
-    List<GroupScheduleDetail> getDetailByDate(Integer year , Integer month);
-
-    List<GroupScheduleDetail> getDetailByDate(Integer year , Integer month , Integer trainerNo);
-
+    List<GroupScheduleDetail> getByDate(Integer year, Integer month, Integer trainerNo, boolean applyStatusFilter);
 }

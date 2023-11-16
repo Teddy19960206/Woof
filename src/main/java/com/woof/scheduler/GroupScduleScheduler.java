@@ -57,7 +57,6 @@ public class GroupScduleScheduler extends HttpServlet {
                 System.out.println("執行排成器");
                 Jedis jedis = JedisUtil.getResource();
 
-                Set<GroupCourseSchedule> groupCourseScheduleSet = new HashSet<>();
 
 //               尋找審核中的課程，並到截止日期 + 1 day 時。
                 List<GroupCourseSchedule> allReview = groupGourseScheduleService.getAllReview();
@@ -94,8 +93,9 @@ public class GroupScduleScheduler extends HttpServlet {
 
 //              尋找Schedule 確認開課 (2) 後 該課程的所有上課時間 都已經小於現在時間時， 狀態改變成 5 (已結束)
                 List<GroupCourseSchedule> allConfirmSchedule = groupGourseScheduleService.getAllConfirmSchedule();
-                for (GroupCourseSchedule groupCourseSchedule : allConfirmSchedule){
 
+                for (GroupCourseSchedule groupCourseSchedule : allConfirmSchedule){
+                    System.out.println(groupCourseSchedule + " / groupCourseSchedule");
                     Calendar today = Calendar.getInstance();
                     today.set(Calendar.HOUR_OF_DAY , 0);
                     today.set(Calendar.MINUTE, 0);
@@ -103,7 +103,9 @@ public class GroupScduleScheduler extends HttpServlet {
                     today.set(Calendar.MILLISECOND, 0);
 
 //              且報名該課程的人 order ，狀態改變成 4 (已完成)
-                   if ( groupScheduleDetailService.getMaxDate(groupCourseSchedule.getGcsNo()).getClassDate().before(today.getTime())){
+
+                    GroupScheduleDetail maxDate = groupScheduleDetailService.getMaxDate(groupCourseSchedule.getGcsNo());
+                    if (maxDate != null && maxDate.getClassDate().before(today.getTime())){
                         groupCourseOrderService.finishOrder(groupCourseSchedule.getGcsNo());
                    }
                 }

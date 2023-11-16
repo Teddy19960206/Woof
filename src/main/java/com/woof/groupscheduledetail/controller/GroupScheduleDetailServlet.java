@@ -69,13 +69,8 @@ public class GroupScheduleDetailServlet extends HttpServlet {
 //               取得訓練師的所有上課時程
                 getTrainerClass(request, response);
                 return;
-            case "/getDetailByDate":
-//              取得某年某月的detail所有資料
-                getDetailByDate(request , response);
-                return;
-            case "/getTrainerDetail":
-//                取得訓練師課表
-                getTrainerDetail(request , response);
+            case "/getDetails":
+                getDetails(request ,response);
                 return;
             default:
 //                進入detail畫面根據取得的id去抓取要修改的資料
@@ -136,15 +131,23 @@ public class GroupScheduleDetailServlet extends HttpServlet {
     private void modify(HttpServletRequest request , HttpServletResponse response) throws IOException {
         Integer gcsdNo = Integer.valueOf(request.getParameter("gcsdNo"));
         Integer trainerNo = Integer.valueOf(request.getParameter("trainerNo"));
-        Date date = Date.valueOf(request.getParameter("classDate"));
+        Date date = null;
 
-        TrainerService trainerService = new TrainerServiceImpl();
-        Trainer trainerByTrainerNo = trainerService.findTrainerByTrainerNo(trainerNo);
+        Trainer trainerByTrainerNo = new TrainerServiceImpl().findTrainerByTrainerNo(trainerNo);
+
+        String classDateStr = request.getParameter("classDate");
+
+
+        if (classDateStr == null || classDateStr.trim().length() == 0){
+            date = groupScheduleDetailService.findByGcsd(gcsdNo).getClassDate();
+        }else{
+            date = Date.valueOf(classDateStr);
+        }
 
         groupScheduleDetailService.modify(gcsdNo , trainerByTrainerNo , date);
 
         response.setContentType("application/json;charset=UTF-8");
-        response.getWriter().write("ok");
+        response.getWriter().write("{\"message\" : \"更新成功\" }");
     }
 
     private void getTrainerClass(HttpServletRequest request , HttpServletResponse response) throws IOException {
@@ -166,41 +169,34 @@ public class GroupScheduleDetailServlet extends HttpServlet {
         response.getWriter().write(json);
     }
 
-    private void getDetailByDate(HttpServletRequest request , HttpServletResponse response) throws IOException {
-
+    private void getDetails(HttpServletRequest request , HttpServletResponse response) throws IOException {
         Integer year = Integer.valueOf(request.getParameter("year"));
         Integer month = Integer.valueOf(request.getParameter("month"));
-        List<GroupScheduleDetail> detailByDate = groupScheduleDetailService.getDetailByDate(year, month);
+        String trainerNoStr = request.getParameter("applyTrainerFilter");
+        String applyStatusFilterStr = request.getParameter("applyStatusFilter");
+        Integer trainerNo = null;
+        Boolean applyStatusFilter = false;
+
+        if ("true".equals(trainerNoStr)){
+            Administrator administrator = (Administrator) request.getSession(false).getAttribute("administrator");
+            TrainerService trainerService = new TrainerServiceImpl();
+            trainerNo = trainerService.getByAdmin(administrator.getAdminNo()).getTrainerNo();
+        }
+
+        if ("true".equals(applyStatusFilterStr)){
+            applyStatusFilter = true;
+        }
+
+        List<GroupScheduleDetail> dates = groupScheduleDetailService.getByDate(year, month, trainerNo, applyStatusFilter);
 
         Gson gson = new GsonBuilder()
                 .excludeFieldsWithoutExposeAnnotation()
                 .setDateFormat("yyyy-MM-dd")
                 .create();
-        String json = gson.toJson(detailByDate);
+        String json = gson.toJson(dates);
 
         response.setContentType("application/json;charset=UTF-8");
         response.getWriter().write(json);
 
-    }
-
-    private void getTrainerDetail(HttpServletRequest request , HttpServletResponse response) throws IOException {
-
-        Administrator administrator = (Administrator) request.getSession(false).getAttribute("Administrator");
-        TrainerService trainerService = new TrainerServiceImpl();
-        Integer trainerNo = trainerService.getByAdmin(administrator.getAdminNo()).getTrainerNo();
-
-        Integer year = Integer.valueOf(request.getParameter("year"));
-        Integer month = Integer.valueOf(request.getParameter("month"));
-
-        List<GroupScheduleDetail> detailByDate = groupScheduleDetailService.getDetailByDate(year, month ,trainerNo);
-
-        Gson gson = new GsonBuilder()
-                .excludeFieldsWithoutExposeAnnotation()
-                .setDateFormat("yyyy-MM-dd")
-                .create();
-        String json = gson.toJson(detailByDate);
-
-        response.setContentType("application/json;charset=UTF-8");
-        response.getWriter().write(json);
     }
 }

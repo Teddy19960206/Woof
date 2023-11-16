@@ -111,7 +111,74 @@ public class MemberServlet extends HttpServlet {
 	private void addMember(HttpServletRequest req, HttpServletResponse res)
 			throws IOException, ParseException, ServletException {
 		
+		Map<String,String> errorMsgs = new LinkedHashMap<String,String>();
+		req.setAttribute("errorMsgs", errorMsgs);
+		List<Member> members = memberService.getAllMembers();
+		
 		Member member = new Member();
+		String mememail = req.getParameter("memEmail");
+		String memNo = req.getParameter("memNo");
+		
+		
+		for(Member mem :  members) {
+			if(mem.getMemNo().equals(memNo)) {
+				errorMsgs.put("memNo","此帳號已註冊，請重新輸入");
+			}
+			if(mem.getMemEmail().equals(mememail)) {
+				errorMsgs.put("memEmail", "不能使用該信箱");
+			}
+			if(!errorMsgs.isEmpty()) {
+				break;
+			}
+		}
+		
+		if(!errorMsgs.isEmpty()) {
+			
+			req.getRequestDispatcher("frontend/member/login/addmember.jsp").forward(req, res);
+		    return;
+		}
+		/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
+		if (memNo == null || memNo.trim().length() == 0) {
+			errorMsgs.put("memNo","會員帳號請勿空白");
+		}
+		
+		String memname = req.getParameter("memName");
+		String memnameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_\s)]{1,50}$";
+		if (memname == null || memname.trim().length() == 0) {
+			errorMsgs.put("memName","會員姓名: 請勿空白");
+		} else if(!memname.trim().matches(memnameReg)) { //以下練習正則(規)表示式(regular-expression)
+			errorMsgs.put("memName","會員姓名: 只能是中、英文字母、數字、空格和_ , 且長度必需在1到50之間");
+        }
+		
+		String memgender = req.getParameter("memGender").trim();
+		if (memgender == null || memgender.trim().length() == 0) {
+			errorMsgs.put("memGender","會員性別請勿空白");
+		}
+		
+		if (mememail == null || mememail.trim().length() == 0) {
+			errorMsgs.put("memEmail","會員信箱請勿空白");
+		}
+		
+		String mempwd = req.getParameter("memPassword").trim();
+		if (mempwd == null || mempwd.trim().length() == 0) {
+			errorMsgs.put("memPassword","會員密碼請勿空白");
+		}
+		
+		String memtel = req.getParameter("memTel").trim();
+		if (memtel == null || memtel.trim().length() == 0) {
+			errorMsgs.put("memTel","會員電話請勿空白");
+		} 
+		
+		String memaddress = req.getParameter("memAddress").trim();
+		if (memaddress == null || memaddress.trim().length() == 0) {
+			errorMsgs.put("memAddress","會員地址請勿空白");
+		}
+
+		// Send the use back to the form, if there were errors
+		if (!errorMsgs.isEmpty()){
+			req.getRequestDispatcher("backend/member/addmember.jsp").forward(req, res);
+	    return;
+		}
 		// 把資料給前端
 		member.setMemNo(req.getParameter("memNo"));
 		member.setMemName(req.getParameter("memName"));
@@ -153,7 +220,55 @@ public class MemberServlet extends HttpServlet {
 
 	private void updateMember(HttpServletRequest req, HttpServletResponse res)
 			throws ParseException, IOException, ServletException {
+		
+		Map<String,String> errorMsgs = new LinkedHashMap<String,String>();
+		req.setAttribute("errorMsgs", errorMsgs);
 		Member member = new Member();
+		String mememail = req.getParameter("memEmail");
+		String memNo = req.getParameter("memNo");
+		/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
+		if (memNo == null || memNo.trim().length() == 0) {
+			errorMsgs.put("memNo","會員帳號請勿空白");
+		}
+		
+		String memname = req.getParameter("memName");
+		String memnameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_\s)]{1,50}$";
+		if (memname == null || memname.trim().length() == 0) {
+			errorMsgs.put("memName","會員姓名: 請勿空白");
+		} else if(!memname.trim().matches(memnameReg)) { //以下練習正則(規)表示式(regular-expression)
+			errorMsgs.put("memName","會員姓名: 只能是中、英文字母、數字、空格和_ , 且長度必需在1到50之間");
+        }
+		
+		String memgender = req.getParameter("memGender").trim();
+		if (memgender == null || memgender.trim().length() == 0) {
+			errorMsgs.put("memGender","會員性別請勿空白");
+		}
+		
+		if (mememail == null || mememail.trim().length() == 0) {
+			errorMsgs.put("memEmail","會員信箱請勿空白");
+		}
+		
+		String mempwd = req.getParameter("memPassword").trim();
+		if (mempwd == null || mempwd.trim().length() == 0) {
+			errorMsgs.put("memPassword","會員密碼請勿空白");
+		}
+		
+		String memtel = req.getParameter("memTel").trim();
+		if (memtel == null || memtel.trim().length() == 0) {
+			errorMsgs.put("memTel","會員電話請勿空白");
+		} 
+		
+		String memaddress = req.getParameter("memAddress").trim();
+		if (memaddress == null || memaddress.trim().length() == 0) {
+			errorMsgs.put("memAddress","會員地址請勿空白");
+		}
+
+		// Send the use back to the form, if there were errors
+		if (!errorMsgs.isEmpty()){
+			req.getRequestDispatcher("backend/member/updatemember.jsp").forward(req, res);
+	    return;
+		}
+		//=======================================================//
 		member.setMemNo(req.getParameter("memNo"));
 		member.setMemName(req.getParameter("memName"));
 		member.setMemGender(req.getParameter("memGender"));
@@ -211,7 +326,7 @@ public class MemberServlet extends HttpServlet {
 			// 獲取所有成員
 //			List<Member> allMembers = memberService.getAllMembers();
 //			req.setAttribute("Members", allMembers);
-
+			
 			// 獲取特定成員
 			String memNoStr = req.getParameter("memNo");
 

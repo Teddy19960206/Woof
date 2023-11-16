@@ -1,24 +1,11 @@
 let pathName = window.document.location.pathname;
 let projectName = pathName.substring( 0 , pathName.substring(1).indexOf("/")+1);
-const calendarEl = document.getElementById('calendar');
 const myModal = new bootstrap.Modal(document.getElementById('myModal'), {});
-const next = document.getElementById("next");
-const show = document.getElementById("show");
-const errorMsg = document.getElementById("errorMsg");
-const calendarStr = document.getElementById("calendarStr");
-const submitBtn = document.getElementById("submitBtn");
-const add = document.getElementById("add");
-const params = new URLSearchParams(window.location.search);
-const reason = document.getElementById("reason");
-const reasonErr = document.getElementById("reasonErr");
-const startDate = document.getElementById("startDate");
-const startDateErr = document.getElementById("startDateErr");
-const endDate = document.getElementById("endDate");
-const endDateErr = document.getElementById("endDateErr");
-
-
 let date= [];
 
+let selected = false;
+
+var calendarEl = document.getElementById('calendar');
 
 const calendar = new FullCalendar.Calendar(calendarEl, {
     headerToolbar: {
@@ -36,7 +23,7 @@ const calendar = new FullCalendar.Calendar(calendarEl, {
 
     select: function(arg) {
 
-        if (new Date() < arg.start){
+        if (new Date() < arg.start && !selected){
 
             if (date.some(item => arg.startStr === item)) {
                 calendar.unselect(); // 取消選擇
@@ -82,18 +69,15 @@ const calendar = new FullCalendar.Calendar(calendarEl, {
         }).then((result) => {
             if (result.isConfirmed) {
                 // 這裡要做ajax發送delete資料庫動作
-                arg.event.remove()
-                let indexToRemove = reserveDate.indexOf(arg.event.startStr);
-                if (indexToRemove !== -1) {
-                    reserveDate.splice(indexToRemove, 1);
-                }
-
-
                 swalWithBootstrapButtons.fire({
                     title: "已刪除",
                     text: "刪除成功",
                     icon: "success"
                 });
+                // 刪除後全部元素刪除，全部重新抓取
+                removeAllEvents();
+                fetchDetailByDate($("#year").text() , $("#month").text());
+                selected = false;
             } else if (result.dismiss === Swal.DismissReason.cancel) {
                 swalWithBootstrapButtons.fire({
                     title: "已取消",
@@ -116,10 +100,11 @@ const calendar = new FullCalendar.Calendar(calendarEl, {
         let date = new Date(info.start);
         date.setDate(date.getDate() + 7);
         fetchDetailByDate(date.getFullYear() , date.getMonth()+1);
+        $("#year").text(date.getFullYear());
+        $("#month").text(date.getMonth()+1);
     },
 });
 
-// 進入下月時，清除之前的內容
 function removeAllEvents(){
     let allEvents = calendar.getEvents();
     allEvents.forEach(function (event){
@@ -127,27 +112,12 @@ function removeAllEvents(){
     })
 }
 
-
-
-
-// 預約清單
-const reserveDate= [];
-
-// 新增預約日期
-$("#reserveBtn").on("click" , function (){
-
-    calendar.addEvent({
-        title: "預約",
-        start: $("#hideDate").text(),
-        backgroundColor:"#0000ff"
-    })
-    myModal.hide();
-
-    reserveDate.push($("#hideDate").text());
+document.addEventListener('DOMContentLoaded',  function() {
+    calendar.render();
 });
 
 
-// 獲取當月所有已報名訊息
+
 async function fetchDetailByDate(year , month){
 
     let url = `${projectName}/scheduleDetail/getDetails`;
@@ -178,119 +148,110 @@ async function fetchDetailByDate(year , month){
 
 }
 
-next.addEventListener("click" , function (){
+// 預約清單
+let reserveDate;
 
-    let hasError = false;
-    let errorMessages = {};
+// 新增預約日期
+$("#reserveBtn").on("click" , function (){
 
+    calendar.addEvent({
+        title: "修改日期",
+        start: $("#hideDate").text(),
+        backgroundColor:"#0000ff"
+    })
+    myModal.hide();
+    selected = true;
+    reserveDate = $("#hideDate").text();
 
-    if (reason.value == null || reason.value.trim().length == 0){
-        setError(reasonErr , "請勿空白")
-        reason.focus();
-        hasError = true;
-    }
+    console.log(reserveDate)
+});
 
-    // 檢查日期
-    if (!startDateErr.value || !endDateErr.value) {
-        let dateErr = false;
+async function change(){
+    $("#calendar").hide();
+    $("#next").hide();
 
-        // 檢查開始日期
-        if (!startDate.value) {
-            setError(startDateErr, "請選擇時間");
-            hasError = true;
-            dateErr = true;
-        }
+    let data = await detailedit($("#detailNo").val());
 
-        // 檢查結束日期
-        if (!endDate.value) {
-            setError(endDateErr, "請選擇時間");
-            hasError = true;
-            dateErr = true;
-        }
+    let html = `<select class="form-select" style="width: 200px">`
+        data.forEach((item)=>{
+            html += `<option value="${item.trainerNo}" ${item.administrator.adminName == $("trianer").val() ? 'selected' : ''}>${item.administrator.adminName}</option>`;
+        })
+        html += `</select>`;
 
-        if (!dateErr) {
-            let now = new Date();
-            let start = new Date(startDate.value);
-            let end = new Date(endDate.value);
+    $("#showSelect").html(html);
 
-            // 比較日期
-            if (now > start) {
-                setError(startDateErr, "請選擇大於今日日期");
-                hasError = true;
-            } else if (start > end) {
-                setError(endDateErr, "結束日期不能小於開始日期");
-                hasError = true;
-            }
-        }
-    }
-
-    if (!hasError){
-        submitBtn.style.display = "block";
-        calendarStr.style.display = "block";
-        show.style.display = "none";
-        calendar.render();
-    }
+    $("#confirm").show();
+}
 
 
-    function setError(element, message) {
-        element.style.display = "inline-block";
-        element.innerText = message;
-        errorMessages[element.id] = message;
-    }
-})
+async function detailedit(id){
 
-
-add.addEventListener("click" , function (){
-
-    delayFetch(params.get("no") ,reason.value );
-
-})
-
-async function delayFetch(id , reason){
-
-    let url = `${projectName}/schedule/addDelay`;
+    let url = `${projectName}/scheduleDetail/edit`;
 
     let formData = new FormData();
-    formData.append("id" , id);
-    formData.append("reason" , reason);
-    formData.append("classDate" , reserveDate.toString());
-    formData.append("startDate" , startDate.value);
-    formData.append("endDate" , endDate.value);
+    formData.append("Detail" ,id );
 
     try{
-        const response = await fetch(url, {
-            method: "POST",
+        const response = await fetch(url ,{
+            method : "POST",
             body : formData
-        })
+        });
 
         if (!response.ok){
-            throw new Error("新增失敗")
+            throw new Error('Network response was not ok');
         }
+        // 取得資料後，進行拼圖，並打到頁面上
         const data = await response.json();
 
-        if (data.message){
-
-            await Swal.fire({
-                icon: "success",
-                title: "Good job!",
-                text: "延期更改成功"
-            });
-        }else{
-            let str = "";
-            data.forEach(message =>{
-                str += message +"\n"
-            })
-
-            await Swal.fire({
-                icon: "error",
-                title: "Oops...",
-                text: `${str}`
-            });
-        }
-        window.location.href = `${projectName}/backend/course/schedule.jsp`;
+        return data;
 
     }catch (error){
         console.error('Error', error);
     }
 }
 
+$("button.modify-button").on("click"  , async function (){
+
+    let url = `${projectName}/scheduleDetail/modify`;
+
+    let formData = new FormData();
+    formData.append("gcsdNo" ,$("#detailNo").val());
+    formData.append("trainerNo", $(":selected").val());
+    formData.append("classDate" , reserveDate);
+
+
+    try{
+        const response = await fetch(url , {
+            method: "POST",
+            body: formData
+        })
+
+        if (!response.ok){
+            throw new Error("錯誤");
+        }
+
+        const data =await response.json();
+
+        if (data.message){
+            await Swal.fire({
+                title: "Good job!",
+                text: "更新成功",
+                icon: "success"
+            });
+        }else{
+            await Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "更新失敗"
+            });
+        }
+
+        window.location.href = `${projectName}/backend/course/schedule.jsp`;
+
+    }catch (error){
+        console.error("Error" , error)
+    }
+
+
+
+})

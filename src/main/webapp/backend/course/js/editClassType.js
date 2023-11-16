@@ -1,5 +1,6 @@
 let pathName = window.document.location.pathname;
 let projectName = pathName.substring( 0 , pathName.substring(1).indexOf("/")+1);
+
 $(document).on("click" , "button.edit-button" , function (){
     let modifyBtn = $(this).closest("tr").find("button").eq(1);
     modifyBtn.prop("disabled" , false)

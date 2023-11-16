@@ -31,9 +31,9 @@ public interface PrivateTrainingAppointmentFormService {
 
 	int getPageTotal();
 	
-	List<PrivateTrainingAppointmentForm> findPrivateTrainingAppointmentFormByMemNo(String memNo , int currentPage);
+//	List<PrivateTrainingAppointmentForm> findPrivateTrainingAppointmentFormByMemNo(String memNo , int currentPage);
 	
-	int getPageTotal2(String memNo);
+//	int getPageTotal2(String memNo);
 	
 	List<PrivateTrainingAppointmentForm> findPrivateTrainingAppointmentFormByTrainerNo(Integer trainerNo , int currentPage);
 	
@@ -41,12 +41,12 @@ public interface PrivateTrainingAppointmentFormService {
 
 	List<Date> getByTrainer(Integer year , Integer month , Integer trainerNo);
 	
-	List<PrivateTrainingAppointmentForm> findPrivateTrainingAppointmentFormByMemName(String memName , int currentPage);
+	List<PrivateTrainingAppointmentForm> findPrivateTrainingAppointmentFormByMemNo(String memNo , int currentPage);
 	
-	int getPageTotal4(String memName);
+	int getPageTotal4(String memNo);
 	
-	List<PrivateTrainingAppointmentForm> findByBoth(String memName , Integer trainerNo , int currentPage);
+	List<PrivateTrainingAppointmentForm> findByBoth(String memNo , Integer trainerNo , int currentPage);
 	
-	int getPageTotal5(String memName , Integer trainerNo);
+	int getPageTotal5(String memNo , Integer trainerNo);
 	
 }
