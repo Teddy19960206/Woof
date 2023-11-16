@@ -75,6 +75,7 @@ $(document).ready(function(){
         return confirm('您確定要修改這些資料嗎？');
     }
 </script>
+<script src="https://kit.fontawesome.com/3f37e88a3b.js" crossorigin="anonymous"></script>
 <style>
 body {
 	background-color: #fff4e5; /* 淺橘色背景 */
@@ -174,8 +175,7 @@ body {
 			<div class="custom-header text-center">
 				<h3>基本資料</h3>
 			</div>
-			<a href="/woof/index.jsp" class="btn btn-light btn-sm"
-				style="position: absolute; top: 10px; right: 20px;">回首頁</a>
+			 <a href="/woof/backend/index.jsp"style="position: absolute; top: 10px; right: 20px;"><i class="fa-solid fa-house"></i></a>
 
 			<form method="post"
 				action="${pageContext.request.contextPath}/member.do"

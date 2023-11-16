@@ -24,6 +24,7 @@
 		});
 	});
 </script>
+<script src="https://kit.fontawesome.com/3f37e88a3b.js" crossorigin="anonymous"></script>
 <style>
 body {
 	background-color: #fff4e5; /* 淺橘色背景 */
@@ -118,8 +119,7 @@ body {
 			<div class="custom-header text-center">
 				<h3>會員資料新增</h3>
 			</div>
-			<a href="/woof/backend/index.jsp" class="btn btn-light btn-sm"
-				style="position: absolute; top: 10px; right: 20px;">回首頁</a>
+			 <a href="/woof/backend/index.jsp"style="position: absolute; top: 10px; right: 20px;"><i class="fa-solid fa-house"></i></a>
 			<form method="post"
 		action="${pageContext.request.contextPath}/member.do" enctype="multipart/form-data" accept-charset="UTF-8">
 				<!-- 其他表單元素 -->

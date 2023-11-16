@@ -129,7 +129,6 @@ public class MemberServlet1 extends HttpServlet {
 		String mememail = req.getParameter("memEmail");
 		String memNo = req.getParameter("memNo");
 		
-		
 		for(Member mem :  members) {
 //			System.out.println("---------");
 //			System.out.println(mem.getMemNo());
@@ -237,26 +236,20 @@ public class MemberServlet1 extends HttpServlet {
 			req.setCharacterEncoding("UTF-8");
 			res.sendRedirect(url);
 		} catch (Exception e) {
-				e.printStackTrace(); // This is for logging purpose
+				e.printStackTrace(); 
 			}
 		}
 
 	private void updateMember(HttpServletRequest req, HttpServletResponse res)
 			throws ParseException, IOException, ServletException {
+		
 		Map<String,String> errorMsgs = new LinkedHashMap<String,String>();
 		req.setAttribute("errorMsgs", errorMsgs);
-//		List<Member> members = memberService.getAllMembers();
-		
+//		List<Member> members = memberService.getAllMembers();		
 		Member member = new Member();
 		String mememail = req.getParameter("memEmail");
 		String memNo = req.getParameter("memNo");
-		
-		
 //		for(Member mem :  members) {
-////			System.out.println("---------");
-////			System.out.println(mem.getMemNo());
-////			System.out.println(memNo);
-////			System.out.println(mem.getMemNo().equals(memNo));
 //			if(mem.getMemNo().equals(memNo)) {
 //				errorMsgs.put("memNo","此帳號已註冊，請重新輸入");
 //			}
@@ -267,7 +260,6 @@ public class MemberServlet1 extends HttpServlet {
 //				break;
 //			}
 //		}
-//		
 //		if(!errorMsgs.isEmpty()) {
 //			
 //			req.getRequestDispatcher("frontend/member/login/updatemember.jsp").forward(req, res);
