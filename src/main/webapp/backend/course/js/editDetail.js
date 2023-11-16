@@ -120,7 +120,7 @@ document.addEventListener('DOMContentLoaded',  function() {
 
 async function fetchDetailByDate(year , month){
 
-    let url = `${projectName}/scheduleDetail/getDetailByDate`;
+    let url = `${projectName}/scheduleDetail/getDetails`;
     try{
         const response = await fetch(url , {
             method : "POST",

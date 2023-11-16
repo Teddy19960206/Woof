@@ -41,7 +41,9 @@ notUseSmmpRadio.addEventListener("change", function () {
 
 
 credit.addEventListener("change" , function (){
-    html = `<input class="form-control d-inline text-center" type="text" maxlength="4" onkeypress='validate(event)' value="4311" pattern="[0-9]{4}" title="請輸入4位數字" required><span> - </span>
+    html = `<label for="payname">付款人姓名</label>
+                    <input type="text" class="form-control text-center mb-5" id="payname"/>
+                    <input class="form-control d-inline text-center" type="text" maxlength="4" onkeypress='validate(event)' value="4311" pattern="[0-9]{4}" title="請輸入4位數字" required><span> - </span>
                     <input class="form-control d-inline text-center" type="text" maxlength="4" onkeypress='validate(event)' value="9522" pattern="[0-9]{4}" title="請輸入4位數字" required><span> - </span>
                     <input class="form-control d-inline text-center" type="text" maxlength="4" onkeypress='validate(event)' value="2222" pattern="[0-9]{4}" title="請輸入4位數字" required><span> - </span>
                     <input class="form-control d-inline text-center  " type="text" maxlength="4" onkeypress='validate(event)' value="2222" pattern="[0-9]{4}" title="請輸入4位數字" required>
@@ -76,10 +78,6 @@ ecPay.addEventListener("change" , function (){
 
 
 
-smmpCount.addEventListener("keypress" , function (evt){
-
-})
-
 smmpCount.addEventListener("keyup" , function (){
     if (parseInt(smmpCount.value) > smmp){
         $("#myModal").modal("show");
@@ -90,6 +88,14 @@ smmpCount.addEventListener("keyup" , function (){
 })
 
 smmpCount.addEventListener("input" , function (){
+
+    //  禁止輸入負數
+    if (this.value < 0){
+        this.value = '';
+        return;
+    }
+
     actualAmount.value = price.value - smmpCount.value;
+
 })
 

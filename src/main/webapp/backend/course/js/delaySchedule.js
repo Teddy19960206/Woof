@@ -150,7 +150,7 @@ $("#reserveBtn").on("click" , function (){
 // 獲取當月所有已報名訊息
 async function fetchDetailByDate(year , month){
 
-    let url = `${projectName}/scheduleDetail/getDetailByDate`;
+    let url = `${projectName}/scheduleDetail/getDetails`;
     try{
         const response = await fetch(url , {
             method : "POST",

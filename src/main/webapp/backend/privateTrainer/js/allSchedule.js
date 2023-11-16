@@ -1,9 +1,6 @@
 let pathName = window.document.location.pathname;
 let projectName = pathName.substring( 0 , pathName.substring(1).indexOf("/")+1);
 
-let date= [];
-
-
 var calendarEl = document.getElementById('calendar');
 
 var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -100,6 +97,8 @@ async function fetchDetailByDate(year , month , trainerNo , trainerName){
         }
         const data = await response.json();
 
+        console.log(data)
+
         for(let i = 0 ; i < data.length; i++){
             calendar.addEvent({
                 title:`訓練師：${trainerName} 上課`,
@@ -119,7 +118,7 @@ async function fetchDetailByDate(year , month , trainerNo , trainerName){
 $("#trainers").on("change" , function (){
     removeAllEvents();
     fetchNonClass($("#recordYear").text(), $("#recordMonth").text() , $("#trainers").val() , $("#trainers").find(":selected").text());
-    fetchDetailByDate(date.getFullYear() , date.getMonth()+1 ,$("#trainers").val() , $("#trainers").find(":selected").text());
+    fetchDetailByDate($("#recordYear").text() , $("#recordMonth").text() ,$("#trainers").val() , $("#trainers").find(":selected").text());
 })
 
 

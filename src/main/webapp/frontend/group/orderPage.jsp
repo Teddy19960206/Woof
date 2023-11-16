@@ -22,7 +22,8 @@
             <div class="row">
                 <label class="col-5 text-center">訂單編號</label>
                 <div class="col-5">
-                    <input type="text" class="form-control" id="orderNo" value="${orderNo}" readonly>
+                    <input type="hidden" id="orderNo" value="${orderNo}"/>
+                    <input type="text" class="form-control" id="orderNoOriginal" readonly>
                 </div>
 
             </div>

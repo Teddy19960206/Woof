@@ -189,9 +189,9 @@ $(document).on("click" , "button.detail-button" , function (e){
     let url = `${projectName}/scheduleDetail/detail/${this.getAttribute("data-id")}`;
     className = $(this).closest("tr").find("th").eq(1).text();
     var newUrl = `${projectName}/backend/course/schedule.jsp`; // 想要添加的新網址
-    var newState = { page: "your-page" }; // 新狀態物件
+    var newState = { page: "寵毛導師Woof" }; // 新狀態物件
 
-    history.pushState(newState, "新頁面標題", newUrl);
+    history.pushState(newState, "", newUrl);
     fetchDetail(url);
 });
 // 監聽按下上一頁時會重新刷新頁一慢

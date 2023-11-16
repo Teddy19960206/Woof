@@ -105,7 +105,6 @@ public class GroupScduleScheduler extends HttpServlet {
 //              且報名該課程的人 order ，狀態改變成 4 (已完成)
 
                     GroupScheduleDetail maxDate = groupScheduleDetailService.getMaxDate(groupCourseSchedule.getGcsNo());
-                    System.out.println(maxDate);
                     if (maxDate != null && maxDate.getClassDate().before(today.getTime())){
                         groupCourseOrderService.finishOrder(groupCourseSchedule.getGcsNo());
                    }
