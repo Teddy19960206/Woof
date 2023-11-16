@@ -50,10 +50,12 @@ public class GroupScheduleDetailDAOImpl implements GroupScheduleDetailDAO{
     }
 
     public GroupScheduleDetail getMaxDate(Integer gcsNo) {
-        String hql = "FROM GroupScheduleDetail gcsd WHERE gcsd.groupCourseSchedule = :gcsNo ORDER BY gcsd.classDate DESC LIMIT 1";
+        String hql = "FROM GroupScheduleDetail gcsd WHERE gcsd.groupCourseSchedule.gcsNo = :gcsNo ORDER BY gcsd.classDate DESC";
         Query query = getSession().createQuery(hql);
         query.setParameter("gcsNo" , gcsNo);
-        return (GroupScheduleDetail) query.getSingleResult();
+        query.setMaxResults(1);
+        List<GroupScheduleDetail> results = query.getResultList();
+        return results.isEmpty() ? null : results.get(0);
     }
 
     @Override
