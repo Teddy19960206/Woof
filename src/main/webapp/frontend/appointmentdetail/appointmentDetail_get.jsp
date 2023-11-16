@@ -10,7 +10,6 @@
         font-family: Arial, sans-serif;
         background-color: #f5f5f5;
     }
-
     table {
         border-collapse: collapse;
         width: 80%;
@@ -67,6 +66,8 @@
 </style>
 </head>
 <body>
+	<div class="container py-3" >
+	<div class="col">
 	<table border=1>
 		<tr>
 			<th>預約明細編號</th>
@@ -128,6 +129,8 @@
 <%--         <p>ptaNo = ${param.ptaNo}</p> --%>
     </FORM>
     <button class="btn btn-back" onclick="history.back()">返回</button>
+	</div>
+	</div>
 	</div>
 
 </body>

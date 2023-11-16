@@ -40,4 +40,13 @@ public interface PrivateTrainingAppointmentFormService {
 	int getPageTotal3(Integer trainerNo);
 
 	List<Date> getByTrainer(Integer year , Integer month , Integer trainerNo);
+	
+	List<PrivateTrainingAppointmentForm> findPrivateTrainingAppointmentFormByMemName(String memName , int currentPage);
+	
+	int getPageTotal4(String memName);
+	
+	List<PrivateTrainingAppointmentForm> findByBoth(String memName , Integer trainerNo , int currentPage);
+	
+	int getPageTotal5(String memName , Integer trainerNo);
+	
 }

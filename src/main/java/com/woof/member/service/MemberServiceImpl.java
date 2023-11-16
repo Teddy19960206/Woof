@@ -97,4 +97,10 @@ public class MemberServiceImpl implements MemberService, AppService<String> {
 		Member member = dao.findByMemberEmail(memEmail);
 		return member;
 	}
+
+	@Override
+	public void updateMemberClass(String memNo, Integer totalClass) {
+		findMemberByNo(memNo).setTotalClass(totalClass);
+	}
+
 }

@@ -19,12 +19,16 @@ import com.google.gson.GsonBuilder;
 import com.woof.privatetrainingappointmentform.entity.PrivateTrainingAppointmentForm;
 import com.woof.privatetrainingappointmentform.service.PrivateTrainingAppointmentFormService;
 import com.woof.privatetrainingappointmentform.service.PrivateTrainingAppointmentFormServiceImpl;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 import com.woof.member.entity.Member;
 import com.woof.member.service.MemberService;
 import com.woof.member.service.MemberServiceImpl;
 import com.woof.trainer.entity.Trainer;
 import com.woof.trainer.service.TrainerService;
 import com.woof.trainer.service.TrainerServiceImpl;
+import com.woof.util.JsonIgnoreExclusionStrategy;
 
 @WebServlet("/privatetrainingappointmentform/*")
 @MultipartConfig
@@ -72,7 +76,11 @@ public class PrivateTrainingAppointmentFormServlet extends HttpServlet {
 				return;
 			case "getall":
 				getAll(req, resp);
-				forwardPath = "/frontend/privatetrainingappointmentform/privateTrainingAppointmentForm_getAll.jsp";
+				forwardPath = "/backend/appointment/appointment.jsp";
+				break;
+			case "getbymemname":
+				getByMemName(req, resp);
+				forwardPath = "/backend/appointment/appointmentByMemName.jsp";
 				break;
 			case "getone":
 				getOne(req, resp);
@@ -88,7 +96,7 @@ public class PrivateTrainingAppointmentFormServlet extends HttpServlet {
 				break;
 			case "getbytrainerno":
 				getByTrainerNo(req, resp);
-				forwardPath = "/frontend/privatetrainingappointmentform/privateTrainingAppointmentForm_getByTrainerNo.jsp";
+				forwardPath = "/backend/appointment/appointmentByTrainerNo.jsp";
 				break;
 			case "commentbymember":
 				getByMemNo(req, resp);
@@ -97,8 +105,18 @@ public class PrivateTrainingAppointmentFormServlet extends HttpServlet {
 			case "comment":
 				forwardPath = "/frontend/privatetrainingappointmentform/commenting.jsp";
 				break;
+
 			case "getAllByTrainer":
 				getAllByTrainer(req , resp);
+				return;
+
+
+			case "getbyboth":
+				getByBoth(req,resp);
+				forwardPath = "/backend/appointment/appointmentByBoth.jsp";
+				break;
+			case "getboth":
+				getByMemberOrTrainer(req,resp);	
 				return;
 
 			case "updatecomment":
@@ -384,6 +402,7 @@ public class PrivateTrainingAppointmentFormServlet extends HttpServlet {
 	}
 
 
+
 	private void getAllByTrainer(HttpServletRequest request , HttpServletResponse response) throws IOException {
 		Integer trainerNo = Integer.valueOf(request.getParameter("trainerNo"));
 		Integer year = Integer.valueOf(request.getParameter("year"));
@@ -398,6 +417,95 @@ public class PrivateTrainingAppointmentFormServlet extends HttpServlet {
 
 		response.setContentType("application/json;charset=UTF-8");
 		response.getWriter().write(gson.toJson(dates));
+	}
+
+
+	
+	private void getByMemName(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		
+		String memName = request.getParameter("memName");
+//		System.out.println("======================================================="+memName);
+		String page = request.getParameter("page");
+		int currentPage = (page == null) ? 1 : Integer.parseInt(page);
+		int PTAPageQty4 = privateTrainingAppointmentFormService.getPageTotal4(memName);
+		System.out.println("==================================================================="+PTAPageQty4);
+		request.getSession().setAttribute("PTAPageQty4", PTAPageQty4);
+		
+		List<PrivateTrainingAppointmentForm> members = privateTrainingAppointmentFormService
+				.findPrivateTrainingAppointmentFormByMemName(memName , currentPage); 
+//		System.out.println("============================================================"+members);
+		request.setAttribute("members", members);
+		request.setAttribute("currentPage", currentPage);
+	}
+	private void getByBoth(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		
+		String memName = request.getParameter("memName");
+		Integer trainerNo = Integer.valueOf(request.getParameter("trainerNo"));
+//		System.out.println("======================================================="+memName);
+		String page = request.getParameter("page");
+		int currentPage = (page == null) ? 1 : Integer.parseInt(page);
+		int PTAPageQty5 = privateTrainingAppointmentFormService.getPageTotal5(memName,trainerNo);
+		System.out.println("==================================================================="+PTAPageQty5);
+		request.getSession().setAttribute("PTAPageQty5", PTAPageQty5);
+		
+		List<PrivateTrainingAppointmentForm> both = privateTrainingAppointmentFormService
+				.findByBoth(memName ,trainerNo, currentPage); 
+//		System.out.println("============================================================"+members);
+		request.setAttribute("both", both);
+		request.setAttribute("currentPage", currentPage);
+		
+	}
+	private void getByMemberOrTrainer(HttpServletRequest request, HttpServletResponse response) {
+		
+		String trainerNoStr = request.getParameter("trainerNo");
+		Integer trainerNo = (trainerNoStr == null || trainerNoStr.trim().length() == 0) ? 0 : Integer.valueOf(trainerNoStr);
+		
+        String memNameStr = request.getParameter("memName");
+        String memName = (memNameStr == null || memNameStr.trim().length() == 0) ? null : memNameStr;
+        
+        String forwardPath = "";
+        if(trainerNo == 0 && memName == null) {
+        	getAll(request, response);
+        	forwardPath = "/backend/appointment/appointment.jsp";
+//        	System.out.println("1111111111111111111111111111111111111111111111111 trainerNo == 0 && memName == null");
+        }else if(trainerNo == 0 && memName != null){
+        	try {
+				getByMemName(request, response);
+				forwardPath = "/backend/appointment/appointmentByMemName.jsp";
+//				System.out.println("22222222222222222222222222222222222222222222 trainerNo == 0 && memName != null");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        }else if(trainerNo != 0 && memName == null){
+        	try {
+				getByTrainerNo(request, response);
+				forwardPath = "/backend/appointment/appointmentByTrainerNo.jsp";
+//				System.out.println("33333333333333333333333333333333333333333 trainerNo != 0 && memName == null");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        }else if(trainerNo != 0 && memName != null){
+        	try {
+				getByBoth(request, response);
+				forwardPath = "/backend/appointment/appointmentByBoth.jsp";
+//				System.out.println("444444444444444444444444444444444444 trainerNo != 0 && memName != null");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        }
+        try {
+			request.getRequestDispatcher(forwardPath).forward(request, response);
+		} catch (ServletException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+//		resp.getWriter().println(action);
 
 	}
 }

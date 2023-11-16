@@ -84,4 +84,8 @@ public class AppointmentDetailServiceImpl implements AppointmentDetailService{
 		return dao.findByPtaNo(ptaNo);
 	}
 	
+	@Override
+	public long getTotalByPtaNo(Integer ptaNo) {
+		return dao.getTotalByPtaNo(ptaNo);
+	}
 }

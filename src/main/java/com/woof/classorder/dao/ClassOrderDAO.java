@@ -9,7 +9,9 @@ public interface ClassOrderDAO {
 	
 	ClassOrder findByCoNo(Integer coNo);
 	
+	List<ClassOrder> getAll();
+	
+	
 	int update(ClassOrder classOrder);
 	
-	List<ClassOrder> getAll();
 }
