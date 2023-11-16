@@ -5,6 +5,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.woof.member.entity.Member;
+
 import redis.clients.jedis.Jedis;
 
 @WebServlet("/cartlist")
@@ -19,10 +22,14 @@ public class CartListServlet extends HttpServlet {
             jedis = new Jedis("localhost", 6379);
 
             if ("getCart".equals(action)) {
-//                String memNo = request.getParameter("memNo");
-            	String memNo = "member1";
+//              String memNo = request.getParameter("memNo");
+//            	String memNo = "member1";
+            	
+            	Member member = (Member) request.getSession(false).getAttribute("member");
+    	        String memNo = member.getMemNo();
                 // 從 Redis 獲取當前購物車
                 String cartJson = jedis.get(memNo);
+                
                 if (cartJson == null) {
                     cartJson = "[]"; // 如果購物車為空，返回空的 JSON 數組
                 }
