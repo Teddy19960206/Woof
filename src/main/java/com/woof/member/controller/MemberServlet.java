@@ -1,4 +1,5 @@
 package com.woof.member.controller;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
@@ -82,22 +83,20 @@ public class MemberServlet extends HttpServlet {
 			case "query":
 				processQuery(req, res);
 				return;
-				
+
 			default:
 				forwardPath = "/backend/member/selectmember.jsp";
 			}
 		}
 		req.getRequestDispatcher(forwardPath).forward(req, res);
 	}
+
 	private void processQuery(HttpServletRequest req, HttpServletResponse res) throws IOException {
 		Member member = memberService.findMemberByNo(req.getParameter("memNo"));
-		byte[]photoByte = memberService.getPhotoById(req.getParameter("memNo"));
+		byte[] photoByte = memberService.getPhotoById(req.getParameter("memNo"));
 
 		res.setCharacterEncoding("UTF-8");
-		Gson gson = new GsonBuilder()
-				.excludeFieldsWithoutExposeAnnotation()
-				.setDateFormat("yyyy-MM-dd")
-				.create();
+		Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setDateFormat("yyyy-MM-dd").create();
 
 		String str = gson.toJson(member);
 		// 將 JSON 字符串轉換為 UTF-8 編碼的字節數組
@@ -110,74 +109,73 @@ public class MemberServlet extends HttpServlet {
 
 	private void addMember(HttpServletRequest req, HttpServletResponse res)
 			throws IOException, ParseException, ServletException {
-		
-		Map<String,String> errorMsgs = new LinkedHashMap<String,String>();
+
+		Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
 		req.setAttribute("errorMsgs", errorMsgs);
 		List<Member> members = memberService.getAllMembers();
-		
+
 		Member member = new Member();
 		String mememail = req.getParameter("memEmail");
 		String memNo = req.getParameter("memNo");
-		
-		
-		for(Member mem :  members) {
-			if(mem.getMemNo().equals(memNo)) {
-				errorMsgs.put("memNo","此帳號已註冊，請重新輸入");
+
+		for (Member mem : members) {
+			if (mem.getMemNo().equals(memNo)) {
+				errorMsgs.put("memNo", "此帳號已註冊，請重新輸入");
 			}
-			if(mem.getMemEmail().equals(mememail)) {
+			if (mem.getMemEmail().equals(mememail)) {
 				errorMsgs.put("memEmail", "不能使用該信箱");
 			}
-			if(!errorMsgs.isEmpty()) {
+			if (!errorMsgs.isEmpty()) {
 				break;
 			}
 		}
-		
-		if(!errorMsgs.isEmpty()) {
-			
+
+		if (!errorMsgs.isEmpty()) {
+
 			req.getRequestDispatcher("frontend/member/login/addmember.jsp").forward(req, res);
-		    return;
+			return;
 		}
-		/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
+		/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
 		if (memNo == null || memNo.trim().length() == 0) {
-			errorMsgs.put("memNo","會員帳號請勿空白");
+			errorMsgs.put("memNo", "會員帳號請勿空白");
 		}
-		
+
 		String memname = req.getParameter("memName");
 		String memnameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_\s)]{1,50}$";
 		if (memname == null || memname.trim().length() == 0) {
-			errorMsgs.put("memName","會員姓名: 請勿空白");
-		} else if(!memname.trim().matches(memnameReg)) { //以下練習正則(規)表示式(regular-expression)
-			errorMsgs.put("memName","會員姓名: 只能是中、英文字母、數字、空格和_ , 且長度必需在1到50之間");
-        }
-		
+			errorMsgs.put("memName", "會員姓名: 請勿空白");
+		} else if (!memname.trim().matches(memnameReg)) { // 以下練習正則(規)表示式(regular-expression)
+			errorMsgs.put("memName", "會員姓名: 只能是中、英文字母、數字、空格和_ , 且長度必需在1到50之間");
+		}
+
 		String memgender = req.getParameter("memGender").trim();
 		if (memgender == null || memgender.trim().length() == 0) {
-			errorMsgs.put("memGender","會員性別請勿空白");
+			errorMsgs.put("memGender", "會員性別請勿空白");
 		}
-		
+
 		if (mememail == null || mememail.trim().length() == 0) {
-			errorMsgs.put("memEmail","會員信箱請勿空白");
+			errorMsgs.put("memEmail", "會員信箱請勿空白");
 		}
-		
+
 		String mempwd = req.getParameter("memPassword").trim();
 		if (mempwd == null || mempwd.trim().length() == 0) {
-			errorMsgs.put("memPassword","會員密碼請勿空白");
+			errorMsgs.put("memPassword", "會員密碼請勿空白");
 		}
-		
+
 		String memtel = req.getParameter("memTel").trim();
 		if (memtel == null || memtel.trim().length() == 0) {
-			errorMsgs.put("memTel","會員電話請勿空白");
-		} 
-		
+			errorMsgs.put("memTel", "會員電話請勿空白");
+		}
+
 		String memaddress = req.getParameter("memAddress").trim();
 		if (memaddress == null || memaddress.trim().length() == 0) {
-			errorMsgs.put("memAddress","會員地址請勿空白");
+			errorMsgs.put("memAddress", "會員地址請勿空白");
 		}
 
 		// Send the use back to the form, if there were errors
-		if (!errorMsgs.isEmpty()){
+		if (!errorMsgs.isEmpty()) {
 			req.getRequestDispatcher("backend/member/addmember.jsp").forward(req, res);
-	    return;
+			return;
 		}
 		// 把資料給前端
 		member.setMemNo(req.getParameter("memNo"));
@@ -196,17 +194,17 @@ public class MemberServlet extends HttpServlet {
 		}
 		java.sql.Date sqlDate = new java.sql.Date(date.getTime());
 		member.setMemBd(sqlDate);
-		//	插入圖片
-		  Part p = req.getPart("memPhoto");
-		  InputStream input = p.getInputStream();
-		  byte[] photo = new byte[input.available()];
-		  input.read(photo);
-		  input.close();
+		// 插入圖片
+		Part p = req.getPart("memPhoto");
+		InputStream input = p.getInputStream();
+		byte[] photo = new byte[input.available()];
+		input.read(photo);
+		input.close();
 		member.setMemPhoto(photo);
 		member.setMomoPoint(Integer.valueOf(req.getParameter("momoPoint")));
 		member.setTotalClass(Integer.valueOf(req.getParameter("totalClass")));
 		member.setMemStatus(Integer.valueOf(req.getParameter("memStatus")));
-		
+
 		try {
 			memberService.addMember(member);
 			// 導到指定的URL 頁面上 把請求回應都帶過去
@@ -220,55 +218,55 @@ public class MemberServlet extends HttpServlet {
 
 	private void updateMember(HttpServletRequest req, HttpServletResponse res)
 			throws ParseException, IOException, ServletException {
-		
-		Map<String,String> errorMsgs = new LinkedHashMap<String,String>();
+
+		Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
 		req.setAttribute("errorMsgs", errorMsgs);
 		Member member = new Member();
 		String mememail = req.getParameter("memEmail");
 		String memNo = req.getParameter("memNo");
-		/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
+		/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
 		if (memNo == null || memNo.trim().length() == 0) {
-			errorMsgs.put("memNo","會員帳號請勿空白");
+			errorMsgs.put("memNo", "會員帳號請勿空白");
 		}
-		
+
 		String memname = req.getParameter("memName");
 		String memnameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_\s)]{1,50}$";
 		if (memname == null || memname.trim().length() == 0) {
-			errorMsgs.put("memName","會員姓名: 請勿空白");
-		} else if(!memname.trim().matches(memnameReg)) { //以下練習正則(規)表示式(regular-expression)
-			errorMsgs.put("memName","會員姓名: 只能是中、英文字母、數字、空格和_ , 且長度必需在1到50之間");
-        }
-		
+			errorMsgs.put("memName", "會員姓名: 請勿空白");
+		} else if (!memname.trim().matches(memnameReg)) { // 以下練習正則(規)表示式(regular-expression)
+			errorMsgs.put("memName", "會員姓名: 只能是中、英文字母、數字、空格和_ , 且長度必需在1到50之間");
+		}
+
 		String memgender = req.getParameter("memGender").trim();
 		if (memgender == null || memgender.trim().length() == 0) {
-			errorMsgs.put("memGender","會員性別請勿空白");
+			errorMsgs.put("memGender", "會員性別請勿空白");
 		}
-		
+
 		if (mememail == null || mememail.trim().length() == 0) {
-			errorMsgs.put("memEmail","會員信箱請勿空白");
+			errorMsgs.put("memEmail", "會員信箱請勿空白");
 		}
-		
+
 		String mempwd = req.getParameter("memPassword").trim();
 		if (mempwd == null || mempwd.trim().length() == 0) {
-			errorMsgs.put("memPassword","會員密碼請勿空白");
+			errorMsgs.put("memPassword", "會員密碼請勿空白");
 		}
-		
+
 		String memtel = req.getParameter("memTel").trim();
 		if (memtel == null || memtel.trim().length() == 0) {
-			errorMsgs.put("memTel","會員電話請勿空白");
-		} 
-		
+			errorMsgs.put("memTel", "會員電話請勿空白");
+		}
+
 		String memaddress = req.getParameter("memAddress").trim();
 		if (memaddress == null || memaddress.trim().length() == 0) {
-			errorMsgs.put("memAddress","會員地址請勿空白");
+			errorMsgs.put("memAddress", "會員地址請勿空白");
 		}
 
 		// Send the use back to the form, if there were errors
-		if (!errorMsgs.isEmpty()){
+		if (!errorMsgs.isEmpty()) {
 			req.getRequestDispatcher("backend/member/updatemember.jsp").forward(req, res);
-	    return;
+			return;
 		}
-		//=======================================================//
+		// =======================================================//
 		member.setMemNo(req.getParameter("memNo"));
 		member.setMemName(req.getParameter("memName"));
 		member.setMemGender(req.getParameter("memGender"));
@@ -278,15 +276,15 @@ public class MemberServlet extends HttpServlet {
 		member.setMemAddress(req.getParameter("memAddress"));
 		Part p = req.getPart("memPhoto");
 		byte[] bytes = null;
-		
+
 		if (p != null && p.getSize() > 0) {
-		
-	        bytes = PartParsebyte.partToByteArray(p);
-		}else {
+
+			bytes = PartParsebyte.partToByteArray(p);
+		} else {
 			bytes = memberService.getPhotoById(req.getParameter("memNo"));
 		}
 		member.setMemPhoto(bytes);
-        //生日
+		// 生日
 		String memBdString = req.getParameter("memBd");
 
 		if (memBdString != null && !memBdString.isEmpty()) {
@@ -306,10 +304,10 @@ public class MemberServlet extends HttpServlet {
 		member.setMemStatus(Integer.valueOf(req.getParameter("memStatus")));
 		memberService.updateMember(member);
 		// 假設更新操作已完成，現在重新獲取最新資料
-	    Member updatedMember = memberService.findMemberByNo(member.getMemNo());
-	    System.out.println(member.getMemNo()+"=============");
-	    // 將更新後的會員資料設置為請求屬性
-	    req.setAttribute("member", updatedMember);
+		Member updatedMember = memberService.findMemberByNo(member.getMemNo());
+		System.out.println(member.getMemNo() + "=============");
+		// 將更新後的會員資料設置為請求屬性
+		req.setAttribute("member", updatedMember);
 		// 導到指定的URL 頁面上 把請求回應都帶過去
 		req.getRequestDispatcher("/backend/member/list_all_member.jsp").forward(req, res);
 	}
@@ -324,7 +322,7 @@ public class MemberServlet extends HttpServlet {
 			// 獲取所有成員
 //			List<Member> allMembers = memberService.getAllMembers();
 //			req.setAttribute("Members", allMembers);
-			
+
 			// 獲取特定成員
 			String memNoStr = req.getParameter("memNo");
 
@@ -336,7 +334,6 @@ public class MemberServlet extends HttpServlet {
 				} catch (NumberFormatException e) {
 					e.printStackTrace();
 				}
-
 			} else {
 				req.setAttribute("error", "Invalid member number provided.");
 				RequestDispatcher dispatcher = req.getRequestDispatcher("/backend/member/errorPage.jsp");
