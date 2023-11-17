@@ -123,7 +123,6 @@ function togglePasswordVisibility(fieldId) {
 				</button>
 			</div>
 		</form>
-<<<<<<< HEAD
 		<a href='/woof/frontend/member/login/addmember.jsp'
 			class="text-decoration-none"><b>註冊會員</b></a> 
 			<a href='/woof/frontend/member/login/forgotpwd.jsp'
@@ -131,7 +130,6 @@ function togglePasswordVisibility(fieldId) {
 			<a href="${pageContext.request.contextPath}/home"
 			class="text-decoration-none"><i class="fa-brands fa-google"></i></a>
 
-=======
 		<a href='/woof/frontend/member/login/addmember.jsp'><p class="p">還沒有帳號嗎？<span class="span">註冊</span></p></a> 
 		<p class="p line">Or With</p>
 		<div>
