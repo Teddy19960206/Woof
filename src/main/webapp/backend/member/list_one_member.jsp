@@ -14,7 +14,7 @@
     var confirmAction = confirm("您確定要刪除編號為 " + memNo + " 的會員資料嗎？");
     if (confirmAction) {
         // 執行刪除操作，例如發送表單或請求
-        window.location.href = '您的刪除請求URL?memNo=' + memNo;
+        window.location.href ="<%=request.getContextPath()%>/member.do?action=delete&memNo=" + memNo;
     } else {
         // 取消操作
         console.log("取消刪除");
@@ -165,7 +165,7 @@ tr:hover {
       <form method="post" action="${pageContext.request.contextPath}/member.do"
       style="margin-bottom: 0px;">
       <input type="hidden" name="action" value="delete" > 
-      <input type="hidden" name="memNo" value="${member.memNo}" onclick="confirmDelete('${member.memNo}')"> 
+      <input type="hidden" name="memNo" value="${member.memNo}"> 
       <input type="button" class="delete-btn" value="刪除" onclick="confirmDelete('${member.memNo}')">
       </FORM>
      </td>

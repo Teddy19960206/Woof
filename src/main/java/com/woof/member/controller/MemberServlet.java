@@ -222,9 +222,9 @@ public class MemberServlet extends HttpServlet {
 		Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
 		req.setAttribute("errorMsgs", errorMsgs);
 		Member member = new Member();
-		String mememail = req.getParameter("memEmail");
-		String memNo = req.getParameter("memNo");
+
 		/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
+		String memNo = req.getParameter("memNo");
 		if (memNo == null || memNo.trim().length() == 0) {
 			errorMsgs.put("memNo", "會員帳號請勿空白");
 		}
@@ -241,7 +241,7 @@ public class MemberServlet extends HttpServlet {
 		if (memgender == null || memgender.trim().length() == 0) {
 			errorMsgs.put("memGender", "會員性別請勿空白");
 		}
-
+		String mememail = req.getParameter("memEmail");
 		if (mememail == null || mememail.trim().length() == 0) {
 			errorMsgs.put("memEmail", "會員信箱請勿空白");
 		}
