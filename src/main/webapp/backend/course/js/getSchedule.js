@@ -188,6 +188,10 @@ async function fetchData(page){
 $(document).on("click" , "button.detail-button" , function (e){
     let url = `${projectName}/scheduleDetail/detail/${this.getAttribute("data-id")}`;
     className = $(this).closest("tr").find("th").eq(1).text();
+
+
+    $("#addDetail").attr("data-id" , this.getAttribute("data-id"));
+    $("#addDetail").show();
     var newUrl = `${projectName}/backend/course/schedule.jsp`; // 想要添加的新網址
     var newState = { page: "寵毛導師Woof" }; // 新狀態物件
 
@@ -258,54 +262,12 @@ async function fetchDetail(url){
 
 // detail修改按鈕----------------------------------------------
 $(document).on("click" , "button.editDetail" , async  function (){
-    // let data = await detailedit(this.getAttribute("data-id"));
-    // let td = $(this).closest("tr").find("td");
-    // let html = `<select class="form-select text-center">`
-    //     data.forEach((item)=>{
-    //         html += `<option value="${item.trainerNo}" ${item.administrator.adminName == td.eq(2).html() ? 'selected' : ''}>${item.administrator.adminName}</option>`;
-    //     })
-    //     html += `</select>`;
-    // td.eq(2).html(html);
-    //
-    //
-    // let date = `<input type="date" value="${td.eq(3).html()}">`;
-    // td.eq(3).html(date)
-    //
-    // let button = $(this).closest("tr").find("button");
-    // button.eq(0).prop("disabled" , true);
-    // button.eq(1).prop("disabled" , false);
 
     window.location.href = `${projectName}/backend/course/editDetail.jsp?id=${this.getAttribute("data-id")}&trainer=${this.getAttribute("data-trainer")}`;
 
 })
 
 
-// ????????????? 拽取訓練師 已改
-// async function detailedit(id){
-//
-//     let url = `${projectName}/scheduleDetail/edit`;
-//
-//     let formData = new FormData();
-//     formData.append("Detail" ,id );
-//
-//     try{
-//         const response = await fetch(url ,{
-//             method : "POST",
-//             body : formData
-//         });
-//
-//         if (!response.ok){
-//             throw new Error('Network response was not ok');
-//         }
-//         // 取得資料後，進行拼圖，並打到頁面上
-//         const data = await response.json();
-//
-//         return data;
-//
-//     }catch (error){
-//         console.error('Error', error);
-//     }
-// }
 
 
 // 修改後，按下確認按鈕正式進行資料庫修改-----------------------------
@@ -433,3 +395,9 @@ async function detailDelete(id){
 $(document).on("click" ,".delay-button" ,function (){
     window.location.href = `${projectName}/backend/course/delaySchedule.jsp?no=${this.getAttribute("data-id")}`;
 })
+
+$("#addDetail").on("click" ,async function (){
+
+    window.location.href = `${projectName}/backend/course/addDetail.jsp?id=${this.getAttribute("data-id")}`;
+
+});

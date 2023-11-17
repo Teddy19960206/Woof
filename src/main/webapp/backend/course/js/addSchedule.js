@@ -178,6 +178,12 @@ const calendar = new FullCalendar.Calendar(calendarEl, {
                 calendar.unselect(); // 取消選擇
                 return; // 結束函數執行
             }
+
+            if (reserveDate.some(item => arg.startStr === item)){
+                calendar.unselect();
+                return;
+            }
+
             let newDate = new Date(arg.startStr);
             let year = newDate.getFullYear();
             let month = newDate.getMonth() + 1;
@@ -248,9 +254,10 @@ const calendar = new FullCalendar.Calendar(calendarEl, {
     datesSet: function (info) {
         removeAllEvents();
         // 加上七天，避免取得到上個月的日期，
-        let date = new Date(info.start);
-        date.setDate(date.getDate() + 7);
-        fetchDetailByDate(date.getFullYear() , date.getMonth()+1);
+        let newDate = new Date(info.start);
+        newDate.setDate(newDate.getDate() + 7);
+        fetchDetailByDate(newDate.getFullYear() , newDate.getMonth()+1);
+        reserve(reserveDate);
     },
 });
 
@@ -262,7 +269,15 @@ function removeAllEvents(){
     })
 }
 
-
+function reserve(arr){
+    arr.forEach(item=>{
+        calendar.addEvent({
+            title: "預約",
+            start: item,
+            backgroundColor:"#0000ff"
+        })
+    })
+}
 
 
 // 預約清單
@@ -279,6 +294,7 @@ $("#reserveBtn").on("click" , function (){
     })
     myModal.hide();
     reserveDate.push($("#hideDate").text());
+    // date.push($("#hideDate").text());
 });
 
 

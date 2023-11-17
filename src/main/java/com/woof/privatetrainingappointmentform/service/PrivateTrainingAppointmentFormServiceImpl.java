@@ -41,13 +41,15 @@ public class PrivateTrainingAppointmentFormServiceImpl implements PrivateTrainin
 	}
 
 	@Override
-	public int addPrivateTrainingAppointmentForm(Member member, Trainer trainer, Integer ptaClass) {
+	public PrivateTrainingAppointmentForm addPrivateTrainingAppointmentForm(Member member, Trainer trainer, Integer ptaClass) {
 
 		PrivateTrainingAppointmentForm privateTrainingAppointmentForm = new PrivateTrainingAppointmentForm();
 		privateTrainingAppointmentForm.setMember(member);
 		privateTrainingAppointmentForm.setTrainer(trainer);
 		privateTrainingAppointmentForm.setPtaClass(ptaClass);
-		return dao.insert(privateTrainingAppointmentForm);
+		dao.insert(privateTrainingAppointmentForm);
+
+		return privateTrainingAppointmentForm;
 	}
 
 	@Override
@@ -159,6 +161,5 @@ public class PrivateTrainingAppointmentFormServiceImpl implements PrivateTrainin
 		return pageQty;
 	}
 
-	
-	
+
 }
