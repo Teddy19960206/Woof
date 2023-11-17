@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%-- <%@ page contentType="text/html;charset=UTF-8" language="java" %> --%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -93,6 +92,7 @@ footer {
     <div class="container">
         <h1>訓練師列表</h1>
         <c:forEach var="trainer" items="${trainerServer.allTrainers}">
+        <form method="POST" action="${pageContext.request.contextPath}/commentreport" onsubmit="return commentReport()">
             <div class="trainer">
                 <img src="${pageContext.request.contextPath}/DBPngReader?action=administrator&id=${trainer.administrator.adminNo}" alt="${trainer.administrator.adminName}">
                 <h2>${trainer.administrator.adminName}</h2>
@@ -103,19 +103,18 @@ footer {
                     </c:forEach>
                 </ul>
                 <p>評價:</p>
-                <form method="POST" action="${pageContext.request.contextPath}/commentreport" onsubmit="return commentReport()">
+                <c:forEach var="pta" items="${trainer.privateTrainingAppointmentForms}">
                     <ul>
-                        <c:forEach var="pta" items="${trainer.privateTrainingAppointmentForms}">
-                            <li>${pta.ptaComment}</li>
-                            <input type="hidden" name="ptano" value="${pta.ptaNo}">
-                            <input type="hidden" name="comment" value="${pta.ptaComment}">
-                            <input type="hidden" name="action" value="report">
-                            <button>檢舉評論</button>
-                        </c:forEach>
+                        <li>${pta.ptaComment}</li>
+                        <input type="hidden" name="ptano" value="${pta.ptaNo}">
+                        <input type="hidden" name="comment" value="${pta.ptaComment}">
+                        <input type="hidden" name="action" value="report">
+                        <button>檢舉評論</button>
                     </ul>
-                </form>
-                <button>預約訓練師</button>
+                </c:forEach>
+                <a href="${pageContext.request.contextPath}/frontend/privatetrainer/appointment.jsp?trainerNo=${trainer.trainerNo}"><button type="button">預約訓練師</button></a>
             </div>
+        </form>
         </c:forEach>
     </div>
 

@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import java.util.Set;
 
@@ -50,6 +49,9 @@ public class TrainerServlet  extends HttpServlet {
 				return;
 			case "/getTrainerSkills":
 				getTrainerSkills(request, response);
+				return;
+			case "/getTrainerProfile":
+				getTrainerProfile(request ,response);
 				return;
 			default:
 
@@ -102,6 +104,25 @@ public class TrainerServlet  extends HttpServlet {
 					.setDateFormat("yyyy-MM-dd")
 					.create();
 			json = gson.toJson(trainerSkills);
+		}
+
+		response.setContentType("application/json;charset=UTF-8");
+		response.getWriter().write(json);
+	}
+
+	private void getTrainerProfile(HttpServletRequest request , HttpServletResponse response) throws IOException {
+		String trainerNo = request.getParameter("trainerNo");
+		String json = null;
+
+		if (trainerNo != null && trainerNo.length() != 0){
+			Integer id = Integer.valueOf(trainerNo);
+			Trainer trainer = trainerService.findTrainerByTrainerNo(id);
+
+			Gson gson = new GsonBuilder()
+					.excludeFieldsWithoutExposeAnnotation()
+					.setDateFormat("yyyy-MM-dd")
+					.create();
+			json = gson.toJson(trainer);
 		}
 
 		response.setContentType("application/json;charset=UTF-8");

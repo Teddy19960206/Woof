@@ -77,6 +77,8 @@ const calendar = new FullCalendar.Calendar(calendarEl, {
                 // 刪除後全部元素刪除，全部重新抓取
                 removeAllEvents();
                 fetchDetailByDate($("#year").text() , $("#month").text());
+                // 清空預約清單
+                reserveDate = "";
                 selected = false;
             } else if (result.dismiss === Swal.DismissReason.cancel) {
                 swalWithBootstrapButtons.fire({
@@ -102,6 +104,15 @@ const calendar = new FullCalendar.Calendar(calendarEl, {
         fetchDetailByDate(date.getFullYear() , date.getMonth()+1);
         $("#year").text(date.getFullYear());
         $("#month").text(date.getMonth()+1);
+
+        if (reserveDate != null){
+            console.log("123");
+            calendar.addEvent({
+                title: "修改日期",
+                start: reserveDate,
+                backgroundColor:"#0000ff"
+            })
+        }
     },
 });
 
@@ -251,7 +262,5 @@ $("button.modify-button").on("click"  , async function (){
     }catch (error){
         console.error("Error" , error)
     }
-
-
 
 })

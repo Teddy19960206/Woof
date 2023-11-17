@@ -14,7 +14,7 @@ public interface PrivateTrainingAppointmentFormService {
 	
 	List<PrivateTrainingAppointmentForm> getAllPrivateTrainingAppointmentForms();
 
-	int addPrivateTrainingAppointmentForm(Member member, Trainer trainer, Integer ptaClass);
+	PrivateTrainingAppointmentForm addPrivateTrainingAppointmentForm(Member member, Trainer trainer, Integer ptaClass);
 
 	int updatePrivateTrainingAppointmentForm(Integer ptaNo, Member member, Trainer trainer,
 			Integer ptaClass);
@@ -48,5 +48,6 @@ public interface PrivateTrainingAppointmentFormService {
 	List<PrivateTrainingAppointmentForm> findByBoth(String memNo , Integer trainerNo , int currentPage);
 	
 	int getPageTotal5(String memNo , Integer trainerNo);
+
 	
 }
