@@ -21,18 +21,18 @@ public class ShopOrderDetailServiceImpl implements ShopOrderDetailService{
 	}
 
 	
-//	@Override
-//	public int addShopOrderDetail(Integer shopOrderNo, Integer prodNo, Integer orderAmount, Integer prodPrice, Integer hasReturned, BigDecimal discountRate) {
-//		ShopOrderDetail shopOrderDetail = new ShopOrderDetail();
-//		shopOrderDetail.setMember(member);
-//		shopOrderDetail.setProdOrderDate(prodOrderDate);
-//		shopOrderDetail.setPayMethod(payMethod);
-//		shopOrderDetail.setShipMethod(shipMethod);
-//		shopOrderDetail.setOrderStatus(orderStatus);
-//		shopOrderDetail.setRecName(recName);
-//
-//		return dao.insert(shopOrderDetail);
-//	}
+	@Override
+	public int addShopOrderDetail(Integer shopOrderNo, Integer prodNo, Integer orderAmount, Integer prodPrice, Integer hasReturned, BigDecimal discountRate) {
+		ShopOrderDetail shopOrderDetail = new ShopOrderDetail();
+		shopOrderDetail.setShopOrderNo(shopOrderNo);
+		shopOrderDetail.setProdNo(prodNo);
+		shopOrderDetail.setOrderAmount(orderAmount);
+		shopOrderDetail.setProdPrice(prodPrice);
+		shopOrderDetail.setHasReturned(hasReturned);
+		shopOrderDetail.setDiscountRate(discountRate);
+
+		return dao.insert(shopOrderDetail);
+	}
 
 //	@Override
 //	public int updateShopOrder(Integer shopOrderNo, Member member, Timestamp prodOrderDate, Integer payMethod, Boolean shipMethod, Integer orderStatus, String recName, String recMobile, String recAddress, Boolean hasReturn, Integer moCoin, Integer orderTotalPrice, Integer actualPrice) {
