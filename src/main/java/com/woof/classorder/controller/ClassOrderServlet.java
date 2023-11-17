@@ -58,7 +58,7 @@ public class ClassOrderServlet extends HttpServlet {
 			break;
 		case "/getByMemNo":
 			getByMemNo(request, response);
-			forwardPath = "/backend/classOrder/classOrder.jsp";
+			forwardPath = "/backend/classOrder/classOrderByMemNo.jsp";
 			break;
 		case "/check":
 			try {
@@ -211,10 +211,10 @@ public class ClassOrderServlet extends HttpServlet {
 	private void getAll(HttpServletRequest request, HttpServletResponse response) {
 		String page = request.getParameter("page");
 		int currentPage = (page == null) ? 1 : Integer.parseInt(page);
-		if (request.getSession().getAttribute("COPageQty") == null) {
+//		if (request.getSession().getAttribute("COPageQty") == null) {
 			int COPageQty = classOrderService.getPageTotal();
 			request.getSession().setAttribute("COPageQty", COPageQty);
-		}
+//		}
 		List<ClassOrder> allClassOrders = classOrderService.getAllCOs(currentPage);
 
 //		List<PrivateTrainingAppointmentForm> allPrivateTrainingAppointmentForms =  privateTrainingAppointmentFormService.getAllPrivateTrainingAppointmentForms();
@@ -228,15 +228,14 @@ public class ClassOrderServlet extends HttpServlet {
 	}
 
 	private void getByMemNo(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
 		String memNo = request.getParameter("memNo");
 		String page = request.getParameter("page");
 		int currentPage = (page == null) ? 1 : Integer.parseInt(page);
-		int COPageQty = classOrderService.getPageTotal2(memNo);
-		request.getSession().setAttribute("COPageQty", COPageQty);
+		int COPageQty2 = classOrderService.getPageTotal2(memNo);
+		request.getSession().setAttribute("COPageQty2", COPageQty2);
 
 		List<ClassOrder> members = classOrderService.getAllByMemNo(memNo, currentPage);
-		request.setAttribute("classOrder", members);
+		request.setAttribute("members", members);
 		request.setAttribute("currentPage", currentPage);
 	}
 

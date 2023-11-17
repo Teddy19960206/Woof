@@ -86,6 +86,7 @@ tr:nth-child(odd) {
 <body>
 <%@ include file="/backend/backbody.file" %>
 <%-- <jsp:useBean id="classOrderServer" scope="page" class="com.woof.classorder.service.ClassOrderServiceImpl"/> --%>
+<%-- <p>member = ${members}</p> --%>
 <div class="container py-3">
     <div class="row g-3 align-items-center">
         <form method="POST" action="${pageContext.request.contextPath}/classorder/getByMemNo" class="col-10">
@@ -106,7 +107,17 @@ tr:nth-child(odd) {
                 </div>
             </div>
         </form>
-	</div>
+        <form method="POST" action="${pageContext.request.contextPath}/classorder/getAll" class="col-2">
+            <div class="row">
+                <div class="col-12">
+                    <label class="col-form-label">查看全部</label>
+                    <div class="col-12">
+                        <button type="submit" id="allButton" class="btn btn-primary">查看全部</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
 </div>
 
 <table border= 1 >
@@ -123,7 +134,7 @@ tr:nth-child(odd) {
 		</tr>
 
 		<c:forEach var="classOrder"
-			items="${classOrders}">
+			items="${members}">
 
 			<tr>
 				<td>${classOrder.coNo}</td>
@@ -182,24 +193,30 @@ tr:nth-child(odd) {
 
 	</table>
 <%-- 	<p>currentPage = ${currentPage}</p> --%>
-<%-- 	<p>COPageQty = ${COPageQty}</p> --%>
+<%-- 	<p>COPageQty2 = ${COPageQty2}</p> --%>
 	<div class="pagination">
 	<c:if test="${currentPage > 1}">
-		<a href="${pageContext.request.contextPath}/classorder/getAll?page=1">至第一頁</a>&nbsp;
+		<a href="${pageContext.request.contextPath}/classorder/getByMemNo?page=1">至第一頁</a>&nbsp;
 	</c:if>
 	<c:if test="${currentPage - 1 != 0}">
-		<a href="${pageContext.request.contextPath}/classorder/getAll?page=${currentPage - 1}">上一頁</a>&nbsp;
+		<a href="${pageContext.request.contextPath}/classorder/getByMemNo?page=${currentPage - 1}&memNo=${param.memNo}">上一頁</a>&nbsp;
 	</c:if>
-	<c:if test="${currentPage + 1 <= COPageQty}">
-		<a href="${pageContext.request.contextPath}/classorder/getAll?page=${currentPage + 1}">下一頁</a>&nbsp;
+	<c:if test="${currentPage + 1 <= COPageQty2}">
+		<a href="${pageContext.request.contextPath}/classorder/getByMemNo?page=${currentPage + 1}&memNo=${param.memNo}">下一頁</a>&nbsp;
 	</c:if>
-	<c:if test="${currentPage != COPageQty}">
-		<a href="${pageContext.request.contextPath}/classorder/getAll?page=${COPageQty}">至最後一頁</a>&nbsp;
+	<c:if test="${currentPage != COPageQty2}">
+		<a href="${pageContext.request.contextPath}/classorder/getByMemNo?page=${COPageQty2}&memNo=${param.memNo}">至最後一頁</a>&nbsp;
 	</c:if>
 
     </div>
    
 
 <%@ include file="/backend/backfoot.file" %>
+<!-- <script> -->
+<!-- //     document.getElementById("allButton").addEventListener("click", function() { -->
+<%-- //         document.getElementById("myForm").action = "${pageContext.request.contextPath}/classorder/getAll"; --%>
+<!-- //         document.getElementById("myForm").submit(); -->
+<!-- //     }); -->
+<!-- </script> -->
 </body>
 </html>

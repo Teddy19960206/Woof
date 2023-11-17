@@ -66,17 +66,17 @@ public class ClassOrderDAOImpl implements ClassOrderDAO{
 	@Override
 	public List<ClassOrder> getByMemNo(String memNo, int currentPage) {
 		int first = (currentPage - 1) * PAGE_MAX_RESULT;
-		return getSession().createQuery("FROM ClassOrder c WHERE c.member.memNo = :memNo", ClassOrder.class)
-				.setParameter("memNo", memNo)
+		return getSession().createQuery("FROM ClassOrder c WHERE c.member.memNo LIKE :memNo", ClassOrder.class)
+				.setParameter("memNo", "%" + memNo + "%")
 				.setFirstResult(first)
 				.setMaxResults(PAGE_MAX_RESULT)
-				.list();
+				.getResultList();
 	}
 
 	@Override
 	public long getTotalByMemNo(String memNo) {
-		return getSession().createQuery("SELECT COUNT(*) from ClassOrder c WHERE c.member.memNo = :memNo", Long.class)
-				.setParameter("memNo", memNo)
+		return getSession().createQuery("SELECT COUNT(*) from ClassOrder c WHERE c.member.memNo LIKE :memNo", Long.class)
+				.setParameter("memNo", "%" + memNo + "%")
 				.uniqueResult();
 	}
 	
