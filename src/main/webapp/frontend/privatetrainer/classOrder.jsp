@@ -101,7 +101,7 @@
             </div>
 
             <div class="text-center p-3">
-                <button class="btn btn-primary" onclick="window.location.href='${pageContext.request.contextPath}/index.html'">返回首頁</button>
+                <button class="btn btn-primary" onclick="window.location.href='${pageContext.request.contextPath}/index.jsp'">返回首頁</button>
             </div>
         </div>
     </div>
