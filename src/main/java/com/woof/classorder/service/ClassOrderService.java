@@ -13,7 +13,13 @@ public interface ClassOrderService {
 	
 	ClassOrder updateClassOrder(ClassOrder classOrder);
 	
-	
-	
 	List<ClassOrder> getAllClassOrders();
+	
+	List<ClassOrder> getAllCOs(int currentPage);
+
+	int getPageTotal();
+	
+	List<ClassOrder> getAllByMemNo(String memNo, int currentPage);
+	
+	int getPageTotal2(String memNo);
 }

@@ -86,21 +86,27 @@ tr:nth-child(odd) {
 <body>
 <%@ include file="/backend/backbody.file" %>
 <jsp:useBean id="classOrderServer" scope="page" class="com.woof.classorder.service.ClassOrderServiceImpl"/>
-<form method="POST" ACTION="${pageContext.request.contextPath}/classoredr/getByCoNo" class="row g-3 align-items-center">
+<form method="POST" ACTION="${pageContext.request.contextPath}/classoredr/getByMemNo?memNo='${memNo}'" class="row g-3 align-items-center">
 	<div class="container py-3">
     	<div class="row">
-            <!-- 會員名稱輸入框 -->
+            <!-- 會員帳號輸入框 -->
             <div class="col-3">
-                <label class="col-form-label">會員名稱</label>
+                <label class="col-form-label">會員帳號</label>
                 <div class="col-12">
-                <input type="text" name="memName" id="memName" class="form-control" />
+                <input type="text" name="memNo" id="memNo" class="form-control" />
             	</div>
             </div>
             <!-- 查詢按鈕 -->
-            <div class="col-3">
-                <label class="col-form-label">開始查詢</label>
+            <div class="col-1">
+                <label class="col-form-label">查詢</label>
                 <div class="col-12">
                 <button type="submit" id="button" class="btn btn-primary">提交</button>
+            	</div>
+            </div>
+            <div class="col-3">
+                <label class="col-form-label">查看全部</label>
+                <div class="col-12">
+                <button type="submit" id="button" class="btn btn-primary">查看全部</button>
             	</div>
             </div>
    		 </div>
@@ -110,74 +116,89 @@ tr:nth-child(odd) {
 <table border= 1 >
 		<tr>
 			<th>課堂訂單編號</th>
-			<th>會員名稱</th>
+			<th>會員帳號</th>
 			<th>購買課堂數量</th>
 			<th>付款方式</th>
 			<th>折抵毛毛幣</th>
 			<th>訂單時間</th>
 			<th>訂單狀態</th>
 			<th>實付金額</th>
+			<th></th>
 		</tr>
 
-		<c:forEach var="privateTrainingAppointmentForm"
-			items="${privateTrainingAppointmentForms}">
+		<c:forEach var="classOrder"
+			items="${classOrders}">
 
 			<tr>
-				<td>${privateTrainingAppointmentForm.ptaNo}</td>
-				<td>${privateTrainingAppointmentForm.member.memName}</td>
-				<td>${privateTrainingAppointmentForm.trainer.administrator.adminName}</td>
-				<td>${privateTrainingAppointmentForm.ptaClass}</td>
-<!-- 				<td> -->
-
-<!-- 					<FORM METHOD="post" -->
-<%-- 						action="${pageContext.request.contextPath}/privatetrainingappointmentform?action=gettoupdate2"> --%>
-<%-- 						<% --%>
-<!--  							String ptaNo = request.getParameter("ptaNo"); -->
-<!-- 	 						String member = request.getParameter("member"); -->
-<!-- 	 						String trainer = request.getParameter("trainer"); -->
-<!-- 	 						String number = request.getParameter("number"); -->
-<%-- 						%> --%>
-<!-- 						<input type="hidden" name="action" value="gettoupdate"> -->
-<%-- 						<input type="hidden" name="ptaNo" value="${privateTrainingAppointmentForm.ptaNo}">					 --%>
-<%-- 						<input type="hidden" name="member" value="${privateTrainingAppointmentForm.member.memName}"> --%>
-<%-- 						<input type="hidden" name="trainer" value="${privateTrainingAppointmentForm.trainer.administrator.adminName}"> --%>
-<%-- 						<input type="hidden" name="number" value="${privateTrainingAppointmentForm.ptaClass}"> --%>
-<!-- 						<button class="btn btn-success" type="submit">修改</button> -->
-
-<!-- 					</FORM> -->
-<!-- 				</td> -->
+				<td>${classOrder.coNo}</td>
+				<td>${classOrder.member.memNo}</td>
+				<td>${classOrder.coBc}</td>
+				<td>${classOrder.coPaymentMethod}</td>
+				<td>${classOrder.coSmmp}</td>
+				<td>${classOrder.coTime}</td>
+				<c:choose>
+   					<c:when test="${classOrder.coStatus == 0}">
+        				<td>未付款</td>
+    				</c:when>
+    				<c:when test="${classOrder.coStatus == 1}">
+        				<td>已付款</td>
+    				</c:when>
+    				<c:when test="${classOrder.coStatus == 2}">
+        				<td>取消訂單</td>
+    				</c:when>
+    				<c:otherwise>
+        				<td>未知狀態</td>
+    				</c:otherwise>
+					</c:choose>
+				<td>${classOrder.actualAmount}</td>
 				<td>
+
 					<FORM METHOD="post"
-						action="${pageContext.request.contextPath}/appointmentdetail?action=getdetail">
-						<input type="hidden" name="ptaNo" value="${privateTrainingAppointmentForm.ptaNo}">
-						<input type="hidden" name="memNo" value="${privateTrainingAppointmentForm.member.memNo}">
-						<input type="hidden" name="trainerNo" value="${privateTrainingAppointmentForm.trainer.trainerNo}">
-						<button class="btn btn-in" type="submit">查看明細</button>
+						action="${pageContext.request.contextPath}/privatetrainingappointmentform?action=gettoupdate2">
+						<%
+ 							String ptaNo = request.getParameter("ptaNo");
+	 						String member = request.getParameter("member");
+	 						String trainer = request.getParameter("trainer");
+	 						String number = request.getParameter("number");
+						%> 
+						<input type="hidden" name="action" value="gettoupdate">
+						<input type="hidden" name="ptaNo" value="${privateTrainingAppointmentForm.ptaNo}">					
+						<input type="hidden" name="member" value="${privateTrainingAppointmentForm.member.memName}">
+						<input type="hidden" name="trainer" value="${privateTrainingAppointmentForm.trainer.administrator.adminName}">
+						<input type="hidden" name="number" value="${privateTrainingAppointmentForm.ptaClass}">
+						<button class="btn btn-success" type="submit">修改</button>
 
 					</FORM>
-
 				</td>
+<!-- 				<td> -->
+<!-- 					<FORM METHOD="post" -->
+<%-- 						action="${pageContext.request.contextPath}/appointmentdetail?action=getdetail"> --%>
+<%-- 						<input type="hidden" name="ptaNo" value="${privateTrainingAppointmentForm.ptaNo}"> --%>
+<%-- 						<input type="hidden" name="memNo" value="${privateTrainingAppointmentForm.member.memNo}"> --%>
+<%-- 						<input type="hidden" name="trainerNo" value="${privateTrainingAppointmentForm.trainer.trainerNo}"> --%>
+<!-- 						<button class="btn btn-in" type="submit">查看明細</button> -->
+
+<!-- 					</FORM> -->
+
+<!-- 				</td> -->
 			</tr>
 		</c:forEach>
 
 	</table>
-<%-- 	<p>trainerNo = ${param.trainerNo}</p> --%>
-<%-- 	<p>memName = ${param.memName}</p> --%>
 	<div class="pagination">
 	<c:if test="${currentPage > 1}">
-		<a href="${pageContext.request.contextPath}/privatetrainingappointmentform?action=getboth&page=1">至第一頁</a>&nbsp;
+		<a href="${pageContext.request.contextPath}/classorder/getAll?page=1">至第一頁</a>&nbsp;
 	</c:if>
 	<c:if test="${currentPage - 1 != 0}">
-		<a href="${pageContext.request.contextPath}/privatetrainingappointmentform?action=getboth&page=${currentPage - 1}">上一頁</a>&nbsp;
+		<a href="${pageContext.request.contextPath}/classorder/getAll?page=${currentPage - 1}">上一頁</a>&nbsp;
 	</c:if>
-	<c:if test="${currentPage + 1 <= PTAFPageQty}">
-		<a href="${pageContext.request.contextPath}/privatetrainingappointmentform?action=getboth&page=${currentPage + 1}">下一頁</a>&nbsp;
+	<c:if test="${currentPage + 1 <= COPageQty}">
+		<a href="${pageContext.request.contextPath}/classorder/getAll?page=${currentPage + 1}">下一頁</a>&nbsp;
 	</c:if>
-	<c:if test="${currentPage != PTAFPageQty}">
-		<a href="${pageContext.request.contextPath}/privatetrainingappointmentform?action=getboth&page=${PTAFPageQty}">至最後一頁</a>&nbsp;
+	<c:if test="${currentPage != COPageQty}">
+		<a href="${pageContext.request.contextPath}/classorder/getAll?page=${COPageQty}">至最後一頁</a>&nbsp;
 	</c:if>
 
-<%-- 	<button class="btn btn-back" onclick="window.location='${pageContext.request.contextPath}/backend/index.jsp'">返回</button> --%>
     </div>
    
 

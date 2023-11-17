@@ -182,10 +182,10 @@ tr:nth-child(odd) {
 	<c:if test="${currentPage - 1 != 0}">
 		<a href="${pageContext.request.contextPath}/privatetrainingappointmentform?action=getboth&page=${currentPage - 1}">上一頁</a>&nbsp;
 	</c:if>
-	<c:if test="${currentPage + 1 <= PTAFPageQty}">
+	<c:if test="${currentPage + 1 <= PTAPageQty}">
 		<a href="${pageContext.request.contextPath}/privatetrainingappointmentform?action=getboth&page=${currentPage + 1}">下一頁</a>&nbsp;
 	</c:if>
-	<c:if test="${currentPage != PTAFPageQty}">
+	<c:if test="${currentPage != PTAPageQty}">
 		<a href="${pageContext.request.contextPath}/privatetrainingappointmentform?action=getboth&page=${PTAFPageQty}">至最後一頁</a>&nbsp;
 	</c:if>
 

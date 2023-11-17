@@ -267,9 +267,9 @@ public class PrivateTrainingAppointmentFormServlet extends HttpServlet {
 	private void getAll(HttpServletRequest request, HttpServletResponse response) {
 		String page = request.getParameter("page");
 		int currentPage = (page == null) ? 1 : Integer.parseInt(page);
-		if (request.getSession().getAttribute("PTAFPageQty") == null) {
-			int PTAFPageQty = privateTrainingAppointmentFormService.getPageTotal();
-			request.getSession().setAttribute("PTAFPageQty", PTAFPageQty);
+		if (request.getSession().getAttribute("PTAPageQty") == null) {
+			int PTAPageQty = privateTrainingAppointmentFormService.getPageTotal();
+			request.getSession().setAttribute("PTAPageQty", PTAPageQty);
 		}
 		List<PrivateTrainingAppointmentForm> allPrivateTrainingAppointmentForms = privateTrainingAppointmentFormService
 				.getAllPTAFs(currentPage);
