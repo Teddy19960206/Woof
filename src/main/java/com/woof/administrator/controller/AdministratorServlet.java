@@ -8,7 +8,8 @@ import com.alibaba.fastjson2.JSONObject;
 import com.google.gson.JsonObject;
 import com.woof.administrator.entity.*;
 import java.util.*;
-
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -240,7 +241,20 @@ private void processUpdate2(HttpServletRequest req, HttpServletResponse res) thr
 		}
 		
 		if (adminemail == null || adminemail.trim().length() == 0) {
-			errorMsgs.put("adminEmail","管理員信箱請勿空白");
+		    errorMsgs.put("adminEmail", "管理員信箱請勿空白");
+		} else {
+		    // 檢查信箱長度
+		    if (adminemail.length() < 16 || adminemail.length() > 40) {
+		        errorMsgs.put("adminEmail", "帳號長度必須在6到30個字符之間");
+		    } else {
+		        // 正則表達式，用於驗證信箱格式
+		        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+		        Pattern pattern = Pattern.compile(emailRegex);
+		        Matcher matcher = pattern.matcher(adminemail);
+		        if (!matcher.matches()) {
+		            errorMsgs.put("adminEmail", "請輸入有效的信箱地址");
+		        }
+		    }
 		}
 		
 		String adminpwd = req.getParameter("ADMIN_PASSWORD").trim();

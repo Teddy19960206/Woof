@@ -1,40 +1,62 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
+<%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>©Ò¦³·|­û¸ê®Æ</title>
+<title>æ‰€æœ‰æœƒå“¡è³‡æ–™</title>
 <script type="text/javascript">
-//ªí³æÂIÀ»§ä¥X¹ïÀ³ªºfunction//
+//è¡¨å–®é»æ“Šæ‰¾å‡ºå°æ‡‰çš„function//
   function processUpdate(jsonData){
    window.location.href = " <%=request.getContextPath()%>/backend/member/updatemember.jsp?memNo=" + jsonData.memNo ;
   }
+ //ç¢ºèªåˆªé™¤æç¤ºæ¡†
+  function confirmDelete(memNo) {
+    var confirmAction = confirm("æ‚¨ç¢ºå®šè¦åˆªé™¤ç·¨è™Ÿç‚º " + memNo + " çš„æœƒå“¡è³‡æ–™å—ï¼Ÿ");
+    if (confirmAction) {
+        // åŸ·è¡Œåˆªé™¤æ“ä½œï¼Œä¾‹å¦‚ç™¼é€è¡¨å–®æˆ–è«‹æ±‚
+        window.location.href = 'æ‚¨çš„åˆªé™¤è«‹æ±‚URL?memNo=' + memNo;
+    } else {
+        // å–æ¶ˆæ“ä½œ
+        console.log("å–æ¶ˆåˆªé™¤");
+    }
+}
 </script>
 <style>
-/* °ò¥»¼Ë¦¡ */
-table, th, td {
-	width: 100%;
-	/* ¨ä¥L¼Ë¦¡ */
-}
-
-/* ¤p©ó©Îµ¥©ó 600px ªº«Ì¹õ */
-@media screen and (max-width: 600px) {
-	table, th, td {
-		width: auto;
-		/* ¨ä¥L½Õ¾ã¡A¨Ò¦p¦rÅé¤j¤p¡B¶¡¶Zµ¥ */
-	}
-}
-
+/* åŸºæœ¬æ¨£å¼ï¼Œé©ç”¨æ–¼å¤§å±å¹• */
 body {
-	background-color: #f4f4f4;
-	font-family: Arial, sans-serif;
+    font-family: Arial, sans-serif;
+}
+/* å°æ–¼æˆ–ç­‰æ–¼ 768px çš„å±å¹•ï¼ˆå¦‚å¹³æ¿ï¼‰ */
+@media screen and (max-width: 768px) {
+    table, th, td {
+        width: auto; /* è®“è¡¨æ ¼å¯¬åº¦è‡ªå‹•èª¿æ•´ */
+        font-size: 14px; /* èª¿æ•´å­—é«”å¤§å° */
+    }
+
+    .btn {
+        padding: 10px; /* èª¿æ•´æŒ‰éˆ•å¤§å° */
+    }
+
+    /* å…¶ä»–éœ€è¦èª¿æ•´çš„æ¨£å¼ */
 }
 
-h3, h4 {
-	color: #333;
-	text-align: center;
-}
+/* å°æ–¼æˆ–ç­‰æ–¼ 480px çš„å±å¹•ï¼ˆå¦‚æ‰‹æ©Ÿï¼‰ */
+@media screen and (max-width: 480px) {
+    table, th, td {
+        font-size: 12px; /* é€²ä¸€æ­¥æ¸›å°å­—é«”å¤§å° */
+    }
 
+    .btn {
+        padding: 8px; /* é€²ä¸€æ­¥ç¸®å°æŒ‰éˆ• */
+    }
+
+    /* å¯ä»¥è€ƒæ…®éš±è—æŸäº›ä¸å¿…è¦çš„åˆ—æˆ–å…ƒç´  */
+    .hide-on-small {
+        display: none;
+    }
+
+    /* å…¶ä»–é‡å°å°å±å¹•çš„èª¿æ•´ */
+}
 table {
 	width: 100%;
 	border-collapse: collapse;
@@ -43,9 +65,8 @@ table {
 	background-color: white;
 	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
-
 th {
-	background-color: #FFA500; /* ¾ï¦â­I´º */
+	background-color: #FFA500; /* æ©˜è‰²èƒŒæ™¯ */
 	color: white;
 	padding: 15px;
 	text-align: center;
@@ -59,11 +80,11 @@ td {
 }
 
 tr:nth-child(even) {
-	background-color: #FFF5E6; /* ²H¾ï¦â */
+	background-color: #FFF5E6; /* æ·¡æ©˜è‰² */
 }
 
 tr:hover {
-	background-color: #FFDAB5; /* ·Æ¹«Äa°±ªºÃC¦â */
+	background-color: #FFDAB5; /* æ»‘é¼ æ‡¸åœçš„é¡è‰² */
 }
 
 .update-btn, .delete-btn {
@@ -75,54 +96,46 @@ tr:hover {
 }
 
 .update-btn {
-	background-color: #FF8C00; /* ²`¾ï¦â */
+	background-color: #FF8C00; /* æ·±æ©˜è‰² */
 	color: white;
 }
 
 .update-btn:hover {
-	background-color: #FFA07A; /* ·Æ¹«Äa°±ªº¾ï¦â */
+	background-color: #FFA07A; /* æ»‘é¼ æ‡¸åœçš„æ©˜è‰² */
 }
 
 .delete-btn {
-	background-color: #708090; /* ·t¦Ç¦â */
+	background-color: #708090; /* æš—ç°è‰² */
 	color: white;
 }
 
 .delete-btn:hover {
-	background-color: #778899; /* ·Æ¹«Äa°±ªº¦Ç¦â */
+	background-color: #778899; /* æ»‘é¼ æ‡¸åœçš„ç°è‰² */
 }
 </style>
-
+<script src="https://kit.fontawesome.com/3f37e88a3b.js" crossorigin="anonymous"></script>
 </head>
 <body bgcolor='white'>
 <jsp:useBean id="memberService" scope="page"
    class="com.woof.member.service.MemberServiceImpl" />
- <h4></h4>
+ <div>
+ <a href="/woof/backend/index.jsp"style="position: absolute; top: 20px; right: 20px;"><i class="fa-solid fa-house"></i></a>
+ </div>
  <table>
   <tr>
-   <td>
-    <h3>©Ò¦³·|­û¸ê®Æ - listAllEmp.jsp</h3>
-    <h4>
-     <a href="/woof/backend/index.jsp">¦^­º­¶</a>
-    </h4>
-   </td>
-  </tr>
- </table>
-
- <table>
-  <tr>
-   <th>½s¸¹</th>
-   <th>©m¦W</th>
-   <th>©Ê§O</th>
-   <th>·Ó¤ù</th>
+   <th>ç·¨è™Ÿ</th>
+   <th>å§“å</th>
+   <th>æ€§åˆ¥</th>
+   <th>ç…§ç‰‡</th>
    <th>email</th>
-   <th>±K½X</th>
-   <th>¹q¸Ü</th>
-   <th>¦a§}</th>
-   <th>¥Í¤é</th>
-   <th>¤ò¤ò¹ô</th>
-   <th>½Ò°ó¼Æ</th>
-   <th>ª¬ºA</th>
+   <th>å¯†ç¢¼</th>
+   <th>é›»è©±</th>
+   <th>åœ°å€</th>
+   <th>ç”Ÿæ—¥</th>
+   <th>æ¯›æ¯›å¹£</th>
+   <th>èª²å ‚æ•¸</th>
+   <th>ç‹€æ…‹</th>
+   <th>   </th>
    <th>   </th>
   </tr>
   <c:forEach var="member" items="${memberService.allMembers}">
@@ -130,7 +143,7 @@ tr:hover {
     <td>${member.memNo}</td>
     <td>${member.memName}</td>
     <td>${member.memGender}</td>
-    <td><img src="${pageContext.request.contextPath}/DBPngReader?action=member&id=${member.memNo}" style="width: 100px; height: 100px"></td>
+    <td><img src="${pageContext.request.contextPath}/DBPngReader?action=member&id=${member.memNo}" onerror="this.onerror=null; this.src='/woof/backend/member/jpg/dog.jpg';" style="width: 100px; height: 100px"></td>
     <td>${member.memEmail}</td>
     <td>${member.memPassword}</td>
     <td>${member.memTel}</td>
@@ -139,25 +152,24 @@ tr:hover {
     <td>${member.momoPoint}</td>
     <td>${member.totalClass}</td>
     <td>${member.memStatus}</td>
+    
     <td>
-
      <form method="post"
       action="${pageContext.request.contextPath}/member.do"
       style="margin-bottom: 0px;">
       <input type="hidden" name="action" value="update"> 
       <input type="hidden" name="memNo" value="${member.memNo}"> 
-      <input type="button" class="update-btn" value="­×§ï" onclick="processUpdate({memNo:'${member.memNo}'});">
+      <input type="button" class="update-btn" value="ä¿®æ”¹" onclick="processUpdate({memNo:'${member.memNo}'});">
      </form>
     </td>
-<!--     <td> -->
-<!--      <FORM METHOD="POST" -->
-<%--       ACTION="<%=request.getContextPath()%>/member.do" --%>
-<!--       style="margin-bottom: 0px;"> -->
-<!--       <input type="hidden" name="action" value="delete" > -->
-<%--       <input type="hidden" name="memNo" value="${member.memNo}">  --%>
-<!--       <button type="submit" class="delete-btn" >§R°£</button> -->
-<!--      </FORM> -->
-<!--     </td> -->
+    <td> 
+      <form method="post" action="${pageContext.request.contextPath}/member.do"
+      style="margin-bottom: 0px;">
+      <input type="hidden" name="action" value="delete" > 
+      <input type="hidden" name="memNo" value="${member.memNo}" onclick="confirmDelete('${member.memNo}')"> 
+     <input type="button" class="delete-btn" value="åˆªé™¤" onclick="confirmDelete('${member.memNo}')">
+      </form>
+     </td>
    </tr>
   </c:forEach>
  </table>

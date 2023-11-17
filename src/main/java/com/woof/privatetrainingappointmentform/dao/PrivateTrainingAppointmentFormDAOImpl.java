@@ -88,8 +88,10 @@ public class PrivateTrainingAppointmentFormDAOImpl implements PrivateTrainingApp
 
 	@Override
 	public List<PrivateTrainingAppointmentForm> findByMemNo(String memNo , int currentPage) {
+		int first = (currentPage - 1) * PAGE_MAX_RESULT;
 		return getSession().createQuery("FROM PrivateTrainingAppointmentForm p WHERE p.member.memNo = :memNo", PrivateTrainingAppointmentForm.class)
 				.setParameter("memNo", memNo)
+				.setFirstResult(first)
 				.setMaxResults(PAGE_MAX_RESULT)
 				.list();
 	}
@@ -103,8 +105,10 @@ public class PrivateTrainingAppointmentFormDAOImpl implements PrivateTrainingApp
 	
 	@Override
 	public List<PrivateTrainingAppointmentForm> findByTrainerNo(Integer trainerNo , int currentPage) {
+		int first = (currentPage - 1) * PAGE_MAX_RESULT;
 		return getSession().createQuery("FROM PrivateTrainingAppointmentForm WHERE trainer.trainerNo = :trainerNo", PrivateTrainingAppointmentForm.class)
 				.setParameter("trainerNo", trainerNo)
+				.setFirstResult(first)
 				.setMaxResults(PAGE_MAX_RESULT)
 				.list();
 	}
@@ -137,9 +141,11 @@ public class PrivateTrainingAppointmentFormDAOImpl implements PrivateTrainingApp
 
 
 	@Override
-	public List<PrivateTrainingAppointmentForm> getByMemName(String memName, int currentPage) {
-		return getSession().createQuery("FROM PrivateTrainingAppointmentForm p WHERE p.member.memName LIKE :memName",PrivateTrainingAppointmentForm.class)
-				.setParameter("memName", "%" + memName + "%")
+	public List<PrivateTrainingAppointmentForm> getByMemNo(String memNo, int currentPage) {
+		int first = (currentPage - 1) * PAGE_MAX_RESULT;
+		return getSession().createQuery("FROM PrivateTrainingAppointmentForm p WHERE p.member.memNo LIKE :memNo",PrivateTrainingAppointmentForm.class)
+				.setParameter("memNo", "%" + memNo + "%")
+				.setFirstResult(first)
 				.setMaxResults(PAGE_MAX_RESULT)
 				.getResultList();
 		
@@ -147,10 +153,10 @@ public class PrivateTrainingAppointmentFormDAOImpl implements PrivateTrainingApp
 	}
 
 	@Override
-	public long getTotalByMemName(String memName) {
+	public long getTotalByMemNo(String memNo) {
 		long totalCount = getSession()
-		        .createQuery("SELECT COUNT(*) from PrivateTrainingAppointmentForm p WHERE p.member.memName LIKE :memName", Long.class)
-		        .setParameter("memName", "%" + memName + "%")
+		        .createQuery("SELECT COUNT(*) from PrivateTrainingAppointmentForm p WHERE p.member.memNo LIKE :memNo", Long.class)
+		        .setParameter("memNo", "%" + memNo + "%")
 		        .uniqueResult();
 
 //		    System.out.println("===============================Total count for member " + memName + " is: " + totalCount); // 在這裡印出值
@@ -159,19 +165,21 @@ public class PrivateTrainingAppointmentFormDAOImpl implements PrivateTrainingApp
 	}
 
 	@Override
-	public List<PrivateTrainingAppointmentForm> getByBoth(String memName, Integer trainerNo, int currentPage) {
-		return getSession().createQuery("FROM PrivateTrainingAppointmentForm p WHERE p.trainer.trainerNo = :trainerNo AND p.member.memName LIKE :memName",PrivateTrainingAppointmentForm.class)
+	public List<PrivateTrainingAppointmentForm> getByBoth(String memNo, Integer trainerNo, int currentPage) {
+		int first = (currentPage - 1) * PAGE_MAX_RESULT;
+		return getSession().createQuery("FROM PrivateTrainingAppointmentForm p WHERE p.trainer.trainerNo = :trainerNo AND p.member.memNo LIKE :memNo",PrivateTrainingAppointmentForm.class)
 				.setParameter("trainerNo", trainerNo)
-				.setParameter("memName", "%" + memName + "%")
+				.setParameter("memNo", "%" + memNo + "%")
+				.setFirstResult(first)
 				.setMaxResults(PAGE_MAX_RESULT)
 				.getResultList();
 	}
 
 	@Override
-	public long getTotalByBoth(String memName, Integer trainerNo) {
-		return getSession().createQuery("SELECT COUNT(*) FROM PrivateTrainingAppointmentForm p WHERE p.trainer.trainerNo = :trainerNo AND p.member.memName LIKE :memName", Long.class)
+	public long getTotalByBoth(String memNo, Integer trainerNo) {
+		return getSession().createQuery("SELECT COUNT(*) FROM PrivateTrainingAppointmentForm p WHERE p.trainer.trainerNo = :trainerNo AND p.member.memNo LIKE :memNo", Long.class)
 				.setParameter("trainerNo", trainerNo)
-				.setParameter("memName", "%" + memName + "%")
+				.setParameter("memNo", "%" + memNo + "%")
 		        .uniqueResult();
 	}
 	

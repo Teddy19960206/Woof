@@ -32,12 +32,12 @@ public interface PrivateTrainingAppointmentFormDAO {
 	List<Date> getByTrainer(Integer year , Integer month , Integer trainerNo);
 
 	
-	List<PrivateTrainingAppointmentForm> getByMemName(String memName , int currentPage);
+	List<PrivateTrainingAppointmentForm> getByMemNo(String memNo , int currentPage);
 	
-	long getTotalByMemName(String memberNo);
+	long getTotalByMemNo(String memNo);
 	
-	List<PrivateTrainingAppointmentForm> getByBoth(String memName , Integer trainerNo ,int currentPage);
+	List<PrivateTrainingAppointmentForm> getByBoth(String memNo , Integer trainerNo ,int currentPage);
 	
-	long getTotalByBoth(String memName , Integer trainerNo);
+	long getTotalByBoth(String memNo , Integer trainerNo);
 
 }

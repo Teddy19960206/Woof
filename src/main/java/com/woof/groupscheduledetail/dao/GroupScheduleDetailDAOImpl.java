@@ -50,10 +50,12 @@ public class GroupScheduleDetailDAOImpl implements GroupScheduleDetailDAO{
     }
 
     public GroupScheduleDetail getMaxDate(Integer gcsNo) {
-        String hql = "FROM GroupScheduleDetail gcsd WHERE gcsd.groupCourseSchedule = :gcsNo ORDER BY gcsd.classDate DESC LIMIT 1";
+        String hql = "FROM GroupScheduleDetail gcsd WHERE gcsd.groupCourseSchedule.gcsNo = :gcsNo ORDER BY gcsd.classDate DESC";
         Query query = getSession().createQuery(hql);
         query.setParameter("gcsNo" , gcsNo);
-        return (GroupScheduleDetail) query.getSingleResult();
+        query.setMaxResults(1);
+        List<GroupScheduleDetail> results = query.getResultList();
+        return results.isEmpty() ? null : results.get(0);
     }
 
     @Override
@@ -97,24 +99,27 @@ public class GroupScheduleDetailDAOImpl implements GroupScheduleDetailDAO{
         return getSession().createQuery("FROM GroupScheduleDetail " , GroupScheduleDetail.class).list();
     }
 
-    @Override
-    public List<GroupScheduleDetail> getByDate(Integer year  , Integer month) {
-        String hql  = "FROM GroupScheduleDetail WHERE YEAR(classDate) = :year and MONTH(classDate) = :month";
-        Query query = getSession().createQuery(hql, GroupScheduleDetail.class);
-        query.setParameter("year" , year);
-        query.setParameter("month" , month);
-
-        return query.list();
-    }
 
     @Override
-    public List<GroupScheduleDetail> getByDate(Integer year, Integer month, Integer trainerNo) {
+    public List<GroupScheduleDetail> getByDate(Integer year, Integer month, Integer trainerNo, boolean applyStatusFilter) {
+        StringBuilder hqlBuilder = new StringBuilder("FROM GroupScheduleDetail gcsd WHERE YEAR(classDate) = :year AND MONTH(classDate) = :month");
 
-        String hql  = "FROM GroupScheduleDetail gcsd WHERE YEAR(classDate) = :year and MONTH(classDate) = :month and gcsd.trainer.trainerNo = :trainerNo";
-        Query query = getSession().createQuery(hql, GroupScheduleDetail.class);
-        query.setParameter("year" , year);
-        query.setParameter("month" , month);
-        query.setParameter("trainerNo" , trainerNo);
+        if (trainerNo != null) {
+            hqlBuilder.append(" AND gcsd.trainer.trainerNo = :trainerNo");
+        }
+//      根據schedule的狀態 若為 下架(0)  已取消 (3) 延期(4) 則不抓取該上課日期
+        if (applyStatusFilter) {
+            hqlBuilder.append(" AND gcsd.groupCourseSchedule.gcsStatus NOT IN (0, 3, 4)");
+        }
+
+        Query<GroupScheduleDetail> query = getSession().createQuery(hqlBuilder.toString(), GroupScheduleDetail.class);
+        query.setParameter("year", year);
+        query.setParameter("month", month);
+
+        if (trainerNo != null) {
+            query.setParameter("trainerNo", trainerNo);
+        }
+
         return query.list();
     }
 

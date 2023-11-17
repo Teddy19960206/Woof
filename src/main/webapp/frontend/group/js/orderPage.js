@@ -9,17 +9,23 @@ const method = document.getElementById("method");
 const smmp = document.getElementById("smmp");
 const actualAmount = document.getElementById("actualAmount");
 const status = document.getElementById("status");
-
+const orderEL = document.getElementById("orderNoOriginal");
 const show = document.getElementById("show");
 
 $(function () {
     const orderNo = document.getElementById("orderNo").value;
     if (orderNo.length !== 0){
         fetchData(orderNo);
+        orderEL.value = formatOrderId(orderNo);
     }else {
         window.location.href=`${projectName}/index.jsp`;
     }
 })
+
+function formatOrderId(orderId) {
+    return 'woofGroup' + orderId.toString().padStart(8, '0');
+}
+
 
 
 async function fetchData(orderNo){

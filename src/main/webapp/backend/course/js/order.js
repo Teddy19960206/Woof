@@ -18,6 +18,11 @@ $("button#button").on("click" , function (){
     getOrder()
 })
 
+// 格式化id 編號
+function formatOrderId(orderId) {
+    return 'woofGroup' + orderId.toString().padStart(8, '0');
+}
+
 
 async function getOrder(page){
 
@@ -94,7 +99,7 @@ async function getOrder(page){
             }
 
             arr.push(` <tr>
-                          <td>${item.gcoNo}</td>
+                          <td>${formatOrderId(item.gcoNo)}</td>
                           <td>${item.member.memName}</td>
                           <td>${item.groupCourseSchedule.groupCourse.classType.ctName} : ${item.groupCourseSchedule.groupCourse.skill.skillName}</td>
                           <td>${item.gcoDate}</td>
@@ -192,6 +197,17 @@ async function getGroupCourse(){
 
 $(document).on("click" , "button.detail-btn" ,function (){
     fetchDetail($(this).data("id"));
+    var newUrl = `${projectName}/backend/course/orderManagement.jsp`; // 想要添加的新網址
+    var newState = { page: "寵毛導師 Woof | 課堂檔期訂單管理" }; // 新狀態物件
+
+    history.pushState(newState, "新頁面標題", newUrl);
+});
+
+window.addEventListener("popstate", function(event) {
+    if (event.state && event.state.page) {
+        // 加載新頁面內容
+        location.reload();
+    }
 });
 
 async function fetchDetail(id){
@@ -240,7 +256,7 @@ async function fetchDetail(id){
                 <div class="row">
                     <label class="col-5 text-center">訂單編號</label>
                     <div class="col-7">
-                        <input type="text" id="gcoNo" class="form-control" value="${data.gcoNo}"  readonly>
+                        <input type="text" id="gcoNo" class="form-control" value="${formatOrderId(data.gcoNo)}"  readonly>
                     </div>
                     
                 </div>
@@ -308,7 +324,7 @@ async function fetchDetail(id){
                 </div>
 
                 <div class="text-center p-3">
-                    <button class="btn btn-primary refund" ${data.gcoStatus == 5 ? '' : 'disabled'}  data-id="${data.gcoNo}">退款</button>
+                    <button class="btn btn-primary refund" ${data.gcoStatus != 0 || data.gcoStatus != 2 || data.gcoStatus != 3? '' : 'disabled'}  data-id="${data.gcoNo}">退款</button>
                     <button class="btn btn-primary modify" data-id="${data.gcoNo}">確認修改</button>
                     <button class="btn btn-secondary" onclick="window.location.href = '${projectName}/backend/course/orderManagement.jsp'">取消修改</button>
                 </div>

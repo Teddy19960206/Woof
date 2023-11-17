@@ -1,5 +1,5 @@
 <%@page import="org.hibernate.internal.build.AllowSysOut"%>
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
+<%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.woof.member.*"%>
@@ -15,9 +15,9 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <meta charset="UTF-8">
-<title>§ó·s·|­û¸ê®Æ</title>
+<title>æ›´æ–°æœƒå“¡è³‡æ–™</title>
 <script>
-	// ¤é´Á¿ï¾Ü¾¹ªì©l¤Æ
+	// æ—¥æœŸé¸æ“‡å™¨åˆå§‹åŒ–
 	$(function() {
 		$("#memBd").datepicker({
 			dateFormat : 'yy-mm-dd'
@@ -26,19 +26,19 @@
 </script>
 <script>
     function confirmUpdate() {
-        return confirm('±z½T©w­n­×§ï³o¨Ç¸ê®Æ¶Ü¡H');
+        return confirm('æ‚¨ç¢ºå®šè¦ä¿®æ”¹é€™äº›è³‡æ–™å—ï¼Ÿ');
     }
 </script>
 <script>
 $(document).ready(function(){
     $.ajax({
-        ///«ü©whttp°Ñ¼Æ¶Ç¿é®æ¦¡¬°POST
+        ///æŒ‡å®šhttpåƒæ•¸å‚³è¼¸æ ¼å¼ç‚ºPOST
         type : "POST",
 
         data : {memNo : "<%=request.getParameter("memNo")%>"},
-        ///½Ğ¨D¥Ø¼Ğªºurl
+        ///è«‹æ±‚ç›®æ¨™çš„url
         url : "<%=request.getContextPath()%>/member1.do?action=query",
-         //Ajax¦¨¥\«á°õ¦æªºfunction¡Aresponse¬°¦^¶Çªº­È
+         //AjaxæˆåŠŸå¾ŒåŸ·è¡Œçš„functionï¼Œresponseç‚ºå›å‚³çš„å€¼
          success : function(data) {
           var jsonObj = JSON.parse(data);
           console.log(jsonObj)
@@ -67,20 +67,18 @@ $(document).ready(function(){
               + ']').prop('checked',
             true); 
          },
-         //Ajax¥¢±Ñ«á­n°õ¦æªºfunction¡A¦¹¨Ò¬°¦L¥X¿ù»~°T®§
+         //Ajaxå¤±æ•—å¾Œè¦åŸ·è¡Œçš„functionï¼Œæ­¤ä¾‹ç‚ºå°å‡ºéŒ¯èª¤è¨Šæ¯
          error : function(xhr, ajaxOptions,
            thrownError) {
-          alert("«z ¿ù¤F");
+          alert("å“‡ éŒ¯äº†");
          }
         });
-    
-      //¤é´Á®æ¦¡ 
-      /* $("#memBd").datepicker({dateFormat : 'yy-mm-dd'}); */
      })
 </script>
+<script src="https://kit.fontawesome.com/3f37e88a3b.js" crossorigin="anonymous"></script>
 <style>
 body {
-	background-color: #fff4e5; /* ²L¾ï¦â­I´º */
+	background-color: #fff4e5; /* æ·ºæ©˜è‰²èƒŒæ™¯ */
 }
 
 .container {
@@ -89,7 +87,7 @@ body {
 }
 
 .custom-card {
-	background: #ffffff; /* ¥Õ¦â¥d¤ù­I´º */
+	background: #ffffff; /* ç™½è‰²å¡ç‰‡èƒŒæ™¯ */
 	border-radius: 10px;
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 	padding: 20px;
@@ -97,7 +95,7 @@ body {
 }
 
 .custom-header {
-	background: #ffa726; /* ¾ï¦â¼ĞÃDÄæ */
+	background: #ffa726; /* æ©˜è‰²æ¨™é¡Œæ¬„ */
 	color: #ffffff;
 	padding: 10px 20px;
 	border-radius: 10px 10px 0 0;
@@ -114,7 +112,7 @@ body {
 
 .form-control {
 	border-radius: 5px;
-	border: 1px solid #ffa726; /* ¾ï¦âÃä®Ø */
+	border: 1px solid #ffa726; /* æ©˜è‰²é‚Šæ¡† */
 }
 
 .btn-custom {
@@ -123,27 +121,44 @@ body {
 }
 
 .btn-primary {
-	background-color: #ffa726; /* ¾ï¦â«ö¶s */
+	background-color: #ffa726; /* æ©˜è‰²æŒ‰éˆ• */
 	border: none;
 }
 
 .btn-secondary {
-	background-color: #f0f0f0; /* ²L¦Ç¦â«ö¶s */
+	background-color: #f0f0f0; /* æ·ºç°è‰²æŒ‰éˆ• */
+	color: #333;
+	border: none;
+}
+.btn-third {
+	background-color: #f0f0f0; /* æ·¡ç´…è‰²æŒ‰éˆ• */
 	color: #333;
 	border: none;
 }
 
 .btn-primary:hover, .btn-primary:focus {
-	background-color: #fb8c00; /* «ö¶sÄa°±¾ï¦â */
+	background-color: #fb8c00; /* æŒ‰éˆ•æ‡¸åœæ©˜è‰² */
 	border: none;
 }
 
 .btn-secondary:hover, .btn-secondary:focus {
-	background-color: #e0e0e0; /* «ö¶sÄa°±²L¦Ç¦â */
+	background-color: #e0e0e0; /* æŒ‰éˆ•æ‡¸åœæ·ºç°è‰² */
 	color: #333;
 }
+.btn-third:hover, .btn-third:focus {
+	background-color: #e0e0e0; /* æŒ‰éˆ•æ‡¸åœæ·¡ç´…è‰² */
+	color: red;
+}
 </style>
-
+<style>
+/* å¯†ç¢¼è¡¨æƒ…ç¬¦è™Ÿ */
+.form__input:valid + .icon::after {
+  content: 'ğŸ˜ƒ';
+}
+.form__input:invalid + .icon::after {
+  content: 'ğŸ˜³';
+}
+</style>
 <style>
   #preview {
    border: 1px solid lightgray;
@@ -169,113 +184,112 @@ body {
 </style>
 </head>
 <body>
-	<!--request.getContextPath()°ÊºA®Ú¸ô®|¡Aaction=update§ä¨ì«áºİswitch(action)ªºupdate-->
+	<!--request.getContextPath()å‹•æ…‹æ ¹è·¯å¾‘ï¼Œaction=updateæ‰¾åˆ°å¾Œç«¯switch(action)çš„update-->
 
 	<div class="container">
 		<div class="custom-card">
 			<div class="custom-header text-center">
-				<h3>°ò¥»¸ê®Æ</h3>
+				<h3>åŸºæœ¬è³‡æ–™</h3>
 			</div>
-			<a href="/woof/index.jsp" class="btn btn-light btn-sm"
-				style="position: absolute; top: 10px; right: 20px;">¦^­º­¶</a>
+				<a href="/woof/index.jsp" style="position: absolute; top: 10px; right: 20px;"><i class="fa-solid fa-house"></i></a>
 
 			<form method="post"
 				action="${pageContext.request.contextPath}/member1.do"
 				enctype="multipart/form-data" accept-charset="UTF-8"
 				onsubmit="return confirmUpdate()">
 				<div class="form-group">
-					<label for="memNo">·|­û±b¸¹:</label>
+					<label for="memNo">æœƒå“¡å¸³è™Ÿ:</label>
 					<div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="TEXT" name="memNo"
-								id="memNo" size="45" />
+								id="memNo" size="45" required/>
 						</div>
 					</div>
 <%-- 					<small class="error-msg">${errorMsgs.memNo}</small> --%>
 				</div>
 				<div class="form-group">
-					<label for="memName">·|­û©m¦W:</label>
+					<label for="memName">æœƒå“¡å§“å:</label>
 					<div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="TEXT" name="memName"
-								id="memName" size="45" />
+								id="memName" size="45" required />
 						</div>
 					</div>
 					<small class="error-msg">${errorMsgs.memName}</small>
 				</div>
 				<div class="form-group">
-					<label for="memGender">©Ê§O:</label>
+					<label for="memGender">æ€§åˆ¥:</label>
 					<div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="radio" name="memGender"
 								id="memGenderM" value="M" checked> <label
-								class="form-check-label" for="memGenderM">¨k</label>
+								class="form-check-label" for="memGenderM">ç”·</label>
 						</div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="radio" name="memGender"
 								id="memGenderF" value="F"> <label
-								class="form-check-label" for="memGenderF">¤k</label>
+								class="form-check-label" for="memGenderF">å¥³</label>
 						</div>
 					</div>
 					<small class="error-msg">${errorMsgs.memGender}</small>
 				</div>
 				<div class="form-group">
-					<label for="memPhoto">·|­û¬Û¤ù:</label>
+					<label for="memPhoto">æœƒå“¡ç›¸ç‰‡:</label>
 					<div>
 						<div class="form-check form-check-inline">
-							<!-- ¹wÄı¹Ï¤ù°Ï¶ô -->
+							<!-- é è¦½åœ–ç‰‡å€å¡Š -->
 							<div id="preview" style="margin-bottom: 10px;">
 								<img id="photo" class="preview_img" onerror="this.style.display='none'" /> 
 								<span class="text"></span>
 							</div>
-							<!-- ÀÉ®×¤W¶Ç¿é¤J®Ø -->
+							<!-- æª”æ¡ˆä¸Šå‚³è¼¸å…¥æ¡† -->
 							<input class="form-check-input" type="file" name="memPhoto"
 								accept="image/*" id="p_file" />
 						</div>
 					</div>
 				</div>
 				<div class="form-group">
-					<label for="memEmail">·|­û«H½c:</label>
+					<label for="memEmail">æœƒå“¡ä¿¡ç®±:</label>
 					<div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="email" name="memEmail"
-								id="memEmail" placeholder="XXX@gmail.com" size="45" />
+								id="memEmail" placeholder="XXX@gmail.com" size="45" required />
 						</div>
 					</div>
 <%-- 					<small class="error-msg">${errorMsgs.memEmail}</small> --%>
 				</div>
 				<div class="form-group">
-					<label for="memPassword">±K½X:</label>
+					<label for="memPassword">å¯†ç¢¼(éœ€å¤§æ–¼å…­å€‹å­—):</label>
 					<div>
 						<div class="form-check form-check-inline">
-							<input class="form-check-input" type="TEXT" name="memPassword"
-								id="memPassword" size="45" />
+							<input class="form__input" pattern=".{6,}" type="TEXT" name="memPassword"
+								id="memPassword" size="45" required /><span class="icon"></span>
 						</div>
 					</div>
 					<small class="error-msg">${errorMsgs.memPassword}</small>
 				</div>
 				<div class="form-group">
-					<label for="memTel">·|­û¹q¸Ü:</label>
+					<label for="memTel">æœƒå“¡é›»è©±:</label>
 					<div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="tel" name="memTel"
-								id="memTel" size="45" />
+								id="memTel" size="45" required />
 						</div>
 					</div>
 					<small class="error-msg">${errorMsgs.memTel}</small>
 				</div>
 				<div class="form-group">
-					<label for="memAddress">¦a§}:</label>
+					<label for="memAddress">åœ°å€:</label>
 					<div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="Text" name="memAddress"
-								id="memAddress" size="45" />
+								id="memAddress" size="45" required />
 						</div>
 					</div>
 					<small class="error-msg">${errorMsgs.memAddress}</small>
 				</div>
 				<div class="form-group">
-					<label for="memBd">¥Í¤é:</label>
+					<label for="memBd">ç”Ÿæ—¥:<span>(è¥¿å…ƒ-æœˆ-æ—¥)</span></label>
 					<div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="Text" name="memBd"
@@ -284,7 +298,7 @@ body {
 					</div>
 				</div>
 				<div class="form-group">
-					<label for="momoPoint">¤ò¤ò¹ô:</label>
+					<label for="momoPoint">æ¯›æ¯›å¹£:</label>
 					<div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="number" name="momoPoint"
@@ -293,7 +307,7 @@ body {
 					</div>
 				</div>
 				<div class="form-group">
-					<label for="totalClass">Á`°ó¼Æ:</label>
+					<label for="totalClass">ç¸½å ‚æ•¸:</label>
 					<div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="number" name="totalClass"
@@ -302,26 +316,26 @@ body {
 					</div>
 				</div>
 				<div class="form-group">
-					<label for="memStatus">ª¬ºA:</label>
+					<label for="memStatus">ç‹€æ…‹:</label>
 					<div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="radio" name="memStatus"
 								id="memStatus" value="0" disabled> <label
-								class="form-check-label" for="memStatus">°±Åv</label>
+								class="form-check-label" for="memStatus">åœæ¬Š</label>
 						</div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="radio" name="memStatus"
 								id="memStatus" value="1" disabled> <label
-								class="form-check-label" for="memStatus">¥¿±`</label>
+								class="form-check-label" for="memStatus">æ­£å¸¸</label>
 						</div>
 					</div>
 				</div>
 
 				<br> <input type="hidden" name="action" value="update">
-				<button type="submit">°e¥X</button>
-				<button type="button" onclick="history.back()">¨ú®ø­×§ï</button>
-				<button type="button" name="delete" id="delete"
-					data-id="${member.memNo}">§R°£¹Ï¤ù</button>
+				<button type="submit" class="btn btn-primary btn-custom">ä¿®æ”¹</button>
+				<button type="button" onclick="history.back()" class="btn btn-secondary btn-custom">å–æ¶ˆä¿®æ”¹</button>
+				<button type="button" name="delete" id="delete" class="btn btn-third btn-custom"
+					data-id="${member.memNo}">åˆªé™¤åœ–ç‰‡</button>
 			</form>
 		</div>
 	</div>

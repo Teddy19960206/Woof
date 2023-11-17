@@ -65,8 +65,8 @@ button[type="submit"] {
 <body>
 <%@ include file="/backend/backbody.file" %>
 	<h2>新增私人預約單明細</h2>
-<%-- 	<p>memberNo = ${param.memNo}</p> --%>
-<%-- 	<p>trainerNo = ${param.trainerNo}</p> --%>
+	<p>memberNo = ${param.memNo}</p>
+	<p>trainerNo = ${param.trainerNo}</p>
 	<form action="${pageContext.request.contextPath}/appointmentdetail"
 		method="post" enctype="multipart/form-data">
 		<input	type="hidden" name="ptaNo"	value="${ptaNo}">
@@ -81,7 +81,7 @@ button[type="submit"] {
 		</select>
 		 <br /> 
 		<input	type="hidden" name="member"	value="${param.memNo}">	
-		<input	type="hidden" name="trainer"	value="${param.trainerNo}">	
+		<input	type="hidden" name="trainer" value="${param.trainerNo}">	
 		<button type="submit" name="action"
 			value="add">新增</button>
 		<button type="button" class="cancel" onclick="history.back()">取消新增</button>

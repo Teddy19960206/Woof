@@ -36,10 +36,15 @@ public class DBPngReader extends HttpServlet {
         }
 
         String id = request.getParameter("id").trim();
-        byte[] picture = appService.getPhotoById(id);
+        byte[] picture = null;
+        try {
+            picture = appService.getPhotoById(id);
+            response.setContentType("image/png");
+            ServletOutputStream out = response.getOutputStream();
+            out.write(picture);
+        }catch (NullPointerException e){
+            System.out.println("該會員沒有圖片");
+        }
 
-        response.setContentType("image/png");
-        ServletOutputStream out = response.getOutputStream();
-        out.write(picture);
     }
 }

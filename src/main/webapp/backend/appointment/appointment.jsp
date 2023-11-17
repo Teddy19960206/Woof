@@ -87,7 +87,7 @@ tr:nth-child(odd) {
 <%@ include file="/backend/backbody.file" %>
 <jsp:useBean id="trainerServer" scope="page" class="com.woof.trainer.service.TrainerServiceImpl"/>
 <%-- <p>trainerNo = ${param.trainerNo}</p> --%>
-<%-- <p>memName = ${param.memName}</p> --%>
+<%-- <p>memNo = ${param.memNo}</p> --%>
 <form method="POST" ACTION="${pageContext.request.contextPath}/privatetrainingappointmentform?action=getboth" class="row g-3 align-items-center">
 	<div class="container py-3">
     	<div class="row">
@@ -103,11 +103,11 @@ tr:nth-child(odd) {
                 </select>
                 </div>
             </div>
-            <!-- 會員名稱輸入框 -->
+            <!-- 會員帳號輸入框 -->
             <div class="col-3">
-                <label class="col-form-label">會員名稱</label>
+                <label class="col-form-label">會員帳號</label>
                 <div class="col-12">
-                <input type="text" name="memName" id="memName" class="form-control" />
+                <input type="text" name="memNo" id="memNo" class="form-control" />
             	</div>
             </div>
             <!-- 查詢按鈕 -->
@@ -124,10 +124,10 @@ tr:nth-child(odd) {
 <table border= 1 >
 		<tr>
 			<th>私人訓練預約單編號</th>
-			<th>會員名稱</th>
+			<th>會員帳號</th>
 			<th>訓練師名稱</th>
 			<th>預約堂數</th>
-			<th></th>
+<!-- 			<th></th> -->
 			<th></th>
 		</tr>
 
@@ -136,28 +136,28 @@ tr:nth-child(odd) {
 
 			<tr>
 				<td>${privateTrainingAppointmentForm.ptaNo}</td>
-				<td>${privateTrainingAppointmentForm.member.memName}</td>
+				<td>${privateTrainingAppointmentForm.member.memNo}</td>
 				<td>${privateTrainingAppointmentForm.trainer.administrator.adminName}</td>
 				<td>${privateTrainingAppointmentForm.ptaClass}</td>
-				<td>
+<!-- 				<td> -->
 
-					<FORM METHOD="post"
-						action="${pageContext.request.contextPath}/privatetrainingappointmentform?action=gettoupdate2">
-						<%
-						String ptaNo = request.getParameter("ptaNo");
-						String member = request.getParameter("member");
-						String trainer = request.getParameter("trainer");
-						String number = request.getParameter("number");
-						%>
-						<input type="hidden" name="action" value="gettoupdate">
-						<input type="hidden" name="ptaNo" value="${privateTrainingAppointmentForm.ptaNo}">					
-						<input type="hidden" name="member" value="${privateTrainingAppointmentForm.member.memName}">
-						<input type="hidden" name="trainer" value="${privateTrainingAppointmentForm.trainer.administrator.adminName}">
-						<input type="hidden" name="number" value="${privateTrainingAppointmentForm.ptaClass}">
-						<button class="btn btn-success" type="submit">修改</button>
+<!-- 					<FORM METHOD="post" -->
+<%-- 						action="${pageContext.request.contextPath}/privatetrainingappointmentform?action=gettoupdate2"> --%>
+<%-- 						<% --%>
+<!-- 						String ptaNo = request.getParameter("ptaNo"); -->
+<!-- 						String member = request.getParameter("member"); -->
+<!-- 						String trainer = request.getParameter("trainer"); -->
+<!-- 						String number = request.getParameter("number"); -->
+<!-- 						%> -->
+<!-- 						<input type="hidden" name="action" value="gettoupdate"> -->
+<%-- 						<input type="hidden" name="ptaNo" value="${privateTrainingAppointmentForm.ptaNo}">					 --%>
+<%-- 						<input type="hidden" name="member" value="${privateTrainingAppointmentForm.member.memName}"> --%>
+<%-- 						<input type="hidden" name="trainer" value="${privateTrainingAppointmentForm.trainer.administrator.adminName}"> --%>
+<%-- 						<input type="hidden" name="number" value="${privateTrainingAppointmentForm.ptaClass}"> --%>
+<!-- 						<button class="btn btn-success" type="submit">修改</button> -->
 
-					</FORM>
-				</td>
+<!-- 					</FORM> -->
+<!-- 				</td> -->
 				<td>
 					<FORM METHOD="post"
 						action="${pageContext.request.contextPath}/appointmentdetail?action=getdetail">
@@ -174,7 +174,7 @@ tr:nth-child(odd) {
 
 	</table>
 <%-- 	<p>trainerNo = ${param.trainerNo}</p> --%>
-<%-- 	<p>memName = ${param.memName}</p> --%>
+<%-- 	<p>memNo = ${param.memNo}</p> --%>
 	<div class="pagination">
 	<c:if test="${currentPage > 1}">
 		<a href="${pageContext.request.contextPath}/privatetrainingappointmentform?action=getboth&page=1">至第一頁</a>&nbsp;
