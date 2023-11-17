@@ -218,7 +218,7 @@ public class GroupScheduleServlet extends HttpServlet {
     private void modified(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
 
-        Long currentDate =  Calendar.getInstance().getTimeInMillis();
+//        Long currentDate =  Calendar.getInstance().getTimeInMillis();
         Date startDate = null;
         Date endDate = null;
         Integer minLimit = null;
@@ -494,33 +494,22 @@ public class GroupScheduleServlet extends HttpServlet {
 
         try{
 
-//        同步新增多筆detail上課日期
+//          同步新增多筆detail上課日期
             Set<Date> dates = Arrays.stream(request.getParameter("classDate").split(","))
                     .map(Date::valueOf).collect(Collectors.toSet());
 
-//            Set<Date> dates = new HashSet<>();
-//            String[] classDates = request.getParameter("classDate").split(",");
-//
-//            for (String classDate : classDates){
-//                Date date = Date.valueOf(classDate);
-//                dates.add(date);
-//            }
 
-
-            //        新增報名課程資訊
+//           新增報名課程資訊
             GroupCourseSchedule groupCourseSchedule = groupGourseScheduleService.addSchedule(groupCourse, trainer, startDate, endDate, minLimit, maxLimit,0, price , 0, delayReason ,  byGcsNo);
             new GroupScheduleDetailServiceImpl().add(groupCourseSchedule , groupCourseSchedule.getTrainer() ,dates );
 
         }catch (Exception e){
             errorMsgs.add("新增檔期失敗");
-            Gson gson = new Gson();
-            String json = gson.toJson(errorMsgs);
+            String json = new Gson().toJson(errorMsgs);
             response.getWriter().write(json);
 
             return;
         }
-
-//        成功回傳ok，做判斷
 
         response.getWriter().write("{ \"message\":\"新增成功\" }");
     }

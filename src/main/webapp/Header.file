@@ -59,17 +59,9 @@
 
           <c:if test="${!empty sessionScope.member}">
             <li class="nav-item me-3">
-              <a class="nav-link" href="#">
-                <form method="POST"
-                      action="${pageContext.request.contextPath}/login"
-                      style="all: unset;">
-                  <input type="hidden" name="action" value="memberlogout">
-                  <button
-                          class="nav-link btn btn-link"
-                          style="color: inherit; text-decoration: none; position: relative; top: -8px" id="logoutButton"
-                          type="submit" >登出
-                  </button>
-                </form>
+              <a class="nav-link" href="${pageContext.request.contextPath}/login?action=memberlogout">
+                <img src="<%=request.getContextPath()%>/webutil/icons/logout.svg" style="width: 30px" />
+                <p class="d-xl-none d-inline text-center mx-3">登出</p>
               </a>
             </li>
           </c:if>

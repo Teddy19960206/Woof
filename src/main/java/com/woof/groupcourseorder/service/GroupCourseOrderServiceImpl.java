@@ -73,10 +73,6 @@ public class GroupCourseOrderServiceImpl implements GroupCourseOrderService{
         return dao.getAllByMember(memberNo);
     }
 
-    @Override
-    public List<GroupCourseOrder> getByGroupSchedule() {
-        return null;
-    }
 
     public List<GroupCourseOrder> getOrderByDate(Integer year , Integer month){
         return dao.getByDate(year , month);

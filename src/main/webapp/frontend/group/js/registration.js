@@ -42,16 +42,20 @@ notUseSmmpRadio.addEventListener("change", function () {
 
 credit.addEventListener("change" , function (){
     html = `<label for="payname">付款人姓名</label>
-                    <input type="text" class="form-control text-center mb-5" id="payname"/>
-                    <input class="form-control d-inline text-center" type="text" maxlength="4" onkeypress='validate(event)' value="4311" pattern="[0-9]{4}" title="請輸入4位數字" required><span> - </span>
-                    <input class="form-control d-inline text-center" type="text" maxlength="4" onkeypress='validate(event)' value="9522" pattern="[0-9]{4}" title="請輸入4位數字" required><span> - </span>
-                    <input class="form-control d-inline text-center" type="text" maxlength="4" onkeypress='validate(event)' value="2222" pattern="[0-9]{4}" title="請輸入4位數字" required><span> - </span>
-                    <input class="form-control d-inline text-center  " type="text" maxlength="4" onkeypress='validate(event)' value="2222" pattern="[0-9]{4}" title="請輸入4位數字" required>
-
-                    <div class="mt-5">
-                        <label class="mb-3">驗證碼</label>
+                    <input type="text" class="form-control text-center mb-3" id="payname" style="width: 200px"/>
+                    <label class="d-block">信用卡卡號</label>
+                    <input class="form-control d-inline text-center mb-3" type="text" maxlength="4" onkeypress='validate(event)' value="4311" pattern="[0-9]{4}" title="請輸入4位數字" required /><span> - </span>
+                    <input class="form-control d-inline text-center" type="text" maxlength="4" onkeypress='validate(event)' value="9522" pattern="[0-9]{4}" title="請輸入4位數字" required /><span> - </span>
+                    <input class="form-control d-inline text-center" type="text" maxlength="4" onkeypress='validate(event)' value="2222" pattern="[0-9]{4}" title="請輸入4位數字" required /><span> - </span>
+                    <input class="form-control d-inline text-center  " type="text" maxlength="4" onkeypress='validate(event)' value="2222" pattern="[0-9]{4}" title="請輸入4位數字" required />
+                    <label class="d-block mb-3">有效期限</label>
+                    <input class="form-control d-inline text-center" type="text" maxlength="2" onkeypress='validate(event)' value="05" pattern="[0-9]{2}" title="請輸入2位數字" required placeholder="MM"/><span> - </span>
+                    <input class="form-control d-inline text-center  " type="text" maxlength="2" onkeypress='validate(event)' value="25" pattern="[0-9]{2}" title="請輸入2位數字" required placeholder="YY"/>
+                    <div class="mt-2">
+                        <label class="mb-3">末三碼</label>
                         <input class="form-control verification text-center" type="text" maxlength="3" onkeypress='validate(event)' value="222">
                     </div>
+
                     <div class="d-flex justify-content-center mt-5 myBtn">
                         <button type="submit" class="button-62">確認付款</button>
                     </div>`;

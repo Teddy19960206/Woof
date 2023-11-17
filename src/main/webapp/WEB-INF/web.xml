@@ -34,6 +34,7 @@
 		<url-pattern>/groupOrder/getGroupInfo/*</url-pattern>
 		<url-pattern>/frontend/group/orderPage.jsp</url-pattern>
 		<url-pattern>/frontend/member/login/membercenter.jsp</url-pattern>
+		<url-pattern>/frontend/member/login/groupOrder.jsp</url-pattern>
 		<url-pattern>/frontend/cartlist/checkout.jsp</url-pattern>
 		<url-pattern>/frontend/privatetrainer/buyClass.jsp</url-pattern>
 		<dispatcher>REQUEST</dispatcher>
@@ -65,7 +66,7 @@
 		<init-param>
 			<param-name>timer</param-name>
 			<!--	60秒  -->
-			<param-value>60000</param-value>
+			<param-value>30</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>

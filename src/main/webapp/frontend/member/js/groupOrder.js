@@ -120,18 +120,39 @@ function split(data){
         <tr>
             <th scope="row">訂單狀態</th>
             <td>${status}</td>
-        </tr>
-    </tbody>`)
+        </tr>`);
+
+
+    if (data.gcoStatus == 0){
+        arr.push(`<tr>
+             <th>匯款帳號</th>
+             <td>
+                <p>銀行：合作金庫 (006)</p>
+                <p>匯款帳號：3333-333-333333</p>
+                <p>付款金額：<font class="text-danger">${data.actualAmount}</font></p>
+             </td>
+        </tr>`);
+    }
+
+
+    arr.push(`</tbody>`);
+
 
     html = arr.join("");
     $("#show").html(html);
-    if (data.gcoStatus == 2){
+    if (data.gcoStatus == 2 || data.gcoStatus == 0){
         $("#refundOrder").prop("disabled", true);
     } else {
         $("#refundOrder").prop("disabled", false);
     }
+
+    if (data.gcoStatus == 0){
+
+    }
+
     $("#showBtn").show();
 }
+
 
 $(document).on("click" , "#refundOrder" , async function (){
 

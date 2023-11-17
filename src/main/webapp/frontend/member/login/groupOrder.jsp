@@ -143,7 +143,7 @@
             <div class="card">
                 <div class="card-body">
                     <h3 class="card-title text-center p-2">團體課程訂單</h3>
-                    <table class="table table-bordered table-hover text-center" id="show">
+                    <table class="table table-bordered table-hover text-center align-content-center align-middle" id="show">
                         <thead>
                             <tr>
                                 <th>訂單編號</th>

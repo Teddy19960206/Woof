@@ -11,6 +11,7 @@ const actualAmount = document.getElementById("actualAmount");
 const status = document.getElementById("status");
 const orderEL = document.getElementById("orderNoOriginal");
 const show = document.getElementById("show");
+const payText = document.getElementById("payText");
 
 $(function () {
     const orderNo = document.getElementById("orderNo").value;
@@ -68,6 +69,7 @@ async function fetchData(orderNo){
         method.value = payMethod;
         smmp.value = data.gcoSmmp;
         actualAmount.value = data.actualAmount;
+        payText.innerText = data.actualAmount;
 
         let mode;
 

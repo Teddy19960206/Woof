@@ -11,7 +11,6 @@ import com.woof.groupcourseschedule.entity.GroupCourseSchedule;
 import com.woof.groupcourseschedule.service.GroupCourseScheduleServiceImpl;
 import com.woof.groupcourseschedule.service.GroupGourseScheduleService;
 import com.woof.groupscheduledetail.entity.GroupScheduleDetail;
-import com.woof.groupscheduledetail.service.GroupScheduleDetailService;
 import com.woof.groupscheduledetail.service.GroupScheduleDetailServiceImpl;
 import com.woof.member.entity.Member;
 import com.woof.util.*;
@@ -226,11 +225,8 @@ public class GroupCourseOrderServlet extends HttpServlet {
                 String host = request.getServerName();
                 // 獲取端口號
                 int port = request.getServerPort();
-
                 // 構建完整的URL
                 String fullURL = scheme + "://" + host + ":" + port;
-
-
 
                 all = new AllInOne("");
 
@@ -260,10 +256,7 @@ public class GroupCourseOrderServlet extends HttpServlet {
                     .map(GroupScheduleDetail::getClassDate)
                     .collect(Collectors.toSet());
 
-
-            MailService mailService = new MailService();
-
-            new Thread(() -> mailService.sendMail("trick95710@gmail.com" ,
+            new Thread(() -> new MailService().sendMail("trick95710@gmail.com" ,
                     "報名成功" ,
                     MailService.groupOrderhtml(member.getMemName() ,                            // 報名人姓名
                             groupCourseSchedule.getGroupCourse().getClassType().getCtName(),    // 班級名稱
@@ -308,8 +301,7 @@ public class GroupCourseOrderServlet extends HttpServlet {
         response.setContentType("application/json;charset=UTF-8");
 
         if (!errorMsgs.isEmpty()){
-            Gson gson = new Gson();
-            String json = gson.toJson(errorMsgs);
+            String json = new Gson().toJson(errorMsgs);
             response.getWriter().write(json);
             return;
         }
