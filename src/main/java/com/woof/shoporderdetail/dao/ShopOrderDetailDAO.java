@@ -1,23 +1,28 @@
 package com.woof.shoporderdetail.dao;
 
 import java.util.List;
-import java.util.Map;
+
 import com.woof.shoporderdetail.entity.ShopOrderDetail;
 
 public interface ShopOrderDetailDAO {
 	int insert(ShopOrderDetail shopOrderDetail);
 
-	int update(ShopOrderDetail shopOrderDetail);
+//	int update(ShopOrderDetail shopOrderDetail);
 
-	int delete(ShopOrderDetail.ShopOrderDetailPK id);
+//	int delete(Integer shopOrderDetail);
 
-	ShopOrderDetail findById(ShopOrderDetail.ShopOrderDetailPK id);
+	ShopOrderDetail findByShopOrderDetail(Integer shopOrderNo);
 
 	List<ShopOrderDetail> getAll();
 
-	List<ShopOrderDetail> getByCompositeQuery(Map<String, String> map);
-
-	List<ShopOrderDetail> getAll(int currentPage);
-
-	long getTotal();
+//	List<ShopOrderDetail> getByCompositeQuery(Map<String, String> map);
+//
+//	List<ShopOrderDetail> getAll(int currentPage);
+//
+//	long getTotal();
+	
+	//做這個
+//	List<ShopOrderDetail> findByShopOrderNo(Integer shopOrderNo , int currentPage);
+//	
+//	long getTotalOrderDetail(Integer shopOrderNo);
 }

@@ -34,6 +34,7 @@
 	 	    	 $('input[name=ADMIN_STATUS][value='+jsonObj.adminStatus+']').prop('checked',true);
 	 	    	 $('#ADMIN_VERIFY_STATUS').val(jsonObj.adminVerifyStatus);
 	 	    	$('input[name=ADMIN_FUNC_NAME][value='+jsonObj.adminFuncName+']').prop('checked',true);
+	 	    	  $('#myphoto').attr('src', "${pageContext.request.contextPath}/DBPngReader?action=administrator&id="+jsonObj.adminNo);
 	 	     },
 	 	     //Ajax失敗後要執行的function，此例為印出錯誤訊息
 	 	     error : function(xhr, ajaxOptions, thrownError) {
@@ -162,8 +163,8 @@
 		
 		</table>
   <div>個人大頭貼</div>
-   <img src="#" id="myphoto" name="myphoto" accept="image/*">
-<input type="file" id="ADMIN_PHOTO" name="ADMIN_PHOTO" style="display:none;" accept="image/*">
+   <img src="#" id="myphoto" name="myphoto" accept="image/*" style="width: 200px; height: 200px">
+<input type="file" id="ADMIN_PHOTO" name="ADMIN_PHOTO"  accept="image/*">
 <input type="button" value="修改照片" onclick="$('#ADMIN_PHOTO').click();" >
 		
 		<button type="submit">送出</button>

@@ -3,36 +3,38 @@ let projectName = pathName.substring(0, pathName.substring(1).indexOf("/") + 1);
 
 
 //自動重新刷新會載入總數
-$(function() {
-	getCartTotalQuantity();
-});
+//$(function() {
+//	getCartTotalQuantity();
+//});
 
-function getCartTotalQuantity() {
-	let memNo = "member1"; // 從session會話中獲取真實的會員編號
-	$.ajax({
-		type: "POST",
-		url: `${projectName}/cart`,
-		data: {
-			action: "getTotalQuantity",
-			memNo: memNo
-		},
-		success: function(response) {
-			// 假設後端返回的 response 是一個物件，包含 totalQuantity 屬性
-			$("#cart-count").text(response.totalQuantity);
-		},
-		error: function(xhr, status, error) {
-			// 處理錯誤
-			console.error("獲取購物車總數量時出錯", status, error);
-		}
-	});
-}
+//function getCartTotalQuantity() {
+////	let memNo = "member1"; // 從session會話中獲取真實的會員編號
+//	$.ajax({
+//		type: "POST",
+//		url: `${projectName}/cart`,
+//		data: {
+//			action: "getTotalQuantity",
+////			memNo: memNo
+//		},
+//		success: function(response) {
+//			// 假設後端返回的 response 是一個物件，包含 totalQuantity 屬性
+//			$("#cart-count").text(response.totalQuantity);
+//		},
+//		error: function(xhr, status, error) {
+//			if (xhr.status === 401) { // 未授權錯誤
+//				window.location.href = `${projectName}/frontend/member/login/login.jsp`;
+//			}
+//		}
+//	});
+//}
 
 
 // 添加商品到購物車的 AJAX 請求
 $(".add-to-cart").on("click", function() {
 	let prodNo = $(this).data("id");
-	alert("加入購物車");
-	// 			console.log(prodNo);
+	
+	// alert("加入購物車");
+	// console.log(prodNo);
 
 	let prodName = $(this).data("name");
 	let prodPrice = $(this).data("price");
@@ -47,31 +49,31 @@ $(".add-to-cart").on("click", function() {
 			prodPrice: prodPrice
 		},
 		success: function(data) {
-
 			console.log(data);
-
 			// 更新前端jsp中的數字
 			let totalQuantity = data.totalQuantity;
 			$("#cart-count").text(totalQuantity);
-
+		},
+		error: function(xhr, status, error) {
+			if (xhr.status === 401) { // 未授權錯誤
+				window.location.href = `${projectName}/frontend/member/login/login.jsp`;
+			}
 		}
-
 	});
 });
-
 
 
 // 購物車圖標點擊事件
 $("#cart-icon, #cart-count").on("click", function() {
 	// 假設用戶已經登入，並且會員編號已經存儲在會話中
-	let memNo = "member1"; // 這裡應該從會話中獲取真實的會員編號
-
+//	let memNo = "member1"; // 這裡應該從會話中獲取真實的會員編號
+	
 	$.ajax({
 		type: "POST",
 		url: `${projectName}/cartlist`,
 		data: {
 			action: "getCart",
-			memNo: memNo
+//			memNo: memNo
 		},
 		success: function(cartJson) {
 

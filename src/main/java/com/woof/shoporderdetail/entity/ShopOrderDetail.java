@@ -2,8 +2,11 @@ package com.woof.shoporderdetail.entity;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.Objects;
 import javax.persistence.*;
+
+import com.google.gson.annotations.Expose;
 
 //可能要重做
 
@@ -13,33 +16,58 @@ public class ShopOrderDetail implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
-	@EmbeddedId
-	private ShopOrderDetailPK id;
-
-	@Column(name = "ORDER_AMOUNT", nullable=false) //訂單數量
+	@Expose
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="SHOP_ORDER_DETAIL_NO", updatable = false)		//商城訂單明細編號
+	private Integer shopOrderDetailNo;
+	
+	@Expose
+    @Column(name="SHOP_ORDER_NO", nullable=false)   //商城訂單編號
+	private Integer shopOrderNo;
+	
+	@Expose
+    @Column(name="PROD_NO", nullable=false)   //商品編號
+	private Integer prodNo;
+	
+	@Expose
+    @Column(name="ORDER_AMOUNT", nullable=false)   //訂購數量
 	private Integer orderAmount;
-
-	@Column(name = "PROD_PRICE", nullable=false) //商品單價
+	
+	@Expose
+    @Column(name="PROD_PRICE", nullable=false)   //商品單價
 	private Integer prodPrice;
-
-	@Column(name = "HAS_RETURNED", nullable=false) //是否已退貨 0:未退貨, 1:已退貨
-	private Boolean hasReturned;
-
-	@Column(name = "DISCOUNT_RATE") //商品折數
+	
+	@Expose
+    @Column(name="HAS_RETURNED", nullable=false, columnDefinition = "TINYINT")   //是否已退貨 0:未退貨, 1:已退貨
+	private Integer hasReturned;
+	
+	@Expose
+    @Column(name="DISCOUNT_RATE", nullable=false)   //商品折數
 	private BigDecimal discountRate;
 
-	@Column(name = "RE_AMOUNT") //已退貨數量 Default: 0
-	private Integer reAmount;
-
-	public ShopOrderDetail() {
+	public Integer getShopOrderDetailNo() {
+		return shopOrderDetailNo;
 	}
 
-	public ShopOrderDetailPK getId() {
-		return id;
+	public void setShopOrderDetailNo(Integer shopOrderDetailNo) {
+		this.shopOrderDetailNo = shopOrderDetailNo;
 	}
 
-	public void setId(ShopOrderDetailPK id) {
-		this.id = id;
+	public Integer getShopOrderNo() {
+		return shopOrderNo;
+	}
+
+	public void setShopOrderNo(Integer shopOrderNo) {
+		this.shopOrderNo = shopOrderNo;
+	}
+
+	public Integer getProdNo() {
+		return prodNo;
+	}
+
+	public void setProdNo(Integer prodNo) {
+		this.prodNo = prodNo;
 	}
 
 	public Integer getOrderAmount() {
@@ -58,11 +86,11 @@ public class ShopOrderDetail implements Serializable {
 		this.prodPrice = prodPrice;
 	}
 
-	public Boolean getHasReturned() {
+	public Integer getHasReturned() {
 		return hasReturned;
 	}
 
-	public void setHasReturned(Boolean hasReturned) {
+	public void setHasReturned(Integer hasReturned) {
 		this.hasReturned = hasReturned;
 	}
 
@@ -74,17 +102,13 @@ public class ShopOrderDetail implements Serializable {
 		this.discountRate = discountRate;
 	}
 
-	public Integer getReAmount() {
-		return reAmount;
-	}
-
-	public void setReAmount(Integer reAmount) {
-		this.reAmount = reAmount;
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(discountRate, hasReturned, id, orderAmount, prodPrice, reAmount);
+		return Objects.hash(discountRate, hasReturned, orderAmount, prodNo, prodPrice, shopOrderDetailNo, shopOrderNo);
 	}
 
 	@Override
@@ -97,70 +121,22 @@ public class ShopOrderDetail implements Serializable {
 			return false;
 		ShopOrderDetail other = (ShopOrderDetail) obj;
 		return Objects.equals(discountRate, other.discountRate) && Objects.equals(hasReturned, other.hasReturned)
-				&& Objects.equals(id, other.id) && Objects.equals(orderAmount, other.orderAmount)
-				&& Objects.equals(prodPrice, other.prodPrice) && Objects.equals(reAmount, other.reAmount);
+				&& Objects.equals(orderAmount, other.orderAmount) && Objects.equals(prodNo, other.prodNo)
+				&& Objects.equals(prodPrice, other.prodPrice)
+				&& Objects.equals(shopOrderDetailNo, other.shopOrderDetailNo)
+				&& Objects.equals(shopOrderNo, other.shopOrderNo);
 	}
 
 	@Override
 	public String toString() {
-		return "ShopOrderDetailVO [id=" + id + ", orderAmount=" + orderAmount + ", prodPrice=" + prodPrice
-				+ ", hasReturned=" + hasReturned + ", discountRate=" + discountRate + ", reAmount=" + reAmount + "]";
+		return "ShopOrderDetail [shopOrderDetailNo=" + shopOrderDetailNo + ", shopOrderNo=" + shopOrderNo + ", prodNo="
+				+ prodNo + ", orderAmount=" + orderAmount + ", prodPrice=" + prodPrice + ", hasReturned=" + hasReturned
+				+ ", discountRate=" + discountRate + "]";
 	}
-
-	@Embeddable
-	public static class ShopOrderDetailPK implements Serializable {
-		
-		private static final long serialVersionUID = 1L;
-		
-		@Column(name = "SHOP_ORDER_NO", updatable = false) //商城訂單編號
-		private Integer shopOrderNo;
-
-		@Column(name = "PROD_NO", updatable = false) //商品編號
-		private Integer prodNo;
-		
-		public ShopOrderDetailPK() {
-			super();
-		}
-		
-		public ShopOrderDetailPK(Integer shopOrderNo, Integer prodNo) {
-			super();
-			this.shopOrderNo = shopOrderNo;
-			this.prodNo = prodNo;
-		}
-
-		public Integer getShopOrderNo() {
-			return shopOrderNo;
-		}
-
-		public void setShopOrderNo(Integer shopOrderNo) {
-			this.shopOrderNo = shopOrderNo;
-		}
-
-		public Integer getProdNo() {
-			return prodNo;
-		}
-
-		public void setProdNo(Integer prodNo) {
-			this.prodNo = prodNo;
-		}
-
-		@Override
-		public int hashCode() {
-			return Objects.hash(shopOrderNo, prodNo);
-		}
-
-		@Override
-		public boolean equals(Object obj) {
-			if (this == obj)
-				return true;
-			if (obj == null)
-				return false;
-			if (getClass() != obj.getClass())
-				return false;
-			ShopOrderDetailPK other = (ShopOrderDetailPK) obj;
-			return Objects.equals(shopOrderNo, other.shopOrderNo) && Objects.equals(prodNo, other.prodNo);
-		}
-	}
-
+	
+	
+	
+	
+	
 }
 

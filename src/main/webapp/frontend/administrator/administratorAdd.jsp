@@ -110,20 +110,20 @@
 			<td>
 				<input type="text" name="adminNo" id="adminNo" >
 			</td>
-			<td><small class="error-msg">${errorMsgs.adminNo}</small></td>
+			<td><small class="error-msg" style="color: red;">${errorMsgs.adminNo}</small></td>
 		</tr>
 		<tr>
 			<th>管理員密碼</th>
 			<td>
 				<input type="password" name="ADMIN_PASSWORD" id="ADMIN_PASSWORD" >
 			</td>
-			<td><small class="error-msg">${errorMsgs.ADMIN_PASSWORD}</small></td>
+			<td><small class="error-msg" style="color: red;">${errorMsgs.ADMIN_PASSWORD}</small></td>
 		</tr>
 		<tr>
 			<th>管理員名字</th>
 			<td>
 				<input type="text" name="ADMIN_NAME" id="ADMIN_NAME"  >
-				<td><small class="error-msg">${errorMsgs.ADMIN_NAME}</small></td>
+				<td><small class="error-msg" style="color: red;">${errorMsgs.ADMIN_NAME}</small></td>
 			</td>
 		</tr>
 		<tr>
@@ -132,21 +132,21 @@
 				<input type="radio" name="ADMIN_GENDER" value="1" checked>男
 				<input type="radio" name="ADMIN_GENDER" value="0">女
 			</td>
-			<td><small class="error-msg">${errorMsgs.ADMIN_GENDER}</small></td>
+			<td><small class="error-msg" style="color: red;">${errorMsgs.ADMIN_GENDER}</small></td>
 		</tr>
 		<tr>
 			<th>管理員信箱</th>
 			<td>
 				<input type="text" name="adminEmail" id="adminEmail" placeholder="XXX@gmail.com">
 			</td>
-			<td><small class="error-msg">${errorMsgs.adminEmail}</small></td>
+			<td><small class="error-msg" style="color: red;">${errorMsgs.adminEmail}</small></td>
 		</tr>
 		<tr>
 			<th>管理員電話</th>
 			<td>
 				<input type="text" name="ADMIN_TEL" id="ADMIN_TEL">
 			</td>
-			<td><small class="error-msg">${errorMsgs.ADMIN_TEL}</small></td>
+			<td><small class="error-msg"  style="color: red;">${errorMsgs.ADMIN_TEL}</small></td>
 		</tr>
 		<tr>
 			<th>管理員地址</th>
@@ -154,7 +154,7 @@
 				<div id="twzipcode"></div>
 				<input type="text" id="ADMIN_ADDRESS" name="ADMIN_ADDRESS">
 			</td>
-				<td><small class="error-msg">${errorMsgs.ADMIN_ADDRESS}</small></td>
+				<td><small class="error-msg" style="color: red;" >${errorMsgs.ADMIN_ADDRESS}</small></td>
 		</tr>
 		<tr>
 			<th>管理員生日</th>
@@ -167,14 +167,14 @@
 			<td>
 				<input type="text" name="EMERGENCY_CONTACTNAME" id="EMERGENCY_CONTACTNAME">
 			</td>
-				<td><small class="error-msg">${errorMsgs.EMERGENCY_CONTACTNAME}</small></td>
+				<td><small class="error-msg" style="color: red;">${errorMsgs.EMERGENCY_CONTACTNAME}</small></td>
 		</tr>
 		<tr>
 			<th>管理員緊急聯絡人電話</th>
 			<td>
 				<input type="text" name="EMERGENCY_CONTACTEL" id="EMERGENCY_CONTACTEL">
 			</td>
-				<td><small class="error-msg">${errorMsgs.EMERGENCY_CONTACTEL}</small></td>
+				<td><small class="error-msg" style="color: red;">${errorMsgs.EMERGENCY_CONTACTEL}</small></td>
 		</tr>
 		<tr>
 			<th>管理員到職日</th>
@@ -199,7 +199,7 @@
 		<tr>
 			<th>管理員大頭貼</th>
 			<td>
-				<input type="file" name="ADMIN_PHOTO">
+				<input type="file" name="ADMIN_PHOTO" >
 			</td>
 		</tr>
 		<tr>

@@ -61,8 +61,9 @@ public class ShopOrdeServlet extends HttpServlet {
 			forwardPath = addshoporder(request, response);
 			break;
 			
+//			會員單一查詢
 		case "getByMemNo":
-//			forwardPath = getByMemNo(request, response);
+			forwardPath = getByMemNo(request, response);
 			break;
 
 		// 全部不成立會跑到這邊
@@ -225,20 +226,22 @@ public class ShopOrdeServlet extends HttpServlet {
 	}
 	
 	
-private void getByMemNo(HttpServletRequest request, HttpServletResponse response) throws IOException {
+private String getByMemNo(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
 		String memNo = request.getParameter("memNo");
 		String page = request.getParameter("page");
 		int currentPage = (page == null) ? 1 : Integer.parseInt(page);
-		int PTAPageQty2 = shopOrderService.getPageTotal2(memNo);
-		request.getSession().setAttribute("PTAPageQty2", PTAPageQty2);
+		int shopOrderPageQty2 = shopOrderService.getPageTotal2(memNo);
+		request.getSession().setAttribute("shopOrderPageQty2", shopOrderPageQty2);
 		
-		List<ShopOrder> members = shopOrderService.findByMemNo(memNo , currentPage); 
+		List<ShopOrder> shopOrders = shopOrderService.findByMemNo(memNo , currentPage); 
 
-		request.setAttribute("members", members);
+		System.out.println(shopOrders);
+		
+		request.setAttribute("shopOrders", shopOrders);
 		request.setAttribute("currentPage", currentPage);
 		
-//		return "/backend/shoporder/getAllshoporder.jsp";
+		return "/backend/shoporder/getOneshoporder.jsp";
 	}
 
 }
