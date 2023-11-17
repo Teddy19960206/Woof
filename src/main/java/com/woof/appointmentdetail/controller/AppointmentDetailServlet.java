@@ -132,10 +132,10 @@ public class AppointmentDetailServlet extends HttpServlet {
     
     private void add(HttpServletRequest req, HttpServletResponse res) throws IOException {
     	
+    	// 新增明細
     	Integer ptaNo = Integer.parseInt(req.getParameter("ptaNo"));
     	PrivateTrainingAppointmentFormService ptaService =  new PrivateTrainingAppointmentFormServiceImpl();
     	PrivateTrainingAppointmentForm pta = ptaService.findPrivateTrainingAppointmentFormByPtaNo(ptaNo);
-    	
     	
     	String selectedDateStr = req.getParameter("date");
     	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -160,6 +160,7 @@ public class AppointmentDetailServlet extends HttpServlet {
 			System.out.println("新增失敗");
 			req.setAttribute("errorMessage", "新增失敗");
 		}
+		// 使用預約單的修改方法修改數量
 		Integer ptaClass = (int) appointmentDetailService.getTotalByPtaNo(ptaNo);
 		
 		String memNo = req.getParameter("member");
@@ -173,6 +174,8 @@ public class AppointmentDetailServlet extends HttpServlet {
 		PrivateTrainingAppointmentFormService privateTrainingAppointmentFormService = new PrivateTrainingAppointmentFormServiceImpl();
 		 privateTrainingAppointmentFormService.updatePrivateTrainingAppointmentForm(ptaNo, member, trainer,
 					ptaClass);
+		 
+		 // 用查詢展示跳轉的效果
 		getByPtaNo(req,res);
 //		res.sendRedirect(req.getContextPath() + "/frontend/privatetrainingappointmentform/privateTrainingAppointmentForm.jsp");
 	}

@@ -11,6 +11,13 @@ public interface ClassOrderDAO {
 	
 	List<ClassOrder> getAll();
 	
+	List<ClassOrder> getAll(int currentPage);
+	
+	long getTotal();
+	
+	List<ClassOrder> getByMemNo(String memNo,int currentPage);
+	
+	long getTotalByMemNo(String memNo);
 	
 	int update(ClassOrder classOrder);
 	

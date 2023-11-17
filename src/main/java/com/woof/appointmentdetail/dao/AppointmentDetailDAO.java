@@ -26,5 +26,6 @@ public interface AppointmentDetailDAO {
 	
 	long getTotal();
 	
+	// 用FK查詢資料數量
 	long getTotalByPtaNo(Integer ptaNo);
 }

@@ -14,9 +14,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
 import com.woof.member.service.MemberService;
 import com.woof.member.service.MemberServiceImpl;
+import com.woof.privatetrainingappointmentform.entity.PrivateTrainingAppointmentForm;
 import com.woof.classorder.entity.ClassOrder;
 import com.woof.classorder.service.ClassOrderService;
 import com.woof.classorder.service.ClassOrderServiceImpl;
@@ -52,6 +52,14 @@ public class ClassOrderServlet extends HttpServlet {
 		case "/getOneOrder":
 			getOneOrder(request, response);
 			return;
+		case "/getAll":
+			getAll(request, response);
+			forwardPath = "/backend/classOrder/classOrder.jsp";
+			break;
+		case "/getByMemNo":
+			getByMemNo(request, response);
+			forwardPath = "/backend/classOrder/classOrderByMemNo.jsp";
+			break;
 		case "/check":
 			try {
 				check(request, response);
@@ -99,7 +107,6 @@ public class ClassOrderServlet extends HttpServlet {
 		String email = request.getParameter("email");
 		Integer actualAmount = Integer.valueOf(request.getParameter("actualAmount"));
 
-
 		java.util.Date now = new java.util.Date();
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String coTimeStr = dateFormat.format(now);
@@ -136,7 +143,7 @@ public class ClassOrderServlet extends HttpServlet {
 		if (coPm == 0 || coPm == 2) {
 			coStatus = 1;
 		}
-		
+
 		String coPmStr;
 		switch (coPm) {
 		case 0:
@@ -151,7 +158,7 @@ public class ClassOrderServlet extends HttpServlet {
 		default:
 			coPmStr = "錯誤";
 		}
-		
+
 		String coStatusStr;
 		switch (coStatus) {
 		case 0:
@@ -163,18 +170,16 @@ public class ClassOrderServlet extends HttpServlet {
 		default:
 			coStatusStr = "錯誤";
 		}
-		
+
 		Integer coNo = null;
 		try {
 //        新增classOrder
 			coNo = classOrderService.addClassOrder(member, coBc, coPm, smmp, coTime, coStatus, actualAmount);
-			
+
 			MailService mailService = new MailService();
 
-            new Thread(() -> mailService.sendMail("trick95710@gmail.com" ,
-                    "購買成功" ,
-                    MailService.classOrderhtml(coBc ,                            
-                    		member.getMemName()))).start();
+			new Thread(() -> mailService.sendMail("trick95710@gmail.com", "購買成功",
+					MailService.classOrderhtml(coBc, member.getMemName()))).start();
 		} catch (Exception e) {
 			e.printStackTrace();
 			AppLogger.getLogger().log(Level.ALL, "發生例外，新增失敗：" + e);
@@ -190,16 +195,49 @@ public class ClassOrderServlet extends HttpServlet {
 		request.getSession().setAttribute("smmp", smmp);
 		request.getSession().setAttribute("actualAmount", actualAmount);
 		request.getSession().setAttribute("coStatusStr", coStatusStr);
-		
+
 		Integer momo = member.getMomoPoint() - smmp;
 		MemberService memberService = new MemberServiceImpl();
 		memberService.updateMemberPoints(memNo, momo);
-		Integer totalClass =  member.getTotalClass() + coBc;
+		Integer totalClass = member.getTotalClass() + coBc;
 		memberService.updateMemberClass(memNo, totalClass);
-		
-		member.setMomoPoint(momo);//讓頁面的momo幣刷新
-		member.setTotalClass(totalClass);//讓頁面的課程數量刷新
-		
+
+		member.setMomoPoint(momo);// 讓頁面的momo幣刷新
+		member.setTotalClass(totalClass);// 讓頁面的課程數量刷新
+
 		response.sendRedirect(request.getContextPath() + "/frontend/privatetrainer/classOrder.jsp");
 	}
+
+	private void getAll(HttpServletRequest request, HttpServletResponse response) {
+		String page = request.getParameter("page");
+		int currentPage = (page == null) ? 1 : Integer.parseInt(page);
+//		if (request.getSession().getAttribute("COPageQty") == null) {
+			int COPageQty = classOrderService.getPageTotal();
+			request.getSession().setAttribute("COPageQty", COPageQty);
+//		}
+		List<ClassOrder> allClassOrders = classOrderService.getAllCOs(currentPage);
+
+//		List<PrivateTrainingAppointmentForm> allPrivateTrainingAppointmentForms =  privateTrainingAppointmentFormService.getAllPrivateTrainingAppointmentForms();
+
+//		Integer member = privateTrainingAppointmentFormService.findPrivateTrainingAppointmentFormByPtaNo(ptaNo).getMember().getMemNo();
+//		Integer trainer = privateTrainingAppointmentFormService.findPrivateTrainingAppointmentFormByPtaNo(ptaNo).getTrainer().getTrainerNo();
+
+		request.setAttribute("classOrders", allClassOrders);
+		request.setAttribute("currentPage", currentPage);
+
+	}
+
+	private void getByMemNo(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		String memNo = request.getParameter("memNo");
+		String page = request.getParameter("page");
+		int currentPage = (page == null) ? 1 : Integer.parseInt(page);
+		int COPageQty2 = classOrderService.getPageTotal2(memNo);
+		request.getSession().setAttribute("COPageQty2", COPageQty2);
+
+		List<ClassOrder> members = classOrderService.getAllByMemNo(memNo, currentPage);
+		request.setAttribute("members", members);
+		request.setAttribute("currentPage", currentPage);
+		
+	}
+	
 }

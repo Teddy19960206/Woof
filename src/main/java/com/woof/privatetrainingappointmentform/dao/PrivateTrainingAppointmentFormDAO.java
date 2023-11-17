@@ -31,7 +31,6 @@ public interface PrivateTrainingAppointmentFormDAO {
 
 	List<Date> getByTrainer(Integer year , Integer month , Integer trainerNo);
 
-	
 	List<PrivateTrainingAppointmentForm> getByMemNo(String memNo , int currentPage);
 	
 	long getTotalByMemNo(String memNo);
