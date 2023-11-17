@@ -9,9 +9,9 @@ public interface ShopOrderDetailDAO {
 
 	int update(ShopOrderDetail shopOrderDetail);
 
-	int delete(ShopOrderDetail.ShopOrderDetailPK id);
+	int delete(ShopOrderDetail id);
 
-	ShopOrderDetail findById(ShopOrderDetail.ShopOrderDetailPK id);
+	ShopOrderDetail findById(ShopOrderDetail id);
 
 	List<ShopOrderDetail> getAll();
 
