@@ -103,13 +103,6 @@ function togglePasswordVisibility(fieldId) {
 			</div>
 			<div class="error-msg">${errorMsgs.loginError}</div>
 			</div>
-			<div class="form-group">
-				<input type="hidden" name="action" value="memberlogin">
-				<button class="btn btn-access" id="loginButton" type="submit">
-					<b>登入</b>
-				</button>
-
-			</div>
 			<div class="form-group form-check">
 				<input type="checkbox" class="form-check-input" name="remberme"
 					id="remember"> <label class="form-check-label"
@@ -123,13 +116,6 @@ function togglePasswordVisibility(fieldId) {
 				</button>
 			</div>
 		</form>
-		<a href='/woof/frontend/member/login/addmember.jsp'
-			class="text-decoration-none"><b>註冊會員</b></a> 
-			<a href='/woof/frontend/member/login/forgotpwd.jsp'
-			class="text-decoration-none"> <b>忘記密碼？</b></a>
-			<a href="${pageContext.request.contextPath}/home"
-			class="text-decoration-none"><i class="fa-brands fa-google"></i></a>
-
 		<a href='/woof/frontend/member/login/addmember.jsp'><p class="p">還沒有帳號嗎？<span class="span">註冊</span></p></a> 
 		<p class="p line">Or With</p>
 		<div>
@@ -155,7 +141,7 @@ function togglePasswordVisibility(fieldId) {
       </button>
 		</div>
 	</div>
->>>>>>> refs/heads/cindy
+
 	</div>
 
 	<script>
