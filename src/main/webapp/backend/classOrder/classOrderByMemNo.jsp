@@ -99,7 +99,7 @@ tr:nth-child(odd) {
                     </div>
                 </div>
                 <!-- 查詢按鈕 -->
-                <div class="col-6">
+                <div class="col-3">
                     <label class="col-form-label">查詢</label>
                     <div class="col-12">
                         <button type="submit" id="button" class="btn btn-primary">提交</button>
@@ -124,7 +124,8 @@ tr:nth-child(odd) {
 		<tr>
 			<th>課堂訂單編號</th>
 			<th>會員帳號</th>
-			<th>購買課堂數量</th>
+			<th>剩餘課堂數</th>
+			<th>購買課堂數</th>
 			<th>付款方式</th>
 			<th>折抵毛毛幣</th>
 			<th>訂單時間</th>
@@ -139,6 +140,7 @@ tr:nth-child(odd) {
 			<tr>
 				<td>${classOrder.coNo}</td>
 				<td>${classOrder.member.memNo}</td>
+				<td>${classOrder.member.totalClass}</td>
 				<td>${classOrder.coBc}</td>
 				<td>${classOrder.coPaymentMethod}</td>
 				<td>${classOrder.coSmmp}</td>

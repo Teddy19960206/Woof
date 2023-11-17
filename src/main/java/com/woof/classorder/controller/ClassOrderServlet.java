@@ -237,6 +237,7 @@ public class ClassOrderServlet extends HttpServlet {
 		List<ClassOrder> members = classOrderService.getAllByMemNo(memNo, currentPage);
 		request.setAttribute("members", members);
 		request.setAttribute("currentPage", currentPage);
+		
 	}
-
+	
 }
