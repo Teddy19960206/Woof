@@ -17,22 +17,31 @@
 .btn-orange:hover {
 	background-color: #FFA07A;
 }
+
 body {
-  background-color: #f4f4f4;
-  font-family: Arial, sans-serif;
+	background-color: #f4f4f4;
+	font-family: Arial, sans-serif;
 }
 </style>
 </head>
+<script src="https://kit.fontawesome.com/3f37e88a3b.js" crossorigin="anonymous"></script>
 <body>
 	<div class="container mt-5">
-		<h3 class="mb-3">資料查詢:</h3>
+		<h3 class="mb-3">會員資料查詢:</h3>
+		 <a href="/woof/backend/index.jsp"style="position: absolute; top: 10px; left: 20px;"><i class="fa-solid fa-house"></i></a>
 		<ul class="list-unstyled">
 			<li class="mb-2"><a href='list_all_member.jsp'
 				class="btn btn-primary">查看全部會員</a></li>
 
 			<jsp:useBean id="memberService" scope="page"
 				class="com.woof.member.service.MemberServiceImpl" />
-
+			<li>
+				<FORM METHOD="post" ACTION="${pageContext.request.contextPath}/member.do">
+					<b>輸入會員帳號:</b> <input type="text" name="memNo"value="${member.memNo}"><font color=red>${errorMsgs.memNo}</font>
+					<input type="hidden" name="action" value="getone">
+					<input type="submit" class="btn btn-orange" value="查詢">
+				</FORM>
+			</li>
 			<li class="mb-2">
 				<form method="POST"
 					action="${pageContext.request.contextPath}/member.do"

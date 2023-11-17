@@ -142,7 +142,7 @@ tr:hover {
     <td>${member.memNo}</td>
     <td>${member.memName}</td>
     <td>${member.memGender}</td>
-    <td><img src="${pageContext.request.contextPath}/DBPngReader?action=member&id=${member.memNo}" style="width: 100px; height: 100px"></td>
+    <td><img src="${pageContext.request.contextPath}/DBPngReader?action=member&id=${member.memNo}" onerror="this.onerror=null; this.src='/woof/backend/member/jpg/dog.jpg';" style="width: 100px; height: 100px"></td>
     <td>${member.memEmail}</td>
     <td>${member.memPassword}</td>
     <td>${member.memTel}</td>
@@ -166,7 +166,7 @@ tr:hover {
       style="margin-bottom: 0px;">
       <input type="hidden" name="action" value="delete" > 
       <input type="hidden" name="memNo" value="${member.memNo}" onclick="confirmDelete('${member.memNo}')"> 
-     <button type="submit" class="delete-btn" onclick="confirmDelete('${member.memNo}')" >刪除</button>
+      <input type="button" class="delete-btn" value="刪除" onclick="confirmDelete('${member.memNo}')">
       </FORM>
      </td>
    </tr>
