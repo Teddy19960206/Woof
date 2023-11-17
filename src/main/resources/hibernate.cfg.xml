@@ -42,5 +42,6 @@
 		<mapping class="com.woof.latestnews.entity.LatestNews"/>
 		<mapping class="com.woof.faq.entity.Faq"/>
 		<mapping class="com.woof.shoporder.entity.ShopOrder"/>
+		<mapping class="com.woof.shoporderdetail.entity.ShopOrderDetail"/>
     </session-factory>
 </hibernate-configuration>

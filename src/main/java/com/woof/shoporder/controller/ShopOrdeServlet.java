@@ -4,35 +4,48 @@ import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import java.lang.reflect.Type;
+import java.math.BigDecimal;
+
+import redis.clients.jedis.Jedis;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.woof.faq.entity.Faq;
 import com.woof.faq.service.FaqService;
 import com.woof.faq.service.FaqServiceImpl;
 import com.woof.member.entity.Member;
 import com.woof.member.service.MemberService;
 import com.woof.member.service.MemberServiceImpl;
-import com.woof.privatetrainingappointmentform.entity.PrivateTrainingAppointmentForm;
 import com.woof.shoporder.entity.ShopOrder;
 import com.woof.shoporder.service.ShopOrderService;
 import com.woof.shoporder.service.ShopOrderServiceImpl;
+import com.woof.shoporderdetail.service.ShopOrderDetailService;
+import com.woof.shoporderdetail.service.ShopOrderDetailServiceImpl;
+
 
 @WebServlet("/shoporder/*")
 public class ShopOrdeServlet extends HttpServlet {
 
 	private ShopOrderService shopOrderService;
+	private ShopOrderDetailService shopOrderDetailService;
 
 	@Override
 	public void init() throws ServletException {
-		shopOrderService = new ShopOrderServiceImpl();
+		 super.init();
+		 shopOrderService = new ShopOrderServiceImpl();
+		 shopOrderDetailService = new ShopOrderDetailServiceImpl();
 	}
 
 	@Override
@@ -166,66 +179,91 @@ public class ShopOrdeServlet extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 		Timestamp prodOrderDate = new Timestamp(parsedDate.getTime());
-
-		System.out.println("======================================" + prodOrderDate);
-
-		int payMethod = Integer.parseInt(request.getParameter("payment"));
-		
-		System.out.println("======================================" + payMethod);
-		
+		int payMethod = Integer.parseInt(request.getParameter("payment"));		
 		Boolean shipMethod = Boolean.parseBoolean(request.getParameter("shipMethod"));
-
-		System.out.println("======================================" + shipMethod);
 		
 		int orderStatus = 0;
 		request.getSession().setAttribute("orderStatus", orderStatus);
 
 		String recName = request.getParameter("memName");
-		
-		System.out.println("======================================" + recName);
-
-		String recMobile = request.getParameter("phone");
-		
-		System.out.println("======================================" + recMobile);
-		
+		String recMobile = request.getParameter("phone");		
 		String recAddress = request.getParameter("address");
-		
-		System.out.println("======================================" + recAddress);
-
 		Boolean hasReturn = false;
 		request.getSession().setAttribute("hasReturn", hasReturn);
 
-		
-		int moCoin = Integer.parseInt(request.getParameter("inputSmmp"));
-
-		System.out.println("======================================" + moCoin);
-		
+		int moCoin = Integer.parseInt(request.getParameter("inputSmmp"));		
 		int orderTotalPrice = Integer.parseInt(request.getParameter("totalPrice"));
 		int actualPrice = Integer.parseInt(request.getParameter("totalAfterCoins"));
 
 		
-		int saved = (Integer) shopOrderService.addShopOrder(member, prodOrderDate, payMethod, shipMethod, orderStatus,
+		int savedOrderNo= (Integer) shopOrderService.addShopOrder(member, prodOrderDate, payMethod, shipMethod, orderStatus,
 				recName, recMobile, recAddress, hasReturn, moCoin, orderTotalPrice, actualPrice);
+		
 		// 如果有確定進入資料庫會有流水編號，再去找流水編號的值，顯示在jsp
-		var result = shopOrderService.findByShopOrderNo(saved);
+		var result = shopOrderService.findByShopOrderNo(savedOrderNo);
 
 		
 		
-		if (saved > 0) {
+		if (savedOrderNo > 0) {
 //		    return 1; // 訂單新增成功
 			System.out.println("訂單新增成功");
+			
+			try (Jedis jedis = new Jedis("localhost", 6379)) {
+	            // 從 Redis 獲取購物車數據
+	            String cartJson = jedis.get(memNo);
+
+	            // 解析購物車數據
+	            Type listType = new TypeToken<List<Map<String, Object>>>() {}.getType();
+	            List<Map<String, Object>> cartItems = new Gson().fromJson(cartJson, listType);
+
+	            for (Map<String, Object> item : cartItems) {
+	                // 從map中取出商品信息
+	                int prodNo = Integer.parseInt((String) item.get("prodNo"));
+	                int orderAmount = ((Double) item.get("quantity")).intValue();
+	                int prodPrice = ((Double) item.get("prodPrice")).intValue();
+	                int hasReturned = 0;
+	                BigDecimal discountRate = BigDecimal.valueOf(0.00);
+	                
+	                System.out.println(prodNo+"===============================================");
+	                System.out.println(orderAmount+"===============================================");
+	                System.out.println(prodPrice+"===============================================");
+	                
+//	                // 創建 ShopOrderDetail 實例
+////	                ShopOrderDetail shopOrderDetail = new ShopOrderDetail();
+//	                shopOrderDetail.setShopOrderNo(savedOrderNo);
+//	                shopOrderDetail.setProdNo(prodNo);
+//	                shopOrderDetail.setOrderAmount(quantity);
+//	                shopOrderDetail.setProdPrice(prodPrice);
+//	                shopOrderDetail.setHasReturned(0); // 假設初始未退貨
+//	                shopOrderDetail.setDiscountRate(null); // 假設沒有折扣
+
+	                // 保存訂單明細
+	                shopOrderDetailService.addShopOrderDetail(savedOrderNo, prodNo, orderAmount, prodPrice, hasReturned, discountRate);
+	            }
+
+	            // 清除 Redis 中的購物車數據
+	            jedis.del(memNo);
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	            // 錯誤處理邏輯
+	        }
+
 		} else {
 //	        return -1; // 訂單新增失败
 			System.out.println("新增失敗");
 		}
 
+		
+		
 		// 資料給下一個jsp
 		request.setAttribute("result", result);
 		return "/frontend/cartlist/finishorder.jsp";
 	}
-	
-	
+
+
+
 private String getByMemNo(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
 		String memNo = request.getParameter("memNo");
