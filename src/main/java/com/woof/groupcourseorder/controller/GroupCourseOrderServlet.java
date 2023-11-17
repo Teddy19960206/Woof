@@ -11,6 +11,7 @@ import com.woof.groupcourseschedule.entity.GroupCourseSchedule;
 import com.woof.groupcourseschedule.service.GroupCourseScheduleServiceImpl;
 import com.woof.groupcourseschedule.service.GroupGourseScheduleService;
 import com.woof.groupscheduledetail.entity.GroupScheduleDetail;
+import com.woof.groupscheduledetail.service.GroupScheduleDetailService;
 import com.woof.groupscheduledetail.service.GroupScheduleDetailServiceImpl;
 import com.woof.member.entity.Member;
 import com.woof.util.*;
@@ -30,6 +31,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.logging.Level;
+import java.util.stream.Collectors;
 
 
 @WebServlet("/groupOrder/*")
@@ -253,10 +255,10 @@ public class GroupCourseOrderServlet extends HttpServlet {
 
 //          取得上課日期
             List<GroupScheduleDetail> details = new GroupScheduleDetailServiceImpl().getByGroupSchedule(groupCourseSchedule.getGcsNo());
-            Set<Date> dates = new HashSet<>();
-            for (GroupScheduleDetail detail : details){
-                dates.add(detail.getClassDate());
-            }
+
+            Set<Date> dates = details.stream()
+                    .map(GroupScheduleDetail::getClassDate)
+                    .collect(Collectors.toSet());
 
 
             MailService mailService = new MailService();

@@ -24,9 +24,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.sql.Date;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
+
 @WebServlet("/scheduleDetail/*")
 @MultipartConfig
 public class GroupScheduleDetailServlet extends HttpServlet {
@@ -119,10 +122,8 @@ public class GroupScheduleDetailServlet extends HttpServlet {
 
         Integer skillNo = groupScheduleDetail.getGroupCourseSchedule().getGroupCourse().getSkill().getSkillNo();
 
-        SkillService skillService = new SkillServiceImpl();
-        Set<Trainer> trainersBySkillNo = skillService.getTrainersBySkillNo(skillNo);
+        Set<Trainer> trainersBySkillNo = new SkillServiceImpl().getTrainersBySkillNo(skillNo);
 
-        System.out.println(trainersBySkillNo);
 
         Gson gson = new GsonBuilder()
                 .excludeFieldsWithoutExposeAnnotation()
@@ -163,7 +164,6 @@ public class GroupScheduleDetailServlet extends HttpServlet {
         if (trainerId != null && trainerId.length() != 0) {
             Integer Id = Integer.valueOf(trainerId);
             List<Object[]> byTrainer = groupScheduleDetailService.getByTrainer(Id);
-            System.out.println(byTrainer);
             Gson gson = new GsonBuilder()
                     .excludeFieldsWithoutExposeAnnotation()
                     .setDateFormat("yyyy-MM-dd")
@@ -210,11 +210,10 @@ public class GroupScheduleDetailServlet extends HttpServlet {
         Integer scheduleNo = Integer.valueOf(request.getParameter("scheduleNo"));
         GroupCourseSchedule schedule = new GroupCourseScheduleServiceImpl().findByGcsNo(scheduleNo);
 
-        String[] classDates = request.getParameter("classDates").split(",");
-        Set<Date> dates = new HashSet<>();
-        for (String date : classDates){
-            dates.add(Date.valueOf(date));
-        }
+        Set<Date> dates = Arrays.stream(request.getParameter("classDate").split(","))
+                .map(Date::valueOf)
+                .collect(Collectors.toSet());
+
         groupScheduleDetailService.add(schedule , schedule.getTrainer() , dates);
 
         response.setContentType("application/json;charset=UTF-8");

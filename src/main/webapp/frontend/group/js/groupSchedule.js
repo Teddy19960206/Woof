@@ -3,17 +3,23 @@ let pathName = window.document.location.pathname;
 let projectName = pathName.substring( 0 , pathName.substring(1).indexOf("/")+1);
 
 
-$(function (){
-    $("#adultClass").on("click" , async function (){
-        let data =  await fetchSchedule(2);
-        splicing(data);
-    });
+// $(function (){
+//     $("#adultClass").on("click" , async function (){
+//         let data =  await fetchSchedule(2);
+//         splicing(data);
+//     });
+//
+//     $("#puppyClass").on("click", async function (){
+//         let data =  await fetchSchedule(1);
+//         splicing(data);
+//     });
+// });
 
-    $("#puppyClass").on("click", async function (){
-        let data =  await fetchSchedule(1);
-        splicing(data);
-    });
-});
+
+$(document).on("click", "button.classType" , async function (){
+    let data = await fetchSchedule($(this).data("id"));
+    splicing(data);
+})
 
 // 抓課程資訊
 async function fetchSchedule(classType){
