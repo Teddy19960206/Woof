@@ -4,6 +4,8 @@ package com.woof.groupscheduledetail.controller;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.woof.administrator.entity.Administrator;
+import com.woof.groupcourseschedule.entity.GroupCourseSchedule;
+import com.woof.groupcourseschedule.service.GroupCourseScheduleServiceImpl;
 import com.woof.groupscheduledetail.entity.GroupScheduleDetail;
 import com.woof.groupscheduledetail.service.GroupScheduleDetailService;
 import com.woof.groupscheduledetail.service.GroupScheduleDetailServiceImpl;
@@ -22,6 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.sql.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 @WebServlet("/scheduleDetail/*")
@@ -71,6 +74,9 @@ public class GroupScheduleDetailServlet extends HttpServlet {
                 return;
             case "/getDetails":
                 getDetails(request ,response);
+                return;
+            case "/addAll":
+                addAll(request ,response);
                 return;
             default:
 //                進入detail畫面根據取得的id去抓取要修改的資料
@@ -198,5 +204,20 @@ public class GroupScheduleDetailServlet extends HttpServlet {
         response.setContentType("application/json;charset=UTF-8");
         response.getWriter().write(json);
 
+    }
+
+    private void addAll(HttpServletRequest request ,HttpServletResponse response) throws IOException {
+        Integer scheduleNo = Integer.valueOf(request.getParameter("scheduleNo"));
+        GroupCourseSchedule schedule = new GroupCourseScheduleServiceImpl().findByGcsNo(scheduleNo);
+
+        String[] classDates = request.getParameter("classDates").split(",");
+        Set<Date> dates = new HashSet<>();
+        for (String date : classDates){
+            dates.add(Date.valueOf(date));
+        }
+        groupScheduleDetailService.add(schedule , schedule.getTrainer() , dates);
+
+        response.setContentType("application/json;charset=UTF-8");
+        response.getWriter().write("{\"message\" : \"新增成功\"}");
     }
 }

@@ -188,6 +188,10 @@ async function fetchData(page){
 $(document).on("click" , "button.detail-button" , function (e){
     let url = `${projectName}/scheduleDetail/detail/${this.getAttribute("data-id")}`;
     className = $(this).closest("tr").find("th").eq(1).text();
+
+
+    $("#addDetail").attr("data-id" , this.getAttribute("data-id"));
+    $("#addDetail").show();
     var newUrl = `${projectName}/backend/course/schedule.jsp`; // 想要添加的新網址
     var newState = { page: "寵毛導師Woof" }; // 新狀態物件
 
@@ -391,3 +395,9 @@ async function detailDelete(id){
 $(document).on("click" ,".delay-button" ,function (){
     window.location.href = `${projectName}/backend/course/delaySchedule.jsp?no=${this.getAttribute("data-id")}`;
 })
+
+$("#addDetail").on("click" ,async function (){
+
+    window.location.href = `${projectName}/backend/course/addDetail.jsp?id=${this.getAttribute("data-id")}`;
+
+});

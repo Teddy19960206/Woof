@@ -70,6 +70,9 @@
         <a href="${pageContext.request.contextPath}/schedule/addpage">
             <button type="button" class="btn btn-primary">新增報名課程</button>
         </a>
+        <a id="addDetail" style="display: none">
+            <button type="button" class="btn btn-primary">新增上課日期</button>
+        </a>
         <a href="${pageContext.request.contextPath}/backend/index.jsp">
             <button class="btn btn-secondary">返回後台首頁</button>
         </a>
