@@ -82,28 +82,29 @@ $("button#next").on("click" , function (){
     // 檢查最低最多人數
     if (minLimit.value.trim().length == 0 || maxLimit.value.trim().length == 0){
 
-        let dateErr = false;
+
 
         if (minLimit.value.trim().length == 0){
             setError(minLimitErr, "請勿空白");
             hasError = true;
-            dateErr = true;
         }
         if (maxLimit.value.trim().length == 0){
             setError(maxLimitErr, "請勿空白");
             hasError = true;
-            dateErr = true;
         }
+    }else {
 
         if (!dataErr && minLimit.value > 100){
             setError(minLimitErr , "請勿輸入超過三位數")
+            hasError = true;
         }
 
-        if (!dateErr && maxLimit.value > 100){
+        if (!dataErr && maxLimit.value > 100){
             setError(maxLimitErr , "請勿輸入超過三位數")
+            hasError = true;
         }
 
-        if (!dateErr && minLimit.value > maxLimit.value){
+        if (!dataErr && minLimit.value > maxLimit.value){
             setError(minLimitErr , "最低人數不能大於最多人數")
             hasError = true;
         }
@@ -113,6 +114,11 @@ $("button#next").on("click" , function (){
     if (price.value.trim().length == 0){
         setError(priceErr, "請勿空白");
         hasError = true;
+    }else {
+        if (price.value.trim().length > 6){
+            setError(priceErr , "請勿輸入超過六位數價格");
+            hasError = true;
+        }
     }
 
     // // 檢查延期關聯表格
@@ -178,6 +184,12 @@ const calendar = new FullCalendar.Calendar(calendarEl, {
                 calendar.unselect(); // 取消選擇
                 return; // 結束函數執行
             }
+
+            if (reserveDate.some(item => arg.startStr === item)){
+                calendar.unselect();
+                return;
+            }
+
             let newDate = new Date(arg.startStr);
             let year = newDate.getFullYear();
             let month = newDate.getMonth() + 1;
@@ -248,9 +260,10 @@ const calendar = new FullCalendar.Calendar(calendarEl, {
     datesSet: function (info) {
         removeAllEvents();
         // 加上七天，避免取得到上個月的日期，
-        let date = new Date(info.start);
-        date.setDate(date.getDate() + 7);
-        fetchDetailByDate(date.getFullYear() , date.getMonth()+1);
+        let newDate = new Date(info.start);
+        newDate.setDate(newDate.getDate() + 7);
+        fetchDetailByDate(newDate.getFullYear() , newDate.getMonth()+1);
+        reserve(reserveDate);
     },
 });
 
@@ -262,7 +275,15 @@ function removeAllEvents(){
     })
 }
 
-
+function reserve(arr){
+    arr.forEach(item=>{
+        calendar.addEvent({
+            title: "預約",
+            start: item,
+            backgroundColor:"#0000ff"
+        })
+    })
+}
 
 
 // 預約清單
@@ -279,6 +300,7 @@ $("#reserveBtn").on("click" , function (){
     })
     myModal.hide();
     reserveDate.push($("#hideDate").text());
+    // date.push($("#hideDate").text());
 });
 
 

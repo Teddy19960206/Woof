@@ -19,6 +19,7 @@ public interface GroupCourseDAO {
 
     List<GroupCourse> getAll();
 
+    List<GroupCourse> getByStatus(Integer status);
 
     long getTotal(Integer classType , Integer status);
 

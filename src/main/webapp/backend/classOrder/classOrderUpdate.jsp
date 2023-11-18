@@ -6,84 +6,100 @@
 <%@ include file="/backend/backhead.file" %>
 <title>寵毛導師 Woof | 課堂訂單管理</title>
 <style>
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    margin: 0;
-    padding: 0;
-}
 
-h2 {
-    color: #333;
-    text-align: center;
-}
+	body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+    }
 
-form {
-    max-width: 400px;
-    margin: 0 auto;
-    padding: 20px;
-    background: #fff;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
+     h2 {
+         color: #333;
+         margin: 20px;
+         text-align: center;
+     } 
 
-label {
-    display: block;
-    margin-bottom: 5px;
-}
+    form {
+        background-color: #fff;
+        border-radius: 5px;
+        padding: 20px;
+        width: 400px;
+        margin: 0 auto;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
 
-input[type="date"],
-select {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-}
+    label {
+        display: block;
+        margin-bottom: 5px;
+    }
 
-button {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-right: 10px;
-}
+    input[type="text"],
+    select {
+        width: calc(100% - 12px);
+        padding: 8px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
 
-button[type="submit"] {
-    background-color: #007bff;
-    color: white;
-}
+    select {
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        background: url('data:image/svg+xml;utf8,<svg fill="#666" width="12" height="12" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>') no-repeat right 8px center;
+    }
 
-.cancel {
-    background-color: #dc3545;
-    color: white;
-}
+    button {
+        padding: 10px 20px;
+        margin-top: 10px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .cancel {
+        background-color: #dc3545;
+        margin-left: 10px;
+    }
+
+    button:hover,
+    .cancel:hover {
+        opacity: 0.8;
+    }
 </style>
 </head>
 <body>
 <%@ include file="/backend/backbody.file" %>
-	<h2>修改私人預約單明細</h2>
+	<h2>修改訂單狀態</h2>
 
 	<form action="${pageContext.request.contextPath}/classorder/update"
 		method="post" enctype="multipart/form-data">
-		<input	type="hidden" name="adNo"	value="${param.adNo}">
-		<input	type="hidden" name="ptaNo"	value="${param.ptaNo}">
-		<label for="datepick">預約日期:</label>
-		<input type="date" id="datePicker" name="date" value="${param.appTime}" readonly>
-		<br />
-		<label>預約狀態：</label> 
-		<select name="appStatus">
-   		<option value="0" ${param.appStatus == '0' ? 'selected' : ''}>接受</option>
-		<option value="1" ${param.appStatus == '1' ? 'selected' : ''}>取消</option>
+		<label>課堂訂單編號:</label>
+		<input	type="text" name="coNo"	value="${param.coNo}" readonly>
+		<label>會員帳號:</label>
+		<input	type="text" name="memNo" value="${param.memNo}" readonly>
+		<label>購買堂數:</label>
+		<input	type="text" name="coBc" value="${param.coBc}" readonly>
+		<input	type="hidden" name="coPaymentMethod" value="${param.coPaymentMethod}">
+		<input	type="hidden" name="coSmmp" value="${param.coSmmp}">
+		<input	type="hidden" name="coTime" value="${param.coTime}">
+		<label>實付金額:</label>
+		<input	type="text" name="actualAmount" value="${param.actualAmount}">
+		<label>訂單狀態:</label>
+		<select name="coStatus">
+   		<option value="0" ${param.coStatus == '0' ? 'selected' : ''}>未付款</option>
+		<option value="1" ${param.coStatus == '1' ? 'selected' : ''}>已付款</option>
+		<option value="2" ${param.coStatus == '2' ? 'selected' : ''}>取消訂單</option>
 		</select>
 		 <br /> 
-	
-			
-		<button type="submit" name="action"
-			value="update">修改</button>
+		
+		<button type="submit">修改</button>
 		<button type="button" class="cancel" onclick="history.back()">取消修改</button>
 	</form>
+	
 <%@ include file="/backend/backfoot.file" %>
 </body>
 </html>

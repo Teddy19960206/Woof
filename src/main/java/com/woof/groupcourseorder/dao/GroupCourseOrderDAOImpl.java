@@ -7,10 +7,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -130,6 +127,9 @@ public class GroupCourseOrderDAOImpl implements GroupCourseOrderDAO{
         if (memNo != null){
             predicates.add(builder.like(root.get("member").get("memName"), '%'+memNo+'%'));
         }
+
+        Order order = builder.desc(root.get("gcoNo"));
+        criteriaQuery.orderBy(order);
 
         int first = (currentPage - 1) * PAGE_MAX_RESULT;
         criteriaQuery.where(builder.and(predicates.toArray(new Predicate[predicates.size()])));

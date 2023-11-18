@@ -59,6 +59,10 @@ public class ClassOrderServlet extends HttpServlet {
 			getByMemNo(request, response);
 			forwardPath = "/backend/classOrder/classOrderByMemNo.jsp";
 			break;
+		case "/update":
+			update(request, response);
+			forwardPath = "/backend/classOrder/classOrderByMemNo.jsp";
+			break;
 		case "/check":
 			try {
 				check(request, response);
@@ -236,7 +240,42 @@ public class ClassOrderServlet extends HttpServlet {
 		List<ClassOrder> members = classOrderService.getAllByMemNo(memNo, currentPage);
 		request.setAttribute("members", members);
 		request.setAttribute("currentPage", currentPage);
-		
 	}
 	
+	private void update(HttpServletRequest request, HttpServletResponse response) {
+		
+		String coNoStr = request.getParameter("coNo");
+		Integer coNo = Integer.valueOf(coNoStr);
+		
+		String memNo = request.getParameter("memNo");
+		MemberService memberService = new MemberServiceImpl();
+		Member member = memberService.findMemberByNo(memNo);
+		
+		Integer coBc = Integer.valueOf(request.getParameter("coBc"));
+		Integer coPaymentMethod = Integer.valueOf(request.getParameter("coPaymentMethod"));
+		Integer coSmmp = Integer.valueOf(request.getParameter("coSmmp"));
+		
+		String coTimeStr = request.getParameter("coTime");
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		java.util.Date parsedDate = null;
+		try {
+			parsedDate = dateFormat.parse(coTimeStr);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Timestamp coTime = new Timestamp(parsedDate.getTime());
+
+		Integer actualAmount = Integer.valueOf(request.getParameter("actualAmount"));
+		Integer coStatus = Integer.valueOf(request.getParameter("coStatus"));
+		
+		classOrderService.updateClassOrder(coNo, member, coBc, coPaymentMethod, coSmmp, coTime, coStatus, actualAmount);
+		
+		try {
+			getByMemNo(request,response);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }

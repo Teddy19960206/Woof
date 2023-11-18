@@ -3,21 +3,16 @@ package com.woof.privatetrainingappointmentform.dao;
 import static com.woof.util.Constants.PAGE_MAX_RESULT;
 
 import java.sql.Date;
-import java.util.ArrayList;
+
 import java.util.List;
 
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-import com.woof.groupcourseorder.entity.GroupCourseOrder;
+
 import com.woof.privatetrainingappointmentform.entity.PrivateTrainingAppointmentForm;
 import org.hibernate.query.NativeQuery;
-import org.hibernate.query.Query;
 
 
 public class PrivateTrainingAppointmentFormDAOImpl implements PrivateTrainingAppointmentFormDAO {
@@ -34,12 +29,10 @@ public class PrivateTrainingAppointmentFormDAOImpl implements PrivateTrainingApp
 
 	@Override
 	public int insert(PrivateTrainingAppointmentForm privateTrainingAppointmentForm) {
-		try {
-			getSession().save(privateTrainingAppointmentForm);
-			return 1;
-		} catch (Exception e) {
-			return -1;
-		}
+
+
+		return (int) getSession().save(privateTrainingAppointmentForm);
+
 	}
 
 	@Override
@@ -182,5 +175,5 @@ public class PrivateTrainingAppointmentFormDAOImpl implements PrivateTrainingApp
 				.setParameter("memNo", "%" + memNo + "%")
 		        .uniqueResult();
 	}
-	
+
 }

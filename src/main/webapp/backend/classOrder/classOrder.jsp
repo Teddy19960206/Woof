@@ -152,36 +152,31 @@ tr:nth-child(odd) {
 				<td>
 
 					<FORM METHOD="post"
-						action="${pageContext.request.contextPath}/privatetrainingappointmentform?action=gettoupdate2">
+						action="${pageContext.request.contextPath}/backend/classOrder/classOrderUpdate.jsp">
 						<%
- 							String ptaNo = request.getParameter("ptaNo");
-	 						String member = request.getParameter("member");
-	 						String trainer = request.getParameter("trainer");
-	 						String number = request.getParameter("number");
+ 							String coNo = request.getParameter("coNo");
+	 						String memNo = request.getParameter("memNo");
+	 						String coBc = request.getParameter("coBc");
+	 						String coPaymentMethod = request.getParameter("coPaymentMethod");
+	 						String coSmmp = request.getParameter("coSmmp");
+	 						String coTime = request.getParameter("coTime");
+	 						String coStatus = request.getParameter("coStatus");
+	 						String actualAmount = request.getParameter("actualAmount");
 						%> 
-						<input type="hidden" name="action" value="gettoupdate">
-						<input type="hidden" name="ptaNo" value="${privateTrainingAppointmentForm.ptaNo}">					
-						<input type="hidden" name="member" value="${privateTrainingAppointmentForm.member.memName}">
-						<input type="hidden" name="trainer" value="${privateTrainingAppointmentForm.trainer.administrator.adminName}">
-						<input type="hidden" name="number" value="${privateTrainingAppointmentForm.ptaClass}">
+						<input type="hidden" name="coNo" value="${classOrder.coNo}">					
+						<input type="hidden" name="memNo" value="${classOrder.member.memNo}">
+						<input type="hidden" name="coBc" value="${classOrder.coBc}">
+						<input type="hidden" name="coPaymentMethod" value="${classOrder.coPaymentMethod}">
+						<input type="hidden" name="coSmmp" value="${classOrder.coSmmp}">
+						<input type="hidden" name="coTime" value="${classOrder.coTime}">
+						<input type="hidden" name="coStatus" value="${classOrder.coStatus}">
+						<input type="hidden" name="actualAmount" value="${classOrder.actualAmount}">
 						<button class="btn btn-success" type="submit">修改</button>
 
 					</FORM>
 				</td>
-<!-- 				<td> -->
-<!-- 					<FORM METHOD="post" -->
-<%-- 						action="${pageContext.request.contextPath}/appointmentdetail?action=getdetail"> --%>
-<%-- 						<input type="hidden" name="ptaNo" value="${privateTrainingAppointmentForm.ptaNo}"> --%>
-<%-- 						<input type="hidden" name="memNo" value="${privateTrainingAppointmentForm.member.memNo}"> --%>
-<%-- 						<input type="hidden" name="trainerNo" value="${privateTrainingAppointmentForm.trainer.trainerNo}"> --%>
-<!-- 						<button class="btn btn-in" type="submit">查看明細</button> -->
-
-<!-- 					</FORM> -->
-
-<!-- 				</td> -->
 			</tr>
 		</c:forEach>
-
 	</table>
 <%-- 	<p>currentPage = ${currentPage}</p> --%>
 <%-- 	<p>COPageQty = ${COPageQty}</p> --%>

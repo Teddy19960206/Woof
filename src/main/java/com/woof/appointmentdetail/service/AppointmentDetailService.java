@@ -14,6 +14,8 @@ public interface AppointmentDetailService {
 	int updateAd(Integer adNo , PrivateTrainingAppointmentForm pta , Date appTime , Integer appStatus);
 	
 	int deleteAd(Integer adNo);
+
+	int addAll(PrivateTrainingAppointmentForm pta, List<Date> appTime, Integer appStatus);
 	
 	List<AppointmentDetail> getAllAppointmentDetails();
 	

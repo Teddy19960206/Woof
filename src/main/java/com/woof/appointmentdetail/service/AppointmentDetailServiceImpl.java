@@ -3,10 +3,9 @@ package com.woof.appointmentdetail.service;
 import static com.woof.util.Constants.PAGE_MAX_RESULT;
 
 import java.sql.Date;
+import java.util.ArrayList;
+
 import java.util.List;
-
-import org.hibernate.Session;
-
 import com.woof.appointmentdetail.dao.AppointmentDetailDAO;
 import com.woof.appointmentdetail.dao.AppointmentDetailDAOImpl;
 import com.woof.appointmentdetail.entity.AppointmentDetail;
@@ -88,4 +87,22 @@ public class AppointmentDetailServiceImpl implements AppointmentDetailService{
 	public long getTotalByPtaNo(Integer ptaNo) {
 		return dao.getTotalByPtaNo(ptaNo);
 	}
+
+
+	public int addAll(PrivateTrainingAppointmentForm pta, List<java.sql.Date> appTime, Integer appStatus){
+
+		List<AppointmentDetail> appointmentDetails = new ArrayList<>();
+		for (Date date : appTime){
+			AppointmentDetail appointmentDetail = new AppointmentDetail();
+			appointmentDetail.setPrivateTrainingAppointmentForm(pta);
+			appointmentDetail.setAppTime(date);
+			appointmentDetail.setAppStatus(appStatus);
+
+			appointmentDetails.add(appointmentDetail);
+		}
+
+		return dao.addAll(appointmentDetails);
+	}
+
 }
+

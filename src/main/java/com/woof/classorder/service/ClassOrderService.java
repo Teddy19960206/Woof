@@ -7,11 +7,11 @@ import com.woof.classorder.entity.ClassOrder;
 import com.woof.member.entity.Member;
 
 public interface ClassOrderService {
-	int addClassOrder(Member member, Integer coBc, Integer coPaymentMethod, Integer coSmmp, Timestamp coTime, Integer coStatus, Integer actualAmount );
+	int addClassOrder(Member member, Integer coBc, Integer coPaymentMethod, Integer coSmmp, Timestamp coTime, Integer coStatus, Integer actualAmount);
 	
 	ClassOrder findClassOrderByCoNo(Integer coNo);
 	
-	ClassOrder updateClassOrder(ClassOrder classOrder);
+	int updateClassOrder(Integer coNo, Member member, Integer coBc, Integer coPaymentMethod, Integer coSmmp, Timestamp coTime, Integer coStatus, Integer actualAmount );
 	
 	List<ClassOrder> getAllClassOrders();
 	

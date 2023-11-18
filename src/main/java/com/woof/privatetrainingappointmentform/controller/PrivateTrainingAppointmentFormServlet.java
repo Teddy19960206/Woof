@@ -3,8 +3,7 @@ package com.woof.privatetrainingappointmentform.controller;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.sql.Timestamp;
 
 import javax.servlet.ServletException;
@@ -16,19 +15,17 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
+import com.woof.appointmentdetail.service.AppointmentDetailServiceImpl;
 import com.woof.privatetrainingappointmentform.entity.PrivateTrainingAppointmentForm;
 import com.woof.privatetrainingappointmentform.service.PrivateTrainingAppointmentFormService;
 import com.woof.privatetrainingappointmentform.service.PrivateTrainingAppointmentFormServiceImpl;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
 import com.woof.member.entity.Member;
 import com.woof.member.service.MemberService;
 import com.woof.member.service.MemberServiceImpl;
 import com.woof.trainer.entity.Trainer;
 import com.woof.trainer.service.TrainerService;
 import com.woof.trainer.service.TrainerServiceImpl;
-import com.woof.util.JsonIgnoreExclusionStrategy;
 
 @WebServlet("/privatetrainingappointmentform/*")
 @MultipartConfig
@@ -141,37 +138,28 @@ public class PrivateTrainingAppointmentFormServlet extends HttpServlet {
 		doPost(req, resp);
 	}
 
-	private void add(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+	synchronized private void add(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
-		String memNo = request.getParameter("member");
-		MemberService memberService = new MemberServiceImpl();
-		Member member = memberService.findMemberByNo(memNo);
+		Integer trainerNo = Integer.valueOf(request.getParameter("trainerNo"));
+		Trainer trainer = new TrainerServiceImpl().findTrainerByTrainerNo(trainerNo);
 
-		Integer trainerNo = Integer.valueOf(request.getParameter("trainer"));
-		TrainerService trainerService = new TrainerServiceImpl();
-		Trainer trainer = trainerService.findTrainerByTrainerNo(trainerNo);
+		String[] classDates = request.getParameter("dates").split(",");
+		Member member = (Member) request.getSession(false).getAttribute("member");
 
-		String ptaClassStr = request.getParameter("number");
 
-		int result;
-
-		try {
-			Integer ptaClass = Integer.parseInt(ptaClassStr);
-			result = privateTrainingAppointmentFormService.addPrivateTrainingAppointmentForm(member, trainer, ptaClass);
-		} catch (NumberFormatException e) {
-			result = -1;
+		List<java.sql.Date> dates = new ArrayList<>();
+		for (String classdate : classDates){
+			java.sql.Date date = java.sql.Date.valueOf(classdate);
+			dates.add(date);
 		}
-
-		if (result == 1) {
-			System.out.println("新增成功");
-			request.setAttribute("successMessage", "新增成功");
-		} else {
-			System.out.println("新增失敗");
-			request.setAttribute("errorMessage", "新增失敗");
+		response.setContentType("application/json;charset=UTF-8");
+		try{
+			PrivateTrainingAppointmentForm privateTrainingAppointmentForm = privateTrainingAppointmentFormService.addPrivateTrainingAppointmentForm(member, trainer, classDates.length);
+			new AppointmentDetailServiceImpl().addAll(privateTrainingAppointmentForm , dates , 0);
+			response.getWriter().write("{\"message\" : \"預約成功\"}");
+		}catch (Exception e){
+			response.getWriter().write("{\"新增失敗\"}");
 		}
-//		request.getRequestDispatcher("/frontend/privatetrainingappointmentform/privatetrainingappointmentform.jsp").forward(request, response);
-		response.sendRedirect(request.getContextPath()
-				+ "/frontend/privatetrainingappointmentform/privateTrainingAppointmentForm.jsp");
 	}
 
 	private void getSelectInfo(HttpServletRequest req, HttpServletResponse resp) {
@@ -503,4 +491,6 @@ public class PrivateTrainingAppointmentFormServlet extends HttpServlet {
 //		resp.getWriter().println(action);
 
 	}
+
 }
+

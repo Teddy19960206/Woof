@@ -97,7 +97,7 @@
                     <p>匯款帳號</p>
                     <p>銀行：合作金庫 (006)</p>
                     <p>匯款帳號：3333-333-333333</p>
-                    <p>付款金額：<font class="text-danger">2300</font></p>
+                    <p>付款金額：<font class="text-danger" id="payText"></font></p>
                 </div>
             </div>
 

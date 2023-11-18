@@ -13,12 +13,12 @@ public interface GroupCourseOrderService {
     void modifyOfGcoNo(GroupCourseOrder groupCourseOrder ,GroupCourseSchedule groupCourseSchedule);
     void modify(Integer gcoNo , Integer status);
     void refund(Integer gcoNo);
+    void refundReview(Integer gcoNo);
     void finishOrder(Integer gcsNo);
     void modifyAllOrderByGcsNo(Integer gcsNo);
     GroupCourseOrder getOneOrder(Integer gcoNo);
     List<GroupCourseOrder> getAll();
     List<GroupCourseOrder> getOrdersbyMember(String memberNo);
-    List<GroupCourseOrder> getByGroupSchedule();
     List<GroupCourseOrder> getOrderByDate(Integer year , Integer month);
     List<GroupCourseOrder> getAll(Integer groupClass , Integer status , String memNo , Integer currentPage);
     List<GroupCourseOrder> getOrderBySchedule(Integer scheduleNo);

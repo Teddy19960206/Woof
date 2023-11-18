@@ -5,11 +5,12 @@ import static com.woof.util.Constants.PAGE_MAX_RESULT;
 import java.sql.Date;
 import java.util.List;
 
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import com.woof.appointmentdetail.entity.AppointmentDetail;
-import com.woof.privatetrainingappointmentform.entity.PrivateTrainingAppointmentForm;
+import org.hibernate.query.Query;
 
 public class AppointmentDetailDAOImpl implements AppointmentDetailDAO {
 
@@ -99,6 +100,22 @@ public class AppointmentDetailDAOImpl implements AppointmentDetailDAO {
 				.uniqueResult()
 				.longValue();
 	}
-	
+
+	public List<AppointmentDetail> getAllByTrainer(Integer trainerNo){
+
+		String hql = "FROM AppointmentDetail ad WHERE ad.privateTrainingAppointmentForm.trainer.trainerNo = :trainerNo";
+		Query query = getSession().createQuery(hql , AppointmentDetail.class);
+		query.setParameter("trainerNo" , trainerNo);
+		return query.list();
+
+	}
+
+	public int addAll(List<AppointmentDetail> appointmentDetails){
+		for (AppointmentDetail appointmentDetail : appointmentDetails){
+			getSession().persist(appointmentDetail);
+		}
+		getSession().flush();
+		return 1;
+	}
 	
 }
