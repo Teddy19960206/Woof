@@ -150,7 +150,7 @@ public class LoginServlet extends HttpServlet {
 //			其他為預設值
 			newMember.setMemGender("M"); //預設為男生
 			newMember.setMemStatus(1);
-			newMember.setMomoPoint(0);
+			newMember.setMomoPoint(200);
 			newMember.setTotalClass(0);
 			memberService.addMember(newMember);
 

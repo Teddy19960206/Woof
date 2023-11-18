@@ -120,11 +120,14 @@ body {
 
 <style>
 /* 密碼表情符號 */
-.form__input:valid + .icon::after {
-  content: '😃';
+.form__input:valid+.icon::after {
+	font-size: 24px;
+	content: '😃';
 }
-.form__input:invalid + .icon::after {
-  content: '😳';
+
+.form__input:invalid+.icon::after {
+	font-size: 24px;
+	content: '😳';
 }
 </style>
 </head>
@@ -160,7 +163,7 @@ body {
 					<small class="error-msg">${errorMsgs.memName}</small>
 				</div>
 				<div class="form-group">
-					<label for="memGender">性別:</label>
+					<label >性別:</label>
 					<div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="radio" name="memGender"
@@ -176,7 +179,7 @@ body {
 					<small class="error-msg">${errorMsgs.memGender}</small>
 				</div>
 				<div class="form-group">
-					<label for="memPhoto">相片:</label>
+					<label>相片:</label>
 					<div>
 						<div class="form-check form-check-inline">
 							<!-- 預覽圖片區塊 -->
@@ -251,6 +254,6 @@ body {
 	<!-- Bootstrap JavaScript -->
 	<script
 		src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
-	<script src="${pageContext.request.contextPath}/backend/member/js/updatemember.js"></script>
+	<script src="${pageContext.request.contextPath}/frontend/member/js/updatemember.js"></script>
 </body>
 </html>
