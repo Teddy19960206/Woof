@@ -59,8 +59,10 @@
 </head>
 <body>
 <%@ include file="/backend/backbody.file" %>
-<%-- <p>trainer = ${param.trainerNo}</p> --%>
-<%-- <p>member = ${param.memNo}</p> --%>
+<%-- <p>trainerNo = ${param.trainerNo}</p> --%>
+<%-- <p>trainer = ${param.trainer}</p> --%>
+<%-- <p>memNo = ${param.memNo}</p> --%>
+<%-- <p>member = ${param.member}</p> --%>
 <div class="container py-3" >
 <div class="col">
 <table border=1>
@@ -110,18 +112,24 @@
 					</FORM>
 				</td>
 				<td>
-					<FORM METHOD="post" action="${pageContext.request.contextPath}/appointmentdetail?action=delete">
+					<FORM METHOD="post" action="${pageContext.request.contextPath}/appointmentdetail?action=delete" enctype="application/x-www-form-urlencoded">
+						<%
+						adNo = request.getParameter("adNo");
+						ptaNo = request.getParameter("ptaNo");
+						String memNo = request.getParameter("memNo");
+						String trainerNo = request.getParameter("trainerNo");
+						%>
 						<input type="hidden" name="adNo" value="${AD.adNo}">
 						<input type="hidden" name="ptaNo" value="${AD.privateTrainingAppointmentForm.ptaNo}">
-						<input type="hidden" name="member" value="${param.memNo}">
-						<input type="hidden" name="trainer" value="${param.trainerNo}">
+						<input type="hidden" name="memNo" value="${param.memNo}">
+						<input type="hidden" name="trainerNo" value="${param.trainerNo}">
 						<button class="btn btn-delete" type="submit">刪除</button>
 					</FORM>
 				</td>
 			</tr>
 		</c:forEach>
-
 	</table>
+	
 	<div class="button-container">
     <FORM METHOD="post" action="${pageContext.request.contextPath}/appointmentdetail?action=gettoadd">
         <input	type="hidden" name="ptaNo"	value="${param.ptaNo}">
