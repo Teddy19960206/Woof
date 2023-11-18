@@ -44,9 +44,18 @@ public class ClassOrderServiceImpl implements ClassOrderService{
 	}
 
 	@Override
-	public ClassOrder updateClassOrder(ClassOrder classOrder) {
+	public int updateClassOrder(Integer coNo, Member member, Integer coBc, Integer coPaymentMethod, Integer coSmmp, Timestamp coTime, Integer coStatus, Integer actualAmount) {
 		
-		return null;
+		ClassOrder classOrder = new ClassOrder();
+		classOrder.setCoNo(coNo);
+		classOrder.setMember(member);
+		classOrder.setCoBc(coBc);
+		classOrder.setCoPaymentMethod(coPaymentMethod);
+		classOrder.setCoSmmp(coSmmp);
+		classOrder.setCoTime(coTime);
+		classOrder.setCoStatus(coStatus);
+		classOrder.setActualAmount(actualAmount);
+		return dao.insert(classOrder);
 	}
 
 
