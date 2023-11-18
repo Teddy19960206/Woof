@@ -77,6 +77,9 @@ public class GroupCourseServiceImpl implements GroupCourseService , AppService<S
         return dao.getAll();
     }
 
+    public List<GroupCourse> getUpStatusCourse(){
+        return dao.getByStatus(1);
+    }
     @Override
     public List<GroupCourse> getAllGroupCourse(Integer classType , Integer status , Integer currentPage) {
         return dao.getAll(classType , status , currentPage);

@@ -8,10 +8,7 @@ import org.hibernate.query.NativeQuery;
 import org.hibernate.query.Query;
 
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -87,6 +84,9 @@ public class GroupCourseScheduleDAOImpl implements GroupCourseScheduleDAO{
         if (status != null){
             predicates.add(builder.equal(root.get("gcsStatus"),status));
         }
+
+        Order order = builder.desc(root.get("gcsNo"));
+        criteriaQuery.orderBy(order);
 
         int first = (currentPage -1)  * PAGE_MAX_RESULT;
         criteriaQuery.where(builder.and(predicates.toArray(new Predicate[predicates.size()])));

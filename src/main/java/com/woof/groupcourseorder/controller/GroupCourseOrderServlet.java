@@ -89,6 +89,9 @@ public class GroupCourseOrderServlet extends HttpServlet {
 //                修改訂單
                 modify(request, response);
                 return;
+            case "/refundReview":
+                refundReview(request ,response);
+                return;
             default:
                 if (pathInfo.startsWith("/getGroupInfo/")) {
                     forwardPath = getGroupInfo(request ,response ,result);
@@ -308,7 +311,30 @@ public class GroupCourseOrderServlet extends HttpServlet {
 //        變更狀態成已退款
         groupCourseOrderService.refund(id);
 
-        response.getWriter().write("{ \"message\" : \"更新成功\"}");
+        response.getWriter().write("{ \"message\" : \"退款成功\"}");
+    }
+    private void refundReview(HttpServletRequest request , HttpServletResponse response) throws IOException {
+        String idStr = request.getParameter("id");
+        Integer id= null;
+        List<String> errorMsgs = new ArrayList<>();
+
+        if (idStr == null || idStr.trim().length() == 0){
+            errorMsgs.add("沒有取得訂單編號");
+        }else{
+            id = Integer.valueOf(idStr);
+        }
+
+        response.setContentType("application/json;charset=UTF-8");
+
+        if (!errorMsgs.isEmpty()){
+            String json = new Gson().toJson(errorMsgs);
+            response.getWriter().write(json);
+            return;
+        }
+//        變更狀態成已退款
+        groupCourseOrderService.refundReview(id);
+
+        response.getWriter().write("{ \"message\" : \"退款申請成功\"}");
     }
 
     private void modify(HttpServletRequest request , HttpServletResponse response) throws IOException {

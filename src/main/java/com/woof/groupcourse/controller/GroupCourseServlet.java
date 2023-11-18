@@ -60,7 +60,8 @@ public class GroupCourseServlet extends HttpServlet {
         switch (pathInfo){
             case "/addpage":
 //                預先載入可選擇的選項
-                forwardPath = getSelectInfo(request,response);
+                getSelectInfo(request,response);
+                forwardPath = "/backend/course/addGroupCourse.jsp";
                 break;
             case "/addgroup":
 //                正式增加GroupCourse資料
@@ -129,7 +130,7 @@ public class GroupCourseServlet extends HttpServlet {
     }
 
     //    取得ClassType 與 Skill 所有資料 顯示在Select上
-    private String getSelectInfo(HttpServletRequest request , HttpServletResponse response){
+    private void getSelectInfo(HttpServletRequest request , HttpServletResponse response){
 
         ClassTypeService classTypeService = new ClassTypeServiceImpl();
         List<ClassType> allClassTypes = classTypeService.getAllClassTypes();
@@ -141,7 +142,7 @@ public class GroupCourseServlet extends HttpServlet {
         request.setAttribute("classTypes" , allClassTypes);
         request.setAttribute("skills", allSkill);
 
-        return "/backend/course/addGroupCourse.jsp";
+
     }
 
     //    新增GroupCourse資料

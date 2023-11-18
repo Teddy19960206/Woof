@@ -20,6 +20,7 @@ public interface GroupCourseService {
     List<GroupCourse> getAllbyCtNo(Integer ctNo);
 
     List<GroupCourse> getAllGroupCourse();
+    List<GroupCourse> getUpStatusCourse();
 
     List<GroupCourse> getAllGroupCourse(Integer classType , Integer status , Integer currentPage);
 

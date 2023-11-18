@@ -13,6 +13,7 @@ public interface GroupCourseOrderService {
     void modifyOfGcoNo(GroupCourseOrder groupCourseOrder ,GroupCourseSchedule groupCourseSchedule);
     void modify(Integer gcoNo , Integer status);
     void refund(Integer gcoNo);
+    void refundReview(Integer gcoNo);
     void finishOrder(Integer gcsNo);
     void modifyAllOrderByGcsNo(Integer gcsNo);
     GroupCourseOrder getOneOrder(Integer gcoNo);

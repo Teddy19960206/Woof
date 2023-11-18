@@ -6,10 +6,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,6 +67,14 @@ public class GroupCourseDAOImpl implements GroupCourseDAO{
     }
 
     @Override
+    public List<GroupCourse> getByStatus(Integer status) {
+        Query query = getSession().createQuery("FROM GroupCourse WHERE courseStatus = :status");
+        query.setParameter("status" , status);
+
+        return query.list();
+    }
+
+    @Override
     public long getTotal(Integer classType , Integer status){
 
         CriteriaBuilder builder = getSession().getCriteriaBuilder();
@@ -108,6 +113,9 @@ public class GroupCourseDAOImpl implements GroupCourseDAO{
         if (status != null){
             predicates.add(builder.equal(root.get("courseStatus"), status));
         }
+
+        Order order = builder.desc(root.get("gcNo"));
+        criteriaQuery.orderBy(order);
 
         criteriaQuery.where(builder.and(predicates.toArray(predicates.toArray(new Predicate[predicates.size()]))));
         TypedQuery<GroupCourse> query = getSession().createQuery(criteriaQuery);

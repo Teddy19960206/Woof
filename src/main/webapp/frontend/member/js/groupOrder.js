@@ -140,15 +140,15 @@ function split(data){
 
     html = arr.join("");
     $("#show").html(html);
-    if (data.gcoStatus == 2 || data.gcoStatus == 0){
+    if (data.gcoStatus == 0 || data.gcoStatus == 2 || data.gcoStatus == 5){
         $("#refundOrder").prop("disabled", true);
     } else {
         $("#refundOrder").prop("disabled", false);
     }
 
-    if (data.gcoStatus == 0){
-
-    }
+    // if (data.gcoStatus == 0){
+    //
+    // }
 
     $("#showBtn").show();
 }
@@ -170,13 +170,13 @@ $(document).on("click" , "#refundOrder" , async function (){
         if (result.isConfirmed) {
             let data = await fetchRefund($("#orderNo").val());
             if (data.message){
-                Swal.fire({
+                await Swal.fire({
                     title: "已申請退款!",
                     text: "請等待申請審核",
                     icon: "success"
                 });
             }else {
-                Swal.fire({
+                await Swal.fire({
                     title: "已申請失敗!",
                     text: "請重新嘗試申請",
                     icon: "error"
@@ -189,7 +189,7 @@ $(document).on("click" , "#refundOrder" , async function (){
 
 
 async function fetchRefund(id){
-    let url = `${projectName}/groupOrder/refund`;
+    let url = `${projectName}/groupOrder/refundReview`;
     try{
         const response = await fetch(url , {
             method : "POST",

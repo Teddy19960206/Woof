@@ -20,6 +20,7 @@ import com.woof.trainer.service.TrainerServiceImpl;
 import com.woof.util.JedisUtil;
 import com.woof.util.JsonIgnoreExclusionStrategy;
 import com.woof.util.MailService;
+import org.junit.Test;
 import redis.clients.jedis.Jedis;
 
 
@@ -71,7 +72,8 @@ public class GroupScheduleServlet extends HttpServlet {
         switch (pathInfo) {
             case "/addpage":
 //                進入新增頁面前，先撈取下拉是選項資料
-                forwardPath = getSelectInfo(request, response , null);
+                getSelectInfo(request, response , null);
+                forwardPath = "/backend/course/addSchedule.jsp";
                 break;
             case "/addSchedule":
                 addGroupSchedule(request, response);
@@ -180,9 +182,9 @@ public class GroupScheduleServlet extends HttpServlet {
     }
 
     //    進入<新增>或<修改>頁面時，會先獲取select下拉式選單可選擇的資料，並到新增頁面
-    private String getSelectInfo(HttpServletRequest request, HttpServletResponse response , Integer gcsNo) {
+    private void getSelectInfo(HttpServletRequest request, HttpServletResponse response , Integer gcsNo) {
 
-        List<GroupCourse> allGroupCourse = new GroupCourseServiceImpl().getAllGroupCourse();
+        List<GroupCourse> allGroupCourse = new GroupCourseServiceImpl().getUpStatusCourse();
         if (gcsNo != null){
             Integer skillNo = groupGourseScheduleService.findByGcsNo(gcsNo).getGroupCourse().getSkill().getSkillNo();
             Set<Trainer> trainersBySkillNo = new SkillServiceImpl().getTrainersBySkillNo(skillNo);
@@ -191,8 +193,6 @@ public class GroupScheduleServlet extends HttpServlet {
         }
 
         request.setAttribute("groupCourses", allGroupCourse);
-
-        return "/backend/course/addSchedule.jsp";
     }
 
     //    進入修改頁面前，依照id撈取原先的資料

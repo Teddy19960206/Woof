@@ -106,6 +106,11 @@ public class GroupCourseOrderServiceImpl implements GroupCourseOrderService{
         dao.updateStatus(gcoNo , 2);
     }
 
+    public void refundReview(Integer gcoNo){
+//       單筆訂單變更狀態：退款申請中
+        dao.updateStatus(gcoNo , 5);
+    }
+
     @Override
     public void finishOrder(Integer gcsNo) {
 //        讓該課程報名全部的訂單，狀態變成 已完成 (4)
