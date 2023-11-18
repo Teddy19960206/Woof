@@ -11,7 +11,7 @@
 
 <div class="container py-2">
 
-    <h2 align="center">技能列表</h2>
+    <h2 align="center">專業技能清單</h2>
     <table class="table table-hover text-center align-middle border">
         <thead class="table-light">
             <tr>

@@ -52,10 +52,14 @@ function processUpdate2(jsonData){
        <form method="post"
         action="${pageContext.request.contextPath}/administrator.do"
         style="margin-bottom: 0px;">
-        <input type="hidden" name="action" value="update2"> <input
-         type="hidden" name="adminNo" value="${administrator.adminNo}"> <a name="adminNo"
-         onclick="processUpdate2({adminNo:'${administrator.adminNo}'});"
-        >修改基本資料</a>
+        <input type="hidden" name="action" value="update2">
+	    <input type="hidden" name="adminNo" value="${administrator.adminNo}">
+		   <a name="adminNo" onclick="processUpdate2({adminNo:'${administrator.adminNo}'});">修改基本資料</a>
+		   <div class="mt-2">
+			   <a href="${pageContext.request.contextPath}/backend/trainer/skillList.jsp">
+				   <button type="button" class="btn btn-primary">技能清單</button>
+			   </a>
+		   </div>
        </form>
       </li>
 				</div>

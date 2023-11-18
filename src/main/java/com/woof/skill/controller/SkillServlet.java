@@ -2,6 +2,7 @@ package com.woof.skill.controller;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.woof.administrator.entity.Administrator;
 import com.woof.groupcourse.entity.GroupCourse;
 import com.woof.groupcourse.service.GroupCourseService;
 import com.woof.groupcourse.service.GroupCourseServiceImpl;
@@ -9,6 +10,7 @@ import com.woof.skill.entity.Skill;
 import com.woof.skill.service.SkillService;
 import com.woof.skill.service.SkillServiceImpl;
 import com.woof.trainer.entity.Trainer;
+import com.woof.trainer.service.TrainerServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -138,15 +140,14 @@ public class SkillServlet extends HttpServlet {
 
     private void getNotExistSKill(HttpServletRequest request , HttpServletResponse response) throws IOException, ServletException {
 
-        HttpSession session = request.getSession();
-        session.setAttribute("trainerNo" , 1);
+        Administrator administrator = (Administrator) request.getSession(false).getAttribute("administrator");
+        Trainer trainer = new TrainerServiceImpl().getByAdmin(administrator.getAdminNo());
+        List<Skill> trainerNotExistsSkill = skillService.getTrainerNotExistsSkill(trainer.getTrainerNo());
 
-
-        List<Skill> trainerNotExistsSkill = skillService.getTrainerNotExistsSkill(1);
-
-        request.setAttribute("notExistSkill" , trainerNotExistsSkill);
-
-        request.getRequestDispatcher("/backend/employee/trainerAddSkill.jsp").forward(request,response);
+        Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+        String json = gson.toJson(trainerNotExistsSkill);
+        response.setContentType("application/json;charset=UTF-8");
+        response.getWriter().write(json);
 
     }
 }

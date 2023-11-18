@@ -12,6 +12,7 @@ import java.util.Set;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.woof.administrator.entity.Administrator;
 import com.woof.groupscheduledetail.entity.GroupScheduleDetail;
 import com.woof.skill.entity.Skill;
 import com.woof.trainer.entity.Trainer;
@@ -92,19 +93,19 @@ public class TrainerServlet  extends HttpServlet {
 	}
 
 	private void getTrainerSkills(HttpServletRequest request , HttpServletResponse response) throws IOException {
-		String trainerNo = request.getParameter("trainerNo");
-		String json = null;
 
-		if (trainerNo != null && trainerNo.length() != 0){
-			Integer Id = Integer.valueOf(trainerNo);
-			Set<Skill> trainerSkills = trainerService.getTrainerSkills(Id);
+		Administrator administrator = (Administrator) request.getSession().getAttribute("administrator");
+		Trainer trainer = trainerService.getByAdmin(administrator.getAdminNo());
 
-			Gson gson = new GsonBuilder()
-					.excludeFieldsWithoutExposeAnnotation()
-					.setDateFormat("yyyy-MM-dd")
-					.create();
-			json = gson.toJson(trainerSkills);
-		}
+
+		Set<Skill> trainerSkills = trainerService.getTrainerSkills(trainer.getTrainerNo());
+
+		Gson gson = new GsonBuilder()
+				.excludeFieldsWithoutExposeAnnotation()
+				.setDateFormat("yyyy-MM-dd")
+				.create();
+		String json = gson.toJson(trainerSkills);
+
 
 		response.setContentType("application/json;charset=UTF-8");
 		response.getWriter().write(json);
