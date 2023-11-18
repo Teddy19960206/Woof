@@ -163,11 +163,11 @@ public class AppointmentDetailServlet extends HttpServlet {
 		// 使用預約單的修改方法修改數量
 		Integer ptaClass = (int) appointmentDetailService.getTotalByPtaNo(ptaNo);
 		
-		String memNo = req.getParameter("member");
+		String memNo = req.getParameter("memNo");
 		MemberService memberService = new MemberServiceImpl();
 		Member member = memberService.findMemberByNo(memNo);
 
-		Integer trainerNo = Integer.valueOf(req.getParameter("trainer"));
+		Integer trainerNo = Integer.valueOf(req.getParameter("trainerNo"));
 		TrainerService trainerService = new TrainerServiceImpl();
 		Trainer trainer = trainerService.findTrainerByTrainerNo(trainerNo);
 		
@@ -229,11 +229,11 @@ public class AppointmentDetailServlet extends HttpServlet {
     	Integer ptaNo = Integer.parseInt(req.getParameter("ptaNo"));
     	Integer ptaClass = (int) appointmentDetailService.getTotalByPtaNo(ptaNo);
 		
-		String memNo = req.getParameter("member");
+		String memNo = req.getParameter("memNo");
 		MemberService memberService = new MemberServiceImpl();
 		Member member = memberService.findMemberByNo(memNo);
 
-		Integer trainerNo = Integer.valueOf(req.getParameter("trainer"));
+		Integer trainerNo = Integer.valueOf(req.getParameter("trainerNo"));
 		TrainerService trainerService = new TrainerServiceImpl();
 		Trainer trainer = trainerService.findTrainerByTrainerNo(trainerNo);
 		
