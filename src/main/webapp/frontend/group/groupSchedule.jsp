@@ -69,10 +69,19 @@
          data-aos="fade-up"
          data-aos-anchor-placement="bottom-bottom"
          data-aos-duration="1000">
-        <button type="button" class="m-5 myBtn" id="adultClass">成犬班
-        </button>
-        <button type="button" class="m-5 myBtn" id="puppyClass">幼犬班
-        </button>
+<%--       成犬班　1　幼犬班　2 --%>
+
+<%--        <button type="button" class="m-5 myBtn" id="adultClass">成犬班--%>
+<%--        </button>--%>
+<%--        <button type="button" class="m-5 myBtn" id="puppyClass">幼犬班--%>
+<%--        </button>--%>
+
+        <jsp:useBean class="com.woof.classtype.service.ClassTypeServiceImpl" id="service">
+            <c:forEach items="${service.allClassTypes}" var="classtype" >
+                <button type="button" class="m-5 myBtn classType"  data-id="${classtype.ctNo}">${classtype.ctName}
+                </button>
+            </c:forEach>
+        </jsp:useBean>
     </div>
 </div>
 

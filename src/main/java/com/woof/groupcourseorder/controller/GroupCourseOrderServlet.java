@@ -30,6 +30,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.logging.Level;
+import java.util.stream.Collectors;
 
 
 @WebServlet("/groupOrder/*")
@@ -87,6 +88,9 @@ public class GroupCourseOrderServlet extends HttpServlet {
             case "/modify":
 //                修改訂單
                 modify(request, response);
+                return;
+            case "/refundReview":
+                refundReview(request ,response);
                 return;
             default:
                 if (pathInfo.startsWith("/getGroupInfo/")) {
@@ -224,11 +228,8 @@ public class GroupCourseOrderServlet extends HttpServlet {
                 String host = request.getServerName();
                 // 獲取端口號
                 int port = request.getServerPort();
-
                 // 構建完整的URL
                 String fullURL = scheme + "://" + host + ":" + port;
-
-
 
                 all = new AllInOne("");
 
@@ -253,15 +254,12 @@ public class GroupCourseOrderServlet extends HttpServlet {
 
 //          取得上課日期
             List<GroupScheduleDetail> details = new GroupScheduleDetailServiceImpl().getByGroupSchedule(groupCourseSchedule.getGcsNo());
-            Set<Date> dates = new HashSet<>();
-            for (GroupScheduleDetail detail : details){
-                dates.add(detail.getClassDate());
-            }
 
+            Set<Date> dates = details.stream()
+                    .map(GroupScheduleDetail::getClassDate)
+                    .collect(Collectors.toSet());
 
-            MailService mailService = new MailService();
-
-            new Thread(() -> mailService.sendMail("trick95710@gmail.com" ,
+            new Thread(() -> new MailService().sendMail("trick95710@gmail.com" ,
                     "報名成功" ,
                     MailService.groupOrderhtml(member.getMemName() ,                            // 報名人姓名
                             groupCourseSchedule.getGroupCourse().getClassType().getCtName(),    // 班級名稱
@@ -306,15 +304,37 @@ public class GroupCourseOrderServlet extends HttpServlet {
         response.setContentType("application/json;charset=UTF-8");
 
         if (!errorMsgs.isEmpty()){
-            Gson gson = new Gson();
-            String json = gson.toJson(errorMsgs);
+            String json = new Gson().toJson(errorMsgs);
             response.getWriter().write(json);
             return;
         }
 //        變更狀態成已退款
         groupCourseOrderService.refund(id);
 
-        response.getWriter().write("{ \"message\" : \"更新成功\"}");
+        response.getWriter().write("{ \"message\" : \"退款成功\"}");
+    }
+    private void refundReview(HttpServletRequest request , HttpServletResponse response) throws IOException {
+        String idStr = request.getParameter("id");
+        Integer id= null;
+        List<String> errorMsgs = new ArrayList<>();
+
+        if (idStr == null || idStr.trim().length() == 0){
+            errorMsgs.add("沒有取得訂單編號");
+        }else{
+            id = Integer.valueOf(idStr);
+        }
+
+        response.setContentType("application/json;charset=UTF-8");
+
+        if (!errorMsgs.isEmpty()){
+            String json = new Gson().toJson(errorMsgs);
+            response.getWriter().write(json);
+            return;
+        }
+//        變更狀態成已退款
+        groupCourseOrderService.refundReview(id);
+
+        response.getWriter().write("{ \"message\" : \"退款申請成功\"}");
     }
 
     private void modify(HttpServletRequest request , HttpServletResponse response) throws IOException {

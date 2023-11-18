@@ -20,6 +20,7 @@ import com.woof.trainer.service.TrainerServiceImpl;
 import com.woof.util.JedisUtil;
 import com.woof.util.JsonIgnoreExclusionStrategy;
 import com.woof.util.MailService;
+import org.junit.Test;
 import redis.clients.jedis.Jedis;
 
 
@@ -33,6 +34,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Date;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @WebServlet("/schedule/*")
 @MultipartConfig
@@ -70,7 +72,8 @@ public class GroupScheduleServlet extends HttpServlet {
         switch (pathInfo) {
             case "/addpage":
 //                進入新增頁面前，先撈取下拉是選項資料
-                forwardPath = getSelectInfo(request, response , null);
+                getSelectInfo(request, response , null);
+                forwardPath = "/backend/course/addSchedule.jsp";
                 break;
             case "/addSchedule":
                 addGroupSchedule(request, response);
@@ -179,20 +182,17 @@ public class GroupScheduleServlet extends HttpServlet {
     }
 
     //    進入<新增>或<修改>頁面時，會先獲取select下拉式選單可選擇的資料，並到新增頁面
-    private String getSelectInfo(HttpServletRequest request, HttpServletResponse response , Integer gcsNo) {
+    private void getSelectInfo(HttpServletRequest request, HttpServletResponse response , Integer gcsNo) {
 
-        List<GroupCourse> allGroupCourse = new GroupCourseServiceImpl().getAllGroupCourse();
+        List<GroupCourse> allGroupCourse = new GroupCourseServiceImpl().getUpStatusCourse();
         if (gcsNo != null){
             Integer skillNo = groupGourseScheduleService.findByGcsNo(gcsNo).getGroupCourse().getSkill().getSkillNo();
-            SkillService skillService = new SkillServiceImpl();
-            Set<Trainer> trainersBySkillNo = skillService.getTrainersBySkillNo(skillNo);
+            Set<Trainer> trainersBySkillNo = new SkillServiceImpl().getTrainersBySkillNo(skillNo);
 
             request.setAttribute("trainers", trainersBySkillNo);
         }
 
         request.setAttribute("groupCourses", allGroupCourse);
-
-        return "/backend/course/addSchedule.jsp";
     }
 
     //    進入修改頁面前，依照id撈取原先的資料
@@ -218,7 +218,7 @@ public class GroupScheduleServlet extends HttpServlet {
     private void modified(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
 
-        Long currentDate =  Calendar.getInstance().getTimeInMillis();
+//        Long currentDate =  Calendar.getInstance().getTimeInMillis();
         Date startDate = null;
         Date endDate = null;
         Integer minLimit = null;
@@ -245,9 +245,9 @@ public class GroupScheduleServlet extends HttpServlet {
         } else {
             try {
                 startDate = Date.valueOf(startDateStr);
-                if (startDate.getTime() < currentDate) {
-                    errorMsgs.add("請選擇大於今日的日期");
-                }
+//                if (startDate.getTime() < currentDate) {
+//                    errorMsgs.add("請選擇大於今日的日期");
+//                }
             } catch (Exception e) {
                 errorMsgs.add("開始日期格式錯誤");
             }
@@ -259,9 +259,9 @@ public class GroupScheduleServlet extends HttpServlet {
         } else {
             try {
                 endDate = Date.valueOf(endDateStr);
-                if (endDate.getTime() < currentDate) {
-                    errorMsgs.add("請選擇大於今日的日期");
-                }
+//                if (endDate.getTime() < currentDate) {
+//                    errorMsgs.add("請選擇大於今日的日期");
+//                }
             } catch (Exception e) {
                 errorMsgs.add("結束日期格式錯誤");
             }
@@ -494,30 +494,22 @@ public class GroupScheduleServlet extends HttpServlet {
 
         try{
 
-//        同步新增多筆detail上課日期
-            Set<Date> dates = new HashSet<>();
-            String[] classDates = request.getParameter("classDate").split(",");
-
-            for (String classDate : classDates){
-                Date date = Date.valueOf(classDate);
-                dates.add(date);
-            }
+//          同步新增多筆detail上課日期
+            Set<Date> dates = Arrays.stream(request.getParameter("classDate").split(","))
+                    .map(Date::valueOf).collect(Collectors.toSet());
 
 
-            //        新增報名課程資訊
+//           新增報名課程資訊
             GroupCourseSchedule groupCourseSchedule = groupGourseScheduleService.addSchedule(groupCourse, trainer, startDate, endDate, minLimit, maxLimit,0, price , 0, delayReason ,  byGcsNo);
             new GroupScheduleDetailServiceImpl().add(groupCourseSchedule , groupCourseSchedule.getTrainer() ,dates );
 
         }catch (Exception e){
             errorMsgs.add("新增檔期失敗");
-            Gson gson = new Gson();
-            String json = gson.toJson(errorMsgs);
+            String json = new Gson().toJson(errorMsgs);
             response.getWriter().write(json);
 
             return;
         }
-
-//        成功回傳ok，做判斷
 
         response.getWriter().write("{ \"message\":\"新增成功\" }");
     }
@@ -609,19 +601,21 @@ public class GroupScheduleServlet extends HttpServlet {
         }
 
 
-        Set<Date> dates = new HashSet<>();
-        String[] classDates = request.getParameter("classDate").split(",");
+//        Set<Date> dates = new HashSet<>();
+//        String[] classDates = request.getParameter("classDate").split(",");
+//
+//        for (String classDate : classDates){
+//            Date date = Date.valueOf(classDate);
+//            dates.add(date);
+//        }
 
-        for (String classDate : classDates){
-            Date date = Date.valueOf(classDate);
-            dates.add(date);
-        }
-
+        Set<Date> dates = Arrays.stream(request.getParameter("classDate").split(","))
+                .map(Date::valueOf)
+                .collect(Collectors.toSet());
 
         response.setContentType("application/json;charset=UTF-8");
         if (!errorMsgs.isEmpty()){
-            Gson gson = new Gson();
-            String json = gson.toJson(errorMsgs);
+            String json = new Gson().toJson(errorMsgs);
             response.getWriter().write(json);
         }
 
@@ -651,9 +645,7 @@ public class GroupScheduleServlet extends HttpServlet {
 
                 new GroupCourseOrderServiceImpl().modifyOfGcoNo(groupCourseOrder , groupCourseScheduleNew);
 
-                MailService mailService = new MailService();
-
-                new Thread(()-> mailService.sendMail(groupCourseOrder.getMember().getMemEmail() ,
+                new Thread(()-> new MailService().sendMail(groupCourseOrder.getMember().getMemEmail() ,
                         "課程延期" ,
                         MailService.groupOrderhtml( groupCourseOrder.getMember().getMemName()
                                 ,groupCourseOrder.getGroupCourseSchedule().getGroupCourse().getClassType().getCtName()
@@ -683,8 +675,7 @@ public class GroupScheduleServlet extends HttpServlet {
         }catch (Exception e){
             e.printStackTrace();
             errorMsgs.add("異常");
-            Gson gson = new Gson();
-            String json = gson.toJson(errorMsgs);
+            String json = new Gson().toJson(errorMsgs);
             response.getWriter().write(json);
         }
     }
@@ -732,12 +723,8 @@ public class GroupScheduleServlet extends HttpServlet {
                 GroupCourseSchedule schedule = gson.fromJson(jsonSchedule, GroupCourseSchedule.class);
                 jsonObjects.add(schedule);
 
-//                Object parse = JSON.parse(schedule);
-//                jsonObjects.add(parse);
             }
 
-
-//            Gson gson = new Gson();
             json = gson.toJson(jsonObjects);
         }
 

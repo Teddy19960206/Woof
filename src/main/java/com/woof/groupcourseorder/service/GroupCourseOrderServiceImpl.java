@@ -73,10 +73,6 @@ public class GroupCourseOrderServiceImpl implements GroupCourseOrderService{
         return dao.getAllByMember(memberNo);
     }
 
-    @Override
-    public List<GroupCourseOrder> getByGroupSchedule() {
-        return null;
-    }
 
     public List<GroupCourseOrder> getOrderByDate(Integer year , Integer month){
         return dao.getByDate(year , month);
@@ -108,6 +104,11 @@ public class GroupCourseOrderServiceImpl implements GroupCourseOrderService{
     public void refund(Integer gcoNo) {
 //        單筆變更狀態： 改變狀態 已退款(2)
         dao.updateStatus(gcoNo , 2);
+    }
+
+    public void refundReview(Integer gcoNo){
+//       單筆訂單變更狀態：退款申請中
+        dao.updateStatus(gcoNo , 5);
     }
 
     @Override
