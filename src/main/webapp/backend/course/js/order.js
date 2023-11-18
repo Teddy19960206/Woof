@@ -392,19 +392,19 @@ async function modifyFetch(id , status){
 $(document).on("click" , "button.refund" , function (){
 
     Swal.fire({
-        title: "確定要刪除嗎?",
+        title: "確定要退款嗎?",
         text: "您將無法恢復此狀態！",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
-        confirmButtonText: "是, 刪除"
+        confirmButtonText: "是, 退款"
     }).then((result) => {
         if (result.isConfirmed) {
             refundFetch($(this).data("id"));
             Swal.fire({
-                title: "已刪除",
-                text: "刪除成功",
+                title: "已退款",
+                text: "退款成功",
                 icon: "success"
             });
         }
@@ -421,7 +421,7 @@ async function refundFetch(id){
             headers : {
                 "Content-Type": "application/x-www-form-urlencoded"
             },
-            body : 'id='+$("input#gcoNo").val()
+            body : 'id='+id
         })
 
         if (!response.ok){

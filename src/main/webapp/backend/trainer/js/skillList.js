@@ -2,6 +2,12 @@ let pathName = window.document.location.pathname;
 let projectName = pathName.substring( 0 , pathName.substring(1).indexOf("/")+1);
 const showList = document.getElementById("showList");
 
+// 監聽按下上一頁時會重新刷新頁一慢
+window.onpopstate = function(event) {
+    location.reload();
+};
+
+
 // 進到該頁面時，馬上抓取該訓練師的技能
 $(async function (){
     let data = await fetchTrainerSkills();
@@ -67,6 +73,11 @@ function splicing(data){
 $(document).on("click" ,"button.addSkill",function (){
     $("h1").text("");
     addSkillhtml();
+
+    let newUrl = `${projectName}/backend/trainer/skillList.jsp`; // 想要添加的新網址
+    let newState = { page: "寵毛導師Woof" }; // 新狀態物件
+
+    history.pushState(newState, "", newUrl);
 })
 
 // html 新增畫面
