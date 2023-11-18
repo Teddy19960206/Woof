@@ -55,7 +55,7 @@ public class ClassOrderServiceImpl implements ClassOrderService{
 		classOrder.setCoTime(coTime);
 		classOrder.setCoStatus(coStatus);
 		classOrder.setActualAmount(actualAmount);
-		return dao.insert(classOrder);
+		return dao.update(classOrder);
 	}
 
 

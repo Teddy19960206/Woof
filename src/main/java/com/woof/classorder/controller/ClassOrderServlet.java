@@ -16,7 +16,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.woof.member.service.MemberService;
 import com.woof.member.service.MemberServiceImpl;
-import com.woof.privatetrainingappointmentform.entity.PrivateTrainingAppointmentForm;
 import com.woof.classorder.entity.ClassOrder;
 import com.woof.classorder.service.ClassOrderService;
 import com.woof.classorder.service.ClassOrderServiceImpl;
@@ -62,7 +61,7 @@ public class ClassOrderServlet extends HttpServlet {
 			break;
 		case "/update":
 			update(request, response);
-			forwardPath = "/backend/classOrder/classOrderByMemNo.jsp";
+			forwardPath = "/backend/classOrder/classOrder.jsp";
 			break;
 		case "/check":
 			try {
@@ -272,11 +271,6 @@ public class ClassOrderServlet extends HttpServlet {
 		
 		classOrderService.updateClassOrder(coNo, member, coBc, coPaymentMethod, coSmmp, coTime, coStatus, actualAmount);
 		
-		try {
-			getByMemNo(request,response);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		getAll(request,response);
 	}
 }
