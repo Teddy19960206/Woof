@@ -16,7 +16,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.woof.member.service.MemberService;
 import com.woof.member.service.MemberServiceImpl;
-import com.woof.privatetrainingappointmentform.entity.PrivateTrainingAppointmentForm;
 import com.woof.classorder.entity.ClassOrder;
 import com.woof.classorder.service.ClassOrderService;
 import com.woof.classorder.service.ClassOrderServiceImpl;
