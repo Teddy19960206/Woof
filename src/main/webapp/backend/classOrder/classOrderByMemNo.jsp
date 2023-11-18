@@ -85,8 +85,6 @@ tr:nth-child(odd) {
 </head>
 <body>
 <%@ include file="/backend/backbody.file" %>
-<%-- <jsp:useBean id="classOrderServer" scope="page" class="com.woof.classorder.service.ClassOrderServiceImpl"/> --%>
-<%-- <p>member = ${members}</p> --%>
 <div class="container py-3">
     <div class="row g-3 align-items-center">
         <form method="POST" action="${pageContext.request.contextPath}/classorder/getByMemNo" class="col-10">
@@ -163,12 +161,12 @@ tr:nth-child(odd) {
 				<td>
 
 					<FORM METHOD="post"
-						action="${pageContext.request.contextPath}/classOrder/classOrderUpdate.jsp">
+						action="${pageContext.request.contextPath}/backend/classOrder/classOrderUpdate.jsp">
 						<%
  							String coNo = request.getParameter("coNo");
- 							String memNo = request.getParameter("memNo");
- 							String coBc = request.getParameter("coBc");
- 							String coPaymentMethod = request.getParameter("coPaymentMethod");
+	 						String memNo = request.getParameter("memNo");
+	 						String coBc = request.getParameter("coBc");
+	 						String coPaymentMethod = request.getParameter("coPaymentMethod");
 	 						String coSmmp = request.getParameter("coSmmp");
 	 						String coTime = request.getParameter("coTime");
 	 						String coStatus = request.getParameter("coStatus");
@@ -186,17 +184,6 @@ tr:nth-child(odd) {
 
 					</FORM>
 				</td>
-<!-- 				<td> -->
-<!-- 					<FORM METHOD="post" -->
-<%-- 						action="${pageContext.request.contextPath}/appointmentdetail?action=getdetail"> --%>
-<%-- 						<input type="hidden" name="ptaNo" value="${privateTrainingAppointmentForm.ptaNo}"> --%>
-<%-- 						<input type="hidden" name="memNo" value="${privateTrainingAppointmentForm.member.memNo}"> --%>
-<%-- 						<input type="hidden" name="trainerNo" value="${privateTrainingAppointmentForm.trainer.trainerNo}"> --%>
-<!-- 						<button class="btn btn-in" type="submit">查看明細</button> -->
-
-<!-- 					</FORM> -->
-
-<!-- 				</td> -->
 			</tr>
 		</c:forEach>
 

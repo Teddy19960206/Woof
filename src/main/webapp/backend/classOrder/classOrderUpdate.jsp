@@ -76,7 +76,7 @@
 	<h2>修改訂單狀態</h2>
 
 	<form action="${pageContext.request.contextPath}/classorder/update"
-		method="post" enctype="multipart/form-data">
+		method="post" enctype="application/x-www-form-urlencoded">
 		<label>課堂訂單編號:</label>
 		<input	type="text" name="coNo"	value="${param.coNo}" readonly>
 		<label>會員帳號:</label>

@@ -85,7 +85,6 @@ tr:nth-child(odd) {
 </head>
 <body>
 <%@ include file="/backend/backbody.file" %>
-<%-- <jsp:useBean id="classOrderServer" scope="page" class="com.woof.classorder.service.ClassOrderServiceImpl"/> --%>
 <div class="container py-3">
     <div class="row g-3 align-items-center">
         <form method="POST" action="${pageContext.request.contextPath}/classorder/getByMemNo" class="col-10">

@@ -61,7 +61,7 @@ public class ClassOrderServlet extends HttpServlet {
 			break;
 		case "/update":
 			update(request, response);
-			forwardPath = "/backend/classOrder/classOrderByMemNo.jsp";
+			forwardPath = "/backend/classOrder/classOrder.jsp";
 			break;
 		case "/check":
 			try {
@@ -271,11 +271,6 @@ public class ClassOrderServlet extends HttpServlet {
 		
 		classOrderService.updateClassOrder(coNo, member, coBc, coPaymentMethod, coSmmp, coTime, coStatus, actualAmount);
 		
-		try {
-			getByMemNo(request,response);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		getAll(request,response);
 	}
 }
