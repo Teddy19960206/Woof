@@ -125,6 +125,7 @@ document.addEventListener('DOMContentLoaded',  function() {
 
 let prevBtn = document.getElementsByClassName("fc-prev-button");
 
+// 讓消費者僅能觀看兩個月的內容
 $(function(){
     let prevBtn = document.getElementsByClassName("fc-prev-button");
     let nextBtn = document.getElementsByClassName("fc-next-button");

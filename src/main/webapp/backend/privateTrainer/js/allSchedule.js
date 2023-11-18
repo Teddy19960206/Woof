@@ -72,7 +72,6 @@ async function fetchNonClass(year , month , trainerNo , trainerName){
             });
         };
 
-        console.log(data)
 
     }catch (error){
         console.error("Error" , error)

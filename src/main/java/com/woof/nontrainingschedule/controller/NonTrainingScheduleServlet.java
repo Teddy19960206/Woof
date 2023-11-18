@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.woof.administrator.entity.Administrator;
 import com.woof.nontrainingschedule.entity.NonTrainingSchedule;
 import com.woof.nontrainingschedule.service.NonTrainingScheduleService;
 import com.woof.nontrainingschedule.service.NonTrainingScheduleServiceImpl;
@@ -213,9 +214,12 @@ public class NonTrainingScheduleServlet extends HttpServlet {
 		
 		Integer year = Integer.valueOf(request.getParameter("year"));
         Integer month = Integer.valueOf(request.getParameter("month"));
-		Integer trainerNo = Integer.valueOf(request.getParameter("trainerNo"));
+//		Integer trainerNo = Integer.valueOf(request.getParameter("trainerNo"));
 
-		List<Date> allByTrainer = nonTrainingScheduleService.getAllByTrainer(year, month, trainerNo);
+		Administrator administrator = (Administrator) request.getSession(false).getAttribute("administrator");
+		Trainer trainer = new TrainerServiceImpl().getByAdmin(administrator.getAdminNo());
+
+		List<Date> allByTrainer = nonTrainingScheduleService.getAllByTrainer(year, month, trainer.getTrainerNo());
 
 		Gson gson = new GsonBuilder()
 				.excludeFieldsWithoutExposeAnnotation()

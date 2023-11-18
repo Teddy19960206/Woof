@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import com.woof.administrator.entity.Administrator;
 import com.woof.appointmentdetail.service.AppointmentDetailServiceImpl;
 import com.woof.privatetrainingappointmentform.entity.PrivateTrainingAppointmentForm;
 import com.woof.privatetrainingappointmentform.service.PrivateTrainingAppointmentFormService;
@@ -387,7 +388,20 @@ public class PrivateTrainingAppointmentFormServlet extends HttpServlet {
 
 
 	private void getAllByTrainer(HttpServletRequest request , HttpServletResponse response) throws IOException {
-		Integer trainerNo = Integer.valueOf(request.getParameter("trainerNo"));
+		Integer trainerNo = null;
+
+		String trainerNoStr = request.getParameter("trainerNo");
+		if (trainerNoStr != null && trainerNoStr.trim().length() != 0){
+			trainerNo = Integer.valueOf(trainerNoStr);
+		} else{
+			Object obj = request.getSession(false).getAttribute("administrator");
+			if (obj != null){
+				Administrator administrator = (Administrator) obj;
+				Trainer trainer = new TrainerServiceImpl().getByAdmin(administrator.getAdminNo());
+				trainerNo = trainer.getTrainerNo();
+			}
+		}
+
 		Integer year = Integer.valueOf(request.getParameter("year"));
 		Integer month = Integer.valueOf(request.getParameter("month"));
 
