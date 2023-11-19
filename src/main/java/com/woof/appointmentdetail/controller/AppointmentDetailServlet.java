@@ -25,6 +25,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -171,9 +172,13 @@ public class AppointmentDetailServlet extends HttpServlet {
 		TrainerService trainerService = new TrainerServiceImpl();
 		Trainer trainer = trainerService.findTrainerByTrainerNo(trainerNo);
 		
+		
 		PrivateTrainingAppointmentFormService privateTrainingAppointmentFormService = new PrivateTrainingAppointmentFormServiceImpl();
-		 privateTrainingAppointmentFormService.updatePrivateTrainingAppointmentForm(ptaNo, member, trainer,
-					ptaClass);
+		Timestamp commentTime =privateTrainingAppointmentFormService.findPrivateTrainingAppointmentFormByPtaNo(ptaNo).getCommentTime();
+		Timestamp commentUpTime =privateTrainingAppointmentFormService.findPrivateTrainingAppointmentFormByPtaNo(ptaNo).getCommentUpTime();
+		String ptaComment =privateTrainingAppointmentFormService.findPrivateTrainingAppointmentFormByPtaNo(ptaNo).getPtaComment();
+		privateTrainingAppointmentFormService.updatePrivateTrainingAppointmentForm(ptaNo, member, trainer,
+					ptaClass,ptaComment,commentTime,commentUpTime);
 		 
 		 // 用查詢展示跳轉的效果
 		getByPtaNo(req,res);
@@ -211,6 +216,26 @@ public class AppointmentDetailServlet extends HttpServlet {
     		System.out.println("更新失敗");
     		req.setAttribute("errorMessage", "更新失敗");
     	}
+    	
+    	// 使用預約單的修改方法修改數量
+    	Integer ptaClass = (int) appointmentDetailService.getTotalByPtaNo(ptaNo);
+    	
+    	String memNo = req.getParameter("memNo");
+		MemberService memberService = new MemberServiceImpl();
+		Member member = memberService.findMemberByNo(memNo);
+
+		Integer trainerNo = Integer.valueOf(req.getParameter("trainerNo"));
+		TrainerService trainerService = new TrainerServiceImpl();
+		Trainer trainer = trainerService.findTrainerByTrainerNo(trainerNo);
+		
+		PrivateTrainingAppointmentFormService privateTrainingAppointmentFormService = new PrivateTrainingAppointmentFormServiceImpl();
+		Timestamp commentTime =privateTrainingAppointmentFormService.findPrivateTrainingAppointmentFormByPtaNo(ptaNo).getCommentTime();
+		Timestamp commentUpTime =privateTrainingAppointmentFormService.findPrivateTrainingAppointmentFormByPtaNo(ptaNo).getCommentUpTime();
+		String ptaComment =privateTrainingAppointmentFormService.findPrivateTrainingAppointmentFormByPtaNo(ptaNo).getPtaComment();
+		privateTrainingAppointmentFormService.updatePrivateTrainingAppointmentForm(ptaNo, member, trainer,
+					ptaClass,ptaComment,commentTime,commentUpTime);
+		 
+		 // 用查詢展示跳轉的效果
     	getByPtaNo(req,res);
 //    	res.sendRedirect(req.getContextPath() + "/frontend/privatetrainingappointmentform/privateTrainingAppointmentForm.jsp");
     }
@@ -238,8 +263,11 @@ public class AppointmentDetailServlet extends HttpServlet {
 		Trainer trainer = trainerService.findTrainerByTrainerNo(trainerNo);
 		
 		PrivateTrainingAppointmentFormService privateTrainingAppointmentFormService = new PrivateTrainingAppointmentFormServiceImpl();
-		 privateTrainingAppointmentFormService.updatePrivateTrainingAppointmentForm(ptaNo, member, trainer,
-					ptaClass);
+		Timestamp commentTime =privateTrainingAppointmentFormService.findPrivateTrainingAppointmentFormByPtaNo(ptaNo).getCommentTime();
+		Timestamp commentUpTime =privateTrainingAppointmentFormService.findPrivateTrainingAppointmentFormByPtaNo(ptaNo).getCommentUpTime();
+		String ptaComment =privateTrainingAppointmentFormService.findPrivateTrainingAppointmentFormByPtaNo(ptaNo).getPtaComment();
+		privateTrainingAppointmentFormService.updatePrivateTrainingAppointmentForm(ptaNo, member, trainer,
+					ptaClass,ptaComment,commentTime,commentUpTime);
     	getByPtaNo(req,res);
 //    	res.sendRedirect(req.getContextPath() + "/backend/appointment/appointmentDetail.jsp");
     }

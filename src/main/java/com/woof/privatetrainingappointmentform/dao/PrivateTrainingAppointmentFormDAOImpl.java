@@ -176,4 +176,12 @@ public class PrivateTrainingAppointmentFormDAOImpl implements PrivateTrainingApp
 		        .uniqueResult();
 	}
 
+	@Override
+	public List<PrivateTrainingAppointmentForm> getAppointmentByMemNo(String memNo) {
+		return getSession().createQuery("FROM PrivateTrainingAppointmentForm p WHERE p.member.memNo = :memNo", PrivateTrainingAppointmentForm.class)
+				.setParameter("memNo", memNo)
+				.list();
+	}
+
+	
 }

@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <%@ include file="/meta.file"%>
-<title>會員中心</title>
+<title>私人訓練師預約</title>
 <script type="text/javascript">
 //表單點擊找出對應的function//
   function processUpdate(jsonData){
@@ -108,6 +108,7 @@ body {
 </script>
 <script src="https://kit.fontawesome.com/3f37e88a3b.js" crossorigin="anonymous"></script>
 <body>
+<%-- <p>${sessionScope.member.memNo}</p> --%>
 	<%@ include file="/Header.file"%>
 	<jsp:useBean id="memberService" scope="page"
 		class="com.woof.member.service.MemberServiceImpl" />
@@ -139,7 +140,7 @@ body {
 								<li class="list-group-item"><a
 									onclick="toggleCourseManagement()" style="cursor: pointer;"><i class="fa-solid fa-school"></i> 課程管理</a>
 									<ul id="courseManagementOptions" style="display: none;">
-										<li class="list-group-item"><a href="${pageContext.request.contextPath}/frontend/member/login/appointment.jsp">私人訓練師</a></li>
+										<li class="list-group-item"><a href="#">私人訓練師</a></li>
 										<li class="list-group-item"><a href="${pageContext.request.contextPath}/frontend/member/login/groupOrder.jsp">團體報名訂單管理</a></li>
 									</ul></li>
 									<li class="list-group-item"><a
@@ -158,58 +159,61 @@ body {
 			</div>
 			<div class="col-12 col-md-8">
 				<div class="card">
-					<div class="card-body">
-						<h5 class="card-title">個人資料</h5>
-						<table class="table table-bordered table-hover">
-							<tbody>
-								<tr>
-									<th scope="row">編號</th>
-									<td>${member.memNo}</td>
-								</tr>
-								<tr>
-									<th scope="row">姓名</th>
-									<td>${member.memName}</td>
-								</tr>
-								<tr>
-									<th scope="row">性別</th>
-									<td>${member.memGender}</td>
-								</tr>
-								<tr>
-									<th scope="row">照片</th>
-									<td><img
-										src="${pageContext.request.contextPath}/DBPngReader?action=member&id=${member.memNo}"
-										onerror="this.onerror=null; this.src='/woof/frontend/member/jpg/dog.jpg';" class="profile-img"></td>
-								</tr>
-								<tr>
-									<th scope="row">email</th>
-									<td>${member.memEmail}</td>
-								</tr>
-								<tr>
-									<th scope="row">密碼</th>
-									<td>${member.memPassword}</td>
-								</tr>
-								<tr>
-									<th scope="row">電話</th>
-									<td>${member.memTel}</td>
-								</tr>
-								<tr>
-									<th scope="row">地址</th>
-									<td>${member.memAddress}</td>
-								</tr>
-								<tr>
-									<th scope="row">生日</th>
-									<td>${member.memBd}</td>
-								</tr>
-								<tr>
-									<th scope="row">毛毛幣</th>
-									<td>${member.momoPoint}</td>
-								</tr>
-								<tr>
-									<th scope="row">課堂數</th>
-									<td>${member.totalClass}</td>
-								</tr>
-							</tbody>
-						</table>
+        <div class="card-body">
+            <h3 class="card-title text-center p-2">私人預約管理</h3>
+            <table class="table table-bordered table-hover text-center align-content-center align-middle" id="show">
+                        <thead>
+                            <tr>
+                                <th>預約單編號</th>
+                                <th>訓練師名稱</th>
+                                <th>預約堂數</th>
+                                <th>查看明細</th>
+                                <th>我要評論</th>
+                            </tr>
+
+                        </thead>
+                        <tbody>
+
+                        <jsp:useBean id="all" class="com.woof.privatetrainingappointmentform.service.PrivateTrainingAppointmentFormServiceImpl" />
+<%--                         <c:forEach items="${all.getAppointmentByMemNo(sessionScope.member.memNo)}" var="pta"> --%>
+                            <tr>
+                                <td class="truncated-text">${pta.memNo}</td>
+                                <td>${pta.trainer.administrator.adminName}</td>
+                                <td>${pta.ptaClass}</td>
+                                <td>
+                                	<FORM METHOD="post" action="${pageContext.request.contextPath}/appointmentdetail?action=getdetail">
+										<input type="hidden" name="ptaNo" value="${pta.ptaNo}">
+										<input type="hidden" name="memNo" value="${pta.member.memNo}">
+										<input type="hidden" name="trainerNo" value="${pta.trainer.trainerNo}">
+										<button class="btn btn-in" type="submit">查看明細</button>
+									</FORM>
+								</td>
+                                <td>
+                                	<FORM METHOD="post" action="${pageContext.request.contextPath}/privatetrainingappointmentform?action=comment">
+                                		<%
+ 										String ptaNo = request.getParameter("ptaNo");
+										String member = request.getParameter("member");
+ 										String trainer = request.getParameter("trainer");
+ 										String number = request.getParameter("number");
+  										String comment = request.getParameter("comment");
+  										String commentTime = request.getParameter("commenttime");
+  										String commentUpTime = request.getParameter("commentuptime");
+   										%> 
+										<input type="hidden" name="action" value="comment">
+										<input type="hidden" name="ptaNo" value="${pta.ptaNo}">					
+										<input type="hidden" name="member" value="${pta.member.memNo}">
+										<input type="hidden" name="trainer" value="${pta.trainer.trainerNo}">
+										<input type="hidden" name="number" value="${pta.ptaClass}">
+										<input type="hidden" name="comment" value="${pta.ptaComment}">
+										<input type="hidden" name="commenttime" value="${pta.commentTime}">
+										<input type="hidden" name="commentuptime" value="${pta.commentUpTime}">
+										<button class="btn btn-comment" type="submit">我要評論</button>
+                                	</FORM>
+                                </td>
+                            </tr>
+<%--                         </c:forEach> --%>
+                        </tbody>
+                    </table>
 					</div>
 				</div>
 			</div>

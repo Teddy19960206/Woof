@@ -21,4 +21,6 @@ public interface ClassOrderDAO {
 	
 	int update(ClassOrder classOrder);
 	
+//	List<ClassOrder> getOrderByMemNo(String memNo);
+	
 }

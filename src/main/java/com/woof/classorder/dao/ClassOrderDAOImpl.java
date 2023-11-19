@@ -79,5 +79,12 @@ public class ClassOrderDAOImpl implements ClassOrderDAO{
 				.setParameter("memNo", "%" + memNo + "%")
 				.uniqueResult();
 	}
+
+//	@Override
+//	public List<ClassOrder> getOrderByMemNo(String memNo) {
+//		return getSession().createQuery("FROM ClassOrder c WHERE c.member.memNo = :memNo", ClassOrder.class)
+//				.setParameter("memNo", memNo)
+//				.list();
+//	}
 	
 }

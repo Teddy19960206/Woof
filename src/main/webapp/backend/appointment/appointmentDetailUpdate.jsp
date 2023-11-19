@@ -67,6 +67,8 @@ button[type="submit"] {
 
 	<form action="${pageContext.request.contextPath}/appointmentdetail"
 		method="post" enctype="multipart/form-data">
+		<input	type="hidden" name="memNo"	value="${param.memNo}">
+		<input	type="hidden" name="trainerNo"	value="${param.trainerNo}">
 		<input	type="hidden" name="adNo"	value="${param.adNo}">
 		<input	type="hidden" name="ptaNo"	value="${param.ptaNo}">
 		<label for="datepick">預約日期:</label>

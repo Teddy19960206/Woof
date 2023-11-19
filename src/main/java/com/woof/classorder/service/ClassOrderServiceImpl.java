@@ -96,6 +96,13 @@ public class ClassOrderServiceImpl implements ClassOrderService{
 		int pageQty = (int) (total % PAGE_MAX_RESULT == 0 ? (total / PAGE_MAX_RESULT) : (total / PAGE_MAX_RESULT + 1));
 		return pageQty;
 	}
+
+
+
+//	@Override
+//	public List<ClassOrder> getOrderByMemNo(String memNo) {
+//		return dao.getOrderByMemNo(memNo);
+//	}
 	
 	
 }

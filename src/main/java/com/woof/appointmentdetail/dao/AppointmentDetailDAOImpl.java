@@ -95,10 +95,9 @@ public class AppointmentDetailDAOImpl implements AppointmentDetailDAO {
 
 	@Override
 	public long getTotalByPtaNo(Integer ptaNo) {
-		return getSession().createQuery("select count(*) from AppointmentDetail a where a.privateTrainingAppointmentForm.ptaNo = :ptaNo", Long.class)
+		return getSession().createQuery("select count(*) from AppointmentDetail a where a.privateTrainingAppointmentForm.ptaNo = :ptaNo and appStatus = 0", Long.class)
 				.setParameter("ptaNo", ptaNo)
-				.uniqueResult()
-				.longValue();
+				.uniqueResult();
 	}
 
 	public List<AppointmentDetail> getAllByTrainer(Integer trainerNo){

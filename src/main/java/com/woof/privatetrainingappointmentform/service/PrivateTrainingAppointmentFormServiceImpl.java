@@ -52,31 +52,9 @@ public class PrivateTrainingAppointmentFormServiceImpl implements PrivateTrainin
 		return privateTrainingAppointmentForm;
 	}
 
-	@Override
-	public int updatePrivateTrainingAppointmentForm(Integer ptaNo, Member member, Trainer trainer, Integer ptaClass) {
-		PrivateTrainingAppointmentForm privateTrainingAppointmentForm = new PrivateTrainingAppointmentForm();
-		privateTrainingAppointmentForm.setPtaNo(ptaNo);
-		privateTrainingAppointmentForm.setMember(member);
-		privateTrainingAppointmentForm.setTrainer(trainer);
-		privateTrainingAppointmentForm.setPtaClass(ptaClass);
-		return dao.update(privateTrainingAppointmentForm);
-	}
-	
-	@Override
-	public int insertComment(Integer ptaNo, Member member, Trainer trainer, Integer ptaClass, String ptaComment,
-			Timestamp commentTime) {
-		PrivateTrainingAppointmentForm privateTrainingAppointmentForm = new PrivateTrainingAppointmentForm();
-		privateTrainingAppointmentForm.setPtaNo(ptaNo);
-		privateTrainingAppointmentForm.setMember(member);
-		privateTrainingAppointmentForm.setTrainer(trainer);
-		privateTrainingAppointmentForm.setPtaClass(ptaClass);
-		privateTrainingAppointmentForm.setPtaComment(ptaComment);
-		privateTrainingAppointmentForm.setCommentTime(commentTime);
-		return dao.update(privateTrainingAppointmentForm);
-	}
 
 	@Override
-	public int updateComment(Integer ptaNo, Member member, Trainer trainer, Integer ptaClass, String ptaComment,
+	public int updatePrivateTrainingAppointmentForm(Integer ptaNo, Member member, Trainer trainer, Integer ptaClass, String ptaComment,
 			Timestamp commentTime, Timestamp commentUpTime) {
 		PrivateTrainingAppointmentForm privateTrainingAppointmentForm = new PrivateTrainingAppointmentForm();
 		privateTrainingAppointmentForm.setPtaNo(ptaNo);
@@ -161,5 +139,9 @@ public class PrivateTrainingAppointmentFormServiceImpl implements PrivateTrainin
 		return pageQty;
 	}
 
+	@Override
+	public List<PrivateTrainingAppointmentForm> getAppointmentByMemNo(String memNo) {
+		return dao.getAppointmentByMemNo(memNo);
+	}
 
 }

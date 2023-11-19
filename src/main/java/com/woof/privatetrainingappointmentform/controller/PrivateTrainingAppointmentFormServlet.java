@@ -215,12 +215,17 @@ public class PrivateTrainingAppointmentFormServlet extends HttpServlet {
 
 		String ptaClassStr = request.getParameter("number");
 
+		PrivateTrainingAppointmentFormService privateTrainingAppointmentFormService = new PrivateTrainingAppointmentFormServiceImpl();
+		Timestamp commentTime =privateTrainingAppointmentFormService.findPrivateTrainingAppointmentFormByPtaNo(ptaNo).getCommentTime();
+		Timestamp commentUpTime =privateTrainingAppointmentFormService.findPrivateTrainingAppointmentFormByPtaNo(ptaNo).getCommentUpTime();
+		String ptaComment =privateTrainingAppointmentFormService.findPrivateTrainingAppointmentFormByPtaNo(ptaNo).getPtaComment();
+		
 		int result;
 
 		try {
 			Integer ptaClass = Integer.parseInt(ptaClassStr);
 			result = privateTrainingAppointmentFormService.updatePrivateTrainingAppointmentForm(ptaNo, member, trainer,
-					ptaClass);
+					ptaClass,ptaComment,commentTime,commentUpTime);
 		} catch (NumberFormatException e) {
 			result = -1;
 		}
@@ -361,15 +366,15 @@ public class PrivateTrainingAppointmentFormServlet extends HttpServlet {
 			String commentTimeStr = dateFormat.format(now);
 			Date parsedDate = dateFormat.parse(commentTimeStr);
 			commentTime = new Timestamp(parsedDate.getTime());
-			result = privateTrainingAppointmentFormService.insertComment(ptaNo, member, trainer,
-					ptaClass, ptaComment, commentTime);
+			result = privateTrainingAppointmentFormService.updatePrivateTrainingAppointmentForm(ptaNo, member, trainer,
+					ptaClass, ptaComment, commentTime, null);
 		}else {
 			Date now = new Date();
 			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			String commentUpTimeStr = dateFormat.format(now);
 			Date parsedDate = dateFormat.parse(commentUpTimeStr);
 			Timestamp commentUpTime = new Timestamp(parsedDate.getTime());
-			result = privateTrainingAppointmentFormService.updateComment(ptaNo, member, trainer,
+			result = privateTrainingAppointmentFormService.updatePrivateTrainingAppointmentForm(ptaNo, member, trainer,
 					ptaClass, ptaComment, commentTime, commentUpTime);
 		}
 
