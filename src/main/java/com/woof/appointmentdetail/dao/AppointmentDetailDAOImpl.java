@@ -37,7 +37,7 @@ public class AppointmentDetailDAOImpl implements AppointmentDetailDAO {
 	@Override
 	public int update(AppointmentDetail appointmentDetail) {
 		try {
-			getSession().update(appointmentDetail);
+			getSession().merge(appointmentDetail);
 			return 1;
 		} catch (Exception e) {
 			return -1;

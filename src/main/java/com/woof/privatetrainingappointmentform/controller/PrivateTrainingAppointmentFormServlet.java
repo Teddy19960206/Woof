@@ -374,7 +374,7 @@ public class PrivateTrainingAppointmentFormServlet extends HttpServlet {
 			request.setAttribute("errorMessage", "新增內容失敗");
 		}
 		response.sendRedirect(request.getContextPath()
-				+ "/frontend/privatetrainingappointmentform/comment.jsp");
+				+ "/frontend/member/login/appointment.jsp");
 	}
 
 
