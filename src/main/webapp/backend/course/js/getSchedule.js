@@ -192,8 +192,8 @@ $(document).on("click" , "button.detail-button" , function (e){
 
     $("#addDetail").attr("data-id" , this.getAttribute("data-id"));
     $("#addDetail").show();
-    var newUrl = `${projectName}/backend/course/schedule.jsp`; // 想要添加的新網址
-    var newState = { page: "寵毛導師Woof" }; // 新狀態物件
+    let newUrl = `${projectName}/backend/course/schedule.jsp`; // 想要添加的新網址
+    let newState = { page: "寵毛導師Woof" }; // 新狀態物件
 
     history.pushState(newState, "", newUrl);
     fetchDetail(url);

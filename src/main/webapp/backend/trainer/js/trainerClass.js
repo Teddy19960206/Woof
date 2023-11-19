@@ -30,6 +30,8 @@ var calendar = new FullCalendar.Calendar(calendarEl, {
         let date = new Date(info.start);
         date.setDate(date.getDate() + 7);
         fetchDetailByDate(date.getFullYear() , date.getMonth()+1);
+        fetchNonClass(date.getFullYear() , date.getMonth()+1);
+        fetchPrivateDetail(date.getFullYear() , date.getMonth()+1);
     },
 
 });
@@ -50,7 +52,7 @@ function reserve(){
     console.log(newDate);
 }
 
-
+// 抓取當月團課日期
 async function fetchDetailByDate(year , month){
 
     let url = `${projectName}/scheduleDetail/getDetails`;
@@ -79,4 +81,69 @@ async function fetchDetailByDate(year , month){
         console.log(error)
     }
 
+}
+
+// 抓取當月該訓練師請假日期
+async function fetchNonClass(year , month){
+    let url = `${projectName}/nontrainingschedule/getbyntsdate`;
+    try{
+        const response = await fetch(url , {
+            method : "POST",
+            headers : {
+                "Content-Type" : "application/x-www-form-urlencoded"
+            },
+            body : "action=getByNtsDate" + "&year=" + year + "&month=" + month
+        })
+
+        if (!response.ok){
+            throw new Error("異常錯誤");
+        }
+
+        const data = await response.json();
+
+        for(let i = 0 ; i < data.length; i++){
+            calendar.addEvent({
+                title:`已請假`,
+                start: data[i],
+                backgroundColor:"#aaaaaa"
+            });
+            date.push(data[i]);
+        };
+
+
+    }catch (error){
+        console.error("Error" , error)
+    }
+}
+
+
+// 抓取已被私人預約日期
+async function fetchPrivateDetail(year , month){
+
+    let url = `${projectName}/privatetrainingappointmentform/getDetails`;
+    try{
+        const response = await fetch(url , {
+            method : "POST",
+            headers:{
+                "Content-Type" : "application/x-www-form-urlencoded"
+            },
+            body : "action=getAllByTrainer"+"&year="+year+"&month="+month
+        })
+        if (!response.ok){
+            throw new Error("網路異常")
+        }
+        const data = await response.json();
+        data.forEach(item=>{
+            calendar.addEvent({
+                title:`已被預約`,
+                start: item,
+                backgroundColor:"#0000ff"
+            });
+            date.push(item);
+        })
+
+
+    }catch (error){
+        console.error('Error', error);
+    }
 }

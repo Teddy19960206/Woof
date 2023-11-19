@@ -83,7 +83,9 @@ document.getElementById('inputSmmp').addEventListener('input', function (e) {
     const maxCoins = parseInt(maxCoinsElement.innerText); // 從頁面獲取毛毛幣的餘額
     let inputCoins = parseInt(e.target.value); 
 
+	console.log(maxCoinsElement);
 	console.log(maxCoins);
+	console.log(inputCoins);
 
     if (isNaN(inputCoins)) {
         inputCoins = 0; // 如果輸入不是數字，設為0
@@ -338,3 +340,4 @@ function updateItemSubtotal(prodNo) {
         subtotalSpan.innerText = subtotal; // 將整數小計顯示在元素中
     }
 }
+

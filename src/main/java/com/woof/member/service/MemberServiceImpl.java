@@ -24,15 +24,11 @@ public class MemberServiceImpl implements MemberService, AppService<String> {
 
 	@Override
 	public void updateMember(Member member) {
-//        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-//        session.beginTransaction();
 		dao.update(member);
 	}
 
 	@Override
 	public void deletePhoto(String memNo) {
-//        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-//        session.beginTransaction();
 		if (dao.deletePhoto(memNo) == 1) {
 			return;
 		}

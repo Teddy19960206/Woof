@@ -75,7 +75,8 @@ $(document).ready(function(){
         });
      })
 </script>
-<script src="https://kit.fontawesome.com/3f37e88a3b.js" crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/3f37e88a3b.js"
+	crossorigin="anonymous"></script>
 <style>
 body {
 	background-color: #fff4e5; /* 淺橘色背景 */
@@ -83,7 +84,7 @@ body {
 
 .container {
 	padding-top: 40px;
-	max-width: 600px;
+	max-width: 800px;
 }
 
 .custom-card {
@@ -130,6 +131,7 @@ body {
 	color: #333;
 	border: none;
 }
+
 .btn-third {
 	background-color: #f0f0f0; /* 淡紅色按鈕 */
 	color: #333;
@@ -145,42 +147,50 @@ body {
 	background-color: #e0e0e0; /* 按鈕懸停淺灰色 */
 	color: #333;
 }
+
 .btn-third:hover, .btn-third:focus {
 	background-color: #e0e0e0; /* 按鈕懸停淡紅色 */
 	color: red;
 }
+
+.fa-camera {
+	font-size: 24px; /* 設定圖示大小，您可以根據需要調整這個值 */
+}
 </style>
 <style>
 /* 密碼表情符號 */
-.form__input:valid + .icon::after {
-  content: '😃';
+.form__input:valid+.icon::after {
+	font-size: 24px;
+	content: '😃';
 }
-.form__input:invalid + .icon::after {
-  content: '😳';
+
+.form__input:invalid+.icon::after {
+	font-size: 24px;
+	content: '😳';
 }
 </style>
 <style>
-  #preview {
-   border: 1px solid lightgray;
-   display: inline-block;/*  */
-   width: 300px;
-   min-height: 400px;
-   position: relative;
-  }
- 
- #preview span.text {
-  position: absolute;
-  display: inline-block;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  z-index: -1;
-  color: lightgray;
- }
- 
- #preview img.preview_img {
-  width: 100%;
- } 
+#preview {
+	border: 1px solid lightgray;
+	display: inline-block; /*  */
+	width: 300px;
+	min-height: 400px;
+	position: relative;
+}
+
+#preview span.text {
+	position: absolute;
+	display: inline-block;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	z-index: -1;
+	color: lightgray;
+}
+
+#preview img.preview_img {
+	width: 100%;
+}
 </style>
 </head>
 <body>
@@ -191,7 +201,9 @@ body {
 			<div class="custom-header text-center">
 				<h3>基本資料</h3>
 			</div>
-				<a href="/woof/index.jsp" style="position: absolute; top: 10px; right: 20px;"><i class="fa-solid fa-house"></i></a>
+			<a href="/woof/index.jsp"
+				style="position: absolute; top: 10px; right: 20px;"><i
+				class="fa-solid fa-house"></i></a>
 
 			<form method="post"
 				action="${pageContext.request.contextPath}/member1.do"
@@ -202,10 +214,10 @@ body {
 					<div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="TEXT" name="memNo"
-								id="memNo" size="45" required/>
+								id="memNo" size="45" required />
 						</div>
 					</div>
-<%-- 					<small class="error-msg">${errorMsgs.memNo}</small> --%>
+					<%-- 					<small class="error-msg">${errorMsgs.memNo}</small> --%>
 				</div>
 				<div class="form-group">
 					<label for="memName">會員姓名:</label>
@@ -218,7 +230,7 @@ body {
 					<small class="error-msg">${errorMsgs.memName}</small>
 				</div>
 				<div class="form-group">
-					<label for="memGender">性別:</label>
+					<label>性別:</label>
 					<div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="radio" name="memGender"
@@ -234,7 +246,7 @@ body {
 					<small class="error-msg">${errorMsgs.memGender}</small>
 				</div>
 				<div class="form-group">
-					<label for="memPhoto">會員相片:</label>
+					<label>會員相片:</label>
 					<div>
 						<div class="form-check form-check-inline">
 							<!-- 預覽圖片區塊 -->
@@ -256,14 +268,15 @@ body {
 								id="memEmail" placeholder="XXX@gmail.com" size="45" required />
 						</div>
 					</div>
-<%-- 					<small class="error-msg">${errorMsgs.memEmail}</small> --%>
+					<%-- 					<small class="error-msg">${errorMsgs.memEmail}</small> --%>
 				</div>
 				<div class="form-group">
 					<label for="memPassword">密碼(需大於六個字):</label>
 					<div>
 						<div class="form-check form-check-inline">
-							<input class="form__input" pattern=".{6,}" type="TEXT" name="memPassword"
-								id="memPassword" size="45" required /><span class="icon"></span>
+							<input class="form__input" pattern=".{6,}" type="TEXT"
+								name="memPassword" id="memPassword" size="45" required /><span
+								class="icon"></span>
 						</div>
 					</div>
 					<small class="error-msg">${errorMsgs.memPassword}</small>
@@ -302,7 +315,8 @@ body {
 					<div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="number" name="momoPoint"
-								id="momoPoint" size="45" readonly />
+								id="momoPoint" size="45" readonly
+								style="background-color: #e9ecef; border: 1px solid #ced4da;" />
 						</div>
 					</div>
 				</div>
@@ -311,31 +325,33 @@ body {
 					<div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="number" name="totalClass"
-								id="totalClass" size="45" readonly />
+								id="totalClass" size="45" readonly
+								style="background-color: #e9ecef; border: 1px solid #ced4da;" />
 						</div>
 					</div>
 				</div>
-				<div class="form-group">
-					<label for="memStatus">狀態:</label>
-					<div>
-						<div class="form-check form-check-inline">
-							<input class="form-check-input" type="radio" name="memStatus"
-								id="memStatus" value="0" disabled> <label
-								class="form-check-label" for="memStatus">停權</label>
-						</div>
-						<div class="form-check form-check-inline">
-							<input class="form-check-input" type="radio" name="memStatus"
-								id="memStatus" value="1" disabled> <label
-								class="form-check-label" for="memStatus">正常</label>
-						</div>
-					</div>
-				</div>
+				<!-- 				<div class="form-group"> -->
+				<!-- 					<label for="memStatus">狀態:</label> -->
+				<!-- 					<div> -->
+				<!-- 						<div class="form-check form-check-inline"> -->
+				<!-- 							<input class="form-check-input" type="radio" name="memStatus" -->
+				<!-- 								id="memStatus" value="1" disabled> <label -->
+				<!-- 								class="form-check-label" for="memStatus">正常</label> -->
+				<!-- 						</div> -->
+				<!-- 						<div class="form-check form-check-inline"> -->
+				<!-- 							<input class="form-check-input" type="radio" name="memStatus" -->
+				<!-- 								id="memStatus" value="0" disabled> <label -->
+				<!-- 								class="form-check-label" for="memStatus">停權</label> -->
+				<!-- 						</div> -->
+				<!-- 					</div> -->
+				<!-- 				</div> -->
 
 				<br> <input type="hidden" name="action" value="update">
 				<button type="submit" class="btn btn-primary btn-custom">修改</button>
-				<button type="button" onclick="history.back()" class="btn btn-secondary btn-custom">取消修改</button>
-				<button type="button" name="delete" id="delete" class="btn btn-third btn-custom"
-					data-id="${member.memNo}">刪除圖片</button>
+				<button type="button" onclick="history.back()"
+					class="btn btn-secondary btn-custom">取消修改</button>
+				<button type="button" name="delete" id="delete"
+					class="btn btn-third btn-custom" data-id="${member.memNo}">刪除圖片</button>
 			</form>
 		</div>
 	</div>
@@ -343,6 +359,6 @@ body {
 	<script
 		src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 	<script
-		src="${pageContext.request.contextPath}/backend/member/js/updatemember.js"></script>
+		src="${pageContext.request.contextPath}/frontend/member/js/updatemember.js"></script>
 </body>
 </html>

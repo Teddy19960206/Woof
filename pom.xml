@@ -312,8 +312,8 @@
             <artifactId>junit</artifactId>
         </dependency>
 
-
-    </dependencies>
+		
+	</dependencies>
 
 	<build>
 		<plugins>

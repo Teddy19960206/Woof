@@ -3,10 +3,8 @@ package com.woof.shoporderdetail.dao;
 import static com.woof.util.Constants.PAGE_MAX_RESULT;
 
 import java.util.List;
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-
 import com.woof.shoporderdetail.entity.ShopOrderDetail;
 
 

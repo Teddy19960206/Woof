@@ -94,17 +94,17 @@ $("button#next").on("click" , function (){
         }
     }else {
 
-        if (!dataErr && minLimit.value > 100){
+        if ( minLimit.value > 100){
             setError(minLimitErr , "請勿輸入超過三位數")
             hasError = true;
         }
 
-        if (!dataErr && maxLimit.value > 100){
+        if (maxLimit.value > 100){
             setError(maxLimitErr , "請勿輸入超過三位數")
             hasError = true;
         }
 
-        if (!dataErr && minLimit.value > maxLimit.value){
+        if (minLimit.value > maxLimit.value){
             setError(minLimitErr , "最低人數不能大於最多人數")
             hasError = true;
         }
@@ -263,6 +263,8 @@ const calendar = new FullCalendar.Calendar(calendarEl, {
         let newDate = new Date(info.start);
         newDate.setDate(newDate.getDate() + 7);
         fetchDetailByDate(newDate.getFullYear() , newDate.getMonth()+1);
+        fetchNonClass(newDate.getFullYear() , newDate.getMonth()+1 , $("select#trainer :selected").val());
+        console.log($("select#trainer :selected").val());
         reserve(reserveDate);
     },
 });
@@ -334,7 +336,38 @@ async function fetchDetailByDate(year , month){
     }
 
 }
+// 抓取當月該訓練師請假日期
+async function fetchNonClass(year , month , trainerNo){
+    let url = `${projectName}/nontrainingschedule/getbyntsdate`;
+    try{
+        const response = await fetch(url , {
+            method : "POST",
+            headers : {
+                "Content-Type" : "application/x-www-form-urlencoded"
+            },
+            body : "action=getByNtsDate" + "&trainerNo="+ trainerNo + "&year=" + year + "&month=" + month
+        })
 
+        if (!response.ok){
+            throw new Error("異常錯誤");
+        }
+
+        const data = await response.json();
+
+        for(let i = 0 ; i < data.length; i++){
+            calendar.addEvent({
+                title:`已請假`,
+                start: data[i],
+                backgroundColor:"#aaaaaa"
+            });
+            date.push(data[i]);
+        };
+
+
+    }catch (error){
+        console.error("Error" , error)
+    }
+}
 
 async function addSchedule(){
 

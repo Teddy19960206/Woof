@@ -130,10 +130,7 @@ public class MemberServlet1 extends HttpServlet {
 		String memNo = req.getParameter("memNo");
 		
 		for(Member mem :  members) {
-//			System.out.println("---------");
-//			System.out.println(mem.getMemNo());
-//			System.out.println(memNo);
-//			System.out.println(mem.getMemNo().equals(memNo));
+			
 			if(mem.getMemNo().equals(memNo)) {
 				errorMsgs.put("memNo","此帳號已註冊，請重新輸入");
 			}
@@ -221,16 +218,14 @@ public class MemberServlet1 extends HttpServlet {
 		member.setMemPhoto(photo);
 		// 將會員狀態預設1
 		member.setMemStatus(0);
-		member.setMomoPoint(0);
+		member.setMomoPoint(200);
 		member.setTotalClass(0);
 
 		try {
 			memberService.addMember(member);
 			MailService mailService = new MailService();
 			String realURL = req.getScheme() + "://" + req.getServerName() + ":" + req.getServerPort();
-//			System.out.println(realURL+req.getContextPath()+ "/member1.do?action=valid&member="+member.getMemNo());
 			mailService.sendMail(mememail,"會員驗證", MailService.valid(realURL+req.getContextPath()+ "/member1.do?action=valid&memNo="+member.getMemNo()));
-			System.out.println(req.getRequestURL()+"11111");
 			// 導到指定的URL 頁面上 把請求回應都帶過去
 			String url = req.getContextPath() + "/frontend/member/login/validemail.jsp";
 			req.setCharacterEncoding("UTF-8");

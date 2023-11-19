@@ -160,7 +160,7 @@ body {
 					<small class="error-msg">${errorMsgs.memName}</small>
 				</div>
 				<div class="form-group">
-					<label for="memGender">性別:</label>
+					<label>性別:</label>
 					<div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="radio" name="memGender"
@@ -176,7 +176,7 @@ body {
 					<small class="error-msg">${errorMsgs.memGender}</small>
 				</div>
 				<div class="form-group">
-					<label for="memPhoto">會員相片:</label>
+					<label>會員相片:</label>
 					<div>
 						<div class="form-check form-check-inline">
 							<!-- 預覽圖片區塊 -->
@@ -263,13 +263,13 @@ body {
 					<div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="radio" name="memStatus"
-								id="memStatus" value="0"> <label
-								class="form-check-label" for="memStatus">停權</label>
+								id="memStatus" value="1"checked> <label
+								class="form-check-label" for="memStatus">正常</label>
 						</div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="radio" name="memStatus"
-								id="memStatus" value="1"> <label
-								class="form-check-label" for="memStatus">正常</label>
+								id="memStatus" value="0"> <label
+								class="form-check-label" for="memStatus">停權</label>
 						</div>
 					</div>
 				</div>
