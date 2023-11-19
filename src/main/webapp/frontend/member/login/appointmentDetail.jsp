@@ -223,7 +223,7 @@ body {
 								<li class="list-group-item"><a
 									onclick="toggleCourseManagement()" style="cursor: pointer;"><i class="fa-solid fa-school"></i> 課程管理</a>
 									<ul id="courseManagementOptions" style="display: none;">
-										<li class="list-group-item"><a href="#">私人訓練師</a></li>
+										<li class="list-group-item"><a href="${pageContext.request.contextPath}/frontend/member/login/appointment.jsp">私人訓練師</a></li>
 										<li class="list-group-item"><a href="${pageContext.request.contextPath}/frontend/member/login/groupOrder.jsp">團體報名訂單管理</a></li>
 									</ul></li>
 									<li class="list-group-item"><a
