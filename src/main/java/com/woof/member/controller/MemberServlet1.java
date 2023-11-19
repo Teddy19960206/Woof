@@ -17,6 +17,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
+import org.mindrot.jbcrypt.BCrypt;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.woof.member.entity.Member;
@@ -172,6 +174,10 @@ public class MemberServlet1 extends HttpServlet {
 		String mempwd = req.getParameter("memPassword").trim();
 		if (mempwd == null || mempwd.trim().length() == 0) {
 			errorMsgs.put("memPassword","會員密碼請勿空白");
+		}else {
+		    // 加密密碼
+		    String encryptedPassword = BCrypt.hashpw(mempwd, BCrypt.gensalt());
+		    member.setMemPassword(encryptedPassword);
 		}
 		
 		String memtel = req.getParameter("memTel").trim();
@@ -196,7 +202,7 @@ public class MemberServlet1 extends HttpServlet {
 		member.setMemName(req.getParameter("memName"));
 		member.setMemGender(req.getParameter("memGender"));
 		member.setMemEmail(mememail);
-		member.setMemPassword(req.getParameter("memPassword"));
+//		member.setMemPassword(req.getParameter("memPassword"));
 		member.setMemTel(req.getParameter("memTel"));
 		member.setMemAddress(req.getParameter("memAddress"));
 		// java.sql的日期寫法
@@ -285,6 +291,10 @@ public class MemberServlet1 extends HttpServlet {
 		String mempwd = req.getParameter("memPassword").trim();
 		if (mempwd == null || mempwd.trim().length() == 0) {
 			errorMsgs.put("memPassword","會員密碼請勿空白");
+		}else {
+		    // 加密密碼
+		    String encryptedPassword = BCrypt.hashpw(mempwd, BCrypt.gensalt());
+		    member.setMemPassword(encryptedPassword);
 		}
 		
 		String memtel = req.getParameter("memTel").trim();
@@ -306,7 +316,7 @@ public class MemberServlet1 extends HttpServlet {
 		member.setMemName(req.getParameter("memName"));
 		member.setMemGender(req.getParameter("memGender"));
 		member.setMemEmail(req.getParameter("memEmail"));
-		member.setMemPassword(req.getParameter("memPassword"));
+//		member.setMemPassword(req.getParameter("memPassword"));
 		member.setMemTel(req.getParameter("memTel"));
 		member.setMemAddress(req.getParameter("memAddress"));
 		// 插入圖片

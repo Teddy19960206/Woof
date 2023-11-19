@@ -51,8 +51,8 @@ $(document).ready(function(){
             true);
           $('#photo').attr('src', "${pageContext.request.contextPath}/DBPngReader?action=member&id="+jsonObj.memNo);
           $('#memEmail').val(jsonObj.memEmail);
-          $('#memPassword').val(
-            jsonObj.memPassword);
+       /*    $('#memPassword').val(
+            jsonObj.memPassword); */
           $('#memTel').val(jsonObj.memTel);
           $('#memAddress')
             .val(jsonObj.memAddress);

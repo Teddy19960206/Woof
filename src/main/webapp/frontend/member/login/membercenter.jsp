@@ -283,7 +283,9 @@ a {
 						</tr>
 						<tr>
 							<th scope="row">密碼</th>
-							<td>${member.memPassword}</td>
+							<td><a onclick="processUpdate({memNo:'${member.memNo}'});"
+										 style="cursor: pointer; color: Tomato;" > <i class="fa-solid fa-key"></i>&nbsp;更改密碼
+									</a></td>
 						</tr>
 						<tr>
 							<th scope="row">電話</th>
