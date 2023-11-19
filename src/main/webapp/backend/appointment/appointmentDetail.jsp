@@ -102,11 +102,15 @@
 						String ptaNo = request.getParameter("ptaNo");
 						String appTime = request.getParameter("appTime");
 						String appStatus = request.getParameter("appStatus");
+						String memNo = request.getParameter("memNo");
+						String trainerNo = request.getParameter("trainerNo");
 						%>
 						<input type="hidden" name="adNo" value="${AD.adNo}"> 
 						<input type="hidden" name="ptaNo" value="${AD.privateTrainingAppointmentForm.ptaNo}">
 						<input type="hidden" name="appTime"	value="${AD.appTime}">
 						<input type="hidden" name="appStatus" value="${AD.appStatus}">
+						<input type="hidden" name="memNo" value="${AD.privateTrainingAppointmentForm.member.memNo}">
+						<input type="hidden" name="trainerNo" value="${AD.privateTrainingAppointmentForm.trainer.trainerNo}">
 						<button class="butn btn-success" type="submit">修改</button>
 
 					</FORM>
@@ -116,8 +120,8 @@
 						<%
 						adNo = request.getParameter("adNo");
 						ptaNo = request.getParameter("ptaNo");
-						String memNo = request.getParameter("memNo");
-						String trainerNo = request.getParameter("trainerNo");
+						memNo = request.getParameter("memNo");
+						trainerNo = request.getParameter("trainerNo");
 						%>
 						<input type="hidden" name="adNo" value="${AD.adNo}">
 						<input type="hidden" name="ptaNo" value="${AD.privateTrainingAppointmentForm.ptaNo}">

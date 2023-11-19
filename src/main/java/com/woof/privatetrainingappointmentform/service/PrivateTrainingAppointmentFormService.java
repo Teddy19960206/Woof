@@ -17,12 +17,6 @@ public interface PrivateTrainingAppointmentFormService {
 	PrivateTrainingAppointmentForm addPrivateTrainingAppointmentForm(Member member, Trainer trainer, Integer ptaClass);
 
 	int updatePrivateTrainingAppointmentForm(Integer ptaNo, Member member, Trainer trainer,
-			Integer ptaClass);
-	
-	int insertComment(Integer ptaNo, Member member, Trainer trainer,
-			Integer ptaClass, String ptaComment, Timestamp commentTime);
-	
-	int updateComment(Integer ptaNo, Member member, Trainer trainer,
 			Integer ptaClass, String ptaComment,Timestamp commentTime, Timestamp commentUpTime);
 	
 	int deletePrivateTrainingAppointmentForm(Integer ptaNo);
@@ -49,5 +43,5 @@ public interface PrivateTrainingAppointmentFormService {
 	
 	int getPageTotal5(String memNo , Integer trainerNo);
 
-	
+	List<PrivateTrainingAppointmentForm> getAppointmentByMemNo(String memNo);
 }

@@ -22,4 +22,6 @@ public interface ClassOrderService {
 	List<ClassOrder> getAllByMemNo(String memNo, int currentPage);
 	
 	int getPageTotal2(String memNo);
+	
+//	List<ClassOrder> getOrderByMemNo(String memNo);
 }

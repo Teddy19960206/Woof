@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <%@ include file="/meta.file"%>
-<title>會員中心</title>
+<title>私人訓練師預約</title>
 <script type="text/javascript">
 //表單點擊找出對應的function//
   function processUpdate(jsonData){
@@ -79,6 +79,90 @@ body {
     text-align: left; /* 使內容靠右對齊 */
     margin-right: 20px; /* 右邊距，可依需求調整 */
 }
+.col-md-8 {
+    padding: 20px;
+}
+
+.card {
+    border: none;
+    border-radius: 20px;
+    background-color: #f8f9fa;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 加入陰影效果 */
+}
+
+.card-body {
+    padding: 30px;
+}
+
+.card-title {
+    margin-bottom: 20px;
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #333;
+}
+.col-12.col-md-8 {
+    padding: 20px;
+}
+
+.card {
+    border: none;
+    border-radius: 20px;
+    background-color: #f8f9fa;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 加入陰影效果 */
+}
+
+.card-body {
+    padding: 30px;
+}
+
+.card-title {
+    margin-bottom: 20px;
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.table {
+    margin-top: 20px;
+}
+
+.table th,
+.table td {
+    text-align: center;
+}
+
+.btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.btn-back {
+    background-color: #007bff;
+    color: #fff;
+    margin-top: 20px;
+}
+
+.btn-cancel {
+    background-color: #dc3545;
+    color: #fff;
+    margin-top: 20px;
+}
+
+.btn:hover {
+    filter: brightness(90%);
+}
+
+.btn-cancel:disabled {
+    background-color: #f8f9fa;
+    color: #ced4da;
+    border: 1px solid #ced4da;
+    cursor: not-allowed;
+}
 </style>
 </head>
 <script type="text/javascript">
@@ -139,7 +223,7 @@ body {
 								<li class="list-group-item"><a
 									onclick="toggleCourseManagement()" style="cursor: pointer;"><i class="fa-solid fa-school"></i> 課程管理</a>
 									<ul id="courseManagementOptions" style="display: none;">
-										<li class="list-group-item"><a href="${pageContext.request.contextPath}/frontend/member/login/appointment.jsp">私人訓練師</a></li>
+										<li class="list-group-item"><a href="#">私人訓練師</a></li>
 										<li class="list-group-item"><a href="${pageContext.request.contextPath}/frontend/member/login/groupOrder.jsp">團體報名訂單管理</a></li>
 									</ul></li>
 									<li class="list-group-item"><a
@@ -157,62 +241,57 @@ body {
 				</div>
 			</div>
 			<div class="col-12 col-md-8">
-				<div class="card">
-					<div class="card-body">
-						<h5 class="card-title">個人資料</h5>
-						<table class="table table-bordered table-hover">
-							<tbody>
-								<tr>
-									<th scope="row">編號</th>
-									<td>${member.memNo}</td>
-								</tr>
-								<tr>
-									<th scope="row">姓名</th>
-									<td>${member.memName}</td>
-								</tr>
-								<tr>
-									<th scope="row">性別</th>
-									<td>${member.memGender}</td>
-								</tr>
-								<tr>
-									<th scope="row">照片</th>
-									<td><img
-										src="${pageContext.request.contextPath}/DBPngReader?action=member&id=${member.memNo}"
-										onerror="this.onerror=null; this.src='/woof/frontend/member/jpg/dog.jpg';" class="profile-img"></td>
-								</tr>
-								<tr>
-									<th scope="row">email</th>
-									<td>${member.memEmail}</td>
-								</tr>
-								<tr>
-									<th scope="row">密碼</th>
-									<td>${member.memPassword}</td>
-								</tr>
-								<tr>
-									<th scope="row">電話</th>
-									<td>${member.memTel}</td>
-								</tr>
-								<tr>
-									<th scope="row">地址</th>
-									<td>${member.memAddress}</td>
-								</tr>
-								<tr>
-									<th scope="row">生日</th>
-									<td>${member.memBd}</td>
-								</tr>
-								<tr>
-									<th scope="row">毛毛幣</th>
-									<td>${member.momoPoint}</td>
-								</tr>
-								<tr>
-									<th scope="row">課堂數</th>
-									<td>${member.totalClass}</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
-			</div>
+    			<div class="card">
+        			<div class="card-body">
+            			<h3 class="card-title text-center p-2">私人預約管理</h3>
+            			<table class="table table-bordered table-hover text-center align-content-center align-middle" id="show">
+                        	<thead>
+                            	<tr>
+                                	<th>預約明細編號</th>
+                                	<th>訓練師</th>
+                                	<th>預約時間</th>
+                                	<th>預約狀態</th>
+                                	<th>取消預約</th>
+                            	</tr>
+                        	</thead>
+                        	<tbody>
+                        		<c:forEach var="AD" items="${appointmentDetails}">
+                            	<tr>
+                                	<td class="truncated-text">${AD.adNo}</td>
+                                	<td>${AD.privateTrainingAppointmentForm.trainer.administrator.adminName}</td>
+                                	<td>${AD.appTime}</td>
+                                	<td>
+                						<c:choose>
+        									<c:when test="${AD.appStatus == 0}">
+            									預約完成
+        									</c:when>
+        									<c:when test="${AD.appStatus == 1}">
+            									已取消
+        									</c:when>
+    									</c:choose>
+        							</td>
+                                	<td>
+                                		<c:choose>
+            								<c:when test="${AD.appStatus != 1}">
+                                				<FORM METHOD="post" action="${pageContext.request.contextPath}/appointmentdetail?action=cancel">
+          											<input type="hidden" name="ptaNo" value="${AD.privateTrainingAppointmentForm.ptaNo}">     
+          											<input type="hidden" name="adNo" value="${AD.adNo}">     
+          											<button class="btn btn-cancel" type="submit">取消預約</button>
+                                 				</FORM>
+                                 		 	</c:when>
+                                 		 	<c:otherwise>
+                								<button class="btn btn-cancel" disabled>已取消</button>
+            								</c:otherwise>
+        								</c:choose>
+                                	</td>
+                            	</tr>
+                         		</c:forEach>
+                        	</tbody>
+                    	</table>
+                    <button class="btn btn-back" onclick="window.location.href='${pageContext.request.contextPath}/frontend/member/login/appointment.jsp'">返回</button>
+     				</div>
+    			</div>
+   			</div>
 		</div>
 	</div>
 

@@ -80,13 +80,6 @@
 		<input type="hidden" name="commentuptime" value="${param.commentUpTime}">
         <button type="submit">提交評論</button>
     </form>
-<%--     <p>ptaNo = ${param.ptaNo}</p> --%>
-<%--     <p>member = ${param.member}</p> --%>
-<%--     <p>trainer = ${param.trainer}</p> --%>
-<%--     <p>number = ${param.number}</p> --%>
-<%--     <p>comment = ${param.comment}</p> --%>
-<%--     <p>commentTime = ${param.commentTime}</p> --%>
-<%--     <p>commentUpTime = ${param.commentUpTime}</p> --%>
     
     	<button class="btn-report" onclick="reportComment()">檢舉</button>
     <button class="btn btn-back" onclick="history.back()">返回</button>

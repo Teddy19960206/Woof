@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <%@ include file="/meta.file"%>
-<title>會員中心</title>
+<title>私人訓練師預約</title>
 <script type="text/javascript">
 //表單點擊找出對應的function//
   function processUpdate(jsonData){
@@ -79,6 +79,69 @@ body {
     text-align: left; /* 使內容靠右對齊 */
     margin-right: 20px; /* 右邊距，可依需求調整 */
 }
+.col-md-8 {
+    padding: 20px;
+}
+
+.card {
+    border: none;
+    border-radius: 20px;
+    background-color: #f8f9fa;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 加入陰影效果 */
+}
+
+.card-body {
+    padding: 30px;
+}
+
+.card-title {
+    margin-bottom: 20px;
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #333;
+}
+
+textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    resize: vertical;
+    margin-bottom: 20px;
+}
+
+button[type="submit"] {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #fff;
+    background-color: #007bff;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+.btn-back {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #fff;
+    background-color: #6c757d;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+    margin-top: 20px;
+}
+
+.btn-back:hover {
+    background-color: #495057;
+}
 </style>
 </head>
 <script type="text/javascript">
@@ -139,7 +202,7 @@ body {
 								<li class="list-group-item"><a
 									onclick="toggleCourseManagement()" style="cursor: pointer;"><i class="fa-solid fa-school"></i> 課程管理</a>
 									<ul id="courseManagementOptions" style="display: none;">
-										<li class="list-group-item"><a href="${pageContext.request.contextPath}/frontend/member/login/appointment.jsp">私人訓練師</a></li>
+										<li class="list-group-item"><a href="#">私人訓練師</a></li>
 										<li class="list-group-item"><a href="${pageContext.request.contextPath}/frontend/member/login/groupOrder.jsp">團體報名訂單管理</a></li>
 									</ul></li>
 									<li class="list-group-item"><a
@@ -158,58 +221,14 @@ body {
 			</div>
 			<div class="col-12 col-md-8">
 				<div class="card">
-					<div class="card-body">
-						<h5 class="card-title">個人資料</h5>
-						<table class="table table-bordered table-hover">
-							<tbody>
-								<tr>
-									<th scope="row">編號</th>
-									<td>${member.memNo}</td>
-								</tr>
-								<tr>
-									<th scope="row">姓名</th>
-									<td>${member.memName}</td>
-								</tr>
-								<tr>
-									<th scope="row">性別</th>
-									<td>${member.memGender}</td>
-								</tr>
-								<tr>
-									<th scope="row">照片</th>
-									<td><img
-										src="${pageContext.request.contextPath}/DBPngReader?action=member&id=${member.memNo}"
-										onerror="this.onerror=null; this.src='/woof/frontend/member/jpg/dog.jpg';" class="profile-img"></td>
-								</tr>
-								<tr>
-									<th scope="row">email</th>
-									<td>${member.memEmail}</td>
-								</tr>
-								<tr>
-									<th scope="row">密碼</th>
-									<td>${member.memPassword}</td>
-								</tr>
-								<tr>
-									<th scope="row">電話</th>
-									<td>${member.memTel}</td>
-								</tr>
-								<tr>
-									<th scope="row">地址</th>
-									<td>${member.memAddress}</td>
-								</tr>
-								<tr>
-									<th scope="row">生日</th>
-									<td>${member.memBd}</td>
-								</tr>
-								<tr>
-									<th scope="row">毛毛幣</th>
-									<td>${member.momoPoint}</td>
-								</tr>
-								<tr>
-									<th scope="row">課堂數</th>
-									<td>${member.totalClass}</td>
-								</tr>
-							</tbody>
-						</table>
+        			<div class="card-body">
+            			<h3 class="card-title text-center p-2">私人預約單評論</h3>
+            				<form method="POST" action="${pageContext.request.contextPath}/privatetrainingappointmentform?action=updatecomment">
+        						<textarea name="comment" rows="5" placeholder="請輸入評論內容" required>${param.ptaComment}</textarea>
+        						<input type="hidden" name="ptaNo" value="${param.ptaNo}">					
+        						<button type="submit">提交評論</button>
+    						</form>
+    						<button class="btn btn-back" onclick="history.back()">返回</button>
 					</div>
 				</div>
 			</div>
