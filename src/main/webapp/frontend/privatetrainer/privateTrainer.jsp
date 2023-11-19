@@ -1,75 +1,15 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
-<%-- <%@ include file="/meta.file" %> --%>
-<!--     <meta charset="UTF-8"> -->
+<%@ include file="/meta.file" %>
     <title>寵毛導師 Woof | 訓練師列表</title>
     <style>
-	body {
-    background-color: #FAD02E;
-    font-family: Arial, sans-serif;
-}
 
-.container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #FFF;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-}
 
-h1 {
-    color: #FF5733;
-}
 
-.trainer {
-    border: 1px solid #FF5733;
-    padding: 10px;
-    margin: 20px 0;
-}
-
-.trainer img {
-    max-width: 100px;
-    max-height: 100px;
-    border-radius: 50%;
-    margin-right: 10px;
-}
-
-.trainer h2 {
-    color: #333;
-}
-
-ul {
-    list-style-type: disc;
-    padding-left: 20px;
-}
-
-button {
-    background-color: #FF5733;
-    color: #FFF;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-}
-
-button:hover {
-    background-color: #FF7F55;
-}
-
-.btn-buyclass, .btn-back {
-    display: block;
-    margin: 20px auto;
-    text-align: center;
-}
-
-footer {
-    text-align: center;
-    color: #333;
-    margin-top: 20px;
-}
-</style>
+	</style>
  <script type="text/javascript">
         // 當頁面加載完成後執行
         window.onload = function() {
@@ -85,11 +25,11 @@ footer {
     </script>
 </head>
 <body>
-<%-- <%@ include file="/Header.file" %> --%>
+<%@ include file="/Header.file" %>
  
 <jsp:useBean id="trainerServer" scope="page" class="com.woof.trainer.service.TrainerServiceImpl"/>
 
-    <div class="container">
+    <div class="container1">
         <h1>訓練師列表</h1>
         <c:forEach var="trainer" items="${trainerServer.allTrainers}">
         <form method="POST" action="${pageContext.request.contextPath}/commentreport" onsubmit="return commentReport()">
@@ -121,7 +61,7 @@ footer {
     <button class="btn btn-buyclass" onclick="window.location='${pageContext.request.contextPath}/frontend/privatetrainer/buyClass.jsp'">購買課堂</button>
     <button class="btn btn-back" onclick="window.location='${pageContext.request.contextPath}/index.jsp'">返回</button>
 
-<%-- <%@ include file="/Footer.file" %> --%>
+<%@ include file="/Footer.file" %>
 
 </body>
 </html>
