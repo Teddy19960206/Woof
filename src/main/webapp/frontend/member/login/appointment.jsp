@@ -108,7 +108,6 @@ body {
 </script>
 <script src="https://kit.fontawesome.com/3f37e88a3b.js" crossorigin="anonymous"></script>
 <body>
-<%-- <p>${sessionScope.member.memNo}</p> --%>
 	<%@ include file="/Header.file"%>
 	<jsp:useBean id="memberService" scope="page"
 		class="com.woof.member.service.MemberServiceImpl" />
@@ -189,24 +188,12 @@ body {
 									</FORM>
 								</td>
                                 <td>
-                                	<FORM METHOD="post" action="${pageContext.request.contextPath}/privatetrainingappointmentform?action=comment">
+                                	<FORM METHOD="post" action="${pageContext.request.contextPath}/privatetrainingappointmentform?action=updatecomment">
                                 		<%
  										String ptaNo = request.getParameter("ptaNo");
-										String member = request.getParameter("member");
- 										String trainer = request.getParameter("trainer");
- 										String number = request.getParameter("number");
-  										String comment = request.getParameter("comment");
-  										String commentTime = request.getParameter("commenttime");
-  										String commentUpTime = request.getParameter("commentuptime");
    										%> 
 										<input type="hidden" name="action" value="comment">
 										<input type="hidden" name="ptaNo" value="${pta.ptaNo}">					
-										<input type="hidden" name="member" value="${pta.member.memNo}">
-										<input type="hidden" name="trainer" value="${pta.trainer.trainerNo}">
-										<input type="hidden" name="number" value="${pta.ptaClass}">
-										<input type="hidden" name="comment" value="${pta.ptaComment}">
-										<input type="hidden" name="commenttime" value="${pta.commentTime}">
-										<input type="hidden" name="commentuptime" value="${pta.commentUpTime}">
 										<button class="btn btn-comment" type="submit">我要評論</button>
                                 	</FORM>
                                 </td>

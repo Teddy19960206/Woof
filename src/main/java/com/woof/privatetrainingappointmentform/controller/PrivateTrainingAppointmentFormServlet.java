@@ -339,24 +339,12 @@ public class PrivateTrainingAppointmentFormServlet extends HttpServlet {
 
 		Integer ptaNo = Integer.valueOf(request.getParameter("ptaNo"));
 
-		String memNo = request.getParameter("member");
-		MemberService memberService = new MemberServiceImpl();
-		Member member = memberService.findMemberByNo(memNo);
-
-		Integer trainerNo = Integer.valueOf(request.getParameter("trainer"));
-		TrainerService trainerService = new TrainerServiceImpl();
-		Trainer trainer = trainerService.findTrainerByTrainerNo(trainerNo);
-
-		String ptaClassStr = request.getParameter("number");
-        
+		Member member = privateTrainingAppointmentFormService.findPrivateTrainingAppointmentFormByPtaNo(ptaNo).getMember();
+		Trainer trainer = privateTrainingAppointmentFormService.findPrivateTrainingAppointmentFormByPtaNo(ptaNo).getTrainer();
+		Integer ptaClass = privateTrainingAppointmentFormService.findPrivateTrainingAppointmentFormByPtaNo(ptaNo).getPtaClass();
+		
 		int result;
-		Integer ptaClass = null;
-		try {
-			 ptaClass = Integer.parseInt(ptaClassStr);	
-			 result = 1;
-		} catch (NumberFormatException e) {
-			result = -1;
-		}
+		
 		String ptaComment = request.getParameter("comment");
 		
 		Timestamp commentTime = privateTrainingAppointmentFormService.findPrivateTrainingAppointmentFormByPtaNo(ptaNo).getCommentTime();
