@@ -152,7 +152,7 @@
                       >
                     </li>
                     <li class="sidebar-item">
-                      <a href="#" class="sidebar-link2">客服管理</a>
+                      <a href="${pageContext.request.contextPath}/backend/backChat/backChat.jsp" class="sidebar-link2">客服管理</a>
                     </li>
                   </ul>
                 </li>
