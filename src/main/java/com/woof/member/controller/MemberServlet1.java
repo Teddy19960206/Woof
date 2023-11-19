@@ -192,7 +192,7 @@ public class MemberServlet1 extends HttpServlet {
 
 		// Send the use back to the form, if there were errors
 		if (!errorMsgs.isEmpty()){
-			req.getRequestDispatcher("frontend/member/login/addmember.jsp").forward(req, res);
+			req.getRequestDispatcher("/frontend/member/login/addmember.jsp").forward(req, res);
 	    return;
 		}
 		
@@ -426,9 +426,7 @@ public class MemberServlet1 extends HttpServlet {
 		req.getParameter("memNo");
 		memberService.deletePhoto(req.getParameter("memNo"));
 		// 導到指定的URL 頁面上 把請求回應都帶過去
-		String url = req.getContextPath() + "/backend/member/list_all_member.jsp";
-		req.setCharacterEncoding("UTF-8");
-		res.sendRedirect(url);
+		req.getRequestDispatcher( "/frontend/member/login/login.jsp").forward(req, res);
 	}
 
 	private String getAllmembers(HttpServletRequest req, HttpServletResponse res) throws IOException {
