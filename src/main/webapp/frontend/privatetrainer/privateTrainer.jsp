@@ -12,30 +12,56 @@
         padding: 0;
         background-color: #f7f7f7;
     }
-
+	
+	/* 標題 */
+	h1 {
+    	text-align: center;
+    	margin-bottom: 30px;
+	}
+	
     .container1 {
         width: 80%;
         margin: 0 auto;
         padding: 20px;
     }
 
-    .trainer {
-        background-color: #fff;
-        border: 1px solid #ddd;
-        margin-bottom: 20px;
-        padding: 20px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        display: flex;
-    }
+    /* 整個訓練師項目 */
+	.trainer {
+    	display: flex;
+    	align-items: center;
+    	border: 1px solid #ddd;
+    	background-color: #fff;
+    	margin-bottom: 20px;
+    	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    	padding: 20px;
+	}
 
     .info {
         flex: 1;
         padding-right: 20px;
     }
-
+	
+	/* 訓練師名稱 */
+	.info h2 {
+    	margin-top: 0;
+    	font-size: 24px;
+    	text-align: center;
+	}
+	
+	/* 專長列表 */
+	.info ul {
+   		list-style: none;
+    	padding: 0;
+	}
+	
+	.info ul li {
+    	font-size: 18px;
+    	margin-bottom: 5px;
+	}
+	
     .info img {
-        width: 100px;
-        height: 100px;
+        width: 200px;
+        height: 200px;
         border-radius: 50%;
         margin-bottom: 10px;
     }
@@ -46,14 +72,18 @@
         padding-left: 20px;
     }
 
-    .comments ul {
-        list-style: none;
-        padding: 0;
-    }
+    /* 評價列表 */
+	.comments ul {
+    	list-style: none;
+    	padding: 0;
+	}
 
     .comments ul li {
-        margin-bottom: 5px;
-    }
+    	font-size: 16px;
+    	margin-bottom: 8px;
+    	border-bottom: 1px solid #ddd;
+   		padding-bottom: 8px;
+	}
 
     button {
         background-color: #3498db;
@@ -84,22 +114,22 @@
         background-color: #c0392b;
     }
 
-    /* 分頁的 CSS */
-    .pagination {
-        display: flex;
-        justify-content: center;
-        margin-top: 20px;
-    }
+    /* 分頁連結 */
+	.pagination {
+    	display: flex;
+    	justify-content: center;
+    	margin-top: 20px;
+	}
 
     .pagination a {
-        padding: 6px 12px;
-        margin: 0 3px;
-        border: 1px solid #ddd;
-        background-color: #f7f7f7;
-        color: #333;
-        text-decoration: none;
-        border-radius: 3px;
-    }
+    	padding: 6px 12px;
+    	margin: 0 3px;
+    	border: 1px solid #ddd;
+    	background-color: #f7f7f7;
+    	color: #333;
+    	text-decoration: none;
+    	border-radius: 3px;
+	}
 
     .pagination a.active {
         background-color: #3498db;
@@ -117,6 +147,33 @@
     .btn-buyclass:hover {
         background-color: #27ae60;
     }
+    
+    .btn-appointment {
+    	background-color: #2ecc71;
+    	color: #fff;
+    	border: none;
+    	padding: 10px 20px;
+    	cursor: pointer;
+    	border-radius: 5px;
+    	font-size: 16px;
+    	transition: background-color 0.3s;
+	}
+
+	/* 移除連結底線 */
+	a {
+    	text-decoration: none;
+	}
+	
+	.btn-appointment:hover {
+    	background-color: #27ae60;
+	}
+	
+	/* 按鈕組 */
+	.button-group {
+  	 	display: flex;
+    	justify-content: center;
+    	margin-top: 30px;
+	}
 	</style>
  <script type="text/javascript">
         // 當頁面加載完成後執行
@@ -140,8 +197,8 @@
     <c:forEach var="trainer" items="${trainers}">
         <div class="trainer">
             <div class="info">
-                <img src="${pageContext.request.contextPath}/DBPngReader?action=administrator&id=${trainer.administrator.adminNo}" alt="${trainer.administrator.adminName}">
                 <h2>${trainer.administrator.adminName}</h2>
+                <img src="${pageContext.request.contextPath}/DBPngReader?action=administrator&id=${trainer.administrator.adminNo}" alt="${trainer.administrator.adminName}">
                 <p>專長:</p>
                 <ul>
                     <c:forEach items="${trainer.skills}" var="trainerskill">
