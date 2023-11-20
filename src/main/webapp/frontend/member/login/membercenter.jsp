@@ -14,16 +14,24 @@
 	}
   //確認刪除提示框
   function confirmDelete(memNo) {
-    var confirmAction = confirm("您確定要註銷編號為 " + memNo + " 的會員帳號嗎？");
-    if (confirmAction) {
-        // 執行刪除操作，例如發送表單或請求
-        window.location.href = "<%=request.getContextPath()%>/member1.do?action=delete&memNo=" + memNo;
-    } else {
-        // 取消操作
-        console.log("取消刪除");
-    }
+    // 使用 SweetAlert 顯示確認對話框
+    Swal.fire({
+        title: '您確定要註銷編號為 ' + memNo + ' 的會員帳號嗎？',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: '是的，我要註銷！',
+        cancelButtonText: '取消'
+    }).then((result) => {
+        // 如果用戶確認，則執行刪除操作
+        if (result.isConfirmed) {
+            window.location.href = "<%=request.getContextPath()%>/member1.do?action=delete&memNo=" + memNo;
+        }
+    });
 }
 </script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <style>
 .table {
 	border-collapse: collapse; /* 確保邊框合併 */
