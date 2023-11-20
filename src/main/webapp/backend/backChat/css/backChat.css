@@ -76,7 +76,8 @@ body{
 
 .chat .chat-header {
     padding: 15px 20px;
-    border-bottom: 2px solid #f4f7f6
+    border-bottom: 2px solid #f4f7f6;
+    height : 72px;
 }
 
 .chat .chat-header img {
@@ -98,6 +99,7 @@ body{
 }
 
 .chat .chat-history ul {
+    overflow-wrap: anywhere;
     padding: 0
 }
 
@@ -145,7 +147,7 @@ body{
     pointer-events: none;
     border-bottom-color: #fff;
     border-width: 10px;
-    margin-left: -10px
+    margin-left: -30px
 }
 
 .chat .chat-history .my-message {
@@ -163,12 +165,12 @@ body{
     pointer-events: none;
     border-bottom-color: #efefef;
     border-width: 10px;
-    margin-left: -10px
+    margin-left: -10px;
 }
 
 .chat .chat-history .other-message {
     background: #e8f1f3;
-    text-align: right
+    text-align: right;
 }
 
 .chat .chat-history .other-message:after {
@@ -177,7 +179,7 @@ body{
 }
 
 .chat .chat-message {
-    padding: 20px
+    padding: 20px;
 }
 
 .online,
@@ -185,23 +187,27 @@ body{
 .me {
     margin-right: 2px;
     font-size: 8px;
-    vertical-align: middle
+    vertical-align: middle;
 }
 
 .online {
-    color: #86c541
+    color: #86c541;
 }
 
 .offline {
-    color: #e47297
+    color: #e47297;
 }
 
 .me {
-    color: #1d8ecd
+    color: #1d8ecd;
 }
 
 .float-right {
-    float: right
+    float: right;
+}
+
+.text-right{
+    float: right;
 }
 
 .clearfix:after {
@@ -210,7 +216,7 @@ body{
     font-size: 0;
     content: " ";
     clear: both;
-    height: 0
+    height: 0;
 }
 
 .input-group-text{
@@ -226,42 +232,42 @@ body{
         overflow-x: auto;
         background: #fff;
         left: -400px;
-        display: none
+        display: none;
     }
     .chat-app .people-list.open {
-        left: 0
+        left: 0;
     }
     .chat-app .chat {
-        margin: 0
+        margin: 0;
     }
     .chat-app .chat .chat-header {
-        border-radius: 0.55rem 0.55rem 0 0
+        border-radius: 0.55rem 0.55rem 0 0;
     }
     .chat-app .chat-history {
         height: 300px;
-        overflow-x: auto
+        overflow-x: auto;
     }
 }
 
 @media only screen and (min-width: 768px) and (max-width: 992px) {
     .chat-app .chat-list {
         height: 650px;
-        overflow-x: auto
+        overflow-x: auto;
     }
     .chat-app .chat-history {
         height: 600px;
-        overflow-x: auto
+        overflow-x: auto;
     }
 }
 
 @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) and (-webkit-min-device-pixel-ratio: 1) {
     .chat-app .chat-list {
         height: 480px;
-        overflow-x: auto
+        overflow-x: auto;
     }
     .chat-app .chat-history {
         height: calc(100vh - 350px);
-        overflow-x: auto
+        overflow-x: auto;
     }
 }
 
@@ -303,3 +309,4 @@ body{
     box-shadow: transparent;
 
 }
+
