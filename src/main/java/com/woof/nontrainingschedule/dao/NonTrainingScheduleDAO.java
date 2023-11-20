@@ -29,4 +29,6 @@ public interface NonTrainingScheduleDAO {
 	long getTotal();
 
 	List<Date> getAllByDate(Integer year, Integer month, Integer trainerNo);
+
+	void deleteByDate(Integer trainerNo , Date date );
 }

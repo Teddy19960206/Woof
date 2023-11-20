@@ -100,6 +100,7 @@ public class AppointmentDetailDAOImpl implements AppointmentDetailDAO {
 				.uniqueResult();
 	}
 
+
 	public List<AppointmentDetail> getAllByTrainer(Integer trainerNo){
 
 		String hql = "FROM AppointmentDetail ad WHERE ad.privateTrainingAppointmentForm.trainer.trainerNo = :trainerNo";
@@ -109,6 +110,7 @@ public class AppointmentDetailDAOImpl implements AppointmentDetailDAO {
 
 	}
 
+	@Override
 	public int addAll(List<AppointmentDetail> appointmentDetails){
 		for (AppointmentDetail appointmentDetail : appointmentDetails){
 			getSession().persist(appointmentDetail);
@@ -116,5 +118,14 @@ public class AppointmentDetailDAOImpl implements AppointmentDetailDAO {
 		getSession().flush();
 		return 1;
 	}
-	
+
+	@Override
+	public AppointmentDetail getOneByDate(Integer trainerNo , Date date){
+
+		String hql = "FROM AppointmentDetail ad WHERE ad.privateTrainingAppointmentForm.trainer.trainerNo = :trainerNo and ad.appTime = :date";
+		Query query = getSession().createQuery(hql , AppointmentDetail.class);
+		query.setParameter("trainerNo" , trainerNo);
+		query.setParameter("date", date);
+		return (AppointmentDetail) query.getSingleResult();
+	}
 }

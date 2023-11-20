@@ -104,5 +104,10 @@ public class AppointmentDetailServiceImpl implements AppointmentDetailService{
 		return dao.addAll(appointmentDetails);
 	}
 
+	@Override
+	public AppointmentDetail getOneByDate(Integer trainerNo, Date date){
+		return dao.getOneByDate(trainerNo , date);
+	}
+
 }
 

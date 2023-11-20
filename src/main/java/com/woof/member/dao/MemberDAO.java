@@ -23,4 +23,6 @@ public interface MemberDAO {
 	
 	long getTotal();
 
+	void updateTotalClass(String memNo , Integer clazz);
+
 }
