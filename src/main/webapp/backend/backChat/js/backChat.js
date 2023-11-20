@@ -38,7 +38,6 @@ function connect(){
         if ("open" === jsonObj.type) {
             refreshMemberList(jsonObj);
         }else if ("history" === jsonObj.type) {
-            chatHeader.innerHTML = '';
             // 這行的jsonObj.message是從redis撈出跟好友的歷史訊息，再parse成JSON格式處理
             let messages = JSON.parse(jsonObj.message);
             for (let i = 0; i < messages.length; i++) {
@@ -118,17 +117,14 @@ function scrollToBottom() {
 
 // 有好友上線或離線就更新列表
 function refreshMemberList(jsonObj) {
-    let members = jsonObj.users;
-    chatList.innerHTML = '';
-    for (let i = 0; i < members.length; i++) {
-        if (members[i] === self) { continue; }
-        appendMemberList(membersList(members[i] , jsonObj));
-    }
+    let membersOnline= jsonObj.users;
+    let membersHistrory = jsonObj.memberList;
 
-    // let node =document.querySelectorAll(".li-chat");
-    // node.forEach(liEL =>{
-    //     console.log(liEL.getAttribute("data-id"))
-    // })
+    chatList.innerHTML = '';
+    for (let i = 0; i < membersHistrory.length; i++) {
+        if (membersHistrory[i] === self) { continue; }
+        appendMemberList(membersList(membersHistrory[i] , membersOnline));
+    }
 
 }
 
@@ -136,12 +132,17 @@ function appendMemberList(message){
     chatList.innerHTML += message;
 }
 
-function membersList(member , jsonObj){
+function membersList(member , memberOnline){
+    let online = false;
+    if (memberOnline.includes(member)){
+        online = true;
+    }
+
     return `<li class="clearfix li-chat" data-id="${member}">
               <img src="${projectName}/DBPngReader?action=member&id=${member}" alt="avatar">
               <div class="about">
                 <div class="name">${member}</div>
-                <div class="status"> <i class="fa fa-circle ${jsonObj.type === 'open' ? 'online' : 'offline'}"></i>${jsonObj.type === 'open' ? 'online' : 'offline'}</div>
+                <div class="status"> <i class="fa fa-circle ${online ? 'online' : 'offline'}"></i>${online ? 'online' : 'offline'}</div>
               </div>
             </li>`;
 }

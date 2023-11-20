@@ -40,18 +40,22 @@ public class JedisHandleMessage {
 			jedis.zadd(setKey, newScore, user);
 		}
 		// 如果用戶已存在，不進行任何操作
+
+//		Set<String> memberList = jedis.zrange("memberList", 0, -1);
+
 		jedis.close();
+//		return memberList;
 	}
 
 	public static Set<String> getMemberList(){
 		Jedis jedis = JedisUtil.getResource();
 		Set<String> memberList = jedis.zrange("memberList", 0, -1);
 
-//		// 輸出 zset 的所有成員
-//		for (String member : memberList) {
-//			System.out.println(member);
-//		}
-//
+		// 輸出 zset 的所有成員
+		for (String member : memberList) {
+			System.out.println(member);
+		}
+
 		jedis.close();
 		return memberList;
 	}
