@@ -17,6 +17,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
+import org.mindrot.jbcrypt.BCrypt;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.woof.member.entity.Member;
@@ -172,6 +174,10 @@ public class MemberServlet1 extends HttpServlet {
 		String mempwd = req.getParameter("memPassword").trim();
 		if (mempwd == null || mempwd.trim().length() == 0) {
 			errorMsgs.put("memPassword","會員密碼請勿空白");
+		}else {
+		    // 加密密碼
+		    String encryptedPassword = BCrypt.hashpw(mempwd, BCrypt.gensalt());
+		    member.setMemPassword(encryptedPassword);
 		}
 		
 		String memtel = req.getParameter("memTel").trim();
@@ -186,7 +192,7 @@ public class MemberServlet1 extends HttpServlet {
 
 		// Send the use back to the form, if there were errors
 		if (!errorMsgs.isEmpty()){
-			req.getRequestDispatcher("frontend/member/login/addmember.jsp").forward(req, res);
+			req.getRequestDispatcher("/frontend/member/login/addmember.jsp").forward(req, res);
 	    return;
 		}
 		
@@ -196,7 +202,7 @@ public class MemberServlet1 extends HttpServlet {
 		member.setMemName(req.getParameter("memName"));
 		member.setMemGender(req.getParameter("memGender"));
 		member.setMemEmail(mememail);
-		member.setMemPassword(req.getParameter("memPassword"));
+//		member.setMemPassword(req.getParameter("memPassword"));
 		member.setMemTel(req.getParameter("memTel"));
 		member.setMemAddress(req.getParameter("memAddress"));
 		// java.sql的日期寫法
@@ -285,6 +291,10 @@ public class MemberServlet1 extends HttpServlet {
 		String mempwd = req.getParameter("memPassword").trim();
 		if (mempwd == null || mempwd.trim().length() == 0) {
 			errorMsgs.put("memPassword","會員密碼請勿空白");
+		}else {
+		    // 加密密碼
+		    String encryptedPassword = BCrypt.hashpw(mempwd, BCrypt.gensalt());
+		    member.setMemPassword(encryptedPassword);
 		}
 		
 		String memtel = req.getParameter("memTel").trim();
@@ -306,7 +316,7 @@ public class MemberServlet1 extends HttpServlet {
 		member.setMemName(req.getParameter("memName"));
 		member.setMemGender(req.getParameter("memGender"));
 		member.setMemEmail(req.getParameter("memEmail"));
-		member.setMemPassword(req.getParameter("memPassword"));
+//		member.setMemPassword(req.getParameter("memPassword"));
 		member.setMemTel(req.getParameter("memTel"));
 		member.setMemAddress(req.getParameter("memAddress"));
 		// 插入圖片
@@ -416,9 +426,7 @@ public class MemberServlet1 extends HttpServlet {
 		req.getParameter("memNo");
 		memberService.deletePhoto(req.getParameter("memNo"));
 		// 導到指定的URL 頁面上 把請求回應都帶過去
-		String url = req.getContextPath() + "/backend/member/list_all_member.jsp";
-		req.setCharacterEncoding("UTF-8");
-		res.sendRedirect(url);
+		req.getRequestDispatcher( "/frontend/member/login/login.jsp").forward(req, res);
 	}
 
 	private String getAllmembers(HttpServletRequest req, HttpServletResponse res) throws IOException {
