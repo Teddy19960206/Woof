@@ -46,16 +46,11 @@
         </li>
         <li class="nav-item me-3">
           <a class="nav-link" href="#">
-            <img src="<%=request.getContextPath()%>/webutil/icons/faq.svg" style="width: 30px" />
+            <img src="<%=request.getContextPath()%>/webutil/icons/person-circle-question-solid.svg" style="width: 30px" />
             <p class="d-xl-none d-inline text-center mx-3">FAQ</p>
           </a>
         </li>
-        <li class="nav-item me-3">
-          <a class="nav-link" href="#"
-          ><img src="<%=request.getContextPath()%>/webutil/icons/service.svg" style="width: 30px" />
-            <p class="d-xl-none d-inline text-center mx-3">聯絡客服</p>
-          </a>
-        </li>
+        
 
           <c:if test="${!empty sessionScope.member}">
             <li class="nav-item me-3">
@@ -73,7 +68,8 @@
         </li>
         <li class="nav-item me-3">
           <a class="nav-link" href="<%=request.getContextPath()%>/frontend/cartlist/cart.jsp">
-            <img src="<%=request.getContextPath()%>/webutil/icons/cart.svg" style="width: 30px" />
+            <img src="<%=request.getContextPath()%>/webutil/icons/cart-plus-solid.svg" style="width: 30px" />
+            <span id="cart-count">0</span>
             <p class="d-xl-none d-inline text-center mx-3">購物車</p>
           </a>
         </li>

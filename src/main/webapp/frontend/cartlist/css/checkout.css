@@ -1,0 +1,23 @@
+
+/* 價格的位置調整 */
+.summary-container {
+	/* 	display: flex; */
+	flex-direction: column;
+}
+
+.summary-row {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 5px;
+}
+
+.summary-label {
+	text-align: left;
+}
+
+.summary-value, .input-row .summary-value {
+	/* 	text-align: right; */
+	display: flex;
+ 	justify-content: flex-end; 
+}

@@ -85,7 +85,8 @@ public class ShopOrdeServlet extends HttpServlet {
 		}
 
 		response.setContentType("text/html; charset=UTF-8");
-		RequestDispatcher dispatcher = request.getRequestDispatcher(forwardPath);
+//		RequestDispatcher dispatcher = request.getRequestDispatcher(forwardPath);
+		RequestDispatcher dispatcher = request.getRequestDispatcher(forwardPath);		
 		dispatcher.forward(request, response);
 
 	}
@@ -203,12 +204,14 @@ public class ShopOrdeServlet extends HttpServlet {
 		
 		// 如果有確定進入資料庫會有流水編號，再去找流水編號的值，顯示在jsp
 		var result = shopOrderService.findByShopOrderNo(savedOrderNo);
-
+//		 資料給下一個jsp
+		request.setAttribute("result", result);
 		
 		
 		if (savedOrderNo > 0) {
 //		    return 1; // 訂單新增成功
 			System.out.println("訂單新增成功");
+			request.setAttribute("orderSuccess", true);
 			
 			try (Jedis jedis = new Jedis("localhost", 6379)) {
 	            // 從 Redis 獲取購物車數據
@@ -229,15 +232,7 @@ public class ShopOrdeServlet extends HttpServlet {
 	                System.out.println(prodNo+"===============================================");
 	                System.out.println(orderAmount+"===============================================");
 	                System.out.println(prodPrice+"===============================================");
-	                
-//	                // 創建 ShopOrderDetail 實例
-////	                ShopOrderDetail shopOrderDetail = new ShopOrderDetail();
-//	                shopOrderDetail.setShopOrderNo(savedOrderNo);
-//	                shopOrderDetail.setProdNo(prodNo);
-//	                shopOrderDetail.setOrderAmount(quantity);
-//	                shopOrderDetail.setProdPrice(prodPrice);
-//	                shopOrderDetail.setHasReturned(0); // 假設初始未退貨
-//	                shopOrderDetail.setDiscountRate(null); // 假設沒有折扣
+
 
 	                // 保存訂單明細
 	                shopOrderDetailService.addShopOrderDetail(savedOrderNo, prodNo, orderAmount, prodPrice, hasReturned, discountRate);
@@ -246,8 +241,9 @@ public class ShopOrdeServlet extends HttpServlet {
 	            // 清除 Redis 中的購物車數據
 	            jedis.del(memNo);
 	        } catch (Exception e) {
+	        	
 	            e.printStackTrace();
-	            // 錯誤處理邏輯
+	            
 	        }
 
 		} else {
@@ -257,8 +253,7 @@ public class ShopOrdeServlet extends HttpServlet {
 
 		
 		
-		// 資料給下一個jsp
-		request.setAttribute("result", result);
+
 		return "/frontend/cartlist/finishorder.jsp";
 	}
 

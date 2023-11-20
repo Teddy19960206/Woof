@@ -4,6 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <title>忘記密碼</title>
+     <!-- 引入 jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- 引入 Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
     <style>
         body {
             background-color: #f4f4f4; /* 背景顏色 */
@@ -85,7 +89,5 @@
             </form>
         </div>
     </div>
-    <!-- Bootstrap JavaScript -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

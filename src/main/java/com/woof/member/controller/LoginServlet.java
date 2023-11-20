@@ -112,12 +112,13 @@ public class LoginServlet extends HttpServlet {
 		String email =(String) request.getAttribute("email");
 		String picture = (String) request.getAttribute("picture");
 
-		System.out.println(picture);
 		Member member = memberService.findMemberByNo(id);
 		HttpSession session = request.getSession();
 		if (member != null && member.getMemNo().equals(id)){
 			session.setAttribute("member", member);
 		}else{
+
+			System.out.println(id + "   / id");
 			Member newMember = new Member();
 			newMember.setMemNo(id);
 			newMember.setMemName(name);

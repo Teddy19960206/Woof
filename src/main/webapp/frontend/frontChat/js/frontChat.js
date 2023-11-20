@@ -45,10 +45,10 @@ $(document).on("click" , ".header" , function (){
 
 let host = window.location.host;
 let path = window.document.location.pathname;
-let projectName = path.substring( 0 , path.substring(1).indexOf("/")+1);
+let projectForChat = path.substring( 0 , path.substring(1).indexOf("/")+1);
 let member = $("#member").text();
 let myPoint = `/chat/${member}`;
-let endPoint = `ws://` + host + projectName + myPoint;
+let endPoint = `ws://` + host + projectForChat + myPoint;
 
 $(window).on('beforeunload', function() {
     disconnect();
@@ -68,12 +68,14 @@ function connect(){
         console.log(jsonObj);
         if ("open" === jsonObj.type) {
 
-        }else if ("chat"){
+        }else if ("chat" === jsonObj.type){
             if ("admin" === jsonObj.sender){
                 addMessage(jsonObj);
             }else{
 
             }
+        }else if ("history" === jsonObj.type){
+
         }
     }
 

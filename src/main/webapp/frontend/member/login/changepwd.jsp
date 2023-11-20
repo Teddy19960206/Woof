@@ -96,20 +96,20 @@ function togglePasswordVisibility(fieldId) {
             </div>
             <form method="post" action="${pageContext.request.contextPath}/resetPassword.do">
                 <div class="form-group">
-                    <label for="memPassword">新密碼:</label>
+                    <label for="memPassword">新密碼(需大於六個字):</label>
                     <div style="position: relative;">
-                    <input class="form-control" type="password" name="memPassword" id="memPassword" />
+                    <input class="form-control" type="password" pattern=".{6,}" name="memPassword" id="memPassword" />
                      <i class="fa fa-eye-slash" style="position: absolute; right: 10px; top: 10px; cursor: pointer;" onclick="togglePasswordVisibility('memPassword')" id="toggleNewPassword"></i>
                     </div>
                     <small class="error-msg">${errorMsgs.memPassword}</small>
                 </div>
                 <div class="form-group">
-                    <label for="memPassword">確認新密碼:</label>
+                    <label for="memPassword">確認新密碼(需大於六個字):</label>
                      <div style="position: relative;">
-                    <input class="form-control" type="password" name="confirmMemPassword" id="confirmMemPassword" />
+                    <input class="form-control" type="password" pattern=".{6,}" name="confirmMemPassword" id="confirmMemPassword" />
                     <i class="fa fa-eye-slash" style="position: absolute; right: 10px; top: 10px; cursor: pointer;" onclick="togglePasswordVisibility('confirmMemPassword')" id="toggleConfirmPassword"></i>
                     </div>
-                    <small class="error-msg">${errorMsgs.confirmMemPassword}</small>
+                    <small class="error-msg">${errorMsgs.memPassword}</small>
                 </div>
                 <input type="hidden" name="token" value="${param.token}" />
                 <input type="hidden" name="action" value="changepwd">

@@ -120,7 +120,8 @@ public class PrivateTrainingAppointmentFormDAOImpl implements PrivateTrainingApp
 				"JOIN APPOINTMENT_DETAIL ad ON pta.PTA_NO = ad.PTA_NO " +
 				"WHERE pta.TRAINER_NO = :trainerNo AND " +
 				"MONTH(ad.APP_TIME) = :month AND " +
-				"YEAR(ad.APP_TIME) = :year";
+				"YEAR(ad.APP_TIME) = :year AND " +
+				"ad.APP_STATUS = 0";
 
 		NativeQuery query = getSession().createNativeQuery(sql);
 		query.setParameter("trainerNo", trainerNo);

@@ -92,4 +92,8 @@ public class NonTrainingScheduleServiceImpl implements NonTrainingScheduleServic
 	public List<Date> getAllByTrainer(Integer year , Integer month , Integer trainerNo){
 		return dao.getAllByDate(year , month , trainerNo);
 	}
+
+	public void deleteByDate(Integer trainerNo , Date date ){
+		dao.deleteByDate(trainerNo , date);
+	}
 }

@@ -11,6 +11,7 @@ import org.hibernate.SessionFactory;
 
 import com.woof.nontrainingschedule.entity.NonTrainingSchedule;
 import org.hibernate.query.NativeQuery;
+import org.hibernate.query.Query;
 
 public class NonTrainingScheduleDAOImpl implements NonTrainingScheduleDAO{
 
@@ -126,5 +127,13 @@ public class NonTrainingScheduleDAOImpl implements NonTrainingScheduleDAO{
 
 		return sqlQuery.list();
 
+	}
+
+	public void deleteByDate(Integer trainerNo , Date date ){
+		String hql = "DELETE NonTrainingSchedule WHERE trainer.trainerNo = :trainerNo AND ntsDate = :date";
+		Query query = getSession().createQuery(hql);
+		query.setParameter("trainerNo" , trainerNo);
+		query.setParameter("date" , date);
+		query.executeUpdate();
 	}
 }

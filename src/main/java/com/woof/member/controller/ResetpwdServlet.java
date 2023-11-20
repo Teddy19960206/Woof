@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.mindrot.jbcrypt.BCrypt;
+
 import com.woof.member.entity.Member;
 import com.woof.member.service.MemberService;
 import com.woof.member.service.MemberServiceImpl;
@@ -38,21 +40,21 @@ public class ResetpwdServlet extends HttpServlet {
 		if ("reset".equals(action)) {
 			MailService mailService = new MailService();
 			Map<String,String> errorMsgs = new LinkedHashMap<String,String>();
-			req.setAttribute("errorMsgs", errorMsgs);
 			List<Member> members = memberService.getAllMembers();
 			String mememail = req.getParameter("memEmail");
+			
 			boolean isEmailRegistered = false;
 			for(Member mem :  members) {
 				if(mem.getMemEmail().equals(mememail)) {
 					isEmailRegistered = true;
 			        break;
 				}
-			}
+				}
 			if(!isEmailRegistered) {
 			    errorMsgs.put("memEmail", "該信箱未註冊過");
 			}
+			req.setAttribute("errorMsgs", errorMsgs);
 			if(!errorMsgs.isEmpty()) {
-				
 				req.getRequestDispatcher("frontend/member/login/forgotpwd.jsp").forward(req, res);
 			    return;
 			}
@@ -78,8 +80,9 @@ public class ResetpwdServlet extends HttpServlet {
 			mailService.sendMail(mememail, "忘記密碼", MailService.passwordResetEmail(resetLink));
 
 			// 導到指定的URL 頁面上 把請求回應都帶過去
-			String url = req.getContextPath() + "/frontend/member/login/validemail.jsp";
-			res.sendRedirect(url);
+//			String url = req.getContextPath() + "/frontend/member/login/forgotpwdmail.jsp";
+//			res.sendRedirect(url);
+			req.getRequestDispatcher("frontend/member/login/forgotpwdmail.jsp").forward(req, res);
 		}
 		// ================更改密碼======================//
 		if ("changepwd".equals(action)) {
@@ -87,10 +90,14 @@ public class ResetpwdServlet extends HttpServlet {
 			String tokenFromRequest = req.getParameter("token");
 			String memPassword = req.getParameter("memPassword");
 			String confirmPassword = req.getParameter("confirmMemPassword");
+			Map<String,String> errorMsgs = new LinkedHashMap<String,String>();
+			 // 加密密碼
+		    String encryptedPassword = BCrypt.hashpw(memPassword, BCrypt.gensalt());
 			// 新增: 比較 memPassword 和 confirmPassword 是否一致
 		    if (!memPassword.equals(confirmPassword)) {
+		    	req.setAttribute("errorMsgs", errorMsgs);
 		        // 如果不一致，設置錯誤訊息並重定向到錯誤頁面或顯示錯誤
-		        req.setAttribute("errorMsg", "密碼和確認密碼不匹配");
+		        errorMsgs.put("memPassword","密碼不一致");
 		        req.getRequestDispatcher("/frontend/member/login/changepwd.jsp").forward(req, res);
 		        return;
 		    }
@@ -115,7 +122,8 @@ public class ResetpwdServlet extends HttpServlet {
 				// 令牌有效，繼續執行更改密碼的操作
 				Member member = memberService.findMemberByEmail(memEmail);
 				System.out.println(member+ " / member");
-				member.setMemPassword(memPassword);
+				member.setMemPassword(encryptedPassword);
+//				member.setMemPassword(memPassword);
 				memberService.updateMember(member);
 				// 導到指定的URL 頁面上 把請求回應都帶過去
 				req.getRequestDispatcher("/frontend/member/login/changepwdsucess.jsp").forward(req, res);
