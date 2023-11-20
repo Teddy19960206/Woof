@@ -28,13 +28,11 @@
 	<%@ include file="/Header.file"%>
 
 	<div class="container mb-5 bg-white p-5 rounded-4 shadow">
-		<!-- 圖標元素，一開始隱藏 -->
 		<div id="orderSuccessIcon" style="display: none; text-align: center;">
-<!-- 			<i class="fa fa-circle-check fa-3x"></i> -->
 			<h2>訂單完成</h2>
 		</div>
 
-		<!-- 其他內容 -->
+
 	</div>
 	<%@ include file="/Footer.file"%>
 	<script src="<%=request.getContextPath()%>/frontend/cartlist/js/finishorder.js"></script>

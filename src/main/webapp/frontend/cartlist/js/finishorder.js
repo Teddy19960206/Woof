@@ -13,7 +13,7 @@ $(document).ready(function() {
             text: '您的訂單已成功提交！',
             icon: 'success',
             confirmButtonText: '確定',
-            confirmButtonColor: '#3085d6'
+            confirmButtonColor: '#F79B66'
         });
     }
 });

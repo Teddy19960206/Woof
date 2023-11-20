@@ -85,7 +85,8 @@ public class ShopOrdeServlet extends HttpServlet {
 		}
 
 		response.setContentType("text/html; charset=UTF-8");
-		RequestDispatcher dispatcher = request.getRequestDispatcher(forwardPath);
+//		RequestDispatcher dispatcher = request.getRequestDispatcher(forwardPath);
+		RequestDispatcher dispatcher = request.getRequestDispatcher(forwardPath);		
 		dispatcher.forward(request, response);
 
 	}
@@ -203,7 +204,8 @@ public class ShopOrdeServlet extends HttpServlet {
 		
 		// 如果有確定進入資料庫會有流水編號，再去找流水編號的值，顯示在jsp
 		var result = shopOrderService.findByShopOrderNo(savedOrderNo);
-
+//		 資料給下一個jsp
+		request.setAttribute("result", result);
 		
 		
 		if (savedOrderNo > 0) {
@@ -230,15 +232,7 @@ public class ShopOrdeServlet extends HttpServlet {
 	                System.out.println(prodNo+"===============================================");
 	                System.out.println(orderAmount+"===============================================");
 	                System.out.println(prodPrice+"===============================================");
-	                
-//	                // 創建 ShopOrderDetail 實例
-////	                ShopOrderDetail shopOrderDetail = new ShopOrderDetail();
-//	                shopOrderDetail.setShopOrderNo(savedOrderNo);
-//	                shopOrderDetail.setProdNo(prodNo);
-//	                shopOrderDetail.setOrderAmount(quantity);
-//	                shopOrderDetail.setProdPrice(prodPrice);
-//	                shopOrderDetail.setHasReturned(0); // 假設初始未退貨
-//	                shopOrderDetail.setDiscountRate(null); // 假設沒有折扣
+
 
 	                // 保存訂單明細
 	                shopOrderDetailService.addShopOrderDetail(savedOrderNo, prodNo, orderAmount, prodPrice, hasReturned, discountRate);
@@ -259,8 +253,7 @@ public class ShopOrdeServlet extends HttpServlet {
 
 		
 		
-		// 資料給下一個jsp
-//		request.setAttribute("result", result);
+
 		return "/frontend/cartlist/finishorder.jsp";
 	}
 
