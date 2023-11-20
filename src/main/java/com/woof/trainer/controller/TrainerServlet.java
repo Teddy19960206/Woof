@@ -129,6 +129,26 @@ public class TrainerServlet  extends HttpServlet {
 		response.setContentType("application/json;charset=UTF-8");
 		response.getWriter().write(json);
 	}
+	
+	private void getAll(HttpServletRequest request, HttpServletResponse response) {
+		String page = request.getParameter("page");
+		int currentPage = (page == null) ? 1 : Integer.parseInt(page);
+		if (request.getSession().getAttribute("PTAPageQty") == null) {
+			int PTAPageQty = trainerService.getPageTotal();
+			request.getSession().setAttribute("PTAPageQty", PTAPageQty);
+		}
+		List<Trainer> allTrainers = trainerService
+				.getAllTrainers2(currentPage);
+
+//		List<Trainer> allTrainers =  trainerService.getAllTrainers();
+
+//		Integer member = trainerService.findTrainerByPtaNo(ptaNo).getMember().getMemNo();
+//		Integer trainer = trainerService.findTrainerByPtaNo(ptaNo).getTrainer().getTrainerNo();
+
+		request.setAttribute("trainers", allTrainers);
+		request.setAttribute("currentPage", currentPage);
+
+	}
 }
 
 

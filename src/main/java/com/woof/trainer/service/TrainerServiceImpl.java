@@ -1,5 +1,7 @@
 package com.woof.trainer.service;
 
+import static com.woof.util.Constants.PAGE_MAX_RESULT;
+
 import java.util.List;
 import java.util.Set;
 
@@ -79,6 +81,19 @@ public class TrainerServiceImpl  implements TrainerService{
 	public Trainer getByAdmin(String adminNo) {
 		return dao.getByAdmin(adminNo);
 	}
+
+	@Override
+	public List<Trainer> getAllTrainers2(int currentPage) {
+		return dao.getAll(currentPage);
+	}
+
+	@Override
+	public int getPageTotal() {
+		long total = dao.getTotal();
+		int pageQty = (int) (total % PAGE_MAX_RESULT == 0 ? (total / PAGE_MAX_RESULT) : (total / PAGE_MAX_RESULT + 1));
+		return pageQty;
+	}
+	
 }
 
 
