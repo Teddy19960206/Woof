@@ -1,6 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page contentType="text/html;charset=UTF-8" language="java"
-	isELIgnored="false"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false"%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -17,21 +16,26 @@
 <script
 	src="<%=request.getContextPath()%>/webutil/js/jquery-3.7.1.min.js"></script>
 <script src="<%=request.getContextPath()%>/webutil/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="<%=request.getContextPath()%>/frontend/cartlist/css/finishorder.css">
 <title>寵毛導師 Woof | 訂單完成</title>
 
 </head>
 
 <body>
+	<script>
+        let orderSuccess = <%= request.getAttribute("orderSuccess") != null ? request.getAttribute("orderSuccess") : false %>;
+    </script>
 	<%@ include file="/Header.file"%>
 
 	<div class="container mb-5 bg-white p-5 rounded-4 shadow">
-	
-	
-	
+		<div id="orderSuccessIcon" style="display: none; text-align: center;">
+			<h2>訂單完成</h2>
+		</div>
+
+
 	</div>
 	<%@ include file="/Footer.file"%>
-	<script
-		src="<%=request.getContextPath()%>/frontend/cartlist/js/checkout.js"></script>
+	<script src="<%=request.getContextPath()%>/frontend/cartlist/js/finishorder.js"></script>
 </body>
 
 </html>

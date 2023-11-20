@@ -17,32 +17,11 @@
 <script
 	src="<%=request.getContextPath()%>/webutil/js/jquery-3.7.1.min.js"></script>
 <script src="<%=request.getContextPath()%>/webutil/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/frontend/cartlist/css/checkout.css" />
 <title>寵毛導師 Woof | 購物車結帳</title>
 
 <style>
 
-/* 價格的位置調整 */
-.summary-container {
-	/* 	display: flex; */
-	flex-direction: column;
-}
-
-.summary-row {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	margin-bottom: 5px;
-}
-
-.summary-label {
-	text-align: left;
-}
-
-.summary-value, .input-row .summary-value {
-	/* 	text-align: right; */
-	display: flex;
- 	justify-content: flex-end; 
-}
 </style>
 
 </head>
