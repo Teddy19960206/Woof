@@ -170,9 +170,10 @@
 							<div>
 								<input class="form-check-input" type="radio" id="shipMethod"
 									name="shipMethod" value="false" checked> <label
-									for="shipMethod">宅配</label> <input class="form-check-input"
-									type="radio" id="convenienceStore" name="shipMethod"
-									value="true"> <label for="shipMethod">超商</label>
+									for="shipMethod">宅配</label> 
+<!-- 									<input class="form-check-input" -->
+<!-- 									type="radio" id="convenienceStore" name="shipMethod" -->
+<!-- 									value="true"> <label for="shipMethod">超商</label> -->
 							</div>
 						</div>
 						<div>
