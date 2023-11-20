@@ -9,17 +9,23 @@
   function processUpdate(jsonData){
    window.location.href = " <%=request.getContextPath()%>/backend/member/updatemember.jsp?memNo=" + jsonData.memNo ;
   }
- //確認刪除提示框
-  function confirmDelete(memNo) {
-    var confirmAction = confirm("您確定要刪除編號為 " + memNo + " 的會員資料嗎？");
-    if (confirmAction) {
-        // 執行刪除操作，例如發送表單或請求
-        window.location.href = "<%=request.getContextPath()%>/member.do?action=delete&memNo=" + memNo;
-    } else {
-        // 取消操作
-        console.log("取消刪除");
-    }
-}
+  function confirmChangeStatus(form) {
+	    Swal.fire({
+	        title: '您確定要更改會員狀態嗎？',
+	        icon: 'warning',
+	        showCancelButton: true,
+	        confirmButtonColor: '#3085d6',
+	        cancelButtonColor: '#d33',
+	        confirmButtonText: '我要更改！',
+	        cancelButtonText: '取消'
+	    }).then((result) => {
+	        if (result.isConfirmed) {
+	            form.submit();
+	        }
+	    });
+	    // 阻止表單的預設提交
+	    return false;
+	}
 </script>
 <style>
 /* 基本樣式，適用於大屏幕 */
@@ -103,23 +109,39 @@ tr:hover {
 .update-btn:hover {
 	background-color: pink;
 }
-.suspended {
-    color: red; /* 停權的文字顏色 */
+.status-label {
+    padding: .25em .6em;
+    font-size: 75%;
+    font-weight: bold;
+    line-height: 2;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: .25rem;
+    display: inline-block;
 }
 
-.active {
-    color: blue; /* 正常狀態的文字顏色 */
-    }
+.status-normal {
+    background-color: #28a745; /* 綠色背景 */
+    color: white;
+}
+
+.status-suspended {
+    background-color: #dc3545; /* 紅色背景 */
+    color: white;
+}
+.status-nonvalid {
+    background-color:  gray; /* 藍色背景 */
+    color: white;
+}
 </style>
 <script src="https://kit.fontawesome.com/3f37e88a3b.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
 <%@ include file="/backend/backbody.file" %>
 <jsp:useBean id="memberService" scope="page"
    class="com.woof.member.service.MemberServiceImpl" />
- <div>
- <a href="/woof/backend/index.jsp"style="position: absolute; top: 20px; right: 20px;"><i class="fa-solid fa-house"></i></a>
- </div>
  <table>
   <tr>
    <th>編號</th>
@@ -150,10 +172,13 @@ tr:hover {
     <td>
        <c:choose>
             <c:when test="${member.memStatus == 0}">
-                <span class="suspended">停權</span>
+                <span class="status-label status-suspended">停權</span>
             </c:when>
             <c:when test="${member.memStatus == 1}">
-                <span class="active">正常</span>
+                <span class="status-label status-normal">正常</span>
+            </c:when>
+            <c:when test="${member.memStatus == 2}">
+                <span class="status-label status-nonvalid">未驗證</span>
             </c:when>
         </c:choose>
 	</td>
@@ -170,6 +195,7 @@ tr:hover {
     <td> 
  	 <form method="post"
       action="${pageContext.request.contextPath}/member.do"
+      onsubmit="return confirmChangeStatus(this);" 
       style="margin-bottom: 0px;">
       <input type="hidden" name="action" value="changestatus"> 
       <input type="hidden" name="memNo" value="${member.memNo}"> 

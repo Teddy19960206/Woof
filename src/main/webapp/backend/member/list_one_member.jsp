@@ -5,10 +5,23 @@
 <%@ include file="/backend/backhead.file" %>
 <title>會員資料</title>
 <script type="text/javascript">
-//表單點擊找出對應的function//
-  function processUpdate(jsonData){
-   window.location.href = " <%=request.getContextPath()%>/backend/member/updatemember.jsp?memNo=" + jsonData.memNo ;
-  }
+  function confirmChangeStatus(form) {
+	    Swal.fire({
+	        title: '您確定要更改狀態嗎？',
+	        icon: 'warning',
+	        showCancelButton: true,
+	        confirmButtonColor: '#3085d6',
+	        cancelButtonColor: '#d33',
+	        confirmButtonText: '我要更改！',
+	        cancelButtonText: '取消'
+	    }).then((result) => {
+	        if (result.isConfirmed) {
+	            form.submit();
+	        }
+	    });
+	    // 阻止表單的預設提交
+	    return false;
+	}
 </script>
 <style>
 /* 基本樣式，適用於大屏幕 */
@@ -28,7 +41,6 @@ body {
 
     /* 其他需要調整的樣式 */
 }
-
 /* 小於或等於 480px 的屏幕（如手機） */
 @media screen and (max-width: 480px) {
     table, th, td {
@@ -92,14 +104,27 @@ tr:hover {
 .update-btn:hover {
 	background-color: pink;
 }
-.suspended {
-    color: red; /* 停權的文字顏色 */
+.status-label {
+    padding: .25em .6em;
+    font-size: 75%;
+    font-weight: bold;
+    line-height: 2;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: .25rem;
+    display: inline-block;
 }
 
-.active {
-    color: blue; /* 正常狀態的文字顏色 */
+.status-normal {
+    background-color: #28a745; /* 綠色背景 */
+    color: white;
 }
 
+.status-suspended {
+    background-color: #dc3545; /* 紅色背景 */
+    color: white;
+}
 </style>
 <script src="https://kit.fontawesome.com/3f37e88a3b.js" crossorigin="anonymous"></script>
 </head>
@@ -137,18 +162,19 @@ tr:hover {
     <td>${member.momoPoint}</td>
     <td>${member.totalClass}</td>
     <td>
-    <c:choose>
+       <c:choose>
             <c:when test="${member.memStatus == 0}">
-                <span class="suspended">停權</span>
+                <span class="status-label status-suspended">停權</span>
             </c:when>
             <c:when test="${member.memStatus == 1}">
-                <span class="active">正常</span>
+                <span class="status-label status-normal">正常</span>
             </c:when>
         </c:choose>
         </td>
     <td>
-     <form method="post"
+ 	 <form method="post"
       action="${pageContext.request.contextPath}/member.do"
+      onsubmit="return confirmChangeStatus(this);" 
       style="margin-bottom: 0px;">
       <input type="hidden" name="action" value="changestatus"> 
       <input type="hidden" name="memNo" value="${member.memNo}"> 
