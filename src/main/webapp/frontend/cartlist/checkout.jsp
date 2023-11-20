@@ -17,6 +17,7 @@
 <script
 	src="<%=request.getContextPath()%>/webutil/js/jquery-3.7.1.min.js"></script>
 <script src="<%=request.getContextPath()%>/webutil/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/frontend/cartlist/css/checkout.css" />
 <title>寵毛導師 Woof | 購物車結帳</title>
 
 <style>
@@ -231,8 +232,6 @@
 	<%@ include file="/Footer.file"%>
 	<script
 		src="<%=request.getContextPath()%>/frontend/cartlist/js/checkout.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/frontend/cartlist/css/checkout.css"></script>	
 </body>
 
 </html>

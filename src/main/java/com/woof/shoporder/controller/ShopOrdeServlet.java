@@ -209,6 +209,7 @@ public class ShopOrdeServlet extends HttpServlet {
 		if (savedOrderNo > 0) {
 //		    return 1; // 訂單新增成功
 			System.out.println("訂單新增成功");
+			request.setAttribute("orderSuccess", true);
 			
 			try (Jedis jedis = new Jedis("localhost", 6379)) {
 	            // 從 Redis 獲取購物車數據
@@ -246,8 +247,9 @@ public class ShopOrdeServlet extends HttpServlet {
 	            // 清除 Redis 中的購物車數據
 	            jedis.del(memNo);
 	        } catch (Exception e) {
+	        	
 	            e.printStackTrace();
-	            // 錯誤處理邏輯
+	            
 	        }
 
 		} else {
@@ -258,7 +260,7 @@ public class ShopOrdeServlet extends HttpServlet {
 		
 		
 		// 資料給下一個jsp
-		request.setAttribute("result", result);
+//		request.setAttribute("result", result);
 		return "/frontend/cartlist/finishorder.jsp";
 	}
 
