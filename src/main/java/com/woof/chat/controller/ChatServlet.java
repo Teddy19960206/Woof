@@ -1,6 +1,9 @@
 package com.woof.chat.controller;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.woof.chat.jedis.JedisHandleMessage;
 import com.woof.chat.model.State;
 import com.woof.chat.model.ChatMessage;
@@ -29,18 +32,18 @@ public class ChatServlet {
         Set<String> memberNames = sessionsMap.keySet();
         State stateMessage = new State("open", userName, memberNames);
         String stateMessageJson = gson.toJson(stateMessage);
+        JsonObject jsonTree = JsonParser.parseString(stateMessageJson).getAsJsonObject();
 
+        // 將新的陣列添加到 JSON 物件中
 
         Session session = sessionsMap.get("admin");
         if (session.isOpen()) {
 //              發送訊息
             JedisHandleMessage.saveMemberList(userName);
-            Set<String> memberList = JedisHandleMessage.getMemberList();
-//            session.getAsyncRemote().sendText(gson.toJson(memberList));
-            session.getAsyncRemote().sendText(stateMessageJson);
+            Set<String> memberList =JedisHandleMessage.getMemberList();
+            jsonTree.add("memberList", gson.toJsonTree(memberList));
+            session.getAsyncRemote().sendText(jsonTree.toString());
         }
-
-
 
         String text = String.format("Session ID = %s, connected; userName = %s%nusers: %s", userSession.getId(),
                 userName, memberNames);
@@ -94,9 +97,11 @@ public class ChatServlet {
         if (userNameClose != null) {
             State stateMessage = new State("close", userNameClose, userNames);
             String stateMessageJson = gson.toJson(stateMessage);
-
+            JsonObject jsonTree = JsonParser.parseString(stateMessageJson).getAsJsonObject();
+            Set<String> memberList =JedisHandleMessage.getMemberList();
+            jsonTree.add("memberList", gson.toJsonTree(memberList));
             Session admin = sessionsMap.get("admin");
-            admin.getAsyncRemote().sendText(stateMessageJson);
+            admin.getAsyncRemote().sendText(jsonTree.toString());
         }
 
         String text = String.format("session ID = %s, disconnected; close code = %d%nusers: %s", userSession.getId(),
