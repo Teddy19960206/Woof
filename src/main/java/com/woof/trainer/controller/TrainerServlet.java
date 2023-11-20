@@ -7,13 +7,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.woof.administrator.entity.Administrator;
 import com.woof.groupscheduledetail.entity.GroupScheduleDetail;
+import com.woof.privatetrainingappointmentform.entity.PrivateTrainingAppointmentForm;
 import com.woof.skill.entity.Skill;
 import com.woof.trainer.entity.Trainer;
 import com.woof.trainer.service.TrainerService;
@@ -53,6 +53,9 @@ public class TrainerServlet  extends HttpServlet {
 				return;
 			case "/getTrainerProfile":
 				getTrainerProfile(request ,response);
+				return;
+			case "/getAll":
+				getAll(request ,response);
 				return;
 			default:
 
@@ -133,21 +136,40 @@ public class TrainerServlet  extends HttpServlet {
 	private void getAll(HttpServletRequest request, HttpServletResponse response) {
 		String page = request.getParameter("page");
 		int currentPage = (page == null) ? 1 : Integer.parseInt(page);
-		if (request.getSession().getAttribute("PTAPageQty") == null) {
-			int PTAPageQty = trainerService.getPageTotal();
-			request.getSession().setAttribute("PTAPageQty", PTAPageQty);
-		}
+//		if (request.getSession().getAttribute("TrainerPageQty") == null) {
+			int TrainerPageQty = trainerService.getPageTotal();
+			request.getSession().setAttribute("TrainerPageQty", TrainerPageQty);
+//		}
 		List<Trainer> allTrainers = trainerService
 				.getAllTrainers2(currentPage);
 
-//		List<Trainer> allTrainers =  trainerService.getAllTrainers();
 
-//		Integer member = trainerService.findTrainerByPtaNo(ptaNo).getMember().getMemNo();
-//		Integer trainer = trainerService.findTrainerByPtaNo(ptaNo).getTrainer().getTrainerNo();
+		// 對每個訓練師處理評論
+		for (Trainer trainer : allTrainers) {
+		    List<PrivateTrainingAppointmentForm> ptas = new ArrayList<>(trainer.getPrivateTrainingAppointmentForms());
 
+		    // 使用 Collections.shuffle() 來隨機排列評論
+		    Collections.shuffle(ptas);
+
+		    // 獲取前幾筆評論，這裡是獲取前三筆
+		    List<PrivateTrainingAppointmentForm> randomComments = ptas.subList(0, Math.min(3, ptas.size()));
+
+		    // 將處理後的評論設置回訓練師物件中
+		    trainer.setPrivateTrainingAppointmentForms(new HashSet<>(randomComments));
+		}
+
+		
 		request.setAttribute("trainers", allTrainers);
 		request.setAttribute("currentPage", currentPage);
-
+		try {
+			request.getRequestDispatcher("/frontend/privatetrainer/privateTrainer.jsp").forward(request, response);
+		} catch (ServletException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }
 

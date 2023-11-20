@@ -27,11 +27,11 @@
 <body>
 <%@ include file="/Header.file" %>
  
-<jsp:useBean id="trainerServer" scope="page" class="com.woof.trainer.service.TrainerServiceImpl"/>
+<%-- <jsp:useBean id="trainerServer" scope="page" class="com.woof.trainer.service.TrainerServiceImpl"/> --%>
 
     <div class="container1">
         <h1>訓練師列表</h1>
-        <c:forEach var="trainer" items="${trainerServer.allTrainers}">
+        <c:forEach var="trainer" items="${trainers}">
         <form method="POST" action="${pageContext.request.contextPath}/commentreport" onsubmit="return commentReport()">
             <div class="trainer">
                 <img src="${pageContext.request.contextPath}/DBPngReader?action=administrator&id=${trainer.administrator.adminNo}" alt="${trainer.administrator.adminName}">
@@ -43,24 +43,42 @@
                     </c:forEach>
                 </ul>
                 <p>評價:</p>
-                <c:forEach var="pta" items="${trainer.privateTrainingAppointmentForms}">
-                    <ul>
-                        <li>${pta.ptaComment}</li>
-                        <input type="hidden" name="ptano" value="${pta.ptaNo}">
-                        <input type="hidden" name="comment" value="${pta.ptaComment}">
-                        <input type="hidden" name="action" value="report">
-                        <button>檢舉評論</button>
-                    </ul>
-                </c:forEach>
+<c:forEach var="pta" items="${trainer.privateTrainingAppointmentForms}" varStatus="loop">
+    <c:if test="${loop.index < 3}">
+        <ul>
+            <li>${pta.ptaComment}</li>
+            <input type="hidden" name="ptano" value="${pta.ptaNo}">
+            <input type="hidden" name="comment" value="${pta.ptaComment}">
+            <input type="hidden" name="action" value="report">
+            <button>檢舉評論</button>
+        </ul>
+    </c:if>
+</c:forEach>
                 <a href="${pageContext.request.contextPath}/frontend/privatetrainer/appointment.jsp?trainerNo=${trainer.trainerNo}"><button type="button">預約訓練師</button></a>
             </div>
         </form>
         </c:forEach>
     </div>
+    <p>currentPage = ${currentPage}</p>
+    <p>TrainerPageQty = ${TrainerPageQty}</p>
+	<!-- 分頁連結 -->
+	<c:if test="${currentPage > 1}">
+    	<a href="${pageContext.request.contextPath}/trainer?action=getAll&page=1">至第一頁</a>&nbsp;
+	</c:if>
+	<c:if test="${currentPage - 1 != 0}">
+    	<a href="${pageContext.request.contextPath}/trainer?action=getAll&page=${currentPage - 1}">上一頁</a>&nbsp;
+	</c:if>
+	<c:if test="${currentPage + 1 <= TrainerPageQty}">
+    	<a href="${pageContext.request.contextPath}/trainer?action=getAll&page=${currentPage + 1}">下一頁</a>&nbsp;
+	</c:if>
+	<c:if test="${currentPage != TrainerPageQty}">
+    	<a href="${pageContext.request.contextPath}/trainer?action=getAll&page=${TrainerPageQty}">至最後一頁</a>&nbsp;
+	</c:if>
 
-    <button class="btn btn-buyclass" onclick="window.location='${pageContext.request.contextPath}/frontend/privatetrainer/buyClass.jsp'">購買課堂</button>
-    <button class="btn btn-back" onclick="window.location='${pageContext.request.contextPath}/index.jsp'">返回</button>
-
+<!-- 購買課堂和返回按鈕 -->
+<button class="btn btn-buyclass" onclick="window.location='${pageContext.request.contextPath}/frontend/privatetrainer/buyClass.jsp'">購買課堂</button>
+<button class="btn btn-back" onclick="window.location='${pageContext.request.contextPath}/index.jsp'">返回</button>
+	
 <%@ include file="/Footer.file" %>
 
 </body>
