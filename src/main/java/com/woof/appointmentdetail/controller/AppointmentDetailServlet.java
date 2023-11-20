@@ -192,7 +192,13 @@ public class AppointmentDetailServlet extends HttpServlet {
 		String ptaComment =privateTrainingAppointmentFormService.findPrivateTrainingAppointmentFormByPtaNo(ptaNo).getPtaComment();
 		privateTrainingAppointmentFormService.updatePrivateTrainingAppointmentForm(ptaNo, member, trainer,
 					ptaClass,ptaComment,commentTime,commentUpTime);
-		 
+		 // 更新會員課堂數
+		Integer totalClass = member.getTotalClass();
+		if (appStatus == 0) {
+			memberService.updateMemberClass(memNo, totalClass + 1);
+		}else {
+			memberService.updateMemberClass(memNo, totalClass - 1);
+		}
 		 // 用查詢展示跳轉的效果
 		getByPtaNo(req,res);
 //		res.sendRedirect(req.getContextPath() + "/frontend/privatetrainingappointmentform/privateTrainingAppointmentForm.jsp");
@@ -247,14 +253,20 @@ public class AppointmentDetailServlet extends HttpServlet {
 		String ptaComment =privateTrainingAppointmentFormService.findPrivateTrainingAppointmentFormByPtaNo(ptaNo).getPtaComment();
 		privateTrainingAppointmentFormService.updatePrivateTrainingAppointmentForm(ptaNo, member, trainer,
 					ptaClass,ptaComment,commentTime,commentUpTime);
-		 
+		 // 更新會員課堂數
+		Integer totalClass = member.getTotalClass();
+		if (appStatus == 0) {
+			memberService.updateMemberClass(memNo, totalClass + 1);
+		}else {
+			memberService.updateMemberClass(memNo, totalClass - 1);
+		}
 		 // 用查詢展示跳轉的效果
     	getByPtaNo(req,res);
 //    	res.sendRedirect(req.getContextPath() + "/frontend/privatetrainingappointmentform/privateTrainingAppointmentForm.jsp");
     }
     
     private void delete(HttpServletRequest req, HttpServletResponse res) throws IOException {
-    	
+    	// 尚未做更新會員課程數量的設置
     	Integer adNo = Integer.parseInt(req.getParameter("adNo"));
     	int result = appointmentDetailService.deleteAd(adNo);
     	if (result == 1) {
