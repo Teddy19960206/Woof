@@ -1,6 +1,10 @@
 package com.woof.chat.controller;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.woof.chat.jedis.JedisHandleMessage;
 import com.woof.chat.model.State;
 import com.woof.chat.model.ChatMessage;
 
@@ -9,6 +13,7 @@ import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -27,15 +32,18 @@ public class ChatServlet {
         Set<String> memberNames = sessionsMap.keySet();
         State stateMessage = new State("open", userName, memberNames);
         String stateMessageJson = gson.toJson(stateMessage);
-        Collection<Session> sessions = sessionsMap.values();
-        for (Session session : sessions) {
-            if (session.isOpen()) {
+        JsonObject jsonTree = JsonParser.parseString(stateMessageJson).getAsJsonObject();
+
+        // 將新的陣列添加到 JSON 物件中
+
+        Session session = sessionsMap.get("admin");
+        if (session.isOpen()) {
 //              發送訊息
-                session.getAsyncRemote().sendText(stateMessageJson);
-            }
+            JedisHandleMessage.saveMemberList(userName);
+            Set<String> memberList =JedisHandleMessage.getMemberList();
+            jsonTree.add("memberList", gson.toJsonTree(memberList));
+            session.getAsyncRemote().sendText(jsonTree.toString());
         }
-
-
 
         String text = String.format("Session ID = %s, connected; userName = %s%nusers: %s", userSession.getId(),
                 userName, memberNames);
@@ -48,23 +56,23 @@ public class ChatServlet {
         String sender = chatMessage.getSender();
         String receiver = chatMessage.getReceiver();
 
-//        if ("history".equals(chatMessage.getType())) {
-//            List<String> historyData = JedisHandleMessage.getHistoryMsg(sender, receiver);
-//            String historyMsg = gson.toJson(historyData);
-//            ChatMessage cmHistory = new ChatMessage("history", sender, receiver, historyMsg);
-//            if (userSession != null && userSession.isOpen()) {
-//                userSession.getAsyncRemote().sendText(gson.toJson(cmHistory));
-//                System.out.println("history = " + gson.toJson(cmHistory));
-//                return;
-//            }
-//        }
+        if ("history".equals(chatMessage.getType())) {
+            List<String> historyData = JedisHandleMessage.getHistoryMsg(sender, receiver);
+            String historyMsg = gson.toJson(historyData);
+            ChatMessage cmHistory = new ChatMessage("history", sender, receiver, historyMsg);
+            if (userSession != null && userSession.isOpen()) {
+                userSession.getAsyncRemote().sendText(gson.toJson(cmHistory));
+                System.out.println("history = " + gson.toJson(cmHistory));
+                return;
+            }
+        }
 
 
         Session receiverSession = sessionsMap.get(receiver);
         if (receiverSession != null && receiverSession.isOpen()) {
             receiverSession.getAsyncRemote().sendText(message);
             userSession.getAsyncRemote().sendText(message);
-//            JedisHandleMessage.saveChatMessage(sender, receiver, message);
+            JedisHandleMessage.saveChatMessage(sender, receiver, message);
         }
         System.out.println("Message received: " + message);
     }
@@ -89,10 +97,11 @@ public class ChatServlet {
         if (userNameClose != null) {
             State stateMessage = new State("close", userNameClose, userNames);
             String stateMessageJson = gson.toJson(stateMessage);
-            Collection<Session> sessions = sessionsMap.values();
-            for (Session session : sessions) {
-                session.getAsyncRemote().sendText(stateMessageJson);
-            }
+            JsonObject jsonTree = JsonParser.parseString(stateMessageJson).getAsJsonObject();
+            Set<String> memberList =JedisHandleMessage.getMemberList();
+            jsonTree.add("memberList", gson.toJsonTree(memberList));
+            Session admin = sessionsMap.get("admin");
+            admin.getAsyncRemote().sendText(jsonTree.toString());
         }
 
         String text = String.format("session ID = %s, disconnected; close code = %d%nusers: %s", userSession.getId(),

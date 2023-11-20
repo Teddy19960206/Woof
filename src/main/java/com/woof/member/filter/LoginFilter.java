@@ -33,8 +33,7 @@ public class LoginFilter implements Filter {
 		HttpSession session = req.getSession();
 		// 【從 session 判斷此user是否登入過】
 		Object member = session.getAttribute("member");
-		
-		System.out.println(member);
+
 		
 		if (member == null) {
 			session.setAttribute("location", req.getRequestURI());

@@ -189,6 +189,10 @@ public class MemberServlet1 extends HttpServlet {
 		if (memaddress == null || memaddress.trim().length() == 0) {
 			errorMsgs.put("memAddress","會員地址請勿空白");
 		}
+		String membd= req.getParameter("memBd").trim();
+		if (membd == null || membd.trim().length() == 0) {
+			errorMsgs.put("memBd","會員生日請勿空白");
+		}
 
 		// Send the use back to the form, if there were errors
 		if (!errorMsgs.isEmpty()){

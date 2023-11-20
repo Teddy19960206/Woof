@@ -85,4 +85,13 @@ public class MemberDAOImpl implements MemberDAO {
 		return (Member) query.getSingleResult();
 		
 	}
+
+	public void updateTotalClass(String memNo , Integer clazz){
+		String hql = "UPDATE Member SET totalClass = totalClass + :totalClass WHERE memNo = :memNo";
+		Query query = getSession().createQuery(hql);
+		query.setParameter("totalClass" , clazz);
+		query.setParameter("memNo" , memNo);
+		query.executeUpdate();
+	}
+
 }

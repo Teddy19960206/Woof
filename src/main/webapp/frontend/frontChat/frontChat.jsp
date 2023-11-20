@@ -6,7 +6,7 @@
     <div class="header">
         <div class="avatar-wrapper avatar-big">
             <img
-                    src="https://znews-photo.zadn.vn/w660/Uploaded/pnbcuhbatgunb/2020_03_23/i13863960814_1.jpg"
+                    src="${pageContext.request.contextPath}/webutil/icons/happy_1.png"
                     alt="avatar"
                     class="chat-img"
             />
@@ -18,20 +18,7 @@
     </div>
     <div class="chat-room chat-none" id="chat-room">
 
-<%--        <!-- 左邊 -->--%>
-<%--        <div class="message message-left">--%>
-<%--            <div class="avatar-wrapper avatar-small"></div>--%>
-<%--            <small>客服</small>--%>
-<%--            <div class="bubble bubble-light">Hey anhat!</div>--%>
-<%--        </div>--%>
-
-<%--        <!-- 右邊 -->--%>
-<%--        <div class="message message-right">--%>
-<%--            <small>member1</small>--%>
-<%--            <div class="bubble bubble-dark">--%>
-<%--                what is going on?aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa--%>
-<%--            </div>--%>
-<%--        </div>--%>
+<%--        聊天框  --%>
     </div>
 
     <div class="type-area chat-none">

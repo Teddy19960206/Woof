@@ -235,13 +235,14 @@ body {
 					<small class="error-msg">${errorMsgs.memAddress}</small>
 				</div>
 				<div class="form-group">
-					<label for="memBd">生日:<span>(西元-月-日)</span></label>
+					<label for="memBd"><span class="required">*</span>生日:<span>(西元-月-日)</span></label>
 					<div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="Text" name="memBd"
-								id="memBd" size="45" />
+								id="memBd" size="45" required />
 						</div>
 					</div>
+					<small class="error-msg">${errorMsgs.memBd}</small>
 				</div>
 				
 				<input type="hidden" name="action" value="add">

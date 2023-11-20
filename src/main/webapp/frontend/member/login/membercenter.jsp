@@ -143,8 +143,7 @@ a {
 		}
 	}
 </script>
-<script src="https://kit.fontawesome.com/3f37e88a3b.js"
-	crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/3f37e88a3b.js" crossorigin="anonymous"></script>
 <body>
 	<%@ include file="/Header.file"%>
 	<jsp:useBean id="memberService" scope="page"

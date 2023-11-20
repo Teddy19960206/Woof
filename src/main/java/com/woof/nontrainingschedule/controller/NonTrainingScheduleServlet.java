@@ -70,7 +70,12 @@ public class NonTrainingScheduleServlet extends HttpServlet {
 			case "getByNtsDate":
 				getByNtsDate(req, res);
 				return;
-
+			case "deleteByDate":
+				deleteByDate(req, res);
+				return;
+			case "addForTrainer":
+				addForTrainer(req ,res);
+				return;
 			default:
 				forwardPath = "/frontend/nontrainingschedule/nonTrainingSchedule.jsp";
 			}
@@ -231,5 +236,30 @@ public class NonTrainingScheduleServlet extends HttpServlet {
 		response.setContentType("application/json;charset=UTF-8");
 		response.getWriter().write(json);
 
+	}
+
+	private void deleteByDate(HttpServletRequest request , HttpServletResponse response) throws IOException {
+
+		Date date = Date.valueOf(request.getParameter("date"));
+
+		Administrator administrator = (Administrator) request.getSession(false).getAttribute("administrator");
+		Trainer trainer = new TrainerServiceImpl().getByAdmin(administrator.getAdminNo());
+
+		nonTrainingScheduleService.deleteByDate(trainer.getTrainerNo() , date);
+
+		response.setContentType("application/json;charset=UTF-8");
+		response.getWriter().write("{\"message\" : \"刪除成功\" }");
+	}
+
+	private void addForTrainer(HttpServletRequest request , HttpServletResponse response) throws IOException {
+		Administrator administrator = (Administrator) request.getSession(false).getAttribute("administrator");
+		Trainer trainer = new TrainerServiceImpl().getByAdmin(administrator.getAdminNo());
+
+		Date date = Date.valueOf(request.getParameter("date"));
+
+		nonTrainingScheduleService.addNts(trainer,date);
+
+		response.setContentType("application/json;charset=UTF-8");
+		response.getWriter().write("{\"message\" : \"新增成功\"}");
 	}
 }

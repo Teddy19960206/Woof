@@ -6,8 +6,32 @@
     <title>寵毛導師 Woof | 團體報名訂單管理</title>
 </head>
 <style>
+    .table {
+        border-collapse: collapse; /* 確保邊框合併 */
+    }
+
+    .table th, .table td {
+        border: 1px solid #ddd; /* 加強邊框 */
+        padding: 8px; /* 增加內距 */
+        text-align: left; /* 左對齊文本 */
+    }
+
+    .table th {
+        background-color: #f8f9fa; /* 標題欄的背景色 */
+        color: #333; /* 標題欄的文本顏色 */
+    }
+
+    .table tr:nth-child(even) {
+        background-color: #f2f2f2; /* 每兩行使用不同的背景色 */
+    }
+
+    .table tr:hover {
+        background-color: #ddd; /* 懸停時改變背景色 */
+    }
+</style>
+<style>
     body {
-        background-color: #fff4e5; /* 淺橘色背景 */
+        background-color: #FFF3E0;
     }
 
     .card {
@@ -16,51 +40,62 @@
         background-color: #f8f9fa;
     }
 
-    .card-header{
+    .card-header {
         border: none;
         border-radius: 20px;
-        background-color:SandyBrown;
+        background-color: SandyBrown;
     }
 
-    .list-group-item {
-        padding: 10px 15px;
-        border: none;
-        border-bottom: 1px solid #ddd;
-        background-color: #f8f9fa;
-        cursor: pointer;
+    .profile-img {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
     }
 
-    .list-group-item:hover {
-        background-color: #e2e6ea; /* 輕微改變背景色 */
+    .icon-btn {
+        font-size: 1.5rem;
+        color: #495057;
     }
 
-    .list-group-item a {
-        color: #007bff; /* 連結的顏色 */
-        text-decoration: none; /* 移除底線 */
+    .icon-btn:hover {
+        color: #0056b3;
     }
 
-    .list-group-item a:hover {
-        color: #0056b3; /* 懸停時的顏色 */
+    .update-btn {
+        width: 50px; /* or whatever width you want */
     }
     /* 子選單樣式 */
-    #orderManagementOptions, #courseManagementOptions ,#shopManagementOptions {
+    #orderManagementOptions, #courseManagementOptions,
+    #shopManagementOptions {
         padding-left: 0px; /* 增加左側內距 */
-        background-color: #f0f0f0; /* 與主選單區分的背景色 */
+        background-color: orange; /* 與主選單區分的背景色 */
     }
+
     .left-icon {
         text-align: left; /* 使內容靠右對齊 */
         margin-right: 20px; /* 右邊距，可依需求調整 */
     }
 
-    th , td{
-        text-align: center;
+    .custom-divider {
+        margin-top: 0px; /* 上方間隔 */
+        margin-bottom: 0px; /* 下方間隔 */
+        border: 0; /* 移除邊框 */
+        border-top: 1px solid #ccc; /* 設置頂部邊框，可調整顏色和粗細 */
     }
 
-    .truncated-text {
-        max-width: 100px;  /* 或其他適當的寬度 */
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: pre-wrap;
+    a {
+        color: inherit; /* 使超連結的顏色與其父元素相同 */
+        text-decoration: none; /* 去除底線 */
+    }
+    /* 當按鈕被點擊或懸停時的顏色變化 */
+    .accordion-button:not(.collapsed) {
+        background-color: #FFAA77; /* 按鈕展開時的背景色，這裡使用了稍微深一點的橘色 */
+        color: #333;
+    }
+
+    .accordion-button:hover {
+        background-color: #FFBB88; /* 按鈕懸停時的背景色 */
+        color: #333;
     }
 </style>
 </style>
@@ -96,47 +131,131 @@
 <div class="container mt-5">
     <div class="row">
         <div class="col-12 col-md-4">
-            <!-- 左側欄內容（導航欄） -->
-            <div class="card">
-                <div class="card-header">
-                    <!-- 再次使用 sessionScope 來獲取用戶名 -->
-                    您好，
-                    <c:out value="${member.memName}！" />
-                    ૮˙ﻌ˙ა
-                </div>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">
-                        <form method="post"
-                              action="${pageContext.request.contextPath}/member1.do"
-                              style="margin-bottom: 0px;">
-                            <input type="hidden" name="action" value="update"> <input
-                                type="hidden" name="memNo" value="${member.memNo}"> <a
-                                onclick="processUpdate({memNo:'${member.memNo}'});"
-                                style="cursor: pointer;">修改基本資料</a>
-                        </form>
-                    </li>
-                    <li class="list-group-item"><a
-                            onclick="toggleOrderManagement()" style="cursor: pointer;">訂單管理</a>
-                        <div class="left-icon">
-                            <ul id="orderManagementOptions" style="display: none;">
-                                <li class="list-group-item"><a
-                                        onclick="toggleCourseManagement()" style="cursor: pointer;">課程管理</a>
-                                    <ul id="courseManagementOptions" style="display: none;">
-                                        <li class="list-group-item"><a href="${pageContext.request.contextPath}/frontend/member/login/appointment.jsp">私人訓練師</a></li>
-                                        <li class="list-group-item"><a href="${pageContext.request.contextPath}/frontend/member/login/groupOrder.jsp">團體報名訂單管理</a></li>
-                                    </ul></li>
-                                <li class="list-group-item"><a
-                                        onclick="toggleShopOrderManagement()" style="cursor: pointer;">商城訂單查詢</a>
-                                    <ul id="shopManagementOptions" style="display: none;">
-                                        <li class="list-group-item"><a href="#">訂單查詢</a></li>
-                                        <li class="list-group-item"><a href="#">訂單追蹤</a></li>
-                                        <li class="list-group-item"><a href="#">商品退貨</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
+            <div class="accordion" id="accordionExample">
+                <!-- 用戶資訊項目 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button" type="button"
+                                data-bs-toggle="collapse" data-bs-target="#collapseUserInfo"
+                                aria-expanded="true" aria-controls="collapseUserInfo">
+                            您好，
+                            <c:out value="${member.memName}！" />
+                        </button>
+                    </h2>
+                    <div id="collapseUserInfo"
+                         class="accordion-collapse collapse show"
+                         data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <form method="post"
+                                  action="${pageContext.request.contextPath}/member1.do"
+                                  style="margin-bottom: 0px;">
+                                <input type="hidden" name="action" value="update"> <input
+                                    type="hidden" name="memNo" value="${member.memNo}"> <a
+                                    onclick="processUpdate({memNo:'${member.memNo}'});"
+                                    style="cursor: pointer;"> <i class="fa-solid fa-user"></i>&nbsp;修改基本資料
+                            </a>
+                            </form>
                         </div>
-                    </li>
-                </ul>
+                    </div>
+                    <hr class="custom-divider">
+                    <div id="collapseUserInfo"
+                         class="accordion-collapse collapse show"
+                         data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <form method="post"
+                                  action="${pageContext.request.contextPath}/member1.do"
+                                  style="margin-bottom: 0px;">
+                                <input type="hidden" name="action" value="delete"> <input
+                                    type="hidden" name="memNo" value="${member.memNo}"> <a
+                                    onclick="confirmDelete('${member.memNo}')"
+                                    style="cursor: pointer;"> <i class="fa-solid fa-trash"></i>&nbsp;註銷會員
+                            </a>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- 課程管理項目 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#collapseCourseManagement" aria-expanded="false"
+                                aria-controls="collapseCourseManagement">
+                            <i class="fa-solid fa-school"></i>&nbsp;課程管理
+                        </button>
+                    </h2>
+                    <div id="collapseCourseManagement"
+                         class="accordion-collapse collapse"
+                         data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <!-- 私人訓練師項目 -->
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button"
+                                            data-bs-toggle="collapse"
+                                            data-bs-target="#collapsePersonalTrainerOptions"
+                                            aria-expanded="false"
+                                            aria-controls="collapsePersonalTrainerOptions">
+                                        </i> 私人訓練師
+                                    </button>
+                                </h2>
+                                <div id="collapsePersonalTrainerOptions"
+                                     class="accordion-collapse collapse"
+                                     data-bs-parent="#collapseCourseManagement">
+                                    <div class="accordion-body">
+                                        <a href="#">課程訂單管理</a>
+                                    </div>
+                                    <hr class="custom-divider">
+                                    <div class="accordion-body">
+                                        <a href="${pageContext.request.contextPath}/frontend/member/login/appointment.jsp">預約單管理</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="custom-divider">
+                        <div class="accordion-body">
+                            <a
+                                    href="${pageContext.request.contextPath}/frontend/member/login/groupOrder.jsp">團體報名訂單管理</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 商城訂單查詢項目 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#collapseShopOrderManagement"
+                                aria-expanded="false" aria-controls="collapseShopOrderManagement">
+                            <i class="fa-solid fa-shop"></i>&nbsp;商城訂單查詢
+                        </button>
+                    </h2>
+                    <div id="collapseShopOrderManagement"
+                         class="accordion-collapse collapse"
+                         data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <a href="#">訂單查詢</a>
+                        </div>
+                    </div>
+                    <hr class="custom-divider">
+                    <!-- 新增分隔線，並加入自訂類別 -->
+                    <div id="collapseShopOrderManagement"
+                         class="accordion-collapse collapse"
+                         data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <a href="#">訂單追蹤</a>
+                        </div>
+                    </div>
+                    <hr class="custom-divider">
+                    <!-- 新增分隔線，並加入自訂類別 -->
+                    <div id="collapseShopOrderManagement"
+                         class="accordion-collapse collapse"
+                         data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <a href="#">商品退貨</a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="col-12 col-md-8">
