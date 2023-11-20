@@ -49,10 +49,9 @@
 <div class="container">
     <div class="col-auto text-center mx-auto my-5">
         <button type="button" class="btn btn-primary" id="confirm">確認預約</button>
-        <button type="button" class="btn btn-secondary" onclick="window.location.href = `${pageContext.request.contextPath}/frontend/privatetrainer/privateTrainer.jsp`">回上頁</button>
+        <button type="button" class="btn btn-secondary" onclick="window.location.href = `${pageContext.request.contextPath}/trainer/getAll`">回上頁</button>
     </div>
 </div>
-
 <div class="modal fade" id="myModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">

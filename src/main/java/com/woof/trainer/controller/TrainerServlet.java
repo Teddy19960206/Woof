@@ -145,19 +145,26 @@ public class TrainerServlet  extends HttpServlet {
 
 
 		// 對每個訓練師處理評論
+		// 對每個訓練師處理評論
 		for (Trainer trainer : allTrainers) {
 		    List<PrivateTrainingAppointmentForm> ptas = new ArrayList<>(trainer.getPrivateTrainingAppointmentForms());
 
 		    // 使用 Collections.shuffle() 來隨機排列評論
 		    Collections.shuffle(ptas);
 
-		    // 獲取前幾筆評論，這裡是獲取前三筆
-		    List<PrivateTrainingAppointmentForm> randomComments = ptas.subList(0, Math.min(3, ptas.size()));
+		    // 獲取非空的前幾筆評論，這裡是獲取前三筆
+		    List<PrivateTrainingAppointmentForm> nonEmptyComments = new ArrayList<>();
+		    for (PrivateTrainingAppointmentForm pta : ptas) {
+		        if (pta.getPtaComment() != null && !pta.getPtaComment().isEmpty()) {
+		            nonEmptyComments.add(pta);
+		        }
+		    }
+		    
+		    List<PrivateTrainingAppointmentForm> randomNonEmptyComments = nonEmptyComments.subList(0, Math.min(3, nonEmptyComments.size()));
 
-		    // 將處理後的評論設置回訓練師物件中
-		    trainer.setPrivateTrainingAppointmentForms(new HashSet<>(randomComments));
+		    // 將處理後的非空評論設置回訓練師物件中
+		    trainer.setPrivateTrainingAppointmentForms(new HashSet<>(randomNonEmptyComments));
 		}
-
 		
 		request.setAttribute("trainers", allTrainers);
 		request.setAttribute("currentPage", currentPage);

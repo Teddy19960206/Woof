@@ -83,6 +83,6 @@ private CommentReportService commentReportService;
 //			req.setAttribute("errorMessage", "檢舉失敗");
 		}
 		String message = (result == 1) ? "success" : "fail";
-		res.sendRedirect(req.getContextPath() + "/frontend/privatetrainer/privateTrainer.jsp?result=" + message);
+		res.sendRedirect(req.getContextPath() + "/trainer/getAll?result=" + message);
     }
 }

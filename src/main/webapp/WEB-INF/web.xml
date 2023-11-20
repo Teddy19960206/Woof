@@ -37,6 +37,7 @@
 		<url-pattern>/frontend/member/login/groupOrder.jsp</url-pattern>
 		<url-pattern>/frontend/cartlist/checkout.jsp</url-pattern>
 		<url-pattern>/frontend/privatetrainer/buyClass.jsp</url-pattern>
+		<url-pattern>/frontend/privatetrainer/appointment.jsp</url-pattern>
 		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>FORWARD</dispatcher>
 		<dispatcher>INCLUDE</dispatcher>
