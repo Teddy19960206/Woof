@@ -29,19 +29,30 @@ function connect(){
 
     websocket.onopen = function (event){
         console.log("連線成功");
+        // console.log(event)
     }
 
     websocket.onmessage = function (event){
         const jsonObj = JSON.parse(event.data);
         console.log(jsonObj);
         if ("open" === jsonObj.type) {
-            refreshFriendList(jsonObj);
-        }else if ("chat"){
+            refreshMemberList(jsonObj);
+        }else if ("history" === jsonObj.type) {
+            chatHeader.innerHTML = '';
+            // 這行的jsonObj.message是從redis撈出跟好友的歷史訊息，再parse成JSON格式處理
+            let messages = JSON.parse(jsonObj.message);
+            for (let i = 0; i < messages.length; i++) {
+                let historyData = JSON.parse(messages[i]);
+                let showMsg = historyData.message;
+                // 根據發送者是自己還是對方來給予不同的class名, 以達到訊息左右區分
+                addMessage(historyData);
+            }
+        } else if ("chat" === jsonObj.type){
             if (member === jsonObj.sender){
                 addMessage(jsonObj);
-            }else{
-
             }
+        }else if ("close" === jsonObj.type){
+            refreshMemberList(jsonObj);
         }
     }
 
@@ -106,27 +117,31 @@ function scrollToBottom() {
 }
 
 // 有好友上線或離線就更新列表
-function refreshFriendList(jsonObj) {
+function refreshMemberList(jsonObj) {
     let members = jsonObj.users;
     chatList.innerHTML = '';
-    console.log(members.length)
     for (let i = 0; i < members.length; i++) {
         if (members[i] === self) { continue; }
-        appendMemberList(membersList(members[i]));
+        appendMemberList(membersList(members[i] , jsonObj));
     }
-    // addListener();
+
+    // let node =document.querySelectorAll(".li-chat");
+    // node.forEach(liEL =>{
+    //     console.log(liEL.getAttribute("data-id"))
+    // })
+
 }
 
 function appendMemberList(message){
     chatList.innerHTML += message;
 }
 
-function membersList(member){
+function membersList(member , jsonObj){
     return `<li class="clearfix li-chat" data-id="${member}">
               <img src="${projectName}/DBPngReader?action=member&id=${member}" alt="avatar">
               <div class="about">
                 <div class="name">${member}</div>
-                <div class="status"> <i class="fa fa-circle online"></i> on-line </div>
+                <div class="status"> <i class="fa fa-circle ${jsonObj.type === 'open' ? 'online' : 'offline'}"></i>${jsonObj.type === 'open' ? 'online' : 'offline'}</div>
               </div>
             </li>`;
 }
@@ -146,9 +161,20 @@ function memberHeader(member){
 
 $(document).on("click" , "li.li-chat" , function (){
     member = $(this).data("id");
+    getHistory();
     chatHeader.innerHTML = memberHeader(member);
     inputHistory.innerHTML = "";
 //  更換聊天室
     $("#inputText").prop("disabled" , false);
 
 })
+
+function getHistory(){
+    let jsonObj = {
+        "type" : "history",
+        "sender" : self,
+        "receiver" : member,
+        "message" : ""
+    };
+    websocket.send(JSON.stringify(jsonObj));
+}
