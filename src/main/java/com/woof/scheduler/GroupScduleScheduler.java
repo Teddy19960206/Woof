@@ -59,7 +59,7 @@ public class GroupScduleScheduler extends HttpServlet {
 //              2. 會先尋找報名開課程的會員訂單，是否都已付款
 //              3. 若未付款狀態，則取消該訂單，並報名人數-1
 
-//              若滿足開課條件，則狀態變成確定開課，並賦予有購買該課程的會員 毛毛幣 為原價格的 1 / 10
+//              若滿足開課條件，則狀態變成確定開課，並賦予回饋有購買該課程的會員 毛毛幣 為原價格的 3%
 //              若不滿足，則狀態不變，但會存到 redis 由後台管理員做後續處理
 
                 ()->{
@@ -91,7 +91,7 @@ public class GroupScduleScheduler extends HttpServlet {
                                 List<GroupCourseOrder> orders = groupCourseOrderService.getOrderBySchedule(groupCourseSchedule.getGcsNo());
                                 for (GroupCourseOrder order : orders){
                                     Member member = order.getMember();
-                                    new MemberServiceImpl().updateMemberPoints(member.getMemNo() , (int) (member.getMomoPoint() + Math.floor(groupCourseSchedule.getGcsPrice() / 10)));
+                                    new MemberServiceImpl().updateMemberPoints(member.getMemNo() , (int) (member.getMomoPoint() + Math.floor(groupCourseSchedule.getGcsPrice() * 0.03)));
                                 }
                             }else {
 //                              沒滿最低人數 ： 狀態改變 ->  不變  並儲存到 redis 通知管理員做後續處理

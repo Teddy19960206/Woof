@@ -8,6 +8,8 @@ import com.woof.privatetrainingappointmentform.entity.PrivateTrainingAppointment
 
 public interface AppointmentDetailService {
 	AppointmentDetail findAdByAdNo(Integer adNo);
+
+	AppointmentDetail getOneByDate(Integer trainerNo , Date date);
 	
 	int addAd(PrivateTrainingAppointmentForm pta , Date appTime , Integer appStatus);
 	

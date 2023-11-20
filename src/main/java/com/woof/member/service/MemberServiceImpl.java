@@ -99,4 +99,9 @@ public class MemberServiceImpl implements MemberService, AppService<String> {
 		findMemberByNo(memNo).setTotalClass(totalClass);
 	}
 
+	@Override
+	public void cancelPrivateClass(String memNo) {
+		dao.updateTotalClass(memNo , 1);
+	}
+
 }

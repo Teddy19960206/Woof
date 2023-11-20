@@ -32,5 +32,7 @@ public interface NonTrainingScheduleService {
 
 	List<Date> getAllByTrainer(Integer year , Integer month , Integer trainerNo);
 
+	void deleteByDate(Integer trainerNo , Date date );
+
 	
 }

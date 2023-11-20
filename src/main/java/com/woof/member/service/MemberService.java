@@ -39,4 +39,6 @@ public interface MemberService {
     
     void updateMemberClass(String memNo, Integer totalClass);
 
+	void cancelPrivateClass(String memNo);
+
 }

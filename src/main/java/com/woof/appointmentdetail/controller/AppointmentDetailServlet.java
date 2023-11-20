@@ -3,6 +3,7 @@ package com.woof.appointmentdetail.controller;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
+import com.woof.administrator.entity.Administrator;
 import com.woof.appointmentdetail.entity.AppointmentDetail;
 import com.woof.appointmentdetail.service.AppointmentDetailService;
 import com.woof.appointmentdetail.service.AppointmentDetailServiceImpl;
@@ -84,6 +85,9 @@ public class AppointmentDetailServlet extends HttpServlet {
 				delete(req, resp);
 				forwardPath = "/backend/appointment/appointmentDetail.jsp";
 				break;
+			case "cancelFromTrainer":
+				cancelFromTrainer(req , resp);
+				return;
 			default:
 				forwardPath = "/frontend/privatetrainingappointmentform/privateTrainingAppointmentForm.jsp";
 			}
@@ -295,6 +299,10 @@ public class AppointmentDetailServlet extends HttpServlet {
     	
     	PrivateTrainingAppointmentFormService privateTrainingAppointmentFormService = new PrivateTrainingAppointmentFormServiceImpl();
 		Member member = privateTrainingAppointmentFormService.findPrivateTrainingAppointmentFormByPtaNo(ptaNo).getMember();
+
+		/* 退回課堂數 */
+		new MemberServiceImpl().cancelPrivateClass(member.getMemNo());
+
 		Trainer trainer = privateTrainingAppointmentFormService.findPrivateTrainingAppointmentFormByPtaNo(ptaNo).getTrainer();
 
 		Timestamp commentTime =privateTrainingAppointmentFormService.findPrivateTrainingAppointmentFormByPtaNo(ptaNo).getCommentTime();
@@ -305,4 +313,22 @@ public class AppointmentDetailServlet extends HttpServlet {
     	
     	getByPtaNo(req, res);
     }
+
+	private void cancelFromTrainer(HttpServletRequest request , HttpServletResponse response) throws IOException {
+
+		Administrator administrator = (Administrator) request.getSession(false).getAttribute("administrator");
+		Trainer trainer = new TrainerServiceImpl().getByAdmin(administrator.getAdminNo());
+
+		Date date = Date.valueOf(request.getParameter("date"));
+		AppointmentDetail appointmentDetail = appointmentDetailService.getOneByDate(trainer.getTrainerNo(), date);
+		appointmentDetailService.updateAd(appointmentDetail.getAdNo(), appointmentDetail.getPrivateTrainingAppointmentForm() , date , 1);
+		new MemberServiceImpl().cancelPrivateClass(appointmentDetail.getPrivateTrainingAppointmentForm().getMember().getMemNo());
+
+
+//		???
+
+		response.setContentType("application/json;charset=UTF-8");
+		response.getWriter().write("{\"message\" : \"取消成功\"}");
+	}
+
 }
