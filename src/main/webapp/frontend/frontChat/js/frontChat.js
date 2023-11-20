@@ -68,12 +68,14 @@ function connect(){
         console.log(jsonObj);
         if ("open" === jsonObj.type) {
 
-        }else if ("chat"){
+        }else if ("chat" === jsonObj.type){
             if ("admin" === jsonObj.sender){
                 addMessage(jsonObj);
             }else{
 
             }
+        }else if ("history" === jsonObj.type){
+
         }
     }
 
