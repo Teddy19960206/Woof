@@ -1,9 +1,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <html>
 <head>
-<title>Member</title>
+<%@ include file="/backend/backhead.file" %>
+<title>查詢會員</title>
 <!-- 引入 Bootstrap CSS -->
 <link
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -17,7 +17,6 @@
 .btn-orange:hover {
 	background-color: #FFA07A;
 }
-
 body {
 	background-color: #f4f4f4;
 	font-family: Arial, sans-serif;
@@ -26,7 +25,7 @@ body {
 </head>
 <script src="https://kit.fontawesome.com/3f37e88a3b.js" crossorigin="anonymous"></script>
 <body>
-	<div class="container mt-5">
+<div class="container mx-auto">
 		<h3 class="mb-3">會員資料查詢:</h3>
 		 <a href="/woof/backend/index.jsp"style="position: absolute; top: 10px; left: 20px;"><i class="fa-solid fa-house"></i></a>
 		<ul class="list-unstyled">
@@ -79,10 +78,3 @@ body {
 		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
 </html>
-
-
-
-
-
-
-
