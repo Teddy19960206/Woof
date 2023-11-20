@@ -80,11 +80,11 @@ public class ClassOrderDAOImpl implements ClassOrderDAO{
 				.uniqueResult();
 	}
 
-//	@Override
-//	public List<ClassOrder> getOrderByMemNo(String memNo) {
-//		return getSession().createQuery("FROM ClassOrder c WHERE c.member.memNo = :memNo", ClassOrder.class)
-//				.setParameter("memNo", memNo)
-//				.list();
-//	}
+	@Override
+	public List<ClassOrder> getOrderByMemNo(String memNo) {
+		return getSession().createQuery("FROM ClassOrder c WHERE c.member.memNo = :memNo", ClassOrder.class)
+				.setParameter("memNo", memNo)
+				.list();
+	}
 	
 }

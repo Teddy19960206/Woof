@@ -1,6 +1,6 @@
 <%@ page import="com.woof.member.entity.Member" %>
-<%@ page import="com.woof.privatetrainingappointmentform.service.PrivateTrainingAppointmentFormServiceImpl" %>
-<%@ page import="com.woof.privatetrainingappointmentform.entity.PrivateTrainingAppointmentForm" %>
+<%@ page import="com.woof.classorder.service.ClassOrderServiceImpl" %>
+<%@ page import="com.woof.classorder.entity.ClassOrder" %>
 <%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -8,9 +8,9 @@
 <%
  Member member = (Member) request.getSession(false).getAttribute("member");
 
- PrivateTrainingAppointmentFormServiceImpl p = new PrivateTrainingAppointmentFormServiceImpl();
- List<PrivateTrainingAppointmentForm> appointmentByMemNo = p.getAppointmentByMemNo(member.getMemNo());
- request.setAttribute("all" , appointmentByMemNo);
+ ClassOrderServiceImpl c = new ClassOrderServiceImpl();
+ List<ClassOrder> classOrders = c.getOrderByMemNo(member.getMemNo());
+ request.setAttribute("all" , classOrders);
 %>
 <!DOCTYPE html>
 <html lang="zh-TW">
@@ -329,44 +329,33 @@ a {
    <div class="col-12 col-md-8">
     <div class="card">
         <div class="card-body">
-            <h3 class="card-title text-center p-2">預約單管理</h3>
+            <h3 class="card-title text-center p-2">課堂訂單管理</h3>
+            <h5 class="card-title">剩餘課堂數:${member.getTotalClass()}</h5>
             <table class="table table-bordered table-hover text-center align-content-center align-middle" id="show">
                         <thead>
                             <tr>
-                                <th>預約單編號</th>
-                                <th>訓練師名稱</th>
-                                <th>預約堂數</th>
-                                <th>查看明細</th>
-                                <th>我要評論</th>
+                                <th>課堂訂單編號</th>
+                                <th>購買課堂堂數</th>
+                                <th>付款方式</th>
+                                <th>折抵毛毛幣</th>
+                                <th>訂單時間</th>
+                                <th>訂單狀態</th>
+                                <th>實付金額</th>
                             </tr>
 
                         </thead>
                         <tbody>
 
-                         <c:forEach items="${all}" var="pta">
+                         <c:forEach items="${all}" var="classOrder" begin="0" end="9">
                             <tr>
-                                <td class="truncated-text">${pta.ptaNo}</td>
-                                <td>${pta.trainer.administrator.adminName}</td>
-                                <td>${pta.ptaClass}</td>
-                                <td>
-                                	<FORM METHOD="post" action="${pageContext.request.contextPath}/appointmentdetail?action=getdetail3">
-          								<input type="hidden" name="ptaNo" value="${pta.ptaNo}">
-          								<input type="hidden" name="memNo" value="${pta.member.memNo}">
-          								<input type="hidden" name="trainerNo" value="${pta.trainer.trainerNo}">
-          								<button class="btn btn-in" type="submit">查看明細</button>
-         							</FORM>
-        						</td>
-                                <td>
-                                	<FORM METHOD="post" action="${pageContext.request.contextPath}/frontend/member/login/comment.jsp">
-                                  		<%
-           								String ptaNo = request.getParameter("ptaNo");
-           								String ptaComment = request.getParameter("ptaComment");
-             							%> 
-          								<input type="hidden" name="ptaNo" value="${pta.ptaNo}">     
-          								<input type="hidden" name="ptaComment" value="${pta.ptaComment}">     
-          								<button class="btn btn-comment" type="submit">我要評論</button>
-                                 	</FORM>
-                                </td>
+                                <td class="truncated-text">${classOrder.coNo}</td>
+                                <td>${classOrder.coBc}</td>
+                                <td>${classOrder.coPaymentMethod == 0 ? '信用卡' : classOrder.coPaymentMethod == 1 ? '匯款' : "綠界"}</td>
+                                <td>${classOrder.coSmmp}</td>
+                                <td>${classOrder.coTime}</td>
+                                <td>${classOrder.coStatus == 0 ? '未付款' : classOrder.coStatus == 1 ? '已付款' : classOrder.coStatus == 2 ? '已取消'
+                                    : classOrder.coStatus == 3 ? '已退款' : classOrder.coStatus == 4 ? '已完成' : '退款申請中'}</td>
+                                <td>${classOrder.actualAmount}</td>
                             </tr>
                          </c:forEach>
                         </tbody>

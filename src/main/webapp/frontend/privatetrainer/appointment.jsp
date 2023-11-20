@@ -65,7 +65,9 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="myModal.hide();">取消</button>
+                <form>
                 <button type="button" class="btn btn-primary" id="reserveBtn">確定預約</button>
+            	</form>
             </div>
         </div>
     </div>

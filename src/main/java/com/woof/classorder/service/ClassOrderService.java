@@ -23,5 +23,5 @@ public interface ClassOrderService {
 	
 	int getPageTotal2(String memNo);
 	
-//	List<ClassOrder> getOrderByMemNo(String memNo);
+	List<ClassOrder> getOrderByMemNo(String memNo);
 }

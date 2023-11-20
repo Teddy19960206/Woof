@@ -146,7 +146,7 @@ public class AppointmentDetailServlet extends HttpServlet {
     
     private void add(HttpServletRequest req, HttpServletResponse res) throws IOException {
     	
-    	// 新增明細
+    	// 有預約單要新增明細
     	Integer ptaNo = Integer.parseInt(req.getParameter("ptaNo"));
     	PrivateTrainingAppointmentFormService ptaService =  new PrivateTrainingAppointmentFormServiceImpl();
     	PrivateTrainingAppointmentForm pta = ptaService.findPrivateTrainingAppointmentFormByPtaNo(ptaNo);
@@ -343,4 +343,9 @@ public class AppointmentDetailServlet extends HttpServlet {
 		response.getWriter().write("{\"message\" : \"取消成功\"}");
 	}
 
+	private void addPta(HttpServletRequest req, HttpServletResponse res) {
+		
+		// 沒預約單要新增明細
+		
+	}
 }
