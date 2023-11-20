@@ -4,6 +4,9 @@ package com.woof.member.controller;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
+
+import org.mindrot.jbcrypt.BCrypt;
+
 import com.woof.member.entity.Member;
 import com.woof.member.service.MemberService;
 import com.woof.member.service.MemberServiceImpl;
@@ -54,6 +57,7 @@ public class LoginServlet extends HttpServlet {
 					req.setAttribute("errorMsgs", errorMsgs);
 					// 從請求中獲取會員編號和密碼
 					String memNoStr = req.getParameter("memNo");
+					//明文密碼
 					String memPassword = req.getParameter("memPassword");
 					try {
 						// 驗證帳號和密碼不為空
@@ -62,27 +66,31 @@ public class LoginServlet extends HttpServlet {
 							// 使用memberService根據會員編號查找會員
 							Member member = memberService.findMemberByNo(memNoStr);
 							if (member == null) {
-								errorMsgs.put("loginError1", "帳號不存在");
-							} else if (!member.getMemPassword().equals(memPassword)) {
-								errorMsgs.put("loginError", "密碼不正確");
-							} else {
-								// 登入成功，將會員信息設置到session中
-								HttpSession session1 = req.getSession();
-								session1.setAttribute("member", member);
-								// 轉發到登入成功頁面或者其他操作
-								res.sendRedirect(req.getContextPath() + "/index.jsp");
+								errorMsgs.put("loginError1", "帳號未註冊");
+							}  else {
+			                    String encryptedPassword = member.getMemPassword(); // 從資料庫獲取加密後的密碼
+
+			                    // 使用 BCrypt 比較明文密碼與加密密碼
+			                    if (BCrypt.checkpw(memPassword, encryptedPassword)) {
+			                        // 密碼匹配，處理登錄成功的邏輯
+			                        HttpSession session1 = req.getSession();
+			                        session1.setAttribute("member", member);
+			                        res.sendRedirect(req.getContextPath() + "/index.jsp");
+			                    } else {
+			                        errorMsgs.put("loginError", "密碼不正確");
+			                    }
 							}
-						} else {
-							errorMsgs.put("loginError", "帳號和密碼都不能為空");
-						}
+					
 						if (!errorMsgs.isEmpty()) {
 							req.setAttribute("errorMsgs", errorMsgs);
 							req.getRequestDispatcher("frontend/member/login/login.jsp").forward(req, res);
 						}
-					} catch (Exception e) {
-						e.printStackTrace();
-						req.setAttribute("loginError", "系統錯誤，請聯絡系統管理員。");
-						req.getRequestDispatcher("frontend/member/login/login.jsp").forward(req, res);
+					} 
+						}
+					catch (Exception e) {
+					e.printStackTrace();
+					req.setAttribute("loginError", "系統錯誤，請聯絡系統管理員。");
+					req.getRequestDispatcher("frontend/member/login/login.jsp").forward(req, res);
 					}
 					return;
 				case "google":

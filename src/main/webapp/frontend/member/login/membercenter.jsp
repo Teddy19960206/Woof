@@ -12,6 +12,17 @@
   function processUpdate(jsonData){
    window.location.href = " <%=request.getContextPath()%>/frontend/member/login/updatemember.jsp?memNo="+ jsonData.memNo;
 	}
+  //確認刪除提示框
+  function confirmDelete(memNo) {
+    var confirmAction = confirm("您確定要註銷編號為 " + memNo + " 的會員帳號嗎？");
+    if (confirmAction) {
+        // 執行刪除操作，例如發送表單或請求
+        window.location.href = "<%=request.getContextPath()%>/member1.do?action=delete&memNo=" + memNo;
+    } else {
+        // 取消操作
+        console.log("取消刪除");
+    }
+}
 </script>
 <style>
 .table {
@@ -167,6 +178,22 @@ a {
 								</form>
 							</div>
 						</div>
+						<hr class="custom-divider">
+						<div id="collapseUserInfo"
+							class="accordion-collapse collapse show"
+							data-bs-parent="#accordionExample">
+							<div class="accordion-body">
+								<form method="post"
+									action="${pageContext.request.contextPath}/member1.do"
+									style="margin-bottom: 0px;">
+									<input type="hidden" name="action" value="delete"> <input
+										type="hidden" name="memNo" value="${member.memNo}"> <a
+										onclick="confirmDelete('${member.memNo}')"
+										style="cursor: pointer;"> <i class="fa-solid fa-trash"></i>&nbsp;註銷會員
+									</a>
+								</form>
+							</div>
+						</div>
 					</div>
 			<!-- 課程管理項目 -->
 			<div class="accordion-item">
@@ -283,7 +310,9 @@ a {
 						</tr>
 						<tr>
 							<th scope="row">密碼</th>
-							<td>${member.memPassword}</td>
+							<td><a onclick="processUpdate({memNo:'${member.memNo}'});"
+										 style="cursor: pointer; color: Tomato;" > <i class="fa-solid fa-key"></i>&nbsp;更改密碼
+									</a></td>
 						</tr>
 						<tr>
 							<th scope="row">電話</th>

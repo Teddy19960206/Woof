@@ -6,41 +6,25 @@ let chatRoom = document.querySelector(".chat-room");
 let typeArea = document.querySelector(".type-area");
 let inputText = document.querySelector("#inputText");
 let btnSend = document.querySelector(".button-send");
-let messageArea = document.querySelector(".message.message-right");
-
+// let messageArea = document.querySelector(".message.message-right");
+const charRoom = document.getElementById("chat-room");
 window.addEventListener("DOMContentLoaded", (e) => {
 
     //Button Send onclick event
     btnSend.addEventListener("click", (e) => {
-        if (inputText.value !== "") {
-            var mess = inputText.value;
-            var bubble = document.createElement("div");
-            bubble.className += " bubble bubble-dark";
-            bubble.textContent = mess;
-            messageArea.appendChild(bubble);
-            inputText.value = "";
-            scrollToBottom();
+        if (inputText.value.trim() !== "") {
+            sendMessage(inputText.value);
         }
     });
 
     inputText.addEventListener("keyup", function (event) {
         // 檢查是否按下了 Enter 鍵（keyCode 為 13）
-        if (inputText.value !== "" && event.keyCode === 13) {
-            var mess = inputText.value;
-            var bubble = document.createElement("div");
-            bubble.className += " bubble bubble-dark";
-            bubble.textContent = mess;
-            messageArea.appendChild(bubble);
-            inputText.value = "";
-            scrollToBottom();
+        if (inputText.value.trim() !== "" && event.keyCode === 13) {
+            sendMessage(inputText.value);
         }
     });
 });
 
-function scrollToBottom() {
-    var div = document.getElementById("chat-room");
-    div.scrollTop = div.scrollHeight;
-}
 
 
 $(document).on("click" , ".header" , function (){
@@ -63,10 +47,8 @@ let host = window.location.host;
 let path = window.document.location.pathname;
 let projectName = path.substring( 0 , path.substring(1).indexOf("/")+1);
 let member = $("#member").text();
-let myPoint = `/frontEnd/${member}`;
+let myPoint = `/chat/${member}`;
 let endPoint = `ws://` + host + projectName + myPoint;
-
-
 
 $(window).on('beforeunload', function() {
     disconnect();
@@ -85,7 +67,13 @@ function connect(){
         const jsonObj = JSON.parse(event.data);
         console.log(jsonObj);
         if ("open" === jsonObj.type) {
-            console.log(jsonObj)
+
+        }else if ("chat"){
+            if ("admin" === jsonObj.sender){
+                addMessage(jsonObj);
+            }else{
+
+            }
         }
     }
 
@@ -98,6 +86,49 @@ function connect(){
     }
 }
 
+
+function addMessage(jsonObj){
+
+    if (jsonObj.receiver == member){
+        $("#chat-room")
+            .append(`<div class="message message-left">
+                    <div class="avatar-wrapper avatar-small"></div>
+                    <small>客服</small>
+                    <div class="bubble bubble-light">${jsonObj.message}</div>
+                </div>`);
+    }else {
+        $("#chat-room")
+            .append(`<div class="message message-right">
+                        <small>${member}</small>
+                        <div class="bubble bubble-dark">
+                           ${jsonObj.message}
+                        </div>
+                    </div>`);
+    }
+    scrollToBottom();
+}
+
+function scrollToBottom() {
+    charRoom.scrollTop = charRoom.scrollHeight;
+}
+
 function disconnect(){
     websocket.close();
 }
+
+
+function sendMessage(message) {
+
+    let jsonObj = {
+        "type" : "chat",
+        "sender" : member,
+        "receiver" : "admin",
+        "message" : message
+    };
+    websocket.send(JSON.stringify(jsonObj));
+    addMessage(jsonObj)
+    inputText.value = "";
+    inputText.focus();
+    scrollToBottom();
+}
+
