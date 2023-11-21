@@ -25,5 +25,24 @@
         </div>
     </div>
 
+    <div class="modal fade" id="refundModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><img src="${pageContext.request.contextPath}/webutil/icons/alert.svg"/>訊息通知</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <div id="showGroupRefund" class="container"></div>
+                    <div id="showPrivateRefund" class="container"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="myModal.hide();">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="${pageContext.request.contextPath}/backend/js/getNews.js"></script>
+    <script src="${pageContext.request.contextPath}/backend/js/refund.js"></script>
 </c:if>
