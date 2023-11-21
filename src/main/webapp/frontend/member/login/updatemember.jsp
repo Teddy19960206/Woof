@@ -285,7 +285,7 @@ body {
 					<div>
 						<div class="form-check form-check-inline">
 							<input class="form__input" pattern=".{6,}" type="TEXT"
-								name="memPassword" id="memPassword" size="45" required/><span
+								name="memPassword" id="memPassword" size="45"/><span
 								class="icon"></span>
 						</div>
 					</div>

@@ -27,6 +27,8 @@ import com.woof.member.service.MemberServiceImpl;
 import com.woof.util.MailService;
 import com.woof.util.PartParsebyte;
 
+import redis.clients.jedis.Jedis;
+
 @WebServlet("/member1.do")
 @MultipartConfig
 //一個 servlet 實體對應一個 service 實體
@@ -263,6 +265,7 @@ public class MemberServlet1 extends HttpServlet {
 		Member member = new Member();
 		String mememail = req.getParameter("memEmail");
 		String memNo = req.getParameter("memNo");
+		Member originalMem =  memberService.findMemberByNo(memNo);
 		/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
 		if (memNo == null || memNo.trim().length() == 0) {
 			errorMsgs.put("memNo","會員帳號請勿空白");
@@ -287,13 +290,13 @@ public class MemberServlet1 extends HttpServlet {
 		
 		String mempwd = req.getParameter("memPassword").trim();
 		if (mempwd == null || mempwd.trim().length() == 0) {
-			errorMsgs.put("memPassword","會員密碼請勿空白");
+			member.setMemPassword(originalMem.getMemPassword());
 		}else {
 		    // 加密密碼
 		    String encryptedPassword = BCrypt.hashpw(mempwd, BCrypt.gensalt());
 		    member.setMemPassword(encryptedPassword);
 		}
-		
+			
 		String memtel = req.getParameter("memTel").trim();
 		if (memtel == null || memtel.trim().length() == 0) {
 			errorMsgs.put("memTel","會員電話請勿空白");
