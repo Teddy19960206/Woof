@@ -1,5 +1,5 @@
 let pathName = window.document.location.pathname;
-//let projectName = pathName.substring(0, pathName.substring(1).indexOf("/") + 1);
+let projectName = pathName.substring(0, pathName.substring(1).indexOf("/") + 1);
 
 const useSmmpRadio = document.getElementById("UseSmmp");
 const notUseSmmpRadio = document.getElementById("notusemocoin");
@@ -9,31 +9,30 @@ const transfer = document.getElementById("transfer");
 const ecPay = document.getElementById("ecPay");
 const showPayment = document.getElementById("showPayment");
 const address = document.getElementById("address");
+const  hiddenInputSmmp = document.getElementById("hiddenInputSmmp");
 
 window.addEventListener("load" , ()=>{
 
     notUseSmmpRadio.checked = true;
     inputSmmp.disabled = true;
-//    smmpCount.value = "";
-//    actualAmount.value = price.value;
+    hiddenInputSmmp.value = "0";
+
 })
 
 // 監聽單選按鈕的變更事件
 useSmmpRadio.addEventListener( "change", function () {
     // 如果選擇使用毛毛幣，移除disabled屬性
     inputSmmp.removeAttribute("disabled");
+    hiddenInputSmmp.value = "0";
 });
 
 notUseSmmpRadio.addEventListener("change", function () {
     // 如果選擇不使用毛毛幣，增加disabled屬性
-    inputSmmp.setAttribute("disabled", "disabled");
-    smmpCount.value = "";
-
+    inputSmmp.value = "";
+	inputSmmp.setAttribute("disabled", "disabled");
+	hiddenInputSmmp.value = "0";
 });
 
-// 隱藏的金額傳到後端
-//document.getElementById('hiddenTotalPrice').value = totalPrice;
-//document.getElementById('hiddenTotalAfterCoins').value = totalAfterCoins;
 
 credit.addEventListener("change" , function (){
     html = ` <div class="d-flex mt-3">

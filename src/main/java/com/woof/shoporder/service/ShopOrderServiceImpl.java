@@ -104,5 +104,8 @@ public class ShopOrderServiceImpl implements ShopOrderService{
 		return pageQty;
 	}
 	
-	
+	@Override
+	public List<ShopOrder> getOrdersByMember(String memNo) {
+        return dao.getOrdersByMember(memNo);
+    }
 }
