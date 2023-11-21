@@ -125,6 +125,10 @@ tr:hover {
     background-color: #dc3545; /* 紅色背景 */
     color: white;
 }
+.status-nonvalid {
+    background-color:  gray; /* 藍色背景 */
+    color: white;
+}
 </style>
 <script src="https://kit.fontawesome.com/3f37e88a3b.js" crossorigin="anonymous"></script>
 </head>
@@ -162,12 +166,15 @@ tr:hover {
     <td>${member.momoPoint}</td>
     <td>${member.totalClass}</td>
     <td>
-       <c:choose>
+        <c:choose>
             <c:when test="${member.memStatus == 0}">
                 <span class="status-label status-suspended">停權</span>
             </c:when>
             <c:when test="${member.memStatus == 1}">
                 <span class="status-label status-normal">正常</span>
+            </c:when>
+            <c:when test="${member.memStatus == 2}">
+                <span class="status-label status-nonvalid">未驗證</span>
             </c:when>
         </c:choose>
         </td>
