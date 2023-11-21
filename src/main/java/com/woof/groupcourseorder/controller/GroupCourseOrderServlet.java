@@ -85,12 +85,28 @@ public class GroupCourseOrderServlet extends HttpServlet {
 //                該課程全部退款
                 refundAllBySchedule(request ,response);
                 return;
+            case "/refundOneGroup":
+//                將一筆訂單狀態改成退款
+                refundOneGroup(request ,response);
+                return;
             case "/modify":
 //                修改訂單
                 modify(request, response);
                 return;
             case "/refundReview":
+//                將訂單狀態改變成退款審核中
                 refundReview(request ,response);
+                return;
+            case "/countRefundInfo":
+//                取得redis裡審核中的數量
+                countRefundInfo(request , response);
+                return;
+            case "/getGroupRefund":
+//                從redis 取得所有退款審核中的order
+                getGroupRefund(request ,response);
+                return;
+            case "/cancelRefund":
+                cancelRefund(request ,response);
                 return;
             default:
                 if (pathInfo.startsWith("/getGroupInfo/")) {
@@ -333,7 +349,16 @@ public class GroupCourseOrderServlet extends HttpServlet {
         }
 //        變更狀態成已退款
         groupCourseOrderService.refundReview(id);
+//        變更後再次取得
+        GroupCourseOrder order = groupCourseOrderService.getOneOrder(id);
+        Gson gson = new GsonBuilder()
+                .excludeFieldsWithoutExposeAnnotation()
+                .setDateFormat("yyyy-MM-dd")
+                .create();
 
+        Jedis jedis = JedisUtil.getResource();
+        jedis.hset("refund:groupOrder",order.getGcoNo().toString() ,gson.toJson(order));
+        jedis.close();
         response.getWriter().write("{ \"message\" : \"退款申請成功\"}");
     }
 
@@ -433,6 +458,99 @@ public class GroupCourseOrderServlet extends HttpServlet {
         }
     }
 
+//    取得redis裡審核中的數量
+    private void countRefundInfo(HttpServletRequest request , HttpServletResponse response) throws IOException {
+        try(Jedis jedis = JedisUtil.getResource()){
+            Long groupOrders = jedis.hlen("refund:groupOrder");
+
+            response.setContentType("text/html; charset=UTF-8");
+            response.getWriter().write(groupOrders.toString());
+        }
+    }
+
+
+    private void getGroupRefund(HttpServletRequest request , HttpServletResponse response) throws IOException {
+
+        Gson gson = new GsonBuilder()
+                .excludeFieldsWithoutExposeAnnotation()
+                .setDateFormat("yyyy-MM-dd")
+                .create();
+
+        List<Object> jsonObjects = new ArrayList<>();
+        String json = null;
+        try (Jedis jedis = JedisUtil.getResource()) {
+
+            Map<String , String> schedules = jedis.hgetAll("refund:groupOrder");
+
+            for (Map.Entry<String ,String> entry : schedules.entrySet()){
+
+                String jsonSchedule = entry.getValue();
+                GroupCourseOrder order = gson.fromJson(jsonSchedule, GroupCourseOrder.class);
+                jsonObjects.add(order);
+            }
+
+            json = gson.toJson(jsonObjects);
+        }
+
+        response.setContentType("application/json;charset=UTF-8");
+        response.getWriter().write(json);
+    }
+
+
+
+    private void refundOneGroup(HttpServletRequest request , HttpServletResponse response) throws IOException {
+
+        String gcoNoStr = request.getParameter("gcoNo");
+        Integer gcoNo = null;
+        if (gcoNoStr != null && gcoNoStr.trim().length() > 0){
+
+            gcoNo = Integer.valueOf(gcoNoStr);
+        }
+
+        response.setContentType("application/json;charset=UTF-8");
+
+        try(Jedis jedis = JedisUtil.getResource()){
+            groupCourseOrderService.refund(gcoNo);
+            jedis.hdel("refund:groupOrder" , gcoNoStr);
+
+            response.getWriter().write("{ \"message\" : \"已退款\"  }");
+
+        }catch (Exception e){
+
+            response.getWriter().write("{ \"退款失敗\"}");
+        }
+    }
+
+    private void cancelRefund(HttpServletRequest request , HttpServletResponse response) throws IOException {
+        String gcoNoStr = request.getParameter("gcoNo");
+        Integer gcoNo = null;
+        if (gcoNoStr != null && gcoNoStr.trim().length() > 0){
+            gcoNo = Integer.valueOf(gcoNoStr);
+        }
+        response.setContentType("application/json;charset=UTF-8");
+        try(Jedis jedis = JedisUtil.getResource()){
+            GroupCourseOrder order = groupCourseOrderService.getOneOrder(gcoNo);
+//           課程 0:下架 1:上架 2:確認開課 3:已取消 4:延期 5:已結束 6.審核中
+            Integer gcsStatus = order.getGroupCourseSchedule().getGcsStatus();
+
+//           訂單 0:未付款 1:已付款 2:已退款 3.已取消 4. 已完成 5.退款申請中
+            if (gcsStatus == 1 || gcsStatus == 2 || gcsStatus == 5 || gcsStatus ==6){
+//                課程狀態 1 2 5 6 變為 訂單狀態 已付款(1)
+                groupCourseOrderService.modify(gcoNo , 1);
+            }else{
+//                課程狀態 0 3 4 變成 訂單狀態 已取消(3)
+                groupCourseOrderService.modify(gcoNo , 3);
+            }
+
+            jedis.hdel("refund:groupOrder" , gcoNoStr);
+            response.getWriter().write("{ \"message\" : \"已取消退款\"  }");
+
+        }catch (Exception e){
+            response.getWriter().write("{ \"取消退款失敗\"}");
+        }
+    }
+
+//    轉換訂單編號
     public String formatOrderId(long orderId) {
         return "woofGroup" + String.format("%08d", orderId);
     }

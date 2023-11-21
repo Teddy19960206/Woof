@@ -140,7 +140,9 @@ function split(data){
 
     html = arr.join("");
     $("#show").html(html);
-    if (data.gcoStatus == 0 || data.gcoStatus == 2 || data.gcoStatus == 5){
+
+    // 只有 已付款 status (1) 可以按下申請退款按鈕
+    if (data.gcoStatus != 1){
         $("#refundOrder").prop("disabled", true);
     } else {
         $("#refundOrder").prop("disabled", false);

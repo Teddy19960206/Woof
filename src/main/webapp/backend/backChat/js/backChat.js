@@ -42,7 +42,6 @@ function connect(){
             let messages = JSON.parse(jsonObj.message);
             for (let i = 0; i < messages.length; i++) {
                 let historyData = JSON.parse(messages[i]);
-                let showMsg = historyData.message;
                 // 根據發送者是自己還是對方來給予不同的class名, 以達到訊息左右區分
                 addMessage(historyData);
             }

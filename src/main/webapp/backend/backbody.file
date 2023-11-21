@@ -234,8 +234,16 @@
                >登出</a>
                 
             <c:if test="${sessionScope.administrator.adminFuncName eq 1}">
+
+<%--                退款通知--%>
+
+              <button type="button" class="btn btn-primary position-relative" id="refundBtn">
+              </button>
+
+<%--                團課通知  --%>
               <button type="button" class="btn btn-primary position-relative" id="getNews">
               </button>
+
             </c:if>
               <a
                 href="<%=request.getContextPath()%>/index.jsp"

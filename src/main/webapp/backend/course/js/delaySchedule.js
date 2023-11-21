@@ -116,6 +116,7 @@ const calendar = new FullCalendar.Calendar(calendarEl, {
         let date = new Date(info.start);
         date.setDate(date.getDate() + 7);
         fetchDetailByDate(date.getFullYear() , date.getMonth()+1);
+        reserve(reserveDate);
     },
 });
 
@@ -129,6 +130,15 @@ function removeAllEvents(){
 
 
 
+function reserve(arr){
+    arr.forEach(item=>{
+        calendar.addEvent({
+            title: "預約",
+            start: item,
+            backgroundColor:"#0000ff"
+        })
+    });
+}
 
 // 預約清單
 const reserveDate= [];

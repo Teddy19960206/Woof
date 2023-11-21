@@ -46,7 +46,7 @@ public class Member implements java.io.Serializable {
 	@Column(name = "MEM_GENDER", columnDefinition = "CHAR")
 	private String memGender;
 
-	@Expose
+//	@Expose
 	@Column(name = "MEM_PHOTO", columnDefinition = "MEDIUMBLOB")
 	private byte[] memPhoto;
 	
