@@ -89,6 +89,19 @@ body {
 	background-color: #e0e0e0; /* 按鈕懸停淺灰色 */
 	color: #333;
 }
+.fa-camera {
+	font-size: 24px; /* 設定圖示大小，您可以根據需要調整這個值 */
+}
+.img-box {
+    position: absolute;
+    bottom: 0px;
+    right: -30px;
+    cursor: pointer;
+    }
+ .photo-container {
+    position: relative;
+    /* 其他必要的樣式 */
+}
 </style>
 <style>
 #preview {
@@ -184,13 +197,15 @@ body {
 						<div class="form-check form-check-inline">
 							<!-- 預覽圖片區塊 -->
 							<div id="preview" style="margin-bottom: 10px;">
-								<img id="photo" class="preview_img" src="#" alt="會員相片預覽"
-									onerror="this.style.display='none'" /> <span class="text">
+								<img id="photo" class="preview_img" onerror="this.style.display='none'" /> <span class="text">
 								</span>
 							</div>
+							 <label for="p_file" class="img-box">
+							 <i class="fa-solid fa-camera"></i>
+							 </label>
 							<!-- 檔案上傳輸入框 -->
 							<input class="form-check-input" type="file" name="memPhoto"
-								accept="image/*" id="p_file" />
+								accept="image/*" id="p_file" style="display: none;"/>
 						</div>
 						</div>
 						</div>

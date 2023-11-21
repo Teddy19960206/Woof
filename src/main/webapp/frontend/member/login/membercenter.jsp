@@ -74,9 +74,8 @@ body {
 }
 
 .profile-img {
-	width: 100px;
-	height: 100px;
-	border-radius: 50%;
+    width: 150px;
+    height: 150px;
 }
 
 .icon-btn {
@@ -232,7 +231,8 @@ a {
 										class="accordion-collapse collapse"
 										data-bs-parent="#collapseCourseManagement">
 										<div class="accordion-body">
-											<a href="${pageContext.request.contextPath}/frontend/member/login/classOrder.jsp">課程訂單管理</a>
+											<a
+												href="${pageContext.request.contextPath}/frontend/member/login/classOrder.jsp">課程訂單管理</a>
 										</div>
 										<hr class="custom-divider">
 										<div class="accordion-body">
@@ -293,6 +293,13 @@ a {
 						<table class="table table-bordered table-hover">
 							<tbody>
 								<tr>
+									<th scope="row">照片</th>
+									<td><img
+										src="${pageContext.request.contextPath}/DBPngReader?action=member&id=${member.memNo}"
+										onerror="this.onerror=null; this.src='/woof/frontend/member/jpg/dog.jpg';"
+										class="profile-img"></td>
+								</tr>
+								<tr>
 									<th scope="row">編號</th>
 									<td>${member.memNo}</td>
 								</tr>
@@ -305,13 +312,6 @@ a {
 									<td>${member.memGender}</td>
 								</tr>
 								<tr>
-									<th scope="row">照片</th>
-									<td><img
-										src="${pageContext.request.contextPath}/DBPngReader?action=member&id=${member.memNo}"
-										onerror="this.onerror=null; this.src='/woof/frontend/member/jpg/dog.jpg';"
-										class="profile-img"></td>
-								</tr>
-								<tr>
 									<th scope="row">email</th>
 									<td>${member.memEmail}<c:choose>
 											<c:when test="${member.memStatus == 1}">
@@ -321,16 +321,17 @@ a {
 												<span style="color: red;">(未驗證)</span>
 												<!-- 新增驗證按鈕 -->
 												<form method="post"
-												action="${pageContext.request.contextPath}/member1.do"
-												 style="display: inline;">
-												<input type="hidden" name="action" value="validemail">
-												<input type="hidden" name="memNo"value="${member.memNo}">
-												<input type="hidden" name="memEmail"value="${member.memEmail}">
-												<button type="submit" class="btn btn-primary">驗證信箱</button>
+													action="${pageContext.request.contextPath}/member1.do"
+													style="display: inline;">
+													<input type="hidden" name="action" value="validemail">
+													<input type="hidden" name="memNo" value="${member.memNo}">
+													<input type="hidden" name="memEmail"
+														value="${member.memEmail}">
+													<button type="submit" class="btn btn-primary">驗證信箱</button>
 												</form>
 											</c:when>
 											<c:otherwise>
-											<span>(未知狀態)</span>
+												<span>(未知狀態)</span>
 											</c:otherwise>
 										</c:choose>
 									</td>

@@ -95,7 +95,7 @@ body {
 
 .container {
 	padding-top: 40px;
-	max-width: 800px;
+	max-width: 600px;
 }
 
 .custom-card {
@@ -163,9 +163,18 @@ body {
 	background-color: #e0e0e0; /* 按鈕懸停淡紅色 */
 	color: red;
 }
-
 .fa-camera {
 	font-size: 24px; /* 設定圖示大小，您可以根據需要調整這個值 */
+}
+.img-box {
+    position: absolute;
+    bottom: 0px;
+    right: -30px;
+    cursor: pointer;
+    }
+ .photo-container {
+    position: relative;
+    /* 其他必要的樣式 */
 }
 </style>
 <style>
@@ -184,8 +193,8 @@ body {
 #preview {
 	border: 1px solid lightgray;
 	display: inline-block; /*  */
-	width: 300px;
-	min-height: 400px;
+	width: 200px;
+	min-height: 250px;
 	position: relative;
 }
 
@@ -264,9 +273,12 @@ body {
 								<img id="photo" class="preview_img" onerror="this.style.display='none'" /> 
 								<span class="text"></span>
 							</div>
+							 <label for="p_file" class="img-box">
+							 <i class="fa-solid fa-camera"></i>
+							 </label>
 							<!-- 檔案上傳輸入框 -->
 							<input class="form-check-input" type="file" name="memPhoto"
-								accept="image/*" id="p_file" />
+								accept="image/*" id="p_file" style="display: none;" />
 						</div>
 					</div>
 				</div>

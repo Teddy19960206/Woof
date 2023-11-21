@@ -103,7 +103,17 @@ public class MemberServlet extends HttpServlet {
 			if (member != null) {
 				// 更改會員狀態
 				int currentStatus = member.getMemStatus();
-				int newStatus = (currentStatus == 1) ? 0 : 1;
+				 int newStatus;
+		            switch (currentStatus) {
+		                case 0: // 如果當前狀態為 停權，則切換到 正常
+		                    newStatus = 1;
+		                    break;
+		                case 1: // 如果當前狀態為 正常，則切換到 未驗證
+		                    newStatus = 2;
+		                    break;
+		                default: // 其他情況（包括未驗證），則切換到 停權
+		                    newStatus = 0;
+		            }
 				member.setMemStatus(newStatus);
 				memberService.updateMember(member); // 更新會員資料
 				// 處理成功後的邏輯，例如回傳成功信息或重導到某個頁面
