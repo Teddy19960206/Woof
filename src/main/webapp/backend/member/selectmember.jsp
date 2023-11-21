@@ -7,38 +7,73 @@
 <link
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 	rel="stylesheet">
-<script src="https://kit.fontawesome.com/3f37e88a3b.js"
-	crossorigin="anonymous"></script>
 <style>
-body {
-	background-color: #f4f4f4;
-	font-family: Arial, sans-serif;
-}
+    .custom-container {
+        max-width: 1200px;
+        margin: auto;
+        padding: 20px;
+    }
 
-.btn-orange {
-	background-color: #FF8C00;
-	color: white;
-}
+    .custom-header {
+        background-color: pink;
+        color: white;
+        padding: 10px;
+        text-align: center;
+        margin-bottom: 20px;
+    }
 
-.btn-orange:hover {
-	background-color: #FFA07A;
-}
+    .custom-form {
+        margin-bottom: 20px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+    }
 
-.container {
-	padding-top: 40px;
-}
+    .custom-form label {
+        margin-right: 10px;
+    }
 
-.custom-header {
-	background-color: pink;
-	color: white;
-	padding: 10px;
-	margin-bottom: 20px;
-}
+    .custom-form input[type="text"],
+    .custom-form select {
+        flex-grow: 1;
+        margin-right: 10px;
+        padding: 5px;
+        border: 1px solid #ddd;
+    }
+
+    .btn-orange {
+        background-color: #FF8C00;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        cursor: pointer;
+    }
+
+    .btn-orange:hover {
+        background-color: #FFA07A;
+    }
+
+    @media (max-width: 768px) {
+        .custom-form {
+            flex-direction: column;
+        }
+        .custom-form input[type="text"],
+        .custom-form select {
+            margin-bottom: 10px;
+            flex-grow: 0;
+        }
+    }
+    @media (min-width: 992px) { /* 針對較大螢幕尺寸 */
+        .custom-container {
+            padding-left: 100px; /* 在大螢幕上增加左側內邊距 */
+        }
+    }
 </style>
 </head>
 <body>
 	<%@ include file="/backend/backbody.file"%>
-	<div class="container">
+	<div class="custom-container">
 		<div class="custom-header">
 			<h3>會員資料查詢:</h3>
 		</div>
@@ -50,13 +85,13 @@ body {
 				class="com.woof.member.service.MemberServiceImpl" />
 			<li>
 				<!-- 查詢表單 -->
-				<div class="mb-3">
+				 <div class="custom-form">
 					<form method="post"
 						action="${pageContext.request.contextPath}/member.do"
 						class="form-inline">
 						<label class="mr-2"><b>輸入會員帳號:</b></label> 
 						<input type="text" class="form-control mr-2" name="memNo"
-							placeholder="輸入會員帳號" value="${member.memNo}"> <input
+							placeholder="輸入會員帳號" value="${member.memNo}" required > <input
 							type="hidden" name="action" value="getone">
 						<button type="submit" class="btn btn-orange">查詢</button>
 					</form>
