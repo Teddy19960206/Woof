@@ -70,7 +70,6 @@ public class MemberServlet1 extends HttpServlet {
 					e.printStackTrace();
 				} catch (IOException e) {
 					e.printStackTrace();
-
 				}
 				return;
 			case "getall":
@@ -189,7 +188,7 @@ public class MemberServlet1 extends HttpServlet {
 		
 		String mempwd = req.getParameter("memPassword").trim();
 		if (mempwd == null || mempwd.trim().length() == 0) {
-			errorMsgs.put("memPassword","會員密碼請勿空白");
+//			errorMsgs.put("memPassword","會員密碼請勿空白");
 		}else {
 		    // 加密密碼
 		    String encryptedPassword = BCrypt.hashpw(mempwd, BCrypt.gensalt());
@@ -261,26 +260,9 @@ public class MemberServlet1 extends HttpServlet {
 		
 		Map<String,String> errorMsgs = new LinkedHashMap<String,String>();
 		req.setAttribute("errorMsgs", errorMsgs);
-//		List<Member> members = memberService.getAllMembers();		
 		Member member = new Member();
 		String mememail = req.getParameter("memEmail");
 		String memNo = req.getParameter("memNo");
-//		for(Member mem :  members) {
-//			if(mem.getMemNo().equals(memNo)) {
-//				errorMsgs.put("memNo","此帳號已註冊，請重新輸入");
-//			}
-//			if(mem.getMemEmail().equals(mememail)) {
-//				errorMsgs.put("memEmail", "不能使用該信箱");
-//			}
-//			if(!errorMsgs.isEmpty()) {
-//				break;
-//			}
-//		}
-//		if(!errorMsgs.isEmpty()) {
-//			
-//			req.getRequestDispatcher("frontend/member/login/updatemember.jsp").forward(req, res);
-//		    return;
-//		}
 		/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
 		if (memNo == null || memNo.trim().length() == 0) {
 			errorMsgs.put("memNo","會員帳號請勿空白");
@@ -321,7 +303,6 @@ public class MemberServlet1 extends HttpServlet {
 		if (memaddress == null || memaddress.trim().length() == 0) {
 			errorMsgs.put("memAddress","會員地址請勿空白");
 		}
-
 		// Send the use back to the form, if there were errors
 		if (!errorMsgs.isEmpty()){
 			req.getRequestDispatcher("frontend/member/login/updatemember.jsp").forward(req, res);
@@ -383,8 +364,16 @@ public class MemberServlet1 extends HttpServlet {
 	            // 處理錯誤
 	        }
 	    }
-
-	    member.setMemStatus(1);
+	    String memStatusStr = req.getParameter("memStatus");
+	    if (memStatusStr != null && !memStatusStr.isEmpty()) {
+	    	try {
+	    		Integer memStatusInteger = Integer.valueOf(memStatusStr);
+	    		member.setMemStatus(memStatusInteger);
+	    	} catch (NumberFormatException e) {
+	    		e.printStackTrace();
+	    		// 處理錯誤
+	    	}
+	    }
 		memberService.updateMember(member);
 		   // 假設更新操作已完成，現在重新獲取最新資料
 	    Member updatedMember = memberService.findMemberByNo(member.getMemNo());

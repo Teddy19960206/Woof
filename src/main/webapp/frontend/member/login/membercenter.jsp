@@ -333,7 +333,7 @@ a {
 												</form>
 											</c:when>
 											<c:otherwise>
-												<span>(狀態未知)</span>
+											<span>(未知狀態)</span>
 											</c:otherwise>
 										</c:choose>
 									</td>
