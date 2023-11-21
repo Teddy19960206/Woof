@@ -13,6 +13,8 @@ public interface AdministratorService {
 	Administrator updateAdministrator2(Administrator administrator);
 
 	void deleteAdministrator(String adminNo);
+	
+	Administrator findAdministratorByEmail(String adminEmail);
 
 	Administrator findAdministratorByAdminNo(String adminNo);
 
