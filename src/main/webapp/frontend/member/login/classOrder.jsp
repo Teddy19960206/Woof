@@ -317,7 +317,6 @@ a {
         <div class="card-body">
             <h3 class="card-title text-center p-2">課堂訂單管理</h3>
             <h5 class="card-title">剩餘課堂數:${member.getTotalClass()}</h5>
-            	<FORM METHOD="post" action="${pageContext.request.contextPath}/classorder/refundApplication">
             		<table class="table table-bordered table-hover text-center align-content-center align-middle" id="show">
                         <thead>
                             <tr>
@@ -364,7 +363,6 @@ a {
                         </c:forEach>
                         </tbody>
                     </table>
-                </FORM>
      </div>
     </div>
    </div>
