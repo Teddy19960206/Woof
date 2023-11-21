@@ -88,6 +88,9 @@ public class AppointmentDetailServlet extends HttpServlet {
 			case "cancelFromTrainer":
 				cancelFromTrainer(req , resp);
 				return;
+			case "cancelAppointment":
+				cancelAppointment(req , resp);
+				return;
 			default:
 				forwardPath = "/frontend/privatetrainingappointmentform/privateTrainingAppointmentForm.jsp";
 			}
@@ -347,5 +350,33 @@ public class AppointmentDetailServlet extends HttpServlet {
 		
 		// 沒預約單要新增明細
 		
+	}
+	
+	private void cancelAppointment(HttpServletRequest req, HttpServletResponse res) {
+		
+		String adNoStr = req.getParameter("adNo");
+    	Integer adNo = Integer.parseInt(adNoStr);
+    	PrivateTrainingAppointmentForm pta = appointmentDetailService.findAdByAdNo(adNo).getPrivateTrainingAppointmentForm();
+    	Date appTime = appointmentDetailService.findAdByAdNo(adNo).getAppTime();
+
+    	appointmentDetailService.updateAd(adNo, pta, appTime, 1);
+    	
+    	Integer ptaNo = pta.getPtaNo();
+    	
+    	Integer ptaClass = (int) appointmentDetailService.getTotalByPtaNo(ptaNo);
+    	
+    	PrivateTrainingAppointmentFormService privateTrainingAppointmentFormService = new PrivateTrainingAppointmentFormServiceImpl();
+		Member member = privateTrainingAppointmentFormService.findPrivateTrainingAppointmentFormByPtaNo(ptaNo).getMember();
+
+		/* 退回課堂數 */
+		new MemberServiceImpl().cancelPrivateClass(member.getMemNo());
+
+		Trainer trainer = privateTrainingAppointmentFormService.findPrivateTrainingAppointmentFormByPtaNo(ptaNo).getTrainer();
+
+		Timestamp commentTime =privateTrainingAppointmentFormService.findPrivateTrainingAppointmentFormByPtaNo(ptaNo).getCommentTime();
+		Timestamp commentUpTime =privateTrainingAppointmentFormService.findPrivateTrainingAppointmentFormByPtaNo(ptaNo).getCommentUpTime();
+		String ptaComment =privateTrainingAppointmentFormService.findPrivateTrainingAppointmentFormByPtaNo(ptaNo).getPtaComment();
+		privateTrainingAppointmentFormService.updatePrivateTrainingAppointmentForm(ptaNo, member, trainer,
+					ptaClass,ptaComment,commentTime,commentUpTime);
 	}
 }
