@@ -77,7 +77,7 @@ public class ShopOrderDAOImpl implements ShopOrderDAO {
 	@Override
 	public List<ShopOrder> findByMemNo(String memNo, int currentPage) {
 		int startIndex = (currentPage - 1) * PAGE_MAX_RESULT;
-		return getSession().createQuery("FROM ShopOrder s WHERE s.member.memNo = :memNo", ShopOrder.class)
+		return getSession().createQuery("FROM ShopOrder s WHERE s.member.memNo = :memNo ORDER BY s.shopOrderNo DESC", ShopOrder.class)
 		        .setParameter("memNo", memNo)
 		        .setFirstResult(startIndex) // 設定起始索引
 		        .setMaxResults(PAGE_MAX_RESULT) // 設定最大結果數
@@ -94,5 +94,11 @@ public class ShopOrderDAOImpl implements ShopOrderDAO {
 		return a;
 	}
 	
-	
+	@Override
+	public List<ShopOrder> getOrdersByMember(String memNo) {
+            return getSession().createQuery("FROM ShopOrder s WHERE s.member.memNo = :memNo ORDER BY shopOrderNo DESC", ShopOrder.class)
+                    .setParameter("memNo", memNo)
+                    .list();
+        
+    }
 }

@@ -148,23 +148,5 @@ public class checkoutServlet extends HttpServlet {
 		}
 	}
 
-//    //從redis取出資料
-//    private String getCart(Jedis jedis, String memNo) {
-//        String cartJson = jedis.get(memNo);
-//        return (cartJson != null) ? cartJson : "[]";
-//    }
-//
-//    private void updateCartInRedis(Jedis jedis, String memNo, String cartJson) {
-//        jedis.set(memNo, cartJson);
-//    }
-//    
-//    private List<Map<String, Object>> parseCart(String cartJson) {
-//        Type type = new TypeToken<List<Map<String, Object>>>(){}.getType();
-//        return new Gson().fromJson(cartJson, type);
-//    }
-//
-//    private String serializeCart(List<Map<String, Object>> cart) {
-//        return new Gson().toJson(cart);
-//    }
 
 }

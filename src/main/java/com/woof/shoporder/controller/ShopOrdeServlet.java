@@ -177,16 +177,20 @@ public class ShopOrdeServlet extends HttpServlet {
 		try {
 			parsedDate = dateFormat.parse(coTimeStr);
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		Timestamp prodOrderDate = new Timestamp(parsedDate.getTime());
-		int payMethod = Integer.parseInt(request.getParameter("payment"));		
-		Boolean shipMethod = Boolean.parseBoolean(request.getParameter("shipMethod"));
 		
-		int orderStatus = 0;
+		int payMethod = Integer.parseInt(request.getParameter("payment"));
+		request.setAttribute("payMethod", payMethod);
+		int orderStatus = (payMethod == 1) ? 4 : 0; // 如果付款方式是匯款（1），訂單狀態設為 4（未付款）
 		request.getSession().setAttribute("orderStatus", orderStatus);
+		
+		
+		Boolean shipMethod = Boolean.parseBoolean(request.getParameter("shipMethod"));
+		System.out.println(shipMethod+"===============================================");
+
 
 		String recName = request.getParameter("memName");
 		String recMobile = request.getParameter("phone");		
@@ -194,7 +198,20 @@ public class ShopOrdeServlet extends HttpServlet {
 		Boolean hasReturn = false;
 		request.getSession().setAttribute("hasReturn", hasReturn);
 
+		// 前端傳過來的毛毛幣使用數量
 		int moCoin = Integer.parseInt(request.getParameter("inputSmmp"));		
+	
+		System.out.println(moCoin+"毛毛幣==========================================");
+		
+		// 計算新的毛毛幣餘額，不可以變負數
+		int currentMoCoins = member.getMomoPoint(); 
+		
+		System.out.println(currentMoCoins+"會員擁有毛毛幣==========================================");
+		
+		int newMoCoins = Math.max(currentMoCoins - moCoin, 0);
+		// 更新會員的毛毛幣餘額
+		memberService.updateMemberPoints(memNo, newMoCoins);
+		
 		int orderTotalPrice = Integer.parseInt(request.getParameter("totalPrice"));
 		int actualPrice = Integer.parseInt(request.getParameter("totalAfterCoins"));
 
