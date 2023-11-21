@@ -15,6 +15,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import org.mindrot.jbcrypt.BCrypt;
@@ -382,6 +383,9 @@ public class MemberServlet1 extends HttpServlet {
 	    Member updatedMember = memberService.findMemberByNo(member.getMemNo());
 	    System.out.println(member.getMemNo()+"=============");
 	    // 將更新後的會員資料設置為請求屬性
+	    HttpSession session = req.getSession();
+	    session.setAttribute("member" , member);
+	    
 	    req.setAttribute("member", updatedMember);
 		// 導到指定的URL 頁面上 把請求回應都帶過去
 		req.getRequestDispatcher( "/frontend/member/login/membercenter.jsp").forward(req, res);
