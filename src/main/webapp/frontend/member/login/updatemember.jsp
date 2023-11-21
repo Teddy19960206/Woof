@@ -38,7 +38,7 @@ function confirmUpdate() {
     }).then((result) => {
         // 如果用戶確認，則提交表單
         if (result.isConfirmed) {
-            document.getElementById("update").submit(); // 替換 "yourFormId" 為您的表單 ID
+            document.getElementById("update").submit(); 
         }
     });
     // 阻止表單的預設提交行為
@@ -67,7 +67,7 @@ $(document).ready(function(){
             true);
           $('#photo').attr('src', "${pageContext.request.contextPath}/DBPngReader?action=member&id="+jsonObj.memNo);
           $('#memEmail').val(jsonObj.memEmail);
-       	  $('#memPassword').val(jsonObj.memPassword);
+      /*     $('#memPassword').val(jsonObj.memPassword); */
           $('#memTel').val(jsonObj.memTel);
           $('#memAddress')
             .val(jsonObj.memAddress);
@@ -76,11 +76,7 @@ $(document).ready(function(){
           $('#momoPoint').val(jsonObj.momoPoint);
           console.log($('#memBd'));
           $('#memBd').val(jsonObj.memBd);
-          $(
-            'input[name=memStatus][value='
-              + jsonObj.memStatus
-              + ']').prop('checked',
-            true); 
+          $('#memStatus').val(jsonObj.memStatus);
          },
          //Ajax失敗後要執行的function，此例為印出錯誤訊息
          error : function(xhr, ajaxOptions,
@@ -229,10 +225,9 @@ body {
 					<div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="TEXT" name="memNo"
-								id="memNo" size="45" required />
+								id="memNo" size="45" readonly style="background-color: #e9ecef; border: 1px solid #ced4da;"/>
 						</div>
 					</div>
-					<%-- 					<small class="error-msg">${errorMsgs.memNo}</small> --%>
 				</div>
 				<div class="form-group">
 					<label for="memName">會員姓名:</label>
@@ -280,21 +275,21 @@ body {
 					<div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="email" name="memEmail"
-								id="memEmail" placeholder="XXX@gmail.com" size="45" required />
+								id="memEmail" placeholder="XXX@gmail.com" size="45" readonly style="background-color: #e9ecef; border: 1px solid #ced4da;"/>
 						</div>
 					</div>
-					<%-- 					<small class="error-msg">${errorMsgs.memEmail}</small> --%>
+					<%-- <small class="error-msg">${errorMsgs.memEmail}</small> --%>
 				</div>
-				<div class="form-group">
+ 				<div class="form-group">
 					<label for="memPassword">密碼(需大於六個字):</label>
 					<div>
 						<div class="form-check form-check-inline">
 							<input class="form__input" pattern=".{6,}" type="TEXT"
-								name="memPassword" id="memPassword" size="45" required /><span
+								name="memPassword" id="memPassword" size="45"/><span
 								class="icon"></span>
 						</div>
 					</div>
-					<small class="error-msg">${errorMsgs.memPassword}</small>
+				<%-- 	<small class="error-msg">${errorMsgs.memPassword}</small> --%>
 				</div>
 				<div class="form-group">
 					<label for="memTel">會員電話:</label>
@@ -345,22 +340,16 @@ body {
 						</div>
 					</div>
 				</div>
-				<!-- 				<div class="form-group"> -->
-				<!-- 					<label for="memStatus">狀態:</label> -->
-				<!-- 					<div> -->
-				<!-- 						<div class="form-check form-check-inline"> -->
-				<!-- 							<input class="form-check-input" type="radio" name="memStatus" -->
-				<!-- 								id="memStatus" value="1" disabled> <label -->
-				<!-- 								class="form-check-label" for="memStatus">正常</label> -->
-				<!-- 						</div> -->
-				<!-- 						<div class="form-check form-check-inline"> -->
-				<!-- 							<input class="form-check-input" type="radio" name="memStatus" -->
-				<!-- 								id="memStatus" value="0" disabled> <label -->
-				<!-- 								class="form-check-label" for="memStatus">停權</label> -->
-				<!-- 						</div> -->
-				<!-- 					</div> -->
-				<!-- 				</div> -->
-
+				<div class="form-group">
+					<label for="memStatus">狀態:</label>
+					<div>
+						<div class="form-check form-check-inline">
+							<input class="form-check-input" type="number" name="memStatus"
+								id="memStatus" size="45" readonly
+								style="background-color: #e9ecef; border: 1px solid #ced4da;" />
+						</div>
+					</div>
+				</div>
 				<br> <input type="hidden" name="action" value="update">
 				<button type="submit" class="btn btn-primary btn-custom">修改</button>
 				<button type="button" onclick="history.back()"
