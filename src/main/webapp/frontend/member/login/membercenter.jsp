@@ -254,7 +254,7 @@ a {
 					class="accordion-collapse collapse"
 					data-bs-parent="#accordionExample">
 					<div class="accordion-body">
-						<a href="#">訂單查詢</a>
+						<a href="${pageContext.request.contextPath}/frontend/member/login/shopordermem.jsp">訂單查詢</a>
 					</div>
 				</div>
 				<hr class="custom-divider">

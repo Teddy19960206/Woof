@@ -23,4 +23,7 @@ public interface ShopOrderDAO {
 List<ShopOrder> findByMemNo(String memNo , int currentPage);
 	
 long getTotalMember(String memNo);
+
+	//有登入會自動顯示自己的訂單
+	List<ShopOrder> getOrdersByMember(String memNo);
 }

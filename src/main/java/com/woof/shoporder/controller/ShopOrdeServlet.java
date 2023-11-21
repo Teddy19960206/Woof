@@ -171,7 +171,7 @@ public class ShopOrdeServlet extends HttpServlet {
 		System.out.println("======================================" + member);
 
 		java.util.Date now = new java.util.Date();
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String coTimeStr = dateFormat.format(now);
 		java.util.Date parsedDate = null; // 初始化為 null
 		try {
@@ -198,12 +198,17 @@ public class ShopOrdeServlet extends HttpServlet {
 		Boolean hasReturn = false;
 		request.getSession().setAttribute("hasReturn", hasReturn);
 
-		// 獲取前端傳過來的毛毛幣使用數量
+		// 前端傳過來的毛毛幣使用數量
 		int moCoin = Integer.parseInt(request.getParameter("inputSmmp"));		
+	
+		System.out.println(moCoin+"毛毛幣==========================================");
+		
+		// 計算新的毛毛幣餘額，不可以變負數
 		int currentMoCoins = member.getMomoPoint(); 
-
-		// 計算新的毛毛幣餘額
-		int newMoCoins = currentMoCoins - moCoin;
+		
+		System.out.println(currentMoCoins+"會員擁有毛毛幣==========================================");
+		
+		int newMoCoins = Math.max(currentMoCoins - moCoin, 0);
 		// 更新會員的毛毛幣餘額
 		memberService.updateMemberPoints(memNo, newMoCoins);
 		

@@ -70,13 +70,15 @@
 							<div class="summary-label">毛毛幣折抵:</div>
 							<div class="summary-value ">
 								<input class="form-check-input ml-5" type="radio"
-									name="mocoinOption" value="usemocoin" id="UseSmmp">使用 <input
+									name="mocoinOption" value="usemocoin" id="UseSmmp">使用 
+								<input
 									class="form-check-input" type="radio" name="mocoinOption"
 									value="nousemocoin" id="notusemocoin" checked>不使用
+								<input type="hidden" name="inputSmmp" id="hiddenInputSmmp" value="0" style="display: none;">
 							</div>
 						</div>
 						<div class="summary-value">
-							<input type="text" id="inputSmmp" name="inputSmmp" value="0"
+							<input type="text" id="inputSmmp" name="inputSmmp"
 								class="form-control text-end mb-1 p-0"
 								style="width: 50px; height: 25px;" disabled>
 						</div>

@@ -35,7 +35,6 @@
 
 	<div class="container my-3 col-4 p-3 rounded-4 bg-white shadow">
 		<div id="orderSuccessIcon" style="display: none; text-align: center;">
-<!-- 			<h2 class="border-bottom pb-3 mb-3">訂單完成</h2> -->
 
 			<c:choose>
 			    <c:when test="${payMethod == 0}">
@@ -116,7 +115,7 @@
 		
 		<div class="text-center mt-4">
             <a href="<%=request.getContextPath()%>/index.jsp" class="btn btn-secondary">回首頁</a> 
-            <a href="/訂單詳細的URL" class="btn btn-primary">查看詳細</a> 
+            <a href="#" class="btn btn-primary">查看詳細</a> 
         </div>
         
 	</div>

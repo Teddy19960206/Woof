@@ -17,12 +17,18 @@ public interface ShopOrderService {
 	List<ShopOrder> getAllShopOrder();
 
 	ShopOrder findByShopOrderNo(Integer shopOrderNo);
-
+	//全部會員顯示
 	List<ShopOrder> getAllShopOrder(int currentPage);
 
 	int getPageTotal();
 	
+//下拉式個別會員顯示
 List<ShopOrder> findByMemNo(String memNo , int currentPage);
 	
 int getPageTotal2(String memNo);
+	
+	//有登入會自動顯示自己的訂單
+	List<ShopOrder> getOrdersByMember(String memNo);
+
+
 }
