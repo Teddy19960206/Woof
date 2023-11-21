@@ -46,13 +46,13 @@ public class ClassOrderDAOImpl implements ClassOrderDAO{
 	
 	@Override
 	public List<ClassOrder> getAll() {
-		return getSession().createQuery("FROM ClassOrder", ClassOrder.class).list();
+		return getSession().createQuery("FROM ClassOrder ORDER BY coTime", ClassOrder.class).list();
 	}
 
 	@Override
 	public List<ClassOrder> getAll(int currentPage) {
 		int first = (currentPage - 1) * PAGE_MAX_RESULT;
-		return getSession().createQuery("FROM ClassOrder", ClassOrder.class)
+		return getSession().createQuery("FROM ClassOrder ORDER BY coTime", ClassOrder.class)
 				.setFirstResult(first)
 				.setMaxResults(PAGE_MAX_RESULT)
 				.list();
@@ -66,7 +66,7 @@ public class ClassOrderDAOImpl implements ClassOrderDAO{
 	@Override
 	public List<ClassOrder> getByMemNo(String memNo, int currentPage) {
 		int first = (currentPage - 1) * PAGE_MAX_RESULT;
-		return getSession().createQuery("FROM ClassOrder c WHERE c.member.memNo LIKE :memNo", ClassOrder.class)
+		return getSession().createQuery("FROM ClassOrder c WHERE c.member.memNo LIKE :memNo ORDER BY coTime", ClassOrder.class)
 				.setParameter("memNo", "%" + memNo + "%")
 				.setFirstResult(first)
 				.setMaxResults(PAGE_MAX_RESULT)
@@ -82,7 +82,7 @@ public class ClassOrderDAOImpl implements ClassOrderDAO{
 
 	@Override
 	public List<ClassOrder> getOrderByMemNo(String memNo) {
-		return getSession().createQuery("FROM ClassOrder c WHERE c.member.memNo = :memNo", ClassOrder.class)
+		return getSession().createQuery("FROM ClassOrder c WHERE c.member.memNo = :memNo ORDER BY coTime", ClassOrder.class)
 				.setParameter("memNo", memNo)
 				.list();
 	}

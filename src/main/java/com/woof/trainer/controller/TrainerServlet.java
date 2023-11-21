@@ -7,7 +7,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -142,30 +144,64 @@ public class TrainerServlet  extends HttpServlet {
 //		}
 		List<Trainer> allTrainers = trainerService
 				.getAllTrainers2(currentPage);
-
-
+		//================隨機取三筆評論的區塊======================
 		// 對每個訓練師處理評論
+//		for (Trainer trainer : allTrainers) {
+//		    List<PrivateTrainingAppointmentForm> ptas = new ArrayList<>(trainer.getPrivateTrainingAppointmentForms());
+//
+//		    // 使用 Collections.shuffle() 來隨機排列評論
+//		    Collections.shuffle(ptas);
+//
+//		    // 獲取非空的前幾筆評論，這裡是獲取前三筆
+//		    List<PrivateTrainingAppointmentForm> nonEmptyComments = new ArrayList<>();
+//		    for (PrivateTrainingAppointmentForm pta : ptas) {
+//		        if (pta.getPtaComment() != null && !pta.getPtaComment().isEmpty()) {
+//		            nonEmptyComments.add(pta);
+//		        }
+//		    }
+//		    
+//		    List<PrivateTrainingAppointmentForm> randomNonEmptyComments = nonEmptyComments.subList(0, Math.min(3, nonEmptyComments.size()));
+//
+//		    // 將處理後的非空評論設置回訓練師物件中
+//		    trainer.setPrivateTrainingAppointmentForms(new HashSet<>(randomNonEmptyComments));
+//		}
+		//=======================================================================================
+		
+		//=====================按照評論時間排序評論================================
 		// 對每個訓練師處理評論
 		for (Trainer trainer : allTrainers) {
 		    List<PrivateTrainingAppointmentForm> ptas = new ArrayList<>(trainer.getPrivateTrainingAppointmentForms());
 
-		    // 使用 Collections.shuffle() 來隨機排列評論
-		    Collections.shuffle(ptas);
+		    // 篩選非空的評論
+		    List<PrivateTrainingAppointmentForm> nonEmptyComments = ptas.stream()
+		            .filter(pta -> pta.getPtaComment() != null && !pta.getPtaComment().isEmpty())
+		            .collect(Collectors.toList());
 
-		    // 獲取非空的前幾筆評論，這裡是獲取前三筆
-		    List<PrivateTrainingAppointmentForm> nonEmptyComments = new ArrayList<>();
-		    for (PrivateTrainingAppointmentForm pta : ptas) {
-		        if (pta.getPtaComment() != null && !pta.getPtaComment().isEmpty()) {
-		            nonEmptyComments.add(pta);
+		    // 自訂 Comparator 來排序評論
+		    nonEmptyComments.sort((pta1, pta2) -> {
+		        Timestamp commentUpTime1 = pta1.getCommentUpTime();
+		        Timestamp commentUpTime2 = pta2.getCommentUpTime();
+
+		        // 如果 commentUpTime 存在，以 commentUpTime 比較
+		        if (commentUpTime1 != null && commentUpTime2 != null) {
+		            return commentUpTime2.compareTo(commentUpTime1); // 降序排序
+		        } else if (commentUpTime1 == null && commentUpTime2 != null) {
+		            return 1; // pta1 沒有 commentUpTime，排後面
+		        } else if (commentUpTime1 != null) {
+		            return -1; // pta2 沒有 commentUpTime，排後面
+		        } else {
+		            // 若兩者皆為 null，則比較 commentTime
+		            return pta2.getCommentTime().compareTo(pta1.getCommentTime()); // 降序排序
 		        }
-		    }
-		    
+		    });
+
+		    // 獲取前三筆評論
 		    List<PrivateTrainingAppointmentForm> randomNonEmptyComments = nonEmptyComments.subList(0, Math.min(3, nonEmptyComments.size()));
 
 		    // 將處理後的非空評論設置回訓練師物件中
 		    trainer.setPrivateTrainingAppointmentForms(new HashSet<>(randomNonEmptyComments));
 		}
-		
+		//==================================================================================
 		request.setAttribute("trainers", allTrainers);
 		request.setAttribute("currentPage", currentPage);
 		try {

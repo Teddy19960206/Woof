@@ -179,6 +179,64 @@
     	justify-content: center;
     	margin-top: 30px;
 	}
+/* 	============================== */
+	.comment-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.comment {
+    flex: 0 0 70%; /* 調整評論區域的寬度 */
+}
+
+.report-comment {
+    flex: 0 0 28%; /* 調整檢舉評論區域的寬度 */
+    text-align: right; /* 右對齊 */
+}
+
+.comment ul {
+    list-style: none;
+    padding: 0;
+}
+
+.comment li {
+    margin-bottom: 5px;
+}
+
+.report-comment button {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #FF6347; /* 按鈕背景色 */
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.report-comment button:hover {
+    background-color: #DC143C; /* 滑鼠懸停時的背景色 */
+}
+.comment-meta {
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 5px;
+}
+
+.comment-time {
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+.comment-content {
+    margin-top: 5px;
+}
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    margin-left: -60px; /* 負的左邊距 */
+}
 	</style>
  <script type="text/javascript">
         // 當頁面加載完成後執行
@@ -201,7 +259,7 @@
     <h1>訓練師列表</h1>
     <c:forEach var="trainer" items="${trainers}">
         <div class="trainer row">
-            <div class="col-lg-8 col-12 info">
+            <div class="col-lg-6 col-12 info">
                 <div class="col-auto mx-auto text-center">
                     <h2>${trainer.administrator.adminName}</h2>
                     <div class="img-div mx-auto">
@@ -218,24 +276,31 @@
                     </a>
                 </div>
             </div>
-            <div class="col-lg-4 col-12 comments text-center">
+            <div class="col-lg-6 col-12 comments text-center">
                 <div class="row">
-                     <h1>評價:</h1>
+                     <h1>評論:</h1>
                 </div>
                 <div class="row">
-                    <c:forEach var="pta" items="${trainer.privateTrainingAppointmentForms}" varStatus="loop">
-                        <c:if test="${loop.index < 3}">
-                            <ul>
-                                <li>${pta.ptaComment}</li>
-                                <form method="POST" action="${pageContext.request.contextPath}/commentreport?action=report" onsubmit="return commentReport()">
-                                    <input type="hidden" name="ptano" value="${pta.ptaNo}">
-                                    <input type="hidden" name="comment" value="${pta.ptaComment}">
-                                    <button>檢舉評論</button>
-                                </form>
-                            </ul>
-                        </c:if>
-                    </c:forEach>
-                </div>
+    <c:forEach var="pta" items="${trainer.privateTrainingAppointmentForms}" varStatus="loop">
+    <c:if test="${loop.index < 3}">
+        <div class="comment-wrapper">
+            <div class="comment">
+                <ul>
+                    <li class="comment-meta">${pta.member.memName} - <span class="comment-time">${pta.commentTime}</span></li>
+                    <li class="comment-content">${pta.ptaComment}</li>
+                </ul>
+            </div>
+            <div class="report-comment">
+                <form method="POST" action="${pageContext.request.contextPath}/commentreport?action=report" onsubmit="return commentReport()">
+                    <input type="hidden" name="ptano" value="${pta.ptaNo}">
+                    <input type="hidden" name="comment" value="${pta.ptaComment}">
+                    <button>檢舉評論</button>
+                </form>
+            </div>
+        </div>
+    </c:if>
+</c:forEach>
+</div>
             </div>
         </div>
     </c:forEach>
