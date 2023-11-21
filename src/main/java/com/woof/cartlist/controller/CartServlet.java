@@ -89,6 +89,7 @@ public class CartServlet extends HttpServlet {
 
 		Member member = (Member) request.getSession(false).getAttribute("member");
 		String memNo = member.getMemNo();
+		
 		// 從 Redis 獲取當前購物車
 		String cartJson = jedis.get(memNo);
 		List<Map<String, Object>> cart;
@@ -104,16 +105,20 @@ public class CartServlet extends HttpServlet {
 		String prodNo = request.getParameter("prodNo");
 		String prodName = request.getParameter("prodName");
 		double prodPrice = Double.parseDouble(request.getParameter("prodPrice"));
+		int quantity = Integer.parseInt(request.getParameter("quantity"));
 		boolean exists = false;
+		
+		System.out.println(prodName);
+		System.out.println(quantity);
 
 		// 檢查購物車是否已經包含該商品
 		for (Map<String, Object> item : cart) {
 			if (prodNo.equals(item.get("prodNo"))) {
-				int quantity = (int) Double.parseDouble(item.get("quantity").toString());
-
-				item.put("quantity", quantity + 1); // 增加數量
-				exists = true;
-				break;
+				double existingQuantityDouble = (double) item.get("quantity");
+		        int existingQuantity = (int) existingQuantityDouble;
+		        item.put("quantity", existingQuantity + quantity); // 增加數量
+		        exists = true;
+		        break;
 			}
 		}
 
@@ -121,7 +126,7 @@ public class CartServlet extends HttpServlet {
 			Map<String, Object> newItem = new HashMap<>();
 			newItem.put("prodNo", prodNo);
 			newItem.put("prodName", prodName);
-			newItem.put("quantity", 1);
+		    newItem.put("quantity", quantity); // 使用傳入的數量
 			newItem.put("prodPrice", prodPrice);
 			cart.add(newItem);
 		}

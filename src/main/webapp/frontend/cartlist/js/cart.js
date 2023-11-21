@@ -31,14 +31,21 @@ let projectName = pathName.substring(0, pathName.substring(1).indexOf("/") + 1);
 
 // 添加商品到購物車的 AJAX 請求
 $(".add-to-cart").on("click", function() {
-	let prodNo = $(this).data("id");
 	
-	// alert("加入購物車");
-	// console.log(prodNo);
-
+	 alert("加入購物車");
+	 
+	let prodNo = $(this).data("id");
 	let prodName = $(this).data("name");
 	let prodPrice = $(this).data("price");
-	let prodPhoto = $(this).data("productImage");
+	var quantity = parseInt($('#product-quantity').val()); // 從數量選擇器獲取選擇的數量
+//    var productImageSrc = $('#product-image').attr('src');
+	
+	console.log(prodNo);
+	console.log(prodName);
+	console.log(prodPrice);
+	console.log(quantity);
+//	console.log(productImageSrc);
+
 
 	$.ajax({
 		type: "POST",
@@ -48,7 +55,9 @@ $(".add-to-cart").on("click", function() {
 			prodNo: prodNo,
 			prodName: prodName,
 			prodPrice: prodPrice,
-			prodPhoto: prodPhoto
+			quantity: quantity, // 發送數量
+//            productImage: productImageSrc // 發送照片 URL
+
 		},
 		success: function(data) {
 			console.log(data);

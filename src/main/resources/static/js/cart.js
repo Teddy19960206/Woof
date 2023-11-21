@@ -2,43 +2,50 @@ let pathName = window.document.location.pathname;
 let projectName = pathName.substring(0, pathName.substring(1).indexOf("/") + 1);
 
 
-$(function() {
-	getCartTotalQuantity();
-});
-
 //自動重新刷新會載入總數
-function getCartTotalQuantity() {
-	let memNo = "member1"; // 這裡應該從session會話中獲取真實的會員編號
-	$.ajax({
-		type: "POST",
-		url: `${projectName}/cart`,
-		data: {
-			action: "getTotalQuantity",
-			memNo: memNo
-		},
-		success: function(response) {
-			// 假設後端返回的 response 是一個物件，包含 totalQuantity 屬性
-			$("#cart-count").text(response.totalQuantity);
-		},
-		error: function(xhr, status, error) {
-			// 處理錯誤
-			console.error("獲取購物車總數量時出錯", status, error);
-		}
-	});
-}
+//$(function() {
+//	getCartTotalQuantity();
+//});
+
+//function getCartTotalQuantity() {
+////	let memNo = "member1"; // 從session會話中獲取真實的會員編號
+//	$.ajax({
+//		type: "POST",
+//		url: `${projectName}/cart`,
+//		data: {
+//			action: "getTotalQuantity",
+////			memNo: memNo
+//		},
+//		success: function(response) {
+//			// 假設後端返回的 response 是一個物件，包含 totalQuantity 屬性
+//			$("#cart-count").text(response.totalQuantity);
+//		},
+//		error: function(xhr, status, error) {
+//			if (xhr.status === 401) { // 未授權錯誤
+//				window.location.href = `${projectName}/frontend/member/login/login.jsp`;
+//			}
+//		}
+//	});
+//}
 
 
 // 添加商品到購物車的 AJAX 請求
-// 動態泡沫事件
-$(document).on("click",".add-to-cart", function() {
+$(".add-to-cart").on("click", function() {
 	
+	 alert("加入購物車");
+	 
 	let prodNo = $(this).data("id");
 	let prodName = $(this).data("name");
 	let prodPrice = $(this).data("price");
-
+	var quantity = parseInt($('#product-quantity').val()); // 從數量選擇器獲取選擇的數量
+//    var productImageSrc = $('#product-image').attr('src');
+	
 	console.log(prodNo);
 	console.log(prodName);
 	console.log(prodPrice);
+	console.log(quantity);
+//	console.log(productImageSrc);
+
 
 	$.ajax({
 		type: "POST",
@@ -47,48 +54,41 @@ $(document).on("click",".add-to-cart", function() {
 			action: "add",
 			prodNo: prodNo,
 			prodName: prodName,
-			prodPrice: prodPrice
+			prodPrice: prodPrice,
+			quantity: quantity, // 發送數量
+//            productImage: productImageSrc // 發送照片 URL
+
 		},
 		success: function(data) {
-//			console.log("AJAX call made");
 			console.log(data);
-
-			// 跑購物車清單
-    response.cartItems.forEach(item => {
-        let itemTotal = item.quantity * item.prodPrice;
-        html += `<tr>
-                    <td>${item.prodNo}</td>
-                    <td>${item.prodName}</td>
-                    <td>${item.quantity}</td>
-                    <td>NT$${itemTotal}</td>
-                </tr>`;
-    });
-
-    $("#cart-items-list").html(html);
-    $("#cart-total-amount").text(`NT$${totalAmount}`); // 更新總金額
-
-    $('#cartModal').modal('show'); // 顯示購物車模態框
-}
-
+			// 更新前端jsp中的數字
+			let totalQuantity = data.totalQuantity;
+			$("#cart-count").text(totalQuantity);
+		},
+		error: function(xhr, status, error) {
+			if (xhr.status === 401) { // 未授權錯誤
+				window.location.href = `${projectName}/frontend/member/login/login.jsp`;
+			}
+		}
 	});
 });
-
 
 
 // 購物車圖標點擊事件
 $("#cart-icon, #cart-count").on("click", function() {
 	// 假設用戶已經登入，並且會員編號已經存儲在會話中
-	let memNo = "member1"; // 這裡應該從會話中獲取真實的會員編號
-
+//	let memNo = "member1"; // 這裡應該從會話中獲取真實的會員編號
+	
 	$.ajax({
 		type: "POST",
 		url: `${projectName}/cartlist`,
 		data: {
 			action: "getCart",
-			memNo: memNo
+//			memNo: memNo
 		},
 		success: function(cartJson) {
 
+			//先宣告一個""
 			let html = "";
 			let totalAmount = 0;
 			
@@ -122,6 +122,7 @@ $(document).ready(function() {
 	$('#checkout').click(function() {
 		
 		console.log("11111");
+		
 		window.location.href = '<%=request.getContextPath()%>/checkout.jsp';
 	});
 });
