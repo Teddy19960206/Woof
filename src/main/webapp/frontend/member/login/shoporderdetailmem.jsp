@@ -1,24 +1,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import="com.woof.shoporder.service.ShopOrderServiceImpl" %>
-<%@ page import="com.woof.shoporder.entity.ShopOrder" %>
+<%@ page import="com.woof.shoporderdetail.service.ShopOrderDetailServiceImpl"%>
+<%@ page import="com.woof.shoporderdetail.entity.ShopOrderDetail"%>
 <%@ page import="com.woof.member.entity.Member" %>
-<%@ page import="java.util.List" %>
+<%@ page import="java.util.List"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-
-<%
-	Member member = (Member) request.getSession(false).getAttribute("member");
-	
-	List<ShopOrder> list = new ShopOrderServiceImpl().getOrdersByMember(member.getMemNo());
-	
-	request.setAttribute("all" , list);
-%>
-
 
 <html>
 <head>
     <%@ include file="/meta.file"%>
-    <title>寵毛導師 Woof | 商城訂單管理</title>
+    <title>寵毛導師 Woof | 訂單明細</title>
 </head>
 <style>
     .table {
@@ -113,7 +104,22 @@
         color: #333;
     }
 </style>
+
 <body>
+<%
+    String shopOrderNoStr = request.getParameter("shopOrderNo");
+	System.out.println(shopOrderNoStr+"取得的編號==========");
+  
+    Integer shopOrderNo = Integer.parseInt(shopOrderNoStr);
+
+    ShopOrderDetailServiceImpl service = new ShopOrderDetailServiceImpl();
+    List<ShopOrderDetail> orderDetails = service.findOneShopOrderNoDetail(shopOrderNo);
+
+    request.setAttribute("orderDetails", orderDetails);
+
+    System.out.println(orderDetails+"LIST取得的編號==========");
+%>
+
 <script type="text/javascript">
     function toggleOrderManagement() {
         var orderoptions = document.getElementById('orderManagementOptions');
@@ -273,68 +279,26 @@
             </div>
         </div>
         <div class="col-12 col-md-8">
-<!--             <div class="card"> -->
-<!--                 <div class="card-body"> -->
-                    <h3 class="text-center p-2">商城訂單</h3>
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title text-center p-2">訂單明細</h3>
                     <table class="table table-hover text-center" id="show">
                         <thead>
                             <tr>
                                 <th>訂單編號</th>
-                                <th>成立時間</th>
-                                <th>付款方式</th>
-                                <th>訂單狀態</th>
-                                <th>訂單明細</th>
+                                <th>商品名稱</th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
                             </tr>
 
                         </thead>
                         <tbody>
-                        <c:forEach items="${all}" var="order">
-						  <tr>
-						  	<td>${order.shopOrderNo}</td>
-						  	
-						  	<fmt:formatDate value="${order.prodOrderDate}" pattern="yyyy-MM-dd" var="formattedDate"/>
-							<td>${formattedDate}</td>
-							
-							<td>
-							<c:choose>
-							    <c:when test="${order.payMethod == 0}">
-							        <p>信用卡</p>
-							    </c:when>
-							    <c:when test="${order.payMethod == 1}">
-							        <p>匯款</p>
-							    </c:when>
-							    <c:when test="${order.payMethod == 2}">
-							        <p>綠界</p>
-							    </c:when>
-							</c:choose>
-						    </td>   
-							
-							<td>
-							<c:choose>
-							    <c:when test="${order.orderStatus == 0}">
-							        <p><span class="text-success"> 成立</span></p>
-							    </c:when>
-							    <c:when test="${order.orderStatus == 1}">
-							        <p>出貨</p>
-							    </c:when>
-							    <c:when test="${order.orderStatus == 2}">
-							        <p>完成</p>
-							    </c:when>
-							    <c:when test="${order.orderStatus == 3}">
-							        <p>取消</p>
-							    </c:when>
-							    <c:when test="${order.orderStatus == 4}">
-							        <p><span class="text-danger"> 未付款</span></p>
-							    </c:when>
-							    <c:when test="${order.orderStatus == 5}">
-							        <p>已付款</p>
-							    </c:when>
-							</c:choose>
-						    </td> 
-						    <td>
-								<a href="shoporderdetailmem.jsp?shopOrderNo=${order.shopOrderNo}" class="btn btn-info">查看</a>					        
-							</td>  					    
-						  </tr>
+                        <c:forEach items="${orderDetails}" var="orderDetails">
+                            <tr>
+                                <td>${orderDetails.shopOrderNo}</td>
+<%--                                 <td>${orderDetails.prodName}</td> --%>
+                            </tr>
                         </c:forEach>
                         </tbody>
                     </table>
@@ -344,8 +308,8 @@
             </div>
         </div>
 
-<!--     </div> -->
-<!-- </div> -->
+    </div>
+</div>
 
 <script src="${pageContext.request.contextPath}/frontend/member/js/groupOrder.js"></script>
 </body>

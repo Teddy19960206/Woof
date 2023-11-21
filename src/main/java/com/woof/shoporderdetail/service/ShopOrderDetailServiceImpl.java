@@ -67,9 +67,9 @@ public class ShopOrderDetailServiceImpl implements ShopOrderDetailService{
 	}
 
 	@Override
-	public ShopOrderDetail findByShopOrderDetailNo(Integer shopOrderNo) {
+	public List<ShopOrderDetail> findOneShopOrderNoDetail(Integer shopOrderNo) {
 		
-		return dao.findByShopOrderDetail(shopOrderNo);
+		return dao.findOneShopOrderNoDetail(shopOrderNo);
 	}
 	
 //	@Override

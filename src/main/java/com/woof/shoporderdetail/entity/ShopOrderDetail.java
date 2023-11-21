@@ -8,8 +8,6 @@ import javax.persistence.*;
 
 import com.google.gson.annotations.Expose;
 
-//可能要重做
-
 @Entity
 @Table(name = "shop_order_detail")
 public class ShopOrderDetail implements Serializable {

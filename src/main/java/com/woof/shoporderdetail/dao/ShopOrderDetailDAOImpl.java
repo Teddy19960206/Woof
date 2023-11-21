@@ -47,8 +47,11 @@ public class ShopOrderDetailDAOImpl implements ShopOrderDetailDAO {
 //	}
 
 	@Override
-	public ShopOrderDetail findByShopOrderDetail(Integer shopOrderNo) {
-		return getSession().get(ShopOrderDetail.class, shopOrderNo);
+	public List<ShopOrderDetail> findOneShopOrderNoDetail(Integer shopOrderNo) {
+		return getSession()
+		        .createQuery("FROM ShopOrderDetail WHERE shopOrderNo = :shopOrderNo", ShopOrderDetail.class)
+		        .setParameter("shopOrderNo", shopOrderNo)
+		        .list();
 	}
 
 	@Override
