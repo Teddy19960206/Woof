@@ -61,6 +61,7 @@ function connect(){
 
     websocket.onopen = function (event){
         console.log("連線成功");
+        getHistory();
     }
 
     websocket.onmessage = function (event){
@@ -92,6 +93,16 @@ function connect(){
     websocket.onerror = function (event){
 
     }
+}
+
+function getHistory(){
+    let jsonObj = {
+        "type" : "history",
+        "sender" : member,
+        "receiver" : "admin",
+        "message" : ""
+    };
+    websocket.send(JSON.stringify(jsonObj));
 }
 
 
