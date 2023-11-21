@@ -34,11 +34,10 @@ public class CommentReportServiceImpl implements CommentReportService{
 	}
 
 	@Override
-	public int updateCommentReport(CommentReport commentReport) {
-		return dao.update(commentReport);
+	public void updateCrStatus(Integer crNo, Integer crStatus) {
+		dao.findByCrNo(crNo).setCrStatus(crStatus);
 	}
 
-	
 	@Override
 	public int deleteCommentReport(CommentReport commentReport) {
 		return dao.delete(commentReport);

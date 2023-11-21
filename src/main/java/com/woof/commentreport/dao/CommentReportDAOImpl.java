@@ -32,7 +32,7 @@ public class CommentReportDAOImpl implements CommentReportDAO{
 	@Override
 	public int update(CommentReport commentReport) {
 		try {
-			getSession().update(commentReport);
+			getSession().merge(commentReport);
 			return 1;
 		} catch (Exception e) {
 			return -1;

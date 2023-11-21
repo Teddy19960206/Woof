@@ -12,11 +12,13 @@ public interface CommentReportService {
 	int addCommentReport(PrivateTrainingAppointmentForm privateTrainingAppointmentForm,
 			String crContext, Integer crStatus, Timestamp crDate);
 
-	int updateCommentReport(CommentReport commentReport);
+	void updateCrStatus(Integer crNo , Integer crStatus);
 
+	List<CommentReport> getAllCommentReports();
+	
+	
 	int deleteCommentReport(CommentReport commentReport);
 
 	CommentReport findCommentReportByCrNo(Integer crNo);
 
-	List<CommentReport> getAllCommentReports();
 }
