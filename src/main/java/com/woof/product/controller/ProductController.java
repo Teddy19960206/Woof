@@ -11,8 +11,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
-import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
 
@@ -29,7 +27,7 @@ public class ProductController {
             @RequestParam("prodPrice") Integer prodPrice,
             @RequestParam("prodName") String prodName,
             @RequestParam("prodStatus") String prodStatus,
-            @RequestParam("prodPhoto") MultipartFile prodPhoto) {
+            @RequestParam("prodPhoto") MultipartFile prodPhoto){
         ProductDto productDto = new ProductDto();
         productDto.setProdCatName(prodCatName);
         productDto.setProdContent(prodContent);
@@ -49,12 +47,14 @@ public class ProductController {
     @PutMapping("/updateProduct/{prodNo}")
     public ResponseEntity<ProductDto> updateProduct(
             @PathVariable Integer prodNo,
-            @RequestParam("prodCatName") String prodCatName,
-            @RequestParam("prodContent") String prodContent,
-            @RequestParam("prodPrice") Integer prodPrice,
-            @RequestParam("prodName") String prodName,
-            @RequestParam("prodStatus") String prodStatus,
-            @RequestParam(value = "prodPhoto", required = false) MultipartFile prodPhoto) {
+            @RequestParam(value = "prodCatName", required = false) String prodCatName,
+            @RequestParam(value = "prodContent", required = false) String prodContent,
+            @RequestParam(value = "prodPrice", required = false) Integer prodPrice,
+            @RequestParam(value = "prodName", required = false) String prodName,
+            @RequestParam(value = "prodStatus", required = false) String prodStatus,
+            @RequestParam(value = "prodPhoto", required = false) MultipartFile prodPhoto,
+            @RequestParam(value = "promoId", required = false) Integer promoId,
+            @RequestParam(value = "updatePromoId", required = false, defaultValue = "false") boolean updatePromoId) {
 
         // 從資料庫中獲取現有商品資料
         ProductDto existingProductDto = service.getProductById(prodNo);
@@ -64,11 +64,14 @@ public class ProductController {
         }
 
         // 更新商品資料
-        existingProductDto.setProdCatName(prodCatName);
-        existingProductDto.setProdContent(prodContent);
-        existingProductDto.setProdPrice(prodPrice);
-        existingProductDto.setProdName(prodName);
-        existingProductDto.setProdStatus(prodStatus);
+        if (prodCatName != null) existingProductDto.setProdCatName(prodCatName);
+        if (prodContent != null) existingProductDto.setProdContent(prodContent);
+        if (prodPrice != null) existingProductDto.setProdPrice(prodPrice);
+        if (prodName != null) existingProductDto.setProdName(prodName);
+        if (prodStatus != null) existingProductDto.setProdStatus(prodStatus);
+        if (updatePromoId) {
+            existingProductDto.setPromoId(promoId);
+        }
 
         // 處理照片更新
         if (prodPhoto != null && !prodPhoto.isEmpty()) {
@@ -89,6 +92,27 @@ public class ProductController {
     @GetMapping("/products")
     public List<ProductDto> findAllProducts() {
         return service.getProducts();
+    }
+
+    //促銷商品
+    @GetMapping("/promotionProducts")
+    public ResponseEntity<List<ProductDto>> findPromotionProducts() {
+        List<ProductDto> promotionProducts = service.getPromotionProducts();
+        if (promotionProducts.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(promotionProducts, HttpStatus.OK);
+    }
+
+    @PutMapping("/resetPromoId")
+    public ResponseEntity<Void> resetPromotionForAllProducts() {
+        try {
+            service.resetPromoId();
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
     @GetMapping("/productById/{prodNo}")
@@ -152,5 +176,12 @@ public class ProductController {
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
 
-
+    @GetMapping("/searchProducts")
+    public ResponseEntity<List<ProductDto>> searchProductsByName(@RequestParam String prodName) {
+        List<ProductDto> products = service.searchProductsByName(prodName);
+        if (products.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(products, HttpStatus.OK);
+    }
 }
