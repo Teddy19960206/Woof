@@ -275,6 +275,13 @@ public class ClassOrderServlet extends HttpServlet {
 		
 		classOrderService.updateClassOrder(coNo, member, coBc, coPaymentMethod, coSmmp, coTime, coStatus, actualAmount);
 		
+		// 更新會員課堂數
+		if(coStatus == 2) {
+			Integer totalClass = memberService.findMemberByNo(memNo).getTotalClass();
+			totalClass = totalClass - coBc;
+			memberService.updateMemberClass(memNo , totalClass);
+		}
+		
 		getAll(request,response);
 	}
 	
@@ -288,6 +295,7 @@ public class ClassOrderServlet extends HttpServlet {
 		Timestamp coTime = classOrderService.findClassOrderByCoNo(coNo).getCoTime();
 		Integer actualAmount = classOrderService.findClassOrderByCoNo(coNo).getActualAmount();
 		
-		classOrderService.updateClassOrder(coNo, member, coBc, coPaymentMethod, coSmmp, coTime, 5, actualAmount);
+		//此處的3代表 狀態是退款申請中
+		classOrderService.updateClassOrder(coNo, member, coBc, coPaymentMethod, coSmmp, coTime, 3, actualAmount);
 	}
 }

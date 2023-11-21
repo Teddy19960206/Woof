@@ -342,7 +342,7 @@ a {
                                 <td>${classOrder.coSmmp}</td>
                                 <td>${classOrder.coTime}</td>
                                 <td>${classOrder.coStatus == 0 ? '未付款' : classOrder.coStatus == 1 ? '已付款' : classOrder.coStatus == 2 ? '已退款'
-                                    : classOrder.coStatus == 3 ? '已取消' : classOrder.coStatus == 4 ? '已完成退款' : '退款申請中'}</td>
+                                    : classOrder.coStatus == 3 ? '退款申請中'}</td>
                                 <td>${classOrder.actualAmount}</td>
                          		<td>
                          			<input type="hidden" name="coNo" value="${classOrder.coNo}">
@@ -356,7 +356,7 @@ a {
                     						</c:otherwise>
                 						</c:choose>
             						>${classOrder.coStatus == 0 ? '未付款' : classOrder.coStatus == 1 ? '申請退款' : classOrder.coStatus == 2 ? '已退款'
-                                    : classOrder.coStatus == 3 ? '已取消' : classOrder.coStatus == 4 ? '已完成退款' : '退款申請中'}
+                                    : classOrder.coStatus == 3 ? '退款申請中'}
                          			</button>
                          		</td>
                             </tr>
