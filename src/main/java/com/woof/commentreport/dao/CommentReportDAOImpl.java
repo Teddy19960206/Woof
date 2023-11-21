@@ -56,7 +56,7 @@ public class CommentReportDAOImpl implements CommentReportDAO{
 
 	@Override
 	public List<CommentReport> getAll() {
-		return getSession().createQuery("FROM CommentReport", CommentReport.class).list();
+		return getSession().createQuery("FROM CommentReport ORDER BY crDate DESC", CommentReport.class).list();
 	}
 	
 	

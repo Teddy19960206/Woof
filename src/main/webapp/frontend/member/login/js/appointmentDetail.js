@@ -5,10 +5,10 @@ $(document).on("click" , "button.cancel" , function(){
 	
 	
 	$.ajax({
-	url: `${projectName}/appointmentdetail/cancelAppointment`,
+	url: `${projectName}/appointmentdetail/get`,
 	data: {
-		"adNo" : $(this).data("adNo"),
-//		"action" : ""
+		"adNo" : $(this).data("id"),
+		"action" : "cancelAppointment"
 	},
 	dataType: 'json',
 	type: 'get',
