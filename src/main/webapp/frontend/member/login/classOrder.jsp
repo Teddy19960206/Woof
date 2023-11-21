@@ -194,6 +194,12 @@ a {
 .btn-refundApplication:hover {
     background-color: #dc143c; /* 滑鼠移過後改變顏色 */
 }
+
+.btn-refundApplication-disabled {
+  background-color: #ccc; /* 設定背景顏色為灰色 */
+  color: #888; /* 設定文字顏色為淺灰色 */
+}
+
 </style>
 </head>
 <script type="text/javascript">
@@ -370,11 +376,22 @@ a {
                                 <td>${classOrder.coSmmp}</td>
                                 <td>${classOrder.coTime}</td>
                                 <td>${classOrder.coStatus == 0 ? '未付款' : classOrder.coStatus == 1 ? '已付款' : classOrder.coStatus == 2 ? '已退款'
-                                    : classOrder.coStatus == 3 ? '已取消' : classOrder.coStatus == 4 ? '已完成' : '退款申請中'}</td>
+                                    : classOrder.coStatus == 3 ? '已取消' : classOrder.coStatus == 4 ? '已完成退款' : '退款申請中'}</td>
                                 <td>${classOrder.actualAmount}</td>
                          		<td>
                          			<input type="hidden" name="coNo" value="${classOrder.coNo}">
-                         			<button class="btn btn-refundApplication" type="submit">申請退款</button>
+                         			<button 
+                						<c:choose>
+                    						<c:when test="${classOrder.coStatus != 1}">
+                        						class="btn btn-refundApplication-disabled" disabled="disabled"
+                    						</c:when>
+                    						<c:otherwise>
+                        						class="btn btn-refundApplication" type="submit"
+                    						</c:otherwise>
+                						</c:choose>
+            						>${classOrder.coStatus == 0 ? '未付款' : classOrder.coStatus == 1 ? '申請退款' : classOrder.coStatus == 2 ? '已退款'
+                                    : classOrder.coStatus == 3 ? '已取消' : classOrder.coStatus == 4 ? '已完成退款' : '退款申請中'}
+                         			</button>
                          		</td>
                             </tr>
                         </c:forEach>

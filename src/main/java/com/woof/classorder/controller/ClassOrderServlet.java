@@ -65,7 +65,7 @@ public class ClassOrderServlet extends HttpServlet {
 			break;
 		case "/refundApplication":
 			refundApplication(request, response);
-//			forwardPath = "/backend/classOrder/classOrder.jsp";
+			forwardPath = "/frontend/member/login/classOrder.jsp";
 			break;
 		case "/check":
 			try {
