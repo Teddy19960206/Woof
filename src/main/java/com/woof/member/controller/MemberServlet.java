@@ -83,12 +83,41 @@ public class MemberServlet extends HttpServlet {
 			case "query":
 				processQuery(req, res);
 				return;
+			case "changestatus":
+				changeStatus(req, res);
+				return;
 
 			default:
 				forwardPath = "/backend/member/selectmember.jsp";
 			}
 		}
 		req.getRequestDispatcher(forwardPath).forward(req, res);
+	}
+
+	private void changeStatus(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		String memNo = req.getParameter("memNo");
+		if (memNo == null || memNo.trim().isEmpty()) {
+			// 處理錯誤情況，例如回傳錯誤信息或重導到錯誤頁面
+		} else {
+			Member member = memberService.findMemberByNo(memNo);
+			if (member != null) {
+				// 更改會員狀態
+				int currentStatus = member.getMemStatus();
+				int newStatus = (currentStatus == 1) ? 0 : 1;
+				member.setMemStatus(newStatus);
+				memberService.updateMember(member); // 更新會員資料
+				// 處理成功後的邏輯，例如回傳成功信息或重導到某個頁面
+				// 假設更新操作已完成，現在重新獲取最新資料
+				Member updatedMember = memberService.findMemberByNo(member.getMemNo());
+				System.out.println(member.getMemNo() + "=============");
+				// 將更新後的會員資料設置為請求屬性
+				req.setAttribute("member", updatedMember);
+				// 導到指定的URL 頁面上 把請求回應都帶過去
+				req.getRequestDispatcher("/backend/member/list_all_member.jsp").forward(req, res);
+			} else {
+				// 處理找不到會員的情況
+			}
+		}
 	}
 
 	private void processQuery(HttpServletRequest req, HttpServletResponse res) throws IOException {

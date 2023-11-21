@@ -88,12 +88,28 @@ public class MemberServlet1 extends HttpServlet {
 			case "valid":
 				validMember(req,res);
 				return;
-
+			case "validemail":
+				validEmail(req,res);
+				return;
 			default:
 				forwardPath = "/frontend/member/selectmember.jsp";
 			}
 		}
 		req.getRequestDispatcher(forwardPath).forward(req, res);
+	}
+
+	private void validEmail(HttpServletRequest req, HttpServletResponse res) throws IOException {
+		String memNo = req.getParameter("memNo");
+		String mememail = req.getParameter("memEmail");
+		Member member = memberService.findMemberByNo(memNo);
+		System.out.println(mememail+"有email");
+		MailService mailService = new MailService();
+		String realURL = req.getScheme() + "://" + req.getServerName() + ":" + req.getServerPort();
+		mailService.sendMail(mememail,"會員驗證", MailService.valid(realURL+req.getContextPath()+ "/member1.do?action=valid&memNo="+member.getMemNo()));
+		// 導到指定的URL 頁面上 把請求回應都帶過去
+		String url = req.getContextPath() + "/frontend/member/login/validemail.jsp";
+		req.setCharacterEncoding("UTF-8");
+		res.sendRedirect(url);
 	}
 
 	private void validMember(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -102,7 +118,7 @@ public class MemberServlet1 extends HttpServlet {
 		member.setMemStatus(1);
 		memberService.updateMember(member);
 		// 導到指定的URL 頁面上 把請求回應都帶過去
-		req.getRequestDispatcher( "/frontend/member/login/registsucess.jsp").forward(req, res);
+		req.getRequestDispatcher( "/frontend/member/login/login.jsp").forward(req, res);
 	}
 
 	private void processQuery(HttpServletRequest req, HttpServletResponse res) throws IOException {
@@ -196,7 +212,7 @@ public class MemberServlet1 extends HttpServlet {
 
 		// Send the use back to the form, if there were errors
 		if (!errorMsgs.isEmpty()){
-			req.getRequestDispatcher("/frontend/member/login/addmember.jsp").forward(req, res);
+			req.getRequestDispatcher("/frontend/member/login/login.jsp").forward(req, res);
 	    return;
 		}
 		
@@ -226,18 +242,13 @@ public class MemberServlet1 extends HttpServlet {
 		input.read(photo);
 		input.close();
 		member.setMemPhoto(photo);
-		// 將會員狀態預設1
-		member.setMemStatus(0);
+		// 將會員狀態預設2
+		member.setMemStatus(2);
 		member.setMomoPoint(200);
 		member.setTotalClass(0);
-
 		try {
 			memberService.addMember(member);
-			MailService mailService = new MailService();
-			String realURL = req.getScheme() + "://" + req.getServerName() + ":" + req.getServerPort();
-			mailService.sendMail(mememail,"會員驗證", MailService.valid(realURL+req.getContextPath()+ "/member1.do?action=valid&memNo="+member.getMemNo()));
-			// 導到指定的URL 頁面上 把請求回應都帶過去
-			String url = req.getContextPath() + "/frontend/member/login/validemail.jsp";
+			String url = req.getContextPath() + "/frontend/member/login/registsucess.jsp";
 			req.setCharacterEncoding("UTF-8");
 			res.sendRedirect(url);
 		} catch (Exception e) {

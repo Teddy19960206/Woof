@@ -1,25 +1,27 @@
-<%@ page contentType="text/html; charset=UTF-8"%>
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
-<meta charset="UTF-8">
+<%@ include file="/backend/backhead.file" %>
 <title>會員資料</title>
 <script type="text/javascript">
-//表單點擊找出對應的function//
-  function processUpdate(jsonData){
-   window.location.href = " <%=request.getContextPath()%>/backend/member/updatemember.jsp?memNo=" + jsonData.memNo ;
-  }
- //確認刪除提示框
-  function confirmDelete(memNo) {
-    var confirmAction = confirm("您確定要刪除編號為 " + memNo + " 的會員資料嗎？");
-    if (confirmAction) {
-        // 執行刪除操作，例如發送表單或請求
-        window.location.href ="<%=request.getContextPath()%>/member.do?action=delete&memNo=" + memNo;
-    } else {
-        // 取消操作
-        console.log("取消刪除");
-    }
-}
+  function confirmChangeStatus(form) {
+	    Swal.fire({
+	        title: '您確定要更改狀態嗎？',
+	        icon: 'warning',
+	        showCancelButton: true,
+	        confirmButtonColor: '#3085d6',
+	        cancelButtonColor: '#d33',
+	        confirmButtonText: '我要更改！',
+	        cancelButtonText: '取消'
+	    }).then((result) => {
+	        if (result.isConfirmed) {
+	            form.submit();
+	        }
+	    });
+	    // 阻止表單的預設提交
+	    return false;
+	}
 </script>
 <style>
 /* 基本樣式，適用於大屏幕 */
@@ -39,7 +41,6 @@ body {
 
     /* 其他需要調整的樣式 */
 }
-
 /* 小於或等於 480px 的屏幕（如手機） */
 @media screen and (max-width: 480px) {
     table, th, td {
@@ -96,26 +97,39 @@ tr:hover {
 }
 
 .update-btn {
-	background-color: #FF8C00; /* 深橘色 */
+	background-color: red;
 	color: white;
 }
 
 .update-btn:hover {
-	background-color: #FFA07A; /* 滑鼠懸停的橘色 */
+	background-color: pink;
+}
+.status-label {
+    padding: .25em .6em;
+    font-size: 75%;
+    font-weight: bold;
+    line-height: 2;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: .25rem;
+    display: inline-block;
 }
 
-.delete-btn {
-	background-color: #708090; /* 暗灰色 */
-	color: white;
+.status-normal {
+    background-color: #28a745; /* 綠色背景 */
+    color: white;
 }
 
-.delete-btn:hover {
-	background-color: #778899; /* 滑鼠懸停的灰色 */
+.status-suspended {
+    background-color: #dc3545; /* 紅色背景 */
+    color: white;
 }
 </style>
 <script src="https://kit.fontawesome.com/3f37e88a3b.js" crossorigin="anonymous"></script>
 </head>
-<body bgcolor='white'>
+<body>
+<%@ include file="/backend/backbody.file" %>
 <jsp:useBean id="memberService" scope="page"
    class="com.woof.member.service.MemberServiceImpl" />
  <div>
@@ -128,14 +142,12 @@ tr:hover {
    <th>性別</th>
    <th>照片</th>
    <th>email</th>
-   <th>密碼</th>
    <th>電話</th>
    <th>地址</th>
    <th>生日</th>
    <th>毛毛幣</th>
    <th>課堂數</th>
    <th>狀態</th>
-   <th>   </th>
    <th>   </th>
   </tr>
    <tr>
@@ -144,32 +156,33 @@ tr:hover {
     <td>${member.memGender}</td>
     <td><img src="${pageContext.request.contextPath}/DBPngReader?action=member&id=${member.memNo}" onerror="this.onerror=null; this.src='/woof/backend/member/jpg/dog.jpg';" style="width: 100px; height: 100px"></td>
     <td>${member.memEmail}</td>
-    <td>${member.memPassword}</td>
     <td>${member.memTel}</td>
     <td>${member.memAddress}</td>
     <td>${member.memBd}</td>
     <td>${member.momoPoint}</td>
     <td>${member.totalClass}</td>
-    <td>${member.memStatus}</td>
-    
     <td>
-     <form method="post"
+       <c:choose>
+            <c:when test="${member.memStatus == 0}">
+                <span class="status-label status-suspended">停權</span>
+            </c:when>
+            <c:when test="${member.memStatus == 1}">
+                <span class="status-label status-normal">正常</span>
+            </c:when>
+        </c:choose>
+        </td>
+    <td>
+ 	 <form method="post"
       action="${pageContext.request.contextPath}/member.do"
+      onsubmit="return confirmChangeStatus(this);" 
       style="margin-bottom: 0px;">
-      <input type="hidden" name="action" value="update"> 
+      <input type="hidden" name="action" value="changestatus"> 
       <input type="hidden" name="memNo" value="${member.memNo}"> 
-      <input type="button" class="update-btn" value="修改" onclick="processUpdate({memNo:'${member.memNo}'});">
+      <input type="submit" class="update-btn" value="修改狀態">
      </form>
     </td>
-    <td> 
-      <form method="post" action="${pageContext.request.contextPath}/member.do"
-      style="margin-bottom: 0px;">
-      <input type="hidden" name="action" value="delete" > 
-      <input type="hidden" name="memNo" value="${member.memNo}"> 
-      <input type="button" class="delete-btn" value="刪除" onclick="confirmDelete('${member.memNo}')">
-      </FORM>
-     </td>
    </tr>
  </table>
+ <%@ include file="/backend/backfoot.file" %>
 </body>
  </html>
