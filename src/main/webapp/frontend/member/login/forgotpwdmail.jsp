@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>有效電子郵件驗證</title>
+<title>更改密碼mail</title>
 <style>
     body {
         font-family: Arial, sans-serif;

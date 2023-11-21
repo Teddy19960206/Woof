@@ -25,9 +25,25 @@
 	});
 </script>
 <script>
-    function confirmUpdate() {
-        return confirm('您確定要修改這些資料嗎？');
-    }
+function confirmUpdate() {
+    // 使用 SweetAlert 顯示確認對話框
+    Swal.fire({
+        title: '您確定要修改這些資料嗎？',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: '是的，我要修改！',
+        cancelButtonText: '取消'
+    }).then((result) => {
+        // 如果用戶確認，則提交表單
+        if (result.isConfirmed) {
+            document.getElementById("update").submit(); // 替換 "yourFormId" 為您的表單 ID
+        }
+    });
+    // 阻止表單的預設提交行為
+    return false;
+}
 </script>
 <script>
 $(document).ready(function(){
@@ -51,8 +67,7 @@ $(document).ready(function(){
             true);
           $('#photo').attr('src', "${pageContext.request.contextPath}/DBPngReader?action=member&id="+jsonObj.memNo);
           $('#memEmail').val(jsonObj.memEmail);
-       /*    $('#memPassword').val(
-            jsonObj.memPassword); */
+       	  $('#memPassword').val(jsonObj.memPassword);
           $('#memTel').val(jsonObj.memTel);
           $('#memAddress')
             .val(jsonObj.memAddress);
@@ -75,8 +90,8 @@ $(document).ready(function(){
         });
      })
 </script>
-<script src="https://kit.fontawesome.com/3f37e88a3b.js"
-	crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/3f37e88a3b.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <style>
 body {
 	background-color: #fff4e5; /* 淺橘色背景 */
@@ -208,7 +223,7 @@ body {
 			<form method="post"
 				action="${pageContext.request.contextPath}/member1.do"
 				enctype="multipart/form-data" accept-charset="UTF-8"
-				onsubmit="return confirmUpdate()">
+				onsubmit="return confirmUpdate()" id="update">
 				<div class="form-group">
 					<label for="memNo">會員帳號:</label>
 					<div>
