@@ -16,6 +16,11 @@ public interface CommentReportService {
 
 	List<CommentReport> getAllCommentReports();
 	
+	List<CommentReport> getAllCRs(int currentPage);
+	
+	int getPageTotal();
+	
+	
 	
 	int deleteCommentReport(CommentReport commentReport);
 

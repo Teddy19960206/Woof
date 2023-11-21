@@ -1,5 +1,7 @@
 package com.woof.commentreport.service;
 
+import static com.woof.util.Constants.PAGE_MAX_RESULT;
+
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -55,6 +57,17 @@ public class CommentReportServiceImpl implements CommentReportService{
 		List<CommentReport> commentReportList = dao.getAll();
 
 		return commentReportList;
+	}
+
+	@Override
+	public List<CommentReport> getAllCRs(int currentPage) {
+		return dao.getAll(currentPage);	}
+
+	@Override
+	public int getPageTotal() {
+		long total = dao.getTotal();
+		int pageQty = (int) (total % PAGE_MAX_RESULT == 0 ? (total / PAGE_MAX_RESULT) : (total / PAGE_MAX_RESULT + 1));
+		return pageQty;
 	}
 	
 }

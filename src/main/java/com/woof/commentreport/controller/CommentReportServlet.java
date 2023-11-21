@@ -5,6 +5,7 @@ import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.woof.commentreport.entity.CommentReport;
 import com.woof.commentreport.service.CommentReportService;
 import com.woof.commentreport.service.CommentReportServiceImpl;
 
@@ -47,6 +49,15 @@ private CommentReportService commentReportService;
 				}
 //				forwardPath = "/frontend/commentreport/commentReport_add.jsp";
 				return;
+			case "getAll":
+				getAll(req,res);
+				forwardPath = "/backend/commentReport/commentReport.jsp";
+				break;
+			case "update":
+				update(req,res);
+				getAll(req,res);
+				forwardPath = "/backend/commentReport/commentReport.jsp";
+				break;
 			default:
 				forwardPath = "/frontend/commentreport/commentReport.jsp";
 			}
@@ -66,6 +77,7 @@ private CommentReportService commentReportService;
     	PrivateTrainingAppointmentFormService privateTrainingAppointmentFormService = new PrivateTrainingAppointmentFormServiceImpl();
     	PrivateTrainingAppointmentForm pta = privateTrainingAppointmentFormService.findPrivateTrainingAppointmentFormByPtaNo(ptaNo);
     	String comment = req.getParameter("comment");
+    	//  0:待處理 1:檢舉通過 2:檢舉未通過
     	Integer crStatus = 0;
     	
     	Date now = new Date();
@@ -84,5 +96,24 @@ private CommentReportService commentReportService;
 		}
 		String message = (result == 1) ? "success" : "fail";
 		res.sendRedirect(req.getContextPath() + "/trainer/getAll?result=" + message);
+    }
+    
+    private void getAll(HttpServletRequest request, HttpServletResponse response) {
+		String page = request.getParameter("page");
+		int currentPage = (page == null) ? 1 : Integer.parseInt(page);
+			int CRPageQty = commentReportService.getPageTotal();
+			request.getSession().setAttribute("CRPageQty", CRPageQty);
+		List<CommentReport> allCommentReports = commentReportService.getAllCRs(currentPage);
+
+
+		request.setAttribute("commentReports", allCommentReports);
+		request.setAttribute("currentPage", currentPage);
+
+	}
+    private void update(HttpServletRequest request, HttpServletResponse response) {
+    	
+    	Integer crNo = Integer.valueOf(request.getParameter("crNo"));
+    	Integer crStatus = Integer.valueOf(request.getParameter("crStatus"));
+    	commentReportService.updateCrStatus(crNo, crStatus);
     }
 }
