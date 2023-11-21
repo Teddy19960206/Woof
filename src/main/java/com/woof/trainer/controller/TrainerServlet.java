@@ -179,20 +179,10 @@ public class TrainerServlet  extends HttpServlet {
 
 		    // 自訂 Comparator 來排序評論
 		    nonEmptyComments.sort((pta1, pta2) -> {
-		        Timestamp commentUpTime1 = pta1.getCommentUpTime();
-		        Timestamp commentUpTime2 = pta2.getCommentUpTime();
+		        Timestamp commentTime1 = pta1.getCommentTime();
+		        Timestamp commentTime2 = pta2.getCommentTime();
 
-		        // 如果 commentUpTime 存在，以 commentUpTime 比較
-		        if (commentUpTime1 != null && commentUpTime2 != null) {
-		            return commentUpTime2.compareTo(commentUpTime1); // 降序排序
-		        } else if (commentUpTime1 == null && commentUpTime2 != null) {
-		            return 1; // pta1 沒有 commentUpTime，排後面
-		        } else if (commentUpTime1 != null) {
-		            return -1; // pta2 沒有 commentUpTime，排後面
-		        } else {
-		            // 若兩者皆為 null，則比較 commentTime
-		            return pta2.getCommentTime().compareTo(pta1.getCommentTime()); // 降序排序
-		        }
+		        return commentTime2.compareTo(commentTime1); // 降序排序
 		    });
 
 		    // 獲取前三筆評論

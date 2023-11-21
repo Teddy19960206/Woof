@@ -342,21 +342,22 @@ a {
                                 <td>${classOrder.coSmmp}</td>
                                 <td>${classOrder.coTime}</td>
                                 <td>${classOrder.coStatus == 0 ? '未付款' : classOrder.coStatus == 1 ? '已付款' : classOrder.coStatus == 2 ? '已退款'
-                                    : classOrder.coStatus == 3 ? '退款申請中'}</td>
+                                     : classOrder.coStatus == 3 ? '退款申請中' : '其他情況'}
+								</td>						
                                 <td>${classOrder.actualAmount}</td>
                          		<td>
                          			<input type="hidden" name="coNo" value="${classOrder.coNo}">
-                         			<button 
+                         			<button data-id="${classOrder.coNo}" 
                 						<c:choose>
                     						<c:when test="${classOrder.coStatus != 1}">
                         						class="btn btn-refundApplication-disabled" disabled="disabled"
                     						</c:when>
                     						<c:otherwise>
-                        						class="btn btn-refundApplication" type="submit"
+                        						class="btn btn-refundApplication refund" type="button"
                     						</c:otherwise>
                 						</c:choose>
             						>${classOrder.coStatus == 0 ? '未付款' : classOrder.coStatus == 1 ? '申請退款' : classOrder.coStatus == 2 ? '已退款'
-                                    : classOrder.coStatus == 3 ? '退款申請中'}
+                                     : classOrder.coStatus == 3 ? '退款申請中' : '其他情況'}
                          			</button>
                          		</td>
                             </tr>
@@ -370,10 +371,6 @@ a {
   </div>
  </div>
 
- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
- <script
-  src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
- <script
-  src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="${pageContext.request.contextPath}/frontend/member/login/js/classOrder.js"></script>
 </body>
 </html>

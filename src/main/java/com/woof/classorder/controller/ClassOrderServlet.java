@@ -65,8 +65,7 @@ public class ClassOrderServlet extends HttpServlet {
 			break;
 		case "/refundApplication":
 			refundApplication(request, response);
-			forwardPath = "/frontend/member/login/classOrder.jsp";
-			break;
+			return;
 		case "/check":
 			try {
 				check(request, response);
@@ -285,17 +284,19 @@ public class ClassOrderServlet extends HttpServlet {
 		getAll(request,response);
 	}
 	
-	private void refundApplication(HttpServletRequest request, HttpServletResponse response) {
+	private void refundApplication(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
-		Integer coNo = Integer.valueOf(request.getParameter("coNo"));
-		Member member = classOrderService.findClassOrderByCoNo(coNo).getMember();
-		Integer coBc = classOrderService.findClassOrderByCoNo(coNo).getCoBc();
-		Integer coPaymentMethod = classOrderService.findClassOrderByCoNo(coNo).getCoPaymentMethod();
-		Integer coSmmp = classOrderService.findClassOrderByCoNo(coNo).getCoSmmp();
-		Timestamp coTime = classOrderService.findClassOrderByCoNo(coNo).getCoTime();
-		Integer actualAmount = classOrderService.findClassOrderByCoNo(coNo).getActualAmount();
+		Integer orderNo = Integer.valueOf(request.getParameter("id"));
+		System.out.print(orderNo);
+		ClassOrder classOrder = classOrderService.findClassOrderByCoNo(orderNo);
 		
 		//此處的3代表 狀態是退款申請中
-		classOrderService.updateClassOrder(coNo, member, coBc, coPaymentMethod, coSmmp, coTime, 3, actualAmount);
+		classOrderService.updateClassOrder(classOrder.getCoNo(), classOrder.getMember(), classOrder.getCoBc(), classOrder.getCoPaymentMethod(), classOrder.getCoSmmp(), classOrder.getCoTime(), 3, classOrder.getActualAmount());
+			
+		response.setContentType("application/json;charset=UTF-8"); //json
+//		response.setContentType("text/html;charset=UTF-8")
+//		response.getWriter().write("更新成功");
+		response.getWriter().write("{\"message\" : \"更新成功\"}");
+		
 	}
 }
