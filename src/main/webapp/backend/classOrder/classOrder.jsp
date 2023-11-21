@@ -147,7 +147,7 @@ tr:nth-child(odd) {
         				<td>已取消</td>
     				</c:when>
     				<c:when test="${classOrder.coStatus == 4}">
-        				<td>已完成</td>
+        				<td>已完成退款</td>
     				</c:when>
     				<c:otherwise>
         				<td>退款申請中</td>

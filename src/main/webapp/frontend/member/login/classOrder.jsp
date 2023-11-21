@@ -113,34 +113,8 @@ body {
   color: white;
 }
 
-/* 我要評論按鈕 */
-.btn-comment {
-  padding: 8px 16px;
-  border: none;
-  border-radius: 5px;
-  font-size: 1rem;
-  font-weight: bold;
-  color: #fff;
-  background-color: #28a745;
-  cursor: pointer;
-  transition: background-color 0.3s ease-in-out;
-}
-
 .btn-comment:hover {
   background-color: #218838;
-}
-
-/* 查看明細按鈕 */
-.btn-in {
-  padding: 8px 16px;
-  border: none;
-  border-radius: 5px;
-  font-size: 1rem;
-  font-weight: bold;
-  color: #fff;
-  background-color: #ffc107;
-  cursor: pointer;
-  transition: background-color 0.3s ease-in-out;
 }
 
 .btn-in:hover {
@@ -191,14 +165,6 @@ a {
     transition: background-color 0.3s;
 }
 
-.btn-refundApplication:hover {
-    background-color: #dc143c; /* 滑鼠移過後改變顏色 */
-}
-
-.btn-refundApplication-disabled {
-  background-color: #ccc; /* 設定背景顏色為灰色 */
-  color: #888; /* 設定文字顏色為淺灰色 */
-}
 
 </style>
 </head>
