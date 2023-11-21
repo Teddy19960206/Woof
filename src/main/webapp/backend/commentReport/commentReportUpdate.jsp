@@ -4,7 +4,7 @@
 <html>
 <head>
 <%@ include file="/backend/backhead.file" %>
-<title>寵毛導師 Woof | 課堂訂單管理</title>
+<title>寵毛導師 Woof | 評論檢舉處理</title>
 <style>
 
 	body {
@@ -52,7 +52,6 @@
 
     button {
         padding: 10px 20px;
-        margin-top: 10px;
         background-color: #007bff;
         color: #fff;
         border: none;
@@ -69,38 +68,46 @@
     .cancel:hover {
         opacity: 0.8;
     }
+    /* 為 input 和 textarea 元素指定相同的寬度 */
+	input[type="text"],
+	textarea {
+    	width: 100%; /* 設定元素的寬度為其父元素的100% */
+    	box-sizing: border-box; /* 讓元素的寬度包括內邊距和邊框 */
+	}
+	textarea {
+    	direction: ltr; /* 設定文字從左到右排列 */
+	}
 </style>
 </head>
 <body>
 <%@ include file="/backend/backbody.file" %>
-	<h2>修改訂單狀態</h2>
+	<div class="container py-3">
+	<h2>修改評論檢舉狀態</h2>
 
-	<form action="${pageContext.request.contextPath}/classorder/update"
+	<form action="${pageContext.request.contextPath}/commentreport?action=update"
 		method="post" enctype="application/x-www-form-urlencoded">
-		<label>課堂訂單編號:</label>
-		<input	type="text" name="coNo"	value="${param.coNo}" readonly>
-		<label>會員帳號:</label>
+		<label>評論檢舉編號:</label>
+		<input	type="text" name="crNo"	value="${param.crNo}" readonly>
+		<label>撰寫評論的帳號:</label>
 		<input	type="text" name="memNo" value="${param.memNo}" readonly>
-		<label>購買堂數:</label>
-		<input	type="text" name="coBc" value="${param.coBc}" readonly>
-		<input	type="hidden" name="coPaymentMethod" value="${param.coPaymentMethod}">
-		<input	type="hidden" name="coSmmp" value="${param.coSmmp}">
-		<input	type="hidden" name="coTime" value="${param.coTime}">
-		<label>實付金額:</label>
-		<input	type="text" name="actualAmount" value="${param.actualAmount}">
-		<label>訂單狀態:</label>
-		<select name="coStatus">
-   		<option value="0" ${param.coStatus == '0' ? 'selected' : ''}>未付款</option>
-		<option value="1" ${param.coStatus == '1' ? 'selected' : ''}>已付款</option>
-		<option value="2" ${param.coStatus == '2' ? 'selected' : ''}>已退款</option>
-		<option value="3" ${param.coStatus == '3' ? 'selected' : ''}>退款申請中</option>
+		<label>被檢舉的內容:</label>
+		<textarea name="crContent" rows="4" cols="40" readonly>
+			${param.crContext}
+		</textarea>
+		<label>檢舉時間:</label>
+		<input	type="text" name="crDate" value="${param.crDate}" readonly>
+		<label>處理狀態:</label>
+		<select name="crStatus">
+   		<option value="0" ${param.coStatus == '0' ? 'selected' : ''}>待處理</option>
+		<option value="1" ${param.coStatus == '1' ? 'selected' : ''}>檢舉通過</option>
+		<option value="2" ${param.coStatus == '2' ? 'selected' : ''}>檢舉未通過</option>
 		</select>
 		 <br /> 
 		
-		<button type="submit">修改</button>
-		<button type="button" class="cancel" onclick="history.back()">取消修改</button>
+		<button type="submit">確定</button>
+		<button type="button" class="cancel" onclick="history.back()">返回</button>
 	</form>
-	
+</div>
 <%@ include file="/backend/backfoot.file" %>
 </body>
 </html>

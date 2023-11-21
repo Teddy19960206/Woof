@@ -62,7 +62,7 @@ public class AppointmentDetailDAOImpl implements AppointmentDetailDAO {
 
 	@Override
 	public List<AppointmentDetail> getAll() {
-		return getSession().createQuery("FROM AppointmentDetail", AppointmentDetail.class).list();
+		return getSession().createQuery("FROM AppointmentDetail ORDER BY appTime DESC", AppointmentDetail.class).list();
 	}
 
 	@Override
@@ -75,7 +75,7 @@ public class AppointmentDetailDAOImpl implements AppointmentDetailDAO {
 	@Override
 	public List<AppointmentDetail> getAll(int currentPage) {
 		int first = (currentPage - 1) * PAGE_MAX_RESULT;
-		return getSession().createQuery("FROM AppointmentDetail", AppointmentDetail.class)
+		return getSession().createQuery("FROM AppointmentDetail ORDER BY appTime DESC", AppointmentDetail.class)
 				.setFirstResult(first)
 				.setMaxResults(PAGE_MAX_RESULT)
 				.list();
@@ -88,7 +88,7 @@ public class AppointmentDetailDAOImpl implements AppointmentDetailDAO {
 
 	@Override
 	public List<AppointmentDetail> findByPtaNo(Integer ptaNo) {
-		return getSession().createQuery("FROM AppointmentDetail a WHERE a.privateTrainingAppointmentForm.ptaNo = :ptaNo", AppointmentDetail.class)
+		return getSession().createQuery("FROM AppointmentDetail a WHERE a.privateTrainingAppointmentForm.ptaNo = :ptaNo ORDER BY appTime DESC", AppointmentDetail.class)
 				.setParameter("ptaNo", ptaNo)
 				.list();
 	}

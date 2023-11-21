@@ -7,11 +7,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.woof.administrator.entity.Administrator;
+import com.woof.commentreport.entity.CommentReport;
 import com.woof.groupscheduledetail.entity.GroupScheduleDetail;
 import com.woof.privatetrainingappointmentform.entity.PrivateTrainingAppointmentForm;
 import com.woof.skill.entity.Skill;
@@ -21,7 +24,7 @@ import com.woof.trainer.service.TrainerServiceImpl;
 
 @WebServlet("/trainer/*")
 @MultipartConfig
-public class TrainerServlet  extends HttpServlet {
+public class TrainerServlet extends HttpServlet {
 
 	private TrainerService trainerService;
 
@@ -32,7 +35,7 @@ public class TrainerServlet  extends HttpServlet {
 
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doPost(request ,response);
+		doPost(request, response);
 	}
 
 	@Override
@@ -41,35 +44,32 @@ public class TrainerServlet  extends HttpServlet {
 
 		String pathInfo = request.getPathInfo();
 
-		switch (pathInfo){
-			case "/getTrainers":
-				getAllTrainers(request ,response);
-				return;
-			case "/getClassDate":
-				getTrainerClass(request, response);
-				return;
-			case "/getTrainerSkills":
-				getTrainerSkills(request, response);
-				return;
-			case "/getTrainerProfile":
-				getTrainerProfile(request ,response);
-				return;
-			case "/getAll":
-				getAll(request ,response);
-				return;
-			default:
+		switch (pathInfo) {
+		case "/getTrainers":
+			getAllTrainers(request, response);
+			return;
+		case "/getClassDate":
+			getTrainerClass(request, response);
+			return;
+		case "/getTrainerSkills":
+			getTrainerSkills(request, response);
+			return;
+		case "/getTrainerProfile":
+			getTrainerProfile(request, response);
+			return;
+		case "/getAll":
+			getAll(request, response);
+			return;
+		default:
 
 		}
 	}
 
-	private void getAllTrainers(HttpServletRequest request , HttpServletResponse response) throws IOException {
+	private void getAllTrainers(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
 		List<Trainer> allTrainers = trainerService.getAllTrainers();
 
-		Gson gson = new GsonBuilder()
-				.excludeFieldsWithoutExposeAnnotation()
-				.setDateFormat("yyyy-MM-dd")
-				.create();
+		Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setDateFormat("yyyy-MM-dd").create();
 
 		String json = gson.toJson(allTrainers);
 		response.setContentType("application/json;charset=UTF-8");
@@ -77,17 +77,14 @@ public class TrainerServlet  extends HttpServlet {
 
 	}
 
-	private void getTrainerClass(HttpServletRequest request , HttpServletResponse response) throws IOException {
+	private void getTrainerClass(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String trainerId = request.getParameter("trainerId");
 		String json = null;
 
 		if (trainerId != null && trainerId.length() != 0) {
 			Integer Id = Integer.valueOf(trainerId);
 			Set<GroupScheduleDetail> groupDetail = trainerService.getGroupDetail(Id);
-			Gson gson = new GsonBuilder()
-					.excludeFieldsWithoutExposeAnnotation()
-					.setDateFormat("yyyy-MM-dd")
-					.create();
+			Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setDateFormat("yyyy-MM-dd").create();
 			json = gson.toJson(groupDetail);
 		}
 
@@ -95,77 +92,105 @@ public class TrainerServlet  extends HttpServlet {
 		response.getWriter().write(json);
 	}
 
-	private void getTrainerSkills(HttpServletRequest request , HttpServletResponse response) throws IOException {
+	private void getTrainerSkills(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
 		Administrator administrator = (Administrator) request.getSession().getAttribute("administrator");
 		Trainer trainer = trainerService.getByAdmin(administrator.getAdminNo());
 
-
 		Set<Skill> trainerSkills = trainerService.getTrainerSkills(trainer.getTrainerNo());
 
-		Gson gson = new GsonBuilder()
-				.excludeFieldsWithoutExposeAnnotation()
-				.setDateFormat("yyyy-MM-dd")
-				.create();
+		Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setDateFormat("yyyy-MM-dd").create();
 		String json = gson.toJson(trainerSkills);
-
 
 		response.setContentType("application/json;charset=UTF-8");
 		response.getWriter().write(json);
 	}
 
-	private void getTrainerProfile(HttpServletRequest request , HttpServletResponse response) throws IOException {
+	private void getTrainerProfile(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String trainerNo = request.getParameter("trainerNo");
 		String json = null;
 
-		if (trainerNo != null && trainerNo.length() != 0){
+		if (trainerNo != null && trainerNo.length() != 0) {
 			Integer id = Integer.valueOf(trainerNo);
 			Trainer trainer = trainerService.findTrainerByTrainerNo(id);
 
-			Gson gson = new GsonBuilder()
-					.excludeFieldsWithoutExposeAnnotation()
-					.setDateFormat("yyyy-MM-dd")
-					.create();
+			Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setDateFormat("yyyy-MM-dd").create();
 			json = gson.toJson(trainer);
 		}
 
 		response.setContentType("application/json;charset=UTF-8");
 		response.getWriter().write(json);
 	}
-	
+
 	private void getAll(HttpServletRequest request, HttpServletResponse response) {
 		String page = request.getParameter("page");
 		int currentPage = (page == null) ? 1 : Integer.parseInt(page);
 //		if (request.getSession().getAttribute("TrainerPageQty") == null) {
-			int TrainerPageQty = trainerService.getPageTotal();
-			request.getSession().setAttribute("TrainerPageQty", TrainerPageQty);
+		int TrainerPageQty = trainerService.getPageTotal();
+		request.getSession().setAttribute("TrainerPageQty", TrainerPageQty);
 //		}
-		List<Trainer> allTrainers = trainerService
-				.getAllTrainers2(currentPage);
-
-
+		List<Trainer> allTrainers = trainerService.getAllTrainers2(currentPage);
+		// ================隨機取三筆評論的區塊======================
 		// 對每個訓練師處理評論
+//		for (Trainer trainer : allTrainers) {
+//		    List<PrivateTrainingAppointmentForm> ptas = new ArrayList<>(trainer.getPrivateTrainingAppointmentForms());
+//
+//		    // 使用 Collections.shuffle() 來隨機排列評論
+//		    Collections.shuffle(ptas);
+//
+//		    // 獲取非空的前幾筆評論，這裡是獲取前三筆
+//		    List<PrivateTrainingAppointmentForm> nonEmptyComments = new ArrayList<>();
+//		    for (PrivateTrainingAppointmentForm pta : ptas) {
+//		        if (pta.getPtaComment() != null && !pta.getPtaComment().isEmpty()) {
+//		            nonEmptyComments.add(pta);
+//		        }
+//		    }
+//		    
+//		    List<PrivateTrainingAppointmentForm> randomNonEmptyComments = nonEmptyComments.subList(0, Math.min(3, nonEmptyComments.size()));
+//
+//		    // 將處理後的非空評論設置回訓練師物件中
+//		    trainer.setPrivateTrainingAppointmentForms(new HashSet<>(randomNonEmptyComments));
+//		}
+		// =======================================================================================
+
+		// =====================按照評論時間排序評論================================
 		// 對每個訓練師處理評論
+		List<PrivateTrainingAppointmentForm> allNonEmptyComments = new LinkedList<>();
+		// 取出所有的訓練師
 		for (Trainer trainer : allTrainers) {
-		    List<PrivateTrainingAppointmentForm> ptas = new ArrayList<>(trainer.getPrivateTrainingAppointmentForms());
-
-		    // 使用 Collections.shuffle() 來隨機排列評論
-		    Collections.shuffle(ptas);
-
-		    // 獲取非空的前幾筆評論，這裡是獲取前三筆
-		    List<PrivateTrainingAppointmentForm> nonEmptyComments = new ArrayList<>();
-		    for (PrivateTrainingAppointmentForm pta : ptas) {
-		        if (pta.getPtaComment() != null && !pta.getPtaComment().isEmpty()) {
-		            nonEmptyComments.add(pta);
-		        }
-		    }
-		    
-		    List<PrivateTrainingAppointmentForm> randomNonEmptyComments = nonEmptyComments.subList(0, Math.min(3, nonEmptyComments.size()));
-
-		    // 將處理後的非空評論設置回訓練師物件中
-		    trainer.setPrivateTrainingAppointmentForms(new HashSet<>(randomNonEmptyComments));
+			List<PrivateTrainingAppointmentForm> nonEmptyComments = new LinkedList<>();
+			// 判斷每個訓練師的私人預約單是存在的
+			if (trainer.getPrivateTrainingAppointmentForms() != null) {
+				// 個別取出每個訓練師的私人預約單
+				for (PrivateTrainingAppointmentForm pta : trainer.getPrivateTrainingAppointmentForms()) {
+					// 設布林判斷私人預約單評論檢舉欄位(多次)是否為空，true代表有被檢舉，false代表沒被檢舉
+					boolean hasReport = pta.getCommentReports() != null && !pta.getCommentReports().isEmpty();
+					// 若沒被檢舉或是有被檢舉而且檢舉的狀態不是1(代表檢舉成功)則通過判斷
+					if (!hasReport || (hasReport
+							&& pta.getCommentReports().stream().noneMatch(report -> report.getCrStatus() == 1))) {
+						// 檢查非空評論並加入到 nonEmptyComments 中
+						if (pta.getPtaComment() != null && !pta.getPtaComment().isEmpty()) {
+							nonEmptyComments.add(pta);
+						}
+					}
+				}
+			}
+			// 將每個訓練師的非空評論加到總列表中
+		    allNonEmptyComments.addAll(nonEmptyComments);
 		}
-		
+
+		// 排序評論
+		allNonEmptyComments.sort((pta1, pta2) -> {
+		    Timestamp commentTime1 = pta1.getCommentTime();
+		    Timestamp commentTime2 = pta2.getCommentTime();
+		    return commentTime2.compareTo(commentTime1); // 降序排序
+		});
+
+		// 獲取前三筆評論
+		List<PrivateTrainingAppointmentForm> randomNonEmptyComments = allNonEmptyComments.subList(0, Math.min(3, allNonEmptyComments.size()));
+
+		request.setAttribute("randomNonEmptyComments", randomNonEmptyComments);
+		// ==================================================================================
 		request.setAttribute("trainers", allTrainers);
 		request.setAttribute("currentPage", currentPage);
 		try {
@@ -179,5 +204,3 @@ public class TrainerServlet  extends HttpServlet {
 		}
 	}
 }
-
-

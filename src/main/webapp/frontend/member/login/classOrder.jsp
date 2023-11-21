@@ -113,34 +113,8 @@ body {
   color: white;
 }
 
-/* 我要評論按鈕 */
-.btn-comment {
-  padding: 8px 16px;
-  border: none;
-  border-radius: 5px;
-  font-size: 1rem;
-  font-weight: bold;
-  color: #fff;
-  background-color: #28a745;
-  cursor: pointer;
-  transition: background-color 0.3s ease-in-out;
-}
-
 .btn-comment:hover {
   background-color: #218838;
-}
-
-/* 查看明細按鈕 */
-.btn-in {
-  padding: 8px 16px;
-  border: none;
-  border-radius: 5px;
-  font-size: 1rem;
-  font-weight: bold;
-  color: #fff;
-  background-color: #ffc107;
-  cursor: pointer;
-  transition: background-color 0.3s ease-in-out;
 }
 
 .btn-in:hover {
@@ -180,6 +154,18 @@ a {
 	background-color: #ffbb88;
 	color: #333;
 }
+.btn-refundApplication {
+    background-color: #ff6347; /* 改變按鈕顏色 */
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+    border-radius: 3px;
+    font-size: 14px;
+    transition: background-color 0.3s;
+}
+
+
 </style>
 </head>
 <script type="text/javascript">
@@ -331,7 +317,7 @@ a {
         <div class="card-body">
             <h3 class="card-title text-center p-2">課堂訂單管理</h3>
             <h5 class="card-title">剩餘課堂數:${member.getTotalClass()}</h5>
-            <table class="table table-bordered table-hover text-center align-content-center align-middle" id="show">
+            		<table class="table table-bordered table-hover text-center align-content-center align-middle" id="show">
                         <thead>
                             <tr>
                                 <th>課堂訂單編號</th>
@@ -341,23 +327,40 @@ a {
                                 <th>訂單時間</th>
                                 <th>訂單狀態</th>
                                 <th>實付金額</th>
+                                <th></th>
                             </tr>
 
                         </thead>
                         <tbody>
 
-                         <c:forEach items="${all}" var="classOrder" begin="0" end="9">
+                        <c:forEach items="${all}" var="classOrder" begin="0" end="9">
                             <tr>
                                 <td class="truncated-text">${classOrder.coNo}</td>
                                 <td>${classOrder.coBc}</td>
                                 <td>${classOrder.coPaymentMethod == 0 ? '信用卡' : classOrder.coPaymentMethod == 1 ? '匯款' : "綠界"}</td>
                                 <td>${classOrder.coSmmp}</td>
                                 <td>${classOrder.coTime}</td>
-                                <td>${classOrder.coStatus == 0 ? '未付款' : classOrder.coStatus == 1 ? '已付款' : classOrder.coStatus == 2 ? '已取消'
-                                    : classOrder.coStatus == 3 ? '已退款' : classOrder.coStatus == 4 ? '已完成' : '退款申請中'}</td>
+                                <td>${classOrder.coStatus == 0 ? '未付款' : classOrder.coStatus == 1 ? '已付款' : classOrder.coStatus == 2 ? '已退款'
+                                     : classOrder.coStatus == 3 ? '退款申請中' : '其他情況'}
+								</td>						
                                 <td>${classOrder.actualAmount}</td>
+                         		<td>
+                         			<input type="hidden" name="coNo" value="${classOrder.coNo}">
+                         			<button data-id="${classOrder.coNo}" 
+                						<c:choose>
+                    						<c:when test="${classOrder.coStatus != 1}">
+                        						class="btn btn-refundApplication-disabled" disabled="disabled"
+                    						</c:when>
+                    						<c:otherwise>
+                        						class="btn btn-refundApplication refund" type="button"
+                    						</c:otherwise>
+                						</c:choose>
+            						>${classOrder.coStatus == 0 ? '未付款' : classOrder.coStatus == 1 ? '申請退款' : classOrder.coStatus == 2 ? '已退款'
+                                     : classOrder.coStatus == 3 ? '退款申請中' : '其他情況'}
+                         			</button>
+                         		</td>
                             </tr>
-                         </c:forEach>
+                        </c:forEach>
                         </tbody>
                     </table>
      </div>
@@ -366,10 +369,6 @@ a {
   </div>
  </div>
 
- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
- <script
-  src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
- <script
-  src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="${pageContext.request.contextPath}/frontend/member/login/js/classOrder.js"></script>
 </body>
 </html>

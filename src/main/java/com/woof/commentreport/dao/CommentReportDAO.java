@@ -10,9 +10,16 @@ public interface CommentReportDAO {
 	
 	int update(CommentReport commentReport);
 
+	List<CommentReport> getAll();
+	
+	List<CommentReport> getAll(int currentPage);
+	
+	long getTotal();
+	
+	
+	
 	int delete(CommentReport commentReport);
 
 	CommentReport findByCrNo(Integer crNo);
 	
-	List<CommentReport> getAll();
 }
