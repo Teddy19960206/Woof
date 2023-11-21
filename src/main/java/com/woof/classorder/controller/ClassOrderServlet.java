@@ -63,6 +63,10 @@ public class ClassOrderServlet extends HttpServlet {
 			update(request, response);
 			forwardPath = "/backend/classOrder/classOrder.jsp";
 			break;
+		case "/refundApplication":
+			refundApplication(request, response);
+//			forwardPath = "/backend/classOrder/classOrder.jsp";
+			break;
 		case "/check":
 			try {
 				check(request, response);
@@ -272,5 +276,18 @@ public class ClassOrderServlet extends HttpServlet {
 		classOrderService.updateClassOrder(coNo, member, coBc, coPaymentMethod, coSmmp, coTime, coStatus, actualAmount);
 		
 		getAll(request,response);
+	}
+	
+	private void refundApplication(HttpServletRequest request, HttpServletResponse response) {
+		
+		Integer coNo = Integer.valueOf(request.getParameter("coNo"));
+		Member member = classOrderService.findClassOrderByCoNo(coNo).getMember();
+		Integer coBc = classOrderService.findClassOrderByCoNo(coNo).getCoBc();
+		Integer coPaymentMethod = classOrderService.findClassOrderByCoNo(coNo).getCoPaymentMethod();
+		Integer coSmmp = classOrderService.findClassOrderByCoNo(coNo).getCoSmmp();
+		Timestamp coTime = classOrderService.findClassOrderByCoNo(coNo).getCoTime();
+		Integer actualAmount = classOrderService.findClassOrderByCoNo(coNo).getActualAmount();
+		
+		classOrderService.updateClassOrder(coNo, member, coBc, coPaymentMethod, coSmmp, coTime, 5, actualAmount);
 	}
 }
