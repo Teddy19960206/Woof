@@ -38,6 +38,7 @@ $(".add-to-cart").on("click", function() {
 
 	let prodName = $(this).data("name");
 	let prodPrice = $(this).data("price");
+	let prodPhoto = $(this).data("productImage");
 
 	$.ajax({
 		type: "POST",
@@ -46,7 +47,8 @@ $(".add-to-cart").on("click", function() {
 			action: "add",
 			prodNo: prodNo,
 			prodName: prodName,
-			prodPrice: prodPrice
+			prodPrice: prodPrice,
+			prodPhoto: prodPhoto
 		},
 		success: function(data) {
 			console.log(data);
