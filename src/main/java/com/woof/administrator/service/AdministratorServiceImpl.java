@@ -10,7 +10,7 @@ import com.woof.AppService;
 import com.woof.administrator.dao.AdministratorDAO;
 import com.woof.administrator.dao.AdministratorDAOImpl;
 import com.woof.administrator.entity.Administrator;
-
+import com.woof.member.entity.Member;
 import com.woof.util.HibernateUtil;
 
 public class AdministratorServiceImpl implements AdministratorService, AppService<String> {
@@ -76,4 +76,8 @@ public class AdministratorServiceImpl implements AdministratorService, AppServic
 		return photoBytes;
 	}
 
+	public Administrator findAdministratorByEmail(String memEmail) {
+		Administrator administrator = dao.findAdministratorByEmail(memEmail);
+		return administrator;
+	}
 }
