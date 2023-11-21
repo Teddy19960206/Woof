@@ -1,5 +1,5 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,6 +34,7 @@
     	margin-bottom: 20px;
     	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     	padding: 20px;
+
 	}
 
     .info {
@@ -58,18 +59,22 @@
     	font-size: 18px;
     	margin-bottom: 5px;
 	}
+    div.img-div{
+        width: 300px;
+        height: 300px;
+    }
 	
     .info img {
-        width: 200px;
-        height: 200px;
+        width: 100%;
+        height: 100%;
         border-radius: 50%;
         margin-bottom: 10px;
     }
 
     .comments {
-        flex: 1;
-        border-left: 1px solid #ddd;
-        padding-left: 20px;
+        /*flex: 1;*/
+        /*border-left: 1px solid #ddd;*/
+        /*padding-left: 20px;*/
     }
 
     /* 評價列表 */
@@ -192,37 +197,45 @@
 <body>
 <%@ include file="/Header.file" %>
  
-    <div class="container1">
+    <div class="container container1">
     <h1>訓練師列表</h1>
     <c:forEach var="trainer" items="${trainers}">
-        <div class="trainer">
-            <div class="info">
-                <h2>${trainer.administrator.adminName}</h2>
-                <img src="${pageContext.request.contextPath}/DBPngReader?action=administrator&id=${trainer.administrator.adminNo}" alt="${trainer.administrator.adminName}">
-                <p>專長:</p>
-                <ul>
-                    <c:forEach items="${trainer.skills}" var="trainerskill">
-                        <li>${trainerskill.skillName}</li>
-                    </c:forEach>
-                </ul>
-                <a href="${pageContext.request.contextPath}/frontend/privatetrainer/appointment.jsp?trainerNo=${trainer.trainerNo}">
-                    <button type="button" class="btn btn-appointment">預約訓練師</button>
-                </a>
+        <div class="trainer row">
+            <div class="col-lg-8 col-12 info">
+                <div class="col-auto mx-auto text-center">
+                    <h2>${trainer.administrator.adminName}</h2>
+                    <div class="img-div mx-auto">
+                        <img class="img-fluid" src="${pageContext.request.contextPath}/DBPngReader?action=administrator&id=${trainer.administrator.adminNo}" alt="${trainer.administrator.adminName}">
+                    </div>
+                    <p>專長:</p>
+                    <ul>
+                        <c:forEach items="${trainer.skills}" var="trainerskill">
+                            <li>${trainerskill.skillName}</li>
+                        </c:forEach>
+                    </ul>
+                    <a href="${pageContext.request.contextPath}/frontend/privatetrainer/appointment.jsp?trainerNo=${trainer.trainerNo}">
+                        <buttonf type="button" class="btn btn-appointment">預約訓練師</buttonf>
+                    </a>
+                </div>
             </div>
-            <div class="comments">
-                <p>評價:</p>
-                <c:forEach var="pta" items="${trainer.privateTrainingAppointmentForms}" varStatus="loop">
-                    <c:if test="${loop.index < 3}">
-                        <ul>
-                            <li>${pta.ptaComment}</li>
-                            <form method="POST" action="${pageContext.request.contextPath}/commentreport?action=report" onsubmit="return commentReport()">
-                                <input type="hidden" name="ptano" value="${pta.ptaNo}">
-                                <input type="hidden" name="comment" value="${pta.ptaComment}">
-                                <button>檢舉評論</button>
-                            </form>
-                        </ul>
-                    </c:if>
-                </c:forEach>
+            <div class="col-lg-4 col-12 comments text-center">
+                <div class="row">
+                     <h1>評價:</h1>
+                </div>
+                <div class="row">
+                    <c:forEach var="pta" items="${trainer.privateTrainingAppointmentForms}" varStatus="loop">
+                        <c:if test="${loop.index < 3}">
+                            <ul>
+                                <li>${pta.ptaComment}</li>
+                                <form method="POST" action="${pageContext.request.contextPath}/commentreport?action=report" onsubmit="return commentReport()">
+                                    <input type="hidden" name="ptano" value="${pta.ptaNo}">
+                                    <input type="hidden" name="comment" value="${pta.ptaComment}">
+                                    <button>檢舉評論</button>
+                                </form>
+                            </ul>
+                        </c:if>
+                    </c:forEach>
+                </div>
             </div>
         </div>
     </c:forEach>
