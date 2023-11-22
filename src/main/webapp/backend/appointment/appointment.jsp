@@ -186,7 +186,7 @@ tr:nth-child(odd) {
 		<a href="${pageContext.request.contextPath}/privatetrainingappointmentform?action=getboth&page=${currentPage + 1}">下一頁</a>&nbsp;
 	</c:if>
 	<c:if test="${currentPage != PTAPageQty}">
-		<a href="${pageContext.request.contextPath}/privatetrainingappointmentform?action=getboth&page=${PTAFPageQty}">至最後一頁</a>&nbsp;
+		<a href="${pageContext.request.contextPath}/privatetrainingappointmentform?action=getboth&page=${PTAPageQty}">至最後一頁</a>&nbsp;
 	</c:if>
 
 <%-- 	<button class="btn btn-back" onclick="window.location='${pageContext.request.contextPath}/backend/index.jsp'">返回</button> --%>
