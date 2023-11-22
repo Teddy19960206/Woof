@@ -40,4 +40,6 @@ public interface PrivateTrainingAppointmentFormDAO {
 	long getTotalByBoth(String memNo , Integer trainerNo);
 
 	List<PrivateTrainingAppointmentForm> getAppointmentByMemNo(String memNo);
+	
+	
 }

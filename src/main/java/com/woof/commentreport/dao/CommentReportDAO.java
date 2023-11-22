@@ -20,6 +20,8 @@ public interface CommentReportDAO {
 	
 	CommentReport findByCrNo(Integer crNo);
 	
+	
+	
 	int delete(CommentReport commentReport);
 
 	
