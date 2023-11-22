@@ -287,22 +287,28 @@
                             <tr>
                                 <th>訂單編號</th>
                                 <th>商品名稱</th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
+                                <th>數量</th>
+                                <th>價格</th>
+                                <th>小計</th>
                             </tr>
 
                         </thead>
                         <tbody>
-                        <c:forEach items="${orderDetails}" var="orderDetails">
-                            <tr>
-                                <td>${orderDetails.shopOrderNo}</td>
-<%--                                 <td>${orderDetails.prodName}</td> --%>
-                            </tr>
-                        </c:forEach>
-                        </tbody>
-                    </table>
-
+                       <c:forEach items="${orderDetails}" var="orderDetail">
+					    <tr>
+					        <td>${orderDetail.shopOrderNo}</td>
+					        <td>${orderDetail.prodNo}</td>
+					        <td>${orderDetail.orderAmount}</td>
+					        <td>NT$${orderDetail.prodPrice}</td>
+					        <td>NT$${orderDetail.orderAmount * orderDetail.prodPrice}</td>
+					    </tr>
+					    <c:set var="totalAmount" value="${totalAmount + (orderDetail.orderAmount * orderDetail.prodPrice)}" />
+					</c:forEach>
+					</tbody>
+					</table>
+<%-- 					<p>毛毛幣:-${}</p> --%>
+					<p>總金額：NT$${totalAmount}</p>
+					
                 </div>
 
             </div>
