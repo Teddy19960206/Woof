@@ -33,4 +33,8 @@ public interface TrainerDAO {
 	Set<GroupScheduleDetail> groupScheduleDetails(Integer trainerNo);
 
 	Trainer getByAdmin(String adminNo);
+	
+	List<Trainer> getAll(int currentPage);
+	
+	long getTotal();
 }

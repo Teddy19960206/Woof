@@ -277,7 +277,7 @@ a {
 								class="accordion-collapse collapse"
 								data-bs-parent="#collapseCourseManagement">
 								<div class="accordion-body">
-									<a href="#">課程訂單管理</a>
+									<a href="${pageContext.request.contextPath}/frontend/member/login/classOrder.jsp">課程訂單管理</a>
 								</div>
 								<hr class="custom-divider">
 								<div class="accordion-body">
@@ -365,11 +365,7 @@ a {
                                 	<td>
                                 		<c:choose>
             								<c:when test="${AD.appStatus != 1}">
-                                				<FORM METHOD="post" action="${pageContext.request.contextPath}/appointmentdetail?action=cancel">
-          											<input type="hidden" name="ptaNo" value="${AD.privateTrainingAppointmentForm.ptaNo}">     
-          											<input type="hidden" name="adNo" value="${AD.adNo}">     
-          											<button class="btn btn-cancel" type="submit">取消預約</button>
-                                 				</FORM>
+          											<button data-id="${AD.adNo}" class="btn btn-cancel cancel" type="button">取消預約</button>
                                  		 	</c:when>
                                  		 	<c:otherwise>
                 								<button class="btn btn-cancel" disabled>已取消</button>
@@ -386,11 +382,6 @@ a {
    			</div>
 		</div>
 	</div>
-
-	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-	<script
-		src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="${pageContext.request.contextPath}/frontend/member/login/js/appointmentDetail.js"></script>
 </body>
 </html>

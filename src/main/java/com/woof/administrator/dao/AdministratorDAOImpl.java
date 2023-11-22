@@ -8,6 +8,7 @@ import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
 import com.woof.administrator.entity.Administrator;
+import com.woof.member.entity.Member;
 import com.woof.administrator.entity.Administrator;
 
 
@@ -79,6 +80,16 @@ public class AdministratorDAOImpl implements AdministratorDAO {
 	@Override
 	public List<Administrator> getAll() {
 		return getSession().createQuery("FROM Administrator", Administrator.class).list();
+	}
+	@Override
+	public Administrator findAdministratorByEmail(String adminEmail) {
+		
+		String hql = "FROM Administrator admin WHERE admin.adminEmail = :adminEmail";
+		Query query = getSession().createQuery(hql , Administrator.class);
+		query.setParameter("adminEmail", adminEmail);
+		
+		return (Administrator) query.getSingleResult();
+		
 	}
 }
 	

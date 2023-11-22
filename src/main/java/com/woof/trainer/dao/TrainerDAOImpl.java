@@ -1,10 +1,13 @@
 package com.woof.trainer.dao;
 
 
+import static com.woof.util.Constants.PAGE_MAX_RESULT;
+
 import java.util.List;
 import java.util.Set;
 
 import com.woof.groupscheduledetail.entity.GroupScheduleDetail;
+import com.woof.privatetrainingappointmentform.entity.PrivateTrainingAppointmentForm;
 import com.woof.skill.entity.Skill;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -79,6 +82,22 @@ public class TrainerDAOImpl implements TrainerDAO {
 		query.setParameter("adminNo" , adminNo);
 		return (Trainer) query.getSingleResult();
 	}
+
+	@Override
+	public List<Trainer> getAll(int currentPage) {
+		int first = (currentPage - 1) * PAGE_MAX_RESULT;
+		return getSession().createQuery("FROM Trainer", Trainer.class)
+				.setFirstResult(first)
+				.setMaxResults(PAGE_MAX_RESULT)
+				.list();
+	}
+
+	@Override
+	public long getTotal() {
+		return getSession().createQuery("select count(*) from Trainer", Long.class)
+				.uniqueResult();
+	}
+	
 }
 
 

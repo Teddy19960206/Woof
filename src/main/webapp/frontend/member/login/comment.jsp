@@ -258,7 +258,7 @@ button[type="submit"]:hover {
 								class="accordion-collapse collapse"
 								data-bs-parent="#collapseCourseManagement">
 								<div class="accordion-body">
-									<a href="#">課程訂單管理</a>
+									<a href="${pageContext.request.contextPath}/frontend/member/login/classOrder.jsp">課程訂單管理</a>
 								</div>
 								<hr class="custom-divider">
 								<div class="accordion-body">

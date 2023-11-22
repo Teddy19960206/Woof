@@ -20,6 +20,7 @@ public interface AdministratorDAO {
 	int delete(String adminNo);
 
 	List<Administrator> getAll();
+	Administrator findAdministratorByEmail(String adminEmail);
 
 	Administrator findByadminNo(String adminNo);
 }

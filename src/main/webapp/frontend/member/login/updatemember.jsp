@@ -25,9 +25,25 @@
 	});
 </script>
 <script>
-    function confirmUpdate() {
-        return confirm('您確定要修改這些資料嗎？');
-    }
+function confirmUpdate() {
+    // 使用 SweetAlert 顯示確認對話框
+    Swal.fire({
+        title: '您確定要修改這些資料嗎？',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: '是的，我要修改！',
+        cancelButtonText: '取消'
+    }).then((result) => {
+        // 如果用戶確認，則提交表單
+        if (result.isConfirmed) {
+            document.getElementById("update").submit(); 
+        }
+    });
+    // 阻止表單的預設提交行為
+    return false;
+}
 </script>
 <script>
 $(document).ready(function(){
@@ -51,8 +67,7 @@ $(document).ready(function(){
             true);
           $('#photo').attr('src', "${pageContext.request.contextPath}/DBPngReader?action=member&id="+jsonObj.memNo);
           $('#memEmail').val(jsonObj.memEmail);
-       /*    $('#memPassword').val(
-            jsonObj.memPassword); */
+      /*     $('#memPassword').val(jsonObj.memPassword); */
           $('#memTel').val(jsonObj.memTel);
           $('#memAddress')
             .val(jsonObj.memAddress);
@@ -61,11 +76,7 @@ $(document).ready(function(){
           $('#momoPoint').val(jsonObj.momoPoint);
           console.log($('#memBd'));
           $('#memBd').val(jsonObj.memBd);
-          $(
-            'input[name=memStatus][value='
-              + jsonObj.memStatus
-              + ']').prop('checked',
-            true); 
+          $('#memStatus').val(jsonObj.memStatus);
          },
          //Ajax失敗後要執行的function，此例為印出錯誤訊息
          error : function(xhr, ajaxOptions,
@@ -75,8 +86,8 @@ $(document).ready(function(){
         });
      })
 </script>
-<script src="https://kit.fontawesome.com/3f37e88a3b.js"
-	crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/3f37e88a3b.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <style>
 body {
 	background-color: #fff4e5; /* 淺橘色背景 */
@@ -84,7 +95,7 @@ body {
 
 .container {
 	padding-top: 40px;
-	max-width: 800px;
+	max-width: 600px;
 }
 
 .custom-card {
@@ -152,9 +163,18 @@ body {
 	background-color: #e0e0e0; /* 按鈕懸停淡紅色 */
 	color: red;
 }
-
 .fa-camera {
 	font-size: 24px; /* 設定圖示大小，您可以根據需要調整這個值 */
+}
+.img-box {
+    position: absolute;
+    bottom: 0px;
+    right: -30px;
+    cursor: pointer;
+    }
+ .photo-container {
+    position: relative;
+    /* 其他必要的樣式 */
 }
 </style>
 <style>
@@ -173,8 +193,8 @@ body {
 #preview {
 	border: 1px solid lightgray;
 	display: inline-block; /*  */
-	width: 300px;
-	min-height: 400px;
+	width: 200px;
+	min-height: 250px;
 	position: relative;
 }
 
@@ -208,16 +228,15 @@ body {
 			<form method="post"
 				action="${pageContext.request.contextPath}/member1.do"
 				enctype="multipart/form-data" accept-charset="UTF-8"
-				onsubmit="return confirmUpdate()">
+				onsubmit="return confirmUpdate()" id="update">
 				<div class="form-group">
 					<label for="memNo">會員帳號:</label>
 					<div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="TEXT" name="memNo"
-								id="memNo" size="45" required />
+								id="memNo" size="45" readonly style="background-color: #e9ecef; border: 1px solid #ced4da;"/>
 						</div>
 					</div>
-					<%-- 					<small class="error-msg">${errorMsgs.memNo}</small> --%>
 				</div>
 				<div class="form-group">
 					<label for="memName">會員姓名:</label>
@@ -254,9 +273,12 @@ body {
 								<img id="photo" class="preview_img" onerror="this.style.display='none'" /> 
 								<span class="text"></span>
 							</div>
+							 <label for="p_file" class="img-box">
+							 <i class="fa-solid fa-camera"></i>
+							 </label>
 							<!-- 檔案上傳輸入框 -->
 							<input class="form-check-input" type="file" name="memPhoto"
-								accept="image/*" id="p_file" />
+								accept="image/*" id="p_file" style="display: none;" />
 						</div>
 					</div>
 				</div>
@@ -265,21 +287,21 @@ body {
 					<div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="email" name="memEmail"
-								id="memEmail" placeholder="XXX@gmail.com" size="45" required />
+								id="memEmail" placeholder="XXX@gmail.com" size="45" readonly style="background-color: #e9ecef; border: 1px solid #ced4da;"/>
 						</div>
 					</div>
-					<%-- 					<small class="error-msg">${errorMsgs.memEmail}</small> --%>
+					<%-- <small class="error-msg">${errorMsgs.memEmail}</small> --%>
 				</div>
-				<div class="form-group">
+ 				<div class="form-group">
 					<label for="memPassword">密碼(需大於六個字):</label>
 					<div>
 						<div class="form-check form-check-inline">
 							<input class="form__input" pattern=".{6,}" type="TEXT"
-								name="memPassword" id="memPassword" size="45" required /><span
+								name="memPassword" id="memPassword" size="45"/><span
 								class="icon"></span>
 						</div>
 					</div>
-					<small class="error-msg">${errorMsgs.memPassword}</small>
+				<%-- 	<small class="error-msg">${errorMsgs.memPassword}</small> --%>
 				</div>
 				<div class="form-group">
 					<label for="memTel">會員電話:</label>
@@ -330,22 +352,16 @@ body {
 						</div>
 					</div>
 				</div>
-				<!-- 				<div class="form-group"> -->
-				<!-- 					<label for="memStatus">狀態:</label> -->
-				<!-- 					<div> -->
-				<!-- 						<div class="form-check form-check-inline"> -->
-				<!-- 							<input class="form-check-input" type="radio" name="memStatus" -->
-				<!-- 								id="memStatus" value="1" disabled> <label -->
-				<!-- 								class="form-check-label" for="memStatus">正常</label> -->
-				<!-- 						</div> -->
-				<!-- 						<div class="form-check form-check-inline"> -->
-				<!-- 							<input class="form-check-input" type="radio" name="memStatus" -->
-				<!-- 								id="memStatus" value="0" disabled> <label -->
-				<!-- 								class="form-check-label" for="memStatus">停權</label> -->
-				<!-- 						</div> -->
-				<!-- 					</div> -->
-				<!-- 				</div> -->
-
+				<div class="form-group">
+					<label for="memStatus">狀態:</label>
+					<div>
+						<div class="form-check form-check-inline">
+							<input class="form-check-input" type="number" name="memStatus"
+								id="memStatus" size="45" readonly
+								style="background-color: #e9ecef; border: 1px solid #ced4da;" />
+						</div>
+					</div>
+				</div>
 				<br> <input type="hidden" name="action" value="update">
 				<button type="submit" class="btn btn-primary btn-custom">修改</button>
 				<button type="button" onclick="history.back()"

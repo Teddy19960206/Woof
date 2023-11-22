@@ -63,6 +63,9 @@ public class ClassOrderServlet extends HttpServlet {
 			update(request, response);
 			forwardPath = "/backend/classOrder/classOrder.jsp";
 			break;
+		case "/refundApplication":
+			refundApplication(request, response);
+			return;
 		case "/check":
 			try {
 				check(request, response);
@@ -271,6 +274,29 @@ public class ClassOrderServlet extends HttpServlet {
 		
 		classOrderService.updateClassOrder(coNo, member, coBc, coPaymentMethod, coSmmp, coTime, coStatus, actualAmount);
 		
+		// 更新會員課堂數
+		if(coStatus == 2) {
+			Integer totalClass = memberService.findMemberByNo(memNo).getTotalClass();
+			totalClass = totalClass - coBc;
+			memberService.updateMemberClass(memNo , totalClass);
+		}
+		
 		getAll(request,response);
+	}
+	
+	private void refundApplication(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		
+		Integer orderNo = Integer.valueOf(request.getParameter("id"));
+		System.out.print(orderNo);
+		ClassOrder classOrder = classOrderService.findClassOrderByCoNo(orderNo);
+		
+		//此處的3代表 狀態是退款申請中
+		classOrderService.updateClassOrder(classOrder.getCoNo(), classOrder.getMember(), classOrder.getCoBc(), classOrder.getCoPaymentMethod(), classOrder.getCoSmmp(), classOrder.getCoTime(), 3, classOrder.getActualAmount());
+			
+		response.setContentType("application/json;charset=UTF-8"); //json
+//		response.setContentType("text/html;charset=UTF-8")
+//		response.getWriter().write("更新成功");
+		response.getWriter().write("{\"message\" : \"更新成功\"}");
+		
 	}
 }

@@ -92,7 +92,8 @@
 		<select name="coStatus">
    		<option value="0" ${param.coStatus == '0' ? 'selected' : ''}>未付款</option>
 		<option value="1" ${param.coStatus == '1' ? 'selected' : ''}>已付款</option>
-		<option value="2" ${param.coStatus == '2' ? 'selected' : ''}>取消訂單</option>
+		<option value="2" ${param.coStatus == '2' ? 'selected' : ''}>已退款</option>
+		<option value="3" ${param.coStatus == '3' ? 'selected' : ''}>退款申請中</option>
 		</select>
 		 <br /> 
 		

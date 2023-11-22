@@ -244,7 +244,7 @@ $("#confirm").on("click" , function (){
                 });
             }
 
-            window.location.href = `${projectName}/frontend/privatetrainer/privateTrainer.jsp`;
+            window.location.href = `${projectName}/trainer/getAll`;
         }
     });
 })

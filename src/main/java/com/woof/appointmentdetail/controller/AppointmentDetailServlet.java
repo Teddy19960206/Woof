@@ -88,6 +88,9 @@ public class AppointmentDetailServlet extends HttpServlet {
 			case "cancelFromTrainer":
 				cancelFromTrainer(req , resp);
 				return;
+			case "cancelAppointment":
+				cancelAppointment(req , resp);
+				return;
 			default:
 				forwardPath = "/frontend/privatetrainingappointmentform/privateTrainingAppointmentForm.jsp";
 			}
@@ -146,7 +149,7 @@ public class AppointmentDetailServlet extends HttpServlet {
     
     private void add(HttpServletRequest req, HttpServletResponse res) throws IOException {
     	
-    	// 新增明細
+    	// 有預約單要新增明細
     	Integer ptaNo = Integer.parseInt(req.getParameter("ptaNo"));
     	PrivateTrainingAppointmentFormService ptaService =  new PrivateTrainingAppointmentFormServiceImpl();
     	PrivateTrainingAppointmentForm pta = ptaService.findPrivateTrainingAppointmentFormByPtaNo(ptaNo);
@@ -192,7 +195,13 @@ public class AppointmentDetailServlet extends HttpServlet {
 		String ptaComment =privateTrainingAppointmentFormService.findPrivateTrainingAppointmentFormByPtaNo(ptaNo).getPtaComment();
 		privateTrainingAppointmentFormService.updatePrivateTrainingAppointmentForm(ptaNo, member, trainer,
 					ptaClass,ptaComment,commentTime,commentUpTime);
-		 
+		 // 更新會員課堂數
+		Integer totalClass = member.getTotalClass();
+		if (appStatus == 0) {
+			memberService.updateMemberClass(memNo, totalClass + 1);
+		}else {
+			memberService.updateMemberClass(memNo, totalClass - 1);
+		}
 		 // 用查詢展示跳轉的效果
 		getByPtaNo(req,res);
 //		res.sendRedirect(req.getContextPath() + "/frontend/privatetrainingappointmentform/privateTrainingAppointmentForm.jsp");
@@ -247,14 +256,20 @@ public class AppointmentDetailServlet extends HttpServlet {
 		String ptaComment =privateTrainingAppointmentFormService.findPrivateTrainingAppointmentFormByPtaNo(ptaNo).getPtaComment();
 		privateTrainingAppointmentFormService.updatePrivateTrainingAppointmentForm(ptaNo, member, trainer,
 					ptaClass,ptaComment,commentTime,commentUpTime);
-		 
+		 // 更新會員課堂數
+		Integer totalClass = member.getTotalClass();
+		if (appStatus == 0) {
+			memberService.updateMemberClass(memNo, totalClass + 1);
+		}else {
+			memberService.updateMemberClass(memNo, totalClass - 1);
+		}
 		 // 用查詢展示跳轉的效果
     	getByPtaNo(req,res);
 //    	res.sendRedirect(req.getContextPath() + "/frontend/privatetrainingappointmentform/privateTrainingAppointmentForm.jsp");
     }
     
     private void delete(HttpServletRequest req, HttpServletResponse res) throws IOException {
-    	
+    	// 尚未做更新會員課程數量的設置
     	Integer adNo = Integer.parseInt(req.getParameter("adNo"));
     	int result = appointmentDetailService.deleteAd(adNo);
     	if (result == 1) {
@@ -287,7 +302,8 @@ public class AppointmentDetailServlet extends HttpServlet {
     private void cancel(HttpServletRequest req, HttpServletResponse res) {
     	
     	String adNoStr = req.getParameter("adNo");
-    	Integer adNo = Integer.parseInt(adNoStr);
+    	System.out.println(adNoStr);
+    	Integer adNo = Integer.valueOf(adNoStr);
     	PrivateTrainingAppointmentForm pta = appointmentDetailService.findAdByAdNo(adNo).getPrivateTrainingAppointmentForm();
     	Date appTime = appointmentDetailService.findAdByAdNo(adNo).getAppTime();
 
@@ -331,4 +347,40 @@ public class AppointmentDetailServlet extends HttpServlet {
 		response.getWriter().write("{\"message\" : \"取消成功\"}");
 	}
 
+	private void addPta(HttpServletRequest req, HttpServletResponse res) {
+		
+		// 沒預約單要新增明細
+		
+	}
+	
+	private void cancelAppointment(HttpServletRequest req, HttpServletResponse res) throws IOException {
+		
+		String adNoStr = req.getParameter("adNo");
+    	Integer adNo = Integer.valueOf(adNoStr);
+    	PrivateTrainingAppointmentForm pta = appointmentDetailService.findAdByAdNo(adNo).getPrivateTrainingAppointmentForm();
+    	Date appTime = appointmentDetailService.findAdByAdNo(adNo).getAppTime();
+
+    	appointmentDetailService.updateAd(adNo, pta, appTime, 1);
+    	
+    	Integer ptaNo = pta.getPtaNo();
+    	
+    	Integer ptaClass = (int) appointmentDetailService.getTotalByPtaNo(ptaNo);
+    	
+    	PrivateTrainingAppointmentFormService privateTrainingAppointmentFormService = new PrivateTrainingAppointmentFormServiceImpl();
+		Member member = privateTrainingAppointmentFormService.findPrivateTrainingAppointmentFormByPtaNo(ptaNo).getMember();
+
+		/* 退回課堂數 */
+		new MemberServiceImpl().cancelPrivateClass(member.getMemNo());
+
+		Trainer trainer = privateTrainingAppointmentFormService.findPrivateTrainingAppointmentFormByPtaNo(ptaNo).getTrainer();
+
+		Timestamp commentTime =privateTrainingAppointmentFormService.findPrivateTrainingAppointmentFormByPtaNo(ptaNo).getCommentTime();
+		Timestamp commentUpTime =privateTrainingAppointmentFormService.findPrivateTrainingAppointmentFormByPtaNo(ptaNo).getCommentUpTime();
+		String ptaComment =privateTrainingAppointmentFormService.findPrivateTrainingAppointmentFormByPtaNo(ptaNo).getPtaComment();
+		privateTrainingAppointmentFormService.updatePrivateTrainingAppointmentForm(ptaNo, member, trainer,
+					ptaClass,ptaComment,commentTime,commentUpTime);
+		
+		res.setContentType("application/json;charset=UTF-8"); //json
+		res.getWriter().write("{\"message\" : \"更新成功\"}");
+	}
 }

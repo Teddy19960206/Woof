@@ -99,10 +99,10 @@ public class ClassOrderServiceImpl implements ClassOrderService{
 
 
 
-//	@Override
-//	public List<ClassOrder> getOrderByMemNo(String memNo) {
-//		return dao.getOrderByMemNo(memNo);
-//	}
+	@Override
+	public List<ClassOrder> getOrderByMemNo(String memNo) {
+		return dao.getOrderByMemNo(memNo);
+	}
 	
 	
 }

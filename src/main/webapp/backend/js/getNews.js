@@ -30,10 +30,10 @@ async function countFetch(){
         const data = await response.text();
 
         if(data == 0){
-            getNews.innerText = "通知";
+            getNews.innerText = "團課通知";
             getNews.disabled = true ;
         }else{
-            html  = `通知<span class="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-danger">
+            html  = `團課通知<span class="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-danger">
                    ${data}
                 </span>`;
 
@@ -104,7 +104,7 @@ async function newsInfoFetch(){
         }else {
             infoModal.hide();
 
-            Swal.fire({
+            await Swal.fire({
                 icon: "error",
                 title: "Oops...",
                 text: "沒有資料"
@@ -132,12 +132,10 @@ $(document).on("click" , "button.schudeleCancel" , function(){
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
         confirmButtonText: "是, 退款"
-    }).then((result) => {
+    }).then(async (result) => {
         if (result.isConfirmed) {
-            // 需發送到後端進行修改 ？？？？？？？？？？？？？？？？？？
-
             refundAllFetch(this.getAttribute("data-id"));
-            Swal.fire({
+            await Swal.fire({
                 title: "已刪除",
                 text: "刪除成功",
                 icon: "success"
@@ -159,6 +157,7 @@ async function refundAllFetch(gcsNo){
         })
 
         if (!response.ok){
+            refundError();
             throw new Error("異常失敗")
         }
 
@@ -171,18 +170,15 @@ async function refundAllFetch(gcsNo){
                 icon: "success"
             });
         }else{
-            await Swal.fire({
-                title: "Oops...",
-                text: "退款失敗",
-                icon: "error"
-            });
+            refundError();
         }
         window.location.reload();
 
     }catch (error){
+        refundError();
         console.error('Error', error);
     }
-
-
 }
+
+
 

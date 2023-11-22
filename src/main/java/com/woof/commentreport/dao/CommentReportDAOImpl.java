@@ -1,10 +1,13 @@
 package com.woof.commentreport.dao;
 
+import static com.woof.util.Constants.PAGE_MAX_RESULT;
+
 import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import com.woof.classorder.entity.ClassOrder;
 import com.woof.commentreport.entity.CommentReport;
 
 public class CommentReportDAOImpl implements CommentReportDAO{
@@ -32,7 +35,7 @@ public class CommentReportDAOImpl implements CommentReportDAO{
 	@Override
 	public int update(CommentReport commentReport) {
 		try {
-			getSession().update(commentReport);
+			getSession().merge(commentReport);
 			return 1;
 		} catch (Exception e) {
 			return -1;
@@ -56,7 +59,21 @@ public class CommentReportDAOImpl implements CommentReportDAO{
 
 	@Override
 	public List<CommentReport> getAll() {
-		return getSession().createQuery("FROM CommentReport", CommentReport.class).list();
+		return getSession().createQuery("FROM CommentReport ORDER BY crDate DESC", CommentReport.class).list();
+	}
+
+	@Override
+	public List<CommentReport> getAll(int currentPage) {
+		int first = (currentPage - 1) * PAGE_MAX_RESULT;
+		return getSession().createQuery("FROM CommentReport ORDER BY crDate DESC", CommentReport.class)
+				.setFirstResult(first)
+				.setMaxResults(PAGE_MAX_RESULT)
+				.list();
+	}
+
+	@Override
+	public long getTotal() {
+		return getSession().createQuery("select count(*) from CommentReport", Long.class).uniqueResult();
 	}
 	
 	

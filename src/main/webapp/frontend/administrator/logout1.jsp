@@ -25,15 +25,7 @@ body {
 	margin-bottom: 20px;
 }
 
-.btn-access {
-	background-color: #ffa500; /* 橘色按鈕 */
-	color: white;
-	border: none;
-}
 
-.btn-access:hover {
-	background-color: #ff8c00; /* 深橘色按鈕 */
-}
 
 .error-msg {
 	color: red;
@@ -61,17 +53,28 @@ body {
 			<div class="error-msg">${errorMsgs.administratorpassword}</div>
 			<div class="form-group">
 				<input type="hidden" name="action1" value="administratorlogout1">
-				<button class="btn btn-access" id="loginButton" type="submit">
+				<button class="btn btn-access" id="loginButton" type="submit"   style="
+                  background-color: #faba91;
+                  font-family: 'Noto Sans TC', sans-serif;
+                  font-weight: 700;">
 					<b>登入</b>
 				</button>
+					  <a
+                href="<%=request.getContextPath()%>/index.jsp"
+                class="btn"
+                style="
+                  background-color: #faba91;
+                  font-family: 'Noto Sans TC', sans-serif;
+                  font-weight: 700;">返回前台首頁</a>
 			</div>
+		
 			<div class="form-group form-check">
 				<input type="checkbox" class="form-check-input" name="remember"
 					id="remember"> <label class="form-check-label"
 					for="remember"><b>記住帳號</b></label>
 			</div>
 		</form>
-		</a> <a href="#" class="text-decoration-none"> <b>忘記密碼</b></a>
+		  <a href='/woof/frontend/administrator/forgotpwd.jsp' style="margin-left: 180px;"><span class="span">忘記密碼？</span></a>
 	</div>
 
 	<script>

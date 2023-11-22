@@ -48,12 +48,27 @@ document.addEventListener('DOMContentLoaded', function () {
                         if (response.ok) {
                             return response.json();
                         } else {
-                            // 如果服務器響應不是 ok，拋出錯誤
                             return response.json().then(error => Promise.reject(error));
                         }
                     })
                     .then(data => {
                         console.log('Product added:', data);
+                        Swal.fire({
+                            icon: "success",
+                            title: "成功新增商品",
+                        });
+                        // 重新加載商品並更新分頁
+                        fetchProductsAndUpdateTable(() => {
+                            // 判斷新商品應該出現在哪一頁
+                            let newPage = calculateNewPage(data);
+                            // 更新當前頁碼
+                            currentPage = newPage;
+                            // 更新表格
+                            updateTable();
+                            setTimeout(() => {
+                                highlightNewRow(data.prodNo);
+                            }, 100); // 延時100毫秒
+                        });
                     })
                     .catch(error => {
                         console.error('There has been a problem with your fetch operation:', error);
@@ -62,12 +77,26 @@ document.addEventListener('DOMContentLoaded', function () {
                 // 隱藏模態框
                 $('#addProductModal').modal('hide');
             } else {
-                // 如果表單不合法，顯示錯誤信息
                 form.classList.add('was-validated');
             }
         });
     }
 
+    function calculateNewPage(newProduct) {
+        // 獲取總產品數量
+        let totalProducts = document.querySelectorAll('.product-row').length + 1; // 加上新產品
+        // 計算總頁數
+        let totalPages = Math.ceil(totalProducts / rowsPerPage);
+        return totalPages;
+    }
+
+    function highlightNewRow(prodNo) {
+        let newRow = document.querySelector(`tr[data-prodno='${prodNo}']`);
+        if (newRow) {
+            newRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            newRow.classList.add('highlighted-row');
+        }
+    }
     // 當新增產品按鈕被點擊時，顯示模態框並綁定事件
     document.getElementById('addProduct').addEventListener('click', function () {
         $('#addProductModal').modal('show');

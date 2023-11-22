@@ -271,7 +271,7 @@ a {
 								class="accordion-collapse collapse"
 								data-bs-parent="#collapseCourseManagement">
 								<div class="accordion-body">
-									<a href="#">課程訂單管理</a>
+									<a href="${pageContext.request.contextPath}/frontend/member/login/classOrder.jsp">課程訂單管理</a>
 								</div>
 								<hr class="custom-divider">
 								<div class="accordion-body">
@@ -329,7 +329,7 @@ a {
    <div class="col-12 col-md-8">
     <div class="card">
         <div class="card-body">
-            <h3 class="card-title text-center p-2">私人預約管理</h3>
+            <h3 class="card-title text-center p-2">預約單管理</h3>
             <table class="table table-bordered table-hover text-center align-content-center align-middle" id="show">
                         <thead>
                             <tr>
@@ -345,7 +345,7 @@ a {
 
                          <c:forEach items="${all}" var="pta">
                             <tr>
-                                <td class="truncated-text">${pta.member.memNo}</td>
+                                <td class="truncated-text">${pta.ptaNo}</td>
                                 <td>${pta.trainer.administrator.adminName}</td>
                                 <td>${pta.ptaClass}</td>
                                 <td>

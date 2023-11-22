@@ -34,12 +34,12 @@
              href="#">
             寵物訓練課程介紹</a>
           <ul class="dropdown-menu border-1">
-            <li><a class="dropdown-item" href="<%=request.getContextPath()%>/frontend/privatetrainer/privateTrainer.jsp">私人訓練師</a></li>
+            <li><a class="dropdown-item" href="<%=request.getContextPath()%>/trainer/getAll">私人訓練師</a></li>
             <li><a class="dropdown-item" href="<%=request.getContextPath()%>/frontend/group/groupSchedule.jsp">團體課程資訊</a></li>
           </ul>
         </li>
         <li class="nav-item me-3">
-          <a class="nav-link" href="#">寵物商城</a>
+          <a class="nav-link" href="/woof/shopHome.html">寵物商城</a>
         </li>
         <li class="nav-item me-3">
           <a class="nav-link" href="#">最新消息</a>

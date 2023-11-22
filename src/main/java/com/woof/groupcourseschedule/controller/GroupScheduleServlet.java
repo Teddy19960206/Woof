@@ -682,7 +682,6 @@ public class GroupScheduleServlet extends HttpServlet {
 //    計算總共有幾筆資料
     private void countInfo(HttpServletRequest request , HttpServletResponse response) throws IOException {
         try(Jedis jedis = JedisUtil.getResource()){
-            jedis.select(0);
             Long schedules = jedis.hlen("schedules");
 
             response.setContentType("text/html; charset=UTF-8");

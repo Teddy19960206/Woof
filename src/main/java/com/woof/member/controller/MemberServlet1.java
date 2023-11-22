@@ -15,6 +15,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import org.mindrot.jbcrypt.BCrypt;
@@ -26,6 +27,8 @@ import com.woof.member.service.MemberService;
 import com.woof.member.service.MemberServiceImpl;
 import com.woof.util.MailService;
 import com.woof.util.PartParsebyte;
+
+import redis.clients.jedis.Jedis;
 
 @WebServlet("/member1.do")
 @MultipartConfig
@@ -70,7 +73,6 @@ public class MemberServlet1 extends HttpServlet {
 					e.printStackTrace();
 				} catch (IOException e) {
 					e.printStackTrace();
-
 				}
 				return;
 			case "getall":
@@ -88,12 +90,28 @@ public class MemberServlet1 extends HttpServlet {
 			case "valid":
 				validMember(req,res);
 				return;
-
+			case "validemail":
+				validEmail(req,res);
+				return;
 			default:
 				forwardPath = "/frontend/member/selectmember.jsp";
 			}
 		}
 		req.getRequestDispatcher(forwardPath).forward(req, res);
+	}
+
+	private void validEmail(HttpServletRequest req, HttpServletResponse res) throws IOException {
+		String memNo = req.getParameter("memNo");
+		String mememail = req.getParameter("memEmail");
+		Member member = memberService.findMemberByNo(memNo);
+		System.out.println(mememail+"有email");
+		MailService mailService = new MailService();
+		String realURL = req.getScheme() + "://" + req.getServerName() + ":" + req.getServerPort();
+		mailService.sendMail(mememail,"會員驗證", MailService.valid(realURL+req.getContextPath()+ "/member1.do?action=valid&memNo="+member.getMemNo()));
+		// 導到指定的URL 頁面上 把請求回應都帶過去
+		String url = req.getContextPath() + "/frontend/member/login/validemail.jsp";
+		req.setCharacterEncoding("UTF-8");
+		res.sendRedirect(url);
 	}
 
 	private void validMember(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -102,7 +120,7 @@ public class MemberServlet1 extends HttpServlet {
 		member.setMemStatus(1);
 		memberService.updateMember(member);
 		// 導到指定的URL 頁面上 把請求回應都帶過去
-		req.getRequestDispatcher( "/frontend/member/login/registsucess.jsp").forward(req, res);
+		req.getRequestDispatcher( "/frontend/member/login/login.jsp").forward(req, res);
 	}
 
 	private void processQuery(HttpServletRequest req, HttpServletResponse res) throws IOException {
@@ -173,7 +191,7 @@ public class MemberServlet1 extends HttpServlet {
 		
 		String mempwd = req.getParameter("memPassword").trim();
 		if (mempwd == null || mempwd.trim().length() == 0) {
-			errorMsgs.put("memPassword","會員密碼請勿空白");
+//			errorMsgs.put("memPassword","會員密碼請勿空白");
 		}else {
 		    // 加密密碼
 		    String encryptedPassword = BCrypt.hashpw(mempwd, BCrypt.gensalt());
@@ -196,7 +214,7 @@ public class MemberServlet1 extends HttpServlet {
 
 		// Send the use back to the form, if there were errors
 		if (!errorMsgs.isEmpty()){
-			req.getRequestDispatcher("/frontend/member/login/addmember.jsp").forward(req, res);
+			req.getRequestDispatcher("/frontend/member/login/login.jsp").forward(req, res);
 	    return;
 		}
 		
@@ -226,18 +244,13 @@ public class MemberServlet1 extends HttpServlet {
 		input.read(photo);
 		input.close();
 		member.setMemPhoto(photo);
-		// 將會員狀態預設1
-		member.setMemStatus(0);
+		// 將會員狀態預設2
+		member.setMemStatus(2);
 		member.setMomoPoint(200);
 		member.setTotalClass(0);
-
 		try {
 			memberService.addMember(member);
-			MailService mailService = new MailService();
-			String realURL = req.getScheme() + "://" + req.getServerName() + ":" + req.getServerPort();
-			mailService.sendMail(mememail,"會員驗證", MailService.valid(realURL+req.getContextPath()+ "/member1.do?action=valid&memNo="+member.getMemNo()));
-			// 導到指定的URL 頁面上 把請求回應都帶過去
-			String url = req.getContextPath() + "/frontend/member/login/validemail.jsp";
+			String url = req.getContextPath() + "/frontend/member/login/registsucess.jsp";
 			req.setCharacterEncoding("UTF-8");
 			res.sendRedirect(url);
 		} catch (Exception e) {
@@ -250,26 +263,10 @@ public class MemberServlet1 extends HttpServlet {
 		
 		Map<String,String> errorMsgs = new LinkedHashMap<String,String>();
 		req.setAttribute("errorMsgs", errorMsgs);
-//		List<Member> members = memberService.getAllMembers();		
 		Member member = new Member();
 		String mememail = req.getParameter("memEmail");
 		String memNo = req.getParameter("memNo");
-//		for(Member mem :  members) {
-//			if(mem.getMemNo().equals(memNo)) {
-//				errorMsgs.put("memNo","此帳號已註冊，請重新輸入");
-//			}
-//			if(mem.getMemEmail().equals(mememail)) {
-//				errorMsgs.put("memEmail", "不能使用該信箱");
-//			}
-//			if(!errorMsgs.isEmpty()) {
-//				break;
-//			}
-//		}
-//		if(!errorMsgs.isEmpty()) {
-//			
-//			req.getRequestDispatcher("frontend/member/login/updatemember.jsp").forward(req, res);
-//		    return;
-//		}
+		Member originalMem =  memberService.findMemberByNo(memNo);
 		/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
 		if (memNo == null || memNo.trim().length() == 0) {
 			errorMsgs.put("memNo","會員帳號請勿空白");
@@ -294,13 +291,13 @@ public class MemberServlet1 extends HttpServlet {
 		
 		String mempwd = req.getParameter("memPassword").trim();
 		if (mempwd == null || mempwd.trim().length() == 0) {
-			errorMsgs.put("memPassword","會員密碼請勿空白");
+			member.setMemPassword(originalMem.getMemPassword());
 		}else {
 		    // 加密密碼
 		    String encryptedPassword = BCrypt.hashpw(mempwd, BCrypt.gensalt());
 		    member.setMemPassword(encryptedPassword);
 		}
-		
+			
 		String memtel = req.getParameter("memTel").trim();
 		if (memtel == null || memtel.trim().length() == 0) {
 			errorMsgs.put("memTel","會員電話請勿空白");
@@ -310,7 +307,6 @@ public class MemberServlet1 extends HttpServlet {
 		if (memaddress == null || memaddress.trim().length() == 0) {
 			errorMsgs.put("memAddress","會員地址請勿空白");
 		}
-
 		// Send the use back to the form, if there were errors
 		if (!errorMsgs.isEmpty()){
 			req.getRequestDispatcher("frontend/member/login/updatemember.jsp").forward(req, res);
@@ -372,13 +368,24 @@ public class MemberServlet1 extends HttpServlet {
 	            // 處理錯誤
 	        }
 	    }
-
-	    member.setMemStatus(1);
+	    String memStatusStr = req.getParameter("memStatus");
+	    if (memStatusStr != null && !memStatusStr.isEmpty()) {
+	    	try {
+	    		Integer memStatusInteger = Integer.valueOf(memStatusStr);
+	    		member.setMemStatus(memStatusInteger);
+	    	} catch (NumberFormatException e) {
+	    		e.printStackTrace();
+	    		// 處理錯誤
+	    	}
+	    }
 		memberService.updateMember(member);
 		   // 假設更新操作已完成，現在重新獲取最新資料
 	    Member updatedMember = memberService.findMemberByNo(member.getMemNo());
 	    System.out.println(member.getMemNo()+"=============");
 	    // 將更新後的會員資料設置為請求屬性
+	    HttpSession session = req.getSession();
+	    session.setAttribute("member" , member);
+	    
 	    req.setAttribute("member", updatedMember);
 		// 導到指定的URL 頁面上 把請求回應都帶過去
 		req.getRequestDispatcher( "/frontend/member/login/membercenter.jsp").forward(req, res);

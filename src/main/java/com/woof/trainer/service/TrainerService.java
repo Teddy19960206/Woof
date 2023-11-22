@@ -26,4 +26,7 @@ public interface TrainerService {
 
 	Trainer getByAdmin(String adminNo);
 
+	List<Trainer> getAllTrainers2(int currentPage);
+	
+	int getPageTotal();
 }

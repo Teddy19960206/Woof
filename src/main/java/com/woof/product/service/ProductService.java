@@ -4,11 +4,14 @@ import com.woof.product.dao.ProductRepository;
 import com.woof.product.entity.Product;
 import com.woof.product.entity.ProductCategory;
 import com.woof.product.entity.ProductStatus;
+import com.woof.promotionactivity.dao.PromotionActivityRepository;
+import com.woof.promotionactivity.entity.PromotionActivity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -19,6 +22,8 @@ public class ProductService {
 
     @Autowired
     private ProductRepository repository;
+    @Autowired
+    private PromotionActivityRepository promotionActivityRepository;
 
 
     public ProductDto saveProduct(ProductDto productDto) {
@@ -47,6 +52,7 @@ public class ProductService {
         product.setProdName(productDto.getProdName());
         product.setProdStatus(getStatusByName(productDto.getProdStatus()));
         product.setProdPhoto(productDto.getProdPhoto());
+        product.setPromoId(productDto.getPromoId());
         return product;
     }
 
@@ -60,8 +66,31 @@ public class ProductService {
         dto.setProdStatus(product.getProdStatus().getDisplayName());
         // 直接使用二進制數據
         dto.setProdPhoto(product.getProdPhoto());
+        dto.setPromoId(product.getPromoId());
+        dto.setIsPromotion(product.getPromoId() != null);
+        // 設置折扣價格
+        if (product.getPromoId() != null) {
+            // 從促銷活動repository中找到相應的促銷活動
+            Optional<PromotionActivity> promoActivity = promotionActivityRepository.findById(product.getPromoId());
+            if (promoActivity.isPresent()) {
+                BigDecimal discount = promoActivity.get().getPaDiscount();
+                // 計算折扣後的價格
+                BigDecimal promoPrice = new BigDecimal(product.getProdPrice()).multiply(discount);
+                dto.setPromoPrice(promoPrice.intValue());
+            }
+        }
+
         return dto;
     }
+
+    public void resetPromoId() {
+        List<Product> products = repository.findAll();
+        for (Product product : products) {
+            product.setPromoId(null);
+            repository.save(product);
+        }
+    }
+
 
     //使用displayname獲得enum值
     private ProductCategory getCategoryByName(String displayName) {
@@ -143,4 +172,15 @@ public class ProductService {
     }
 
 
+    public List<ProductDto> getPromotionProducts() {
+        return repository.findAll().stream()
+                .map(this::convertToDto)
+                .filter(ProductDto::isPromotion)
+                .collect(Collectors.toList());
+    }
+
+    public List<ProductDto> searchProductsByName(String prodName) {
+        List<Product> products = repository.findByProdNameContaining(prodName);
+        return products.stream().map(this::convertToDto).collect(Collectors.toList());
+    }
 }
