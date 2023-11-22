@@ -62,7 +62,7 @@ select {
 			<h3>會員資料查詢:</h3>
 		</div>
 		<ul class="list-unstyled">
-			<li class="mb-2"><a href='list_all_member.jsp'
+			<li class="mb-2"><a href="<%=request.getContextPath()%>/member.do?action=getall"
 				class="btn btn-primary">查看全部會員</a></li>
 
 			<jsp:useBean id="memberService" scope="page"
