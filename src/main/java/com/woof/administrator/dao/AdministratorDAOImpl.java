@@ -34,7 +34,7 @@ public class AdministratorDAOImpl implements AdministratorDAO {
 	@Override
 	public int update(Administrator administrator) {
 		try {
-			getSession().update(administrator);
+			getSession().merge(administrator);
 			return 1;
 		} catch (Exception e) {
 			return -1;

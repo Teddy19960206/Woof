@@ -32,7 +32,7 @@
                     data-bs-parent="#sidebar"
                   >
                     <li class="sidebar-item">
-                      <a href="<%=request.getContextPath()%>/backend/member/list_all_member.jsp" class="sidebar-link2">會員管理</a>
+                      <a href="<%=request.getContextPath()%>/member.do?action=getall" class="sidebar-link2">會員管理</a>
                     </li>
                     <li class="sidebar-item">
                       <a href="<%=request.getContextPath()%>/backend/member/selectmember.jsp" class="sidebar-link2">會員查詢</a>

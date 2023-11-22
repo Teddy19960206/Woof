@@ -4,13 +4,23 @@
 <html>
 <head>
 <!-- 引入 Bootstrap CSS -->
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<style>
-body {
-	background-color: #fff4e5; /* 淺橘色背景 */
-}
-
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        body {
+              position: relative;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* background: #2196f3; */
+  background-image: url("https://pixabay.com/get/g6f466a8face11dae9ee6df7606bded5f317c1fd370dcf4aa009b6a153c6c4f64d359cc4897161fef583fb5c3304f6ba8.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+  overflow: hidden;
+        }
 .login-container {
 	max-width: 400px;
 	margin: 50px auto;
@@ -32,7 +42,9 @@ body {
 	margin-bottom: 10px;
 }
 </style>
-<title>login</title>
+
+
+<title>管理員登入畫面</title>
 </head>
 <body>
 	<div class="login-container">
@@ -40,17 +52,16 @@ body {
 			<b>管理員登入</b>
 		</h3>
 		<form method="POST" action="${pageContext.request.contextPath}/logout1" onsubmit="return validateForm()">
-			<div class="error-msg">${errorMsgs.administratorlogin}</div>
 			<div class="form-group">
 				<label for="username"><b>帳號</b></label> <input type="text"
 					id="username" class="form-control" name="adminNo">
-			</div>
-			<div class="error-msg">${errorMsgs.adminNo}</div>
-			<div class="form-group">
+			
+				</div>			<div class="form-group">
 				<label for="password"><b>密碼</b></label> <input type="password"
 					id="password" class="form-control" name="adminPassword"> 
-			</div>
-			<div class="error-msg">${errorMsgs.administratorpassword}</div>
+			
+			<div class="error-msg">${errorMsgs.loginError}</div>
+			<div class="error-msg">${errorMsgs.loginError1}</div></div>
 			<div class="form-group">
 				<input type="hidden" name="action1" value="administratorlogout1">
 				<button class="btn btn-access" id="loginButton" type="submit"   style="
@@ -73,10 +84,10 @@ body {
 					id="remember"> <label class="form-check-label"
 					for="remember"><b>記住帳號</b></label>
 			</div>
-		</form>
+	
 		  <a href='/woof/frontend/administrator/forgotpwd.jsp' style="margin-left: 180px;"><span class="span">忘記密碼？</span></a>
 	</div>
-
+	</form>
 	<script>
         let username = document.getElementById("username");
         let remember = document.getElementById("remember");

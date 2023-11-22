@@ -6,12 +6,42 @@
 <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
 <script src="https://unpkg.com/swiper/swiper-bundle.js"></script>
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-<%@ include file="/meta.file" %>
+<script src="<%=request.getContextPath()%>/webutil/js/jquery-3.7.1.min.js"></script>
 <html>
 
 <style>
     @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600&family=Roboto:wght@300;400;500&display=swap");
+/* 將按鈕固定在左上角 */
+.buttons-container {
+  position: absolute;
+  top: 20px; /* 距離頂部的距離 */
+  left: 50%; /* 水平居中 */
+  transform: translateX(-50%); /* 使用轉換居中對齊 */
+  display: flex;
+  gap: 10px; /* 按鈕之間的間距 */
+}
 
+/* 樣式化按鈕和鏈接 */
+.button, .btn {
+  background-color: #28a745; /* 更改為Bootstrap的按鈕綠色 */
+  color: white;
+  padding: 10px 15px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  border: none;
+  border-radius: 4px;
+}
+
+/* 鼠標懸停時改變背景顏色 */
+.button:hover, .btn:hover {
+  background-color: #218838; /* 滑鼠懸停時的深綠色 */
+  color: white;
+}
 * {
   margin: 0;
   padding: 0;
@@ -201,11 +231,12 @@ section {
 </script>
 </head>
 <body>
-<%@ include file="/Header.file" %>
+
 <jsp:useBean id="administratorService" scope="page" class="com.woof.administrator.service.AdministratorServiceImpl"/>
     <section>
-    	<div style="display:inline-block;">
-    		<input type="button" class='button' id="btnAdd" value="新增" onclick="processAdd();" > 
+    	<div  class="buttons-container">
+    		<input type="button" class='button' id="btnAdd" value="新增員工" onclick="processAdd();" > 
+    			 <a href="<%=request.getContextPath()%>/backend/index.jsp" class="btn">返回首頁</a>
     	</div>
     <div class="swiper">
     <div class="swiper-wrapper">
@@ -235,7 +266,7 @@ section {
           <div class="swiper-pagination"></div>
         </div>
     </section> 
-    <%@ include file="/Footer.file" %>
+    
     
 </body>
 </html>
