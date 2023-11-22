@@ -2,7 +2,17 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <base href="http://localhost:8081/woof/">
+    <script>
+    let currentUrl = window.location.href;
+    let pathArray = currentUrl.split("/");
+    let protocol = pathArray[0];
+    let host = pathArray[2];
+    let basePath = protocol + "//" + host;
+    if (currentUrl.includes("/woof/")) {
+        basePath += "/woof/";
+    }
+    document.write(`<base href="${basePath}">`);
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>寵毛導師 Woof | 促銷活動管理</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet">

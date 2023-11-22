@@ -110,7 +110,7 @@
                     data-bs-parent="#sidebar"
                   >
                     <li class="sidebar-item">
-                      <a href="${pageContext.request.contextPath}/backend/promotionactivity/PA.jsp" class="sidebar-link2"
+                      <a href="${pageContext.request.contextPath}/promotion.html" class="sidebar-link2"
                         >促銷管理</a
                       >
                     </li>

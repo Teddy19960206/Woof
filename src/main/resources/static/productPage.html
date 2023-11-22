@@ -2,7 +2,17 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <base href="http://localhost:8081/woof/">
+    <script>
+    let currentUrl = window.location.href;
+    let pathArray = currentUrl.split("/");
+    let protocol = pathArray[0];
+    let host = pathArray[2];
+    let basePath = protocol + "//" + host;
+    if (currentUrl.includes("/woof/")) {
+        basePath += "/woof/";
+    }
+    document.write(`<base href="${basePath}">`);
+    </script>
     <title>寵毛導師 Woof | 商品管理</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="/woof/css/productPage.css">
