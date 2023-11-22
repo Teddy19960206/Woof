@@ -48,7 +48,7 @@ public class CommentReportServiceImpl implements CommentReportService{
 	@Override
 	public CommentReport findCommentReportByCrNo(Integer crNo) {
 		
-		return null;
+		return dao.findByCrNo(crNo);
 	}
 
 	@Override
@@ -68,6 +68,11 @@ public class CommentReportServiceImpl implements CommentReportService{
 		long total = dao.getTotal();
 		int pageQty = (int) (total % PAGE_MAX_RESULT == 0 ? (total / PAGE_MAX_RESULT) : (total / PAGE_MAX_RESULT + 1));
 		return pageQty;
+	}
+
+	@Override
+	public void updateStatus(Integer ptaNo, Integer crStatus) {
+		dao.updateStatusByPta(ptaNo , crStatus);
 	}
 	
 }

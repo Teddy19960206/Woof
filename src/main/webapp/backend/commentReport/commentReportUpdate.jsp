@@ -98,9 +98,9 @@
 		<input	type="text" name="crDate" value="${param.crDate}" readonly>
 		<label>處理狀態:</label>
 		<select name="crStatus">
-   		<option value="0" ${param.coStatus == '0' ? 'selected' : ''}>待處理</option>
-		<option value="1" ${param.coStatus == '1' ? 'selected' : ''}>檢舉通過</option>
-		<option value="2" ${param.coStatus == '2' ? 'selected' : ''}>檢舉未通過</option>
+   		<option value="0" ${param.crStatus == '0' ? 'selected' : ''}>待處理</option>
+		<option value="1" ${param.crStatus == '1' ? 'selected' : ''}>檢舉通過</option>
+		<option value="2" ${param.crStatus == '2' ? 'selected' : ''}>檢舉未通過</option>
 		</select>
 		 <br /> 
 		

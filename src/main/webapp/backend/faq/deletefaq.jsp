@@ -17,6 +17,8 @@
 </head>
 <body>
 
+	<%@ include file="/backend/backbody.file"%>
+
     <div class="container">
         <h1>刪除FAQ畫面</h1>
         <form method="post" action="${pageContext.request.contextPath}/faq?action=deletefaq">
@@ -29,6 +31,8 @@
         </form>
         <a class="btn btn-secondary" href="javascript:history.back()">返回</a>
     </div>
+
+	<%@ include file="/backend/backfoot.file"%>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
