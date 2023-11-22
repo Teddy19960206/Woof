@@ -69,7 +69,11 @@
             padding-left: 100px; /* 在大螢幕上增加左側內邊距 */
         }
     }
+ .search{
+  cursor: pointer;
+ }
 </style>
+<script src="https://kit.fontawesome.com/3f37e88a3b.js"crossorigin="anonymous"></script>
 </head>
 <body>
 	<%@ include file="/backend/backbody.file"%>
@@ -85,7 +89,7 @@
 				class="com.woof.member.service.MemberServiceImpl" />
 			<li>
 				<!-- 查詢表單 -->
-				 <div class="custom-form">
+				 <div class="mb-2">
 					<form method="post"
 						action="${pageContext.request.contextPath}/member.do"
 						class="form-inline">
@@ -93,7 +97,10 @@
 						<input type="text" class="form-control mr-2" name="memNo"
 							placeholder="輸入會員帳號" value="${member.memNo}" required > <input
 							type="hidden" name="action" value="getone">
-						<button type="submit" class="btn btn-orange">查詢</button>
+							 <label for="search"class="search">
+							 <i class="fa-solid fa-magnifying-glass"></i>
+							 </label>
+						<button type="submit" class="btn btn-orange" id="search" style="display: none;"></button>
 					</form>
 				</div> <!-- 其他查詢選項 -->
 				<div class="mb-2">
@@ -106,7 +113,10 @@
 								<option value="${member.memNo}">${member.memNo}</option>
 							</c:forEach>
 						</select> <input type="hidden" name="action" value="getone">
-						<button type="submit" class="btn btn-orange">提交</button>
+						<label for="search" class="search">
+					    <i class="fa-solid fa-magnifying-glass"></i>
+					    </label>
+						<button type="submit" class="btn btn-orange" id="search" style="display: none;"></button>
 					</form>
 				</div>
 				<div class="mb-2">
@@ -119,7 +129,10 @@
 								<option value="${member.memNo}">${member.memName}</option>
 							</c:forEach>
 						</select> <input type="hidden" name="action" value="getone">
-						<button type="submit" class="btn btn-orange">提交</button>
+						<label for="search" class="search">
+					    <i class="fa-solid fa-magnifying-glass"></i>
+					    </label>
+						<button type="submit" class="btn btn-orange" id="search" style="display: none;"></button>
 					</form>
 				</div> 
 		</ul>
