@@ -187,9 +187,14 @@ public class PrivateTrainingAppointmentFormDAOImpl implements PrivateTrainingApp
 	@Override
 	public List<PrivateTrainingAppointmentForm> getNonReportedComment(Integer trainerNo) {
 		return getSession().createQuery(
-	            "SELECT PTA FROM PrivateTrainingAppointmentForm PTA LEFT JOIN PTA.commentReports CR WHERE (CR IS NULL OR CR.crStatus NOT IN (1)) AND (PTA.ptaComment IS NOT NULL AND PTA.trainer.trainerNo) = :trainerNo ORDER BY PTA.commentTime DESC",
+	            "SELECT PTA FROM PrivateTrainingAppointmentForm PTA " +
+	            "LEFT JOIN PTA.commentReports CR " +
+	            "WHERE (CR IS NULL OR CR.crStatus NOT IN (1)) " +
+	            "AND PTA.ptaComment IS NOT NULL " +
+	            "AND PTA.trainer.trainerNo = :trainerNo " +
+	            "ORDER BY PTA.commentTime DESC",
 	            PrivateTrainingAppointmentForm.class)
-				.setParameter("trainerNo", trainerNo)
+	            .setParameter("trainerNo", trainerNo)
 	            .getResultList();
 	}
 
