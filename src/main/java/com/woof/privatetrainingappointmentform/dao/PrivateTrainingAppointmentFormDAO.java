@@ -41,5 +41,8 @@ public interface PrivateTrainingAppointmentFormDAO {
 
 	List<PrivateTrainingAppointmentForm> getAppointmentByMemNo(String memNo);
 	
+	List<PrivateTrainingAppointmentForm> getNonReportedComment(Integer trainerNo);
+	
+	
 	
 }

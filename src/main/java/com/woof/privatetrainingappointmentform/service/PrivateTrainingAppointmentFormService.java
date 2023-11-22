@@ -44,4 +44,6 @@ public interface PrivateTrainingAppointmentFormService {
 	int getPageTotal5(String memNo , Integer trainerNo);
 
 	List<PrivateTrainingAppointmentForm> getAppointmentByMemNo(String memNo);
+	
+	List<PrivateTrainingAppointmentForm> getNonReportedComment(Integer trainerNo);
 }

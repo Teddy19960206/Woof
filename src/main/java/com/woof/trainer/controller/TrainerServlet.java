@@ -21,6 +21,8 @@ import com.woof.skill.entity.Skill;
 import com.woof.trainer.entity.Trainer;
 import com.woof.trainer.service.TrainerService;
 import com.woof.trainer.service.TrainerServiceImpl;
+import com.woof.privatetrainingappointmentform.service.PrivateTrainingAppointmentFormService;
+import com.woof.privatetrainingappointmentform.service.PrivateTrainingAppointmentFormServiceImpl;
 
 @WebServlet("/trainer/*")
 @MultipartConfig
@@ -154,42 +156,11 @@ public class TrainerServlet extends HttpServlet {
 		// =======================================================================================
 
 		// =====================按照評論時間排序評論================================
-		// 對每個訓練師處理評論
-		List<PrivateTrainingAppointmentForm> allNonEmptyComments = new LinkedList<>();
-		// 取出所有的訓練師
-		for (Trainer trainer : allTrainers) {
-			List<PrivateTrainingAppointmentForm> nonEmptyComments = new LinkedList<>();
-			// 判斷每個訓練師的私人預約單是存在的
-			if (trainer.getPrivateTrainingAppointmentForms() != null) {
-				// 個別取出每個訓練師的私人預約單
-				for (PrivateTrainingAppointmentForm pta : trainer.getPrivateTrainingAppointmentForms()) {
-					// 設布林判斷私人預約單評論檢舉欄位(多次)是否為空，true代表有被檢舉，false代表沒被檢舉
-					boolean hasReport = pta.getCommentReports() != null && !pta.getCommentReports().isEmpty();
-					// 若沒被檢舉或是有被檢舉而且檢舉的狀態不是1(代表檢舉成功)則通過判斷
-					if (!hasReport || (hasReport
-							&& pta.getCommentReports().stream().noneMatch(report -> report.getCrStatus() == 1))) {
-						// 檢查非空評論並加入到 nonEmptyComments 中
-						if (pta.getPtaComment() != null && !pta.getPtaComment().isEmpty()) {
-							nonEmptyComments.add(pta);
-						}
-					}
-				}
-			}
-			// 將每個訓練師的非空評論加到總列表中
-		    allNonEmptyComments.addAll(nonEmptyComments);
-		}
 
-		// 排序評論
-		allNonEmptyComments.sort((pta1, pta2) -> {
-		    Timestamp commentTime1 = pta1.getCommentTime();
-		    Timestamp commentTime2 = pta2.getCommentTime();
-		    return commentTime2.compareTo(commentTime1); // 降序排序
-		});
-
-		// 獲取前三筆評論
-		List<PrivateTrainingAppointmentForm> randomNonEmptyComments = allNonEmptyComments.subList(0, Math.min(3, allNonEmptyComments.size()));
-
-		request.setAttribute("randomNonEmptyComments", randomNonEmptyComments);
+		PrivateTrainingAppointmentFormService privateTrainingAppointmentFormService = new PrivateTrainingAppointmentFormServiceImpl();
+		List<PrivateTrainingAppointmentForm> nonReportedComment = privateTrainingAppointmentFormService.getNonReportedComment(1);
+		System.out.println("================================================"+nonReportedComment);
+//		request.setAttribute("nonReportedComment", nonReportedComment);
 		// ==================================================================================
 		request.setAttribute("trainers", allTrainers);
 		request.setAttribute("currentPage", currentPage);
