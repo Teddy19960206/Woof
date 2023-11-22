@@ -115,7 +115,7 @@
     Integer shopOrderNo = Integer.parseInt(shopOrderNoStr);
 
     ShopOrderDetailServiceImpl service = new ShopOrderDetailServiceImpl();
-    List<ShopOrderDetailDTO> orderDetails = service.findOneShopOrderNoDetailObj(1);
+    List<ShopOrderDetailDTO> orderDetails = service.findOneShopOrderNoDetailObj(shopOrderNo);
     System.out.println(orderDetails);
 
     request.setAttribute("orderDetails", orderDetails);

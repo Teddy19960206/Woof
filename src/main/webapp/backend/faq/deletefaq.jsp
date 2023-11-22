@@ -5,15 +5,7 @@
 <html>
 <head>
     <title>刪除</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-        body {
-            padding: 20px;
-        }
-        .container {
-            max-width: 800px;
-        }
-    </style>
+
 </head>
 <body>
 

@@ -3,11 +3,11 @@ package com.woof.faq.service;
 import static com.woof.util.Constants.PAGE_MAX_RESULT;
 
 import java.util.List;
-
+import java.util.Map;
+import java.util.stream.Collectors;
 import com.woof.faq.dao.FaqDAO;
 import com.woof.faq.dao.FaqDAOImpl;
 import com.woof.faq.entity.Faq;
-import com.woof.privatetrainingappointmentform.entity.PrivateTrainingAppointmentForm;
 import com.woof.util.HibernateUtil;
 
 public class FaqServiceImpl implements FaqService{
@@ -70,5 +70,6 @@ public class FaqServiceImpl implements FaqService{
 		int pageQty = (int)(total % PAGE_MAX_RESULT == 0 ? (total / PAGE_MAX_RESULT) : (total / PAGE_MAX_RESULT + 1));
 		return pageQty;
 	}
+	
 	
 }
