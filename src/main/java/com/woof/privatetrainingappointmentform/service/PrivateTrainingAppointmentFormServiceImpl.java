@@ -144,4 +144,9 @@ public class PrivateTrainingAppointmentFormServiceImpl implements PrivateTrainin
 		return dao.getAppointmentByMemNo(memNo);
 	}
 
+	@Override
+	public List<PrivateTrainingAppointmentForm> getNonReportedComment(Integer trainerNo) {
+		return dao.getNonReportedComment(trainerNo);
+	}
+
 }

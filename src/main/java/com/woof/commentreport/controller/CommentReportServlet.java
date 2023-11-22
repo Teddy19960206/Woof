@@ -54,7 +54,12 @@ private CommentReportService commentReportService;
 				forwardPath = "/backend/commentReport/commentReport.jsp";
 				break;
 			case "update":
-				update(req,res);
+				updateStatus(req,res);
+				getAll(req,res);
+				forwardPath = "/backend/commentReport/commentReport.jsp";
+				break;
+			case "updateStatus":
+				updateStatus(req,res);
 				getAll(req,res);
 				forwardPath = "/backend/commentReport/commentReport.jsp";
 				break;
@@ -116,4 +121,16 @@ private CommentReportService commentReportService;
     	Integer crStatus = Integer.valueOf(request.getParameter("crStatus"));
     	commentReportService.updateCrStatus(crNo, crStatus);
     }
+    
+    private void updateStatus(HttpServletRequest request, HttpServletResponse response) {
+    	String a = request.getParameter("crNo");
+    	Integer crNo = Integer.valueOf(a);
+    	Integer ptaNo = commentReportService.findCommentReportByCrNo(crNo)
+    			.getPrivateTrainingAppointmentForm()
+    			.getPtaNo();
+    	Integer crStatus = Integer.valueOf(request.getParameter("crStatus"));
+    	commentReportService.updateStatus(ptaNo, crStatus);
+    }
+    
+    
 }
