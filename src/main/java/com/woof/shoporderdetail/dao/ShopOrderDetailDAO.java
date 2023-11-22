@@ -11,7 +11,9 @@ public interface ShopOrderDetailDAO {
 
 //	int delete(Integer shopOrderDetail);
 
-	List<ShopOrderDetail> findOneShopOrderNoDetail(Integer shopOrderNo);
+//	List<ShopOrderDetail> findOneShopOrderNoDetailObj(Integer shopOrderNo);
+	
+	List<Object> findOneShopOrderNoDetailObj(Integer shopOrderNo);
 
 	List<ShopOrderDetail> getAll();
 

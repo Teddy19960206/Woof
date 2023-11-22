@@ -15,7 +15,9 @@ public interface ShopOrderDetailService {
 
 	List<ShopOrderDetail> getAllShopOrderDetail();
 
-	List<ShopOrderDetail> findOneShopOrderNoDetail(Integer shopOrderNo);
+//	List<ShopOrderDetail> findOneShopOrderNoDetail(Integer shopOrderNo);
+	
+	List<Object> findOneShopOrderNoDetailObj(Integer shopOrderNo);
 
 //	List<ShopOrder> getAllShopOrder(int currentPage);
 //

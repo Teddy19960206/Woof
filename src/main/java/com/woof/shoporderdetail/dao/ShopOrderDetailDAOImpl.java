@@ -6,6 +6,7 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import com.woof.shoporderdetail.entity.ShopOrderDetail;
+import org.hibernate.query.Query;
 
 
 public class ShopOrderDetailDAOImpl implements ShopOrderDetailDAO {
@@ -46,14 +47,27 @@ public class ShopOrderDetailDAOImpl implements ShopOrderDetailDAO {
 //		}
 //	}
 
+//	@Override
+//	public List<ShopOrderDetail> findOneShopOrderNoDetail(Integer shopOrderNo) {
+//		return getSession()
+//		        .createQuery("FROM ShopOrderDetail WHERE shopOrderNo = :shopOrderNo", ShopOrderDetail.class)
+//		        .setParameter("shopOrderNo", shopOrderNo)
+//		        .list();
+//	}
+
 	@Override
-	public List<ShopOrderDetail> findOneShopOrderNoDetail(Integer shopOrderNo) {
-		return getSession()
-		        .createQuery("FROM ShopOrderDetail WHERE shopOrderNo = :shopOrderNo", ShopOrderDetail.class)
-		        .setParameter("shopOrderNo", shopOrderNo)
-		        .list();
+	public List<Object> findOneShopOrderNoDetailObj(Integer shopOrderNo) {
+		String hql = "SELECT p.PROD_NAME , s.ORDER_AMOUNT  ,s.PROD_PRICE  FROM shop_order_detail  s "
+				+ "join product p on s.PROD_NO = p.PROD_NO "
+				+ "where s.SHOP_ORDER_NO = :shopOrderNo";
+		Query query = getSession().createNativeQuery(hql);
+		query.setParameter("shopOrderNo", shopOrderNo);
+		
+	    return query.getResultList();
 	}
 
+	
+	
 	@Override
 	public List<ShopOrderDetail> getAll() {
 		return getSession().createQuery("FROM ShopOrderDetail", ShopOrderDetail.class).list();

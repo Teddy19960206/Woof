@@ -115,11 +115,16 @@
     Integer shopOrderNo = Integer.parseInt(shopOrderNoStr);
 
     ShopOrderDetailServiceImpl service = new ShopOrderDetailServiceImpl();
-    List<ShopOrderDetail> orderDetails = service.findOneShopOrderNoDetail(shopOrderNo);
+    List<Object> orderDetails = service.findOneShopOrderNoDetailObj(shopOrderNo);
+    System.out.println(orderDetails);
+    
+    for(Object fs : orderDetails){
+    	 System.out.println();
+    }
 
     request.setAttribute("orderDetails", orderDetails);
 
-    System.out.println(orderDetails+"LIST取得的編號==========");
+    System.out.println(orderDetails+"ListObject取得的編號==========");
     
     ShopOrderServiceImpl service2 = new ShopOrderServiceImpl();
     ShopOrder shopOrder = service2.findByShopOrderNo(shopOrderNo);
