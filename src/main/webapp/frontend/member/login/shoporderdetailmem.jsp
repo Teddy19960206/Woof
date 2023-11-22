@@ -109,27 +109,27 @@
 
 <body>
 <%
-    String shopOrderNoStr = request.getParameter("shopOrderNo");
-	System.out.println(shopOrderNoStr+"取得的編號==========");
+//     String shopOrderNoStr = request.getParameter("shopOrderNo");
+// 	System.out.println(shopOrderNoStr+"取得的編號==========");
   
-    Integer shopOrderNo = Integer.parseInt(shopOrderNoStr);
+//     Integer shopOrderNo = Integer.parseInt(shopOrderNoStr);
 
-    ShopOrderDetailServiceImpl service = new ShopOrderDetailServiceImpl();
-    List<Object> orderDetails = service.findOneShopOrderNoDetailObj(shopOrderNo);
-    System.out.println(orderDetails);
+//     ShopOrderDetailServiceImpl service = new ShopOrderDetailServiceImpl();
+//     List<Object> orderDetails = service.findOneShopOrderNoDetailObj(shopOrderNo);
+//     System.out.println(orderDetails);
     
-    for(Object fs : orderDetails){
-    	 System.out.println();
-    }
+//     for(Object fs : orderDetails){
+//     	 System.out.println();
+//     }
 
-    request.setAttribute("orderDetails", orderDetails);
+//     request.setAttribute("orderDetails", orderDetails);
 
-    System.out.println(orderDetails+"ListObject取得的編號==========");
+//     System.out.println(orderDetails+"ListObject取得的編號==========");
     
-    ShopOrderServiceImpl service2 = new ShopOrderServiceImpl();
-    ShopOrder shopOrder = service2.findByShopOrderNo(shopOrderNo);
+//     ShopOrderServiceImpl service2 = new ShopOrderServiceImpl();
+//     ShopOrder shopOrder = service2.findByShopOrderNo(shopOrderNo);
     
-    request.setAttribute("shopOrder", shopOrder);
+//     request.setAttribute("shopOrder", shopOrder);
 
 %>
 
