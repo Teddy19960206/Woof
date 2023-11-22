@@ -9,21 +9,13 @@ import java.util.List;
 import java.util.Set;
 
 public interface GroupScheduleDetailService {
-
     void modify(Integer gcsdNo, Trainer trainer , Date classDate);
-
     void add(GroupCourseSchedule groupCourseSchedule , Trainer trainer , Set<Date> classDate);
-
     void delete(Integer gcsd);
-
     GroupScheduleDetail findByGcsd(Integer gcsdNo);
     GroupScheduleDetail getMaxDate(Integer gcsNo);
-
     List<GroupScheduleDetail> getAll();
-
     List<GroupScheduleDetail> getByGroupSchedule(Integer gcsNo);
-
     List<Object[]> getByTrainer(Integer trainerNo);
-
     List<GroupScheduleDetail> getByDate(Integer year, Integer month, Integer trainerNo, boolean applyStatusFilter);
 }
