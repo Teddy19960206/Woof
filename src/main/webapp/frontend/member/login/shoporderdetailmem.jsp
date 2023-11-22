@@ -1,6 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="com.woof.shoporderdetail.service.ShopOrderDetailServiceImpl"%>
 <%@ page import="com.woof.shoporderdetail.entity.ShopOrderDetail"%>
+<%@ page import="com.woof.shoporder.service.ShopOrderServiceImpl"%>
+<%@ page import="com.woof.shoporder.entity.ShopOrder"%>
 <%@ page import="com.woof.member.entity.Member" %>
 <%@ page import="java.util.List"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -13,18 +15,18 @@
 </head>
 <style>
     .table {
-        border-collapse: collapse; /* 確保邊框合併 */
+/*         border-collapse: collapse; /* 確保邊框合併 */ */
     }
 
     .table th, .table td {
-        border: 1px solid #ddd; /* 加強邊框 */
-        padding: 8px; /* 增加內距 */
-        text-align: left; /* 左對齊文本 */
+/*         border: 1px solid #ddd; /* 加強邊框 */ */
+/*         padding: 8px; /* 增加內距 */ */
+/*         text-align: left; /* 左對齊文本 */ */
     }
 
     .table th {
         background-color: #f8f9fa; /* 標題欄的背景色 */
-        color: #333; /* 標題欄的文本顏色 */
+/*         color: #333; /* 標題欄的文本顏色 */ */
     }
 
     .table tr:nth-child(even) {
@@ -78,7 +80,7 @@
     }
 
     .left-icon {
-        text-align: left; /* 使內容靠右對齊 */
+/*         text-align: left; /* 使內容靠右對齊 */ */
         margin-right: 20px; /* 右邊距，可依需求調整 */
     }
 
@@ -118,7 +120,14 @@
     request.setAttribute("orderDetails", orderDetails);
 
     System.out.println(orderDetails+"LIST取得的編號==========");
+    
+    ShopOrderServiceImpl service2 = new ShopOrderServiceImpl();
+    ShopOrder shopOrder = service2.findByShopOrderNo(shopOrderNo);
+    
+    request.setAttribute("shopOrder", shopOrder);
+
 %>
+
 
 <script type="text/javascript">
     function toggleOrderManagement() {
@@ -148,7 +157,7 @@
 <script src="https://kit.fontawesome.com/3f37e88a3b.js" crossorigin="anonymous"></script>
 <%@ include file="/Header.file"%>
 
-<div class="container mt-5">
+<div class="container mt-5 mb-5">
     <div class="row">
         <div class="col-12 col-md-4">
             <div class="accordion" id="accordionExample">
@@ -282,10 +291,10 @@
             <div class="card">
                 <div class="card-body">
                     <h3 class="card-title text-center p-2">訂單明細</h3>
-                    <table class="table table-hover text-center" id="show">
+                    <table class="table text-center" id="show">
                         <thead>
                             <tr>
-                                <th>訂單編號</th>
+<!--                                 <th>訂單編號</th> -->
                                 <th>商品名稱</th>
                                 <th>數量</th>
                                 <th>價格</th>
@@ -296,7 +305,7 @@
                         <tbody>
                        <c:forEach items="${orderDetails}" var="orderDetail">
 					    <tr>
-					        <td>${orderDetail.shopOrderNo}</td>
+<%-- 					        <td>${orderDetail.shopOrderNo}</td> --%>
 					        <td>${orderDetail.prodNo}</td>
 					        <td>${orderDetail.orderAmount}</td>
 					        <td>NT$${orderDetail.prodPrice}</td>
@@ -306,12 +315,37 @@
 					</c:forEach>
 					</tbody>
 					</table>
-<%-- 					<p>毛毛幣:-${}</p> --%>
-					<p>總金額：NT$${totalAmount}</p>
-					
+					<c:if test="${shopOrder != null}">
+					    <div class="d-flex justify-content-between my-0 mt-4">
+						    <span>收件人姓名</span>
+						    <span>${shopOrder.recName}</span>
+						</div>
+						<div class="d-flex justify-content-between">
+						    <span>收件人電話</span>
+						    <span>${shopOrder.recMobile}</span>
+						</div>
+						<div class="d-flex justify-content-between">
+						    <span>收件人地址</span>
+						    <span>${shopOrder.recAddress}</span>
+						</div>
+					   <div class="d-flex justify-content-between">
+						    <span>總小計</span>
+						    <span>NT$${shopOrder.orderTotalPrice}</span>
+						</div>
+					    <div class="d-flex justify-content-between my-0 mt-0">
+						    <span>毛毛幣</span>
+						    <span>-${shopOrder.moCoin}</span>
+						</div>
+					    <div class="d-flex justify-content-between my-0 mt-0">
+						    <span>總金額</span>
+						    <span>NT$${shopOrder.actualPrice}</span>
+						</div>
+					</c:if>
                 </div>
-
-            </div>
+				<div class="d-flex justify-content-end">
+				    <a href="${pageContext.request.contextPath}/frontend/member/login/shopordermem.jsp" class="btn btn-secondary mb-3" style="width: 60px; margin-right: 15px;">返回</a>
+				</div>            
+		 	</div>
         </div>
 
     </div>
