@@ -250,39 +250,42 @@ a {
 						</div>
 					</div>
 
-			<!-- 商城訂單查詢項目 -->
-			<div class="accordion-item">
-				<h2 class="accordion-header">
-					<button class="accordion-button collapsed" type="button"
-						data-bs-toggle="collapse"
-						data-bs-target="#collapseShopOrderManagement"
-						aria-expanded="false" aria-controls="collapseShopOrderManagement">
-						<i class="fa-solid fa-shop"></i>&nbsp;商城訂單查詢
-					</button>
-				</h2>
-				<div id="collapseShopOrderManagement"
-					class="accordion-collapse collapse"
-					data-bs-parent="#accordionExample">
-					<div class="accordion-body">
-						<a href="${pageContext.request.contextPath}/frontend/member/login/shopordermem.jsp">訂單查詢</a>
-					</div>
-				</div>
-				<hr class="custom-divider">
-				<!-- 新增分隔線，並加入自訂類別 -->
-				<div id="collapseShopOrderManagement"
-					class="accordion-collapse collapse"
-					data-bs-parent="#accordionExample">
-					<div class="accordion-body">
-						<a href="#">訂單追蹤</a>
-					</div>
-				</div>
-				<hr class="custom-divider">
-				<!-- 新增分隔線，並加入自訂類別 -->
-				<div id="collapseShopOrderManagement"
-					class="accordion-collapse collapse"
-					data-bs-parent="#accordionExample">
-					<div class="accordion-body">
-						<a href="#">商品退貨</a>
+					<!-- 商城訂單查詢項目 -->
+					<div class="accordion-item">
+						<h2 class="accordion-header">
+							<button class="accordion-button collapsed" type="button"
+								data-bs-toggle="collapse"
+								data-bs-target="#collapseShopOrderManagement"
+								aria-expanded="false"
+								aria-controls="collapseShopOrderManagement">
+								<i class="fa-solid fa-shop"></i>&nbsp;商城訂單查詢
+							</button>
+						</h2>
+						<div id="collapseShopOrderManagement"
+							class="accordion-collapse collapse"
+							data-bs-parent="#accordionExample">
+							<div class="accordion-body">
+								<a href="${pageContext.request.contextPath}/frontend/member/login/shopordermem.jsp">訂單查詢</a>
+							</div>
+						</div>
+						<hr class="custom-divider">
+						<!-- 新增分隔線，並加入自訂類別 -->
+						<div id="collapseShopOrderManagement"
+							class="accordion-collapse collapse"
+							data-bs-parent="#accordionExample">
+							<div class="accordion-body">
+								<a href="#">訂單追蹤</a>
+							</div>
+						</div>
+						<hr class="custom-divider">
+						<!-- 新增分隔線，並加入自訂類別 -->
+						<div id="collapseShopOrderManagement"
+							class="accordion-collapse collapse"
+							data-bs-parent="#accordionExample">
+							<div class="accordion-body">
+								<a href="#">商品退貨</a>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
