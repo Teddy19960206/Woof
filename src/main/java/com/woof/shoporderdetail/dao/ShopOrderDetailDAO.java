@@ -3,6 +3,7 @@ package com.woof.shoporderdetail.dao;
 import java.util.List;
 
 import com.woof.shoporderdetail.entity.ShopOrderDetail;
+import com.woof.shoporderdetail.entity.ShopOrderDetailDTO;
 
 public interface ShopOrderDetailDAO {
 	int insert(ShopOrderDetail shopOrderDetail);
@@ -13,7 +14,7 @@ public interface ShopOrderDetailDAO {
 
 //	List<ShopOrderDetail> findOneShopOrderNoDetailObj(Integer shopOrderNo);
 	
-	List<Object> findOneShopOrderNoDetailObj(Integer shopOrderNo);
+	List<ShopOrderDetailDTO> findOneShopOrderNoDetailObj(Integer shopOrderNo);
 
 	List<ShopOrderDetail> getAll();
 

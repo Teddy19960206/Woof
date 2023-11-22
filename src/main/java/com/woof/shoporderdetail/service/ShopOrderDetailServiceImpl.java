@@ -10,6 +10,7 @@ import com.woof.shoporder.entity.ShopOrder;
 import com.woof.shoporderdetail.dao.ShopOrderDetailDAO;
 import com.woof.shoporderdetail.dao.ShopOrderDetailDAOImpl;
 import com.woof.shoporderdetail.entity.ShopOrderDetail;
+import com.woof.shoporderdetail.entity.ShopOrderDetailDTO;
 import com.woof.util.HibernateUtil;
 
 public class ShopOrderDetailServiceImpl implements ShopOrderDetailService{
@@ -67,7 +68,7 @@ public class ShopOrderDetailServiceImpl implements ShopOrderDetailService{
 	}
 
 	@Override
-	public List<Object> findOneShopOrderNoDetailObj(Integer shopOrderNo) {
+	public List<ShopOrderDetailDTO> findOneShopOrderNoDetailObj(Integer shopOrderNo) {
 		
 		return dao.findOneShopOrderNoDetailObj(shopOrderNo);
 	}

@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import com.woof.shoporderdetail.entity.ShopOrderDetail;
+import com.woof.shoporderdetail.entity.ShopOrderDetailDTO;
 
 public interface ShopOrderDetailService {
 
@@ -17,7 +18,7 @@ public interface ShopOrderDetailService {
 
 //	List<ShopOrderDetail> findOneShopOrderNoDetail(Integer shopOrderNo);
 	
-	List<Object> findOneShopOrderNoDetailObj(Integer shopOrderNo);
+	List<ShopOrderDetailDTO> findOneShopOrderNoDetailObj(Integer shopOrderNo);
 
 //	List<ShopOrder> getAllShopOrder(int currentPage);
 //

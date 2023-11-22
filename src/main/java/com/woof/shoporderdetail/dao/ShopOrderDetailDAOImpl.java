@@ -6,6 +6,8 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import com.woof.shoporderdetail.entity.ShopOrderDetail;
+import com.woof.shoporderdetail.entity.ShopOrderDetailDTO;
+
 import org.hibernate.query.Query;
 
 
@@ -56,7 +58,7 @@ public class ShopOrderDetailDAOImpl implements ShopOrderDetailDAO {
 //	}
 
 	@Override
-	public List<Object> findOneShopOrderNoDetailObj(Integer shopOrderNo) {
+	public List<ShopOrderDetailDTO> findOneShopOrderNoDetailObj(Integer shopOrderNo) {
 		String hql = "SELECT p.PROD_NAME , s.ORDER_AMOUNT  ,s.PROD_PRICE  FROM shop_order_detail  s "
 				+ "join product p on s.PROD_NO = p.PROD_NO "
 				+ "where s.SHOP_ORDER_NO = :shopOrderNo";

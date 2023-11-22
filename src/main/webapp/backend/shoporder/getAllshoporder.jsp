@@ -21,13 +21,22 @@ request.setCharacterEncoding("UTF-8");
 
 	<div class="container text-center p-2">
 		<div class="row">
-			<div class="col-2">
-				<form method="Post">
-					<a class="btn btn-primary"
-						href="${pageContext.request.contextPath}/shoporder?action=getAll">查詢全部訂單</a>
-				</form>
-			</div>
-		</div>
+    <div class="col-2">
+        <a class="btn btn-primary" href="${pageContext.request.contextPath}/shoporder?action=getAll">查詢全部訂單</a>
+    </div>
+    <div class="col-6 d-flex align-items-center">
+        <jsp:useBean id="memberService" scope="page" class="com.woof.member.service.MemberServiceImpl" />
+        <form method="POST" action="${pageContext.request.contextPath}/shoporder?action=getByMemNo" class="d-flex w-100">
+            <label class="mr-2"><b>選擇會員編號:</b></label>
+            <select name="memNo" class="form-control mr-2">
+                <c:forEach var="member" items="${memberService.allMembers}">
+                    <option value="${member.memNo}">${member.memNo}</option>
+                </c:forEach>
+            </select>
+            <button type="submit" class="btn btn-primary">查詢</button>
+        </form>
+    </div>
+</div>
 		<h3 class="mt-3">全部訂單</h3>
 		<table class="table table-hover" style="font-size: 12px;">
 			<thead class="align-middle">
