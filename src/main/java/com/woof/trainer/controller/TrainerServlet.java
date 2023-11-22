@@ -156,10 +156,17 @@ public class TrainerServlet extends HttpServlet {
 		// =======================================================================================
 
 		// =====================按照評論時間排序評論================================
-
-		PrivateTrainingAppointmentFormService privateTrainingAppointmentFormService = new PrivateTrainingAppointmentFormServiceImpl();
-		List<PrivateTrainingAppointmentForm> nonReportedComment = privateTrainingAppointmentFormService.getNonReportedComment(1);
-		System.out.println("================================================"+nonReportedComment);
+		for (Trainer trainer : allTrainers) {
+			PrivateTrainingAppointmentFormService privateTrainingAppointmentFormService = new PrivateTrainingAppointmentFormServiceImpl();
+			List<PrivateTrainingAppointmentForm> nonReportedComment = privateTrainingAppointmentFormService.getNonReportedComment(trainer.getTrainerNo());
+			Set<PrivateTrainingAppointmentForm> nonReportedCommentSet = new LinkedHashSet<>(nonReportedComment);
+			trainer.setPrivateTrainingAppointmentForms(nonReportedCommentSet);
+			}
+//		for (PrivateTrainingAppointmentForm a : nonReportedComment) {
+//			System.out.println(a.getPtaComment()+"==============================================");
+//		}
+//		
+//		System.out.println("================================================"+nonReportedComment);
 //		request.setAttribute("nonReportedComment", nonReportedComment);
 		// ==================================================================================
 		request.setAttribute("trainers", allTrainers);
