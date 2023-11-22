@@ -74,8 +74,9 @@ body {
 }
 
 .profile-img {
-    width: 150px;
-    height: 150px;
+	width: 150px;
+	height: 150px;
+	border-radius: 50%;
 }
 
 .icon-btn {
@@ -122,6 +123,28 @@ a {
 .accordion-button:hover {
 	background-color: #FFBB88; /* 按鈕懸停時的背景色 */
 	color: #333;
+}
+
+.status-label {
+	padding: .25em .6em;
+	font-size: 75%;
+	font-weight: bold;
+	line-height: 2;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: baseline;
+	border-radius: .25rem;
+	display: inline-block;
+}
+
+.status-normal {
+	background-color: #28a745; /* 綠色背景 */
+	color: white;
+}
+
+.status-suspended {
+	background-color: #dc3545; /* 紅色背景 */
+	color: white;
 }
 </style>
 </head>
@@ -312,16 +335,26 @@ a {
 								</tr>
 								<tr>
 									<th scope="row">性別</th>
-									<td>${member.memGender}</td>
+									<td><c:choose>
+											<c:when test="${member.memGender == 'M'}">
+												<span>男</span>
+											</c:when>
+											<c:when test="${member.memGender == 'F'}">
+												<span>女</span>
+											</c:when>
+											<c:otherwise>
+												<span>未設定</span>
+											</c:otherwise>
+										</c:choose></td>
 								</tr>
 								<tr>
 									<th scope="row">email</th>
 									<td>${member.memEmail}<c:choose>
 											<c:when test="${member.memStatus == 1}">
-												<span style="color: green;">(已驗證)</span>
+												<span class="status-label status-normal">已驗證</span>
 											</c:when>
 											<c:when test="${member.memStatus == 2}">
-												<span style="color: red;">(未驗證)</span>
+												<span class="status-label status-suspended">未驗證</span>
 												<!-- 新增驗證按鈕 -->
 												<form method="post"
 													action="${pageContext.request.contextPath}/member1.do"

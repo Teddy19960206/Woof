@@ -78,9 +78,6 @@ public class MemberServlet1 extends HttpServlet {
 			case "getall":
 				forwardPath = getAllmembers(req, res);
 				break;
-			case "getone":
-				getOne(req, res);
-				return;
 			case "delete":
 				delete(req, res);
 				return;
@@ -163,7 +160,6 @@ public class MemberServlet1 extends HttpServlet {
 		}
 		
 		if(!errorMsgs.isEmpty()) {
-			
 			req.getRequestDispatcher("frontend/member/login/addmember.jsp").forward(req, res);
 		    return;
 		}
@@ -211,10 +207,9 @@ public class MemberServlet1 extends HttpServlet {
 		if (membd == null || membd.trim().length() == 0) {
 			errorMsgs.put("memBd","會員生日請勿空白");
 		}
-
 		// Send the use back to the form, if there were errors
 		if (!errorMsgs.isEmpty()){
-			req.getRequestDispatcher("/frontend/member/login/login.jsp").forward(req, res);
+			req.getRequestDispatcher("/frontend/member/login/addmember.jsp").forward(req, res);
 	    return;
 		}
 		
@@ -381,7 +376,6 @@ public class MemberServlet1 extends HttpServlet {
 		memberService.updateMember(member);
 		   // 假設更新操作已完成，現在重新獲取最新資料
 	    Member updatedMember = memberService.findMemberByNo(member.getMemNo());
-	    System.out.println(member.getMemNo()+"=============");
 	    // 將更新後的會員資料設置為請求屬性
 	    HttpSession session = req.getSession();
 	    session.setAttribute("member" , member);
@@ -390,47 +384,6 @@ public class MemberServlet1 extends HttpServlet {
 		// 導到指定的URL 頁面上 把請求回應都帶過去
 		req.getRequestDispatcher( "/frontend/member/login/membercenter.jsp").forward(req, res);
 	
-	}
-
-	private void getOne(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-
-		MemberService memberService = new MemberServiceImpl();
-
-		try {
-
-			req.setCharacterEncoding("UTF-8");
-			// 獲取所有成員
-//			List<Member> allMembers = memberService.getAllMembers();
-//			req.setAttribute("Members", allMembers);
-
-			// 獲取特定成員
-			String memNoStr = req.getParameter("memNo");
-
-			if (memNoStr != null && !memNoStr.trim().isEmpty()) {
-				try {
-
-					Member member = memberService.findMemberByNo(memNoStr);
-					req.setAttribute("member", member);
-				} catch (NumberFormatException e) {
-					e.printStackTrace();
-				}
-
-			} else {
-				req.setAttribute("error", "Invalid member number provided.");
-				RequestDispatcher dispatcher = req.getRequestDispatcher("/backend/member/errorPage.jsp");
-				dispatcher.forward(req, res);
-				return;
-			}
-			// 設置編碼和轉發到指定的JSP頁面
-			req.setCharacterEncoding("UTF-8");
-			RequestDispatcher dispatcher = req.getRequestDispatcher("/backend/member/list_one_member.jsp");
-			dispatcher.forward(req, res);
-
-		} catch (Exception e) {
-			// 處理其他潛在錯誤
-			e.printStackTrace();
-
-		}
 	}
 
 	private void delete(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -452,7 +405,6 @@ public class MemberServlet1 extends HttpServlet {
 				memberList = memberService.getAllMembers();
 			}
 		} else {
-//	            異常判斷
 		}
 
 		Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
