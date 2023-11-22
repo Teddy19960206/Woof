@@ -22,7 +22,10 @@ request.setCharacterEncoding("UTF-8");
 	<div class="container text-center p-2">
 		<div class="row">
 			<div class="col-2">
-				<button class="btn btn-primary" type="submit" id="getAllOrdersBtn">查詢全部訂單</button>
+				<form method="Post">
+					<a class="btn btn-primary"
+						href="${pageContext.request.contextPath}/shoporder?action=getAll">查詢全部訂單</a>
+				</form>
 			</div>
 		</div>
 		<h3 class="mt-3">全部訂單</h3>

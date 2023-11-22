@@ -120,5 +120,3 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
-//不跳轉搜尋全部====================================================
-
