@@ -9,17 +9,13 @@ request.setCharacterEncoding("UTF-8");
 <html>
 <head>
     <title>修改</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-        body {
-            padding: 20px;
-        }
-        .container {
-            max-width: 800px;
-        }
-    </style>
+
+<%@ include file="/backend/backhead.file"%>
+    
 </head>
 <body>
+	<%@ include file="/backend/backbody.file"%>
+
 
     <div class="container">
         <h1>修改FAQ畫面</h1>
@@ -45,6 +41,8 @@ request.setCharacterEncoding("UTF-8");
         </form>
         <a class="btn btn-secondary" href="javascript:history.back()">返回</a>
     </div>
+
+	<%@ include file="/backend/backfoot.file"%>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
