@@ -19,6 +19,7 @@ import javax.servlet.http.Part;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.woof.classorder.entity.ClassOrder;
 import com.woof.member.entity.Member;
 import com.woof.member.service.MemberService;
 import com.woof.member.service.MemberServiceImpl;
@@ -72,7 +73,8 @@ public class MemberServlet extends HttpServlet {
 				}
 				return;
 			case "getall":
-				forwardPath = getAllmembers(req, res);
+				getAllmembers(req, res);
+				forwardPath = "/backend/member/list_all_member.jsp";
 				break;
 			case "getone":
 				getOne(req, res);
@@ -93,7 +95,6 @@ public class MemberServlet extends HttpServlet {
 		}
 		req.getRequestDispatcher(forwardPath).forward(req, res);
 	}
-
 	private void changeStatus(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		String memNo = req.getParameter("memNo");
 		if (memNo == null || memNo.trim().isEmpty()) {
@@ -402,23 +403,16 @@ public class MemberServlet extends HttpServlet {
 
 	private String getAllmembers(HttpServletRequest req, HttpServletResponse res) throws IOException {
 		req.setCharacterEncoding("UTF-8");
-
-		String member = req.getParameter("member");
-
-		List<Member> memberList = null;
-
-		if (member != null) {
-			if ("0".equals(member)) {
-				memberList = memberService.getAllMembers();
-			}
-		} else {
-//	            異常判斷
-		}
-
+		String page = req.getParameter("page");
+		int currentPage = (page == null) ? 1 : Integer.parseInt(page);
+		int MemPageQty = memberService.getPageTotal();
+		req.getSession().setAttribute("MemPageQty", MemPageQty);
+		List<Member> memberList = memberService.getAllMembers(currentPage);
+		req.setAttribute("currentPage", currentPage);
+		req.setAttribute("member", memberList);
 		Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
 		String json = gson.toJson(memberList);
 		res.setContentType("application/json;charset=UTF-8");
-
 		res.getWriter().write(json);
 		return json;
 	}

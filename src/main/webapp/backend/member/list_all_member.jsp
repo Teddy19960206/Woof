@@ -136,6 +136,23 @@ tr:hover {
 	background-color: gray; /* 灰色背景 */
 	color: white;
 }
+
+.pagination-link {
+        text-decoration: none;
+        padding: 6px 10px;
+        margin: 0 4px;
+        border: 1px solid  #FFA500;
+        background-color:  #FFA500;
+        color: white;
+        border-radius: 5px;
+        font-size: 10px;
+    }
+
+    .pagination-link:hover {
+        background-color: #FFDAB5;
+        color: white;
+        text-decoration: none;
+    }
 </style>
 <script src="https://kit.fontawesome.com/3f37e88a3b.js"crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -159,7 +176,7 @@ tr:hover {
 			<th>狀態</th>
 			<th></th>
 		</tr>
-		<c:forEach var="member" items="${memberService.allMembers}">
+		<c:forEach var="member" items="${member}">
 			<tr>
 				<td>${member.memNo}</td>
 				<td>${member.memName}</td>
@@ -218,6 +235,20 @@ tr:hover {
 			</tr>
 		</c:forEach>
 	</table>
+		<div>
+	<c:if test="${currentPage > 1}">
+		<a class="pagination-link" href="${pageContext.request.contextPath}/member.do?action=getall&page=1">至第一頁</a>&nbsp;
+	</c:if>
+	<c:if test="${currentPage - 1 != 0}">
+		<a class="pagination-link" href="${pageContext.request.contextPath}/member.do?action=getall&page=${currentPage - 1}">上一頁</a>&nbsp;
+	</c:if>
+	<c:if test="${currentPage + 1 <= MemPageQty}">
+		<a class="pagination-link" href="${pageContext.request.contextPath}/member.do?action=getall&page=${currentPage + 1}">下一頁</a>&nbsp;
+	</c:if>
+	<c:if test="${currentPage != MemPageQty}">
+		<a class="pagination-link" href="${pageContext.request.contextPath}/member.do?action=getall&page=${MemPageQty}">至最後一頁</a>&nbsp;
+	</c:if>
+    </div>
 	<%@ include file="/backend/backfoot.file"%>
 </body>
 </html>

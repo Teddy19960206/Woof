@@ -146,6 +146,10 @@ a {
 	background-color: #dc3545; /* 紅色背景 */
 	color: white;
 }
+.status-validmail {
+	background-color: lightblue; /* 藍色背景 */
+	color: blue;
+}
 </style>
 </head>
 <script type="text/javascript">
@@ -363,7 +367,7 @@ a {
 													<input type="hidden" name="memNo" value="${member.memNo}">
 													<input type="hidden" name="memEmail"
 														value="${member.memEmail}">
-													<button type="submit" class="btn btn-primary">驗證信箱</button>
+													<button type="submit" class="status-label status-validmail">驗證信箱</button>
 												</form>
 											</c:when>
 											<c:otherwise>
