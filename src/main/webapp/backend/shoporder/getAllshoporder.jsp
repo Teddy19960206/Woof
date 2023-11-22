@@ -20,9 +20,14 @@ request.setCharacterEncoding("UTF-8");
 	<%@ include file="/backend/backbody.file"%>
 
 	<div class="container text-center p-2">
-		<h3>全部訂單</h3>
+		<div class="row">
+			<div class="col-2">
+				<button class="btn btn-primary" type="submit" id="getAllOrdersBtn">查詢全部訂單</button>
+			</div>
+		</div>
+		<h3 class="mt-3">全部訂單</h3>
 		<table class="table table-hover" style="font-size: 12px;">
-			<thead class="align-middle" >
+			<thead class="align-middle">
 				<tr class="text-nowrap">
 					<th>編號</th>
 					<th>會員帳號</th>
@@ -84,22 +89,23 @@ request.setCharacterEncoding("UTF-8");
 								<option value="4" ${all.orderStatus == 4 ? 'selected' : ''}>未付款</option>
 						</select></td>
 						<td>
-						<div class="d-flex flex-column">
-							<button class="edit-btn btn btn-primary"
-								style="font-size: 10px; min-width: 30px;">修改</button>
-							<button class="save-btn btn btn-success"
-								style="display: none; font-size: 10px; min-width: 50px;">確定</button>
-							<button class="cancel-btn btn btn-danger mt-1"
-								style="display: none; font-size: 10px; min-width: 50px;">取消</button>	
-						</div>
+							<div class="d-flex flex-column">
+								<button class="edit-btn btn btn-primary"
+									style="font-size: 10px; min-width: 30px;">修改</button>
+								<button class="save-btn btn btn-success"
+									style="display: none; font-size: 10px; min-width: 50px;">確定</button>
+								<button class="cancel-btn btn btn-danger mt-1"
+									style="display: none; font-size: 10px; min-width: 50px;">取消</button>
+							</div>
 						<td>
-						<form method="post" action="${pageContext.request.contextPath}/backend/shoporderdetail/shoporderdetail.jsp">
-						    <input type="hidden" name="" value="">
-						    <input type="hidden" name="" value="">
-						    <input type="hidden" name="" value="">
-						    <input type="hidden" name="" value="">
-							<button class="btn btn-secondary small-btn" style="font-size: 10px; min-width: 50px;" type="submit">查詢</button>
-						</form>	
+							<form method="post"
+								action="${pageContext.request.contextPath}/backend/shoporderdetail/shoporderdetail.jsp">
+								<input type="hidden" name="" value=""> <input
+									type="hidden" name="" value=""> <input type="hidden"
+									name="" value=""> <input type="hidden" name="" value="">
+								<button class="btn btn-secondary small-btn"
+									style="font-size: 10px; min-width: 50px;" type="submit">查詢</button>
+							</form>
 						</td>
 					</tr>
 				</c:forEach>
@@ -110,7 +116,7 @@ request.setCharacterEncoding("UTF-8");
 				<!--                                 <button class="btn btn-success" type="submit">修改</button> -->
 				<!--                             </form> -->
 
-				
+
 
 				<!--                         </td> -->
 				<!--                         <td> -->

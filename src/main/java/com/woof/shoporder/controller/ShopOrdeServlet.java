@@ -252,7 +252,11 @@ public class ShopOrdeServlet extends HttpServlet {
 
 
 	                // 保存訂單明細
-	                shopOrderDetailService.addShopOrderDetail(savedOrderNo, prodNo, orderAmount, prodPrice, hasReturned, discountRate);
+	                int saveshoporderdetail = shopOrderDetailService.addShopOrderDetail(savedOrderNo, prodNo, orderAmount, prodPrice, hasReturned, discountRate);
+	                
+	                var result2 = shopOrderService.findByShopOrderNo(saveshoporderdetail);
+//	       			資料給下一個jsp
+	                request.setAttribute("result2", result2);	
 	            }
 
 	            // 清除 Redis 中的購物車數據
