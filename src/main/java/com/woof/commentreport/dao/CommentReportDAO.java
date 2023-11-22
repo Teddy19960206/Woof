@@ -16,10 +16,11 @@ public interface CommentReportDAO {
 	
 	long getTotal();
 	
+	int updateStatusByPta(Integer ptaNo , Integer crStatus);
 	
+	CommentReport findByCrNo(Integer crNo);
 	
 	int delete(CommentReport commentReport);
 
-	CommentReport findByCrNo(Integer crNo);
 	
 }

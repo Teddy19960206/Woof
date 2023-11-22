@@ -75,6 +75,14 @@ public class CommentReportDAOImpl implements CommentReportDAO{
 	public long getTotal() {
 		return getSession().createQuery("select count(*) from CommentReport", Long.class).uniqueResult();
 	}
+
+	@Override
+	public int updateStatusByPta(Integer ptaNo, Integer crStatus) {
+		return getSession().createQuery("UPDATE CommentReport c SET c.crStatus = :crStatus WHERE c.privateTrainingAppointmentForm.ptaNo = :ptaNo")
+					.setParameter("ptaNo", ptaNo)
+					.setParameter("crStatus", crStatus)
+					.executeUpdate();
+	}
 	
 	
 }

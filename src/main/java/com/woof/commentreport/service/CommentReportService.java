@@ -13,6 +13,8 @@ public interface CommentReportService {
 			String crContext, Integer crStatus, Timestamp crDate);
 
 	void updateCrStatus(Integer crNo , Integer crStatus);
+	
+	void updateStatus(Integer ptaNo , Integer crStatus);
 
 	List<CommentReport> getAllCommentReports();
 	
