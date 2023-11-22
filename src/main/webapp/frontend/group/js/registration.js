@@ -11,7 +11,6 @@ const price = document.getElementById("price");
 // 會員擁有的毛毛幣
 const smmp = parseInt(document.getElementById("smmp").value);
 
-
 // 會員使用的毛毛幣
 const smmpCount = document.getElementById("smmpCount");
 
@@ -42,18 +41,18 @@ notUseSmmpRadio.addEventListener("change", function () {
 
 credit.addEventListener("change" , function (){
     html = `<label for="payname">付款人姓名</label>
-                    <input type="text" class="form-control text-center mb-3" id="payname" style="width: 200px"/>
+                    <input type="text" class="form-control text-center mb-3" id="payname" style="width: 200px" required/>
                     <label class="d-block">信用卡卡號</label>
-                    <input class="form-control d-inline text-center mb-3" type="text" maxlength="4" onkeypress='validate(event)' value="4311" pattern="[0-9]{4}" title="請輸入4位數字" required /><span> - </span>
-                    <input class="form-control d-inline text-center" type="text" maxlength="4" onkeypress='validate(event)' value="9522" pattern="[0-9]{4}" title="請輸入4位數字" required /><span> - </span>
-                    <input class="form-control d-inline text-center" type="text" maxlength="4" onkeypress='validate(event)' value="2222" pattern="[0-9]{4}" title="請輸入4位數字" required /><span> - </span>
-                    <input class="form-control d-inline text-center  " type="text" maxlength="4" onkeypress='validate(event)' value="2222" pattern="[0-9]{4}" title="請輸入4位數字" required />
+                    <input class="form-control d-inline text-center mb-3 credit" type="text" maxlength="4" onkeypress='validate(event)' pattern="[0-9]{4}" title="請輸入4位數字" required /><span> - </span>
+                    <input class="form-control d-inline text-center credit" type="text" maxlength="4" onkeypress='validate(event)' pattern="[0-9]{4}" title="請輸入4位數字" required /><span> - </span>
+                    <input class="form-control d-inline text-center credit" type="text" maxlength="4" onkeypress='validate(event)' pattern="[0-9]{4}" title="請輸入4位數字" required /><span> - </span>
+                    <input class="form-control d-inline text-center credit" type="text" maxlength="4" onkeypress='validate(event)' pattern="[0-9]{4}" title="請輸入4位數字" required />
                     <label class="d-block mb-3">有效期限</label>
-                    <input class="form-control d-inline text-center" type="text" maxlength="2" onkeypress='validate(event)' value="05" pattern="[0-9]{2}" title="請輸入2位數字" required placeholder="MM"/><span> - </span>
-                    <input class="form-control d-inline text-center  " type="text" maxlength="2" onkeypress='validate(event)' value="25" pattern="[0-9]{2}" title="請輸入2位數字" required placeholder="YY"/>
+                    <input class="form-control d-inline text-center credit" type="text" maxlength="2" onkeypress='validate(event)' pattern="[0-9]{2}" title="請輸入2位數字" required placeholder="MM"/><span> - </span>
+                    <input class="form-control d-inline text-center credit" type="text" maxlength="2" onkeypress='validate(event)' pattern="[0-9]{2}" title="請輸入2位數字" required placeholder="YY"/>
                     <div class="mt-2">
                         <label class="mb-3">末三碼</label>
-                        <input class="form-control verification text-center" type="text" maxlength="3" onkeypress='validate(event)' value="222">
+                        <input class="form-control verification text-center credit" type="text" maxlength="3" onkeypress='validate(event)' pattern="[0-9]{3}" title="請輸入3位數字" required />
                     </div>
 
                     <div class="d-flex justify-content-center mt-5 myBtn">
@@ -102,4 +101,27 @@ smmpCount.addEventListener("input" , function (){
     actualAmount.value = price.value - smmpCount.value;
 
 })
+
+const inputs = document.querySelectorAll('.credit');
+$(document).on('input' , 'input.credit',function(){
+
+    inputs.forEach((input, index) => {
+        input.addEventListener('input', () => {
+            if (input.value.length == input.getAttribute('maxlength')) {
+                console.log("111")
+                if (index < inputs.length - 1) {
+                    inputs[index + 1].focus();
+                }
+            }
+        });
+    });
+});
+
+
+function validate(event) {
+    let charCode = event.which ? event.which : event.keyCode;
+    if (charCode < 48 || charCode > 57) {
+        event.preventDefault();
+    }
+}
 

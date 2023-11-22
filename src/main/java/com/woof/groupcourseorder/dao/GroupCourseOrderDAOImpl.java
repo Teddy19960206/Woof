@@ -109,7 +109,7 @@ public class GroupCourseOrderDAOImpl implements GroupCourseOrderDAO{
     }
 
     @Override
-    public List<GroupCourseOrder> getAll(Integer groupClass, Integer status, String memNo, Integer currentPage) {
+    public List<GroupCourseOrder> getAll(Integer groupClass, Integer status, String memName, Integer currentPage) {
         CriteriaBuilder builder = getSession().getCriteriaBuilder();
         CriteriaQuery<GroupCourseOrder> criteriaQuery = builder.createQuery(GroupCourseOrder.class);
         Root<GroupCourseOrder> root = criteriaQuery.from(GroupCourseOrder.class);
@@ -124,8 +124,8 @@ public class GroupCourseOrderDAOImpl implements GroupCourseOrderDAO{
             predicates.add(builder.equal(root.get("gcoStatus") , status));
         }
 
-        if (memNo != null){
-            predicates.add(builder.like(root.get("member").get("memName"), '%'+memNo+'%'));
+        if (memName != null){
+            predicates.add(builder.like(root.get("member").get("memName"), '%'+memName+'%'));
         }
 
         Order order = builder.desc(root.get("gcoNo"));

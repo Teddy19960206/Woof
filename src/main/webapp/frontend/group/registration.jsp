@@ -26,7 +26,8 @@
                     <h1 class="h3 text-center" >會員資料</h1>
                     <div class="mb-md-3 row text-center">
                         <div>
-                            <img src="${pageContext.request.contextPath}/DBPngReader?action=member&id=${member.memNo}" class="img-fluid rounded-circle myImg">
+                            <img src="${pageContext.request.contextPath}/DBPngReader?action=member&id=${member.memNo}" class="img-fluid rounded-circle myImg"
+                                 onerror="this.onerror=null; this.src='${pageContext.request.contextPath}/webutil/images/memberDog.jpg';" />
                         </div>
                     </div>
                 </div>
@@ -137,18 +138,18 @@
                 </div>
                 <div class="form showPayment mb-5" id="showPayment">
                     <label for="payname">付款人姓名</label>
-                    <input type="text" class="form-control text-center mb-3" id="payname" style="width: 200px"/>
+                    <input type="text" class="form-control text-center mb-3 " id="payname" style="width: 200px" required/>
                     <label class="d-block">信用卡卡號</label>
-                    <input class="form-control d-inline text-center mb-3" type="text" maxlength="4" onkeypress='validate(event)' value="4311" pattern="[0-9]{4}" title="請輸入4位數字" required /><span> - </span>
-                    <input class="form-control d-inline text-center" type="text" maxlength="4" onkeypress='validate(event)' value="9522" pattern="[0-9]{4}" title="請輸入4位數字" required /><span> - </span>
-                    <input class="form-control d-inline text-center" type="text" maxlength="4" onkeypress='validate(event)' value="2222" pattern="[0-9]{4}" title="請輸入4位數字" required /><span> - </span>
-                    <input class="form-control d-inline text-center  " type="text" maxlength="4" onkeypress='validate(event)' value="2222" pattern="[0-9]{4}" title="請輸入4位數字" required />
+                    <input class="form-control d-inline text-center mb-3 credit" type="text" maxlength="4" onkeypress='validate(event)' pattern="[0-9]{4}" title="請輸入4位數字" required /><span> - </span>
+                    <input class="form-control d-inline text-center credit" type="text" maxlength="4" onkeypress='validate(event)' pattern="[0-9]{4}" title="請輸入4位數字" required /><span> - </span>
+                    <input class="form-control d-inline text-center credit" type="text" maxlength="4" onkeypress='validate(event)' pattern="[0-9]{4}" title="請輸入4位數字" required /><span> - </span>
+                    <input class="form-control d-inline text-center credit" type="text" maxlength="4" onkeypress='validate(event)' pattern="[0-9]{4}" title="請輸入4位數字" required />
                     <label class="d-block mb-3">有效期限</label>
-                    <input class="form-control d-inline text-center" type="text" maxlength="2" onkeypress='validate(event)' value="05" pattern="[0-9]{2}" title="請輸入2位數字" required placeholder="MM"/><span> - </span>
-                    <input class="form-control d-inline text-center  " type="text" maxlength="2" onkeypress='validate(event)' value="25" pattern="[0-9]{2}" title="請輸入2位數字" required placeholder="YY"/>
+                    <input class="form-control d-inline text-center credit" type="text" maxlength="2" onkeypress='validate(event)' pattern="[0-9]{2}" title="請輸入2位數字" required placeholder="MM"/><span> - </span>
+                    <input class="form-control d-inline text-center credit" type="text" maxlength="2" onkeypress='validate(event)' pattern="[0-9]{2}" title="請輸入2位數字" required placeholder="YY"/>
                     <div class="mt-2">
                         <label class="mb-3">末三碼</label>
-                        <input class="form-control verification text-center" type="text" maxlength="3" onkeypress='validate(event)' value="222">
+                        <input class="form-control verification text-center credit" type="text" maxlength="3" onkeypress='validate(event)' pattern="[0-9]{3}" title="請輸入3位數字" required />
                     </div>
 
                     <div class="d-flex justify-content-center mt-5 myBtn">
@@ -165,7 +166,7 @@
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title">錯誤</h5>
+                            <h5 class="modal-title" style="color: red">錯誤</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
