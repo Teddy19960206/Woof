@@ -54,7 +54,7 @@
 	 	 $("#ADMIN_HD").datepicker({ dateFormat: 'yy-mm-dd' });
 	})
 	
-	
+
 </script>
 </head>
 <body>
@@ -67,18 +67,21 @@
 			<td>
 				<input type="text" name="ADMIN_NO" id="ADMIN_NO" value="<%= request.getParameter("adminNo")%>" >
 			</td>
+			<td><small class="error-msg" style="color: red;">${errorMsgs.ADMIN_NO}</small></td>
 		</tr>
 		<tr>
 			<th>管理員密碼</th>
 			<td>
 				<input type="password" name="ADMIN_PASSWORD" id="ADMIN_PASSWORD" >
 			</td>
+			<td><small class="error-msg" style="color: red;">${errorMsgs.ADMIN_PASSWORD}</small></td>
 		</tr>
 		<tr>
 			<th>管理員名字</th>
 			<td>
 				<input type="text" name="ADMIN_NAME" id="ADMIN_NAME" required >
 			</td>
+			<td><small class="error-msg" style="color: red;">${errorMsgs.ADMIN_NAME}</small></td>
 		</tr>
 		<tr>
 			<th>管理員性別</th>
@@ -86,12 +89,14 @@
 				<input type="radio" name="ADMIN_GENDER" value="1" >男
 				<input type="radio" name="ADMIN_GENDER" value="0">女
 			</td>
+			<td><small class="error-msg" style="color: red;">${errorMsgs.ADMIN_GENDER}</small></td>
 		</tr>
 		<tr>
 			<th>管理員信箱</th>
 			<td>
 				<input type="text" name="ADMIN_EMAIL" id="ADMIN_EMAIL" placeholder="XXX@gmail.com">
 			</td>
+			<td><small class="error-msg" style="color: red;">${errorMsgs.ADMIN_EMAIL}</small></td>
 		</tr>
 
 		<tr>
@@ -99,12 +104,14 @@
 			<td>
 				<input type="text" name="ADMIN_TEL" id="ADMIN_TEL">
 			</td>
+			<td><small class="error-msg" style="color: red;">${errorMsgs.ADMIN_TEL}</small></td>
 		</tr>
 		<tr>
 			<th>管理員地址</th>
 			<td>
 				<input type="text" name="ADMIN_ADDRESS" id="ADMIN_ADDRESS">
 			</td>
+			<td><small class="error-msg" style="color: red;">${errorMsgs.ADMIN_ADDRESS}</small></td>
 		</tr>
 		<tr>
 			<th>管理員生日</th>
@@ -117,12 +124,14 @@
 			<td>
 				<input type="text" name="EMERGENCY_CONTACTNAME" id="EMERGENCY_CONTACTNAME">
 			</td>
+			<td><small class="error-msg" style="color: red;">${errorMsgs.EMERGENCY_CONTACTNAME}</small></td>
 		</tr>
 		<tr>
 			<th>管理員緊急聯絡人電話</th>
 			<td>
 				<input type="text" name="EMERGENCY_CONTACTEL" id="EMERGENCY_CONTACTEL">
 			</td>
+				<td><small class="error-msg" style="color: red;">${errorMsgs.EMERGENCY_CONTACTEL}</small></td>
 		</tr>
 
 		</table>

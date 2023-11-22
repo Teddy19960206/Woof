@@ -10,7 +10,7 @@
 a[name="adminNo"] {
     font-family: 'Arial', sans-serif; /* 設置字體 */
     color: #ffffff; /* 文字顏色 */
-    background-color: #007bff; /* 背景顏色 */
+    background-color: #faba91; /* 背景顏色 */
     padding: 10px 15px; /* 內邊距 */
     text-decoration: none; /* 移除文字下劃線 */
     border-radius: 4px; /* 邊框圓角 */
@@ -18,8 +18,8 @@ a[name="adminNo"] {
 }
 
 a[name="adminNo"]:hover {
-    background-color: #0056b3; /* 滑鼠懸停時的背景顏色 */
-    color: #ffcc00; /* 滑鼠懸停時的文字顏色 */
+    background-color: #ffc107; /* 滑鼠懸停時的背景顏色 */
+    color: #ffffff; /* 滑鼠懸停時的文字顏色 */
 }
 
 </style>
@@ -93,10 +93,7 @@ function processUpdate2(jsonData){
 									<th scope="row">信箱</th>
 									<td>${administrator.adminEmail}</td>
 								</tr>
-								<tr>
-									<th scope="row">密碼</th>
-									<td>${administrator.adminPassword}</td>
-								</tr>
+							
 								<tr>
 									<th scope="row">電話</th>
 									<td>${administrator.adminTel}</td>
