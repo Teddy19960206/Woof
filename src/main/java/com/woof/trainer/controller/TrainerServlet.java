@@ -145,7 +145,6 @@ public class TrainerServlet  extends HttpServlet {
 
 
 		// 對每個訓練師處理評論
-		// 對每個訓練師處理評論
 		for (Trainer trainer : allTrainers) {
 		    List<PrivateTrainingAppointmentForm> ptas = new ArrayList<>(trainer.getPrivateTrainingAppointmentForms());
 
