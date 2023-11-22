@@ -216,7 +216,7 @@ public class ShopOrdeServlet extends HttpServlet {
 		int actualPrice = Integer.parseInt(request.getParameter("totalAfterCoins"));
 
 		
-		int savedOrderNo= (Integer) shopOrderService.addShopOrder(member, prodOrderDate, payMethod, shipMethod, orderStatus,
+		int savedOrderNo= shopOrderService.addShopOrder(member, prodOrderDate, payMethod, shipMethod, orderStatus,
 				recName, recMobile, recAddress, hasReturn, moCoin, orderTotalPrice, actualPrice);
 		
 		// 如果有確定進入資料庫會有流水編號，再去找流水編號的值，顯示在jsp

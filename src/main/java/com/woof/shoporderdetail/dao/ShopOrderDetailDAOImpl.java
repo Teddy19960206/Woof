@@ -9,6 +9,7 @@ import com.woof.shoporderdetail.entity.ShopOrderDetail;
 import com.woof.shoporderdetail.entity.ShopOrderDetailDTO;
 
 import org.hibernate.query.Query;
+import org.hibernate.transform.Transformers;
 
 
 public class ShopOrderDetailDAOImpl implements ShopOrderDetailDAO {
@@ -59,13 +60,16 @@ public class ShopOrderDetailDAOImpl implements ShopOrderDetailDAO {
 
 	@Override
 	public List<ShopOrderDetailDTO> findOneShopOrderNoDetailObj(Integer shopOrderNo) {
-		String hql = "SELECT p.PROD_NAME , s.ORDER_AMOUNT  ,s.PROD_PRICE  FROM shop_order_detail  s "
-				+ "join product p on s.PROD_NO = p.PROD_NO "
-				+ "where s.SHOP_ORDER_NO = :shopOrderNo";
+		String hql = "SELECT p.PROD_NO as prodNo , p.PROD_NAME as prodName, s.ORDER_AMOUNT as orderAmount, s.PROD_PRICE as prodPrice "
+		   		   + "FROM shop_order_detail s "
+				   + "JOIN product p ON s.PROD_NO = p.PROD_NO "
+				   + "WHERE s.SHOP_ORDER_NO = :shopOrderNo";
+
 		Query query = getSession().createNativeQuery(hql);
+		query.setResultTransformer(Transformers.aliasToBean(ShopOrderDetailDTO.class));
 		query.setParameter("shopOrderNo", shopOrderNo);
-		
-	    return query.getResultList();
+
+		return query.getResultList();
 	}
 
 	

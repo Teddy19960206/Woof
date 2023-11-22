@@ -37,7 +37,7 @@ $(".add-to-cart").on("click", function() {
 	let prodNo = $(this).data("id");
 	let prodName = $(this).data("name");
 	let prodPrice = $(this).data("price");
-	var quantity = parseInt($('#product-quantity').val()); // 從數量選擇器獲取選擇的數量
+	let quantity = parseInt($('#product-quantity').val()); // 從數量選擇器獲取選擇的數量
 //    var productImageSrc = $('#product-image').attr('src');
 	
 	console.log(prodNo);
@@ -49,7 +49,7 @@ $(".add-to-cart").on("click", function() {
 
 	$.ajax({
 		type: "POST",
-		url: `${projectName}/cart`,
+		url: `${projectName}/cart/list`,
 		data: {
 			action: "add",
 			prodNo: prodNo,

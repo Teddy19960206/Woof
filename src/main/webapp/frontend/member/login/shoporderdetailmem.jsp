@@ -115,20 +115,16 @@
     Integer shopOrderNo = Integer.parseInt(shopOrderNoStr);
 
     ShopOrderDetailServiceImpl service = new ShopOrderDetailServiceImpl();
-    List<ShopOrderDetailDTO> orderDetails = service.findOneShopOrderNoDetailObj(shopOrderNo);
+    List<ShopOrderDetailDTO> orderDetails = service.findOneShopOrderNoDetailObj(1);
     System.out.println(orderDetails);
-    
-    for(ShopOrderDetailDTO shopOrderDetailDTO : orderDetails){
-    	 System.out.println(shopOrderDetailDTO);
-    }
 
     request.setAttribute("orderDetails", orderDetails);
 
     System.out.println(orderDetails+"ListObject取得的編號==========");
-    
+
     ShopOrderServiceImpl service2 = new ShopOrderServiceImpl();
     ShopOrder shopOrder = service2.findByShopOrderNo(shopOrderNo);
-    
+
     request.setAttribute("shopOrder", shopOrder);
 
 %>
@@ -301,6 +297,7 @@
                             <tr>
 <!--                                 <th>訂單編號</th> -->
                                 <th>商品名稱</th>
+                                <th>商品照片</th>
                                 <th>數量</th>
                                 <th>價格</th>
                                 <th>小計</th>
@@ -311,7 +308,8 @@
                        <c:forEach items="${orderDetails}" var="orderDetail">
 					    <tr>
 <%-- 					        <td>${orderDetail.shopOrderNo}</td> --%>
-					        <td>${orderDetail.prodNo}</td>
+					        <td>${orderDetail.prodName}</td>
+                            <td><img src="${pageContext.request.contextPath}/productImage/${orderDetail.prodNo}" style="width: 50px"></td>
 					        <td>${orderDetail.orderAmount}</td>
 					        <td>NT$${orderDetail.prodPrice}</td>
 					        <td>NT$${orderDetail.orderAmount * orderDetail.prodPrice}</td>

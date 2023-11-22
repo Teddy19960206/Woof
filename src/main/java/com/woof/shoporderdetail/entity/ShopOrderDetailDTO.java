@@ -14,7 +14,6 @@ public class ShopOrderDetailDTO implements Serializable {
 
     private Integer orderAmount;
 
-
     public Integer getProdNo() {
         return prodNo;
     }
