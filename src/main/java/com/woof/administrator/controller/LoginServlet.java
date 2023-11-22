@@ -5,6 +5,8 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 
+import org.mindrot.jbcrypt.BCrypt;
+
 import com.woof.administrator.service.AdministratorServiceImpl;
 import com.woof.administrator.entity.Administrator;
 import com.woof.administrator.service.AdministratorService;
@@ -39,7 +41,7 @@ public class LoginServlet extends HttpServlet {
 				session1.removeAttribute("administrator");
 				res.sendRedirect(req.getContextPath() + "/frontend/administrator/logout1.jsp");
 				System.out.println(session1.getId() + "刪除");
-				String user = (String) session1.getAttribute("user");
+				String user = (String) session1.getAttribute("administrator");
 				if (user == null) {
 					System.out.println("User is not in session.");
 				}
@@ -58,39 +60,39 @@ public class LoginServlet extends HttpServlet {
 							&& !adminPassword.trim().isEmpty()) {
 						// 使用administratorService根據管理員no查找會員
 						Administrator administrator = administratorService.findAdministratorByAdminNo(adminNoStr);
-
-						// 檢查管理員是否存在以及密碼是否匹配
-						if (administrator != null && administrator.getAdminPassword().equals(adminPassword)) {
-							// 登入成功，將管理員信息設置到session中
-							HttpSession session = req.getSession();
-							session.setAttribute("administrator", administrator);
-							
-
-							// 轉發到登入成功頁面或者其他操作
-							res.sendRedirect(req.getContextPath() + "/backend/index.jsp");
-						} else {
-							// 登入失敗，設置錯誤信息並轉發到登入頁面
-							req.setAttribute("loginError", "帳號或密碼不正確");
-							RequestDispatcher dispatcher = req
-									.getRequestDispatcher("/frontend/administrator/logout1.jsp");
-							dispatcher.forward(req, res);
+						System.out.println(administrator);
+						if (administrator == null) {
+							errorMsgs.put("loginError1", "帳號未註冊");
+						}  else {
+		                    String encryptedPassword = administrator.getAdminPassword(); // 從資料庫獲取加密後的密碼
+		                    if (BCrypt.checkpw(adminPassword, encryptedPassword)) {
+		                        // 密碼匹配，處理登錄成功的邏輯
+		                        HttpSession session2 = req.getSession();
+		                        session2.setAttribute("administrator", administrator);
+		                        res.sendRedirect(req.getContextPath() + "/backend/index.jsp");
+		                    } else {
+		                        errorMsgs.put("loginError", "帳號密碼有誤");
+		                    }
 						}
-					} else {
-						// 帳號或密碼為空，設置錯誤信息並轉發到登入頁面
-						req.setAttribute("loginError", "帳號和密碼都不能為空");
-						RequestDispatcher dispatcher = req.getRequestDispatcher("/frontend/administrator/logout1.jsp");
-						dispatcher.forward(req, res);
-					}
-				} catch (Exception e) {
-					// 處理其他潛在錯誤
+					
+							
+						if (!errorMsgs.isEmpty()) {
+							req.setAttribute("errorMsgs", errorMsgs);
+							req.getRequestDispatcher("frontend/administrator/logout1.jsp").forward(req, res);
+						}
+					} 
+						}
+					catch (Exception e) {
 					e.printStackTrace();
-					req.setAttribute("error", "系統錯誤，請聯絡總管理員。");
-					RequestDispatcher dispatcher = req.getRequestDispatcher("/frontend/administrator/errorPage.jsp");
-					dispatcher.forward(req, res);
-				}
+					 errorMsgs.put("loginError1", "帳號密碼有誤");
+					req.getRequestDispatcher("frontend/administrator/logout1.jsp").forward(req, res);
+					}
+					return;
+			
 			}
 		}
 	}
+
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 

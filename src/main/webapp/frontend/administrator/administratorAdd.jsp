@@ -108,9 +108,9 @@
 		<tr>
 			<th>管理員帳號</th>
 			<td>
-				<input type="text" name="adminNo" id="adminNo" >
+				<input type="text" name="ADMIN_NO" id="ADMIN_NO" >
 			</td>
-			<td><small class="error-msg" style="color: red;">${errorMsgs.adminNo}</small></td>
+			<td><small class="error-msg" style="color: red;">${errorMsgs.ADMIN_NO}</small></td>
 		</tr>
 		<tr>
 			<th>管理員密碼</th>
@@ -137,9 +137,9 @@
 		<tr>
 			<th>管理員信箱</th>
 			<td>
-				<input type="text" name="adminEmail" id="adminEmail" placeholder="XXX@gmail.com">
+				<input type="text" name="ADMIN_EMAIL" id="ADMIN_EMAIL" placeholder="XXX@gmail.com">
 			</td>
-			<td><small class="error-msg" style="color: red;">${errorMsgs.adminEmail}</small></td>
+			<td><small class="error-msg" style="color: red;">${errorMsgs.ADMIN_EMAIL}</small></td>
 		</tr>
 		<tr>
 			<th>管理員電話</th>

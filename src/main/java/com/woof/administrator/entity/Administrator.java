@@ -45,7 +45,7 @@ public class Administrator implements Serializable {
 	@Column(name = "ADMIN_EMAIL", nullable = false)
 	private String adminEmail;
 	@Expose
-	@Column(name = "ADMIN_PASSWORD", nullable = false)
+	@Column(name = "ADMIN_PASSWORD" ,nullable = false)
 	private String adminPassword;
 	@Expose
 	@Column(name = "ADMIN_TEL", nullable = false)
