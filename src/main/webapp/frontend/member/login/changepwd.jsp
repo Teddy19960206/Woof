@@ -6,7 +6,7 @@
     <title>更改密碼</title>
     <style>
         body {
-            background-color: #f4f4f4; /* 背景顏色 */
+            background-color: #f7f7f7; /* 設定背景顏色 */
             font-family: Arial, sans-serif; /* 字體 */
         }
 
