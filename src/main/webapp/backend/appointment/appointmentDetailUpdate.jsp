@@ -78,6 +78,7 @@ button[type="submit"] {
 		<select name="appStatus">
    		<option value="0" ${param.appStatus == '0' ? 'selected' : ''}>接受</option>
 		<option value="1" ${param.appStatus == '1' ? 'selected' : ''}>取消</option>
+		<option value="2" ${param.appStatus == '2' ? 'selected' : ''}>已完成</option>
 		</select>
 		 <br /> 
 	

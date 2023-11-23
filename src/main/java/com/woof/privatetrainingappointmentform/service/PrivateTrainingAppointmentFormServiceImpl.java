@@ -6,6 +6,7 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
 
+import com.woof.appointmentdetail.entity.AppointmentDetailDTO;
 import com.woof.member.entity.Member;
 import com.woof.trainer.entity.Trainer;
 import com.woof.privatetrainingappointmentform.dao.PrivateTrainingAppointmentFormDAO;
@@ -149,4 +150,10 @@ public class PrivateTrainingAppointmentFormServiceImpl implements PrivateTrainin
 		return dao.getNonReportedComment(trainerNo);
 	}
 
+	@Override
+	public boolean canComment(Integer ptaNo) {
+		
+		return dao.canComment(ptaNo);
+	}
+	
 }

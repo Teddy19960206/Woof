@@ -89,6 +89,7 @@
 						<c:choose>
                 			<c:when test="${AD.appStatus == 0}">接受</c:when>
                 			<c:when test="${AD.appStatus == 1}">取消</c:when>
+                			<c:when test="${AD.appStatus == 2}">已完成</c:when>
             			</c:choose>
             		</span>
             	</td>

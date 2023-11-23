@@ -7,81 +7,80 @@
     <title>寵毛導師 Woof | 私人預約管理</title>
     <style>
     body {
-    font-family: Arial, sans-serif;
-    background-color: #ffffff; /* 白色背景 */
-    margin: 0;
-    padding: 0;
-}
-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-table, th, td {
-    border: 1px solid #ccc;
-}
-
-th, td {
-    padding: 10px;
-    text-align: left;
-}
-
-th {
-    background-color: #0074d9;
-    color: white;
-}
-
-tr:nth-child(even) {
-    background-color: #f2f2f2;
-}
-
-tr:nth-child(odd) {
-    background-color: #ffffff;
-}
-
-.btn-success {
-    background-color: #4CAF50;
-    color: white;
-    padding: 5px 10px;
-    border: none;
-    cursor: pointer;
-}
-
-.btn-in {
-    background-color: orange;
-    color: white;
-    padding: 5px 10px;
-    border: none;
-    cursor: pointer;
-}
-
-.btn-back {
-    background-color: #f44336;
-    color: white;
-    padding: 5px 10px;
-    border: none;
-    cursor: pointer;
-}
-.pagination {
-    margin-top: 20px;
-    text-align: center;
-}
-
-.pagination a {
-    color: #0074d9;
-    padding: 8px 16px;
-    text-decoration: none;
-}
-
-.pagination a:hover {
-    background-color: #0074d9;
-    color: white;
-}
-
-.pagination .active {
-    background-color: #0074d9;
-    color: white;
-}
+	    font-family: Arial, sans-serif;
+	    background-color: #ffffff; /* 白色背景 */
+	    margin: 0;
+	    padding: 0;
+	}
+	table {
+	    width: 100%;
+	    border-collapse: collapse;
+	}
+	
+	table, th, td {
+	    border: 1px solid #ccc;
+	}
+	
+	th, td {
+	    padding: 10px;
+	    text-align: left;
+	}
+	
+	th {
+	    background-color: #0074d9;
+	    color: white;
+	}
+	
+	tr:nth-child(even) {
+	    background-color: #f2f2f2;
+	}
+	
+	tr:nth-child(odd) {
+	    background-color: #ffffff;
+	}
+	
+	.btn-success {
+	    background-color: #4CAF50;
+	    color: white;
+	    padding: 5px 10px;
+	    border: none;
+	    cursor: pointer;
+	}
+	
+	.btn-in {
+	    background-color: orange;
+	    color: white;
+	    padding: 5px 10px;
+	    border: none;
+	    cursor: pointer;
+	}
+	
+	.btn-back {
+	    background-color: #f44336;
+	    color: white;
+	    padding: 5px 10px;
+	    border: none;
+	    cursor: pointer;
+	}
+	.pagination {
+	  margin-top: 20px;
+	  text-align: center;
+	}
+	
+	.pagination a {
+	  color: #428bca;
+	  padding: 5px 10px;
+	  text-decoration: none;
+	  border: 1px solid #428bca;
+	  border-radius: 3px;
+	  margin: 0 5px;
+	}
+	
+	.pagination a:hover {
+	  background-color: #428bca;
+	  color: #fff;
+	  transition: all 0.3s ease;
+	}
 
     </style>
 </head>

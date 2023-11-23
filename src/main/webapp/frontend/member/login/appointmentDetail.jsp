@@ -216,6 +216,7 @@ a {
 <script src="https://kit.fontawesome.com/3f37e88a3b.js" crossorigin="anonymous"></script>
 <body>
 <%@ include file="/Header.file"%>
+
 	<jsp:useBean id="memberService" scope="page"
 		class="com.woof.member.service.MemberServiceImpl" />
 	<div class="container mt-5">
@@ -236,6 +237,7 @@ a {
 							class="accordion-collapse collapse show"
 							data-bs-parent="#accordionExample">
 							<div class="accordion-body">
+							
 								<form method="post"
 									action="${pageContext.request.contextPath}/member1.do"
 									style="margin-bottom: 0px;">
@@ -360,15 +362,21 @@ a {
         									<c:when test="${AD.appStatus == 1}">
             									已取消
         									</c:when>
+        									<c:when test="${AD.appStatus == 2}">
+            									已結束
+        									</c:when>
     									</c:choose>
         							</td>
                                 	<td>
                                 		<c:choose>
-            								<c:when test="${AD.appStatus != 1}">
+            								<c:when test="${AD.appStatus == 0}">
           											<button data-id="${AD.adNo}" class="btn btn-cancel cancel" type="button">取消預約</button>
                                  		 	</c:when>
-                                 		 	<c:otherwise>
+                                 		 	<c:when test="${AD.appStatus == 1}">
                 								<button class="btn btn-cancel" disabled>已取消</button>
+            								</c:when>
+                                 		 	<c:otherwise>
+                								<button class="btn btn-cancel" disabled>已結束</button>
             								</c:otherwise>
         								</c:choose>
                                 	</td>
