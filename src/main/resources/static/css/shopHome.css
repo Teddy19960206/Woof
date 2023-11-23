@@ -20,13 +20,15 @@
 
 .card .btn-group {
     width: 100%;
-    margin-top: auto; /* 確保按鈕組在卡片底部 */
+    margin-top: auto; /* 確保按鈕在卡片底部 */
 }
 
 .btn-sm {
     padding: 5px 10px;
     font-size: 12px;
-    white-space: nowrap; /* 防止按鈕文本換行 */
+    white-space: nowrap;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    border: none;
 }
 
 /* 考慮在小屏幕上的顯示 */
@@ -54,6 +56,8 @@
 .btn-custom {
     background-color: #007bff;
     color: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    border: none;
 }
 
 .btn-custom:hover {
@@ -64,22 +68,24 @@
     font-weight: bold;
 }
 
+/* 類別項目 */
 .category-item {
     transition: transform .2s, box-shadow .2s;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    padding: 20px; /* 增加內邊距 */
-    margin: 15px; /* 增加邊距 */
-    border-radius: 10px; /* 圓角半徑增加 */
+    padding: 20px;
+    margin: 15px;
+    border-radius: 10px;
     background-color: #f8f9fa;
     text-align: center;
     cursor: pointer;
 }
 
 .category-item:hover {
-    transform: scale(1.1); /* 放大比例增加 */
+    transform: scale(1.1);
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.3);
     background-color: #e9ecef;
 }
+
 
 .category-item:active {
     transform: scale(0.95);
@@ -87,12 +93,12 @@
 }
 
 .gray-background {
-    background-color: #ededf6;
+    background-color: #e0f2f1;
 }
 
 /* 新增箭頭樣式 */
 #promotion-prev, #promotion-next {
-    font-size: 24px; /* 增加字體大小 */
+    font-size: 8px; /* 增加字體大小 */
     color: #007bff; /* 調整顏色 */
     border: none; /* 移除邊框 */
     background: transparent; /* 背景透明 */
@@ -105,16 +111,16 @@
 
 #promotionCarousel .carousel-control-prev,
 #promotionCarousel .carousel-control-next {
-    top: 50%; /* 設定垂直中心位置 */
-    transform: translateY(-50%); /* 向上平移以確保準確居中 */
+    top: 30%; /* 設定垂直中心位置 */
+    transform: translateY(-30%); /* 向上平移以確保準確居中 */
 }
 
 #promotionCarousel .carousel-control-prev {
-    left: -30px; /* 將左箭頭向左偏移 */
+    left: -60px; /* 將左箭頭向左偏移 */
 }
 
 #promotionCarousel .carousel-control-next {
-    right: -30px; /* 將右箭頭向右偏移 */
+    right: -60px; /* 將右箭頭向右偏移 */
 }
 
 #productDetailModal .modal-footer button {
@@ -136,4 +142,13 @@ body {
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
+}
+
+/* 容器和行間距 */
+.container {
+    padding: 20px;
+}
+
+.row {
+    margin-bottom: 20px;
 }
