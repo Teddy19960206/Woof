@@ -304,7 +304,7 @@ public class MemberServlet1 extends HttpServlet {
 		}
 		// Send the use back to the form, if there were errors
 		if (!errorMsgs.isEmpty()){
-			req.getRequestDispatcher("frontend/member/login/updatemember.jsp").forward(req, res);
+			req.getRequestDispatcher("frontend/member/login/updatemember.jsp?memNo=" + memNo).forward(req, res);
 	    return;
 		}
 		member.setMemNo(req.getParameter("memNo"));

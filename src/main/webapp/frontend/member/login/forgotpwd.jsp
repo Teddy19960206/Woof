@@ -10,7 +10,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
     <style>
         body {
-            background-color: #f4f4f4; /* 背景顏色 */
+            background-color: #f7f7f7; /* 設定背景顏色 */
             font-family: Arial, sans-serif; /* 字體 */
         }
 

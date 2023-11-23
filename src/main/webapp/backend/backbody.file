@@ -141,7 +141,7 @@
                     data-bs-parent="#sidebar"
                   >
                     <li class="sidebar-item">
-                      <a href="#" class="sidebar-link2">最新消息管理</a>
+                      <a href="${pageContext.request.contextPath}/backend/latestnews/latestNews.jsp" class="sidebar-link2">最新消息管理</a>
                     </li>
                     <li class="sidebar-item">
                       <a href="${pageContext.request.contextPath}/faq?action=getAll" class="sidebar-link2"
@@ -154,6 +154,9 @@
                     <li class="sidebar-item">
                       <a href="${pageContext.request.contextPath}/commentreport?action=getAll" class="sidebar-link2">評論檢舉處理</a>
                     </li>
+                      <li class="sidebar-item">
+                          <a href="${pageContext.request.contextPath}/backend/carousel/carousel.jsp" class="sidebar-link2">輪播管理</a>
+                      </li>
                   </ul>
                 </li>
                 <li class="sidebar-item">
