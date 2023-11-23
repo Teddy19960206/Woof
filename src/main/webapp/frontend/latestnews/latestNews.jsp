@@ -3,25 +3,25 @@
 	pageEncoding="UTF-8"%>
 <html>
 <head>
-<%@ include file="/backend/backhead.file"%>
+  <%@ include file="/meta.file" %>
 <meta charset="UTF-8">
 <title>最新消息</title>
 <!-- 引入 Bootstrap CSS -->
-
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 	<style>
 
-
-.card {
+   .card {
   background-color: #f0f0f0;
 }
 
 
-
-.fixed-size-image {
-  width: 70%; /* 图片宽度自适应容器宽度 */
-  height: auto; /* 图片高度自动调整 */
-  object-fit: contain; /* 确保图片完整显示，不裁切 */
+ .fixed-size-image {
+  width: 50%; /* 讓圖片寬度適應容器寬度 */
+  height: auto; /* 高度自動調整以保持圖片比例 */
+  object-fit: contain; /* 保持圖片完整顯示在容器內 */
 }
+
 	</style>
 <script src="https://code.jquery.com/jquery-3.7.1.js"
 	integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
@@ -29,37 +29,15 @@
 <script src="https://unpkg.com/swiper/swiper-bundle.js"></script>
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <script type="text/javascript">
-	// 你的 JavaScript 函數
-		function processUpdate(jsonData){
-		window.location.href="<%=request.getContextPath()%>/backend/latestnews/latestNewsUpdate.jsp?lnNo="+jsonData.lnNo;
-	}
-	function processDelete(jsonData){
-		$.ajax({
-			type:"POST",
-			data:jsonData,
-			url:"<%=request.getContextPath()%>/latestNews.do?action=del",
-					success:function(data){
-						alert('刪除成功');
-						window.location.reload();
-					},
-					error: function(xhr,ajaxOptions,thrownError){
-						alert("哇 錯了");
-					}
-		});
-	}
-	function processAdd(){
-		window.location.href="<%=request.getContextPath()%>/backend/latestnews/latestNewsAdd.jsp"
-	}
+
 </script>
 </head>
 <body>
-<%@ include file="/backend/backbody.file"%>
-<div class="container mt-5"> <!-- mt-5 表示 margin-top: 3rem -->
+<%@ include file="/Header.file" %>
 	<jsp:useBean id="latestNewsService" scope="page"
 		class="com.woof.latestnews.service.LatestNewsServiceImpl" />
 	<div class="container mt-5">
-		<input type="button" class="btn btn-primary mb-3" id="btnadd"
-			value="新增" onclick="processAdd();">
+
 		<c:forEach var="latestNews" items="${latestNewsService.allLatestNews}">
 			<div class="card mb-3">
 				<div class="card-header">消息編號: ${latestNews.lnNo}</div>
@@ -74,15 +52,11 @@
 						<img src="data:image/jpeg;base64,${latestNews.imgStr1}"
     class="fixed-size-image" alt="News Image">
 					</div>
-					<input type="button" class="btn btn-secondary" value="修改"
-						onclick="processUpdate({lnNo:'${latestNews.lnNo}'});"> <input
-						type="button" class="btn btn-danger" value="刪除"
-						onclick="processDelete({LN_NO:'${latestNews.lnNo}'});">
+				
 				</div>
 			</div>
 		</c:forEach>
 	</div>
-	</div>
-		<%@ include file="/backend/backfoot.file"%>
+	<%@ include file="/Footer.file" %>
 </body>
 </html>
