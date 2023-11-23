@@ -216,6 +216,7 @@ a {
 <script src="https://kit.fontawesome.com/3f37e88a3b.js" crossorigin="anonymous"></script>
 <body>
 <%@ include file="/Header.file"%>
+
 	<jsp:useBean id="memberService" scope="page"
 		class="com.woof.member.service.MemberServiceImpl" />
 	<div class="container mt-5">
@@ -236,6 +237,7 @@ a {
 							class="accordion-collapse collapse show"
 							data-bs-parent="#accordionExample">
 							<div class="accordion-body">
+							
 								<form method="post"
 									action="${pageContext.request.contextPath}/member1.do"
 									style="margin-bottom: 0px;">

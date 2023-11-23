@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
 
+import com.woof.appointmentdetail.entity.AppointmentDetailDTO;
 import com.woof.member.entity.Member;
 import com.woof.privatetrainingappointmentform.entity.PrivateTrainingAppointmentForm;
 import com.woof.trainer.entity.Trainer;
@@ -46,4 +47,6 @@ public interface PrivateTrainingAppointmentFormService {
 	List<PrivateTrainingAppointmentForm> getAppointmentByMemNo(String memNo);
 	
 	List<PrivateTrainingAppointmentForm> getNonReportedComment(Integer trainerNo);
+	
+	List<AppointmentDetailDTO> cannotComment(String MemNo);
 }

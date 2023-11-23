@@ -3,6 +3,7 @@ package com.woof.privatetrainingappointmentform.dao;
 import java.sql.Date;
 import java.util.List;
 
+import com.woof.appointmentdetail.entity.AppointmentDetailDTO;
 import com.woof.privatetrainingappointmentform.entity.PrivateTrainingAppointmentForm;
 
 public interface PrivateTrainingAppointmentFormDAO {
@@ -43,6 +44,6 @@ public interface PrivateTrainingAppointmentFormDAO {
 	
 	List<PrivateTrainingAppointmentForm> getNonReportedComment(Integer trainerNo);
 	
-	
+	List<AppointmentDetailDTO> cannotComment(String memNo);
 	
 }

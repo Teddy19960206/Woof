@@ -1,16 +1,35 @@
+<%@page import="org.hibernate.internal.build.AllowSysOut"%>
 <%@ page import="com.woof.member.entity.Member" %>
 <%@ page import="com.woof.privatetrainingappointmentform.service.PrivateTrainingAppointmentFormServiceImpl" %>
 <%@ page import="com.woof.privatetrainingappointmentform.entity.PrivateTrainingAppointmentForm" %>
+<%@ page import="com.woof.appointmentdetail.entity.AppointmentDetailDTO" %>
+<%@ page import="java.util.Date" %>
 <%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <%
+	Date currentDate = new Date();
+
  Member member = (Member) request.getSession(false).getAttribute("member");
 
  PrivateTrainingAppointmentFormServiceImpl p = new PrivateTrainingAppointmentFormServiceImpl();
  List<PrivateTrainingAppointmentForm> appointmentByMemNo = p.getAppointmentByMemNo(member.getMemNo());
+
+ for(PrivateTrainingAppointmentForm privateTrainingAppointmentForm : appointmentByMemNo){
+	 System.out.println(privateTrainingAppointmentForm);
+ }
+ 
  request.setAttribute("all" , appointmentByMemNo);
+ List<AppointmentDetailDTO> dto =  p.cannotComment(member.getMemNo());
+ request.setAttribute("dto" , dto);
+ 
+ for(AppointmentDetailDTO appointmentDetailDTO : dto){
+	 System.out.println(appointmentDetailDTO);
+ }
+ 
+ 
+
 %>
 <!DOCTYPE html>
 <html lang="zh-TW">
@@ -342,33 +361,42 @@ a {
 
                         </thead>
                         <tbody>
-
-                         <c:forEach items="${all}" var="pta">
-                            <tr>
-                                <td class="truncated-text">${pta.ptaNo}</td>
-                                <td>${pta.trainer.administrator.adminName}</td>
-                                <td>${pta.ptaClass}</td>
-                                <td>
-                                	<FORM METHOD="post" action="${pageContext.request.contextPath}/appointmentdetail?action=getdetail3">
-          								<input type="hidden" name="ptaNo" value="${pta.ptaNo}">
-          								<input type="hidden" name="memNo" value="${pta.member.memNo}">
-          								<input type="hidden" name="trainerNo" value="${pta.trainer.trainerNo}">
-          								<button class="btn btn-in" type="submit">查看明細</button>
-         							</FORM>
-        						</td>
-                                <td>
-                                	<FORM METHOD="post" action="${pageContext.request.contextPath}/frontend/member/login/comment.jsp">
-                                  		<%
-           								String ptaNo = request.getParameter("ptaNo");
-           								String ptaComment = request.getParameter("ptaComment");
-             							%> 
-          								<input type="hidden" name="ptaNo" value="${pta.ptaNo}">     
-          								<input type="hidden" name="ptaComment" value="${pta.ptaComment}">     
-          								<button class="btn btn-comment" type="submit">我要評論</button>
-                                 	</FORM>
-                                </td>
-                            </tr>
-                         </c:forEach>
+<%--                          <c:forEach items="${all}" var="pta"> --%>
+<!--                             <tr> -->
+<%--                                 <td class="truncated-text">${pta.ptaNo}</td> --%>
+<%--                                 <td>${pta.trainer.administrator.adminName}</td> --%>
+<%--                                 <td>${pta.ptaClass}</td> --%>
+<!--                                 <td> -->
+<%--                                 	<FORM METHOD="post" action="${pageContext.request.contextPath}/appointmentdetail?action=getdetail3"> --%>
+<%--           								<input type="hidden" name="ptaNo" value="${pta.ptaNo}"> --%>
+<%--           								<input type="hidden" name="memNo" value="${pta.member.memNo}"> --%>
+<%--           								<input type="hidden" name="trainerNo" value="${pta.trainer.trainerNo}"> --%>
+<!--           								<button class="btn btn-in" type="submit">查看明細</button> -->
+<!--          							</FORM> -->
+<!--         						</td> -->
+<!--                                 <td> -->
+<%--                                 	<c:forEach items="dto" var="detail"> --%>
+<%-- 	                                	<FORM METHOD="post" action="${pageContext.request.contextPath}/frontend/member/login/comment.jsp"> --%>
+<%-- 	                                  		<% --%>
+// 	           									String ptaNo = request.getParameter("ptaNo");
+// 	           									String ptaComment = request.getParameter("ptaComment");
+<%-- 	             							%>  --%>
+<%-- 	          								<input type="hidden" name="ptaNo" value="${detail.ptaNo}">      --%>
+<%-- 	          								<input type="hidden" name="ptaComment" value="${detail.ptaComment}"> --%>
+<%-- 	          								<c:choose> --%>
+<%-- 		          								<c:when test="${detail.appTime.before(currentDate)}"   > --%>
+<!-- 		          									<button class="btn btn-comment" type="submit">我要評論</button> -->
+<%-- 		          								</c:when> --%>
+<%-- 		          								<c:otherwise> --%>
+<!-- 		          									<button class="btn btn-comment" type="submit" disabled>我要評論</button> -->
+<%-- 		          								</c:otherwise> --%>
+<%-- 	          								</c:choose> --%>
+	          								
+<!-- 	                                 	</FORM> -->
+<%--                                  	</c:forEach> --%>
+<!--                                 </td> -->
+<!--                             </tr> -->
+<%--                          </c:forEach> --%>
                         </tbody>
                     </table>
      </div>

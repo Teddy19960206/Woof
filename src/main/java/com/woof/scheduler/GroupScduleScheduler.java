@@ -12,8 +12,11 @@ import com.woof.groupscheduledetail.entity.GroupScheduleDetail;
 import com.woof.groupscheduledetail.service.GroupScheduleDetailService;
 import com.woof.groupscheduledetail.service.GroupScheduleDetailServiceImpl;
 import com.woof.appointmentdetail.entity.AppointmentDetail;
+import com.woof.appointmentdetail.entity.AppointmentDetailDTO;
 import com.woof.appointmentdetail.service.AppointmentDetailService;
 import com.woof.appointmentdetail.service.AppointmentDetailServiceImpl;
+import com.woof.privatetrainingappointmentform.service.PrivateTrainingAppointmentFormService;
+import com.woof.privatetrainingappointmentform.service.PrivateTrainingAppointmentFormServiceImpl;
 import com.woof.member.entity.Member;
 import com.woof.member.service.MemberService;
 import com.woof.member.service.MemberServiceImpl;
@@ -47,6 +50,8 @@ public class GroupScduleScheduler extends HttpServlet {
     private GroupScheduleDetailService groupScheduleDetailService = new GroupScheduleDetailServiceImpl();
 
     private AppointmentDetailService appointmentDetailService = new AppointmentDetailServiceImpl();
+
+    private PrivateTrainingAppointmentFormService privateTrainingAppointmentFormService = new PrivateTrainingAppointmentFormServiceImpl();
    
     private Gson gson = new GsonBuilder()
             .setExclusionStrategies()
@@ -172,7 +177,7 @@ public class GroupScduleScheduler extends HttpServlet {
                         
                         List<AppointmentDetail> allAppointments = appointmentDetailService.getAllUpdateStatus();
                         
-                        System.out.println(allAppointments);
+//                        System.out.println(allAppointments);
                         appointmentDetailService.updateComplete(allAppointments);
 
                         currentSession.getTransaction().commit();
@@ -180,6 +185,22 @@ public class GroupScduleScheduler extends HttpServlet {
                         e.printStackTrace();
                         currentSession.getTransaction().rollback();;
                     }
+                },
+                ()->{
+                	Session currentSession = sessionFactory.getCurrentSession();
+                	try{
+                		currentSession.beginTransaction();
+                		
+//                		List<AppointmentDetailDTO> appointmentDetailDTO = privateTrainingAppointmentFormService.cannotComment("member1");
+                		
+//                        System.out.println(appointmentDetailDTO);
+//                		appointmentDetailService.updateComplete(appointmentDetailDTO);
+                		
+                		currentSession.getTransaction().commit();
+                	}catch (Exception e){
+                		e.printStackTrace();
+                		currentSession.getTransaction().rollback();;
+                	}
                 }
         };
 

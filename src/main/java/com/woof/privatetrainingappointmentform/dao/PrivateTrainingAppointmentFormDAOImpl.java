@@ -3,16 +3,20 @@ package com.woof.privatetrainingappointmentform.dao;
 import static com.woof.util.Constants.PAGE_MAX_RESULT;
 
 import java.sql.Date;
-
+import java.time.LocalDate;
 import java.util.List;
+import org.hibernate.query.Query;
 
+import javax.persistence.TemporalType;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-
+import com.woof.appointmentdetail.entity.AppointmentDetail;
+import com.woof.appointmentdetail.entity.AppointmentDetailDTO;
 import com.woof.privatetrainingappointmentform.entity.PrivateTrainingAppointmentForm;
 import org.hibernate.query.NativeQuery;
+import org.hibernate.transform.Transformers;
 
 
 public class PrivateTrainingAppointmentFormDAOImpl implements PrivateTrainingAppointmentFormDAO {
@@ -179,9 +183,15 @@ public class PrivateTrainingAppointmentFormDAOImpl implements PrivateTrainingApp
 
 	@Override
 	public List<PrivateTrainingAppointmentForm> getAppointmentByMemNo(String memNo) {
-		return getSession().createQuery("FROM PrivateTrainingAppointmentForm p WHERE p.member.memNo = :memNo ORDER BY ptaNo DESC", PrivateTrainingAppointmentForm.class)
-				.setParameter("memNo", memNo)
-				.list();
+		String sqlQuery = "SELECT * FROM private_training_appointment_form p " +
+                "JOIN member m ON p.MEM_NO = m.MEM_NO " +
+                "WHERE m.MEM_NO = :memNo " +
+                "ORDER BY p.PTA_NO DESC";
+		
+		return getSession()
+		      .createNativeQuery(sqlQuery, PrivateTrainingAppointmentForm.class)
+		      .setParameter("memNo", memNo)
+		      .list();
 	}
 
 	@Override
@@ -198,6 +208,29 @@ public class PrivateTrainingAppointmentFormDAOImpl implements PrivateTrainingApp
 	            .getResultList();
 	}
 
-	
-	
+	@Override
+	public List<AppointmentDetailDTO> cannotComment(String memNo) {
+		String hql = "SELECT DISTINCT pta.PTA_NO as ptaNo, pta.PTA_COMMENT as ptaComment , pta.COMMENT_TIME as  commentTime, pta.COMMENT_UPTIME as commentUpTime, ad.APP_TIME as appTime "
+				+ "FROM private_training_appointment_form pta "
+				+ "JOIN appointment_detail ad ON pta.PTA_NO = ad.PTA_NO "
+				+ "JOIN member mem ON mem.MEM_NO = pta.MEM_NO "
+				+ "WHERE ad.APP_TIME <= CURDATE() - INTERVAL 1 DAY AND mem.MEM_NO = :MEM_NO";
+
+		Query query = getSession().createNativeQuery(hql);
+		query.setParameter("MEM_NO", memNo);
+		query.setResultTransformer(Transformers.aliasToBean(AppointmentDetailDTO.class));
+
+
+		return query.getResultList();
+
+//		// 設定昨天日期
+//		LocalDate yesterday = LocalDate.now().minusDays(1);
+//	
+//		// 執行 HQL 查詢
+//		List<PrivateTrainingAppointmentForm> resultList = getSession().createQuery(hql, PrivateTrainingAppointmentForm.class)
+//		        .setParameter("yesterdayDate", yesterday, TemporalType.DATE)
+//		        .getResultList();
+//		return resultList;
+	}
+
 }
