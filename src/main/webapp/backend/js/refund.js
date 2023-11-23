@@ -4,6 +4,10 @@ const refundBtn = document.getElementById("refundBtn");
 const showPrivateRefund = document.getElementById("showPrivateRefund");
 
 
+function formatOrderId(orderId) {
+    return 'woofGroup' + orderId.toString().padStart(8, '0');
+}
+
 refundBtn.addEventListener("click"  ,function (){
     groupRefundFetch();
     // privateRefundFetch();
@@ -84,7 +88,7 @@ async function groupRefundFetch(){
             data.forEach(item =>{
                 arr.push(
                     `<tr>
-                    <td>${item.gcoNo}</td>
+                    <td>${formatOrderId(item.gcoNo)}</td>
                     <td>${item.member.memName}</td>
                     <td>${item.gcoSmmp}</td>
                     <td>${item.actualAmount}</td>
