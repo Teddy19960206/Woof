@@ -114,9 +114,11 @@ public class AppointmentDetailServiceImpl implements AppointmentDetailService{
 		return dao.getUpdateStatus();
 	}
 
+
 	@Override
-	public void updateStatus(Integer adNo) {
-		dao.updateStatus(adNo, 3);
+	public void updateComplete(List<AppointmentDetail> list) {
+		// TODO Auto-generated method stub
+		dao.updateStatus(list);
 	}
 
 	

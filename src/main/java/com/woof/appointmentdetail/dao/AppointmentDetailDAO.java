@@ -32,5 +32,5 @@ public interface AppointmentDetailDAO {
 
 	List<AppointmentDetail> getUpdateStatus();
 	
-	void updateStatus(Integer adNo , Integer appStatus);
+	void updateStatus(List<AppointmentDetail> list);
 }

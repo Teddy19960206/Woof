@@ -33,5 +33,5 @@ public interface AppointmentDetailService {
 	
 	List<AppointmentDetail> getAllUpdateStatus();
 	
-	void updateStatus(Integer adNo);
+	void updateComplete(List<AppointmentDetail> list);
 }

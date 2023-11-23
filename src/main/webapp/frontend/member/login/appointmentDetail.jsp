@@ -360,6 +360,9 @@ a {
         									<c:when test="${AD.appStatus == 1}">
             									已取消
         									</c:when>
+        									<c:when test="${AD.appStatus == 2}">
+            									已結束
+        									</c:when>
     									</c:choose>
         							</td>
                                 	<td>

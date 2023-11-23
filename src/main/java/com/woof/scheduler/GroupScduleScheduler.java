@@ -171,19 +171,9 @@ public class GroupScduleScheduler extends HttpServlet {
                         currentSession.beginTransaction();
                         
                         List<AppointmentDetail> allAppointments = appointmentDetailService.getAllUpdateStatus();
-
-                        for (AppointmentDetail appointmentDetail : allAppointments) {
-                            Calendar today = Calendar.getInstance();
-                            today.set(Calendar.HOUR_OF_DAY, 0);
-                            today.set(Calendar.MINUTE, 0);
-                            today.set(Calendar.SECOND, 0);
-                            today.set(Calendar.MILLISECOND, 0);
-
-                            Integer adNo = appointmentDetail.getAdNo();
-                            if (appointmentDetail.getAppTime().before(today.getTime())){
-                            	appointmentDetailService.updateStatus(adNo);
-                            }
-                        }
+                        
+                        System.out.println(allAppointments);
+                        appointmentDetailService.updateComplete(allAppointments);
 
                         currentSession.getTransaction().commit();
                     }catch (Exception e){

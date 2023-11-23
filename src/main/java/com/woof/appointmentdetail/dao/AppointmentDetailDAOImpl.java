@@ -136,13 +136,16 @@ public class AppointmentDetailDAOImpl implements AppointmentDetailDAO {
 				.list();
 	}
 
+
 	@Override
-	public void updateStatus(Integer adNo, Integer appStatus) {
-		String hql = "UPDATE appointmentDetail ad SET ad.appStatus = :appStatus WHERE ad.adNo = :adNo";
-        Query query = getSession().createQuery(hql);
-        query.setParameter("appStatus" , appStatus);
-        query.setParameter("adNo" , adNo);
-        query.executeUpdate();
+	public void updateStatus(List<AppointmentDetail> list) {
+		
+		for(AppointmentDetail appointmentDetail : list) {
+			appointmentDetail.setAppStatus(2);
+			getSession().persist(appointmentDetail);
+		}
+		getSession().flush();
+		
 	}
 
 }
