@@ -46,4 +46,6 @@ public interface PrivateTrainingAppointmentFormDAO {
 	
 	List<AppointmentDetailDTO> cannotComment(String memNo);
 	
+	boolean canComment(Integer ptaNo);
+	
 }

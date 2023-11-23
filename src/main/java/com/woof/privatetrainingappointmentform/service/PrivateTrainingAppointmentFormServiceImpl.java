@@ -155,5 +155,9 @@ public class PrivateTrainingAppointmentFormServiceImpl implements PrivateTrainin
 		return dao.cannotComment(memNo);
 	}
 
-	
+	@Override
+	public boolean canComment(Integer ptaNo) {
+		
+		return dao.canComment(ptaNo);
+	}
 }

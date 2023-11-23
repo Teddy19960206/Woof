@@ -185,23 +185,8 @@ public class GroupScduleScheduler extends HttpServlet {
                         e.printStackTrace();
                         currentSession.getTransaction().rollback();;
                     }
-                },
-                ()->{
-                	Session currentSession = sessionFactory.getCurrentSession();
-                	try{
-                		currentSession.beginTransaction();
-                		
-//                		List<AppointmentDetailDTO> appointmentDetailDTO = privateTrainingAppointmentFormService.cannotComment("member1");
-                		
-//                        System.out.println(appointmentDetailDTO);
-//                		appointmentDetailService.updateComplete(appointmentDetailDTO);
-                		
-                		currentSession.getTransaction().commit();
-                	}catch (Exception e){
-                		e.printStackTrace();
-                		currentSession.getTransaction().rollback();;
-                	}
                 }
+                
         };
 
 

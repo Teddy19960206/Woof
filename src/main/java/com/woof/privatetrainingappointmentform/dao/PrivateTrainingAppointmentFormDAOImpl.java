@@ -233,4 +233,28 @@ public class PrivateTrainingAppointmentFormDAOImpl implements PrivateTrainingApp
 //		return resultList;
 	}
 
+	@Override
+	public boolean canComment(Integer ptaNo) {
+		boolean valuesExist = false;
+
+        // 準備 HQL 查詢
+        String hql = "SELECT COUNT(pta) "+
+        		"FROM PrivateTrainingAppointmentForm pta "+
+        		"JOIN pta.appointmentDetail ad "+
+        		"JOIN pta.member mem "+
+        		"WHERE ad.appTime <= CURRENT_DATE - 1 AND pta.ptaNo = :ptaNo";
+
+        // 創建查詢
+        Query<Long> query = getSession().createQuery(hql, Long.class);
+
+        // 取得查詢結果
+        Long count = query.setParameter("ptaNo", ptaNo).uniqueResult();
+
+        // 檢查是否有找到值
+        if (count != null && count > 0) {
+            valuesExist = true;
+        }
+
+        return valuesExist;
+    }
 }

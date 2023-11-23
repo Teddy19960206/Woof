@@ -49,4 +49,6 @@ public interface PrivateTrainingAppointmentFormService {
 	List<PrivateTrainingAppointmentForm> getNonReportedComment(Integer trainerNo);
 	
 	List<AppointmentDetailDTO> cannotComment(String MemNo);
+	
+	boolean canComment(Integer ptaNo);
 }
