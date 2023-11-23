@@ -57,6 +57,7 @@ public class CarouselController {
             if (sequence != null) carousel.setSequence(sequence);
             if (isActive != null) carousel.setIsActive(isActive);
 
+            carouselService.updateCarousel(carousel);
             return new ResponseEntity<>(carousel , HttpStatus.OK);
         }else{
             return ResponseEntity.notFound().build();
@@ -94,7 +95,13 @@ public class CarouselController {
         }
     }
 
-    @DeleteMapping("/delete/{carId}")
+    @GetMapping("/CarouselActive")
+    public List<Carousel> getActiveCarousel(){
+
+        return carouselService.getActiveCarousel();
+    }
+
+    @DeleteMapping("/deleteCarousel/{carId}")
     public void deleteCarousel(@PathVariable Integer carId){
         carouselService.deleteCarousel(carId);
     }

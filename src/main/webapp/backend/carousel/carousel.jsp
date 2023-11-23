@@ -40,6 +40,9 @@
     label{
       font-size: 20px;
     }
+    input{
+      text-align: center;
+    }
 
   </style>
 </head>

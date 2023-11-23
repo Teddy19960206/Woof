@@ -48,34 +48,8 @@ public class CarouselService {
     }
 
 //    單一修改
-    public Carousel updateCarousel(Integer carId , byte[] image , String title , String content , Integer sequence , Integer isActive){
-        Optional<Carousel> carouselOptional = responsitory.findById(carId);
-
-        if (carouselOptional.isPresent()) {
-            Carousel carousel = carouselOptional.get();
-
-            if (image != null) {
-                carousel.setImage(image);
-            }
-            if (title != null) {
-                carousel.setTitle(title);
-            }
-            if (content != null) {
-                carousel.setContent(content);
-            }
-            if (sequence != null) {
-                carousel.setSequence(sequence);
-            }
-            if (isActive != null) {
-                carousel.setIsActive(isActive);
-            }
-
-
-            return responsitory.save(carousel);
-        } else {
-
-            throw new RuntimeException("Carousel not found with id: " + carId);
-        }
+    public Carousel updateCarousel(Carousel carousel){
+        return responsitory.save(carousel);
     }
 
 //    批量修改
@@ -93,4 +67,7 @@ public class CarouselService {
         return responsitory.saveAll(carouselsToUpdate);
     }
 
+    public List<Carousel> getActiveCarousel(){
+        return responsitory.findByIsActiveOrderBySequence(1);
+    }
 }
