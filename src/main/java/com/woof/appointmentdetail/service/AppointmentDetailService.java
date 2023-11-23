@@ -30,4 +30,8 @@ public interface AppointmentDetailService {
 	List<AppointmentDetail> findAdByAppTime(Date appTime);
 	
 	long getTotalByPtaNo(Integer ptaNo);
+	
+	List<AppointmentDetail> getAllUpdateStatus();
+	
+	void updateStatus(Integer adNo);
 }

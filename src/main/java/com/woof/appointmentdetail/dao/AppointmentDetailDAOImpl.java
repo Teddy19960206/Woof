@@ -129,11 +129,20 @@ public class AppointmentDetailDAOImpl implements AppointmentDetailDAO {
 		return (AppointmentDetail) query.getSingleResult();
 	}
 
+	// 找出預約時間在現在時刻或之前且預約狀態為0(接受)的預約單明細
 	@Override
-	public List<AppointmentDetail> getUpStatus() {
-		return getSession().createQuery("FROM AppointmentDetail a WHERE a.privateTrainingAppointmentForm.ptaNo = :ptaNo ORDER BY appTime DESC", AppointmentDetail.class)
+	public List<AppointmentDetail> getUpdateStatus() {
+		return getSession().createQuery("FROM AppointmentDetail ad WHERE ad.appTime <= NOW() AND ad.appStatus = 0 ", AppointmentDetail.class)
 				.list();
 	}
-	
-	
+
+	@Override
+	public void updateStatus(Integer adNo, Integer appStatus) {
+		String hql = "UPDATE appointmentDetail ad SET ad.appStatus = :appStatus WHERE ad.adNo = :adNo";
+        Query query = getSession().createQuery(hql);
+        query.setParameter("appStatus" , appStatus);
+        query.setParameter("adNo" , adNo);
+        query.executeUpdate();
+	}
+
 }

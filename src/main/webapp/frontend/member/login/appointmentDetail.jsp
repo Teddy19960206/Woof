@@ -364,11 +364,14 @@ a {
         							</td>
                                 	<td>
                                 		<c:choose>
-            								<c:when test="${AD.appStatus != 1}">
+            								<c:when test="${AD.appStatus == 0}">
           											<button data-id="${AD.adNo}" class="btn btn-cancel cancel" type="button">取消預約</button>
                                  		 	</c:when>
-                                 		 	<c:otherwise>
+                                 		 	<c:when test="${AD.appStatus == 1}">
                 								<button class="btn btn-cancel" disabled>已取消</button>
+            								</c:when>
+                                 		 	<c:otherwise>
+                								<button class="btn btn-cancel" disabled>已結束</button>
             								</c:otherwise>
         								</c:choose>
                                 	</td>

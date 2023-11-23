@@ -11,6 +11,9 @@ import com.woof.groupcourseschedule.service.GroupGourseScheduleService;
 import com.woof.groupscheduledetail.entity.GroupScheduleDetail;
 import com.woof.groupscheduledetail.service.GroupScheduleDetailService;
 import com.woof.groupscheduledetail.service.GroupScheduleDetailServiceImpl;
+import com.woof.appointmentdetail.entity.AppointmentDetail;
+import com.woof.appointmentdetail.service.AppointmentDetailService;
+import com.woof.appointmentdetail.service.AppointmentDetailServiceImpl;
 import com.woof.member.entity.Member;
 import com.woof.member.service.MemberService;
 import com.woof.member.service.MemberServiceImpl;
@@ -43,6 +46,8 @@ public class GroupScduleScheduler extends HttpServlet {
 
     private GroupScheduleDetailService groupScheduleDetailService = new GroupScheduleDetailServiceImpl();
 
+    private AppointmentDetailService appointmentDetailService = new AppointmentDetailServiceImpl();
+   
     private Gson gson = new GsonBuilder()
             .setExclusionStrategies()
             .addSerializationExclusionStrategy(new JsonIgnoreExclusionStrategy(true))
@@ -159,14 +164,15 @@ public class GroupScduleScheduler extends HttpServlet {
                     }
                 },
                 
+                // 日期一到 變成不能取消預約 (把取消預約按鈕不能按)
                 ()->{
                 	Session currentSession = sessionFactory.getCurrentSession();
                     try{
                         currentSession.beginTransaction();
-//                      尋找Schedule 確認開課 (2) 後 該課程的所有上課時間 都已經小於現在時間時， 狀態改變成 5 (已結束)
-                        List<GroupCourseSchedule> allConfirmSchedule = groupGourseScheduleService.getAllConfirmSchedule();
+                        
+                        List<AppointmentDetail> allAppointments = appointmentDetailService.getAllUpdateStatus();
 
-                        for (GroupCourseSchedule groupCourseSchedule : allConfirmSchedule) {
+                        for (AppointmentDetail appointmentDetail : allAppointments) {
                             Calendar today = Calendar.getInstance();
                             today.set(Calendar.HOUR_OF_DAY, 0);
                             today.set(Calendar.MINUTE, 0);
@@ -174,10 +180,9 @@ public class GroupScduleScheduler extends HttpServlet {
                             today.set(Calendar.MILLISECOND, 0);
 
 //                          且報名該課程的人 order ，狀態改變成 4 (已完成)
-
-                            GroupScheduleDetail maxDate = groupScheduleDetailService.getMaxDate(groupCourseSchedule.getGcsNo());
-                            if (maxDate != null && maxDate.getClassDate().before(today.getTime())) {
-                                groupCourseOrderService.finishOrder(groupCourseSchedule.getGcsNo());
+                            Integer adNo = appointmentDetail.getAdNo();
+                            if (appointmentDetail.getAppTime().before(today.getTime())){
+                            	appointmentDetailService.updateStatus(adNo);
                             }
                         }
 
