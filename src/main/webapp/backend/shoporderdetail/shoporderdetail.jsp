@@ -25,21 +25,11 @@ request.setCharacterEncoding("UTF-8");
 			<thead>
 				<tr>
 					<th>訂單編號</th>
-					<th>會員帳號</th>
-					<!--                     <th>會員名稱</th> -->
-					<th>訂單成立時間</th>
-					<th>付款方式</th>
-					<th>取貨方式</th>
-					<th>收件人姓名</th>
-					<th>收件人電話</th>
-					<th>收件人地址</th>
-					<th>是否退貨</th>
-					<th>折抵毛毛幣</th>
-					<th>訂單總計</th>
-					<th>實付金額</th>
-					<th>狀態</th>
-					<th>更新</th>
-					<th>明細</th>
+					<th>商品</th>
+					<th>照片</th>
+					<th>數量</th>
+					<th>單價</th>
+					<th>金額</th>
 				</tr>
 			</thead>
 			<tbody>
