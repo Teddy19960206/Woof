@@ -25,7 +25,16 @@ request.setCharacterEncoding("UTF-8");
 				<a class="btn btn-primary"
 					href="${pageContext.request.contextPath}/shoporder?action=getAll">查詢全部訂單</a>
 			</div>
-			<div class="col-2"></div>
+			<div class="col-5">
+				<jsp:useBean id="memberService" scope="page"
+					class="com.woof.member.service.MemberServiceImpl" />
+				<form method="POST"
+					action="${pageContext.request.contextPath}/shoporder?action=getByMemNo"
+					class="form-inline">
+					<label class="mr-2"><b>搜尋會員編號:</b></label> <input name="memNo">
+					<button type="submit" class="btn btn-primary">查詢</button>
+				</form>
+			</div>
 		</div>
 	</div>
 	<h3 class="mt-1 text-center">全部訂單</h3>

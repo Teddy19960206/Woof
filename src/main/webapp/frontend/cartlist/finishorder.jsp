@@ -115,7 +115,7 @@
 		
 		<div class="text-center mt-4">
             <a href="<%=request.getContextPath()%>/index.jsp" class="btn btn-secondary">回首頁</a> 
-            <a href="#" class="btn btn-primary">查看詳細</a> 
+<%--             <a href="<%=request.getContextPath()%>/frontend/member/shoporderdetailmem.jsp" class="btn btn-primary">查看詳細</a>  --%>
         </div>
         
 	</div>

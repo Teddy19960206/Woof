@@ -8,21 +8,7 @@
 
 
 <title>訂單</title>
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<style>
-body {
-	padding: 20px;
-}
 
-.container {
-	max-width: 800px;
-}
-
-.form-group {
-	margin-bottom: 20px;
-}
-</style>
 
 </head>
 <body>
@@ -37,21 +23,16 @@ body {
 		</form>
 
 		<h1>單一會員訂單查詢</h1>
-<!-- 		可能不用透過servlet 直接從service 抓方法 -->
+		<!-- 		可能不用透過servlet 直接從service 抓方法 -->
 		<jsp:useBean id="memberService" scope="page"
-				class="com.woof.member.service.MemberServiceImpl" />
-			<form method="POST"
-				action="${pageContext.request.contextPath}/shoporder?action=getByMemNo"
-				class="form-inline">
-				<label class="mr-2"><b>選擇會員編號:</b></label> 
-				<select name="memNo"
-					class="form-control mr-2">
-					<c:forEach var="member" items="${memberService.allMembers}">
-							<option value="${member.memNo}">${member.memNo}</option>
-						</c:forEach>
-				</select>
-				<button type="submit" class="btn btn-primary">查詢</button>
-			</form>
+			class="com.woof.member.service.MemberServiceImpl" />
+		<form method="POST"
+			action="${pageContext.request.contextPath}/shoporder?action=getByMemNo"
+			class="form-inline">
+			<label class="mr-2"><b>選擇會員編號:</b></label> 
+				<input name="memNo">
+			<button type="submit" class="btn btn-primary">查詢</button>
+		</form>
 
 
 	</div>

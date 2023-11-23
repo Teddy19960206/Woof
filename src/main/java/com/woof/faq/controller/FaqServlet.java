@@ -41,6 +41,10 @@ public class FaqServlet extends HttpServlet {
 		case "getAll":
 			forwardPath = getAll(req, resp);
 			break;
+			
+		case "getAll2":
+			forwardPath = getAll2(req, resp);
+			break;	
 
 		case "addfaq":
 			forwardPath = addfaq(req, resp);
@@ -85,6 +89,17 @@ public class FaqServlet extends HttpServlet {
 		return "/backend/faq/getAll.jsp";
 	}
 
+	
+	private String getAll2(HttpServletRequest req, HttpServletResponse resp) {
+
+		List<Faq> all = faqService.getAllFaq();
+		
+		req.setAttribute("all", all);		
+		
+		return "/frontend/faqfront/faqfront.jsp";
+	}
+	
+	
 	private String addfaq(HttpServletRequest req, HttpServletResponse resp) {
 
 		String faqClass = req.getParameter("faqClass");

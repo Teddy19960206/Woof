@@ -45,7 +45,7 @@
           <a class="nav-link" href="#">最新消息</a>
         </li>
         <li class="nav-item me-3">
-          <a class="nav-link" href="#">
+          <a class="nav-link" href="<%=request.getContextPath()%>/faq?action=getAll2">
             <img src="<%=request.getContextPath()%>/webutil/icons/person-circle-question-solid.svg" style="width: 30px" />
             <p class="d-xl-none d-inline text-center mx-3">FAQ</p>
           </a>

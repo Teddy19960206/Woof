@@ -20,4 +20,6 @@ public interface FaqService {
 	List<Faq> getAllFaq(int currentPage);
 
 	int getPageTotal();
+
+	
 }

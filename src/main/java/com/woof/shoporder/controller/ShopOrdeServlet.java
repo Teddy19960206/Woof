@@ -295,7 +295,7 @@ private String getByMemNo(HttpServletRequest request, HttpServletResponse respon
 		request.setAttribute("shopOrders", shopOrders);
 		request.setAttribute("currentPage", currentPage);
 		
-		return "/backend/shoporder/getAllshoporder.jsp";
+		return "/backend/shoporder/getOneshoporder.jsp";
 	}
 
 }
