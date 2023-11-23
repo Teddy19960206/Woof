@@ -60,7 +60,6 @@
 		<dispatcher>ASYNC</dispatcher>
 	</filter-mapping>
 
-
 	<servlet>
 		<servlet-name>scheduler</servlet-name>
 		<servlet-class>com.woof.scheduler.GroupScduleScheduler</servlet-class>
@@ -75,5 +74,14 @@
 		<servlet-name>scheduler</servlet-name>
 		<url-pattern>/scheduler</url-pattern>
 	</servlet-mapping>
+	
+	<error-page>
+        <error-code>404</error-code>
+        <location>/404.html</location>
+	</error-page>
+	<error-page>
+        <error-code>500</error-code>
+        <location>/500.html</location>
+	</error-page>
 
 </web-app>
