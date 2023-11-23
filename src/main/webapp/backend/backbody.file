@@ -154,6 +154,9 @@
                     <li class="sidebar-item">
                       <a href="${pageContext.request.contextPath}/commentreport?action=getAll" class="sidebar-link2">評論檢舉處理</a>
                     </li>
+                      <li class="sidebar-item">
+                          <a href="${pageContext.request.contextPath}/backend/carousel/carousel.jsp" class="sidebar-link2">輪播管理</a>
+                      </li>
                   </ul>
                 </li>
                 <li class="sidebar-item">

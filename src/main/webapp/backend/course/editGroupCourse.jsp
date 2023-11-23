@@ -103,14 +103,12 @@
                 </div>
 
                 <div class="col-12 mt-5 text-center">
-
                     <label>課程內容：</label>
                     <div class="offset-2 col-8 mx-auto">
                         <div class="form-floating mx-auto">
                           <textarea name="content" class="form-control" style="height: 100px;">${groupCourse.courseContent}</textarea>
                       </div>
                     </div>
-
                 </div>
                 <div class="mt-5 text-center ">
                     <button type="submit" class="btn btn-primary">確定修改</button>
