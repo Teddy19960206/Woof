@@ -36,7 +36,7 @@ public class GroupScduleScheduler extends HttpServlet {
 
     SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 
-    ScheduledExecutorService executorService = Executors.newScheduledThreadPool(3); // 根據需要調整線程池大小
+    ScheduledExecutorService executorService = Executors.newScheduledThreadPool(4); // 根據需要調整線程池大小
     private GroupGourseScheduleService groupGourseScheduleService = new GroupCourseScheduleServiceImpl();
 
     private GroupCourseOrderService groupCourseOrderService = new GroupCourseOrderServiceImpl();
@@ -132,6 +132,35 @@ public class GroupScduleScheduler extends HttpServlet {
 
                 ()->{
                     Session currentSession = sessionFactory.getCurrentSession();
+                    try{
+                        currentSession.beginTransaction();
+//                      尋找Schedule 確認開課 (2) 後 該課程的所有上課時間 都已經小於現在時間時， 狀態改變成 5 (已結束)
+                        List<GroupCourseSchedule> allConfirmSchedule = groupGourseScheduleService.getAllConfirmSchedule();
+
+                        for (GroupCourseSchedule groupCourseSchedule : allConfirmSchedule) {
+                            Calendar today = Calendar.getInstance();
+                            today.set(Calendar.HOUR_OF_DAY, 0);
+                            today.set(Calendar.MINUTE, 0);
+                            today.set(Calendar.SECOND, 0);
+                            today.set(Calendar.MILLISECOND, 0);
+
+//                          且報名該課程的人 order ，狀態改變成 4 (已完成)
+
+                            GroupScheduleDetail maxDate = groupScheduleDetailService.getMaxDate(groupCourseSchedule.getGcsNo());
+                            if (maxDate != null && maxDate.getClassDate().before(today.getTime())) {
+                                groupCourseOrderService.finishOrder(groupCourseSchedule.getGcsNo());
+                            }
+                        }
+
+                        currentSession.getTransaction().commit();
+                    }catch (Exception e){
+                        e.printStackTrace();
+                        currentSession.getTransaction().rollback();;
+                    }
+                },
+                
+                ()->{
+                	Session currentSession = sessionFactory.getCurrentSession();
                     try{
                         currentSession.beginTransaction();
 //                      尋找Schedule 確認開課 (2) 後 該課程的所有上課時間 都已經小於現在時間時， 狀態改變成 5 (已結束)

@@ -30,5 +30,5 @@ public interface AppointmentDetailDAO {
 	// 用FK查詢資料數量
 	long getTotalByPtaNo(Integer ptaNo);
 
-
+	List<AppointmentDetail> getUpStatus();
 }

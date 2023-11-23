@@ -128,4 +128,12 @@ public class AppointmentDetailDAOImpl implements AppointmentDetailDAO {
 		query.setParameter("date", date);
 		return (AppointmentDetail) query.getSingleResult();
 	}
+
+	@Override
+	public List<AppointmentDetail> getUpStatus() {
+		return getSession().createQuery("FROM AppointmentDetail a WHERE a.privateTrainingAppointmentForm.ptaNo = :ptaNo ORDER BY appTime DESC", AppointmentDetail.class)
+				.list();
+	}
+	
+	
 }
