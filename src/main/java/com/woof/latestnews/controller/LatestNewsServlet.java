@@ -110,7 +110,7 @@ public class LatestNewsServlet extends HttpServlet {
 			    latestNewsService.updateLatestNews(ln);
 
 			    // 重定向到指定的URL
-			    String url = req.getContextPath()+"/frontend/latestNews/latestNews.jsp";
+			    String url = req.getContextPath()+"/frontend/latestnews/latestNews.jsp";
 			    res.sendRedirect(url);
 			}
 
@@ -150,7 +150,7 @@ public class LatestNewsServlet extends HttpServlet {
 			
 		
 			//導到指定的URL 頁面上 把請求回應都帶過去
-			String url = req.getContextPath()+"/frontend/latestNews/latestNews.jsp";
+			String url = req.getContextPath()+"/frontend/latestnews/latestNews.jsp";
 			res.sendRedirect(url);
 		}
 
