@@ -2,6 +2,9 @@ package com.woof.administrator.controller;
 
 import com.woof.administrator.service.AdministratorService;
 import com.woof.administrator.service.AdministratorServiceImpl;
+import com.woof.member.entity.Member;
+import com.woof.member.service.MemberService;
+import com.woof.member.service.MemberServiceImpl;
 import com.woof.administrator.service.AdministratorService;
 import com.woof.administrator.service.AdministratorServiceImpl;
 import com.alibaba.fastjson2.JSONObject;
@@ -18,7 +21,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
-
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.io.IOException;
@@ -62,8 +64,50 @@ public class AdministratorServlet extends HttpServlet {
 			break;
 		case "query":
 			processQuery(req, res);
+			break;
+		case "getone":
+			getOne(req, res);
+			return;
 	
 		default:
+		}
+	}
+	private void getOne(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+
+		AdministratorService administratorService = new AdministratorServiceImpl();
+
+		try {
+
+			req.setCharacterEncoding("UTF-8");
+		
+
+			// 獲取特定成員
+			String adminNoStr = req.getParameter("ADMIN_NO");
+			System.out.println(adminNoStr);
+
+			if (adminNoStr != null && !adminNoStr.trim().isEmpty()) {
+				try {
+
+					Administrator administrator = administratorService.findAdministratorByAdminNo(adminNoStr);;
+					req.setAttribute("administrator", administrator);
+				} catch (NumberFormatException e) {
+					e.printStackTrace();
+				}
+			} else {
+				req.setAttribute("error", "Invalid administrator number provided.");
+				RequestDispatcher dispatcher = req.getRequestDispatcher("/frontend/administrator/errorPage.jsp");
+				dispatcher.forward(req, res);
+				return;
+			}
+			// 設置編碼和轉發到指定的JSP頁面
+			req.setCharacterEncoding("UTF-8");
+			RequestDispatcher dispatcher = req.getRequestDispatcher("/frontend/administrator/listoneadministrator.jsp");
+			dispatcher.forward(req, res);
+
+		} catch (Exception e) {
+			// 處理其他潛在錯誤
+			e.printStackTrace();
+
 		}
 	}
 
@@ -189,34 +233,51 @@ public class AdministratorServlet extends HttpServlet {
 //		admin.setAdminPassword (req.getParameter("ADMIN_PASSWORD"));
 		admin.setAdminTel (req.getParameter("ADMIN_TEL"));
 		admin.setAdminAddress (req.getParameter("ADMIN_ADDRESS"));
-		Date date1 = null ;
-		try {
-			date1 = new SimpleDateFormat("yyyy-mm-dd").parse(req.getParameter("ADMIN_BD"));
-		} catch (ParseException e) {
-			e.printStackTrace();
+		
+		java.sql.Date adminBD = null;
+		String adminBDStr = req.getParameter("ADMIN_BD");
+		if(adminBDStr == null || adminBDStr.length() == 0) {
+//			錯誤處理
+		}else {
+			adminBD = java.sql.Date.valueOf(adminBDStr);
 		}
-		java.sql.Date sqlDate1 = new java.sql.Date(date1.getTime());
-		admin.setAdminBd(sqlDate1);
+		
+		
+		admin.setAdminBd(adminBD);
 		admin.setEmergencyContactName(req.getParameter("EMERGENCY_CONTACTNAME"));
 		admin.setEmergencyContactel(req.getParameter("EMERGENCY_CONTACTEL"));
 		//java.sql的日期寫法
-		Date date = null ;
-		try {
-			date = new SimpleDateFormat("yyyy-mm-dd").parse(req.getParameter("ADMIN_HD"));
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		java.sql.Date sqlDate = new java.sql.Date(date.getTime());
-		admin.setAdminHd(sqlDate);
+//		Date date = null ;
+//		try {
+//			date = new SimpleDateFormat("yyyy-mm-dd").parse(req.getParameter("ADMIN_HD"));
+//		} catch (ParseException e) {
+//			e.printStackTrace();
+//		}
 		
-		Date date2 = null ;
-		try {
-			date2 = new SimpleDateFormat("yyyy-mm-dd").parse(req.getParameter("ADMIN_RD"));
-		} catch (ParseException e) {
-			e.printStackTrace();
+		String adminHdStr = req.getParameter("ADMIN_HD");
+		java.sql.Date adminHd = null;
+		if(adminHdStr == null || adminHdStr.length() == 0) {
+//			錯誤處裡
+		}else{
+			adminHd = java.sql.Date.valueOf(adminHdStr);
 		}
-		java.sql.Date sqlDate2 = new java.sql.Date(date2.getTime());
-		admin.setAdminRd(sqlDate2);
+
+		admin.setAdminHd(adminHd);
+		
+		
+
+		
+		String adminRdStr = req.getParameter("ADMIN_RD");
+		java.sql.Date adminRd = null;
+		if(adminRdStr == null || adminRdStr.length() == 0) {
+//			錯誤處裡
+		}else{
+			adminRd = java.sql.Date.valueOf(adminRdStr);
+		}
+
+		admin.setAdminRd(adminRd);
+		
+
 		admin.setAdminStatus(Integer.valueOf(req.getParameter("ADMIN_STATUS")));
 		admin.setAdminVerifyStatus(Integer.valueOf(req.getParameter("ADMIN_VERIFY_STATUS")));
 		admin.setAdminFuncName(Integer.valueOf(req.getParameter("ADMIN_FUNC_NAME")));
@@ -338,14 +399,14 @@ private void processUpdate2(HttpServletRequest req, HttpServletResponse res) thr
 		admin.setAdminTel (req.getParameter("ADMIN_TEL"));
 		admin.setAdminAddress (req.getParameter("ADMIN_ADDRESS"));
 //		日期
-		Date date4 = null ;
-		try {
-			date4 = new SimpleDateFormat("yyyy-mm-dd").parse(req.getParameter("ADMIN_BD"));
-		} catch (ParseException e) {
-			e.printStackTrace();
+		java.sql.Date adminBD = null;
+		String adminBDStr = req.getParameter("ADMIN_BD");
+		if(adminBDStr == null || adminBDStr.length() == 0) {
+//			錯誤處理
+		}else {
+			adminBD = java.sql.Date.valueOf(adminBDStr);
 		}
-		java.sql.Date sqlDate4 = new java.sql.Date(date4.getTime());
-		admin.setAdminBd(sqlDate4);
+		admin.setAdminBd(adminBD);
 		admin.setEmergencyContactName(req.getParameter("EMERGENCY_CONTACTNAME"));
 		admin.setEmergencyContactel(req.getParameter("EMERGENCY_CONTACTEL"));
 //		圖片寫法  
@@ -491,34 +552,46 @@ private void processUpdate2(HttpServletRequest req, HttpServletResponse res) thr
 //		admin.setAdminPassword (req.getParameter("ADMIN_PASSWORD"));
 		admin.setAdminTel (req.getParameter("ADMIN_TEL"));
 		admin.setAdminAddress (req.getParameter("ADMIN_ADDRESS"));
-		Date date1 = null ;
-		try {
-			date1 = new SimpleDateFormat("yyyy-mm-dd").parse(req.getParameter("ADMIN_BD"));
-		} catch (ParseException e) {
-			e.printStackTrace();
+		java.sql.Date adminBD = null;
+		String adminBDStr = req.getParameter("ADMIN_BD");
+		if(adminBDStr != null && adminBDStr.length() > 0) {
+		    try {
+		        adminBD = java.sql.Date.valueOf(adminBDStr);
+		    } catch (IllegalArgumentException e) {
+		        // 如果 adminRDStr 不是有效的日期格式，這裡會捕捉到異常
+		        // 這裡可以記錄錯誤或進行其他錯誤處理
+		    }
 		}
-		java.sql.Date sqlDate1 = new java.sql.Date(date1.getTime());
-		admin.setAdminBd(sqlDate1);
+		admin.setAdminBd(adminBD);
+		
 		admin.setEmergencyContactName(req.getParameter("EMERGENCY_CONTACTNAME"));
 		admin.setEmergencyContactel(req.getParameter("EMERGENCY_CONTACTEL"));
 		//java.sql的日期寫法
-		Date date = null ;
-		try {
-			date = new SimpleDateFormat("yyyy-mm-dd").parse(req.getParameter("ADMIN_HD"));
-		} catch (ParseException e) {
-			e.printStackTrace();
+		java.sql.Date adminHD = null;
+		String adminHDStr = req.getParameter("ADMIN_HD");
+		if(adminHDStr != null && adminHDStr.length() > 0) {
+		    try {
+		        adminHD = java.sql.Date.valueOf(adminHDStr);
+		    } catch (IllegalArgumentException e) {
+		        // 如果 adminRDStr 不是有效的日期格式，這裡會捕捉到異常
+		        // 這裡可以記錄錯誤或進行其他錯誤處理
+		    }
 		}
-		java.sql.Date sqlDate = new java.sql.Date(date.getTime());
-		admin.setAdminHd(sqlDate);
-		Date date2 = null ;
-		try {
-			date2 = new SimpleDateFormat("yyyy-mm-dd").parse(req.getParameter("ADMIN_RD"));
-		} catch (ParseException e) {
-			e.printStackTrace();
+		admin.setAdminHd(adminHD);
+		
+		java.sql.Date adminRD = null;
+		String adminRDStr = req.getParameter("ADMIN_RD");
+		if(adminRDStr != null && adminRDStr.length() > 0) {
+		    try {
+		        adminRD = java.sql.Date.valueOf(adminRDStr);
+		    } catch (IllegalArgumentException e) {
+		        // 如果 adminRDStr 不是有效的日期格式，這裡會捕捉到異常
+		        // 這裡可以記錄錯誤或進行其他錯誤處理
+		    }
 		}
-		java.sql.Date sqlDate2 = new java.sql.Date(date2.getTime());
-		admin.setAdminRd(sqlDate2);
+		admin.setAdminRd(adminRD);
 		admin.setAdminStatus(Integer.valueOf(req.getParameter("ADMIN_STATUS")));
+		admin.setAdminVerifyStatus(Integer.valueOf(req.getParameter("ADMIN_VERIFY_STATUS")));
 		// 取得圖片 
 		// 開串流
 		Part p = req.getPart("ADMIN_PHOTO");

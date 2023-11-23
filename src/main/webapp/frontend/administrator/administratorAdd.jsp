@@ -203,6 +203,14 @@
 			</td>
 		</tr>
 		<tr>
+			<th>驗證碼狀態</th>
+			<td>
+				<input type="radio" name="ADMIN_VERIFY_STATUS" value="0">未驗證
+				<input type="radio" name="ADMIN_VERIFY_STATUS" value="1" checked>已驗證
+				
+			</td>
+		</tr>
+		<tr>
 			<th>管理員帳號權限</th>
 			<td>
 				<input type="radio" name="ADMIN_FUNC_NAME" value="0">無功能
