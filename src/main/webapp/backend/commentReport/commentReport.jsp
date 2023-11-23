@@ -35,6 +35,25 @@
         .btn:hover {
             background-color: #357ebd;
         }
+        .pagination {
+		  margin-top: 20px;
+		  text-align: center;
+		}
+		
+		.pagination a {
+		  color: #428bca;
+		  padding: 5px 10px;
+		  text-decoration: none;
+		  border: 1px solid #428bca;
+		  border-radius: 3px;
+		  margin: 0 5px;
+		}
+		
+		.pagination a:hover {
+		  background-color: #428bca;
+		  color: #fff;
+		  transition: all 0.3s ease;
+		}
         
     </style>
 </head>
@@ -49,6 +68,7 @@
                 <th>評論檢舉編號</th>
                 <th>私人訓練預約單編號</th>
                 <th>撰寫評論的帳號</th>
+                <th>被檢舉的內容</th>
                 <th>檢舉時間</th>
                 <th>處理狀態</th>
                 <th></th>
@@ -60,8 +80,19 @@
                     <td>${commentReport.crNo}</td>
                     <td>${commentReport.privateTrainingAppointmentForm.ptaNo}</td>
                     <td>${commentReport.privateTrainingAppointmentForm.member.memNo}</td>
+                    <td class="truncated-text">${commentReport.crContext}</td>
                     <td>${commentReport.crDate}</td>
-                    <td>${commentReport.crStatus}</td>
+                    <c:choose>
+    					<c:when test="${commentReport.crStatus == 0}">
+        					<td>待處理</td>
+    					</c:when>
+    					<c:when test="${commentReport.crStatus == 1}">
+        					<td>檢舉通過</td>
+    					</c:when>
+    					<c:when test="${commentReport.crStatus == 2}">
+        					<td>檢舉未通過</td>
+    					</c:when>
+					</c:choose>
                     <td>
                         <form method="post" action="${pageContext.request.contextPath}/backend/commentReport/commentReportUpdate.jsp">
                             <input type="hidden" name="crNo" value="${commentReport.crNo}">
