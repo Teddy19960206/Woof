@@ -17,6 +17,7 @@
             color: #333; /* 文字顏色 */
             font-weight: bold; /* 加粗字體 */
             box-shadow: none; /* 移除陰影 */
+            max-width: 700px;
         }
         .accordion-button::after {
             background-image: url('plus-icon-path'); /* 使用加號圖示 */

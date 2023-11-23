@@ -144,7 +144,7 @@
                       <a href="#" class="sidebar-link2">最新消息管理</a>
                     </li>
                     <li class="sidebar-item">
-                      <a href="${pageContext.request.contextPath}/backend/faq/faqfirst.jsp" class="sidebar-link2"
+                      <a href="${pageContext.request.contextPath}/faq?action=getAll" class="sidebar-link2"
                         >FAQ管理</a
                       >
                     </li>
