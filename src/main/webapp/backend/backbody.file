@@ -118,7 +118,7 @@
                       <a href="${pageContext.request.contextPath}/productPage.html" class="sidebar-link2">商品管理</a>
                     </li>
                     <li class="sidebar-item">
-                      <a href="${pageContext.request.contextPath}/backend/shoporder/getAllshoporder.jsp" class="sidebar-link2">商品訂單管理</a>
+                      <a href="${pageContext.request.contextPath}/shoporder?action=getAll" class="sidebar-link2">商品訂單管理</a>
                     </li>
                   </ul>
                 </li>

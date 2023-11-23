@@ -97,10 +97,10 @@ public class ShopOrdeServlet extends HttpServlet {
 		int currentPage = (page == null) ? 1 : Integer.parseInt(page);
 
 		// 會卡暫存視情況隱藏
-		if (request.getSession().getAttribute("faqPageQty") == null) {
+//		if (request.getSession().getAttribute("faqPageQty") == null) {
 			int shopOrderPageQty = shopOrderService.getPageTotal();
 			request.getSession().setAttribute("shopOrderPageQty", shopOrderPageQty);
-		}
+//		}
 
 		List<ShopOrder> all = shopOrderService.getAllShopOrder(currentPage);
 

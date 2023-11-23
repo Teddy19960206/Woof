@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>寵毛導師 Woof | FAQ管理</title>
+<title>新增</title>
 
 <%@ include file="/backend/backhead.file"%>
 
@@ -13,9 +13,9 @@
 	<%@ include file="/backend/backbody.file"%>
 
 	<div class="container pt-3">
-		<h1 class="text-center">新增FAQ</h1>
+		<h1 class="text-center">確定修改FAQ</h1>
 
-		<form action="${pageContext.request.contextPath}/faq/addfaq"
+		<form action="${pageContext.request.contextPath}/faq/updatefaq"
 			method="post">
 
 			<table class="table table-hover text-center">
@@ -23,22 +23,23 @@
 					<tr>
 						<th class="col-1">FAQ編號</th>
 						<th class="col-2">類別</th>
-						<th class="col-2">標題</th>
-						<th class="col-7">內容</th>
+						<th class="col-3">標題</th>
+						<th class="col-6">內容</th>
 					</tr>
 				</thead>
 				<tr>
-					<td>${result.faqNo}</td>
-					<td>${result.faqClass}</td>
-					<td>${result.faqTitle}</td>
-					<td>${result.faqContent}</td>
+					<td>${updatedFaq.faqNo}</td>
+					<td>${updatedFaq.faqClass}</td>
+					<td>${updatedFaq.faqTitle}</td>
+					<td>${updatedFaq.faqContent}</td>
 				</tr>
 			</table>
-			<a class="btn btn-secondary" href="${pageContext.request.contextPath}/faq?action=getAll">返回</a>
-		</form>
+		<a href="${pageContext.request.contextPath}/faq?action=getAll" class="btn btn-secondary">返回</a>		
+			</form>
 	</div>
 
 	<%@ include file="/backend/backfoot.file"%>
 
+	
 </body>
 </html>
