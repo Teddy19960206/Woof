@@ -27,6 +27,7 @@
 /* 基本樣式，適用於大屏幕 */
 body {
 	font-family: Arial, sans-serif;
+	background-color: #f4f4f4;
 }
 /* 小於或等於 768px 的屏幕（如平板） */
 @media screen and (max-width: 768px) {
@@ -58,18 +59,20 @@ body {
 }
 
 table {
-	width: 100%;
-	border-collapse: collapse;
-	margin-top: 5px;
-	margin-bottom: 5px;
-	background-color: white;
-	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    width: 60%;
+    border-collapse: collapse;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-left: auto;  /* 左邊距設為自動 */
+    margin-right: auto; /* 右邊距設為自動 */
+    background-color: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 th {
 	background-color: #FFA500; /* 橘色背景 */
 	color: white;
-	padding: 15px;
+	padding: 5px;
 	text-align: center;
 	font-size: 16px;
 }
@@ -143,68 +146,95 @@ tr:hover {
 			style="position: absolute; top: 20px; right: 20px;"><i
 			class="fa-solid fa-arrow-rotate-left"></i></a>
 	</div>
-	<table>
-		<tr>
-			<th>編號</th>
-			<th>姓名</th>
-			<th>性別</th>
-			<th>照片</th>
-			<th>email</th>
-			<th>電話</th>
-			<th>地址</th>
-			<th>生日</th>
-			<th>毛毛幣</th>
-			<th>課堂數</th>
-			<th>狀態</th>
-			<th></th>
-		</tr>
-		<tr>
-			<td>${member.memNo}</td>
-			<td>${member.memName}</td>
-			<td><c:choose>
-					<c:when test="${member.memGender == 'M'}">
-						<span>男</span>
-					</c:when>
-					<c:when test="${member.memGender == 'F'}">
-						<span>女</span>
-					</c:when>
-					<c:otherwise>
-						<span>未設定</span>
-					</c:otherwise>
-				</c:choose></td>
-			<td><img
-				src="${pageContext.request.contextPath}/DBPngReader?action=member&id=${member.memNo}"
-				onerror="this.onerror=null; this.src='/woof/backend/member/jpg/dog.jpg';"
-				style="width: 100px; height: 100px;border-radius: 50%;"></td>
-			<td>${member.memEmail}</td>
-			<td>${member.memTel}</td>
-			<td>${member.memAddress}</td>
-			<td>${member.memBd}</td>
-			<td>${member.momoPoint}</td>
-			<td>${member.totalClass}</td>
-			<td><c:choose>
-					<c:when test="${member.memStatus == 0}">
-						<span class="status-label status-suspended">停權</span>
-					</c:when>
-					<c:when test="${member.memStatus == 1}">
-						<span class="status-label status-normal">正常</span>
-					</c:when>
-					<c:when test="${member.memStatus == 2}">
-						<span class="status-label status-nonvalid">未驗證</span>
-					</c:when>
-				</c:choose></td>
-			<td>
-				<form method="post"
-					action="${pageContext.request.contextPath}/member.do"
-					onsubmit="return confirmChangeStatus(this);"
-					style="margin-bottom: 0px;">
-					<input type="hidden" name="action" value="changestatus"> <input
-						type="hidden" name="memNo" value="${member.memNo}"> <input
-						type="submit" class="update-btn" value="修改狀態">
-				</form>
-			</td>
-		</tr>
-	</table>
+<table>
+	<tr>
+        <th></th>
+        <th colspan="2" style="height: 60px;">會員資料</th> 
+    </tr>
+    <tr>
+        <th>編號</th>
+        <td>${member.memNo}</td>
+    </tr>
+    <tr>
+        <th>姓名</th>
+        <td>${member.memName}</td>
+    </tr>
+    <tr>
+        <th>性別</th>
+        <td>
+            <c:choose>
+                <c:when test="${member.memGender == 'M'}">
+                    <span>男</span>
+                </c:when>
+                <c:when test="${member.memGender == 'F'}">
+                    <span>女</span>
+                </c:when>
+                <c:otherwise>
+                    <span>未設定</span>
+                </c:otherwise>
+            </c:choose>
+        </td>
+    </tr>
+    <tr>
+        <th>照片</th>
+        <td>
+            <img src="${pageContext.request.contextPath}/DBPngReader?action=member&id=${member.memNo}" 
+                onerror="this.onerror=null; this.src='/woof/backend/member/jpg/dog.jpg';" 
+                style="width: 100px; height: 100px;border-radius: 50%;">
+        </td>
+    </tr>
+    <tr>
+        <th>email</th>
+        <td>${member.memEmail}</td>
+    </tr>
+    <tr>
+        <th>電話</th>
+        <td>${member.memTel}</td>
+    </tr>
+    <tr>
+        <th>地址</th>
+        <td>${member.memAddress}</td>
+    </tr>
+    <tr>
+        <th>生日</th>
+        <td>${member.memBd}</td>
+    </tr>
+    <tr>
+        <th>毛毛幣</th>
+        <td>${member.momoPoint}</td>
+    </tr>
+    <tr>
+        <th>課堂數</th>
+        <td>${member.totalClass}</td>
+    </tr>
+    <tr>
+        <th>狀態</th>
+        <td>
+            <c:choose>
+                <c:when test="${member.memStatus == 0}">
+                    <span class="status-label status-suspended">停權</span>
+                </c:when>
+                <c:when test="${member.memStatus == 1}">
+                    <span class="status-label status-normal">正常</span>
+                </c:when>
+                <c:when test="${member.memStatus == 2}">
+                    <span class="status-label status-nonvalid">未驗證</span>
+                </c:when>
+            </c:choose>
+        </td>
+    </tr>
+    <tr>
+        <th></th>
+        <td>
+            <form method="post" action="${pageContext.request.contextPath}/member.do" 
+                onsubmit="return confirmChangeStatus(this);" style="margin-bottom: 0px;">
+                <input type="hidden" name="action" value="changestatus">
+                <input type="hidden" name="memNo" value="${member.memNo}">
+                <input type="submit" class="update-btn" value="修改狀態">
+            </form>
+        </td>
+    </tr>
+</table>
 	<%@ include file="/backend/backfoot.file"%>
 </body>
 </html>

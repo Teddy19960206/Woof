@@ -10,6 +10,8 @@
 	rel="stylesheet">
 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/jquery-twzipcode@1.7.14/jquery.twzipcode.min.js"></script>
 <!-- Bootstrap CSS -->
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -22,6 +24,36 @@
 		$("#memBd").datepicker({
 			dateFormat : 'yy-mm-dd'
 		});
+	});
+</script>
+<script>
+    function togglePasswordVisibility(inputId, toggleIcon) {
+        var input = document.getElementById(inputId);
+        if (input.type === "password") {
+            input.type = "text";
+            toggleIcon.classList.add('fa-eye');
+            toggleIcon.classList.remove('fa-eye-slash');
+        } else {
+            input.type = "password";
+            toggleIcon.classList.remove('fa-eye');
+            toggleIcon.classList.add('fa-eye-slash');
+        }
+    }
+</script>
+<script>
+	$(function() {
+		$("#twzipcode").twzipcode({
+			zipcodeIntoDistrict : true,
+			css : [ "city form-control", "town form-control" ],
+			countyName : "city",
+			districtName : "town"
+		});
+		$('select[name=city],select[name=town]').change(
+				function() {
+					$('#memAddress').val(
+							$('select[name=city]').val() + ' '
+									+ $('select[name=town]').val());
+				});
 	});
 </script>
 <script>
@@ -178,6 +210,13 @@ body {
 }
 </style>
 <style>
+.twzipcode .form-control {
+	display: inline-block;
+	width: auto;
+	margin-right: 10px;
+}
+</style>
+<style>
 /* 密碼表情符號 */
 .form__input:valid+.icon::after {
 	font-size: 24px;
@@ -234,7 +273,7 @@ body {
 					<div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="TEXT" name="memNo"
-								id="memNo" size="45" readonly style="background-color: #e9ecef; border: 1px solid #ced4da;"/>
+								id="memNo" size="56" readonly style="background-color: #e9ecef; border: 1px solid #ced4da;"/>
 						</div>
 					</div>
 				</div>
@@ -243,7 +282,7 @@ body {
 					<div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="TEXT" name="memName"
-								id="memName" size="45" required />
+								id="memName" size="56" required />
 						</div>
 					</div>
 					<small class="error-msg">${errorMsgs.memName}</small>
@@ -287,39 +326,41 @@ body {
 					<div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="email" name="memEmail"
-								id="memEmail" placeholder="XXX@gmail.com" size="45" readonly style="background-color: #e9ecef; border: 1px solid #ced4da;"/>
+								id="memEmail" placeholder="XXX@gmail.com" size="56" readonly style="background-color: #e9ecef; border: 1px solid #ced4da;"/>
 						</div>
 					</div>
 					<%-- <small class="error-msg">${errorMsgs.memEmail}</small> --%>
 				</div>
- 				<div class="form-group">
+				<div class="form-group">
 					<label for="memPassword">密碼(需大於六個字):</label>
-					<div>
-						<div class="form-check form-check-inline">
-							<input class="form__input" pattern=".{6,}" type="TEXT"
-								name="memPassword" id="memPassword" size="45"/><span
-								class="icon"></span>
-						</div>
+					<div style="position: relative;">
+						<input class="form__input" pattern=".{6,}" type="password"
+							name="memPassword" id="memPassword" size="56"/> <i
+							class="fa fa-eye-slash"
+							style="position: absolute; right: 50px; top: 6px; cursor: pointer;"
+							onclick="togglePasswordVisibility('memPassword', this)"
+							id="togglePassword"></i>
+						<span class="icon" style="position: absolute; right: 10; top: 6px;"></span>
 					</div>
-				<%-- 	<small class="error-msg">${errorMsgs.memPassword}</small> --%>
+					<small class="error-msg">${errorMsgs.memPassword}</small>
 				</div>
 				<div class="form-group">
 					<label for="memTel">會員電話:</label>
 					<div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="tel" name="memTel"
-								id="memTel" size="45" required />
+								id="memTel" size="56" required />
 						</div>
 					</div>
 					<small class="error-msg">${errorMsgs.memTel}</small>
 				</div>
 				<div class="form-group">
-					<label for="memAddress">地址:</label>
-					<div>
-						<div class="form-check form-check-inline">
-							<input class="form-check-input" type="Text" name="memAddress"
-								id="memAddress" size="45" required />
-						</div>
+					<label><span class="required">*</span>地址:</label>
+					<div class="form-check form-check-inline">
+						<div id="twzipcode" class="twzipcode"></div>
+						<input class="form-check-input" type="text"
+							name="memAddress" id="memAddress"
+							placeholder="詳細地址（如街道、門牌號等" size="30" required />
 					</div>
 					<small class="error-msg">${errorMsgs.memAddress}</small>
 				</div>
@@ -328,7 +369,7 @@ body {
 					<div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="Text" name="memBd"
-								id="memBd" size="45" />
+								id="memBd" size="56" />
 						</div>
 					</div>
 				</div>
@@ -337,7 +378,7 @@ body {
 					<div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="number" name="momoPoint"
-								id="momoPoint" size="45" readonly
+								id="momoPoint" size="56" readonly
 								style="background-color: #e9ecef; border: 1px solid #ced4da;" />
 						</div>
 					</div>
@@ -347,7 +388,7 @@ body {
 					<div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="number" name="totalClass"
-								id="totalClass" size="45" readonly
+								id="totalClass" size="56" readonly
 								style="background-color: #e9ecef; border: 1px solid #ced4da;" />
 						</div>
 					</div>
@@ -357,7 +398,7 @@ body {
 					<div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="number" name="memStatus"
-								id="memStatus" size="45" readonly
+								id="memStatus" size="56" readonly
 								style="background-color: #e9ecef; border: 1px solid #ced4da;" />
 						</div>
 					</div>
