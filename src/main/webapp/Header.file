@@ -60,12 +60,22 @@
               </a>
             </li>
           </c:if>
+
         <li class="nav-item me-3">
           <a class="nav-link" href="<%=request.getContextPath()%>/frontend/member/login/membercenter.jsp">
-            <img src="<%=request.getContextPath()%>/webutil/icons/user2.svg" style="width: 30px" />
+        <c:choose>
+        <c:when test="${!empty sessionScope.member}">
+            <img src="<%=request.getContextPath()%>/DBPngReader?action=member&id=${member.memNo}" style="width: 30px; border-radius: 50%"
+              onerror="this.onerror=null; this.src='${pageContext.request.contextPath}/webutil/images/memberDog.jpg';" />
+        </c:when>
+        <c:otherwise>
+          <img src="<%=request.getContextPath()%>/webutil/icons/user2.svg" style="width: 30px" />
+        </c:otherwise>
+        </c:choose>
             <p class="d-xl-none d-inline text-center mx-3">會員中心</p>
           </a>
         </li>
+
         <li class="nav-item me-3">
           <a class="nav-link" href="<%=request.getContextPath()%>/frontend/cartlist/checkout.jsp">
             <img src="<%=request.getContextPath()%>/webutil/icons/cart-plus-solid.svg" style="width: 30px" />
@@ -77,3 +87,4 @@
     </div>
   </div>
 </div>
+
