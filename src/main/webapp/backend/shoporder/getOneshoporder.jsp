@@ -109,24 +109,26 @@ request.setCharacterEncoding("UTF-8");
 							<option value="4"
 								${shopOrders.orderStatus == 4 ? 'selected' : ''}>未付款</option>
 					</select></td>
-					<td>
+										<td>
 						<div class="d-flex flex-column">
 							<button class="edit-btn btn btn-primary"
-								style="font-size: 10px; min-width: 30px;">修改</button>
+								style="font-size: 10px; min-width: 20px;">修改</button>
 							<button class="save-btn btn btn-success"
 								style="display: none; font-size: 10px; min-width: 50px;">確定</button>
 							<button class="cancel-btn btn btn-danger mt-1"
 								style="display: none; font-size: 10px; min-width: 50px;">取消</button>
 						</div>
 					<td>
-						<form method="post"
-							action="${pageContext.request.contextPath}/backend/shoporderdetail/shoporderdetail.jsp">
-							<input type="hidden" name="" value=""> <input
-								type="hidden" name="" value=""> <input type="hidden"
-								name="" value=""> <input type="hidden" name="" value="">
-							<button class="btn btn-secondary small-btn"
-								style="font-size: 10px; min-width: 50px;" type="submit">查詢</button>
-						</form>
+						<!-- 						<form method="post" --> <%-- 							action="${pageContext.request.contextPath}/backend/shoporderdetail/shoporderdetail.jsp"> --%>
+						<%-- 							<input type="hidden" name="" value="${all.shopOrderNo}"> --%>
+						<!-- 							<button class="btn btn-secondary small-btn" --> <!-- 								style="font-size: 10px; min-width: 50px;" type="submit">查詢</button> -->
+						<!-- 						</form>  -->
+						<div class="d-flex flex-column">
+							<a
+								href="backend/shoporderdetail/shoporderdetail.jsp?shopOrderNo=${all.shopOrderNo}"
+								class="btn btn-secondary small-btn"
+								style="font-size: 10px; min-width: 20px; color: white;">查看</a>
+						</div>
 					</td>
 				</tr>
 				</c:forEach>

@@ -3,11 +3,12 @@
 <%@ page import="com.woof.shoporderdetail.entity.ShopOrderDetail"%>
 <%@ page import="com.woof.shoporder.service.ShopOrderServiceImpl"%>
 <%@ page import="com.woof.shoporder.entity.ShopOrder"%>
+<%@ page import="com.woof.shoporderdetail.entity.ShopOrderDetailDTO" %>
 <%@ page import="com.woof.member.entity.Member" %>
 <%@ page import="java.util.List"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@ page import="com.woof.shoporderdetail.entity.ShopOrderDetailDTO" %>
+
 <html>
 <head>
     <%@ include file="/meta.file"%>
@@ -299,8 +300,8 @@
                                 <th>商品名稱</th>
                                 <th>照片</th>
                                 <th>數量</th>
-                                <th>價格</th>
-                                <th>小計</th>
+                                <th>單價</th>
+                                <th>金額</th>
                             </tr>
 
                         </thead>
