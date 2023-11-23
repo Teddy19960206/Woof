@@ -17,7 +17,7 @@
 
 		<div class="accordion" id="faqAccordion">
 			<c:forEach var="entry" items="${all}">
-				<div class="accordion-item mb-3">
+				<div class="accordion-item">
 					<h2 class="accordion-header" id="heading${entry.faqNo}">
 						<button class="accordion-button collapsed bg-light" type="button"
 							data-bs-toggle="collapse"

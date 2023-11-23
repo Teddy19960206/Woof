@@ -6,16 +6,15 @@ let projectName = pathName.substring(0, pathName.substring(1).indexOf("/") + 1);
 //$(function() {
 //	getCartTotalQuantity();
 //});
-
+//
 //function getCartTotalQuantity() {
-////	let memNo = "member1"; // 從session會話中獲取真實的會員編號
 //	$.ajax({
 //		type: "POST",
 //		url: `${projectName}/cart`,
 //		data: {
 //			action: "getTotalQuantity",
-////			memNo: memNo
 //		},
+//		 dataType: "json",
 //		success: function(response) {
 //			// 假設後端返回的 response 是一個物件，包含 totalQuantity 屬性
 //			$("#cart-count").text(response.totalQuantity);
@@ -32,12 +31,12 @@ let projectName = pathName.substring(0, pathName.substring(1).indexOf("/") + 1);
 // 添加商品到購物車的 AJAX 請求
 $(".add-to-cart").on("click", function() {
 	
-	 alert("加入購物車");
+//	 alert("加入購物車");
 	 
 	let prodNo = $(this).data("id");
 	let prodName = $(this).data("name");
 	let prodPrice = $(this).data("price");
-	let quantity = parseInt($('#product-quantity').val()); // 從數量選擇器獲取選擇的數量
+	var quantity = parseInt($('#product-quantity').val()); // 從數量選擇器獲取選擇的數量
 //    var productImageSrc = $('#product-image').attr('src');
 	
 	console.log(prodNo);
@@ -49,7 +48,7 @@ $(".add-to-cart").on("click", function() {
 
 	$.ajax({
 		type: "POST",
-		url: `${projectName}/cart/list`,
+		url: `${projectName}/cart`,
 		data: {
 			action: "add",
 			prodNo: prodNo,
@@ -59,11 +58,13 @@ $(".add-to-cart").on("click", function() {
 //            productImage: productImageSrc // 發送照片 URL
 
 		},
-		success: function(data) {
+		success: function(response) {
 			console.log(data);
-			// 更新前端jsp中的數字
-			let totalQuantity = data.totalQuantity;
-			$("#cart-count").text(totalQuantity);
+			if (response.message) {
+		        alert(response.message); 
+		    }
+		    // 更新購物車數量
+		    $("#cart-count").text(response.totalQuantity);
 		},
 		error: function(xhr, status, error) {
 			if (xhr.status === 401) { // 未授權錯誤
@@ -76,8 +77,6 @@ $(".add-to-cart").on("click", function() {
 
 // 購物車圖標點擊事件
 $("#cart-icon, #cart-count").on("click", function() {
-	// 假設用戶已經登入，並且會員編號已經存儲在會話中
-//	let memNo = "member1"; // 這裡應該從會話中獲取真實的會員編號
 	
 	$.ajax({
 		type: "POST",
@@ -111,7 +110,12 @@ $("#cart-icon, #cart-count").on("click", function() {
 			//	           doucument.getElementId("cart-items-list").innerHTML = html;
 			// 顯示購物車模態框
 			$('#cartModal').modal('show');
-		}
+		},
+		 error: function(xhr, status, error) {
+            if (xhr.status === 401) {
+                window.location.href = `${projectName}/frontend/member/login/login.jsp`;
+            }
+         }
 	});
 });
 

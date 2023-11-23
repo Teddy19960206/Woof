@@ -141,7 +141,8 @@ public class CartServlet extends HttpServlet {
 
 		// 創建一個包含總數量的 Map
 		Map<String, Object> responseMap = new HashMap<>();
-		responseMap.put("totalQuantity", totalQuantity);
+		responseMap.put("totalQuantity", totalQuantity);    
+	    responseMap.put("message", "商品已成功加入購物車！"); 
 		responseMap.put("cart", cart);
 
 		// 將 Map 轉換為 JSON 字符串

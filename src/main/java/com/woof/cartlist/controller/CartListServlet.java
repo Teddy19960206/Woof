@@ -22,11 +22,13 @@ public class CartListServlet extends HttpServlet {
             jedis = new Jedis("localhost", 6379);
 
             if ("getCart".equals(action)) {
-//              String memNo = request.getParameter("memNo");
-//            	String memNo = "member1";
-            	
+           	
             	Member member = (Member) request.getSession(false).getAttribute("member");
-    	        String memNo = member.getMemNo();
+            	if (member == null) {
+            	    response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "用戶未登入");
+            	    return;
+            	}
+            	String memNo = member.getMemNo();
                 // 從 Redis 獲取當前購物車
                 String cartJson = jedis.get(memNo);
                 
