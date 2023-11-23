@@ -19,27 +19,17 @@ request.setCharacterEncoding("UTF-8");
 
 	<%@ include file="/backend/backbody.file"%>
 
-	<div class="container text-center p-2">
+	<div class="container text-center p-3">
 		<h3>訂單明細</h3>
 		<table class="table table-hover">
 			<thead>
 				<tr>
 					<th>訂單編號</th>
-					<th>會員帳號</th>
-					<!--                     <th>會員名稱</th> -->
-					<th>訂單成立時間</th>
-					<th>付款方式</th>
-					<th>取貨方式</th>
-					<th>收件人姓名</th>
-					<th>收件人電話</th>
-					<th>收件人地址</th>
-					<th>是否退貨</th>
-					<th>折抵毛毛幣</th>
-					<th>訂單總計</th>
-					<th>實付金額</th>
-					<th>狀態</th>
-					<th>更新</th>
-					<th>明細</th>
+					<th>商品</th>
+					<th>照片</th>
+					<th>數量</th>
+					<th>單價</th>
+					<th>金額</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -103,25 +93,6 @@ request.setCharacterEncoding("UTF-8");
 					</tr>
 				</c:forEach>
 
-				<%--                             <form method="post" action="${pageContext.request.contextPath}/backend/faq/updatefaq.jsp"> --%>
-				<%--                                 <input type="hidden" name="faqNo" value="${all.faqNo}"> --%>
-				<!--                                 <input type="hidden" name="action" value="updatefaq"> -->
-				<!--                                 <button class="btn btn-success" type="submit">修改</button> -->
-				<!--                             </form> -->
-
-				
-
-				<!--                         </td> -->
-				<!--                         <td> -->
-				<%--                             <form method="post" action="${pageContext.request.contextPath}/faq"> --%>
-				<%--                                 <input type="hidden" name="faqNo" value="${all.faqNo}"> --%>
-				<!--                                 <input type="hidden" name="action" value="deletefaq"> -->
-				<!--                                 <button class="btn btn-danger small-btn" style="font-size: 10px;" type="submit">刪除</button> -->
-
-				<!--                             </form> -->
-				<!--                         </td> -->
-				<!--                     </tr> -->
-				<%--                 </c:forEach> --%>
 			</tbody>
 		</table>
 
@@ -133,8 +104,8 @@ request.setCharacterEncoding("UTF-8");
 	</div>
 
 	<%@ include file="/backend/backfoot.file"%>
-	<script
-		src="${pageContext.request.contextPath}/backend/shoporder/js/getAllshoporder.js"></script>
+<!-- 	<script -->
+<%-- 		src="${pageContext.request.contextPath}/backend/shoporder/js/getAllshoporder.js"></script> --%>
 
 </body>
 </html>
