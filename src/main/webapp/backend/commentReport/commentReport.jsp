@@ -97,6 +97,8 @@
                         <form method="post" action="${pageContext.request.contextPath}/backend/commentReport/commentReportUpdate.jsp">
                             <input type="hidden" name="crNo" value="${commentReport.crNo}">
                             <input type="hidden" name="memNo" value="${commentReport.privateTrainingAppointmentForm.member.memNo}">
+                            <input type="hidden" name="commentTime" value="${commentReport.privateTrainingAppointmentForm.commentTime}">
+                            <input type="hidden" name="commentUpTime" value="${commentReport.privateTrainingAppointmentForm.commentUpTime}">
                             <input type="hidden" name="crContext" value="${commentReport.crContext}">
                             <input type="hidden" name="crDate" value="${commentReport.crDate}">
                             <input type="hidden" name="crStatus" value="${commentReport.crStatus}">

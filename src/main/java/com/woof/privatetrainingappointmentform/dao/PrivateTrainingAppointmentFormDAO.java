@@ -44,8 +44,6 @@ public interface PrivateTrainingAppointmentFormDAO {
 	
 	List<PrivateTrainingAppointmentForm> getNonReportedComment(Integer trainerNo);
 	
-	List<AppointmentDetailDTO> cannotComment(String memNo);
-	
 	boolean canComment(Integer ptaNo);
 	
 }

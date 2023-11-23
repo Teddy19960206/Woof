@@ -14,7 +14,6 @@
 
  request.setAttribute("all" , appointmentByMemNo);
  
- 
  List<Integer> ptaNoList = new ArrayList<>();
 
  for (PrivateTrainingAppointmentForm appointment : appointmentByMemNo) {
@@ -29,13 +28,13 @@
 	 canCommentList.add(canComment ? 1 : 0);
  }
 Map<PrivateTrainingAppointmentForm, Integer> canCommentMap = new LinkedHashMap<>(); // 使用LinkedHashMap來保持順序
-//假設canCommentList是boolean值的列表，appointmentByMemNo是你的PrivateTrainingAppointmentForm列表
+
 for (int i = 0; i < appointmentByMemNo.size(); i++) {
   canCommentMap.put(appointmentByMemNo.get(i), canCommentList.get(i));
 }
 request.setAttribute("canCommentMap", canCommentMap); 
 
-//  request.setAttribute("canComment" , canCommentList);
+// System.out.println(canCommentMap);
 %>
 <!DOCTYPE html>
 <html lang="zh-TW">
@@ -205,6 +204,16 @@ a {
 	background-color: #ffbb88;
 	color: #333;
 }
+.btn-cannotcomment {
+  background-color: gray;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #fff;
+}
 </style>
 </head>
 <script type="text/javascript">
@@ -367,32 +376,43 @@ a {
 
                         </thead>
                         <tbody>
-                         <c:forEach items="${all}" var="pta">
-    <tr>
-        <td class="truncated-text">${pta.ptaNo}</td>
-        <!-- 其他列出資料的欄位 -->
-        <td>
-            <FORM METHOD="post" action="${pageContext.request.contextPath}/frontend/member/login/comment.jsp">
-                <input type="hidden" name="ptaNo" value="${pta.ptaNo}">     
-                <input type="hidden" name="ptaComment" value="${pta.ptaComment}">
-                <c:choose>
-                    <c:when test="${canCommentMap[pta]}">
-                        <button class="btn btn-comment" type="submit">我要評論</button>
-                    </c:when>
-                    <c:otherwise>
-                        <button class="btn btn-cannotcomment" type="submit" disabled>無法評論</button>
-                    </c:otherwise>
-                </c:choose>
-            </FORM>
-        </td>
-    </tr>
-</c:forEach>
+                        <c:forEach items="${all}" var="pta">
+    						<tr>
+        						<td class="truncated-text">${pta.ptaNo}</td>
+        						<td>${pta.trainer.administrator.adminName}</td>
+                                <td>${pta.ptaClass}</td>
+                                <td>
+                                	<FORM METHOD="post" action="${pageContext.request.contextPath}/appointmentdetail?action=getdetail3">
+          								<input type="hidden" name="ptaNo" value="${pta.ptaNo}">
+          								<input type="hidden" name="memNo" value="${pta.member.memNo}">
+          								<input type="hidden" name="trainerNo" value="${pta.trainer.trainerNo}">
+          								<button class="btn btn-in" type="submit">查看明細</button>
+         							</FORM>
+        						</td>
+						        <td>
+						            <FORM METHOD="post" action="${pageContext.request.contextPath}/frontend/member/login/comment.jsp">
+						                <input type="hidden" name="ptaNo" value="${pta.ptaNo}">     
+						                <input type="hidden" name="commentTime" value="${pta.commentTime}">
+						                <input type="hidden" name="commentUpTime" value="${pta.commentUptime}">
+						                <input type="hidden" name="ptaComment" value="${pta.ptaComment}">
+						                <c:choose>
+						                    <c:when test="${canCommentMap[pta] == 1}">
+						                        <button class="btn btn-comment" type="submit">我要評論</button>
+						                    </c:when>
+						                    <c:otherwise>
+						                        <button class="btn btn-cannotcomment" type="submit" style="" disabled>無法評論</button>
+						                    </c:otherwise>
+						                </c:choose>
+						            </FORM>
+						        </td>
+						    </tr>
+						</c:forEach>
                         </tbody>
                     </table>
-     </div>
-    </div>
-   </div>
-  </div>
+     			</div>
+    		</div>
+   		</div>
+  	</div>
  </div>
 
  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

@@ -151,13 +151,9 @@ public class PrivateTrainingAppointmentFormServiceImpl implements PrivateTrainin
 	}
 
 	@Override
-	public List<AppointmentDetailDTO> cannotComment(String memNo) {
-		return dao.cannotComment(memNo);
-	}
-
-	@Override
 	public boolean canComment(Integer ptaNo) {
 		
 		return dao.canComment(ptaNo);
 	}
+	
 }

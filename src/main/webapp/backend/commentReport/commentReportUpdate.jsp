@@ -94,6 +94,12 @@
 		<textarea name="crContent" rows="4" cols="40" readonly>
 			${param.crContext}
 		</textarea>
+		<label>留言時間:</label>
+		<input	type="text" name="commentTime" value="${param.commentTime}" readonly>
+		<c:if test="${not empty param.commentUpTime}">
+			<label>留言編輯時間:</label>
+			<input	type="text" name="commentUpTime" value="${param.commentUpTime}" readonly>
+		</c:if>
 		<label>檢舉時間:</label>
 		<input	type="text" name="crDate" value="${param.crDate}" readonly>
 		<label>處理狀態:</label>

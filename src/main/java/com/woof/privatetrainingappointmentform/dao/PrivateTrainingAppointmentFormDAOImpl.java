@@ -208,30 +208,6 @@ public class PrivateTrainingAppointmentFormDAOImpl implements PrivateTrainingApp
 	            .getResultList();
 	}
 
-	@Override
-	public List<AppointmentDetailDTO> cannotComment(String memNo) {
-		String hql = "SELECT DISTINCT pta.PTA_NO as ptaNo, pta.PTA_COMMENT as ptaComment , pta.COMMENT_TIME as  commentTime, pta.COMMENT_UPTIME as commentUpTime, ad.APP_TIME as appTime "
-				+ "FROM private_training_appointment_form pta "
-				+ "JOIN appointment_detail ad ON pta.PTA_NO = ad.PTA_NO "
-				+ "JOIN member mem ON mem.MEM_NO = pta.MEM_NO "
-				+ "WHERE ad.APP_TIME <= CURDATE() - INTERVAL 1 DAY AND mem.MEM_NO = :MEM_NO";
-
-		Query query = getSession().createNativeQuery(hql);
-		query.setParameter("MEM_NO", memNo);
-		query.setResultTransformer(Transformers.aliasToBean(AppointmentDetailDTO.class));
-
-
-		return query.getResultList();
-
-//		// 設定昨天日期
-//		LocalDate yesterday = LocalDate.now().minusDays(1);
-//	
-//		// 執行 HQL 查詢
-//		List<PrivateTrainingAppointmentForm> resultList = getSession().createQuery(hql, PrivateTrainingAppointmentForm.class)
-//		        .setParameter("yesterdayDate", yesterday, TemporalType.DATE)
-//		        .getResultList();
-//		return resultList;
-	}
 
 	@Override
 	public boolean canComment(Integer ptaNo) {
@@ -240,7 +216,7 @@ public class PrivateTrainingAppointmentFormDAOImpl implements PrivateTrainingApp
         // 準備 HQL 查詢
         String hql = "SELECT COUNT(pta) "+
         		"FROM PrivateTrainingAppointmentForm pta "+
-        		"JOIN pta.appointmentDetail ad "+
+        		"JOIN pta.appointmentDetails ad "+
         		"JOIN pta.member mem "+
         		"WHERE ad.appTime <= CURRENT_DATE - 1 AND pta.ptaNo = :ptaNo";
 
