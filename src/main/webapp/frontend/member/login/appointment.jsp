@@ -14,6 +14,7 @@
 
  request.setAttribute("all" , appointmentByMemNo);
  
+ 
  List<Integer> ptaNoList = new ArrayList<>();
 
  for (PrivateTrainingAppointmentForm appointment : appointmentByMemNo) {
@@ -21,10 +22,20 @@
      ptaNoList.add(ptaNo);
  }
 
- for (Integer ptaNo : ptaNoList){
-	 
- }
+ List<Integer> canCommentList = new ArrayList<>();
  
+ for (Integer ptaNo : ptaNoList){
+	 boolean canComment = p.canComment(ptaNo);
+	 canCommentList.add(canComment ? 1 : 0);
+ }
+Map<PrivateTrainingAppointmentForm, Integer> canCommentMap = new LinkedHashMap<>(); // 使用LinkedHashMap來保持順序
+//假設canCommentList是boolean值的列表，appointmentByMemNo是你的PrivateTrainingAppointmentForm列表
+for (int i = 0; i < appointmentByMemNo.size(); i++) {
+  canCommentMap.put(appointmentByMemNo.get(i), canCommentList.get(i));
+}
+request.setAttribute("canCommentMap", canCommentMap); 
+
+//  request.setAttribute("canComment" , canCommentList);
 %>
 <!DOCTYPE html>
 <html lang="zh-TW">
@@ -357,38 +368,25 @@ a {
                         </thead>
                         <tbody>
                          <c:forEach items="${all}" var="pta">
-                            <tr>
-                                <td class="truncated-text">${pta.ptaNo}</td>
-                                <td>${pta.trainer.administrator.adminName}</td>
-                                <td>${pta.ptaClass}</td>
-                                <td>
-                                	<FORM METHOD="post" action="${pageContext.request.contextPath}/appointmentdetail?action=getdetail3">
-          								<input type="hidden" name="ptaNo" value="${pta.ptaNo}">
-          								<input type="hidden" name="memNo" value="${pta.member.memNo}">
-          								<input type="hidden" name="trainerNo" value="${pta.trainer.trainerNo}">
-          								<button class="btn btn-in" type="submit">查看明細</button>
-         							</FORM>
-        						</td>
-                                <td>
-	                                <FORM METHOD="post" action="${pageContext.request.contextPath}/frontend/member/login/comment.jsp">
-	                                	<%
-	           								String ptaNo = request.getParameter("ptaNo");
-	           								String ptaComment = request.getParameter("ptaComment");
-	             						%>  
-	          							<input type="hidden" name="ptaNo" value="${pta.ptaNo}">     
-	          							<input type="hidden" name="ptaComment" value="${pta.ptaComment}">
-	          							<c:choose>
-		          							<c:when test="true">
-		          								<button class="btn btn-comment" type="submit">我要評論</button>
-		          							</c:when>
-		          							<c:otherwise>
-		          								<button class="btn btn-cannotcomment" type="submit" disabled>無法評論</button>
-		          							</c:otherwise>
-	          							</c:choose>
-	                                 </FORM>
-                                </td>
-                            </tr>
-                         </c:forEach>
+    <tr>
+        <td class="truncated-text">${pta.ptaNo}</td>
+        <!-- 其他列出資料的欄位 -->
+        <td>
+            <FORM METHOD="post" action="${pageContext.request.contextPath}/frontend/member/login/comment.jsp">
+                <input type="hidden" name="ptaNo" value="${pta.ptaNo}">     
+                <input type="hidden" name="ptaComment" value="${pta.ptaComment}">
+                <c:choose>
+                    <c:when test="${canCommentMap[pta]}">
+                        <button class="btn btn-comment" type="submit">我要評論</button>
+                    </c:when>
+                    <c:otherwise>
+                        <button class="btn btn-cannotcomment" type="submit" disabled>無法評論</button>
+                    </c:otherwise>
+                </c:choose>
+            </FORM>
+        </td>
+    </tr>
+</c:forEach>
                         </tbody>
                     </table>
      </div>
