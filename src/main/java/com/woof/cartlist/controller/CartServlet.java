@@ -43,9 +43,9 @@ public class CartServlet extends HttpServlet {
 		
 		switch (action) {
 		
-//		case "getTotalQuantity":
-//			getTotalQuantity(request, response);
-//			break;
+		case "getTotalQuantity":
+			getTotalQuantity(request, response);
+			break;
 			
 		case "add":
 			add(request, response);
@@ -58,32 +58,42 @@ public class CartServlet extends HttpServlet {
 		}
 	}
 
-//	private void getTotalQuantity(HttpServletRequest request, HttpServletResponse response) throws IOException {
-//		
-//		Member member = (Member) request.getSession(false).getAttribute("member");
-//		String memNo = member.getMemNo();
-//		
-//		String cartJson = jedis.get(memNo);
-//		List<Map<String, Object>> cart;
-//		if (cartJson != null) {
-//			cart = new Gson().fromJson(cartJson, new TypeToken<List<Map<String, Object>>>() {
-//			}.getType());
-//		} else {
-//			cart = new ArrayList<>();
-//		}
-//
-//		int totalQuantity = cart.stream().mapToInt(item -> (int) Double.parseDouble(item.get("quantity").toString()))
-//				.sum();
-//
-//		Map<String, Object> responseMap = new HashMap<>();
-//		responseMap.put("totalQuantity", totalQuantity);
-//
-//		String responseJson = new Gson().toJson(responseMap);
-//
-//		response.setContentType("application/json");
-//		response.setCharacterEncoding("UTF-8");
-//		response.getWriter().write(responseJson);
-//	}
+	private void getTotalQuantity(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		
+		Member member = (Member) request.getSession(false).getAttribute("member");
+		
+		if (member == null) {
+	        // 用戶未登入，返回 totalQuantity 為 0 的 JSON
+	        response.setContentType("application/json");
+	        response.setCharacterEncoding("UTF-8");
+	        response.getWriter().write("{\"totalQuantity\": 0}");
+	        return;
+	    }
+		
+		// 有登入，redis找資料
+		String memNo = member.getMemNo();
+		String cartJson = jedis.get(memNo);
+		
+		List<Map<String, Object>> cart;
+		if (cartJson != null) {
+			cart = new Gson().fromJson(cartJson, new TypeToken<List<Map<String, Object>>>() {
+			}.getType());
+		} else {
+			cart = new ArrayList<>();
+		}
+
+		int totalQuantity = cart.stream().mapToInt(item -> (int) Double.parseDouble(item.get("quantity").toString()))
+				.sum();
+
+		Map<String, Object> responseMap = new HashMap<>();
+		responseMap.put("totalQuantity", totalQuantity);
+
+		String responseJson = new Gson().toJson(responseMap);
+
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		response.getWriter().write(responseJson);
+	}
 
 	private void add(HttpServletRequest request, HttpServletResponse response) throws IOException {
 

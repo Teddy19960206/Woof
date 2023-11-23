@@ -31,7 +31,7 @@ let projectName = pathName.substring(0, pathName.substring(1).indexOf("/") + 1);
 // 添加商品到購物車的 AJAX 請求
 $(".add-to-cart").on("click", function() {
 	
-//	 alert("加入購物車");
+	 alert("加入購物車");
 	 
 	let prodNo = $(this).data("id");
 	let prodName = $(this).data("name");
