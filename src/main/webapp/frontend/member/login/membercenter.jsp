@@ -148,7 +148,11 @@ a {
 }
 .status-validmail {
 	background-color: lightblue; /* 藍色背景 */
-	color: blue;
+	color: black;
+	border: none; 
+}
+button {
+    border: none;
 }
 </style>
 </head>

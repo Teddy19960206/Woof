@@ -86,7 +86,6 @@ function togglePasswordVisibility(fieldId) {
     }
     passwordVisible = !passwordVisible;
 }
-
 </script>
 <body>
     <div class="container">
