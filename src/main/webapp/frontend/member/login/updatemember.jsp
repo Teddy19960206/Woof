@@ -27,6 +27,20 @@
 	});
 </script>
 <script>
+    function togglePasswordVisibility(inputId, toggleIcon) {
+        var input = document.getElementById(inputId);
+        if (input.type === "password") {
+            input.type = "text";
+            toggleIcon.classList.add('fa-eye');
+            toggleIcon.classList.remove('fa-eye-slash');
+        } else {
+            input.type = "password";
+            toggleIcon.classList.remove('fa-eye');
+            toggleIcon.classList.add('fa-eye-slash');
+        }
+    }
+</script>
+<script>
 	$(function() {
 		$("#twzipcode").twzipcode({
 			zipcodeIntoDistrict : true,
