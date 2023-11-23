@@ -30,17 +30,10 @@ public class CartServlet extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		Object member = session.getAttribute("member");
-//		Member member = (Member) request.getSession(false).getAttribute("member");
-//		String memNo = member.getMemNo();
+
 		
 		System.out.println(member);
-		
-		if (member == null) {
-	        // 用戶未登入，導向登入頁面
-			response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "用戶未登入，請登入唷");
-		    return;
-		}
-		
+
 		switch (action) {
 		
 		case "getTotalQuantity":
@@ -96,7 +89,14 @@ public class CartServlet extends HttpServlet {
 	}
 
 	private void add(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
+		
+		if (request.getSession(false) == null || request.getSession(false).getAttribute("member") == null) {
+	        response.setContentType("application/json");
+	        response.setCharacterEncoding("UTF-8");
+	        response.getWriter().write("{\"message\": \"請先登入會員~\"}");
+	        return;
+	    }
+		
 		Member member = (Member) request.getSession(false).getAttribute("member");
 		String memNo = member.getMemNo();
 		

@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	// 為每個修改按鈕添加事件處理器
 	document.querySelectorAll('.edit-btn').forEach(function(btn) {
 
-		//		console.log("11111111s");
+		console.log("11111111s");
 
 		btn.addEventListener('click', function() {
 			let tr = this.closest('tr');
@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	// 為每個儲存按鈕添加事件處理器
 	document.querySelectorAll('.save-btn').forEach(function(btn) {
 
-		//		console.log("AAAAAAAA");
+				console.log("AAAAAAAA");
 
 		btn.addEventListener('click', function() {
 			let tr = this.closest('tr');
@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			console.log(moCoin);
 			console.log(orderTotalPrice);
 			console.log(actualPrice);
-			console.log(orderStatus);
+			console.log(orderStatus + "訂單狀態=================");
 
 
 			// 使用 AJAX 發送更新請求
@@ -94,14 +94,15 @@ document.addEventListener('DOMContentLoaded', function() {
 				},
 				body: `shopOrderNo=${shopOrderNo}&memNo=${memNo}&prodOrderDate=${prodOrderDate}&payMethod=${payMethod}&shipMethod=${shipMethod}&recName=${recName}&recMobile=${recMobile}&recAddress=${recAddress}&hasReturn=${hasReturn}&moCoin=${moCoin}&orderTotalPrice=${orderTotalPrice}&actualPrice=${actualPrice}&orderStatus=${orderStatus}`
 			})
-				.then(response => {
-					if (!response.ok) {
-						throw new Error('Network response was not ok');
-					}
-					return response.text();
-				})
+				.then(response => response.json()) // 將響應轉換為 JSON
 				.then(data => {
 					console.log(data);
+					if (data.message == "修改成功") {
+
+						console.log("修改成功");
+					} else {
+						console.log("修改失敗!!!!!!!");
+					}
 					// 處理響應數據
 					// AJAX 請求成功後恢復按鈕的顯示狀態
 					updateOrderStatusDisplay(orderStatus, tr);
@@ -111,10 +112,6 @@ document.addEventListener('DOMContentLoaded', function() {
 					tr.querySelector('.save-btn').style.display = 'none';
 					tr.querySelector('.cancel-btn').style.display = 'none';
 				})
-				.catch(error => {
-					console.error('There has been a problem with your fetch operation:', error);
-					// 這裡可以選擇是否要處理錯誤情況下的按鈕顯示狀態
-				});
 		});
 	});
 });
