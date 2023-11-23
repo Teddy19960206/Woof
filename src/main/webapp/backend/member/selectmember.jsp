@@ -10,16 +10,17 @@ body {
 }
 
 .custom-container {
-	max-width: 800px;
-	background: white;
-	padding: 40px;
+	max-width: 80%;
+	background: url('/woof/backend/member/jpg/12.jpg');
+	padding: 50px;
 	border-radius: 8px;
 	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 	margin: 40px auto;
+	margin-top: 150px; /* 或者更多，視你的頁面需求而定 */
 }
 
 .custom-header {
-	background-color: #007bff;
+	background-color: pink;
 	color: white;
 	padding: 10px;
 	border-radius: 5px;
