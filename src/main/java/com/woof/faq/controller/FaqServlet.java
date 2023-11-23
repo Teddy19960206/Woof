@@ -95,7 +95,7 @@ public class FaqServlet extends HttpServlet {
 		List<Faq> all = faqService.getAllFaq();
 		
 		req.setAttribute("all", all);		
-		
+		System.out.println(all);
 		return "/frontend/faqfront/faqfront.jsp";
 	}
 	

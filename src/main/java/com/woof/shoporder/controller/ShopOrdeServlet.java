@@ -34,7 +34,6 @@ import com.woof.shoporder.service.ShopOrderServiceImpl;
 import com.woof.shoporderdetail.service.ShopOrderDetailService;
 import com.woof.shoporderdetail.service.ShopOrderDetailServiceImpl;
 
-
 @WebServlet("/shoporder/*")
 public class ShopOrdeServlet extends HttpServlet {
 
@@ -43,9 +42,9 @@ public class ShopOrdeServlet extends HttpServlet {
 
 	@Override
 	public void init() throws ServletException {
-		 super.init();
-		 shopOrderService = new ShopOrderServiceImpl();
-		 shopOrderDetailService = new ShopOrderDetailServiceImpl();
+		super.init();
+		shopOrderService = new ShopOrderServiceImpl();
+		shopOrderDetailService = new ShopOrderDetailServiceImpl();
 	}
 
 	@Override
@@ -66,14 +65,14 @@ public class ShopOrdeServlet extends HttpServlet {
 			forwardPath = getAll(request, response);
 			break;
 
-		case "updatehoporder":
-			forwardPath = updateshoporder(request, response);
-			break;
+		case "updateshoporder":
+			updateshoporder(request, response);
+			return;
 
 		case "addshoporder":
 			forwardPath = addshoporder(request, response);
 			break;
-			
+
 //			會員單一查詢
 		case "getByMemNo":
 			forwardPath = getByMemNo(request, response);
@@ -86,7 +85,7 @@ public class ShopOrdeServlet extends HttpServlet {
 
 		response.setContentType("text/html; charset=UTF-8");
 //		RequestDispatcher dispatcher = request.getRequestDispatcher(forwardPath);
-		RequestDispatcher dispatcher = request.getRequestDispatcher(forwardPath);		
+		RequestDispatcher dispatcher = request.getRequestDispatcher(forwardPath);
 		dispatcher.forward(request, response);
 
 	}
@@ -98,8 +97,8 @@ public class ShopOrdeServlet extends HttpServlet {
 
 		// 會卡暫存視情況隱藏
 //		if (request.getSession().getAttribute("faqPageQty") == null) {
-			int shopOrderPageQty = shopOrderService.getPageTotal();
-			request.getSession().setAttribute("shopOrderPageQty", shopOrderPageQty);
+		int shopOrderPageQty = shopOrderService.getPageTotal();
+		request.getSession().setAttribute("shopOrderPageQty", shopOrderPageQty);
 //		}
 
 		List<ShopOrder> all = shopOrderService.getAllShopOrder(currentPage);
@@ -110,9 +109,11 @@ public class ShopOrdeServlet extends HttpServlet {
 		return "/backend/shoporder/getAllshoporder.jsp";
 	}
 
-	private String updateshoporder(HttpServletRequest request, HttpServletResponse response) {
+	private void updateshoporder(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
 		int shopOrderNo = Integer.parseInt(request.getParameter("shopOrderNo"));
+
+		System.out.println(shopOrderNo + "商成訂單編號===============================");
 
 		String memNo = request.getParameter("memNo");
 		MemberService memberService = new MemberServiceImpl();
@@ -139,15 +140,14 @@ public class ShopOrdeServlet extends HttpServlet {
 		int actualPrice = Integer.parseInt(request.getParameter("actualPrice"));
 		int orderStatus = Integer.parseInt(request.getParameter("orderStatus"));
 
-		System.out.println(shopOrderNo);
-		System.out.println(orderStatus);
+		System.out.println(orderStatus + "訂單狀態=================================");
 		System.out.println(hasReturn);
 
 		int result = shopOrderService.updateShopOrder(shopOrderNo, member, prodOrderDate, payMethod, shipMethod,
 				orderStatus, recName, recMobile, recAddress, hasReturn, moCoin, orderTotalPrice, actualPrice);
 
 //		request.setAttribute("result", result);	
-//		System.out.println(result);
+		System.out.println(result);
 
 		if (result > 0) {
 			System.out.println("更新成功");
@@ -156,15 +156,15 @@ public class ShopOrdeServlet extends HttpServlet {
 		}
 
 		response.setContentType("application/json;charset=UTF-8");
-		return "/backend/shoporder/getAllshoporder.jsp";
+		response.getWriter().write("{\"message\": \"修改成功\"}");
 	}
 
 	private String addshoporder(HttpServletRequest request, HttpServletResponse response) {
 
 		String memNo = request.getParameter("memNo");
-		
+
 		System.out.println("======================================" + memNo);
-		
+
 		MemberService memberService = new MemberServiceImpl();
 		Member member = memberService.findMemberByNo(memNo);
 
@@ -179,122 +179,114 @@ public class ShopOrdeServlet extends HttpServlet {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		
+
 		Timestamp prodOrderDate = new Timestamp(parsedDate.getTime());
-		
+
 		int payMethod = Integer.parseInt(request.getParameter("payment"));
 		request.setAttribute("payMethod", payMethod);
 		int orderStatus = (payMethod == 1) ? 4 : 0; // 如果付款方式是匯款（1），訂單狀態設為 4（未付款）
 		request.getSession().setAttribute("orderStatus", orderStatus);
-		
-		
-		Boolean shipMethod = Boolean.parseBoolean(request.getParameter("shipMethod"));
-		System.out.println(shipMethod+"===============================================");
 
+		Boolean shipMethod = Boolean.parseBoolean(request.getParameter("shipMethod"));
+		System.out.println(shipMethod + "===============================================");
 
 		String recName = request.getParameter("memName");
-		String recMobile = request.getParameter("phone");		
+		String recMobile = request.getParameter("phone");
 		String recAddress = request.getParameter("address");
 		Boolean hasReturn = false;
 		request.getSession().setAttribute("hasReturn", hasReturn);
 
 		// 前端傳過來的毛毛幣使用數量
-		int moCoin = Integer.parseInt(request.getParameter("inputSmmp"));		
-	
-		System.out.println(moCoin+"毛毛幣==========================================");
-		
+		int moCoin = Integer.parseInt(request.getParameter("inputSmmp"));
+
+		System.out.println(moCoin + "毛毛幣==========================================");
+
 		// 計算新的毛毛幣餘額，不可以變負數
-		int currentMoCoins = member.getMomoPoint(); 
-		
-		System.out.println(currentMoCoins+"會員擁有毛毛幣==========================================");
-		
+		int currentMoCoins = member.getMomoPoint();
+
+		System.out.println(currentMoCoins + "會員擁有毛毛幣==========================================");
+
 		int newMoCoins = Math.max(currentMoCoins - moCoin, 0);
 		// 更新會員的毛毛幣餘額
 		memberService.updateMemberPoints(memNo, newMoCoins);
-		
+
 		int orderTotalPrice = Integer.parseInt(request.getParameter("totalPrice"));
 		int actualPrice = Integer.parseInt(request.getParameter("totalAfterCoins"));
 
-		
-		int savedOrderNo= shopOrderService.addShopOrder(member, prodOrderDate, payMethod, shipMethod, orderStatus,
+		int savedOrderNo = shopOrderService.addShopOrder(member, prodOrderDate, payMethod, shipMethod, orderStatus,
 				recName, recMobile, recAddress, hasReturn, moCoin, orderTotalPrice, actualPrice);
-		
+
 		// 如果有確定進入資料庫會有流水編號，再去找流水編號的值，顯示在jsp
 		var result = shopOrderService.findByShopOrderNo(savedOrderNo);
 //		 資料給下一個jsp
 		request.setAttribute("result", result);
-		
-		
+
 		if (savedOrderNo > 0) {
 //		    return 1; // 訂單新增成功
 			System.out.println("訂單新增成功");
 			request.setAttribute("orderSuccess", true);
-			
+
 			try (Jedis jedis = new Jedis("localhost", 6379)) {
-	            // 從 Redis 獲取購物車數據
-	            String cartJson = jedis.get(memNo);
+				// 從 Redis 獲取購物車數據
+				String cartJson = jedis.get(memNo);
 
-	            // 解析購物車數據
-	            Type listType = new TypeToken<List<Map<String, Object>>>() {}.getType();
-	            List<Map<String, Object>> cartItems = new Gson().fromJson(cartJson, listType);
+				// 解析購物車數據
+				Type listType = new TypeToken<List<Map<String, Object>>>() {
+				}.getType();
+				List<Map<String, Object>> cartItems = new Gson().fromJson(cartJson, listType);
 
-	            for (Map<String, Object> item : cartItems) {
-	                // 從map中取出商品信息
-	                int prodNo = Integer.parseInt((String) item.get("prodNo"));
-	                int orderAmount = ((Double) item.get("quantity")).intValue();
-	                int prodPrice = ((Double) item.get("prodPrice")).intValue();
-	                int hasReturned = 0;
-	                BigDecimal discountRate = BigDecimal.valueOf(0.00);
-	                
-	                System.out.println(prodNo+"===============================================");
-	                System.out.println(orderAmount+"===============================================");
-	                System.out.println(prodPrice+"===============================================");
+				for (Map<String, Object> item : cartItems) {
+					// 從map中取出商品信息
+					int prodNo = Integer.parseInt((String) item.get("prodNo"));
+					int orderAmount = ((Double) item.get("quantity")).intValue();
+					int prodPrice = ((Double) item.get("prodPrice")).intValue();
+					int hasReturned = 0;
+					BigDecimal discountRate = BigDecimal.valueOf(0.00);
 
+					System.out.println(prodNo + "===============================================");
+					System.out.println(orderAmount + "===============================================");
+					System.out.println(prodPrice + "===============================================");
 
-	                // 保存訂單明細
-	                int saveshoporderdetail = shopOrderDetailService.addShopOrderDetail(savedOrderNo, prodNo, orderAmount, prodPrice, hasReturned, discountRate);
-	                
-	                var result2 = shopOrderService.findByShopOrderNo(saveshoporderdetail);
+					// 保存訂單明細
+					int saveshoporderdetail = shopOrderDetailService.addShopOrderDetail(savedOrderNo, prodNo,
+							orderAmount, prodPrice, hasReturned, discountRate);
+
+					var result2 = shopOrderService.findByShopOrderNo(saveshoporderdetail);
 //	       			資料給下一個jsp
-	                request.setAttribute("result2", result2);	
-	            }
+					request.setAttribute("result2", result2);
+				}
 
-	            // 清除 Redis 中的購物車數據
-	            jedis.del(memNo);
-	        } catch (Exception e) {
-	        	
-	            e.printStackTrace();
-	            
-	        }
+				// 清除 Redis 中的購物車數據
+				jedis.del(memNo);
+			} catch (Exception e) {
+
+				e.printStackTrace();
+
+			}
 
 		} else {
 //	        return -1; // 訂單新增失败
 			System.out.println("新增失敗");
 		}
 
-		
-		
-
 		return "/frontend/cartlist/finishorder.jsp";
 	}
 
+	private String getByMemNo(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-
-private String getByMemNo(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		
 		String memNo = request.getParameter("memNo");
 		String page = request.getParameter("page");
 		int currentPage = (page == null) ? 1 : Integer.parseInt(page);
 		int shopOrderPageQty2 = shopOrderService.getPageTotal2(memNo);
 		request.getSession().setAttribute("shopOrderPageQty2", shopOrderPageQty2);
-		
-		List<ShopOrder> shopOrders = shopOrderService.findByMemNo(memNo , currentPage); 
+
+		List<ShopOrder> shopOrders = shopOrderService.findByMemNo(memNo, currentPage);
 
 		System.out.println(shopOrders);
-		
+
 		request.setAttribute("shopOrders", shopOrders);
 		request.setAttribute("currentPage", currentPage);
-		
+
 		return "/backend/shoporder/getOneshoporder.jsp";
 	}
 

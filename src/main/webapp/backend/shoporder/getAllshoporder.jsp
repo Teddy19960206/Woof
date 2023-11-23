@@ -19,26 +19,26 @@ request.setCharacterEncoding("UTF-8");
 
 	<%@ include file="/backend/backbody.file"%>
 
-	<div class="container text-center p-1">
-		<div class="row mt-3">
+	<div class="container text-center p-3">
+		<div class="row">
 			<div class="col-2 p-0">
 				<a class="btn btn-primary"
 					href="${pageContext.request.contextPath}/shoporder?action=getAll">查詢全部訂單</a>
 			</div>
-			<div class="col-5">
+			<div class="col-5 p-0 ml-md-n3">
 				<jsp:useBean id="memberService" scope="page"
 					class="com.woof.member.service.MemberServiceImpl" />
 				<form method="POST"
 					action="${pageContext.request.contextPath}/shoporder?action=getByMemNo"
 					class="form-inline">
-					<label class="mr-2"><b>搜尋會員編號:</b></label> <input name="memNo">
+					<label class="p-0"><b>搜尋會員編號:</b></label> <input name="memNo">
 					<button type="submit" class="btn btn-primary">查詢</button>
 				</form>
 			</div>
 		</div>
 	</div>
 <!-- 	<h3 class="mt-1 text-center">全部訂單</h3> -->
-	<table class="table table-hover text-center mt-5" style="font-size: 12px;">
+	<table class="table table-hover text-center mt-4" style="font-size: 12px;">
 		<thead class="align-middle">
 			<tr class="table-secondary">
 				<th>編號</th>
@@ -145,7 +145,7 @@ request.setCharacterEncoding("UTF-8");
 
 
 	<a class="btn btn-secondary"
-		href="${pageContext.request.contextPath}/backend/shoporder/shoporderfirst.jsp">返回</a>
+		href="${pageContext.request.contextPath}/backend/index.jsp">返回</a>
 
 	<%@ include file="/backend/backfoot.file"%>
 	<script
