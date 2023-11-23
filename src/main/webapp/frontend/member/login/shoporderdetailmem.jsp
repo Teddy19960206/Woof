@@ -332,7 +332,7 @@
 						    <span>${shopOrder.recAddress}</span>
 						</div>
 					   <div class="d-flex justify-content-between">
-						    <span>總小計</span>
+						    <span>小計</span>
 						    <span>NT$${shopOrder.orderTotalPrice}</span>
 						</div>
 					    <div class="d-flex justify-content-between my-0 mt-0">
