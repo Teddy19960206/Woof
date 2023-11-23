@@ -19,7 +19,7 @@ request.setCharacterEncoding("UTF-8");
 
 	<%@ include file="/backend/backbody.file"%>
 
-	<div class="container text-center p-2">
+	<div class="container text-center p-3">
 		<h3>訂單明細</h3>
 		<table class="table table-hover">
 			<thead>
@@ -103,25 +103,6 @@ request.setCharacterEncoding("UTF-8");
 					</tr>
 				</c:forEach>
 
-				<%--                             <form method="post" action="${pageContext.request.contextPath}/backend/faq/updatefaq.jsp"> --%>
-				<%--                                 <input type="hidden" name="faqNo" value="${all.faqNo}"> --%>
-				<!--                                 <input type="hidden" name="action" value="updatefaq"> -->
-				<!--                                 <button class="btn btn-success" type="submit">修改</button> -->
-				<!--                             </form> -->
-
-				
-
-				<!--                         </td> -->
-				<!--                         <td> -->
-				<%--                             <form method="post" action="${pageContext.request.contextPath}/faq"> --%>
-				<%--                                 <input type="hidden" name="faqNo" value="${all.faqNo}"> --%>
-				<!--                                 <input type="hidden" name="action" value="deletefaq"> -->
-				<!--                                 <button class="btn btn-danger small-btn" style="font-size: 10px;" type="submit">刪除</button> -->
-
-				<!--                             </form> -->
-				<!--                         </td> -->
-				<!--                     </tr> -->
-				<%--                 </c:forEach> --%>
 			</tbody>
 		</table>
 
@@ -133,8 +114,8 @@ request.setCharacterEncoding("UTF-8");
 	</div>
 
 	<%@ include file="/backend/backfoot.file"%>
-	<script
-		src="${pageContext.request.contextPath}/backend/shoporder/js/getAllshoporder.js"></script>
+<!-- 	<script -->
+<%-- 		src="${pageContext.request.contextPath}/backend/shoporder/js/getAllshoporder.js"></script> --%>
 
 </body>
 </html>
