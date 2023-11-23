@@ -123,6 +123,8 @@ select {
 						</div>
 					</form>
 				</div>
+				</li>
+				</ul>
 	</div> 
 	<%@ include file="/backend/backfoot.file"%>
 </body>
