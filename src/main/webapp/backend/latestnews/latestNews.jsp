@@ -9,11 +9,24 @@
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 	<style>
-	.fixed-size-image {
-    width: 400px;   /* 設置圖片寬度 */
-    height: 200px;  /* 設置圖片高度 */
-    object-fit: cover; /* 確保圖片不失真 */
+
+   .card {
+  background-color: #f0f0f0;
 }
+
+	 body {
+    background-color: #f0f0f0; /* 設置背景顏色 */
+    background-image: url("/woof/backend/images/news-654330 (1).png"); /* 指定圖片的路徑 */ 
+    background-size: cover; /* 確保圖片覆蓋整個元素 */
+    background-repeat: no-repeat; /* 確保圖片不會重複 */
+    background-position: center center; /* 將圖片置中 */
+    background-attachment: fixed; /* 背景圖片固定不動 */
+  }
+  .fixed-size-image {
+    width: 400px; /* 設置圖片寬度 */
+    height: 200px; /* 設置圖片高度 */
+    object-fit: cover; /* 確保圖片不失真 */
+  }
 	</style>
 <script src="https://code.jquery.com/jquery-3.7.1.js"
 	integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
@@ -23,7 +36,7 @@
 <script type="text/javascript">
 	// 你的 JavaScript 函數
 		function processUpdate(jsonData){
-		window.location.href="<%=request.getContextPath()%>/frontend/latestnews/latestNewsUpdate.jsp?lnNo="+jsonData.lnNo;
+		window.location.href="<%=request.getContextPath()%>/backend/latestnews/latestNewsUpdate.jsp?lnNo="+jsonData.lnNo;
 	}
 	function processDelete(jsonData){
 		$.ajax({
@@ -40,7 +53,7 @@
 		});
 	}
 	function processAdd(){
-		window.location.href="<%=request.getContextPath()%>/frontend/latestnews/latestNewsAdd.jsp"
+		window.location.href="<%=request.getContextPath()%>/backend/latestnews/latestNewsAdd.jsp"
 	}
 </script>
 </head>

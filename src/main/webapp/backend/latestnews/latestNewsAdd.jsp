@@ -37,7 +37,7 @@ LatestNews ln = (LatestNews) request.getAttribute("latestNews");
 		<input type="hidden" name="action" value="add">
 		<button type="submit">°e¥X</button>
 		<input type="button"
-			onclick="window.location.href='<%=request.getContextPath()%>/frontend/latestnews/latestNews.jsp'"
+			onclick="window.location.href='<%=request.getContextPath()%>/backend/latestnews/latestNews.jsp'"
 			value="¨ú®ø">
 	</form>
 </body>
