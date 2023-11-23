@@ -12,6 +12,7 @@ const status = document.getElementById("status");
 const orderEL = document.getElementById("orderNoOriginal");
 const show = document.getElementById("show");
 const payText = document.getElementById("payText");
+const total = document.getElementById("total");
 
 $(function () {
     const orderNo = document.getElementById("orderNo").value;
@@ -69,6 +70,7 @@ async function fetchData(orderNo){
         method.value = payMethod;
         smmp.value = data.gcoSmmp;
         actualAmount.value = data.actualAmount;
+        total.value = parseInt(data.actualAmount) + parseInt(data.gcoSmmp);
         payText.innerText = data.actualAmount;
 
         let mode;
