@@ -86,7 +86,7 @@ $(document).ready(function(){
  
    </table>
    <button type="submit">送出</button>
-   <input type="button" onclick="window.location.href='<%=request.getContextPath()%>/frontend/latestNews/latestNews.jsp'"
+   <input type="button" onclick="window.location.href='<%=request.getContextPath()%>/backend/latestnews/latestNews.jsp'"
    value="取消">
    </form>
 

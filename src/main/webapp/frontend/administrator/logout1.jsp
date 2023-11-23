@@ -30,7 +30,7 @@
   justify-content: center;
   align-items: center;
   /* background: #2196f3; */
-  background-image: url("https://pixabay.com/get/g6f466a8face11dae9ee6df7606bded5f317c1fd370dcf4aa009b6a153c6c4f64d359cc4897161fef583fb5c3304f6ba8.jpg");
+  background-image: url('/woof/frontend/images/golden-retriever-2645903.jpg');
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: center;

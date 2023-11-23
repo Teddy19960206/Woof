@@ -141,7 +141,7 @@
                     data-bs-parent="#sidebar"
                   >
                     <li class="sidebar-item">
-                      <a href="#" class="sidebar-link2">最新消息管理</a>
+                      <a href="${pageContext.request.contextPath}/backend/latestnews/latestNews.jsp" class="sidebar-link2">最新消息管理</a>
                     </li>
                     <li class="sidebar-item">
                       <a href="${pageContext.request.contextPath}/backend/faq/faqfirst.jsp" class="sidebar-link2"

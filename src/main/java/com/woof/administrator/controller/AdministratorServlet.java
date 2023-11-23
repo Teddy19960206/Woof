@@ -26,8 +26,9 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-
+//使用 @WebServlet註解來指定這個 Servlet 的訪問路徑。
 @WebServlet("/administrator.do")
+//使用 @MultipartConfig 註解來支持多部分請求，這在處理包含檔案上傳的表單時是必要的。
 @MultipartConfig
 public class AdministratorServlet extends HttpServlet {
 
@@ -35,6 +36,7 @@ public class AdministratorServlet extends HttpServlet {
 
 	@Override
 	public void init() throws ServletException {
+//		與資料庫交互的服務層
 		administratorService = new AdministratorServiceImpl();
 	}
 
@@ -45,6 +47,7 @@ public class AdministratorServlet extends HttpServlet {
 		//前端的action對應到哪個 執行哪個
 		switch (action) {
 		case "add":
+//			執行裡面的方法
 			processAdd(req, res);
 			break;
 			
@@ -82,20 +85,21 @@ public class AdministratorServlet extends HttpServlet {
 	}
 	
 	private void processDelete(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
+//		通過管理員編號來刪除特定資料
 		administratorService.deleteAdministrator(req.getParameter("ADMIN_NO"));
 	}
 	
 	private void processUpdate(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
-		req.getSession().removeAttribute("errorMsgs");
+//		錯誤驗證
 		Map<String,String> errorMsgs = new LinkedHashMap<String,String>();
 		req.setAttribute("errorMsgs", errorMsgs);
 		List<Administrator> administrators = administratorService.getAllAdministrators();
-//		
+		
 		Administrator admin = new Administrator();
 		String adminemail = req.getParameter("ADMIN_EMAIL");
 		String adminNo = req.getParameter("ADMIN_NO");
 
-		/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
+		/***********************1.接收請求參數 - 輸入格式的各式錯誤處理*************************/
 		if (adminNo == null || adminNo.trim().length() == 0) {
 			errorMsgs.put("ADMIN_NO","管理員帳號請勿空白");
 		}
@@ -134,7 +138,7 @@ public class AdministratorServlet extends HttpServlet {
 		if (adminpwd == null || adminpwd.trim().length() == 0) {
 //			errorMsgs.put("ADMIN_PASSWORD","管理員密碼請勿空白");
 		}else {
-		    // 加密密碼
+		    // 密碼加密
 		    String encryptedPassword = BCrypt.hashpw(adminpwd, BCrypt.gensalt());
 		    admin.setAdminPassword(encryptedPassword);
 		}
@@ -165,13 +169,14 @@ public class AdministratorServlet extends HttpServlet {
 			errorMsgs.put("EMERGENCY_CONTACTEL","緊急聯絡人電話: 只能是09開頭且總長度為10");
         }
 
-//		 Send the use back to the form, if there were errors
+//		錯誤跳轉
 		if (!errorMsgs.isEmpty()){
 			req.getSession().setAttribute("errorMsgs", errorMsgs);
 			String contextPath = req.getContextPath();
 			res.sendRedirect(contextPath + "/frontend/administrator/administratorUpdate.jsp?adminNo=" + adminNo);
 
 	    return;
+//	    刪除錯誤訊息
 		}else {
 			req.getSession().removeAttribute("errorMsgs");
 		}
@@ -252,7 +257,7 @@ private void processUpdate2(HttpServletRequest req, HttpServletResponse res) thr
 	String adminnameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{1,10}$";
 	if (adminname == null || adminname.trim().length() == 0) {
 		errorMsgs.put("ADMIN_NAME","管理員姓名: 請勿空白");
-	} else if(!adminname.trim().matches(adminnameReg)) { //以下練習正則(規)表示式(regular-expression)
+	} else if(!adminname.trim().matches(adminnameReg)) { 
 		errorMsgs.put("ADMIN_NAME","管理員姓名: 只能是中、英文字母、數字和_ , 且長度必需在1到10之間");
     }
 
@@ -264,11 +269,11 @@ private void processUpdate2(HttpServletRequest req, HttpServletResponse res) thr
 	if (adminemail == null || adminemail.trim().length() == 0) {
 	    errorMsgs.put("ADMIN_EMAIL", "管理員信箱請勿空白");
 	} else {
-	    // 檢查信箱長度
+	   
 	    if (adminemail.length() < 16 || adminemail.length() > 40) {
 	        errorMsgs.put("ADMIN_EMAIL", "帳號長度必須在6到30個字符之間");
 	    } else {
-	        // 正則表達式，用於驗證信箱格式
+	        
 	        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
 	        Pattern pattern = Pattern.compile(emailRegex);
 	        Matcher matcher = pattern.matcher(adminemail);
@@ -282,7 +287,7 @@ private void processUpdate2(HttpServletRequest req, HttpServletResponse res) thr
 	if (adminpwd == null || adminpwd.trim().length() == 0) {
 //		errorMsgs.put("ADMIN_PASSWORD","管理員密碼請勿空白");
 	}else {
-	    // 加密密碼
+	   
 	    String encryptedPassword = BCrypt.hashpw(adminpwd, BCrypt.gensalt());
 	    admin.setAdminPassword(encryptedPassword);
 	}
@@ -302,14 +307,14 @@ private void processUpdate2(HttpServletRequest req, HttpServletResponse res) thr
 	String emergencyContactNameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{1,50}$";
 	if (adminname == null || adminname.trim().length() == 0) {
 		errorMsgs.put("EMERGENCY_CONTACTNAME","緊急聯絡人: 請勿空白");
-	} else if(!adminname.trim().matches(adminnameReg)) { //以下練習正則(規)表示式(regular-expression)
+	} else if(!adminname.trim().matches(adminnameReg)) { 
 		errorMsgs.put("EMERGENCY_CONTACTNAME","緊急聯絡人姓名: 只能是中、英文字母、數字和_ , 且長度必需在1到50之間");
     }
 	String emergencyContactel1 = "^09\\d{8}$";
 	String emergencyContactel = req.getParameter("EMERGENCY_CONTACTEL").trim();
 	if (emergencyContactel == null || emergencyContactel.trim().length() == 0) {
 		errorMsgs.put("EMERGENCY_CONTACTEL","緊急聯絡人電話請勿空白");
-	} else if(!emergencyContactel.trim().matches(emergencyContactel1)) { //以下練習正則(規)表示式(regular-expression)
+	} else if(!emergencyContactel.trim().matches(emergencyContactel1)) { 
 		errorMsgs.put("EMERGENCY_CONTACTEL","緊急聯絡人電話: 只能是09開頭且總長度為10");
     }
 	if (!errorMsgs.isEmpty()){
@@ -322,7 +327,7 @@ private void processUpdate2(HttpServletRequest req, HttpServletResponse res) thr
 		req.getSession().removeAttribute("errorMsgs");
 	}
 		
-		//接收前端修改的資料
+		
 		
 		admin.setAdminNo (req.getParameter("ADMIN_NO"));
 		admin.setAdminName (req.getParameter("ADMIN_NAME"));
@@ -377,7 +382,7 @@ private void processUpdate2(HttpServletRequest req, HttpServletResponse res) thr
 		String adminemail = req.getParameter("ADMIN_EMAIL");
 		String adminNo = req.getParameter("ADMIN_NO");
 //		
-//		
+//		印出是否有寫錯
 		for(Administrator admin1 :  administrators) {
 			System.out.println("---------");
 			System.out.println(admin1.getAdminEmail());
@@ -408,7 +413,7 @@ private void processUpdate2(HttpServletRequest req, HttpServletResponse res) thr
 		String adminnameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{1,10}$";
 		if (adminname == null || adminname.trim().length() == 0) {
 			errorMsgs.put("ADMIN_NAME","管理員姓名: 請勿空白");
-		} else if(!adminname.trim().matches(adminnameReg)) { //以下練習正則(規)表示式(regular-expression)
+		} else if(!adminname.trim().matches(adminnameReg)) { 
 			errorMsgs.put("ADMIN_NAME","管理員姓名: 只能是中、英文字母、數字和_ , 且長度必需在1到50之間");
         }
 		
@@ -420,11 +425,11 @@ private void processUpdate2(HttpServletRequest req, HttpServletResponse res) thr
 		if (adminemail == null || adminemail.trim().length() == 0) {
 		    errorMsgs.put("ADMIN_EMAIL", "管理員信箱請勿空白");
 		} else {
-		    // 檢查信箱長度
+		   
 		    if (adminemail.length() < 16 || adminemail.length() > 40) {
 		        errorMsgs.put("ADMIN_EMAIL", "帳號長度必須在6到30個字符之間");
 		    } else {
-		        // 正則表達式，用於驗證信箱格式
+		     
 		        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
 		        Pattern pattern = Pattern.compile(emailRegex);
 		        Matcher matcher = pattern.matcher(adminemail);
@@ -438,7 +443,7 @@ private void processUpdate2(HttpServletRequest req, HttpServletResponse res) thr
 		if (adminpwd == null || adminpwd.trim().length() == 0) {
 //			errorMsgs.put("ADMIN_PASSWORD","管理員密碼請勿空白");
 		}else {
-		    // 加密密碼
+		  
 		    String encryptedPassword=BCrypt.hashpw(adminpwd,BCrypt.gensalt());
 		    admin.setAdminPassword(encryptedPassword);
 		    System.out.println(adminpwd);
@@ -448,7 +453,7 @@ private void processUpdate2(HttpServletRequest req, HttpServletResponse res) thr
 		String admintel = req.getParameter("ADMIN_TEL").trim();
 		if (admintel == null || admintel.trim().length() == 0) {
 			errorMsgs.put("ADMIN_TEL","管理員電話請勿空白");
-		} else if(!admintel.trim().matches(admintel1)) { //以下練習正則(規)表示式(regular-expression)
+		} else if(!admintel.trim().matches(admintel1)) { 
 			errorMsgs.put("ADMIN_TEL","管理員電話: 只能是09開頭且總長度為10");
         }
 		
@@ -471,7 +476,7 @@ private void processUpdate2(HttpServletRequest req, HttpServletResponse res) thr
 			errorMsgs.put("EMERGENCY_CONTACTEL","緊急聯絡人電話: 只能是09開頭且總長度為10");
         }
 
-//		 Send the use back to the form, if there were errors
+
 		if (!errorMsgs.isEmpty()){
 			req.getRequestDispatcher("frontend/administrator/administratorAdd.jsp").forward(req, res);
 	    return;
@@ -523,7 +528,7 @@ private void processUpdate2(HttpServletRequest req, HttpServletResponse res) thr
 		input.close();
 		admin.setAdminPhoto(photo);
 		admin.setAdminFuncName(Integer.valueOf(req.getParameter("ADMIN_FUNC_NAME")));
-		//把資料裝起來
+		//把資料裝起來然後新增
 		administratorService.addAdministrator(admin);
 		
 	
