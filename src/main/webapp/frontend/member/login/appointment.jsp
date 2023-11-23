@@ -393,7 +393,7 @@ a {
 						            <FORM METHOD="post" action="${pageContext.request.contextPath}/frontend/member/login/comment.jsp">
 						                <input type="hidden" name="ptaNo" value="${pta.ptaNo}">     
 						                <input type="hidden" name="commentTime" value="${pta.commentTime}">
-						                <input type="hidden" name="commentUpTime" value="${pta.commentUptime}">
+						                <input type="hidden" name="commentUpTime" value="${pta.commentUpTime}">
 						                <input type="hidden" name="ptaComment" value="${pta.ptaComment}">
 						                <c:choose>
 						                    <c:when test="${canCommentMap[pta] == 1}">
