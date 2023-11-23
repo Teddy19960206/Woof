@@ -179,7 +179,6 @@ public class GroupScduleScheduler extends HttpServlet {
                             today.set(Calendar.SECOND, 0);
                             today.set(Calendar.MILLISECOND, 0);
 
-//                          且報名該課程的人 order ，狀態改變成 4 (已完成)
                             Integer adNo = appointmentDetail.getAdNo();
                             if (appointmentDetail.getAppTime().before(today.getTime())){
                             	appointmentDetailService.updateStatus(adNo);
