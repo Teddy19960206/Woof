@@ -46,58 +46,58 @@
                 <th>訂單明細</th>
             </tr>
 
-        </thead>
-        <tbody>
-        <c:forEach items="${all}" var="order">
-          <tr>
-            <td>${order.shopOrderNo}</td>
-
-            <fmt:formatDate value="${order.prodOrderDate}" pattern="yyyy-MM-dd" var="formattedDate"/>
-            <td>${formattedDate}</td>
-
-            <td>
-            <c:choose>
-                <c:when test="${order.payMethod == 0}">
-                    <p>信用卡</p>
-                </c:when>
-                <c:when test="${order.payMethod == 1}">
-                    <p>匯款</p>
-                </c:when>
-                <c:when test="${order.payMethod == 2}">
-                    <p>綠界</p>
-                </c:when>
-            </c:choose>
-            </td>
-
-            <td>
-            <c:choose>
-                <c:when test="${order.orderStatus == 0}">
-                    <p><span class="text-success"> 成立</span></p>
-                </c:when>
-                <c:when test="${order.orderStatus == 1}">
-                    <p>出貨</p>
-                </c:when>
-                <c:when test="${order.orderStatus == 2}">
-                    <p>完成</p>
-                </c:when>
-                <c:when test="${order.orderStatus == 3}">
-                    <p>取消</p>
-                </c:when>
-                <c:when test="${order.orderStatus == 4}">
-                    <p><span class="text-danger"> 未付款</span></p>
-                </c:when>
-                <c:when test="${order.orderStatus == 5}">
-                    <p>已付款</p>
-                </c:when>
-            </c:choose>
-            </td>
-            <td>
-                <a href="shoporderdetailmem.jsp?shopOrderNo=${order.shopOrderNo}" class="btn btn-info">查看</a>
-            </td>
-          </tr>
-        </c:forEach>
-        </tbody>
-    </table>
+</thead>
+                        <tbody>
+                        <c:forEach items="${all}" var="order">
+						  <tr>
+						  	<td>${order.shopOrderNo}</td>
+						  	
+						  	<fmt:formatDate value="${order.prodOrderDate}" pattern="yyyy-MM-dd" var="formattedDate"/>
+							<td>${formattedDate}</td>
+							
+							<td>
+							<c:choose>
+							    <c:when test="${order.payMethod == 0}">
+							        <p>信用卡</p>
+							    </c:when>
+							    <c:when test="${order.payMethod == 1}">
+							        <p>匯款</p>
+							    </c:when>
+							    <c:when test="${order.payMethod == 2}">
+							        <p>綠界</p>
+							    </c:when>
+							</c:choose>
+						    </td>   
+							
+							<td>
+							<c:choose>
+							    <c:when test="${order.orderStatus == 0}">
+							        <p><span class="text-success">成立</span></p>
+							    </c:when>
+							    <c:when test="${order.orderStatus == 1}">
+							        <p><span class="text-primary">出貨</span></p>
+							    </c:when>
+							    <c:when test="${order.orderStatus == 2}">
+							        <p><span class="text-warning">完成</span></p>
+							    </c:when>
+							    <c:when test="${order.orderStatus == 3}">
+							        <p><span class="text-danger">取消</span></p>
+							    </c:when>
+							    <c:when test="${order.orderStatus == 4}">
+							        <p><span style="color: orange;">未付款</span></p>
+							    </c:when>
+							    <c:when test="${order.orderStatus == 5}">
+							        <p><span style="color: cyan;">已付款</span></p>
+							    </c:when>
+							</c:choose>
+						    </td> 
+						    <td>
+								<a href="shoporderdetailmem.jsp?shopOrderNo=${order.shopOrderNo}" class="btn btn-info">查看</a>					        
+							</td>  					    
+						  </tr>
+                        </c:forEach>
+                        </tbody>
+                    </table>
 
 </div>
 
