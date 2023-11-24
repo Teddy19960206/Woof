@@ -78,7 +78,8 @@
 	<form action="${pageContext.request.contextPath}/classorder/update"
 		method="post" enctype="application/x-www-form-urlencoded">
 		<label>課堂訂單編號:</label>
-		<input	type="text" name="coNo"	value="${param.coNo}" readonly>
+		<input	type="text" name="coId"	value="${param.coId}" readonly>
+		<input	type="hidden" name="coNo" value="${param.coNo}" readonly>
 		<label>會員帳號:</label>
 		<input	type="text" name="memNo" value="${param.memNo}" readonly>
 		<label>購買堂數:</label>

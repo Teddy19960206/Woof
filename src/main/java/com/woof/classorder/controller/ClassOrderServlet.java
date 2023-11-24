@@ -4,8 +4,9 @@ import java.io.IOException;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 import java.util.logging.Level;
 import com.google.gson.*;
 import javax.servlet.ServletException;
@@ -218,8 +219,8 @@ public class ClassOrderServlet extends HttpServlet {
 		String page = request.getParameter("page");
 		int currentPage = (page == null) ? 1 : Integer.parseInt(page);
 //		if (request.getSession().getAttribute("COPageQty") == null) {
-			int COPageQty = classOrderService.getPageTotal();
-			request.getSession().setAttribute("COPageQty", COPageQty);
+		int COPageQty = classOrderService.getPageTotal();
+		request.getSession().setAttribute("COPageQty", COPageQty);
 //		}
 		List<ClassOrder> allClassOrders = classOrderService.getAllCOs(currentPage);
 
@@ -230,7 +231,29 @@ public class ClassOrderServlet extends HttpServlet {
 
 		request.setAttribute("classOrders", allClassOrders);
 		request.setAttribute("currentPage", currentPage);
+		// 以下為改coNo的方法===========================================================
+		List<Integer> coNoList = new ArrayList<>();
 
+		for (ClassOrder classOrder : allClassOrders) {
+			Integer coNo = classOrder.getCoNo();
+			coNoList.add(coNo);
+		}
+
+		List<String> orderIdList = new ArrayList<>();
+
+		for (Integer coNo : coNoList) {
+			String coId = classOrderService.formatOrderId(coNo);
+			orderIdList.add(coId);
+		}
+
+		Map<ClassOrder, String> coId = new LinkedHashMap<>();
+
+		for (int i = 0; i < allClassOrders.size(); i++) {
+			coId.put(allClassOrders.get(i), orderIdList.get(i));
+		}
+
+		request.setAttribute("coId", coId);
+		// ===========================================================================
 	}
 
 	private void getByMemNo(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -243,21 +266,45 @@ public class ClassOrderServlet extends HttpServlet {
 		List<ClassOrder> members = classOrderService.getAllByMemNo(memNo, currentPage);
 		request.setAttribute("members", members);
 		request.setAttribute("currentPage", currentPage);
+
+		// 以下為改coNo的方法===========================================================
+		List<Integer> coNoList = new ArrayList<>();
+
+		for (ClassOrder classOrder : members) {
+			Integer coNo = classOrder.getCoNo();
+			coNoList.add(coNo);
+		}
+
+		List<String> orderIdList = new ArrayList<>();
+
+		for (Integer coNo : coNoList) {
+			String coId = classOrderService.formatOrderId(coNo);
+			orderIdList.add(coId);
+		}
+
+		Map<ClassOrder, String> coId = new LinkedHashMap<>();
+
+		for (int i = 0; i < members.size(); i++) {
+			coId.put(members.get(i), orderIdList.get(i));
+		}
+
+		request.setAttribute("coId", coId);
+		// ===========================================================================
 	}
-	
+
 	private void update(HttpServletRequest request, HttpServletResponse response) {
-		
+
 		String coNoStr = request.getParameter("coNo");
 		Integer coNo = Integer.valueOf(coNoStr);
-		
+
 		String memNo = request.getParameter("memNo");
 		MemberService memberService = new MemberServiceImpl();
 		Member member = memberService.findMemberByNo(memNo);
-		
+
 		Integer coBc = Integer.valueOf(request.getParameter("coBc"));
 		Integer coPaymentMethod = Integer.valueOf(request.getParameter("coPaymentMethod"));
 		Integer coSmmp = Integer.valueOf(request.getParameter("coSmmp"));
-		
+
 		String coTimeStr = request.getParameter("coTime");
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		java.util.Date parsedDate = null;
@@ -271,32 +318,56 @@ public class ClassOrderServlet extends HttpServlet {
 
 		Integer actualAmount = Integer.valueOf(request.getParameter("actualAmount"));
 		Integer coStatus = Integer.valueOf(request.getParameter("coStatus"));
-		
+
 		classOrderService.updateClassOrder(coNo, member, coBc, coPaymentMethod, coSmmp, coTime, coStatus, actualAmount);
-		
+
 		// 更新會員課堂數
-		if(coStatus == 2) {
+		if (coStatus == 2) {
 			Integer totalClass = memberService.findMemberByNo(memNo).getTotalClass();
 			totalClass = totalClass - coBc;
-			memberService.updateMemberClass(memNo , totalClass);
+			memberService.updateMemberClass(memNo, totalClass);
 		}
-		
-		getAll(request,response);
+
+		getAll(request, response);
 	}
-	
+
 	private void refundApplication(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		
+
 		Integer orderNo = Integer.valueOf(request.getParameter("id"));
 		System.out.print(orderNo);
 		ClassOrder classOrder = classOrderService.findClassOrderByCoNo(orderNo);
-		
-		//此處的3代表 狀態是退款申請中
-		classOrderService.updateClassOrder(classOrder.getCoNo(), classOrder.getMember(), classOrder.getCoBc(), classOrder.getCoPaymentMethod(), classOrder.getCoSmmp(), classOrder.getCoTime(), 3, classOrder.getActualAmount());
-			
-		response.setContentType("application/json;charset=UTF-8"); //json
+
+		// 此處的3代表 狀態是退款申請中
+		classOrderService.updateClassOrder(classOrder.getCoNo(), classOrder.getMember(), classOrder.getCoBc(),
+				classOrder.getCoPaymentMethod(), classOrder.getCoSmmp(), classOrder.getCoTime(), 3,
+				classOrder.getActualAmount());
+
+		response.setContentType("application/json;charset=UTF-8"); // json
 //		response.setContentType("text/html;charset=UTF-8")
 //		response.getWriter().write("更新成功");
 		response.getWriter().write("{\"message\" : \"更新成功\"}");
-		
+
+	}
+
+	public void getOrderId(List<ClassOrder> classOrders) {
+		List<Integer> coNoList = new ArrayList<>();
+
+		for (ClassOrder classOrder : classOrders) {
+			Integer coNo = classOrder.getCoNo();
+			coNoList.add(coNo);
+		}
+
+		List<String> orderIdList = new ArrayList<>();
+
+		for (Integer coNo : coNoList) {
+			String coId = classOrderService.formatOrderId(coNo);
+			orderIdList.add(coId);
+		}
+
+		Map<ClassOrder, String> coId = new LinkedHashMap<>();
+
+		for (int i = 0; i < classOrders.size(); i++) {
+			coId.put(classOrders.get(i), orderIdList.get(i));
+		}
 	}
 }
