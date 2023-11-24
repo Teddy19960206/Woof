@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>忘記密碼</title>
+    <link rel="icon" type="image/x-icon" href="<%=request.getContextPath()%>/webutil/icons/happy_1.png" />
      <!-- 引入 jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- 引入 Bootstrap JS -->

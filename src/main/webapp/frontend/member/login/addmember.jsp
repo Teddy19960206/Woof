@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
+<link rel="icon" type="image/x-icon" href="<%=request.getContextPath()%>/webutil/icons/happy_1.png" />
 <!-- 日期的套版 -->
 <link
 	href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"

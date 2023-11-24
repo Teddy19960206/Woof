@@ -81,6 +81,7 @@ function togglePasswordVisibility(fieldId) {
 }
 </script>
 <title>login</title>
+<link rel="icon" type="image/x-icon" href="<%=request.getContextPath()%>/webutil/icons/happy_1.png" />
 </head>
 <body>
 	<div class="login-container">

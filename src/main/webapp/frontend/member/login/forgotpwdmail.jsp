@@ -4,6 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <title>更改密碼mail</title>
+<link rel="icon" type="image/x-icon" href="<%=request.getContextPath()%>/webutil/icons/happy_1.png" />
 <style>
     body {
             font-family: Arial, sans-serif;

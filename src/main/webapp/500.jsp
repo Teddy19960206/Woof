@@ -11,6 +11,7 @@
         <meta name="author" content="">
 
         <title>Website Maintenance</title>
+        <link rel="icon" type="image/x-icon" href="<%=request.getContextPath()%>/webutil/icons/happy_1.png" />
 
         <!-- CSS FILES -->                
         <link rel="preconnect" href="https://fonts.googleapis.com">
