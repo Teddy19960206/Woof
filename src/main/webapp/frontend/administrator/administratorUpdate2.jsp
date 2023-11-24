@@ -7,7 +7,7 @@
 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 <meta charset="UTF-8">
-<title>administrator</title>
+<title>寵毛導師 Woof | 訓練師修改</title>
 <script>
 	$(document).ready(function(){
 	 	 $.ajax({
@@ -23,7 +23,7 @@
 	 	    	 $('#ADMIN_NAME').val(jsonObj.adminName);
 	 	    	 $('input[name=ADMIN_GENDER][value='+jsonObj.adminGender+']').prop('checked',true);
 	 	    	 $('#ADMIN_EMAIL').val(jsonObj.adminEmail);
-	 	    	 $('#ADMIN_PASSWORD').val(jsonObj.adminPassword);
+	 	    	/* $('#ADMIN_PASSWORD').val(jsonObj.adminPassword);*/
 	 	    	 $('#ADMIN_TEL').val(jsonObj.adminTel);
 	 	    	 $('#ADMIN_ADDRESS').val(jsonObj.adminAddress);
 	 	    	 $('#ADMIN_BD').val(jsonObj.adminBd);

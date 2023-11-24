@@ -33,7 +33,7 @@ public class LoginFilter1 implements Filter {
 
 		if (admin  == null) {
 			session.setAttribute("location", req.getRequestURI());
-			res.sendRedirect(req.getContextPath() + "/frontend/administrator/logout1.jsp");
+			res.sendRedirect(req.getContextPath() + "/frontend/administratorlogin/logout1.jsp");
 			return;
 		} else {
 			// 檢查管理員是否被停權

@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>有效電子郵件驗證</title>
+<title>寵毛導師 Woof | 電子郵件驗證</title>
 <style>
 
     body {

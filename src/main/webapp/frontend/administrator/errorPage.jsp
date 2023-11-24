@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>error</title>
+<title>寵毛導師 Woof | 錯誤error</title>
 </head>
 <body>
 	error

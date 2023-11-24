@@ -5,7 +5,7 @@
 <head>
 <%@ include file="/backend/backhead.file"%>
 <meta charset="UTF-8">
-<title>最新消息</title>
+<title>寵毛導師 Woof | 最新消息管理</title>
 <!-- 引入 Bootstrap CSS -->
 
 	<style>
