@@ -42,17 +42,17 @@
                     <tbody>
 
                     <jsp:useBean id="all" class="com.woof.groupcourseorder.service.GroupCourseOrderServiceImpl" />
-                    <c:forEach items="${all.getOrdersbyMember(sessionScope.member.memNo)}" var="order">
+                    <c:forEach items="${all.getAll(null,null,sessionScope.member.memName,0)}" var="order">
                         <tr>
-                            <td class="truncated-text">${all.formatOrderId(order.gcoNo)}</td>
-                            <td>${order.groupCourseSchedule.groupCourse.classType.ctName} : ${order.groupCourseSchedule.groupCourse.skill.skillName}</td>
-                            <td>${order.gcoDate}</td>
-                            <%--  0:信用卡 1:匯款    --%>
-                            <td>${order.gcoPaymentMethod == 0 ? '信用卡' : order.gcoPaymentMethod == 1 ? '匯款' : "綠界"}</td>
-                            <%-- 0:未付款 1:已付款 2:已退款 3.已取消 4. 已完成 5.退款申請中 --%>
-                            <td>${order.gcoStatus == 0 ? '未付款' : order.gcoStatus == 1 ? '已付款' : order.gcoStatus == 2 ? '已退款'
-                                : order.gcoStatus == 3 ? '已取消' : order.gcoStatus == 4 ? '已完成' : '退款申請中'}</td>
-                            <td><button type="button" class="btn btn-primary detail-button" data-id=${order.gcoNo}>詳情</button></td>
+<%--                            <td class="truncated-text">${all.formatOrderId(order.gcoNo)}</td>--%>
+<%--                            <td>${order.groupCourseSchedule.groupCourse.classType.ctName} : ${order.groupCourseSchedule.groupCourse.skill.skillName}</td>--%>
+<%--                            <td>${order.gcoDate}</td>--%>
+<%--                            &lt;%&ndash;  0:信用卡 1:匯款    &ndash;%&gt;--%>
+<%--                            <td>${order.gcoPaymentMethod == 0 ? '信用卡' : order.gcoPaymentMethod == 1 ? '匯款' : "綠界"}</td>--%>
+<%--                            &lt;%&ndash; 0:未付款 1:已付款 2:已退款 3.已取消 4. 已完成 5.退款申請中 &ndash;%&gt;--%>
+<%--                            <td>${order.gcoStatus == 0 ? '未付款' : order.gcoStatus == 1 ? '已付款' : order.gcoStatus == 2 ? '已退款'--%>
+<%--                                : order.gcoStatus == 3 ? '已取消' : order.gcoStatus == 4 ? '已完成' : '退款申請中'}</td>--%>
+<%--                            <td><button type="button" class="btn btn-primary detail-button" data-id=${order.gcoNo}>詳情</button></td>--%>
                         </tr>
                     </c:forEach>
                     </tbody>
