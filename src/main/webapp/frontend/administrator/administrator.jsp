@@ -199,6 +199,7 @@ section {
               clickable: true
           }
        });
+ 
   })
   
   //表單點擊找出對應的function
@@ -254,7 +255,12 @@ section {
     <div class="swiper-wrapper">
           
 	<c:forEach var="administrator" items="${administratorService.allAdministrators}">
-         <div class="swiper-slide" style="background-image: url(data:image/jpeg;base64,${administrator.imgStr}); background-size: cover;">
+<div class="swiper-slide" style="background-image: url(data:image/jpeg;base64,${administrator.imgStr}), url(<%=request.getContextPath()%>/frontend/images/avatar24-01.png); background-size: cover;">
+
+
+
+
+
               <span>${administrator.adminName}</span>
               <div>
                 <h2>${administrator.adminTel}</h2>

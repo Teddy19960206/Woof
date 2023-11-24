@@ -48,10 +48,13 @@
 						<small class="text-muted">消息時間: ${latestNews.lnTime}</small>
 					</p>
 					<div class="image-container mb-3">
-						<!-- 確保圖片的 Base64 編碼是正確的 -->
-						<img src="data:image/jpeg;base64,${latestNews.imgStr1}"
-    class="fixed-size-image" alt="News Image">
-					</div>
+    <!-- 確保圖片的 Base64 編碼是正確的 -->
+    <img src="data:image/jpeg;base64,${latestNews.imgStr1}"
+         class="fixed-size-image" alt="News Image"
+        onerror="this.onerror=null; this.src='/woof/frontend/images/avatar24-01.png';">
+        
+</div>
+
 				
 				</div>
 			</div>
