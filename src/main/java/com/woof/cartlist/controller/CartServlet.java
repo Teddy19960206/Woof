@@ -28,11 +28,8 @@ public class CartServlet extends HttpServlet {
 
 		String forwardPath = "";
 		
-		HttpSession session = request.getSession();
+		HttpSession session = request.getSession(false);
 		Object member = session.getAttribute("member");
-
-		
-		System.out.println(member);
 
 		switch (action) {
 		

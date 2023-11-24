@@ -1,6 +1,8 @@
 let pathNames = window.document.location.pathname;
 let pro = pathNames.substring(0, pathNames.substring(1).indexOf("/") + 1);
 
+document.getElementById("productDetailModal");
+let closeBtn = document.getElementById("closeBtn");
 
 //自動重新刷新會載入總數
 $(function() {
@@ -40,10 +42,10 @@ $(".add-to-cart").on("click", function() {
 	var quantity = parseInt($('#product-quantity').val()); // 從數量選擇器獲取選擇的數量
 	//    var productImageSrc = $('#product-image').attr('src');
 
-	console.log(prodNo);
-	console.log(prodName);
-	console.log(prodPrice);
-	console.log(quantity);
+	// console.log(prodNo);
+	// console.log(prodName);
+	// console.log(prodPrice);
+	// console.log(quantity);
 	//	console.log(productImageSrc);
 
 
@@ -69,12 +71,15 @@ $(".add-to-cart").on("click", function() {
 					title: "請先登入會員~",
 				});
 			} else if (response.message) {
-
+				$('#productDetailModal').modal('hide');
 				Swal.fire({
 					icon: "success",
 					title: "成功加入購物車",
 				});
-				getCartTotalQuantity();
+
+
+				parent.closeBtn.click();
+				parent.getCartTotalQuantity();
 //				$("#cart-count").text(response.totalQuantity);
 			}
 		},
