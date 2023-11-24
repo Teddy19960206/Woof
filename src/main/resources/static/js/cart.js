@@ -9,6 +9,7 @@ $(function() {
 
 function getCartTotalQuantity() {
 	$.ajax({
+		cache: false,
 		type: "POST",
 		url: `${projectName}/cart`,
 		data: {
@@ -17,7 +18,6 @@ function getCartTotalQuantity() {
 		dataType: "json",
 		success: function(response) {
 			$("#cart-count").text(response.totalQuantity);
-
 		},
 		error: function(xhr, status, error) {
 			if (xhr.status === 401) {
@@ -64,14 +64,18 @@ $(".add-to-cart").on("click", function() {
 
 			if (response.message === "請先登入會員~") {
 				// 如果後端返回的是登入提示，則只顯示該提示
-				alert(response.message);
+				Swal.fire({
+					icon: "error",
+					title: "請先登入會員~",
+				});
 			} else if (response.message) {
 
 				Swal.fire({
 					icon: "success",
 					title: "成功加入購物車",
 				});
-				$("#cart-count").text(response.totalQuantity);
+				getCartTotalQuantity();
+//				$("#cart-count").text(response.totalQuantity);
 			}
 		},
 		error: function(xhr, status, error) {
@@ -95,7 +99,10 @@ $(document).on("click", "#cart-icon", function() {
 
 			if (cartJson.length === 0) {
 
-				alert("購物車是空的！，請去商城逛逛~");
+				Swal.fire({
+					icon: "warning",
+					title: "購物車是空的，請去商城逛逛~",
+				});
 
 				window.location.href = `${projectName}/shopHome.html`;
 				return;
