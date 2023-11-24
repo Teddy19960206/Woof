@@ -28,6 +28,8 @@
 						alt="商品 1" style="max-width: 100px; max-height: 100px;">
 					<h3>商品 1</h3>
 					<p>價格: $10</p>
+					<!-- 使用相同的 ID -->
+					<input type="number" id="product-quantity" min="1" value="1">
 					<button class="add-to-cart" data-id="1" data-name="商品 1"
 						data-price="10">加入購物車</button>
 				</div>
@@ -59,8 +61,7 @@
 					<i class="fas fa-cart-plus fa-flip-horizontal"></i> <span
 						id="cart-count">0</span>
 				</div>
-				<div id="cart-list" style="display: none;">
-				</div>
+				<div id="cart-list" style="display: none;"></div>
 			</div>
 		</div>
 	</div>
@@ -88,21 +89,24 @@
 							</tr>
 						</thead>
 						<tbody id="cart-items-list">
-<!-- 							購物車商品項目將在這裡動態添加 -->
+							<!-- 							購物車商品項目將在這裡動態添加 -->
 						</tbody>
 					</table>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary"
 						data-bs-dismiss="modal">繼續購物</button>
-					<a href="<%=request.getContextPath()%>/frontend/cartlist/checkout.jsp" class="btn btn-primary">結帳</a>
+					<a
+						href="<%=request.getContextPath()%>/frontend/cartlist/checkout.jsp"
+						class="btn btn-primary">結帳</a>
 				</div>
 			</div>
 		</div>
 	</div>
 
 
-	<script src="<%=request.getContextPath()%>/frontend/cartlist/js/cart.js "></script>
+	<script
+		src="<%=request.getContextPath()%>/frontend/cartlist/js/cart.js "></script>
 
 </body>
 
