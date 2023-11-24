@@ -233,40 +233,7 @@ public class ShopOrdeServlet extends HttpServlet {
 		int savedOrderNo = shopOrderService.addShopOrder(member, prodOrderDate, payMethod, shipMethod, orderStatus,
 				recName, recMobile, recAddress, hasReturn, moCoin, orderTotalPrice, actualPrice);
 
-		if(payMethod == 2) {
-			
-            // 獲取協議（http或https）
-            String scheme = request.getScheme();
-            // 獲取主機名
-            String host = request.getServerName();
-            // 獲取端口號
-            int port = request.getServerPort();
-            // 構建完整的URL
-            String fullURL = scheme + "://" + host + ":" + port;
 
-            all = new AllInOne("");
-
-            AioCheckOutOneTime obj = new AioCheckOutOneTime();
-            obj.setMerchantTradeNo(formatOrderId(savedOrderNo));
-            obj.setMerchantTradeDate(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")));
-            obj.setTotalAmount(actualPriceStr);
-            obj.setTradeDesc("寵毛導師：商成訂單付款成功");
-            obj.setItemName("狗罐頭");
-            
-            // 有異常導回首頁
-            obj.setReturnURL(fullURL+request.getContextPath()+"/index.jsp");
-            obj.setNeedExtraPaidInfo("N");
-            obj.setRedeem("N");
-
-//            要重新更新訂單狀態
-            obj.setClientBackURL(fullURL+request.getContextPath()+"/shoporder/ecpay?action=updateecpay&orderno=" + savedOrderNo);
-			
-            response.setContentType("text/html;charset=UTF-8");
-            response.getWriter().print(all.aioCheckOut(obj , null));
-            
-			return;
-		}
-		
 		
 		
 		// 如果有確定進入資料庫會有流水編號，再去找流水編號的值，顯示在jsp
@@ -321,6 +288,43 @@ public class ShopOrdeServlet extends HttpServlet {
 //	        return -1; // 訂單新增失败
 			System.out.println("新增失敗");
 		}
+		
+		if(payMethod == 2) {
+			
+//          一般信用卡測試卡號 : 4311-9522-2222-2222 安全碼 : 222
+			
+            // 獲取協議（http或https）
+            String scheme = request.getScheme();
+            // 獲取主機名
+            String host = request.getServerName();
+            // 獲取端口號
+            int port = request.getServerPort();
+            // 構建完整的URL
+            String fullURL = scheme + "://" + host + ":" + port;
+
+            all = new AllInOne("");
+
+            AioCheckOutOneTime obj = new AioCheckOutOneTime();
+            obj.setMerchantTradeNo(formatOrderId(savedOrderNo));
+            obj.setMerchantTradeDate(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")));
+            obj.setTotalAmount(actualPriceStr);
+            obj.setTradeDesc("寵毛導師：商成訂單付款成功");
+            obj.setItemName("狗罐頭");
+            
+            // 有異常導回首頁
+            obj.setReturnURL(fullURL+request.getContextPath()+"/index.jsp");
+            obj.setNeedExtraPaidInfo("N");
+            obj.setRedeem("N");
+
+//            要重新更新訂單狀態
+            obj.setClientBackURL(fullURL+request.getContextPath()+"/shoporder/ecpay?action=updateecpay&orderno=" + savedOrderNo);
+			
+            response.setContentType("text/html;charset=UTF-8");
+            response.getWriter().print(all.aioCheckOut(obj , null));
+            
+			return;
+		}
+		
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/frontend/cartlist/finishorder.jsp");
 		dispatcher.forward(request, response);
