@@ -20,14 +20,14 @@
           class="carousel slide"
           data-bs-ride="carousel"
         >
-          <div class="carousel-indicators">
+          <div class="carousel-indicators" id="carouselBtn">
             <button
               type="button"
               data-bs-target="#carouselExampleCaptions"
               data-bs-slide-to="0"
+              aria-label="Slide 1"
               class="active"
               aria-current="true"
-              aria-label="Slide 1"
             ></button>
             <button
               type="button"
@@ -42,30 +42,38 @@
               aria-label="Slide 3"
             ></button>
           </div>
-          <div class="carousel-inner">
-            <div class="carousel-item active">
-              <img src="webutil/images/Carousel01.jpg" class="d-block w-100" />
-              <div class="carousel-caption d-none d-md-block">
-                <h5>專業訓練師與忠實夥伴的訓練時刻</h5>
-                <p>
-                  透過訓練師的專業指導和狗的專注合作，這一刻展現了寵物訓練不僅是一種技術，也是一種藝術和信任的建立。
-                </p>
-              </div>
-            </div>
-            <div class="carousel-item">
-              <img src="webutil/images/Carousel02.jpg" class="d-block w-100" />
-              <div class="carousel-caption d-none d-md-block">
-                <h5>快樂時光：狗與主人的無價時刻</h5>
-                <p>這一刻不僅是一種簡單的娛樂，更是一個深刻的情感交流。</p>
-              </div>
-            </div>
-            <div class="carousel-item">
-              <img src="webutil/images/Carousel03.jpg" class="d-block w-100" />
-              <div class="carousel-caption d-none d-md-block">
-                <h5>愛與紀律：餵食時間的教育時刻</h5>
-                <p>這不僅是一個簡單的餵食動作，也是一個教育和訓練的好機會。</p>
-              </div>
-            </div>
+          <div class="carousel-inner" id="carousel-inner">
+
+
+<%--            <div class="carousel-item active">--%>
+<%--              <img src="webutil/images/Carousel01.jpg" class="d-block w-100" />--%>
+<%--              <div class="carousel-caption d-none d-md-block">--%>
+<%--                <h5>專業訓練師與忠實夥伴的訓練時刻</h5>--%>
+<%--                <p>--%>
+<%--                  透過訓練師的專業指導和狗的專注合作，這一刻展現了寵物訓練不僅是一種技術，也是一種藝術和信任的建立。--%>
+<%--                </p>--%>
+<%--              </div>--%>
+<%--            </div>--%>
+
+
+<%--            <div class="carousel-item">--%>
+<%--              <img src="webutil/images/Carousel02.jpg" class="d-block w-100" />--%>
+<%--              <div class="carousel-caption d-none d-md-block">--%>
+<%--                <h5>快樂時光：狗與主人的無價時刻</h5>--%>
+<%--                <p>這一刻不僅是一種簡單的娛樂，更是一個深刻的情感交流。</p>--%>
+<%--              </div>--%>
+<%--            </div>--%>
+
+
+<%--            <div class="carousel-item">--%>
+<%--              <img src="webutil/images/Carousel03.jpg" class="d-block w-100" />--%>
+<%--              <div class="carousel-caption d-none d-md-block">--%>
+<%--                <h5>愛與紀律：餵食時間的教育時刻</h5>--%>
+<%--                <p>這不僅是一個簡單的餵食動作，也是一個教育和訓練的好機會。</p>--%>
+<%--              </div>--%>
+<%--            </div>--%>
+
+
           </div>
           <button
             class="carousel-control-prev"
@@ -154,6 +162,7 @@
     </article>
     <!-- 頁尾 -->
     <%@ include file="/Footer.file" %>
+  <script src="${pageContext.request.contextPath}/webutil/js/index.js"></script>
   </body>
 </html>
 

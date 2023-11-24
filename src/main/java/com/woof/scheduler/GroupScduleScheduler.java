@@ -40,6 +40,7 @@ import java.util.concurrent.TimeUnit;
 //@WebServlet(value = "/groupScheduler" , loadOnStartup = 1)
 public class GroupScduleScheduler extends HttpServlet {
 
+
     SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 
     ScheduledExecutorService executorService = Executors.newScheduledThreadPool(4); // 根據需要調整線程池大小
@@ -192,8 +193,12 @@ public class GroupScduleScheduler extends HttpServlet {
                         e.printStackTrace();
                         currentSession.getTransaction().rollback();;
                     }
-                }
+                },
                 
+
+                ()->{
+
+                 }
         };
 
 
