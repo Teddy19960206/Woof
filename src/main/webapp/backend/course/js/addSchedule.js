@@ -269,7 +269,7 @@ const calendar = new FullCalendar.Calendar(calendarEl, {
     },
 });
 
-// 進入下月時，清除之前的內容
+// --------------   進入下月時，清除之前的內容 -----------------
 function removeAllEvents(){
     let allEvents = calendar.getEvents();
     allEvents.forEach(function (event){
@@ -288,7 +288,7 @@ function reserve(arr){
 }
 
 
-// 預約清單
+// --------------- 預約清單 ---------------------
 const reserveDate= [];
 
 
@@ -346,7 +346,7 @@ async function fetchDetailByDate(year , month){
     }
 
 }
-// 抓取當月該訓練師請假日期
+// ------------------  抓取當月該訓練師請假日期  --------------------
 async function fetchNonClass(year , month , trainerNo){
     let url = `${projectName}/nontrainingschedule/getbyntsdate`;
     try{

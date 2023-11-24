@@ -56,7 +56,7 @@
 <div class="success-message">
     <h2>更改成功！</h2>
     <p>您的密碼已經更改完成，現在可以登入使用。</p>
-    <a href='<%=request.getContextPath()%>/frontend/administrator/logout1.jsp' class="login-button"><b>登入</b></a>
+    <a href='<%=request.getContextPath()%>/frontend/administratorlogin/logout1.jsp' class="login-button"><b>登入</b></a>
 </div>
 </body>
 </html>

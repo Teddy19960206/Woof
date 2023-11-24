@@ -1,5 +1,5 @@
-//let pathName = window.document.location.pathname;
-//let projectName = pathName.substring(0, pathName.substring(1).indexOf("/") + 1);
+let pathName = window.document.location.pathname;
+let projectName = pathName.substring(0, pathName.substring(1).indexOf("/") + 1);
 
 const useSmmpRadio = document.getElementById("UseSmmp");
 const notUseSmmpRadio = document.getElementById("notusemocoin");
@@ -157,19 +157,24 @@ function renderCartItems(cart) {
 		console.log(subtotal);	
 			
         html += `<tr>
-                    <td id="item-row-${item.prodNo}" class="hidden" style="display: none;">${item.prodNo}</td>                    
-                    <td>${item.prodName}</td>
-                    <td>
-                        <div>
-                            <button type="button" class="btn btn-secondary btn-sm decrease-btn mx-2" onclick="decreaseQuantity('${item.prodNo}')">-</button>              
-                            <span class="quantity" id="quantity-${item.prodNo}">${item.quantity}</span>
-                            <button type="button" class="btn btn-secondary btn-sm increase-btn mx-2" onclick="increaseQuantity('${item.prodNo}')">+</button>          
-                        </div>
-                    </td>
-                    <td>NT$<span id="price-${item.prodNo}">${item.prodPrice}</span></td>
-                    <td>NT$<span id="subtotal-${item.prodNo}">${subtotal}</span></td>
-                    <td><i class="fa-solid fa-trash" style="cursor: pointer;" onclick="deleteItem('${item.prodNo}')"></i></td>
-                </tr>`;
+				    <td id="item-row-${item.prodNo}" class="hidden d-none text-center align-middle">${item.prodNo}</td>
+				    <td class="text-center align-middle">${item.prodName}</td>
+				    <td class="text-center align-middle">
+				        <img src="${projectName}/productImage/${item.prodNo}" style="width: 100px; height: 100px;" onerror="this.onerror=null; this.src='${projectName}/fallback-image.jpg';"/>
+				    </td>
+				    <td class="text-center align-middle">
+				        <div>
+				            <button type="button" class="btn btn-secondary btn-sm decrease-btn mx-2" onclick="decreaseQuantity('${item.prodNo}')">-</button>
+				            <span class="quantity" id="quantity-${item.prodNo}">${item.quantity}</span>
+				            <button type="button" class="btn btn-secondary btn-sm increase-btn mx-2" onclick="increaseQuantity('${item.prodNo}')">+</button>
+				        </div>
+				    </td>
+				    <td class="text-center align-middle">NT$<span id="price-${item.prodNo}">${item.prodPrice}</span></td>
+				    <td class="text-center align-middle">NT$<span id="subtotal-${item.prodNo}">${subtotal}</span></td>
+				    <td class="text-center align-middle">
+				        <i class="fa-solid fa-trash" style="cursor: pointer;" onclick="deleteItem('${item.prodNo}')"></i>
+				    </td>
+				</tr>`;
 
     });
 

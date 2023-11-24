@@ -72,6 +72,7 @@ request.setCharacterEncoding("UTF-8");
 					<td class="pay-method"><c:choose>
 							<c:when test="${all.payMethod == 0}">信用卡</c:when>
 							<c:when test="${all.payMethod == 1}">匯款</c:when>
+							<c:when test="${all.payMethod == 2}">綠界</c:when>
 						</c:choose></td>
 					<td class="ship-method"><c:choose>
 							<c:when test="${all.shipMethod == false}">宅配</c:when>
@@ -88,11 +89,24 @@ request.setCharacterEncoding("UTF-8");
 					<td class="order-total-price">${all.orderTotalPrice}</td>
 					<td class="actual-price">${all.actualPrice}</td>
 					<td><span class="status-text"> <c:choose>
-								<c:when test="${all.orderStatus == 0}">成立</c:when>
-								<c:when test="${all.orderStatus == 1}">出貨</c:when>
-								<c:when test="${all.orderStatus == 2}">完成</c:when>
-								<c:when test="${all.orderStatus == 3}">取消</c:when>
-								<c:when test="${all.orderStatus == 4}">未付款</c:when>
+								<c:when test="${all.orderStatus == 0}">
+									<span style="color: green;">成立</span>
+								</c:when>
+								<c:when test="${all.orderStatus == 1}">
+									<span style="color: blue;">出貨</span>
+								</c:when>
+								<c:when test="${all.orderStatus == 2}">
+									<span style="color: yellow;">完成</span>
+								</c:when>
+								<c:when test="${all.orderStatus == 3}">
+									<span style="color: red;">取消</span>
+								</c:when>
+								<c:when test="${all.orderStatus == 4}">
+									<span style="color: orange;">未付款</span>
+								</c:when>
+								<c:when test="${all.orderStatus == 5}">
+									<span style="color: cyan;">已付款</span>
+								</c:when>
 							</c:choose>
 					</span> <select class="status-select" style="display: none;">
 							<option value="0" ${all.orderStatus == 0 ? 'selected' : ''}>成立</option>
@@ -100,6 +114,7 @@ request.setCharacterEncoding("UTF-8");
 							<option value="2" ${all.orderStatus == 2 ? 'selected' : ''}>完成</option>
 							<option value="3" ${all.orderStatus == 3 ? 'selected' : ''}>取消</option>
 							<option value="4" ${all.orderStatus == 4 ? 'selected' : ''}>未付款</option>
+							<option value="4" ${all.orderStatus == 5 ? 'selected' : ''}>已付款</option>
 					</select></td>
 					<td>
 						<div class="d-flex flex-column">

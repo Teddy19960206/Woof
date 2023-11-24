@@ -59,15 +59,21 @@ $(".add-to-cart").on("click", function() {
 			// productImage: productImageSrc
 		},
 		success: function(response) {
-			
+
 			console.log(response);
-			
+
 			if (response.message === "請先登入會員~") {
 				// 如果後端返回的是登入提示，則只顯示該提示
-				alert(response.message);
+				Swal.fire({
+					icon: "error",
+					title: "請先登入會員~",
+				});
 			} else if (response.message) {
-				
-				alert("加入購物車");
+
+				Swal.fire({
+					icon: "success",
+					title: "成功加入購物車",
+				});
 				$("#cart-count").text(response.totalQuantity);
 			}
 		},
@@ -92,10 +98,16 @@ $(document).on("click", "#cart-icon", function() {
 
 			if (cartJson.length === 0) {
 
-				alert("購物車是空的！，請去商城逛逛~");
+				Swal.fire({
+					icon: "warning",
+					title: "購物車是空的，請去商城逛逛~",
+				confirmButtonText: "確定", 
+				}).then((result) => {
+					if (result.isConfirmed) {
 
-				window.location.href = `${projectCart}/shopHome.html`;
-				return;
+						window.location.href = `${projectCart}/shopHome.html`;
+					}
+				});
 			}
 
 			let html = "";
@@ -107,11 +119,13 @@ $(document).on("click", "#cart-icon", function() {
 				totalAmount += itemTotal; // 計算購物車總金額
 
 				html += `<tr>
-                            <td>${item.prodName}</td>
-                             <td><img src="${projectCart}/productImage/${item.prodNo}" style="width: 100px; height: 100px;" onerror="this.onerror=null; this.src='${projectCart}/fallback-image.jpg';"/></td>
-                            <td>${item.quantity}</td>
-                            <td>NT$${itemTotal}</td>
-                        </tr>`;
+						    <td class="text-center align-middle">${item.prodName}</td>
+						    <td class="text-center align-middle">
+						        <img src="${projectCart}/productImage/${item.prodNo}" style="width: 100px; height: 100px;" onerror="this.onerror=null; this.src='${projectCart}/fallback-image.jpg';"/>
+						    </td>
+						    <td class="text-center align-middle">${item.quantity}</td>
+						    <td class="text-center align-middle">NT$${itemTotal}</td>
+						</tr>`;
 			});
 
 			$("#cart-items-list").html(html);
@@ -120,8 +134,18 @@ $(document).on("click", "#cart-icon", function() {
 		},
 		error: function(xhr, status, error) {
 			if (xhr.status === 401) {
-				window.location.href = `${projectCart}/frontend/member/login/login.jsp`;
+				Swal.fire({
+					icon: "error",
+					title: "請先登入會員~",
+					confirmButtonText: "確定", 
+				}).then((result) => {
+					if (result.isConfirmed) {
+
+						window.location.href = `${projectCart}/frontend/member/login/login.jsp`;
+					}
+				});
 			}
+
 		}
 	});
 });

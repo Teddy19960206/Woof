@@ -41,6 +41,7 @@
 							<tr>
 								<!-- 							<th><input type="checkbox" id="selectAll"></th> -->
 								<th>名稱</th>
+								<th>照片</th>
 								<th>數量</th>
 								<th>單價</th>
 								<th>小計</th>

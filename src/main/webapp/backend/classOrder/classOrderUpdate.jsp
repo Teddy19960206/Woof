@@ -4,7 +4,7 @@
 <html>
 <head>
 <%@ include file="/backend/backhead.file" %>
-<title>寵毛導師 Woof | 課堂訂單管理</title>
+<title>寵毛導師 Woof | 課堂訂單修改</title>
 <style>
 
 	body {
@@ -73,6 +73,7 @@
 </head>
 <body>
 <%@ include file="/backend/backbody.file" %>
+<div class="container py-3">
 	<h2>修改訂單狀態</h2>
 
 	<form action="${pageContext.request.contextPath}/classorder/update"
@@ -101,7 +102,7 @@
 		<button type="submit">修改</button>
 		<button type="button" class="cancel" onclick="history.back()">取消修改</button>
 	</form>
-	
+</div>	
 <%@ include file="/backend/backfoot.file" %>
 </body>
 </html>

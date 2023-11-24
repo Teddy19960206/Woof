@@ -2,13 +2,13 @@ let pathName = window.document.location.pathname;
 let projectName = pathName.substring( 0 , pathName.substring(1).indexOf("/")+1);
 
 
-// 進來網頁時，抓取訓練師資料並顯示在頁面上
+// ----------------- 進來網頁時，抓取訓練師資料並顯示在頁面上 -----------------------
 $(async function (){
    let data = await fetchAllTrainer();
    select(data);
 })
 
-// 取得所有訓練師資料
+//  ------------------  取得所有訓練師資料 --------------------------------------
 async function fetchAllTrainer(){
     let url = `${projectName}/trainer/getTrianers`;
 
@@ -30,7 +30,7 @@ async function fetchAllTrainer(){
     }
 }
 
-// 傳到jsp上顯示select下拉式選單
+// ----------------- 傳到jsp上顯示select下拉式選單 ------------------------------
 function select(data){
     html = `<select name='trainers'>
     <option value="0">--請選擇--</option>`;
@@ -43,7 +43,7 @@ function select(data){
 }
 
 
-// 選擇訓練師後送出，則去抓取該訓練師的上課日期
+// --------------  選擇訓練師後送出，則去抓取該訓練師的上課日期  -------------------
 $(document).on("click" , "button.getBtn" , async function (){
     let getDetails = await fetchTrainerDetails($("option:selected").val());
     showDetails(getDetails);

@@ -41,7 +41,7 @@
 			        <h2 class="border-bottom pb-3 mb-3 text-success">訂單完成</h2>
 			    </c:when>
 			    <c:when test="${payMethod == 1}">
-			        <h2 class="border-bottom pb-3 mb-3 text-warning">訂單未付款</h2>
+			        <h2 class="border-bottom pb-3 mb-3" style="color: orange;">訂單未付款</h2>
 			    </c:when>
 			</c:choose>
 

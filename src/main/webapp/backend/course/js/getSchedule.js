@@ -5,25 +5,25 @@ let projectName = pathName.substring( 0 , pathName.substring(1).indexOf("/")+1);
 let className;
 
 
-// 點選相關資料的修改時，發送相關資料的id，並進入到編輯頁面
+//------------------- 點選相關資料的修改時，發送相關資料的id，並進入到編輯頁面 -----------------------
 $(document).on("click" , "button.modify-button" , function (){
     let url = `${projectName}/schedule/edit/${this.getAttribute("data-id")}`;
     window.location.href = url;
 });
 
 
-// 進入schedule.jsp時，會直接發送請求，取得所有相關資料---------------
+//---------------   進入schedule.jsp時，會直接發送請求，取得所有相關資料------------------------
 document.addEventListener("DOMContentLoaded", function (){
     fetchData();
 });
 
 
-// 按下提交按鈕，發送請求，取得相應的資料
+//-------------------------- 按下提交按鈕，發送請求，取得相應的資料 ----------------------------
 document.getElementById("button").onclick = function (){
     fetchData();
 }
 
-// 抓取資料
+//------------------------   抓取資料 ------------------------------------------------
 async function fetchData(page){
 
     if (!page){
@@ -184,7 +184,7 @@ async function fetchData(page){
     }
 }
 
-// 抓取上課日期，依照Schedule編號---------------------------------
+//---------------------------- 抓取上課日期，依照Schedule編號---------------------------------
 $(document).on("click" , "button.detail-button" , function (e){
     let url = `${projectName}/scheduleDetail/detail/${this.getAttribute("data-id")}`;
     className = $(this).closest("tr").find("th").eq(1).text();
@@ -198,13 +198,14 @@ $(document).on("click" , "button.detail-button" , function (e){
     history.pushState(newState, "", newUrl);
     fetchDetail(url);
 });
-// 監聽按下上一頁時會重新刷新頁一慢
+
+//------------------------- 監聽按下上一頁時會重新刷新頁一慢 ---------------------------------
 window.onpopstate = function(event) {
     location.reload();
 };
 
 
-// 查看課程詳情
+// ----------------------------- 查看課程詳情 --------------------------------------------
 async function fetchDetail(url){
     // 抓取資料，根據classType取得相對應的資料
     try{
@@ -260,7 +261,7 @@ async function fetchDetail(url){
     }
 }
 
-// detail修改按鈕----------------------------------------------
+//------------------------------------- detail修改按鈕 --------------------------------
 $(document).on("click" , "button.editDetail" , async  function (){
 
     window.location.href = `${projectName}/backend/course/editDetail.jsp?id=${this.getAttribute("data-id")}&trainer=${this.getAttribute("data-trainer")}`;
@@ -270,7 +271,7 @@ $(document).on("click" , "button.editDetail" , async  function (){
 
 
 
-// 修改後，按下確認按鈕正式進行資料庫修改-----------------------------
+//---------------------------------- 修改後，按下確認按鈕正式進行資料庫修改-----------------------------
 $(document).on("click" , "button.modify" , async function () {
     let tr = $(this).closest("tr");
     let select = tr.find("select");
@@ -315,7 +316,7 @@ async function detailModify(id , trainer , classDate){
 }
 
 
-// 刪除detail按鈕-----------------------------------------------
+// -------------------------------   刪除detail按鈕 -------------------------------------
 $(document).on("click" , "button.deleteDetail" , function (){
 
     const swalWithBootstrapButtons = Swal.mixin({

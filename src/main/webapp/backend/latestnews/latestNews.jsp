@@ -9,7 +9,25 @@
 <!-- 引入 Bootstrap CSS -->
 
 	<style>
+  /* 基本按鈕樣式 */
+   .custom-button {
+    margin-top: 1rem; /* 或者更多，根據您的需求調整 */
+    margin-bottom: 1rem; /* 增加下邊距，根據您的需求調整 */
+        background-color:#FFAF60; /* 綠色背景 */
+        color: white; /* 白色文字 */
+        padding: 12px 20px; /* 內邊距 */
+        border: none; /* 無邊框 */
+        border-radius: 4px; /* 圓角邊框 */
+        cursor: pointer; /* 鼠標樣式改為手形 */
+        transition-duration: 0.4s; /* 過渡效果時間 */
+    }
 
+    /* 按鈕點擊時的樣式 */
+    .custom-button:active {
+        background-color: #3e8e41; /* 點擊時的背景色 */
+        box-shadow: 0 5px #666; /* 點擊時的陰影效果 */
+        transform: translateY(4px); /* 點擊時輕微下移 */
+    }
 
 .card {
   background-color: #f0f0f0;
@@ -58,7 +76,7 @@
 	<jsp:useBean id="latestNewsService" scope="page"
 		class="com.woof.latestnews.service.LatestNewsServiceImpl" />
 	<div class="container mt-5">
-		<input type="button" class="btn btn-primary mb-3" id="btnadd"
+		<input type="button" id="btnadd"  class="custom-button"
 			value="新增" onclick="processAdd();">
 		<c:forEach var="latestNews" items="${latestNewsService.allLatestNews}">
 			<div class="card mb-3">

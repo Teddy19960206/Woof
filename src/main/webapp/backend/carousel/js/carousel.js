@@ -16,7 +16,6 @@ async function fetchCarousel(){
             throw new Error("錯誤");
         }
         const data = await response.json();
-        console.log(data);
         return data;
     }catch (error){
         console.error("Error" , error);
@@ -46,7 +45,6 @@ function splicingCarousel(data){
         </thead>
         <tbody id="mybody table-group-divider">`);
 
-
     data.forEach((item)=>{
 
         arr.push(`<tr>
@@ -74,6 +72,8 @@ function splicingCarousel(data){
 $(document).on("click" , "button.modifyBtn" , async function (){
     let data = await fetchOneCarousel($(this).data("id"));
     modifyPage(data);
+
+    addHistory();
 })
 
 
@@ -106,10 +106,7 @@ function modifyPage(data){
                     <div class="col-6">
                         <div class="col-6 mx-auto">
                             <input type="hidden" name="groupCourseNo" value="${data.carId}">
-                            
-                            <label class="m-3">標題：</label>
-                            <input type="text" id="title" class="form-control" value="${data.title}" />
-                            
+                                                                           
                             <label class="m-3">是否顯示：</label>
                             <select class="form-select mx-auto" id="isActive">
                                 <option ${data.isActive == 0 ? 'selected': ''} value="0">不顯示</option>
@@ -140,10 +137,16 @@ function modifyPage(data){
                             </div>
                         </div>
                     </div>
-    
+                    <div class="col-7 mx-auto">
+                        <label class="m-3">標題：</label>
+                        <input type="text" id="title" class="form-control" value="${data.title}" />
+                    </div>
+                    <div class="col-6">
+                    </div>
+                    <div class="col-6"></div>
                      <div class="col-auto mx-auto">
                         <label class="m-3">內容：</label>
-                        <textarea class="form-control" id="content" style="width: 500px; height: 100px" name="content"></textarea>
+                        <textarea class="form-control" id="content" style="width: 500px; height: 100px" name="content">${data.content}</textarea>
                      </div>
                     
                     <div class="mt-5 text-center ">
@@ -155,6 +158,8 @@ function modifyPage(data){
 
     html = arr.join("");
     $(".showCarousel").html(html);
+
+    changeSelect();
 }
 // -------------------------- 圖取圖片 展示到頁面上 ---------------------------
 $(document).on("change" , "input#p_file" , function (){
@@ -304,10 +309,10 @@ $(document).on("click" , ".addCarousel" , function (){
                             </select>
                    
                             <label class="m-3">排序順序：</label>
-                            <input type="number" id="sequence" class="form-control" />
+                            <input type="number" id="sequence" class="form-control"/>
                             
-                            <label class="m-3">圖片：</label>
-                            <div class="col-6 mx-auto">
+                            <label class="m-5">圖片：</label>
+                            <div class="col-6 mx-auto m-5">
                                 <label for="p_file" class="uploadImage">選擇圖片</label>
                                 <input type="file" name="photo" value="" id="p_file" hidden="hidden">
                             </div>
@@ -342,7 +347,8 @@ $(document).on("click" , ".addCarousel" , function (){
     html = arr.join("");
 
     $(".showCarousel").html(html);
-
+    changeSelect();
+    addHistory();
 })
 
 async function addCarousel(){
@@ -416,3 +422,32 @@ $(document).on("click" , "button.add-button" , async function (){
     }
     addCarousel();
 })
+
+// -------------------------------------- 動態變化select選單 -----------------------
+$(document).on("change" , "#isActive" ,function (){
+    changeSelect();
+})
+
+function changeSelect(){
+    if ($("#isActive").val() == 0){
+        $("#sequence").val("");
+        $("#sequence").prop("disabled" , true);
+    }else{
+        $("#sequence").prop("disabled" , false);
+    }
+}
+
+// ------------------------------- 新增歷史紀錄 ------------------------------
+function addHistory(){
+    let newUrl = `${project}/backend/carousel/carousel.jsp`; // 想要添加的新網址
+    let newState = { page: "寵毛導師 Woof | 輪播管理" }; // 新狀態物件
+
+    history.pushState(newState, "新頁面標題", newUrl);
+}
+
+window.addEventListener("popstate", function(event) {
+    if (event.state && event.state.page) {
+        // 加載新頁面內容
+        location.reload();
+    }
+});
