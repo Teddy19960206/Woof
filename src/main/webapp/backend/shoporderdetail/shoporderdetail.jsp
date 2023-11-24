@@ -108,7 +108,7 @@ request.setCharacterEncoding("UTF-8");
 						<tr>
 							<td>${orderDetail.prodName}</td>
 							<td>${orderDetail.orderAmount}</td>
-							<td>${orderDetail.orderAmount}</td>
+							<td>${orderDetail.prodPrice}</td>
 							<td>NT$${orderDetail.orderAmount * orderDetail.prodPrice}</td>
 						</tr>
 					</c:forEach>
