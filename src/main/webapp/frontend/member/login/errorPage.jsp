@@ -38,7 +38,7 @@
 
                             <p>網站維護中</p>
 
-                            <a class="custom-btn btn mt-4" href="index.jsp">Back to Home</a>
+                            <a class="custom-btn btn mt-4" href="/woof/index.jsp">Back to Home</a>
                         </div>
                     </div>
                 </div>
