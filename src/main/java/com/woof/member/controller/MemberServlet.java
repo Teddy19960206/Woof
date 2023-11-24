@@ -97,6 +97,8 @@ public class MemberServlet extends HttpServlet {
 	}
 	private void changeStatus(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		String memNo = req.getParameter("memNo");
+		String currentPage = req.getParameter("currentPage"); // 獲取當前頁碼
+		
 		if (memNo == null || memNo.trim().isEmpty()) {
 			// 處理錯誤情況，例如回傳錯誤信息或重導到錯誤頁面
 		} else {
@@ -124,7 +126,8 @@ public class MemberServlet extends HttpServlet {
 				// 將更新後的會員資料設置為請求屬性
 				req.setAttribute("member", updatedMember);
 				// 導到指定的URL 頁面上 把請求回應都帶過去
-				req.getRequestDispatcher("/backend/member/list_all_member.jsp").forward(req, res);
+				String url = req.getContextPath() + "/member.do?action=getall&page=" + currentPage;
+				res.sendRedirect(url);
 			} else {
 				// 處理找不到會員的情況
 			}
@@ -404,7 +407,12 @@ public class MemberServlet extends HttpServlet {
 	private String getAllmembers(HttpServletRequest req, HttpServletResponse res) throws IOException {
 		req.setCharacterEncoding("UTF-8");
 		String page = req.getParameter("page");
-		int currentPage = (page == null) ? 1 : Integer.parseInt(page);
+		int currentPage;
+		try {
+		    currentPage = Integer.parseInt(page);
+		} catch (NumberFormatException e) {
+		    currentPage = 1; // 如果解析失敗，默認設置為第一頁
+		}
 		int MemPageQty = memberService.getPageTotal();
 		req.getSession().setAttribute("MemPageQty", MemPageQty);
 		List<Member> memberList = memberService.getAllMembers(currentPage);
