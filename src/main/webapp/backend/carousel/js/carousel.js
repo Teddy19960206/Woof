@@ -46,7 +46,6 @@ function splicingCarousel(data){
         </thead>
         <tbody id="mybody table-group-divider">`);
 
-
     data.forEach((item)=>{
 
         arr.push(`<tr>
@@ -106,10 +105,7 @@ function modifyPage(data){
                     <div class="col-6">
                         <div class="col-6 mx-auto">
                             <input type="hidden" name="groupCourseNo" value="${data.carId}">
-                            
-                            <label class="m-3">標題：</label>
-                            <input type="text" id="title" class="form-control" value="${data.title}" />
-                            
+                                                                           
                             <label class="m-3">是否顯示：</label>
                             <select class="form-select mx-auto" id="isActive">
                                 <option ${data.isActive == 0 ? 'selected': ''} value="0">不顯示</option>
@@ -140,10 +136,13 @@ function modifyPage(data){
                             </div>
                         </div>
                     </div>
-    
+                    <div class="col-6 mx-auto">
+                        <label class="m-3">標題：</label>
+                        <input type="text" id="title" class="form-control" value="${data.title}" />
+                    </div>
                      <div class="col-auto mx-auto">
                         <label class="m-3">內容：</label>
-                        <textarea class="form-control" id="content" style="width: 500px; height: 100px" name="content"></textarea>
+                        <textarea class="form-control" id="content" style="width: 500px; height: 100px" name="content">${data.content}</textarea>
                      </div>
                     
                     <div class="mt-5 text-center ">
