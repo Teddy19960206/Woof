@@ -1,6 +1,4 @@
 //Content Loaded
-
-
 let header = document.querySelector(".chat-box .header");
 let chatRoom = document.querySelector(".chat-room");
 let typeArea = document.querySelector(".type-area");

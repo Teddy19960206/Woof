@@ -40,6 +40,7 @@ public class MemberServiceImpl implements MemberService, AppService<String> {
 			if (member != null) {
 				member.setMemPhoto(null); // 假設 setMemPhoto 方法用來設置照片為 null
 				dao.update(member);
+				return;
 			}
 		}
 
