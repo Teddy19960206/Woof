@@ -167,7 +167,6 @@ public class GroupScduleScheduler extends HttpServlet {
                 }
         };
 
-
         for (Runnable task : tasks)
             executorService.scheduleWithFixedDelay(task , 0 , Long.parseLong(getInitParameter("timer")), TimeUnit.SECONDS);
 
