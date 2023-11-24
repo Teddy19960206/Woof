@@ -9,7 +9,7 @@
 
 
 
-<title>FAQ</title>
+<title>寵毛導師 Woof | FAQ管理</title>
 
 <%@ include file="/backend/backhead.file"%>
 

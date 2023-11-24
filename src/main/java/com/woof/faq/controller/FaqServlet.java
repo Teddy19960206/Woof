@@ -95,7 +95,7 @@ public class FaqServlet extends HttpServlet {
 		List<Faq> all = faqService.getAllFaq();
 		
 		req.setAttribute("all", all);		
-		
+		System.out.println(all);
 		return "/frontend/faqfront/faqfront.jsp";
 	}
 	
@@ -131,7 +131,9 @@ public class FaqServlet extends HttpServlet {
 		String faqContent = req.getParameter("faqContent");
 
 		int result = faqService.updateFaq(faqNo, faqClass, faqTitle, faqContent);		
-//		req.setAttribute("result", result);
+		
+		Faq updatedFaq = faqService.findByFaqNo(faqNo);
+		req.setAttribute("updatedFaq", updatedFaq);
 		
 //		System.out.println(result);
 
@@ -142,7 +144,7 @@ public class FaqServlet extends HttpServlet {
 		}
 		
 		resp.setContentType("application/json;charset=UTF-8");
-		return "/backend/faq/faqfirst.jsp";
+		return "/backend/faq/updateconfirm.jsp";
 	}
 
 	private String deletefaq(HttpServletRequest req, HttpServletResponse resp) {

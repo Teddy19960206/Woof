@@ -19,28 +19,28 @@ request.setCharacterEncoding("UTF-8");
 
 	<%@ include file="/backend/backbody.file"%>
 
-	<div class="container text-center p-2">
-		<div class="row mt-3">
-			<div class="col-2">
+	<div class="container text-center p-3">
+		<div class="row">
+			<div class="col-2 p-0">
 				<a class="btn btn-primary"
 					href="${pageContext.request.contextPath}/shoporder?action=getAll">查詢全部訂單</a>
 			</div>
-			<div class="col-5">
+			<div class="col-5 p-0 ml-md-n3">
 				<jsp:useBean id="memberService" scope="page"
 					class="com.woof.member.service.MemberServiceImpl" />
 				<form method="POST"
 					action="${pageContext.request.contextPath}/shoporder?action=getByMemNo"
 					class="form-inline">
-					<label class="mr-2"><b>搜尋會員編號:</b></label> <input name="memNo">
+					<label class="p-0"><b>搜尋會員編號:</b></label> <input name="memNo">
 					<button type="submit" class="btn btn-primary">查詢</button>
 				</form>
 			</div>
 		</div>
 	</div>
-	<h3 class="mt-1 text-center">單一會員訂單</h3>
-	<table class="table table-hover text-center" style="font-size: 12px;">
+<!-- 	<h3 class="mt-1 text-center">全部訂單</h3> -->
+	<table class="table table-hover text-center mt-4" style="font-size: 12px;">
 		<thead class="align-middle">
-			<tr class="text-nowrap">
+			<tr class="table-secondary">
 				<th>編號</th>
 				<th>會員帳號</th>
 				<!--                     <th>會員名稱</th> -->
@@ -71,7 +71,6 @@ request.setCharacterEncoding("UTF-8");
 
 					<td class="mem-no">${shopOrders.member.memNo}</td>
 					<%--         				<td class="mem-name">${shopOrders.member.memName}</td> --%>
-
 					<td class="prod-order-date">${shopOrders.prodOrderDate}</td>
 					<td class="pay-method"><c:choose>
 							<c:when test="${shopOrders.payMethod == 0}">信用卡</c:when>
@@ -112,12 +111,12 @@ request.setCharacterEncoding("UTF-8");
 					</select></td>
 					<td>
 						<div class="d-flex flex-column">
-							<button class="edit-btn btn btn-primary "
-								style="font-size: 10px; min-width: 50px;">修改</button>
+							<button class="edit-btn btn btn-primary"
+								style="font-size: 10px; min-width: 30px;">修改</button>
 							<button class="save-btn btn btn-success"
-								style="display: none; font-size: 10px;">確定</button>
-							<button class="cancel-btn btn btn-danger"
-								style="display: none; font-size: 10px;">取消</button>
+								style="display: none; font-size: 10px; min-width: 50px;">確定</button>
+							<button class="cancel-btn btn btn-danger mt-1"
+								style="display: none; font-size: 10px; min-width: 50px;">取消</button>
 						</div>
 					<td>
 						<form method="post"
@@ -158,8 +157,8 @@ request.setCharacterEncoding("UTF-8");
 
 
 		<a class="btn btn-secondary"
-		href="${pageContext.request.contextPath}/backend/shoporder/shoporderfirst.jsp">返回</a>
-	</div>
+		href="${pageContext.request.contextPath}/backend/index.jsp">返回</a>
+
 
 	<%@ include file="/backend/backfoot.file"%>
 	<script

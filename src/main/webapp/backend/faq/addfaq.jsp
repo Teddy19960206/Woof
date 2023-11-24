@@ -4,42 +4,41 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>新增</title>
+<title>寵毛導師 Woof | FAQ管理</title>
 
- <%@ include file="/backend/backhead.file"%>
-    
+<%@ include file="/backend/backhead.file"%>
+
 </head>
 <body>
 	<%@ include file="/backend/backbody.file"%>
 
-    <div class="container">
-        <h1>新增FAQ畫面</h1>
+	<div class="container pt-3">
+		<h1 class="text-center">新增FAQ</h1>
 
-        <form action="${pageContext.request.contextPath}/faq/addfaq" method="post">
+		<form action="${pageContext.request.contextPath}/faq/addfaq"
+			method="post">
 
-            <table class="table table-bordered">
-                <tr>
-                    <th>FAQ編號</th>
-                    <th>類別</th>
-                    <th>標題</th>
-                    <th>內容</th>
-                </tr>
-
-                <tr>
-                    <td>${result.faqNo}</td>
-                    <td>${result.faqClass}</td>
-                    <td>${result.faqTitle}</td>
-                    <td>${result.faqContent}</td>
-                </tr>
-            </table>
-            <a class="btn btn-secondary" href="javascript:history.back()">返回</a>
-        </form>
-    </div>
+			<table class="table table-hover text-center">
+				<thead class="table-secondary">
+					<tr>
+						<th class="col-1">FAQ編號</th>
+						<th class="col-2">類別</th>
+						<th class="col-2">標題</th>
+						<th class="col-7">內容</th>
+					</tr>
+				</thead>
+				<tr>
+					<td>${result.faqNo}</td>
+					<td>${result.faqClass}</td>
+					<td>${result.faqTitle}</td>
+					<td>${result.faqContent}</td>
+				</tr>
+			</table>
+			<a class="btn btn-secondary" href="${pageContext.request.contextPath}/faq?action=getAll">返回</a>
+		</form>
+	</div>
 
 	<%@ include file="/backend/backfoot.file"%>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

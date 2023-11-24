@@ -1,5 +1,5 @@
-let pathName = window.document.location.pathname;
-let projectName = pathName.substring(0, pathName.substring(1).indexOf("/") + 1);
+//let pathName = window.document.location.pathname;
+//let projectName = pathName.substring(0, pathName.substring(1).indexOf("/") + 1);
 
 const useSmmpRadio = document.getElementById("UseSmmp");
 const notUseSmmpRadio = document.getElementById("notusemocoin");
@@ -23,7 +23,7 @@ window.addEventListener("load" , ()=>{
 useSmmpRadio.addEventListener( "change", function () {
     // 如果選擇使用毛毛幣，移除disabled屬性
     inputSmmp.removeAttribute("disabled");
-    hiddenInputSmmp.value = "0";
+    hiddenInputSmmp.value = inputSmmp.value;
 });
 
 notUseSmmpRadio.addEventListener("change", function () {
@@ -82,6 +82,8 @@ document.getElementById('inputSmmp').addEventListener('input', function (e) {
     const maxCoins = parseInt(maxCoinsElement.innerText); // 從頁面獲取毛毛幣的餘額
     let inputCoins = parseInt(e.target.value); 
 
+	hiddenInputSmmp.value = e.target.value; // 將輸入的值賦予 hiddenInputSmmp
+	
 	console.log(maxCoinsElement);
 	console.log(maxCoins);
 	console.log(inputCoins);

@@ -2,6 +2,9 @@ package com.woof.administrator.controller;
 
 import com.woof.administrator.service.AdministratorService;
 import com.woof.administrator.service.AdministratorServiceImpl;
+import com.woof.member.entity.Member;
+import com.woof.member.service.MemberService;
+import com.woof.member.service.MemberServiceImpl;
 import com.woof.administrator.service.AdministratorService;
 import com.woof.administrator.service.AdministratorServiceImpl;
 import com.alibaba.fastjson2.JSONObject;
@@ -18,7 +21,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
-
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.io.IOException;
@@ -26,8 +28,9 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-
+//使用 @WebServlet註解來指定這個 Servlet 的訪問路徑。
 @WebServlet("/administrator.do")
+//使用 @MultipartConfig 註解來支持多部分請求，這在處理包含檔案上傳的表單時是必要的。
 @MultipartConfig
 public class AdministratorServlet extends HttpServlet {
 
@@ -35,6 +38,7 @@ public class AdministratorServlet extends HttpServlet {
 
 	@Override
 	public void init() throws ServletException {
+//		與資料庫交互的服務層
 		administratorService = new AdministratorServiceImpl();
 	}
 
@@ -45,6 +49,7 @@ public class AdministratorServlet extends HttpServlet {
 		//前端的action對應到哪個 執行哪個
 		switch (action) {
 		case "add":
+//			執行裡面的方法
 			processAdd(req, res);
 			break;
 			
@@ -59,8 +64,50 @@ public class AdministratorServlet extends HttpServlet {
 			break;
 		case "query":
 			processQuery(req, res);
+			break;
+		case "getone":
+			getOne(req, res);
+			return;
 	
 		default:
+		}
+	}
+	private void getOne(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+
+		AdministratorService administratorService = new AdministratorServiceImpl();
+
+		try {
+
+			req.setCharacterEncoding("UTF-8");
+		
+
+			// 獲取特定成員
+			String adminNoStr = req.getParameter("ADMIN_NO");
+			System.out.println(adminNoStr);
+
+			if (adminNoStr != null && !adminNoStr.trim().isEmpty()) {
+				try {
+
+					Administrator administrator = administratorService.findAdministratorByAdminNo(adminNoStr);;
+					req.setAttribute("administrator", administrator);
+				} catch (NumberFormatException e) {
+					e.printStackTrace();
+				}
+			} else {
+				req.setAttribute("error", "Invalid administrator number provided.");
+				RequestDispatcher dispatcher = req.getRequestDispatcher("/frontend/administrator/errorPage.jsp");
+				dispatcher.forward(req, res);
+				return;
+			}
+			// 設置編碼和轉發到指定的JSP頁面
+			req.setCharacterEncoding("UTF-8");
+			RequestDispatcher dispatcher = req.getRequestDispatcher("/frontend/administrator/listoneadministrator.jsp");
+			dispatcher.forward(req, res);
+
+		} catch (Exception e) {
+			// 處理其他潛在錯誤
+			e.printStackTrace();
+
 		}
 	}
 
@@ -82,20 +129,21 @@ public class AdministratorServlet extends HttpServlet {
 	}
 	
 	private void processDelete(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
+//		通過管理員編號來刪除特定資料
 		administratorService.deleteAdministrator(req.getParameter("ADMIN_NO"));
 	}
 	
 	private void processUpdate(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
-		req.getSession().removeAttribute("errorMsgs");
+//		錯誤驗證
 		Map<String,String> errorMsgs = new LinkedHashMap<String,String>();
 		req.setAttribute("errorMsgs", errorMsgs);
 		List<Administrator> administrators = administratorService.getAllAdministrators();
-//		
+		
 		Administrator admin = new Administrator();
 		String adminemail = req.getParameter("ADMIN_EMAIL");
 		String adminNo = req.getParameter("ADMIN_NO");
 
-		/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
+		/***********************1.接收請求參數 - 輸入格式的各式錯誤處理*************************/
 		if (adminNo == null || adminNo.trim().length() == 0) {
 			errorMsgs.put("ADMIN_NO","管理員帳號請勿空白");
 		}
@@ -134,7 +182,7 @@ public class AdministratorServlet extends HttpServlet {
 		if (adminpwd == null || adminpwd.trim().length() == 0) {
 //			errorMsgs.put("ADMIN_PASSWORD","管理員密碼請勿空白");
 		}else {
-		    // 加密密碼
+		    // 密碼加密
 		    String encryptedPassword = BCrypt.hashpw(adminpwd, BCrypt.gensalt());
 		    admin.setAdminPassword(encryptedPassword);
 		}
@@ -165,13 +213,14 @@ public class AdministratorServlet extends HttpServlet {
 			errorMsgs.put("EMERGENCY_CONTACTEL","緊急聯絡人電話: 只能是09開頭且總長度為10");
         }
 
-//		 Send the use back to the form, if there were errors
+//		錯誤跳轉
 		if (!errorMsgs.isEmpty()){
 			req.getSession().setAttribute("errorMsgs", errorMsgs);
 			String contextPath = req.getContextPath();
 			res.sendRedirect(contextPath + "/frontend/administrator/administratorUpdate.jsp?adminNo=" + adminNo);
 
 	    return;
+//	    刪除錯誤訊息
 		}else {
 			req.getSession().removeAttribute("errorMsgs");
 		}
@@ -184,34 +233,51 @@ public class AdministratorServlet extends HttpServlet {
 //		admin.setAdminPassword (req.getParameter("ADMIN_PASSWORD"));
 		admin.setAdminTel (req.getParameter("ADMIN_TEL"));
 		admin.setAdminAddress (req.getParameter("ADMIN_ADDRESS"));
-		Date date1 = null ;
-		try {
-			date1 = new SimpleDateFormat("yyyy-mm-dd").parse(req.getParameter("ADMIN_BD"));
-		} catch (ParseException e) {
-			e.printStackTrace();
+		
+		java.sql.Date adminBD = null;
+		String adminBDStr = req.getParameter("ADMIN_BD");
+		if(adminBDStr == null || adminBDStr.length() == 0) {
+//			錯誤處理
+		}else {
+			adminBD = java.sql.Date.valueOf(adminBDStr);
 		}
-		java.sql.Date sqlDate1 = new java.sql.Date(date1.getTime());
-		admin.setAdminBd(sqlDate1);
+		
+		
+		admin.setAdminBd(adminBD);
 		admin.setEmergencyContactName(req.getParameter("EMERGENCY_CONTACTNAME"));
 		admin.setEmergencyContactel(req.getParameter("EMERGENCY_CONTACTEL"));
 		//java.sql的日期寫法
-		Date date = null ;
-		try {
-			date = new SimpleDateFormat("yyyy-mm-dd").parse(req.getParameter("ADMIN_HD"));
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		java.sql.Date sqlDate = new java.sql.Date(date.getTime());
-		admin.setAdminHd(sqlDate);
+//		Date date = null ;
+//		try {
+//			date = new SimpleDateFormat("yyyy-mm-dd").parse(req.getParameter("ADMIN_HD"));
+//		} catch (ParseException e) {
+//			e.printStackTrace();
+//		}
 		
-		Date date2 = null ;
-		try {
-			date2 = new SimpleDateFormat("yyyy-mm-dd").parse(req.getParameter("ADMIN_RD"));
-		} catch (ParseException e) {
-			e.printStackTrace();
+		String adminHdStr = req.getParameter("ADMIN_HD");
+		java.sql.Date adminHd = null;
+		if(adminHdStr == null || adminHdStr.length() == 0) {
+//			錯誤處裡
+		}else{
+			adminHd = java.sql.Date.valueOf(adminHdStr);
 		}
-		java.sql.Date sqlDate2 = new java.sql.Date(date2.getTime());
-		admin.setAdminRd(sqlDate2);
+
+		admin.setAdminHd(adminHd);
+		
+		
+
+		
+		String adminRdStr = req.getParameter("ADMIN_RD");
+		java.sql.Date adminRd = null;
+		if(adminRdStr == null || adminRdStr.length() == 0) {
+//			錯誤處裡
+		}else{
+			adminRd = java.sql.Date.valueOf(adminRdStr);
+		}
+
+		admin.setAdminRd(adminRd);
+		
+
 		admin.setAdminStatus(Integer.valueOf(req.getParameter("ADMIN_STATUS")));
 		admin.setAdminVerifyStatus(Integer.valueOf(req.getParameter("ADMIN_VERIFY_STATUS")));
 		admin.setAdminFuncName(Integer.valueOf(req.getParameter("ADMIN_FUNC_NAME")));
@@ -252,7 +318,7 @@ private void processUpdate2(HttpServletRequest req, HttpServletResponse res) thr
 	String adminnameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{1,10}$";
 	if (adminname == null || adminname.trim().length() == 0) {
 		errorMsgs.put("ADMIN_NAME","管理員姓名: 請勿空白");
-	} else if(!adminname.trim().matches(adminnameReg)) { //以下練習正則(規)表示式(regular-expression)
+	} else if(!adminname.trim().matches(adminnameReg)) { 
 		errorMsgs.put("ADMIN_NAME","管理員姓名: 只能是中、英文字母、數字和_ , 且長度必需在1到10之間");
     }
 
@@ -264,11 +330,11 @@ private void processUpdate2(HttpServletRequest req, HttpServletResponse res) thr
 	if (adminemail == null || adminemail.trim().length() == 0) {
 	    errorMsgs.put("ADMIN_EMAIL", "管理員信箱請勿空白");
 	} else {
-	    // 檢查信箱長度
+	   
 	    if (adminemail.length() < 16 || adminemail.length() > 40) {
 	        errorMsgs.put("ADMIN_EMAIL", "帳號長度必須在6到30個字符之間");
 	    } else {
-	        // 正則表達式，用於驗證信箱格式
+	        
 	        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
 	        Pattern pattern = Pattern.compile(emailRegex);
 	        Matcher matcher = pattern.matcher(adminemail);
@@ -282,7 +348,7 @@ private void processUpdate2(HttpServletRequest req, HttpServletResponse res) thr
 	if (adminpwd == null || adminpwd.trim().length() == 0) {
 //		errorMsgs.put("ADMIN_PASSWORD","管理員密碼請勿空白");
 	}else {
-	    // 加密密碼
+	   
 	    String encryptedPassword = BCrypt.hashpw(adminpwd, BCrypt.gensalt());
 	    admin.setAdminPassword(encryptedPassword);
 	}
@@ -302,14 +368,14 @@ private void processUpdate2(HttpServletRequest req, HttpServletResponse res) thr
 	String emergencyContactNameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{1,50}$";
 	if (adminname == null || adminname.trim().length() == 0) {
 		errorMsgs.put("EMERGENCY_CONTACTNAME","緊急聯絡人: 請勿空白");
-	} else if(!adminname.trim().matches(adminnameReg)) { //以下練習正則(規)表示式(regular-expression)
+	} else if(!adminname.trim().matches(adminnameReg)) { 
 		errorMsgs.put("EMERGENCY_CONTACTNAME","緊急聯絡人姓名: 只能是中、英文字母、數字和_ , 且長度必需在1到50之間");
     }
 	String emergencyContactel1 = "^09\\d{8}$";
 	String emergencyContactel = req.getParameter("EMERGENCY_CONTACTEL").trim();
 	if (emergencyContactel == null || emergencyContactel.trim().length() == 0) {
 		errorMsgs.put("EMERGENCY_CONTACTEL","緊急聯絡人電話請勿空白");
-	} else if(!emergencyContactel.trim().matches(emergencyContactel1)) { //以下練習正則(規)表示式(regular-expression)
+	} else if(!emergencyContactel.trim().matches(emergencyContactel1)) { 
 		errorMsgs.put("EMERGENCY_CONTACTEL","緊急聯絡人電話: 只能是09開頭且總長度為10");
     }
 	if (!errorMsgs.isEmpty()){
@@ -322,7 +388,7 @@ private void processUpdate2(HttpServletRequest req, HttpServletResponse res) thr
 		req.getSession().removeAttribute("errorMsgs");
 	}
 		
-		//接收前端修改的資料
+		
 		
 		admin.setAdminNo (req.getParameter("ADMIN_NO"));
 		admin.setAdminName (req.getParameter("ADMIN_NAME"));
@@ -333,14 +399,14 @@ private void processUpdate2(HttpServletRequest req, HttpServletResponse res) thr
 		admin.setAdminTel (req.getParameter("ADMIN_TEL"));
 		admin.setAdminAddress (req.getParameter("ADMIN_ADDRESS"));
 //		日期
-		Date date4 = null ;
-		try {
-			date4 = new SimpleDateFormat("yyyy-mm-dd").parse(req.getParameter("ADMIN_BD"));
-		} catch (ParseException e) {
-			e.printStackTrace();
+		java.sql.Date adminBD = null;
+		String adminBDStr = req.getParameter("ADMIN_BD");
+		if(adminBDStr == null || adminBDStr.length() == 0) {
+//			錯誤處理
+		}else {
+			adminBD = java.sql.Date.valueOf(adminBDStr);
 		}
-		java.sql.Date sqlDate4 = new java.sql.Date(date4.getTime());
-		admin.setAdminBd(sqlDate4);
+		admin.setAdminBd(adminBD);
 		admin.setEmergencyContactName(req.getParameter("EMERGENCY_CONTACTNAME"));
 		admin.setEmergencyContactel(req.getParameter("EMERGENCY_CONTACTEL"));
 //		圖片寫法  
@@ -377,7 +443,7 @@ private void processUpdate2(HttpServletRequest req, HttpServletResponse res) thr
 		String adminemail = req.getParameter("ADMIN_EMAIL");
 		String adminNo = req.getParameter("ADMIN_NO");
 //		
-//		
+//		印出是否有寫錯
 		for(Administrator admin1 :  administrators) {
 			System.out.println("---------");
 			System.out.println(admin1.getAdminEmail());
@@ -408,7 +474,7 @@ private void processUpdate2(HttpServletRequest req, HttpServletResponse res) thr
 		String adminnameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{1,10}$";
 		if (adminname == null || adminname.trim().length() == 0) {
 			errorMsgs.put("ADMIN_NAME","管理員姓名: 請勿空白");
-		} else if(!adminname.trim().matches(adminnameReg)) { //以下練習正則(規)表示式(regular-expression)
+		} else if(!adminname.trim().matches(adminnameReg)) { 
 			errorMsgs.put("ADMIN_NAME","管理員姓名: 只能是中、英文字母、數字和_ , 且長度必需在1到50之間");
         }
 		
@@ -420,11 +486,11 @@ private void processUpdate2(HttpServletRequest req, HttpServletResponse res) thr
 		if (adminemail == null || adminemail.trim().length() == 0) {
 		    errorMsgs.put("ADMIN_EMAIL", "管理員信箱請勿空白");
 		} else {
-		    // 檢查信箱長度
+		   
 		    if (adminemail.length() < 16 || adminemail.length() > 40) {
 		        errorMsgs.put("ADMIN_EMAIL", "帳號長度必須在6到30個字符之間");
 		    } else {
-		        // 正則表達式，用於驗證信箱格式
+		     
 		        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
 		        Pattern pattern = Pattern.compile(emailRegex);
 		        Matcher matcher = pattern.matcher(adminemail);
@@ -438,7 +504,7 @@ private void processUpdate2(HttpServletRequest req, HttpServletResponse res) thr
 		if (adminpwd == null || adminpwd.trim().length() == 0) {
 //			errorMsgs.put("ADMIN_PASSWORD","管理員密碼請勿空白");
 		}else {
-		    // 加密密碼
+		  
 		    String encryptedPassword=BCrypt.hashpw(adminpwd,BCrypt.gensalt());
 		    admin.setAdminPassword(encryptedPassword);
 		    System.out.println(adminpwd);
@@ -448,7 +514,7 @@ private void processUpdate2(HttpServletRequest req, HttpServletResponse res) thr
 		String admintel = req.getParameter("ADMIN_TEL").trim();
 		if (admintel == null || admintel.trim().length() == 0) {
 			errorMsgs.put("ADMIN_TEL","管理員電話請勿空白");
-		} else if(!admintel.trim().matches(admintel1)) { //以下練習正則(規)表示式(regular-expression)
+		} else if(!admintel.trim().matches(admintel1)) { 
 			errorMsgs.put("ADMIN_TEL","管理員電話: 只能是09開頭且總長度為10");
         }
 		
@@ -471,7 +537,7 @@ private void processUpdate2(HttpServletRequest req, HttpServletResponse res) thr
 			errorMsgs.put("EMERGENCY_CONTACTEL","緊急聯絡人電話: 只能是09開頭且總長度為10");
         }
 
-//		 Send the use back to the form, if there were errors
+
 		if (!errorMsgs.isEmpty()){
 			req.getRequestDispatcher("frontend/administrator/administratorAdd.jsp").forward(req, res);
 	    return;
@@ -486,34 +552,46 @@ private void processUpdate2(HttpServletRequest req, HttpServletResponse res) thr
 //		admin.setAdminPassword (req.getParameter("ADMIN_PASSWORD"));
 		admin.setAdminTel (req.getParameter("ADMIN_TEL"));
 		admin.setAdminAddress (req.getParameter("ADMIN_ADDRESS"));
-		Date date1 = null ;
-		try {
-			date1 = new SimpleDateFormat("yyyy-mm-dd").parse(req.getParameter("ADMIN_BD"));
-		} catch (ParseException e) {
-			e.printStackTrace();
+		java.sql.Date adminBD = null;
+		String adminBDStr = req.getParameter("ADMIN_BD");
+		if(adminBDStr != null && adminBDStr.length() > 0) {
+		    try {
+		        adminBD = java.sql.Date.valueOf(adminBDStr);
+		    } catch (IllegalArgumentException e) {
+		        // 如果 adminRDStr 不是有效的日期格式，這裡會捕捉到異常
+		        // 這裡可以記錄錯誤或進行其他錯誤處理
+		    }
 		}
-		java.sql.Date sqlDate1 = new java.sql.Date(date1.getTime());
-		admin.setAdminBd(sqlDate1);
+		admin.setAdminBd(adminBD);
+		
 		admin.setEmergencyContactName(req.getParameter("EMERGENCY_CONTACTNAME"));
 		admin.setEmergencyContactel(req.getParameter("EMERGENCY_CONTACTEL"));
 		//java.sql的日期寫法
-		Date date = null ;
-		try {
-			date = new SimpleDateFormat("yyyy-mm-dd").parse(req.getParameter("ADMIN_HD"));
-		} catch (ParseException e) {
-			e.printStackTrace();
+		java.sql.Date adminHD = null;
+		String adminHDStr = req.getParameter("ADMIN_HD");
+		if(adminHDStr != null && adminHDStr.length() > 0) {
+		    try {
+		        adminHD = java.sql.Date.valueOf(adminHDStr);
+		    } catch (IllegalArgumentException e) {
+		        // 如果 adminRDStr 不是有效的日期格式，這裡會捕捉到異常
+		        // 這裡可以記錄錯誤或進行其他錯誤處理
+		    }
 		}
-		java.sql.Date sqlDate = new java.sql.Date(date.getTime());
-		admin.setAdminHd(sqlDate);
-		Date date2 = null ;
-		try {
-			date2 = new SimpleDateFormat("yyyy-mm-dd").parse(req.getParameter("ADMIN_RD"));
-		} catch (ParseException e) {
-			e.printStackTrace();
+		admin.setAdminHd(adminHD);
+		
+		java.sql.Date adminRD = null;
+		String adminRDStr = req.getParameter("ADMIN_RD");
+		if(adminRDStr != null && adminRDStr.length() > 0) {
+		    try {
+		        adminRD = java.sql.Date.valueOf(adminRDStr);
+		    } catch (IllegalArgumentException e) {
+		        // 如果 adminRDStr 不是有效的日期格式，這裡會捕捉到異常
+		        // 這裡可以記錄錯誤或進行其他錯誤處理
+		    }
 		}
-		java.sql.Date sqlDate2 = new java.sql.Date(date2.getTime());
-		admin.setAdminRd(sqlDate2);
+		admin.setAdminRd(adminRD);
 		admin.setAdminStatus(Integer.valueOf(req.getParameter("ADMIN_STATUS")));
+		admin.setAdminVerifyStatus(Integer.valueOf(req.getParameter("ADMIN_VERIFY_STATUS")));
 		// 取得圖片 
 		// 開串流
 		Part p = req.getPart("ADMIN_PHOTO");
@@ -523,7 +601,7 @@ private void processUpdate2(HttpServletRequest req, HttpServletResponse res) thr
 		input.close();
 		admin.setAdminPhoto(photo);
 		admin.setAdminFuncName(Integer.valueOf(req.getParameter("ADMIN_FUNC_NAME")));
-		//把資料裝起來
+		//把資料裝起來然後新增
 		administratorService.addAdministrator(admin);
 		
 	

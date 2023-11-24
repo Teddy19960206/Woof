@@ -4,23 +4,39 @@
 <html>
 <head>
 <!-- 引入 Bootstrap CSS -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
+
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <style>
-        body {
-              position: relative;
-  width: 100%;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  /* background: #2196f3; */
-  background-image: url("https://pixabay.com/get/g6f466a8face11dae9ee6df7606bded5f317c1fd370dcf4aa009b6a153c6c4f64d359cc4897161fef583fb5c3304f6ba8.jpg");
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-position: center;
-  background-size: cover;
-  overflow: hidden;
-        }
+  .password-container {
+    position: relative;
+}
+
+.password-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #717171; /* 可以根據需要調整顏色 */
+}
+
+    
+body.specific-page{
+      position: relative;
+	  width: 100%;
+	  min-height: 100vh;
+	  display: flex;
+	  justify-content: center;
+	  align-items: center;
+	  /* background: #2196f3; */
+	   background-image: url('/woof/frontend/images/golden-retriever-2645903.jpg'); */
+	  background-repeat: no-repeat;
+	  background-attachment: fixed;
+	  background-position: center;
+	  background-size: cover;
+	  overflow: hidden;
+}
 .login-container {
 	max-width: 400px;
 	margin: 50px auto;
@@ -46,7 +62,7 @@
 
 <title>管理員登入畫面</title>
 </head>
-<body>
+<body class="specific-page">
 	<div class="login-container">
 		<h3 class="login-header text-center">
 			<b>管理員登入</b>
@@ -56,11 +72,17 @@
 				<label for="username"><b>帳號</b></label> <input type="text"
 					id="username" class="form-control" name="adminNo">
 			
-				</div>			<div class="form-group">
-				<label for="password"><b>密碼</b></label> <input type="password"
-					id="password" class="form-control" name="adminPassword"> 
+				</div>			
+		<div class="form-group">
+    <label for="password"><b>密碼</b></label>
+    <div class="password-container">
+        <input type="password" id="password" class="form-control" name="adminPassword">
+        <i id="togglePassword" class="fas fa-eye password-icon"></i>
+    </div>
+</div>
+
 			
-			<div class="error-msg">${errorMsgs.loginError}</div>
+			<div class="error-msg">${errorMsgs.loginError}
 			<div class="error-msg">${errorMsgs.loginError1}</div></div>
 			<div class="form-group">
 				<input type="hidden" name="action1" value="administratorlogout1">
@@ -123,6 +145,19 @@
             return true;
         }
         // 省略其他腳本
+        document.getElementById("togglePassword").addEventListener("click", function() {
+    var passwordInput = document.getElementById("password");
+    if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+        this.classList.remove("fa-eye");
+        this.classList.add("fa-eye-slash");
+    } else {
+        passwordInput.type = "password";
+        this.classList.remove("fa-eye-slash");
+        this.classList.add("fa-eye");
+    }
+});
+
     </script>
     
 

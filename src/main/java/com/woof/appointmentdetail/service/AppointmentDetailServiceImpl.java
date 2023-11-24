@@ -109,5 +109,18 @@ public class AppointmentDetailServiceImpl implements AppointmentDetailService{
 		return dao.getOneByDate(trainerNo , date);
 	}
 
+	@Override
+	public List<AppointmentDetail> getAllUpdateStatus() {
+		return dao.getUpdateStatus();
+	}
+
+
+	@Override
+	public void updateComplete(List<AppointmentDetail> list) {
+		// TODO Auto-generated method stub
+		dao.updateStatus(list);
+	}
+
+	
 }
 

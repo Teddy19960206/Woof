@@ -297,7 +297,7 @@
                             <tr>
 <!--                                 <th>訂單編號</th> -->
                                 <th>商品名稱</th>
-                                <th>商品照片</th>
+                                <th>照片</th>
                                 <th>數量</th>
                                 <th>價格</th>
                                 <th>小計</th>
@@ -332,7 +332,7 @@
 						    <span>${shopOrder.recAddress}</span>
 						</div>
 					   <div class="d-flex justify-content-between">
-						    <span>總小計</span>
+						    <span>小計</span>
 						    <span>NT$${shopOrder.orderTotalPrice}</span>
 						</div>
 					    <div class="d-flex justify-content-between my-0 mt-0">

@@ -8,7 +8,8 @@ $(document).ready(function() {
             url: `productById/${prodNo}`,
             type: 'GET',
             success: function(product) {
-                $('#product-image').attr('src', `productImage/${product.prodNo}`);
+                $('#product-image').attr('src', `productImage/${product.prodNo}`)
+                				   .attr('onerror', "this.onerror=null; this.src='image/未有照片之圖片.png';");;
                 $('#product-name').text(product.prodName);
                 $('#product-description').text(product.prodContent);
 
@@ -47,7 +48,9 @@ $(document).ready(function() {
     // 數量選擇器的事件綁定
     $('#increase-quantity').click(function() {
         var value = parseInt($('#product-quantity').val());
-        $('#product-quantity').val(value + 1);
+        if (value < 20) {
+            $('#product-quantity').val(value + 1);
+        }
     });
 
     $('#decrease-quantity').click(function() {

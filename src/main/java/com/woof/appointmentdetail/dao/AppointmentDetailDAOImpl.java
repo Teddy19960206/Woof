@@ -128,4 +128,24 @@ public class AppointmentDetailDAOImpl implements AppointmentDetailDAO {
 		query.setParameter("date", date);
 		return (AppointmentDetail) query.getSingleResult();
 	}
+
+	// 找出預約時間在現在時刻或之前且預約狀態為0(接受)的預約單明細
+	@Override
+	public List<AppointmentDetail> getUpdateStatus() {
+		return getSession().createQuery("FROM AppointmentDetail ad WHERE ad.appTime <= NOW() AND ad.appStatus = 0 ", AppointmentDetail.class)
+				.list();
+	}
+
+
+	@Override
+	public void updateStatus(List<AppointmentDetail> list) {
+		
+		for(AppointmentDetail appointmentDetail : list) {
+			appointmentDetail.setAppStatus(2);
+			getSession().persist(appointmentDetail);
+		}
+		getSession().flush();
+		
+	}
+
 }

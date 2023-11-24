@@ -235,6 +235,18 @@ section {
 <jsp:useBean id="administratorService" scope="page" class="com.woof.administrator.service.AdministratorServiceImpl"/>
     <section>
     	<div  class="buttons-container">
+    	<form method="post"
+						action="${pageContext.request.contextPath}/administrator.do"
+						class="form-inline">
+						<label class="mr-2"><b>輸入管理員帳號:</b></label> 
+						<input type="text" class="form-control mr-2" name="ADMIN_NO"
+							placeholder="輸入會員帳號" value="${Administrator.adminNo}" required > <input
+							type="hidden" name="action" value="getone">
+							 <label for="search"class="search">
+							 <i class="fa-solid fa-magnifying-glass"></i>
+							 </label>
+						<button type="submit" class='button' id="btnAdd">查詢員工</button>
+					</form>
     		<input type="button" class='button' id="btnAdd" value="新增員工" onclick="processAdd();" > 
     			 <a href="<%=request.getContextPath()%>/backend/index.jsp" class="btn">返回首頁</a>
     	</div>

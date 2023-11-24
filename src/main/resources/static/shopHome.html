@@ -1,112 +1,221 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <script>
-    let currentUrl = window.location.href;
-    let pathArray = currentUrl.split("/");
-    let protocol = pathArray[0];
-    let host = pathArray[2];
-    let basePath = protocol + "//" + host;
-    if (currentUrl.includes("/woof/")) {
-        basePath += "/woof/";
-    }
-    document.write(`<base href="${basePath}">`);
-    </script>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>寵毛導師 Woof | 商品首頁</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/woof/css/shopHome.css" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+<meta charset="UTF-8">
+<script>
+	let currentUrl = window.location.href;
+	let pathArray = currentUrl.split("/");
+	let protocol = pathArray[0];
+	let host = pathArray[2];
+	let basePath = protocol + "//" + host;
+	if (currentUrl.includes("/woof/")) {
+		basePath += "/woof/";
+	}
+	document.write(`<base href="${basePath}">`);
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>寵毛導師 Woof | 商品首頁</title>
+<link href="/woof/css/shopHome.css" rel="stylesheet">
+<link rel="stylesheet" href="/woof/webutil/css/bootstrap.min.css" />
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+	rel="stylesheet">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet" href="/woof/webutil/css/animate.min.css" />
+<link rel="stylesheet" href="/woof/webutil/css/style.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@900&display=swap" />
+<link rel="icon" type="image/x-icon" href="/woof/webutil/icons/happy_1.png" />
 </head>
 <body>
-<!-- <iframe src="/woof/Header.jsp" style="width:100%; border:none;"></iframe> -->
-<div class="container mt-4">
-    <!-- 促銷商品區塊 -->
-    <div class="row">
-        <div class="col-md-2"></div>
-        <div class="col-md-8 gray-background">
-            <h2>促銷商品</h2>
-            <div id="promotionCarousel" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-inner" id="promotion-products-row"></div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#promotionCarousel" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#promotionCarousel" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                </button>
-            </div>
-        </div>
-        <div class="col-md-2"></div>
-    </div>
-</div>
+	<div
+		class="navbar navbar-expand-xl sticky-top py-3 mb-3 bg-white shadow -75">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="/woof/index.jsp"> <img
+				src="/woof/webutil/images/logo.png" width="200"
+				class="d-inline-block align-text-top animated bounce" />
+			</a>
+			<button class="navbar-toggler" type="button"
+				data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+				aria-controls="navbarSupportedContent" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
 
-<div class="container mt-4">
-    <!-- 商品類別和一般商品區塊 -->
-    <div class="row">
-        <div class="col-md-2"></div>
-        <div class="col-md-8 gray-background">
-            <div class="d-flex justify-content-between align-items-center">
-                <div>
-                    <h2 style="display: inline-block; vertical-align: middle;">商品類別</h2>
-                    <button class="btn" type="button" data-bs-toggle="collapse" data-bs-target="#categoryCollapse" aria-expanded="true" aria-controls="categoryCollapse" id="toggleCategoryButton" style="vertical-align: middle;">
-                        <i class="fas fa-chevron-up" id="arrowIcon"></i>
-                    </button>
-                </div>
-                <div class="search-box">
-                    <input type="text" class="form-control" id="searchInput" placeholder="搜尋商品...">
-                </div>
-            </div>
-
-            <!-- 可摺疊的商品類別區塊 -->
-            <div class="collapse show" id="categoryCollapse">
-                <div class="row mt-4" id="category-row">
-                    <!-- 類別圖標和名稱動態插入 -->
-                </div>
-            </div>
-        </div>
-        <div class="col-md-2"></div>
-    </div>
-
-    <div class="row">
-        <!-- 一般商品區塊 -->
-        <div class="col-md-2"></div>
-        <div class="col-md-8 gray-background">
-            <h2>一般商品</h2>
-            <!-- 一般商品 -->
-            <div class="row" id="products-row"></div>
-            <!-- 分頁控制 -->
-            <nav aria-label="Page navigation">
-                <ul class="pagination" id="pagination"></ul>
-            </nav>
-        </div>
-        <div class="col-md-2"></div>
-    </div>
-</div>
+			<div class="collapse navbar-collapse justify-content-end"
+				id="navbarSupportedContent">
+				<ul class="navbar-nav animated slideInUp">
+					<li class="nav-item me-3"><a class="nav-link"
+						href="/woof/shopHome.html">寵物商城</a></li>
+					<li class="nav-item me-3"><a class="nav-link"
+						href="/woof/faq?action=getAll2"> <img
+							src="/woof/webutil/icons/person-circle-question-solid.svg"
+							style="width: 30px" />
+							<p class="d-xl-none d-inline text-center mx-3">FAQ</p>
+					</a></li>
 
 
-<!-- 商品詳情模態框 -->
-<div class="modal fade" id="productDetailModal" tabindex="-1" aria-labelledby="productDetailModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="productDetailModalLabel"></h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <iframe id="productDetailIframe" src="" style="width: 100%; height: 600px;" frameborder="0"></iframe>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- <iframe src="/woof/Footer.jsp" style="width:100%; border:none;"></iframe> -->
-<!-- <iframe src="/woof/meta.jsp" style="width:100%; border:none;"></iframe> -->
-<script src="/woof/js/shopHome.js"></script>
-<script src="/woof/js/cart.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+					<li class="nav-item me-3"><a class="nav-link"
+						href="/woof/frontend/member/login/membercenter.jsp"> <img
+							src="/woof/webutil/icons/user2.svg" style="width: 30px" />
+							<p class="d-xl-none d-inline text-center mx-3">會員中心</p>
+					</a></li>
+
+					<li class="nav-item me-3"><a class="nav-link"
+						href="/woof/frontend/cartlist/cart.jsp"> <img
+							src="/woof/webutil/icons/cart-plus-solid.svg" style="width: 30px" />
+							<span id="cart-count">0</span>
+							<p class="d-xl-none d-inline text-center mx-3">購物車</p>
+					</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<div class="container mt-4">
+		<!-- 促銷商品區塊 -->
+		<div class="row">
+			<div class="col-md-2"></div>
+			<div class="col-md-8 gray-background">
+				<h2>促銷商品</h2>
+				<div id="promotionCarousel" class="carousel slide"
+					data-bs-ride="carousel">
+					<div class="carousel-inner" id="promotion-products-row"></div>
+					<button class="carousel-control-prev" type="button"
+						data-bs-target="#promotionCarousel" data-bs-slide="prev">
+						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+					</button>
+					<button class="carousel-control-next" type="button"
+						data-bs-target="#promotionCarousel" data-bs-slide="next">
+						<span class="carousel-control-next-icon" aria-hidden="true"></span>
+					</button>
+				</div>
+			</div>
+			<div class="col-md-2"></div>
+		</div>
+	</div>
+
+	<div class="container mt-4">
+		<!-- 商品類別和一般商品區塊 -->
+		<div class="row">
+			<div class="col-md-2"></div>
+			<div class="col-md-8 gray-background">
+				<div class="d-flex justify-content-between align-items-center">
+					<div>
+						<h2 style="display: inline-block; vertical-align: middle;">商品類別</h2>
+						<button class="btn" type="button" data-bs-toggle="collapse"
+							data-bs-target="#categoryCollapse" aria-expanded="true"
+							aria-controls="categoryCollapse" id="toggleCategoryButton"
+							style="vertical-align: middle;">
+							<i class="fas fa-chevron-up" id="arrowIcon"></i>
+						</button>
+					</div>
+					<div class="search-box">
+						<input type="text" class="form-control" id="searchInput"
+							placeholder="搜尋商品...">
+					</div>
+				</div>
+
+				<!-- 可摺疊的商品類別區塊 -->
+				<div class="collapse show" id="categoryCollapse">
+					<div class="row mt-4" id="category-row">
+						<!-- 類別圖標和名稱動態插入 -->
+					</div>
+				</div>
+			</div>
+			<div class="col-md-2"></div>
+		</div>
+
+		<div class="row">
+			<!-- 一般商品區塊 -->
+			<div class="col-md-2"></div>
+			<div class="col-md-8 gray-background">
+				<h2>一般商品</h2>
+				<!-- 一般商品 -->
+				<div class="row" id="products-row"></div>
+				<!-- 分頁控制 -->
+				<nav aria-label="Page navigation">
+					<ul class="pagination" id="pagination"></ul>
+				</nav>
+			</div>
+			<div class="col-md-2"></div>
+		</div>
+	</div>
+
+
+	<!-- 商品詳情模態框 -->
+	<div class="modal fade" id="productDetailModal" tabindex="-1"
+		aria-labelledby="productDetailModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-xl">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="productDetailModalLabel"></h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<iframe id="productDetailIframe" src=""
+						style="width: 100%; height: 600px;" frameborder="0"></iframe>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-bs-dismiss="modal">關閉</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- 頁尾 -->
+	<footer class="animated fadeInUp">
+		<div class="container py-5">
+			<div class="row g-5">
+				<div class="col-lg-4 col-12 text-center">
+					<img src="/woof/webutil/images/logo.png" class="w-sm-100 w-50" /> <a
+						href="#" class="text-decoration-none">
+						<h1 class="h3 mytextcolor">Woof</h1>
+					</a>
+				</div>
+				<div class="col-lg-4 col-12 border-dark-subtle">
+					<h4 class="mytextcolor mb-4 text-center">Address</h4>
+					<p>
+						<img src="/woof/webutil/icons/house.svg" /> 320桃園市中壢區復興路46號8樓804室
+						CHA103
+					</p>
+					<p>
+						<img src="/woof/webutil/icons/telephone.svg" /> 03 425 1108
+					</p>
+
+					<a href="https://www.tibame.com/goodjob"> <img
+						src="/woof/webutil/icons/link.svg" alt="" width="30px" /> 緯育
+					</a>
+				</div>
+				<div class="col-lg-4 col-12 text-center">
+					<h4 class="mytextcolor mb-4">About Us</h4>
+					<div class="row">
+						<div class="col-3">
+							<p>組員：</p>
+						</div>
+						<div class="col-3">
+							<p>蕭皓鴻</p>
+							<p>鄔馨誼</p>
+							<p>羅鈺漳</p>
+						</div>
+						<div class="col-3">
+							<p>徐唯宸</p>
+							<p>楊佳宜</p>
+							<p>張昱堯</p>
+						</div>
+					</div>
+					<p>© 2023 All Right Reserved</p>
+				</div>
+			</div>
+		</div>
+
+		<script src="/woof/js/shopHome.js"></script>
+		<script src="/woof/js/cart.js"></script>
+		<script src="/woof/webutil/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
