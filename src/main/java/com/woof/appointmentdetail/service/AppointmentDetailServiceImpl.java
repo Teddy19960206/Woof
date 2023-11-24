@@ -121,6 +121,5 @@ public class AppointmentDetailServiceImpl implements AppointmentDetailService{
 		dao.updateStatus(list);
 	}
 
-	
 }
 

@@ -118,7 +118,6 @@
 </style>
 </head>
 <body>
-<%@ include file="body.jsp" %>
 	<div class="col-12 col-md-8">
 		<div class="card">
 			<div class="card-body">
