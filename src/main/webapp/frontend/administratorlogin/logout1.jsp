@@ -107,7 +107,7 @@ body.specific-page{
 					for="remember"><b>記住帳號</b></label>
 			</div>
 	
-		  <a href='/woof/frontend/administrator/forgotpwd.jsp' style="margin-left: 180px;"><span class="span">忘記密碼？</span></a>
+		  <a href='/woof/frontend/administratorlogin/forgotpwd.jsp' style="margin-left: 180px;"><span class="span">忘記密碼？</span></a>
 	</div>
 	</form>
 	<script>
