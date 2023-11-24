@@ -1,19 +1,7 @@
 
-let pathName = window.document.location.pathname;
-let projectName = pathName.substring( 0 , pathName.substring(1).indexOf("/")+1);
+// let pathName = window.document.location.pathname;
+// let projectName = pathName.substring( 0 , pathName.substring(1).indexOf("/")+1);
 
-
-// $(function (){
-//     $("#adultClass").on("click" , async function (){
-//         let data =  await fetchSchedule(2);
-//         splicing(data);
-//     });
-//
-//     $("#puppyClass").on("click", async function (){
-//         let data =  await fetchSchedule(1);
-//         splicing(data);
-//     });
-// });
 
 
 $(document).on("click", "button.classType" , async function (){
@@ -147,7 +135,7 @@ async function fetchClassDate(gcsNo , divClass){
         let html = "";
 
         data.forEach(item =>{
-            html += `<small class="text-body-secondary me-5">${item.classDate}</small>`;
+            html += `<p class="text-body-secondary d-inline me-5">${item.classDate}晚上</p>`;
         });
 
 
