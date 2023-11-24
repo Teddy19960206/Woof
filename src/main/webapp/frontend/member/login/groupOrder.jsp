@@ -8,6 +8,21 @@
 
 <body>
 <%@ include file="body.jsp"%>
+<style>
+    .table th , .table td{
+        border: 0px solid transparent;
+        text-align: center;
+        padding: 0;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+    table{
+        width: 100%;
+        table-layout: auto; /* 使列寬度更加彈性 */
+        margin-left: auto;
+        margin-right: auto;
+    }
+</style>
     <div class="col-12 col-md-8">
         <div class="card">
             <div class="card-body">
