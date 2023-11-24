@@ -139,7 +139,7 @@ function split(data){
 
 
     html = arr.join("");
-    $("#show").html(html);
+    $("#showForm").html(html);
 
     // 只有 已付款 status (1) 可以按下申請退款按鈕
     if (data.gcoStatus != 1){
@@ -212,4 +212,157 @@ async function fetchRefund(id){
         console.error("Error" , error);
     }
 
+}
+
+//-------------------------------  一開始進到groupOrder會先抓該會員的訂單資料 ---------------------
+//-------------------- 直接使用複合查詢 ----------------------
+
+$(function (){
+    getOrder();
+})
+
+// 格式化id 編號
+let show = document.getElementById("show");
+
+async function getOrder(page){
+
+    if (!page){
+        page = 1;
+    }
+
+    let url = `${projectName}/groupOrder/getOrder`;
+    try{
+        let formData = new FormData();
+        formData.append("memNo" , document.getElementById("memberName").innerText);
+        formData.append("page" , page);
+
+
+
+        const response = await fetch(url , {
+            method : "POST",
+            body : formData
+        })
+
+        if (!response.ok){
+            throw new Error("錯誤");
+        }
+
+        const data = await response.json();
+
+        let html = "";
+        let arr = new Array();
+        arr.push(` <table class="table table-hover text-center align-middle border" id="showForm">
+                    <thead class="table-light">
+                    <tr>
+                     <th class="d-none">訂單編號</th>
+                     <th>課程班別</th>
+                     <th>購買時間</th>
+                     <th>付款方式</th>
+                     <th>訂單狀態</th>
+                     <th>訂單詳情</th>
+                    </tr>
+                  </thead>
+                  <tbody class="table-group-divider">`);
+
+        data.data.forEach(item=>{
+
+
+            let paymentMethod;
+            if (item.gcoPaymentMethod === 0){
+                paymentMethod = '信用卡';
+            }else if (item.gcoPaymentMethod === 1){
+                paymentMethod = '匯款';
+            }else if (item.gcoPaymentMethod === 2){
+                paymentMethod = '綠界';
+            }
+
+            let statusText;
+
+            switch (item.gcoStatus){
+                case 0:
+                    statusText = '未付款';
+                    break;
+                case 1:
+                    statusText = '已付款';
+                    break;
+                case 2:
+                    statusText = '已退款';
+                    break;
+                case 3:
+                    statusText = '已取消';
+                    break;
+                case 4:
+                    statusText = '已完成';
+                    break;
+                case 5:
+                    statusText = '退款申請中';
+                    break;
+            }
+
+            arr.push(` <tr>
+                          <td>${formatOrderId(item.gcoNo)}</td>
+                          <td>${item.groupCourseSchedule.groupCourse.classType.ctName} : ${item.groupCourseSchedule.groupCourse.skill.skillName}</td>
+                          <td>${item.gcoDate}</td>
+                          <td>${paymentMethod}</td>
+                          <td>${statusText}</td>
+                          <td><button type="button" class="detail-button btn btn-primary" data-id="${item.gcoNo}" ${item.gcoStatus == 4 ? 'disabled' : ''}>詳情</button></td>
+                      </tr>`);
+        })
+
+        arr.push(`</tbody></table>`);
+
+
+        // 書籤 ==============================================================
+        arr.push(`<nav class="text-center d-flex justify-content-center">
+                  <ul class="pagination">
+                    <li class="page-item">
+                      <button class="page-link" onclick="getOrder(${page == 1 ? 1 : page-1})">
+                        <span aria-hidden="true">&laquo;</span>
+                      </button>
+                    </li>`);
+
+        const maxPagesToShow = 3;
+        const totalPages = parseInt(data.pageTotal);
+
+        let startPage, endPage;
+
+        if (totalPages <= maxPagesToShow) {
+            // 如果總頁數 totalPages 小於或等於您希望顯示的最大頁碼按鈕數量 maxPagesToShow，則直接顯示從第一頁到最後一頁的所有頁碼按鈕。
+            startPage = 1;
+            endPage = totalPages;
+        } else if (page <= Math.floor(maxPagesToShow / 2) + 1){
+            // 當前頁位於前半部分，那麼顯示從第一頁到 maxPagesToShow 頁的按鈕。
+            startPage = 1;
+            endPage = maxPagesToShow;
+        } else if (page >= totalPages - Math.floor(maxPagesToShow / 2)) {
+            // 當前頁位於後半部分，那麼顯示從 totalPages - maxPagesToShow + 1 頁到最後一頁的按鈕。
+            startPage = totalPages - maxPagesToShow + 1;
+            endPage = totalPages;
+        } else {
+            // 當前頁位於中間部分，顯示當前頁前後各 Math.floor(maxPagesToShow / 2) 頁的按鈕。
+            startPage = page - Math.floor(maxPagesToShow / 2);
+            endPage = page + Math.floor(maxPagesToShow / 2);
+        }
+
+        for (let i = startPage; i <= endPage; i++) {
+            arr.push(`<li class="page-item ${i === page ? "active" : ""}">
+               <button class="page-link" onclick="getOrder(${i})">${i}</button>
+             </li>`);
+        }
+
+        arr.push(`   <li class="page-item">
+                        <button class="page-link" onclick="getOrder(${page == totalPages ? totalPages : page+1})">
+                            <span aria-hidden="true">&raquo;</span></a>
+                        </button>
+                    </li>
+                  </ul>
+                </nav>`);
+
+        html = arr.join("");
+
+        show.innerHTML = html;
+
+    }catch (error){
+        console.error('Error', error);
+    }
 }

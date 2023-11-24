@@ -23,47 +23,19 @@
         margin-right: auto;
     }
 </style>
-    <div class="col-12 col-md-8">
-        <div class="card">
-            <div class="card-body">
-                <h3 class="card-title text-center p-2">團體課程訂單</h3>
-                <table class="table table-bordered table-hover text-center align-content-center align-middle" id="show">
-                    <thead>
-                        <tr>
-                            <th>訂單編號</th>
-                            <th>課程班別</th>
-                            <th>購買時間</th>
-                            <th>付款方式</th>
-                            <th>訂單狀態</th>
-                            <th>訂單詳情</th>
-                        </tr>
-
-                    </thead>
-                    <tbody>
-
-                    <jsp:useBean id="all" class="com.woof.groupcourseorder.service.GroupCourseOrderServiceImpl" />
-                    <c:forEach items="${all.getOrdersbyMember(sessionScope.member.memNo)}" var="order">
-                        <tr>
-                            <td class="truncated-text">${all.formatOrderId(order.gcoNo)}</td>
-                            <td>${order.groupCourseSchedule.groupCourse.classType.ctName} : ${order.groupCourseSchedule.groupCourse.skill.skillName}</td>
-                            <td>${order.gcoDate}</td>
-                            <%--  0:信用卡 1:匯款    --%>
-                            <td>${order.gcoPaymentMethod == 0 ? '信用卡' : order.gcoPaymentMethod == 1 ? '匯款' : "綠界"}</td>
-                            <%-- 0:未付款 1:已付款 2:已退款 3.已取消 4. 已完成 5.退款申請中 --%>
-                            <td>${order.gcoStatus == 0 ? '未付款' : order.gcoStatus == 1 ? '已付款' : order.gcoStatus == 2 ? '已退款'
-                                : order.gcoStatus == 3 ? '已取消' : order.gcoStatus == 4 ? '已完成' : '退款申請中'}</td>
-                            <td><button type="button" class="btn btn-primary detail-button" data-id=${order.gcoNo}>詳情</button></td>
-                        </tr>
-                    </c:forEach>
-                    </tbody>
-                </table>
-                <div id="showBtn" class="text-center" style="display: none">
-                    <button type="button" class="btn btn-danger" id="refundOrder">申請退款</button>
-                    <button type="button" class="btn btn-primary" onclick="window.location.href=`${pageContext.request.contextPath}/frontend/member/login/groupOrder.jsp`">回上一頁</button>
-                </div>
+<div id="memberName" style="display: none">${sessionScope.member.memName}</div>
+<div class="col-12 col-md-8">
+    <div class="card">
+        <div class="card-body">
+            <h3 class="card-title text-center p-2">團體課程訂單</h3>
+            <div id="show"></div>
+            <div id="showBtn" class="text-center" style="display: none">
+                <button type="button" class="btn btn-danger" id="refundOrder">申請退款</button>
+                <button type="button" class="btn btn-primary" onclick="window.location.href=`${pageContext.request.contextPath}/frontend/member/login/groupOrder.jsp`">回上一頁</button>
             </div>
         </div>
     </div>
+</div>
 <%@ include file="foot.jsp"%>
 
 <script src="${pageContext.request.contextPath}/frontend/member/js/groupOrder.js"></script>

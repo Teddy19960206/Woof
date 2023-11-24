@@ -7,7 +7,7 @@ document.getElementById("button").onclick = function (){
 
 }
 
-// 進入到classContent.jsp時，會直接撈取全部課程資料
+// ------------------------ 進入到classContent.jsp時，會直接撈取全部課程資料  ---------------------------
 document.addEventListener("DOMContentLoaded", function (){
     fetchData();
 });

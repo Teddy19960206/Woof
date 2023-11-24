@@ -45,26 +45,6 @@ document.addEventListener('DOMContentLoaded',  function() {
     calendar.render();
 });
 
-// let prevBtn = document.getElementsByClassName("fc-prev-button");
-
-// $(function(){
-//     let prevBtn = document.getElementsByClassName("fc-prev-button");
-//     let nextBtn = document.getElementsByClassName("fc-next-button");
-//
-//     prevBtn[0].disabled = true;
-//     nextBtn[0].disabled = false;
-//
-//     prevBtn[0].addEventListener("click" , ()=>{
-//         prevBtn[0].disabled = true;
-//         nextBtn[0].disabled = false;
-//     })
-//
-//     nextBtn[0].addEventListener("click" , ()=>{
-//         prevBtn[0].disabled = false;
-//         nextBtn[0].disabled = true;
-//     })
-// })
-
 function reserve(){
 
     let newDate = new Date($("#showDate").html());
