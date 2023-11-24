@@ -203,6 +203,10 @@ public class ClassOrderServlet extends HttpServlet {
 		request.getSession().setAttribute("actualAmount", actualAmount);
 		request.getSession().setAttribute("coStatusStr", coStatusStr);
 
+		String coId = classOrderService.formatOrderId(coNo);
+		request.getSession().setAttribute("coId", coId);
+		
+		
 		Integer momo = member.getMomoPoint() - smmp;
 		MemberService memberService = new MemberServiceImpl();
 		memberService.updateMemberPoints(memNo, momo);
