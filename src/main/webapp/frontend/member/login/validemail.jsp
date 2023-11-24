@@ -5,37 +5,41 @@
 <meta charset="UTF-8">
 <title>有效電子郵件驗證</title>
 <style>
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f4f4f4;
-        text-align: center;
-        padding: 50px;
-    }
+   body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            padding: 0px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
 
-    h1 {
-        color: #333;
-    }
+        .content {
+            background-color: #fff;
+            width: 50%;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
 
-    .content {
-        background-color: #fff;
-        width: 50%;
-        margin: 0 auto;
-        padding: 20px;
-        box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
+        h1 {
+            color: #333;
+        }
 
-    .button {
-        display: inline-block;
-        padding: 10px 20px;
-        background-color: #4CAF50;
-        color: #fff;
-        text-decoration: none;
-        border-radius: 5px;
-    }
+         .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: orange;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+        }
 
-    .button:hover {
-        background-color: #45a049;
-    }
+        .button:hover {
+            background-color: #fb8c00;
+        }
 </style>
 </head>
 <body>

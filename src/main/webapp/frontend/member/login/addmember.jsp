@@ -291,7 +291,7 @@ body {
 						<div id="twzipcode" class="twzipcode"></div>
 						<input class="form-check-input" type="text"
 							name="memAddress" id="memAddress"
-							placeholder="詳細地址（如街道、門牌號等" size="30" required />
+							placeholder="詳細地址（如街道、門牌號等）" size="30" required />
 					</div>
 					<small class="error-msg">${errorMsgs.memAddress}</small>
 				</div>
@@ -300,7 +300,7 @@ body {
 					<div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="Text" name="memBd"
-								id="memBd" size="56" required />
+								id="memBd" size="56" placeholder="西元-月-日" required />
 						</div>
 					</div>
 					<small class="error-msg">${errorMsgs.memBd}</small>
