@@ -3,7 +3,7 @@ const showGroupRefund = document.getElementById("showGroupRefund");
 const refundBtn = document.getElementById("refundBtn");
 const showPrivateRefund = document.getElementById("showPrivateRefund");
 
-
+// ------------------------------- 轉換訂單編號格式 --------------------------
 function formatOrderId(orderId) {
     return 'woofGroup' + orderId.toString().padStart(8, '0');
 }
@@ -14,13 +14,15 @@ refundBtn.addEventListener("click"  ,function (){
     refundModal.show();
 })
 
-// 進入網頁時，取得通知數量
+
+// ------------------------------- 進入網頁時，取得通知數量 --------------------------
 $(function (){
     refundsFetch();
 })
 
+// ------------------------------- 取得通知數量Fetch ------------------------------
 
-// 取得通知數量Fetch
+
 async function refundsFetch(){
     let url = `${project}/groupOrder/countRefundInfo`;
 
@@ -49,8 +51,8 @@ async function refundsFetch(){
     }
 }
 
+// ---------------------------------- 取得通知訊息 --------------------------------
 
-// 取得通知訊息
 async function groupRefundFetch(){
     let url = `${project}/groupOrder/getGroupRefund`;
 
@@ -119,7 +121,7 @@ async function groupRefundFetch(){
     }
 }
 
-// 退款按鈕
+// ---------------------------------- 退款按鈕 --------------------------------
 $(document).on("click" , "button.orderRefund" , function(){
 
     Swal.fire({
@@ -184,7 +186,9 @@ async function refundError(){
     });
 }
 
-// 取消退款
+
+
+// ---------------------------- 取消退款 ----------------------------------
 $(document).on("click" , "button.orderCancel" , function (){
     Swal.fire({
         title: "確定取消退款嗎?",
