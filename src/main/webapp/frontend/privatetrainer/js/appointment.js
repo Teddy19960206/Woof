@@ -2,10 +2,10 @@
 //let projectName = pathName.substring( 0 , pathName.substring(1).indexOf("/")+1);
 const myModal = new bootstrap.Modal(document.getElementById('myModal'), {});
 const params = new URLSearchParams(window.location.search);
+const totalClass = document.getElementById("totalClass"); // 擁有的堂數
+const reserveClass = document.getElementById("reserveClass"); //已預約堂數
 
 let date= [];
-
-
 var calendarEl = document.getElementById('calendar');
 
 var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -85,6 +85,9 @@ var calendar = new FullCalendar.Calendar(calendarEl, {
                     title: "已刪除",
                     text: "刪除成功",
                     icon: "success"
+                }).then(()=>{
+                    totalClass.innerText = parseInt(totalClass.innerText) + 1;
+                    reserveClass.innerText = parseInt(reserveClass.innerText) - 1;
                 });
             } else if (result.dismiss === Swal.DismissReason.cancel) {
                 swalWithBootstrapButtons.fire({
@@ -111,6 +114,7 @@ var calendar = new FullCalendar.Calendar(calendarEl, {
 
 });
 
+// ---------------- 移除所有日期事件 -----------------------
 function removeAllEvents(){
     let allEvents = calendar.getEvents();
     allEvents.forEach(function (event){
@@ -123,9 +127,8 @@ document.addEventListener('DOMContentLoaded',  function() {
     calendar.render();
 });
 
-let prevBtn = document.getElementsByClassName("fc-prev-button");
 
-// 讓消費者僅能觀看兩個月的內容
+// -------------   讓消費者僅能觀看兩個月的內容 --------------------------------------
 $(function(){
     let prevBtn = document.getElementsByClassName("fc-prev-button");
     let nextBtn = document.getElementsByClassName("fc-next-button");
@@ -144,7 +147,7 @@ $(function(){
     })
 })
 
-// 抓取已被預約日期
+// -----------------------  抓取已被預約日期 ------------------------
 async function fetchDetail(year , month){
 
     let trainerNo = params.get('trainerNo');
@@ -170,14 +173,12 @@ async function fetchDetail(year , month){
             });
             date.push(item);
         })
-
-
     }catch (error){
         console.error('Error', error);
     }
 }
 
-// 進入下月時，清除之前的內容
+// ----------------------    進入下月時，清除之前的內容    ---------------------
 function removeAllEvents(){
     let allEvents = calendar.getEvents();
     allEvents.forEach(function (event){
@@ -185,25 +186,32 @@ function removeAllEvents(){
     })
 }
 
-// 預約清單
+// ---------------------------- 預約清單 ------------------
 const reserveDate= [];
 
 
-// 新增預約日期
-$("#reserveBtn").on("click" , function (){
-
-    calendar.addEvent({
-        title: "預約",
-        start: $("#hideDate").text(),
-        backgroundColor:"#0000ff"
-    })
-
+// --------------------------- 新增預約日期 -------------
+$("#reserveBtn").on("click" , async function (){
+    if (parseInt(totalClass.innerText) > 0){
+        calendar.addEvent({
+            title: "預約",
+            start: $("#hideDate").text(),
+            backgroundColor:"#0000ff"
+        })
+        // 預約清單
+        reserveDate.push($("#hideDate").text());
+        // 禁止同日再次點選
+        // date.push($("#hideDate").text());
+        totalClass.innerText = parseInt(totalClass.innerText) - 1;
+        reserveClass.innerText = parseInt(reserveClass.innerText) + 1;
+    }else{
+        await Swal.fire({
+            title: "無法預約!",
+            text: "擁有的課堂數不夠",
+            icon: "error"
+        });
+    }
     myModal.hide();
-    // 預約清單
-    reserveDate.push($("#hideDate").text());
-    // 禁止同日再次點選
-    // date.push($("#hideDate").text());
-    console.log(reserveDate)
 });
 
 function reserve(arr){
@@ -278,7 +286,7 @@ async function fetchClass(){
     }
 
 }
-// 抓取 訓練師 資料
+//  -------------------------   抓取 訓練師 資料 ----------------
 $(async function (){
     let trainerNo = params.get('trainerNo');
     let data = await fetchTrainer(trainerNo);

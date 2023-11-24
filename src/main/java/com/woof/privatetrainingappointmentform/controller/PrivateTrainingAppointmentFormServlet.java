@@ -157,9 +157,14 @@ public class PrivateTrainingAppointmentFormServlet extends HttpServlet {
 		try{
 			PrivateTrainingAppointmentForm privateTrainingAppointmentForm = privateTrainingAppointmentFormService.addPrivateTrainingAppointmentForm(member, trainer, classDates.length);
 			new AppointmentDetailServiceImpl().addAll(privateTrainingAppointmentForm , dates , 0);
+
+			member.setTotalClass(member.getTotalClass() - dates.size());
+			new MemberServiceImpl().updateMember(member);
+			request.getSession().setAttribute("member" , member); // 扣除預約的堂數，並把原本在session的member資料覆蓋過去
+
 			response.getWriter().write("{\"message\" : \"預約成功\"}");
 		}catch (Exception e){
-			response.getWriter().write("{\"新增失敗\"}");
+			response.getWriter().write("{\"預約失敗\"}");
 		}
 	}
 

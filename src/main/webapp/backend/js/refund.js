@@ -135,7 +135,18 @@ $(document).on("click" , "button.orderRefund" , function(){
     }).then(async (result) => {
         if (result.isConfirmed) {
             // 需發送到後端進行修改 ？？？？？？？？？？？？？？？？？？
-            refundOneGroup(this.getAttribute("data-id"));
+            let data = await refundOneGroup(this.getAttribute("data-id"));
+
+            if (data.message){
+                await Swal.fire({
+                    title: "Good job!",
+                    text: `${data.message}`,
+                    icon: "success"
+                });
+                $(this).closest("tr").remove();
+            }else{
+                refundError();
+            }
 
         }
     });
@@ -159,16 +170,7 @@ async function refundOneGroup(gcoNo){
         }
 
         const data = await response.json();
-        if (data.message){
-            await Swal.fire({
-                title: "Good job!",
-                text: `${data.message}`,
-                icon: "success"
-            });
-        }else{
-            refundError();
-        }
-        window.location.reload();
+        return data;
 
     }catch (error){
         refundError();
@@ -200,7 +202,17 @@ $(document).on("click" , "button.orderCancel" , function (){
         confirmButtonText: "是, 取消退款"
     }).then(async (result) => {
         if (result.isConfirmed) {
-            cancelRefund(this.getAttribute("data-id"));
+            await cancelRefund(this.getAttribute("data-id"));
+            if (data.message){
+                await Swal.fire({
+                    title: "Good job!",
+                    text: `${data.message}`,
+                    icon: "success"
+                });
+                $(this).closest("tr").remove();
+            }else{
+                cancelError();
+            }
         }
     });
 })
@@ -223,16 +235,8 @@ async function cancelRefund(gcoNo){
 
         const data = await response.json();
 
-        if (data.message){
-            await Swal.fire({
-                title: "Good job!",
-                text: `${data.message}`,
-                icon: "success"
-            });
-        }else{
-            cancelError();
-        }
-        window.location.reload();
+
+        return data;
 
 
     }catch (error){

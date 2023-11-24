@@ -26,7 +26,7 @@ const myModal = new bootstrap.Modal(document.getElementById('myModal'), {});
 
 // 下一步
 
-// 需先判斷是否填入正確
+// ---------------------------  需先判斷是否填入正確
 $("button#next").on("click" , function (){
     clearErr();
 
@@ -319,6 +319,11 @@ async function fetchDetailByDate(year , month){
             body : "year="+year+"&month="+month
         })
         if (!response.ok){
+            await Swal.fire({
+                icon: "error",
+                title: `${str}`,
+                text: "異常",
+            });
             throw new Error("網路異常")
         }
         const data = await response.json();
@@ -332,6 +337,11 @@ async function fetchDetailByDate(year , month){
         })
 
     }catch (error){
+        await Swal.fire({
+            icon: "error",
+            title: `${str}`,
+            text: "新增失敗",
+        });
         console.error('Error', error);
     }
 
@@ -349,6 +359,11 @@ async function fetchNonClass(year , month , trainerNo){
         })
 
         if (!response.ok){
+            await Swal.fire({
+                icon: "error",
+                title: `${str}`,
+                text: "異常",
+            });
             throw new Error("異常錯誤");
         }
 
@@ -365,6 +380,11 @@ async function fetchNonClass(year , month , trainerNo){
 
 
     }catch (error){
+        await Swal.fire({
+            icon: "error",
+            title: `${str}`,
+            text: "新增失敗",
+        });
         console.error("Error" , error)
     }
 }
@@ -426,6 +446,11 @@ async function addSchedule(){
         }
         window.location.href = `${projectName}/backend/course/schedule.jsp`;
     }catch (error){
+        await Swal.fire({
+            icon: "error",
+            title: `${str}`,
+            text: "新增失敗",
+        });
         console.error('Error', error);
     }
 
