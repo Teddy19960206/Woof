@@ -30,9 +30,8 @@ selectElement.addEventListener("change" , async function (){
 
 })
 
-
+// -----------------  抓取資料，根據classType取得相對應的資料 --------------------------
 async function fetchTrainers(id){
-    // 抓取資料，根據classType取得相對應的資料
     let url = `${projectName}/skill/getTrainersBySkill/${id}`;
 
     try{

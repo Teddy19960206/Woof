@@ -23,7 +23,7 @@ function formatOrderId(orderId) {
     return 'woofGroup' + orderId.toString().padStart(8, '0');
 }
 
-
+//----------------------  所有訂單 ---------------------------------------
 async function getOrder(page){
 
     if (!page){
@@ -84,18 +84,25 @@ async function getOrder(page){
 
             let statusText;
 
-            if (item.gcoStatus === 0){
-                statusText = '未付款';
-            }else if (item.gcoStatus === 1){
-                statusText = '已付款';
-            }else if (item.gcoStatus === 2){
-                statusText = '已退款';
-            }else if (item.gcoStatus === 3){
-                statusText = '已取消';
-            }else if (item.gcoStatus === 4){
-                statusText = '已完成';
-            }else if (item.gcoStatus === 5){
-                statusText = '退款申請中'
+            switch (item.gcoStatus){
+                case 0:
+                    statusText = '未付款';
+                    break;
+                case 1:
+                    statusText = '已付款';
+                    break;
+                case 2:
+                    statusText = '已退款';
+                    break;
+                case 3:
+                    statusText = '已取消';
+                    break;
+                case 4:
+                    statusText = '已完成';
+                    break;
+                case 5:
+                    statusText = '退款申請中';
+                    break;
             }
 
             arr.push(` <tr>
@@ -169,7 +176,7 @@ async function getOrder(page){
     }
 }
 
-// 抓取團體課程 下拉式選單內容
+//  ---------------------------  抓取團體課程 下拉式選單內容  ----------------------------------
 async function getGroupCourse(){
 
     let url = `${projectName}/groupcourse/getAll`;
@@ -195,10 +202,12 @@ async function getGroupCourse(){
     }
 }
 
+// ---------------------  詳情按鈕 ----------------------------------------
+
 $(document).on("click" , "button.detail-btn" ,function (){
     fetchDetail($(this).data("id"));
-    var newUrl = `${projectName}/backend/course/orderManagement.jsp`; // 想要添加的新網址
-    var newState = { page: "寵毛導師 Woof | 課堂檔期訂單管理" }; // 新狀態物件
+    let newUrl = `${projectName}/backend/course/orderManagement.jsp`; // 想要添加的新網址
+    let newState = { page: "寵毛導師 Woof | 課堂檔期訂單管理" }; // 新狀態物件
 
     history.pushState(newState, "新頁面標題", newUrl);
 });
@@ -340,6 +349,7 @@ async function fetchDetail(id){
 }
 
 
+// ------------------------ 修改按鈕 ------------------------------
 $(document).on("click" , "button.modify" , function (){
     modifyFetch($(this).data("id"), $("#status").val());
 
@@ -388,7 +398,7 @@ async function modifyFetch(id , status){
 
 }
 
-// 退款按鈕
+// --------------------------  退款按鈕  ------------------------------
 $(document).on("click" , "button.refund" , function (){
 
     Swal.fire({

@@ -3,14 +3,14 @@ const preview = document.getElementById("preview");
 let pathName = window.document.location.pathname;
 let projectName = pathName.substring( 0 , pathName.substring(1).indexOf("/")+1);
 
-// 移除圖片
+// -------------------------  移除圖片  --------------------------------
 $("button#delete").on("click" , function (){
     preview.innerHTML = `<span class="text">預覽圖</span>`;
     let id = $(this).data('id');
     fetchDelete(id);
 })
 
-// 到資料庫把圖片刪除
+// --------------------- 到資料庫把圖片刪除 -----------------------------
 async function fetchDelete(id) {
     let url = `${projectName}/groupcourse/delete/${id}`;
 
@@ -31,7 +31,7 @@ async function fetchDelete(id) {
 }
 
 
-// 讀取圖片
+// -----------------------  讀取圖片  ---------------------------
 function readImg(result) {
     let reader = new FileReader();
     reader.readAsDataURL(result);

@@ -120,7 +120,7 @@ const calendar = new FullCalendar.Calendar(calendarEl, {
     },
 });
 
-// 進入下月時，清除之前的內容
+// -------------  進入下月時，清除之前的內容 -----------------
 function removeAllEvents(){
     let allEvents = calendar.getEvents();
     allEvents.forEach(function (event){
@@ -140,7 +140,7 @@ function reserve(arr){
     });
 }
 
-// 預約清單
+// ---------------- 預約清單 ----------------------------------
 const reserveDate= [];
 
 // 新增預約日期
@@ -157,7 +157,7 @@ $("#reserveBtn").on("click" , function (){
 });
 
 
-// 獲取當月所有已報名訊息
+// ---------------------  獲取當月所有已報名訊息  ------------------------
 async function fetchDetailByDate(year , month){
 
     let url = `${projectName}/scheduleDetail/getDetails`;

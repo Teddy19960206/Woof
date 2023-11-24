@@ -10,7 +10,7 @@ $(document).on("click" , "button.edit-button" , function (){
     className.html(`<input type='text' name='classType' class="form-control" style="width: 100px" value='${className.text()}'>`);
 })
 
-// 點擊確認修改後須先發送 fetch 到後端判斷是否更新成功，若是成功，則還原。
+// --------------   點擊確認修改後須先發送 fetch 到後端判斷是否更新成功，若是成功，則還原。  ------------------
 $(document).on("click" , "button.modify-button" ,  async function (){
 
     // 獲取修改後的文字
@@ -38,7 +38,7 @@ $(document).on("click" , "button.modify-button" ,  async function (){
     }
 })
 
-// 刪除 classType 按鈕觸發fetchData
+// ------------------   刪除 classType 按鈕觸發fetchData  ----------------------------
 $(document).on("click", "button.delete-button" , async function (){
     // 獲取 classType 編號
     let id = $(this).closest("tr").find("td").eq(0).text();
