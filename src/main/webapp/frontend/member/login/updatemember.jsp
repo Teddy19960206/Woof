@@ -118,7 +118,8 @@ $(document).ready(function(){
         });
      })
 </script>
-<script src="https://kit.fontawesome.com/3f37e88a3b.js" crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/3f37e88a3b.js"
+	crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <style>
 body {
@@ -195,18 +196,21 @@ body {
 	background-color: #e0e0e0; /* 按鈕懸停淡紅色 */
 	color: red;
 }
+
 .fa-camera {
 	font-size: 24px; /* 設定圖示大小，您可以根據需要調整這個值 */
 }
+
 .img-box {
-    position: absolute;
-    bottom: 0px;
-    right: -30px;
-    cursor: pointer;
-    }
- .photo-container {
-    position: relative;
-    /* 其他必要的樣式 */
+	position: absolute;
+	bottom: 0px;
+	right: -30px;
+	cursor: pointer;
+}
+
+.photo-container {
+	position: relative;
+	/* 其他必要的樣式 */
 }
 </style>
 <style>
@@ -250,6 +254,10 @@ body {
 #preview img.preview_img {
 	width: 100%;
 }
+/* 紅色星號 */
+.required {
+	color: red;
+}
 </style>
 </head>
 <body>
@@ -273,12 +281,13 @@ body {
 					<div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="TEXT" name="memNo"
-								id="memNo" size="56" readonly style="background-color: #e9ecef; border: 1px solid #ced4da;"/>
+								id="memNo" size="56" readonly
+								style="background-color: #e9ecef; border: 1px solid #ced4da;" />
 						</div>
 					</div>
 				</div>
 				<div class="form-group">
-					<label for="memName">會員姓名:</label>
+					<label for="memName"><span class="required">*</span>會員姓名:</label>
 					<div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="TEXT" name="memName"
@@ -309,12 +318,12 @@ body {
 						<div class="form-check form-check-inline">
 							<!-- 預覽圖片區塊 -->
 							<div id="preview" style="margin-bottom: 10px;">
-								<img id="photo" class="preview_img" onerror="this.style.display='none'" /> 
-								<span class="text"></span>
+								<img id="photo" class="preview_img"
+									onerror="this.style.display='none'" /> <span class="text"></span>
 							</div>
-							 <label for="p_file" class="img-box">
-							 <i class="fa-solid fa-camera"></i>
-							 </label>
+							<label for="p_file" class="img-box"> <i
+								class="fa-solid fa-camera"></i>
+							</label>
 							<!-- 檔案上傳輸入框 -->
 							<input class="form-check-input" type="file" name="memPhoto"
 								accept="image/*" id="p_file" style="display: none;" />
@@ -326,7 +335,8 @@ body {
 					<div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="email" name="memEmail"
-								id="memEmail" placeholder="XXX@gmail.com" size="56" readonly style="background-color: #e9ecef; border: 1px solid #ced4da;"/>
+								id="memEmail" placeholder="XXX@gmail.com" size="56" readonly
+								style="background-color: #e9ecef; border: 1px solid #ced4da;" />
 						</div>
 					</div>
 					<%-- <small class="error-msg">${errorMsgs.memEmail}</small> --%>
@@ -335,17 +345,17 @@ body {
 					<label for="memPassword">密碼(需大於六個字):</label>
 					<div style="position: relative;">
 						<input class="form__input" pattern=".{6,}" type="password"
-							name="memPassword" id="memPassword" size="56"/> <i
+							name="memPassword" id="memPassword" size="56" /> <i
 							class="fa fa-eye-slash"
-							style="position: absolute; right: 50px; top: 6px; cursor: pointer;"
+							style="position: absolute; right: 60px; top: 6px; cursor: pointer;"
 							onclick="togglePasswordVisibility('memPassword', this)"
 							id="togglePassword"></i>
-						<span class="icon" style="position: absolute; right: 10; top: 6px;"></span>
+						<!-- 	<span class="icon" style="position: absolute; right: 10; top: 6px;"></span> -->
 					</div>
 					<small class="error-msg">${errorMsgs.memPassword}</small>
 				</div>
 				<div class="form-group">
-					<label for="memTel">會員電話:</label>
+					<label for="memTel"><span class="required">*</span>會員電話:</label>
 					<div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="tel" name="memTel"
@@ -358,14 +368,13 @@ body {
 					<label><span class="required">*</span>地址:</label>
 					<div class="form-check form-check-inline">
 						<div id="twzipcode" class="twzipcode"></div>
-						<input class="form-check-input" type="text"
-							name="memAddress" id="memAddress"
-							placeholder="詳細地址（如街道、門牌號等" size="30" required />
+						<input class="form-check-input" type="text" name="memAddress"
+							id="memAddress" placeholder="詳細地址（如街道、門牌號等" size="30" required />
 					</div>
 					<small class="error-msg">${errorMsgs.memAddress}</small>
 				</div>
 				<div class="form-group">
-					<label for="memBd">生日:<span>(西元-月-日)</span></label>
+					<label for="memBd"><span class="required">*</span>生日:<span>(西元-月-日)</span></label>
 					<div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="Text" name="memBd"
@@ -403,12 +412,22 @@ body {
 						</div>
 					</div>
 				</div>
-				<br> <input type="hidden" name="action" value="update">
-				<button type="submit" class="btn btn-primary btn-custom">修改</button>
-				<button type="button" onclick="history.back()"
-					class="btn btn-secondary btn-custom">取消修改</button>
-				<button type="button" name="delete" id="delete"
-					class="btn btn-third btn-custom" data-id="${member.memNo}">刪除圖片</button>
+				<br>
+				<div>
+					<input type="hidden" name="action" value="update">
+					<button type="submit" class="btn btn-primary btn-custom mr-2">修改</button>
+					<button type="button" onclick="history.back()"
+						class="btn btn-secondary btn-custom mr-2">取消修改</button>
+					<button type="button" class="btn btn-third btn-custom"
+						onclick="document.getElementById('deleteForm').submit();">刪除圖片</button>
+				</div>
+			</form>
+			<!-- 隱藏的刪除圖片表單 -->
+			<form id="deleteForm" method="post"
+				action="${pageContext.request.contextPath}/member1.do"
+				style="display: none;">
+				<input type="hidden" name="action" value="deletephoto"> <input
+					type="hidden" name="memNo" value="${member.memNo}">
 			</form>
 		</div>
 	</div>

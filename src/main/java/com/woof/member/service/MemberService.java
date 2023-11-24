@@ -10,7 +10,7 @@ public interface MemberService {
 	void updateMember(Member member);
 
 	// Delete a member by its number or ID
-	void deletePhoto(String memNo);
+	void delete(String memNo);
 
 	// Find a member by its number or ID
 	Member findMemberByNo(String memNo);
@@ -40,5 +40,7 @@ public interface MemberService {
     void updateMemberClass(String memNo, Integer totalClass);
 
 	void cancelPrivateClass(String memNo);
+
+	void deleteMemberPhoto(String memNo);
 
 }

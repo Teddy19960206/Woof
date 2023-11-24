@@ -9,7 +9,7 @@ public interface MemberDAO {
 
 	int update(Member member);
 
-	int deletePhoto(String memNo);
+	int delete(String memNo);
 
 	Member findByMemberNo(String memNo);
 	

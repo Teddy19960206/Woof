@@ -38,7 +38,7 @@ public class MemberDAOImpl implements MemberDAO {
 	}
 
 	@Override
-	public int deletePhoto(String memNo) {
+	public int delete(String memNo) {
 		Member member = getSession().get(Member.class, memNo);
 		if (member != null) {
 			getSession().delete(member);
@@ -93,5 +93,4 @@ public class MemberDAOImpl implements MemberDAO {
 		query.setParameter("memNo" , memNo);
 		query.executeUpdate();
 	}
-
 }

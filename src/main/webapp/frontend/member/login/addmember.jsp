@@ -268,7 +268,7 @@ body {
 						<input class="form__input" pattern=".{6,}" type="password"
 							name="memPassword" id="memPassword" size="56" required /> <i
 							class="fa fa-eye-slash"
-							style="position: absolute; right: 50px; top: 6px; cursor: pointer;"
+							style="position: absolute; right: 60px; top: 6px; cursor: pointer;"
 							onclick="togglePasswordVisibility('memPassword', this)"
 							id="togglePassword"></i>
 						<span class="icon" style="position: absolute; right: 10; top: 6px;"></span>

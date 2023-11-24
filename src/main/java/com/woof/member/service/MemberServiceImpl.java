@@ -28,11 +28,20 @@ public class MemberServiceImpl implements MemberService, AppService<String> {
 	}
 
 	@Override
-	public void deletePhoto(String memNo) {
-		if (dao.deletePhoto(memNo) == 1) {
+	public void delete(String memNo) {
+		if (dao.delete(memNo) == 1) {
 			return;
 		}
 	}
+
+	@Override
+	public void deleteMemberPhoto(String memNo) {
+			Member member = findMemberByNo(memNo);
+			if (member != null) {
+				member.setMemPhoto(null); // 假設 setMemPhoto 方法用來設置照片為 null
+				dao.update(member);
+			}
+		}
 
 	@Override
 	public Member findMemberByNo(String memNo) {
@@ -48,8 +57,8 @@ public class MemberServiceImpl implements MemberService, AppService<String> {
 	public byte[] getPhotoById(String memNo) {
 		byte[] photoBytes = null;
 		try {
-			   photoBytes = findMemberByNo(memNo).getMemPhoto();	
-		}catch(Exception e){
+			photoBytes = findMemberByNo(memNo).getMemPhoto();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return photoBytes;
@@ -67,12 +76,13 @@ public class MemberServiceImpl implements MemberService, AppService<String> {
 	public List<Member> getMembersByCompositeQuery(Map<String, String[]> map) {
 		return null;
 	}
+
 	@Override
 	public void addMember(Member member) {
-		
+
 		dao.insert(member);
 	}
-	
+
 	@Override
 	public List<Member> getAllMembers(int currentPage) {
 		return dao.getAll(currentPage);
@@ -83,10 +93,10 @@ public class MemberServiceImpl implements MemberService, AppService<String> {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
 	@Override
 	public void updateMemberPoints(String memNo, Integer momo) {
-		findMemberByNo(memNo).setMomoPoint(momo);	
+		findMemberByNo(memNo).setMomoPoint(momo);
 	}
 
 	public Member findMemberByEmail(String memEmail) {
@@ -101,7 +111,7 @@ public class MemberServiceImpl implements MemberService, AppService<String> {
 
 	@Override
 	public void cancelPrivateClass(String memNo) {
-		dao.updateTotalClass(memNo , 1);
+		dao.updateTotalClass(memNo, 1);
 	}
 
 }
