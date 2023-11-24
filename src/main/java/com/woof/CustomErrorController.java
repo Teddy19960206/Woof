@@ -26,7 +26,7 @@ public class CustomErrorController implements ErrorController{
                 return "500";
             }
         }
-        return "/error";
+        return "404";
     }
     public String getErrorPath() {
         return "/error";
