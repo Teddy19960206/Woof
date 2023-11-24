@@ -45,6 +45,9 @@
     input{
       text-align: center;
     }
+    .uploadImage{
+      overflow: ;
+    }
 
   </style>
 </head>
