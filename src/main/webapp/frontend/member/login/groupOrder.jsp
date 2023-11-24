@@ -37,7 +37,6 @@
     </div>
 </div>
 <%@ include file="foot.jsp"%>
-
 <script src="${pageContext.request.contextPath}/frontend/member/js/groupOrder.js"></script>
 </body>
 </html>
