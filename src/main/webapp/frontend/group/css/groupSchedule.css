@@ -21,7 +21,7 @@ button.myBtn:hover{
     color: #084298;
 }
 
-h1.h5{
+h1.h5 , h1.h3{
     color: #eb702a;
 }
 
@@ -118,4 +118,13 @@ div.modal-div{
 
 img.myPhoto{
     height: 250px;
+}
+
+ul > li{
+    margin: 20px;
+    font-size: 20px;
+}
+
+p{
+    font-size: 20px;
 }

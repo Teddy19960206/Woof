@@ -10,13 +10,11 @@ getNews.addEventListener("click" , function (){
     infoModal.show();
 })
 
-
-// 進入網頁時，取得通知數量
+//----------------------------- 進入網頁時，取得通知數量 ----------------------------------------
 $(function(){
     countFetch();
 })
-
-// 取得通知數量Fetch
+//----------------------------- 取得通知數量Fetch ----------------------------------------
 async function countFetch(){
     let url = `${project}/schedule/countInfo`;
 
@@ -45,8 +43,7 @@ async function countFetch(){
     }
 }
 
-
-// 取得通知訊息
+//-------------------------------  取得通知訊息 --------------------------------------
 async function newsInfoFetch(){
     let url = `${project}/schedule/getNewsRedis`;
 
@@ -115,13 +112,11 @@ async function newsInfoFetch(){
         console.error('Error', error);
     }
 }
-
-// 延期課程
+//------------------------------- 延期課程 -------------------------------------
 $(document).on("click" , "button.schedulePostpone" , function(){
     window.location.href = `${project}/backend/course/delaySchedule.jsp?no=${this.getAttribute("data-id")}`;
 });
-
-// 取消報名
+//------------------------------- 取消報名 --------------------------------------
 $(document).on("click" , "button.schudeleCancel" , function(){
 
     Swal.fire({

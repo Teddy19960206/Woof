@@ -106,17 +106,8 @@ body {
 .list-group-item a:hover {
     color: #0056b3; /* 懸停時的顏色 */
 }
-/* 子選單樣式 */
-#orderManagementOptions,
-#courseManagementOptions,
-#shopManagementOptions {
-	padding-left: 0px;
-	background-color: orange;
-}
-.left-icon {
-    text-align: left; /* 使內容靠右對齊 */
-    margin-right: 20px; /* 右邊距，可依需求調整 */
-}
+
+
 .table {
   width: 100%;
   border-collapse: collapse;
@@ -178,32 +169,8 @@ body {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.left-icon {
-	text-align: left;
-	margin-right: 20px;
-}
 
-.custom-divider {
-	margin-top: 0px;
-	margin-bottom: 0px;
-	border: 0;
-	border-top: 1px solid #ccc;
-}
 
-a {
-	color: inherit;
-	text-decoration: none;
-}
-
-.accordion-button:not(.collapsed) {
-	background-color: #ffaa77;
-	color: #333;
-}
-
-.accordion-button:hover {
-	background-color: #ffbb88;
-	color: #333;
-}
 .btn-cannotcomment {
   background-color: gray;
   color: white;
@@ -216,150 +183,8 @@ a {
 }
 </style>
 </head>
-<script type="text/javascript">
-    function toggleOrderManagement() {
-        var orderoptions = document.getElementById('orderManagementOptions');
-        toggleDisplay(orderoptions);
-    }
-
-    function toggleCourseManagement() {
-        var courseOptions = document.getElementById('courseManagementOptions');
-        var shopOrderOptions = document.getElementById('shopManagementOptions');
-        toggleDisplay(courseOptions);
-    }
-    function toggleShopOrderManagement() {
-        var shopOrderOptions = document.getElementById('shopManagementOptions');
-        var courseOptions = document.getElementById('courseManagementOptions');
-        toggleDisplay(shopOrderOptions);
-    }
-
-    function toggleDisplay(element) {
-        if (element.style.display === 'none') {
-            element.style.display = 'block';
-        } else {
-            element.style.display = 'none';
-        }
-    }
-</script>
-<script src="https://kit.fontawesome.com/3f37e88a3b.js" crossorigin="anonymous"></script>
 <body>
-	<%@ include file="/Header.file"%>
-	<jsp:useBean id="memberService" scope="page"
-		class="com.woof.member.service.MemberServiceImpl" />
-	<div class="container mt-5">
-		<div class="row">
-			<div class="col-12 col-md-4">
-				<div class="accordion" id="accordionExample">
-					<!-- 用戶資訊項目 -->
-					<div class="accordion-item">
-						<h2 class="accordion-header">
-							<button class="accordion-button" type="button"
-								data-bs-toggle="collapse" data-bs-target="#collapseUserInfo"
-								aria-expanded="true" aria-controls="collapseUserInfo">
-								您好，
-								<c:out value="${member.memName}！" />
-							</button>
-						</h2>
-						<div id="collapseUserInfo"
-							class="accordion-collapse collapse show"
-							data-bs-parent="#accordionExample">
-							<div class="accordion-body">
-								<form method="post"
-									action="${pageContext.request.contextPath}/member1.do"
-									style="margin-bottom: 0px;">
-									<input type="hidden" name="action" value="update"> <input
-										type="hidden" name="memNo" value="${member.memNo}"> <a
-										onclick="processUpdate({memNo:'${member.memNo}'});"
-										style="cursor: pointer;"> <i class="fa-solid fa-user"></i>&nbsp;修改基本資料
-									</a>
-								</form>
-							</div>
-						</div>
-					</div>
-			<!-- 課程管理項目 -->
-			<div class="accordion-item">
-				<h2 class="accordion-header">
-					<button class="accordion-button collapsed" type="button"
-						data-bs-toggle="collapse"
-						data-bs-target="#collapseCourseManagement" aria-expanded="false"
-						aria-controls="collapseCourseManagement">
-						<i class="fa-solid fa-school"></i>&nbsp;課程管理
-					</button>
-				</h2>
-				<div id="collapseCourseManagement"
-					class="accordion-collapse collapse"
-					data-bs-parent="#accordionExample">
-					<div class="accordion-body">
-						<!-- 私人訓練師項目 -->
-						<div class="accordion-item">
-							<h2 class="accordion-header">
-								<button class="accordion-button collapsed" type="button"
-									data-bs-toggle="collapse"
-									data-bs-target="#collapsePersonalTrainerOptions"
-									aria-expanded="false"
-									aria-controls="collapsePersonalTrainerOptions">
-									</i> 私人訓練師
-								</button>
-							</h2>
-							<div id="collapsePersonalTrainerOptions"
-								class="accordion-collapse collapse"
-								data-bs-parent="#collapseCourseManagement">
-								<div class="accordion-body">
-									<a href="${pageContext.request.contextPath}/frontend/member/login/classOrder.jsp">課程訂單管理</a>
-								</div>
-								<hr class="custom-divider">
-								<div class="accordion-body">
-									<a href="${pageContext.request.contextPath}/frontend/member/login/appointment.jsp">預約單管理</a>
-								</div>
-							</div>
-						</div>
-					</div>
-					<hr class="custom-divider">
-					<div class="accordion-body">
-						<a
-							href="${pageContext.request.contextPath}/frontend/member/login/groupOrder.jsp">團體報名訂單管理</a>
-					</div>
-				</div>
-			</div>
-
-			<!-- 商城訂單查詢項目 -->
-			<div class="accordion-item">
-				<h2 class="accordion-header">
-					<button class="accordion-button collapsed" type="button"
-						data-bs-toggle="collapse"
-						data-bs-target="#collapseShopOrderManagement"
-						aria-expanded="false" aria-controls="collapseShopOrderManagement">
-						<i class="fa-solid fa-shop"></i>&nbsp;商城訂單查詢
-					</button>
-				</h2>
-				<div id="collapseShopOrderManagement"
-					class="accordion-collapse collapse"
-					data-bs-parent="#accordionExample">
-					<div class="accordion-body">
-						<a href="#">訂單查詢</a>
-					</div>
-				</div>
-				<hr class="custom-divider">
-				<!-- 新增分隔線，並加入自訂類別 -->
-				<div id="collapseShopOrderManagement"
-					class="accordion-collapse collapse"
-					data-bs-parent="#accordionExample">
-					<div class="accordion-body">
-						<a href="#">訂單追蹤</a>
-					</div>
-				</div>
-				<hr class="custom-divider">
-				<!-- 新增分隔線，並加入自訂類別 -->
-				<div id="collapseShopOrderManagement"
-					class="accordion-collapse collapse"
-					data-bs-parent="#accordionExample">
-					<div class="accordion-body">
-						<a href="#">商品退貨</a>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+<%@ include file="body.jsp" %>
    <div class="col-12 col-md-8">
     <div class="card">
         <div class="card-body">
@@ -412,13 +237,12 @@ a {
      			</div>
     		</div>
    		</div>
-  	</div>
- </div>
+<%@ include file="foot.jsp" %>
 
- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
- <script
-  src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
- <script
-  src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<%-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>--%>
+<%-- <script--%>
+<%--  src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>--%>
+<%-- <script--%>
+<%--  src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>--%>
 </body>
 </html>
