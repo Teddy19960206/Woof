@@ -31,7 +31,7 @@ public class ShopOrderDAOImpl implements ShopOrderDAO {
 	@Override
 	public int update(ShopOrder shopOrder) {
 		try {
-			getSession().update(shopOrder);
+			getSession().merge(shopOrder);
 			return 1;
 		} catch (Exception e) {
 			return -1;
