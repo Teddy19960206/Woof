@@ -10,16 +10,17 @@ body {
 }
 
 .custom-container {
-	max-width: 800px;
-	background: white;
-	padding: 40px;
+	max-width: 80%;
+	background: url('/woof/backend/member/jpg/12.jpg');
+	padding: 50px;
 	border-radius: 8px;
 	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 	margin: 40px auto;
+	margin-top: 150px; /* 或者更多，視你的頁面需求而定 */
 }
 
 .custom-header {
-	background-color: #007bff;
+	background-color: pink;
 	color: white;
 	padding: 10px;
 	border-radius: 5px;
@@ -52,8 +53,7 @@ select {
 	text-align: center;
 }
 </style>
-<script src="https://kit.fontawesome.com/3f37e88a3b.js"
-	crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/3f37e88a3b.js" crossorigin="anonymous"></script>
 </head>
 <body>
 	<%@ include file="/backend/backbody.file"%>
@@ -73,7 +73,7 @@ select {
 					<form method="post" action="${pageContext.request.contextPath}/member.do">
 						<label class="mr-2"><b>輸入會員帳號:</b></label>
 						<div class="input-group">
-						 <input type="text" class="form-control mr-2" name="memNo" value="${member.memNO}" placeholder="輸入會員帳號" required> 
+						 <input type="text" class="form-control mr-2" name="memNo" value="${member.memNo}" placeholder="輸入會員帳號" required> 
 							<input type="hidden"name="action" value="getone"> 
 							<label for="search" class="search">
 						</label>
@@ -86,9 +86,7 @@ select {
 					</form>
 				</div> 
 				<div class="col-md-4">
-					<form method="POST"
-						action="${pageContext.request.contextPath}/member.do"
-						class="form-inline">
+					<form method="POST" action="${pageContext.request.contextPath}/member.do" class="form-inline">
 						<label class="inputState form-label mr-2"><b>選擇會員編號:</b></label>
 						<div class="input-group">
 							<select name="memNo" class="form-select" id="inputState">
@@ -97,12 +95,12 @@ select {
 								</c:forEach>
 							</select>
 							<div class="input-group-append">
+								<input type="hidden" name="action" value="getone">
 								<button class="btn btn-orange" type="submit" id="search">
 									<i class="fa-solid fa-magnifying-glass"></i>
 								</button>
 							</div>
 						</div>
-						<input type="hidden" name="action" value="getone">
 					</form>
 				</div>
 
@@ -118,23 +116,17 @@ select {
 								</c:forEach>
 							</select>
 							<div class="input-group-append">
+								<input type="hidden" name="action" value="getone">
 								<button class="btn btn-orange" type="submit" id="search">
 									<i class="fa-solid fa-magnifying-glass"></i>
 								</button>
 							</div>
 						</div>
-						<input type="hidden" name="action" value="getone">
 					</form>
 				</div>
-		</ul>
-	</div>
-
-	<!-- Bootstrap JavaScript -->
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-	<script
-		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+				</li>
+				</ul>
+	</div> 
 	<%@ include file="/backend/backfoot.file"%>
 </body>
 </html>

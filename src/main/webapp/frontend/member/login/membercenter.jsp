@@ -39,7 +39,7 @@
 
 .table th, .table td {
 	border: 1px solid #ddd; /* 加強邊框 */
-	padding: 8px; /* 增加內距 */
+	padding: 12px; /* 增加內距 */
 	text-align: left; /* 左對齊文本 */
 }
 
@@ -148,7 +148,11 @@ a {
 }
 .status-validmail {
 	background-color: lightblue; /* 藍色背景 */
-	color: blue;
+	color: black;
+	border: none; 
+}
+button {
+    border: none;
 }
 </style>
 </head>

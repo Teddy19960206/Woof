@@ -22,21 +22,21 @@
 }
 
     
-        body {
-              position: relative;
-  width: 100%;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  /* background: #2196f3; */
-  background-image: url('/woof/frontend/images/golden-retriever-2645903.jpg');
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-position: center;
-  background-size: cover;
-  overflow: hidden;
-        }
+body.specific-page{
+      position: relative;
+	  width: 100%;
+	  min-height: 100vh;
+	  display: flex;
+	  justify-content: center;
+	  align-items: center;
+	  /* background: #2196f3; */
+	   background-image: url('/woof/frontend/images/golden-retriever-2645903.jpg'); */
+	  background-repeat: no-repeat;
+	  background-attachment: fixed;
+	  background-position: center;
+	  background-size: cover;
+	  overflow: hidden;
+}
 .login-container {
 	max-width: 400px;
 	margin: 50px auto;
@@ -62,7 +62,7 @@
 
 <title>管理員登入畫面</title>
 </head>
-<body>
+<body class="specific-page">
 	<div class="login-container">
 		<h3 class="login-header text-center">
 			<b>管理員登入</b>

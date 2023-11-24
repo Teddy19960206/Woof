@@ -310,6 +310,11 @@
 		</dependency>
 
 
+		<dependency>
+			<groupId>idv.david</groupId>
+			<artifactId>HibernateEx</artifactId>
+			<version>1.0</version>
+		</dependency>
 	</dependencies>
 
 	<build>

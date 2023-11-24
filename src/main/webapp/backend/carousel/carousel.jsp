@@ -6,8 +6,10 @@
   <style>
     #preview {
       border: 1px solid lightgray;
-      display: inline-block;
-      width: 300px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 400px;
       min-height: 400px;
       position: relative;
     }
@@ -39,6 +41,9 @@
     }
     label{
       font-size: 20px;
+    }
+    input{
+      text-align: center;
     }
 
   </style>

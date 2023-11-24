@@ -10,6 +10,8 @@
 	rel="stylesheet">
 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/jquery-twzipcode@1.7.14/jquery.twzipcode.min.js"></script>
 <!-- Bootstrap CSS -->
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -24,7 +26,38 @@
 		});
 	});
 </script>
-<script src="https://kit.fontawesome.com/3f37e88a3b.js" crossorigin="anonymous"></script>
+<script>
+	$(function() {
+		$("#twzipcode").twzipcode({
+			zipcodeIntoDistrict : true,
+			css : [ "city form-control", "town form-control" ],
+			countyName : "city",
+			districtName : "town"
+		});
+		$('select[name=city],select[name=town]').change(
+				function() {
+					$('#memAddress').val(
+							$('select[name=city]').val() + ' '
+									+ $('select[name=town]').val());
+				});
+	});
+</script>
+<script>
+    function togglePasswordVisibility(inputId, toggleIcon) {
+        var input = document.getElementById(inputId);
+        if (input.type === "password") {
+            input.type = "text";
+            toggleIcon.classList.add('fa-eye');
+            toggleIcon.classList.remove('fa-eye-slash');
+        } else {
+            input.type = "password";
+            toggleIcon.classList.remove('fa-eye');
+            toggleIcon.classList.add('fa-eye-slash');
+        }
+    }
+</script>
+<script src="https://kit.fontawesome.com/3f37e88a3b.js"
+	crossorigin="anonymous"></script>
 <style>
 body {
 	background-color: #fff4e5; /* 淺橘色背景 */
@@ -89,18 +122,21 @@ body {
 	background-color: #e0e0e0; /* 按鈕懸停淺灰色 */
 	color: #333;
 }
+
 .fa-camera {
 	font-size: 24px; /* 設定圖示大小，您可以根據需要調整這個值 */
 }
+
 .img-box {
-    position: absolute;
-    bottom: 0px;
-    right: -30px;
-    cursor: pointer;
-    }
- .photo-container {
-    position: relative;
-    /* 其他必要的樣式 */
+	position: absolute;
+	bottom: 0px;
+	right: -30px;
+	cursor: pointer;
+}
+
+.photo-container {
+	position: relative;
+	/* 其他必要的樣式 */
 }
 </style>
 <style>
@@ -108,16 +144,16 @@ body {
 	border: 1px solid lightgray;
 	display: inline-block; /*  */
 	width: 200px;
-	min-height: 250px;
+	min-height: 256px;
 	position: relative;
 }
 
 #preview span.text {
 	position: absolute;
 	display: inline-block;
-	left: 50%;
-	top: 50%;
-	transform: translate(-50%, -50%);
+	left: 56%;
+	top: 56%;
+	transform: translate(-56%, -56%);
 	z-index: -1;
 	color: lightgray;
 }
@@ -127,10 +163,16 @@ body {
 }
 /* 紅色星號 */
 .required {
-    color: red;
+	color: red;
 }
 </style>
-
+<style>
+.twzipcode .form-control {
+	display: inline-block;
+	width: auto;
+	margin-right: 10px;
+}
+</style>
 <style>
 /* 密碼表情符號 */
 .form__input:valid+.icon::after {
@@ -160,7 +202,7 @@ body {
 					<div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="TEXT" name="memNo"
-								id="memNo" size="45" required/>
+								id="memNo" size="56" required />
 						</div>
 					</div>
 					<small class="error-msg">${errorMsgs.memNo}</small>
@@ -170,13 +212,13 @@ body {
 					<div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="TEXT" name="memName"
-								id="memName" size="45" required />
+								id="memName" size="56" required />
 						</div>
 					</div>
 					<small class="error-msg">${errorMsgs.memName}</small>
 				</div>
 				<div class="form-group">
-					<label >性別:</label>
+					<label>性別:</label>
 					<div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="radio" name="memGender"
@@ -197,35 +239,39 @@ body {
 						<div class="form-check form-check-inline">
 							<!-- 預覽圖片區塊 -->
 							<div id="preview" style="margin-bottom: 10px;">
-								<img id="photo" class="preview_img" onerror="this.style.display='none'" /> <span class="text">
+								<img id="photo" class="preview_img"
+									onerror="this.style.display='none'" /> <span class="text">
 								</span>
 							</div>
-							 <label for="p_file" class="img-box">
-							 <i class="fa-solid fa-camera"></i>
-							 </label>
+							<label for="p_file" class="img-box"> <i
+								class="fa-solid fa-camera"></i>
+							</label>
 							<!-- 檔案上傳輸入框 -->
 							<input class="form-check-input" type="file" name="memPhoto"
-								accept="image/*" id="p_file" style="display: none;"/>
+								accept="image/*" id="p_file" style="display: none;" />
 						</div>
-						</div>
-						</div>
+					</div>
+				</div>
 				<div class="form-group">
 					<label for="memEmail"><span class="required">*</span>信箱:</label>
 					<div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="email" name="memEmail"
-								id="memEmail" placeholder="XXX@gmail.com" size="45" required />
+								id="memEmail" placeholder="XXX@gmail.com" size="56" required />
 						</div>
 					</div>
 					<small class="error-msg">${errorMsgs.memEmail}</small>
 				</div>
 				<div class="form-group">
 					<label for="memPassword"><span class="required">*</span>密碼(需大於六個字):</label>
-					<div>
-						<div class="form-check form-check-inline">
-							<input class="form__input" pattern=".{6,}" type="TEXT" name="memPassword"
-								id="memPassword" size="45" required /><span class="icon"></span>
-						</div>
+					<div style="position: relative;">
+						<input class="form__input" pattern=".{6,}" type="password"
+							name="memPassword" id="memPassword" size="56" required /> <i
+							class="fa fa-eye-slash"
+							style="position: absolute; right: 50px; top: 6px; cursor: pointer;"
+							onclick="togglePasswordVisibility('memPassword', this)"
+							id="togglePassword"></i>
+						<span class="icon" style="position: absolute; right: 10; top: 6px;"></span>
 					</div>
 					<small class="error-msg">${errorMsgs.memPassword}</small>
 				</div>
@@ -234,18 +280,18 @@ body {
 					<div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="tel" name="memTel"
-								id="memTel" size="45" required />
+								id="memTel" size="56" required />
 						</div>
 					</div>
 					<small class="error-msg">${errorMsgs.memTel}</small>
 				</div>
 				<div class="form-group">
-					<label for="memAddress"><span class="required">*</span>地址:</label>
-					<div>
-						<div class="form-check form-check-inline">
-							<input class="form-check-input" type="Text" name="memAddress"
-								id="memAddress" size="45" required/>
-						</div>
+					<label><span class="required">*</span>地址:</label>
+					<div class="form-check form-check-inline">
+						<div id="twzipcode" class="twzipcode"></div>
+						<input class="form-check-input" type="text"
+							name="memAddress" id="memAddress"
+							placeholder="詳細地址（如街道、門牌號等" size="30" required />
 					</div>
 					<small class="error-msg">${errorMsgs.memAddress}</small>
 				</div>
@@ -254,17 +300,17 @@ body {
 					<div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="Text" name="memBd"
-								id="memBd" size="45" required />
+								id="memBd" size="56" required />
 						</div>
 					</div>
 					<small class="error-msg">${errorMsgs.memBd}</small>
 				</div>
-				
+
 				<input type="hidden" name="action" value="add">
 				<button type="submit" class="btn btn-primary btn-custom">註冊</button>
 				<button type="button" class="btn btn-secondary btn-custom"
 					onclick="history.back()">取消</button>
-		</form>
+			</form>
 		</div>
 	</div>
 	<!-- Bootstrap JavaScript -->

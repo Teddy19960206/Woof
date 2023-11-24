@@ -3,16 +3,20 @@ package com.woof.privatetrainingappointmentform.dao;
 import static com.woof.util.Constants.PAGE_MAX_RESULT;
 
 import java.sql.Date;
-
+import java.time.LocalDate;
 import java.util.List;
+import org.hibernate.query.Query;
 
+import javax.persistence.TemporalType;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-
+import com.woof.appointmentdetail.entity.AppointmentDetail;
+import com.woof.appointmentdetail.entity.AppointmentDetailDTO;
 import com.woof.privatetrainingappointmentform.entity.PrivateTrainingAppointmentForm;
 import org.hibernate.query.NativeQuery;
+import org.hibernate.transform.Transformers;
 
 
 public class PrivateTrainingAppointmentFormDAOImpl implements PrivateTrainingAppointmentFormDAO {
@@ -68,7 +72,7 @@ public class PrivateTrainingAppointmentFormDAOImpl implements PrivateTrainingApp
 	@Override
 	public List<PrivateTrainingAppointmentForm> getAll(int currentPage) {
 		int first = (currentPage - 1) * PAGE_MAX_RESULT;
-		return getSession().createQuery("FROM PrivateTrainingAppointmentForm", PrivateTrainingAppointmentForm.class)
+		return getSession().createQuery("FROM PrivateTrainingAppointmentForm ORDER BY ptaNo DESC", PrivateTrainingAppointmentForm.class)
 				.setFirstResult(first)
 				.setMaxResults(PAGE_MAX_RESULT)
 				.list();
@@ -82,7 +86,7 @@ public class PrivateTrainingAppointmentFormDAOImpl implements PrivateTrainingApp
 	@Override
 	public List<PrivateTrainingAppointmentForm> findByMemNo(String memNo , int currentPage) {
 		int first = (currentPage - 1) * PAGE_MAX_RESULT;
-		return getSession().createQuery("FROM PrivateTrainingAppointmentForm p WHERE p.member.memNo = :memNo", PrivateTrainingAppointmentForm.class)
+		return getSession().createQuery("FROM PrivateTrainingAppointmentForm p WHERE p.member.memNo = :memNo ORDER BY ptaNo DESC", PrivateTrainingAppointmentForm.class)
 				.setParameter("memNo", memNo)
 				.setFirstResult(first)
 				.setMaxResults(PAGE_MAX_RESULT)
@@ -99,7 +103,7 @@ public class PrivateTrainingAppointmentFormDAOImpl implements PrivateTrainingApp
 	@Override
 	public List<PrivateTrainingAppointmentForm> findByTrainerNo(Integer trainerNo , int currentPage) {
 		int first = (currentPage - 1) * PAGE_MAX_RESULT;
-		return getSession().createQuery("FROM PrivateTrainingAppointmentForm WHERE trainer.trainerNo = :trainerNo", PrivateTrainingAppointmentForm.class)
+		return getSession().createQuery("FROM PrivateTrainingAppointmentForm WHERE trainer.trainerNo = :trainerNo ORDER BY ptaNo DESC", PrivateTrainingAppointmentForm.class)
 				.setParameter("trainerNo", trainerNo)
 				.setFirstResult(first)
 				.setMaxResults(PAGE_MAX_RESULT)
@@ -137,7 +141,7 @@ public class PrivateTrainingAppointmentFormDAOImpl implements PrivateTrainingApp
 	@Override
 	public List<PrivateTrainingAppointmentForm> getByMemNo(String memNo, int currentPage) {
 		int first = (currentPage - 1) * PAGE_MAX_RESULT;
-		return getSession().createQuery("FROM PrivateTrainingAppointmentForm p WHERE p.member.memNo LIKE :memNo",PrivateTrainingAppointmentForm.class)
+		return getSession().createQuery("FROM PrivateTrainingAppointmentForm p WHERE p.member.memNo LIKE :memNo ORDER BY ptaNo DESC",PrivateTrainingAppointmentForm.class)
 				.setParameter("memNo", "%" + memNo + "%")
 				.setFirstResult(first)
 				.setMaxResults(PAGE_MAX_RESULT)
@@ -161,7 +165,7 @@ public class PrivateTrainingAppointmentFormDAOImpl implements PrivateTrainingApp
 	@Override
 	public List<PrivateTrainingAppointmentForm> getByBoth(String memNo, Integer trainerNo, int currentPage) {
 		int first = (currentPage - 1) * PAGE_MAX_RESULT;
-		return getSession().createQuery("FROM PrivateTrainingAppointmentForm p WHERE p.trainer.trainerNo = :trainerNo AND p.member.memNo LIKE :memNo",PrivateTrainingAppointmentForm.class)
+		return getSession().createQuery("FROM PrivateTrainingAppointmentForm p WHERE p.trainer.trainerNo = :trainerNo AND p.member.memNo LIKE :memNo ORDER BY ptaNo DESC",PrivateTrainingAppointmentForm.class)
 				.setParameter("trainerNo", trainerNo)
 				.setParameter("memNo", "%" + memNo + "%")
 				.setFirstResult(first)
@@ -179,9 +183,15 @@ public class PrivateTrainingAppointmentFormDAOImpl implements PrivateTrainingApp
 
 	@Override
 	public List<PrivateTrainingAppointmentForm> getAppointmentByMemNo(String memNo) {
-		return getSession().createQuery("FROM PrivateTrainingAppointmentForm p WHERE p.member.memNo = :memNo", PrivateTrainingAppointmentForm.class)
-				.setParameter("memNo", memNo)
-				.list();
+		String sqlQuery = "SELECT * FROM private_training_appointment_form p " +
+                "JOIN member m ON p.MEM_NO = m.MEM_NO " +
+                "WHERE m.MEM_NO = :memNo " +
+                "ORDER BY p.PTA_NO DESC";
+		
+		return getSession()
+		      .createNativeQuery(sqlQuery, PrivateTrainingAppointmentForm.class)
+		      .setParameter("memNo", memNo)
+		      .list();
 	}
 
 	@Override
@@ -198,6 +208,29 @@ public class PrivateTrainingAppointmentFormDAOImpl implements PrivateTrainingApp
 	            .getResultList();
 	}
 
-	
-	
+
+	@Override
+	public boolean canComment(Integer ptaNo) {
+		boolean valuesExist = false;
+
+        // 準備 HQL 查詢
+        String hql = "SELECT COUNT(pta) "+
+        		"FROM PrivateTrainingAppointmentForm pta "+
+        		"JOIN pta.appointmentDetails ad "+
+        		"JOIN pta.member mem "+
+        		"WHERE ad.appTime <= CURRENT_DATE - 1 AND pta.ptaNo = :ptaNo";
+
+        // 創建查詢
+        Query<Long> query = getSession().createQuery(hql, Long.class);
+
+        // 取得查詢結果
+        Long count = query.setParameter("ptaNo", ptaNo).uniqueResult();
+
+        // 檢查是否有找到值
+        if (count != null && count > 0) {
+            valuesExist = true;
+        }
+
+        return valuesExist;
+    }
 }

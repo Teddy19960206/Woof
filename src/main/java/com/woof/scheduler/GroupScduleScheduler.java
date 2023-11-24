@@ -11,6 +11,12 @@ import com.woof.groupcourseschedule.service.GroupGourseScheduleService;
 import com.woof.groupscheduledetail.entity.GroupScheduleDetail;
 import com.woof.groupscheduledetail.service.GroupScheduleDetailService;
 import com.woof.groupscheduledetail.service.GroupScheduleDetailServiceImpl;
+import com.woof.appointmentdetail.entity.AppointmentDetail;
+import com.woof.appointmentdetail.entity.AppointmentDetailDTO;
+import com.woof.appointmentdetail.service.AppointmentDetailService;
+import com.woof.appointmentdetail.service.AppointmentDetailServiceImpl;
+import com.woof.privatetrainingappointmentform.service.PrivateTrainingAppointmentFormService;
+import com.woof.privatetrainingappointmentform.service.PrivateTrainingAppointmentFormServiceImpl;
 import com.woof.member.entity.Member;
 import com.woof.member.service.MemberService;
 import com.woof.member.service.MemberServiceImpl;
@@ -34,15 +40,20 @@ import java.util.concurrent.TimeUnit;
 //@WebServlet(value = "/groupScheduler" , loadOnStartup = 1)
 public class GroupScduleScheduler extends HttpServlet {
 
+
     SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 
-    ScheduledExecutorService executorService = Executors.newScheduledThreadPool(3); // 根據需要調整線程池大小
+    ScheduledExecutorService executorService = Executors.newScheduledThreadPool(4); // 根據需要調整線程池大小
     private GroupGourseScheduleService groupGourseScheduleService = new GroupCourseScheduleServiceImpl();
 
     private GroupCourseOrderService groupCourseOrderService = new GroupCourseOrderServiceImpl();
 
     private GroupScheduleDetailService groupScheduleDetailService = new GroupScheduleDetailServiceImpl();
 
+    private AppointmentDetailService appointmentDetailService = new AppointmentDetailServiceImpl();
+
+    private PrivateTrainingAppointmentFormService privateTrainingAppointmentFormService = new PrivateTrainingAppointmentFormServiceImpl();
+   
     private Gson gson = new GsonBuilder()
             .setExclusionStrategies()
             .addSerializationExclusionStrategy(new JsonIgnoreExclusionStrategy(true))
@@ -164,7 +175,30 @@ public class GroupScduleScheduler extends HttpServlet {
                         e.printStackTrace();
                         currentSession.getTransaction().rollback();;
                     }
-                }
+                },
+                
+                // 日期一到 變成不能取消預約 (把取消預約按鈕不能按)
+                ()->{
+                	Session currentSession = sessionFactory.getCurrentSession();
+                    try{
+                        currentSession.beginTransaction();
+                        
+                        List<AppointmentDetail> allAppointments = appointmentDetailService.getAllUpdateStatus();
+                        
+//                        System.out.println(allAppointments);
+                        appointmentDetailService.updateComplete(allAppointments);
+
+                        currentSession.getTransaction().commit();
+                    }catch (Exception e){
+                        e.printStackTrace();
+                        currentSession.getTransaction().rollback();;
+                    }
+                },
+                
+
+                ()->{
+
+                 }
         };
 
         for (Runnable task : tasks)

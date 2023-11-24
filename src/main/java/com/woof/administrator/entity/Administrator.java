@@ -72,10 +72,10 @@ public class Administrator implements Serializable {
 	@Column(name = "ADMIN_STATUS", nullable = false, columnDefinition = "TINYINT")
 	private Integer adminStatus;
 	@Expose
-	@Column(name = "ADMIN_VERIFY_STATUS", columnDefinition = "TINYINT")
+	@Column(name = "ADMIN_VERIFY_STATUS", columnDefinition = "TINYINT",nullable = false)
 	private Integer adminVerifyStatus;
 	@Expose
-	@Column(name = "ADMIN_FUNC_NAME", columnDefinition = "TINYINT")
+	@Column(name = "ADMIN_FUNC_NAME", columnDefinition = "TINYINT",nullable = false)
 	private Integer adminFuncName;
 	public Integer getAdminVerifyStatus() {
 		return adminVerifyStatus;
