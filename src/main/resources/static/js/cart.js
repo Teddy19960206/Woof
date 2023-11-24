@@ -59,15 +59,18 @@ $(".add-to-cart").on("click", function() {
 			// productImage: productImageSrc
 		},
 		success: function(response) {
-			
+
 			console.log(response);
-			
+
 			if (response.message === "請先登入會員~") {
 				// 如果後端返回的是登入提示，則只顯示該提示
 				alert(response.message);
 			} else if (response.message) {
-				
-				alert("加入購物車");
+
+				Swal.fire({
+					icon: "success",
+					title: "成功加入購物車",
+				});
 				$("#cart-count").text(response.totalQuantity);
 			}
 		},
