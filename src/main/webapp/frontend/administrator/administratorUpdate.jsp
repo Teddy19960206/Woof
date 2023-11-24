@@ -23,7 +23,7 @@
 	 	    	 $('#ADMIN_NAME').val(jsonObj.adminName);
 	 	    	 $('input[name=ADMIN_GENDER][value='+jsonObj.adminGender+']').prop('checked',true);
 	 	    	 $('#ADMIN_EMAIL').val(jsonObj.adminEmail);
-	 	    	 $('#ADMIN_PASSWORD').val(jsonObj.adminPassword);
+ 	 	    	 /*  $('#ADMIN_PASSWORD').val(jsonObj.adminPassword);*/
 	 	    	 $('#ADMIN_TEL').val(jsonObj.adminTel);
 	 	    	 $('#ADMIN_ADDRESS').val(jsonObj.adminAddress);
 	 	    	 $('#ADMIN_BD').val(jsonObj.adminBd);
