@@ -25,7 +25,7 @@ public class CarouselController {
         @RequestParam("image") MultipartFile image,
         @RequestParam("title") String title,
         @RequestParam("content") String content,
-        @RequestParam("sequence") Integer sequence,
+        @RequestParam(value = "sequence" , required = false) Integer sequence,
         @RequestParam(value = "isActive" , defaultValue = "true") Integer isActive) throws IOException {
 
         Carousel carousel = carouselService.saveCarousel(image.getBytes(), title, content, sequence, isActive);
@@ -54,8 +54,11 @@ public class CarouselController {
             }
             if (title != null) carousel.setTitle(title);
             if (content != null) carousel.setContent(content);
-            if (sequence != null) carousel.setSequence(sequence);
             if (isActive != null) carousel.setIsActive(isActive);
+            carousel.setSequence(sequence);
+
+
+
 
             carouselService.updateCarousel(carousel);
             return new ResponseEntity<>(carousel , HttpStatus.OK);

@@ -16,9 +16,11 @@
 
         #preview {
             border: 1px solid lightgray;
-            display: inline-block;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             width: 300px;
-            min-height: 400px;
+            min-height: 300px;
             position: relative;
         }
         #preview span.text {
@@ -45,6 +47,9 @@
             font-size: 20px;
         }
 
+        img{
+
+        }
 
 
     </style>
@@ -54,7 +59,7 @@
 
 <div class="container">
     <div class="row">
-        <h1 align="center" class="mt-3">新增團體課程</h1>
+        <h1 align="center" class="mt-3">新增團體內容課程</h1>
         <form action="${pageContext.request.contextPath}/groupcourse/addgroup" method="post" enctype="multipart/form-data" class="form-floating">
             <div class="col-6 mx-auto my-2">
                 <label>技能名稱：</label>
