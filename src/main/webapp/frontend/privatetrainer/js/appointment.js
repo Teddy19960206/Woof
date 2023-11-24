@@ -203,7 +203,8 @@ $("#reserveBtn").on("click" , function (){
     reserveDate.push($("#hideDate").text());
     // 禁止同日再次點選
     // date.push($("#hideDate").text());
-    console.log(reserveDate)
+    console.log(reserveDate);
+    console.log(reserveDate.length);
 });
 
 function reserve(arr){
