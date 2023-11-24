@@ -3,15 +3,15 @@
 <html>
 <head>
 <%@ include file="/backend/backhead.file"%>
-<title>管理員資料資料</title>
+<title>寵毛導師 Woof | 管理員資料</title>
 <style>
 .table-wrapper table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 100px; /* 調整與上方元素的間距 */
+  margin-top: 20px; /* 調整與上方元素的間距 */
 }
 .table-wrapper {
-  margin-top: 30px; /* 或者您想要的任何距離 */
+  margin-top: 5px; /* 或者您想要的任何距離 */
 }
 .table-wrapper th,
 .table-wrapper td {
@@ -114,8 +114,59 @@
 .table-wrapper tr:hover {
   background-color: #f8f2e3; /* 懸停時的背景色 */
 }
+
+
+
+/* 修改按鈕的樣式 */
+.update-button {
+margin-top: 5px; /* 或者您想要的任何距離 */
+ border-radius: 10px; /* 這會給按鈕四個角添加圓角 */
+  background-color: #f5cb5c;
+  color: white;
+  font-family: 'Noto Sans TC', sans-serif;
+  font-weight: 700;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 15px;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: background-color 0.2s ease-in-out; /* 平滑過渡效果 */
+}
+
+/* 修改按鈕被點擊時的背景顏色 */
+.update-button:active {
+  background-color: #e2b357; /* 按鈕被點擊時的顏色 */
+}
+.button2 {
+   margin-left: 10px; /* 新增左邊距 */
+margin-top: 5px; /* 或者您想要的任何距離 */
+ border-radius: 10px; /* 這會給按鈕四個角添加圓角 */
+  background-color: #f5cb5c;
+  color: white;
+  font-family: 'Noto Sans TC', sans-serif;
+  font-weight: 700;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 15px;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: background-color 0.2s ease-in-out; /* 平滑過渡效果 */
+}
+
+/* 修改按鈕被點擊時的背景顏色 */
+.button2:active {
+  background-color: #e2b357; /* 按鈕被點擊時的顏色 */
+}
 </style>
+
+
 <script src="https://kit.fontawesome.com/3f37e88a3b.js"crossorigin="anonymous"></script>
+<script type="text/javascript">
+function processUpdate(jsonData){
+	  window.location.href = " <%=request.getContextPath()%>/frontend/administrator/administratorUpdate.jsp?adminNo=" + jsonData.adminNo ;
+}
+
+</script>
 </head>
 <body>
 	<%@ include file="/backend/backbody.file"%>
@@ -123,7 +174,8 @@
 		class="com.woof.administrator.service.AdministratorServiceImpl" />
 	 <div class="table-wrapper">
 	<table>
-		
+		<button value="修改" onclick="processUpdate({adminNo:'${administrator.adminNo}'});" class="update-button">修改</button>
+<button value="取消" onclick="window.history.back();" class="button2">取消</button>
 		<tr>
 		  <th scope="row">編號</th>
 		  <td>${administrator.adminNo}</td>

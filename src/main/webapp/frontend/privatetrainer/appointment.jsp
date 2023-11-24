@@ -41,6 +41,8 @@
 
 <div>
     <h2 class="text-center py-3">預約訓練師</h2>
+    <h2 class="text-center py-3">您所擁有的課堂數：<span id="totalClass" class="text-primary">${sessionScope.member.totalClass}</span></h2>
+    <h2 class="text-center">已預約：<span id="reserveClass" class="text-danger">0</span>堂</h2>
 </div>
 <div class="container my-5">
     <div id='calendar'></div>

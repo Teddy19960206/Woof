@@ -5,7 +5,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-<title>最新消息</title>
+<title>寵毛導師 Woof | 最新消息修改</title>
 <script>
 
 function formatDate(timestamp) {

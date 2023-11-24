@@ -218,7 +218,7 @@ public class PrivateTrainingAppointmentFormDAOImpl implements PrivateTrainingApp
         		"FROM PrivateTrainingAppointmentForm pta "+
         		"JOIN pta.appointmentDetails ad "+
         		"JOIN pta.member mem "+
-        		"WHERE ad.appTime <= CURRENT_DATE - 1 AND pta.ptaNo = :ptaNo";
+        		"WHERE ad.appTime <= CURRENT_DATE - 1 AND ad.appStatus = 2 AND pta.ptaNo = :ptaNo";
 
         // 創建查詢
         Query<Long> query = getSession().createQuery(hql, Long.class);

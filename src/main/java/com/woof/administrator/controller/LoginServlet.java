@@ -39,7 +39,7 @@ public class LoginServlet extends HttpServlet {
 				HttpSession session1 = req.getSession();
 
 				session1.removeAttribute("administrator");
-				res.sendRedirect(req.getContextPath() + "/frontend/administrator/logout1.jsp");
+				res.sendRedirect(req.getContextPath() + "/frontend/administratorlogin/logout1.jsp");
 				System.out.println(session1.getId() + "刪除");
 				String user = (String) session1.getAttribute("administrator");
 				if (user == null) {
@@ -78,14 +78,14 @@ public class LoginServlet extends HttpServlet {
 							
 						if (!errorMsgs.isEmpty()) {
 							req.setAttribute("errorMsgs", errorMsgs);
-							req.getRequestDispatcher("frontend/administrator/logout1.jsp").forward(req, res);
+							req.getRequestDispatcher("frontend/administratorlogin/logout1.jsp").forward(req, res);
 						}
 					} 
 						}
 					catch (Exception e) {
 					e.printStackTrace();
 					 errorMsgs.put("loginError1", "帳號密碼有誤");
-					req.getRequestDispatcher("frontend/administrator/logout1.jsp").forward(req, res);
+					req.getRequestDispatcher("frontend/administratorlogin/logout1.jsp").forward(req, res);
 					}
 					return;
 			

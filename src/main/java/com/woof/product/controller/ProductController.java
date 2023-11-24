@@ -1,6 +1,7 @@
 package com.woof.product.controller;
 
 import com.woof.product.entity.Product;
+import com.woof.member.entity.Member;
 import com.woof.product.service.ProductDto;
 import com.woof.product.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
+
+import javax.servlet.http.HttpSession;
 
 @RestController
 public class ProductController {
@@ -189,4 +193,19 @@ public class ProductController {
         }
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
+    
+    @GetMapping("/members/sessionInfo")
+    public ResponseEntity<?> getSessionInfo(HttpSession session) {
+        // 從 HttpSession 中獲取 "member" 對象
+        Member member = (Member) session.getAttribute("member");
+        // 如果用戶未驗證，返回未授權的 HTTP 響應
+        if (member == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("用戶未登入");
+        }
+        // 從 Member 對象中獲取 memNo
+        String memNo = member.getMemNo();
+        // 返回包含 memNo 的 HTTP OK 響應
+        return ResponseEntity.ok(Collections.singletonMap("memNo", memNo));
+    }
+
 }

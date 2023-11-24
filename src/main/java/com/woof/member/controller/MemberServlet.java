@@ -394,7 +394,7 @@ public class MemberServlet extends HttpServlet {
 
 	private void delete(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.getParameter("memNo");
-		memberService.deletePhoto(req.getParameter("memNo"));
+		memberService.delete(req.getParameter("memNo"));
 		// 導到指定的URL 頁面上 把請求回應都帶過去
 		String url = req.getContextPath() + "/backend/member/list_all_member.jsp";
 		req.setCharacterEncoding("UTF-8");

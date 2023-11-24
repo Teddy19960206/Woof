@@ -52,7 +52,7 @@
 		<filter-name>LoginFilter1</filter-name>
 		<url-pattern>/administrator/*</url-pattern>
 		<url-pattern>/backend/*</url-pattern>
-		<url-pattern>/frontend/administrator/administratorcenter.jsp</url-pattern>
+		<url-pattern>/frontend/administrator/*</url-pattern>
 		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>FORWARD</dispatcher>
 		<dispatcher>INCLUDE</dispatcher>

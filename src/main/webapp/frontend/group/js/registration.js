@@ -102,13 +102,12 @@ smmpCount.addEventListener("input" , function (){
 
 })
 
-const inputs = document.querySelectorAll('.credit');
-$(document).on('input' , 'input.credit',function(){
 
-    inputs.forEach((input, index) => {
+$(document).on('input' , 'input.credit',function(){
+    let inputs = document.getElementsByClassName('credit');
+    Array.from(inputs).forEach((input, index) => {
         input.addEventListener('input', () => {
             if (input.value.length == input.getAttribute('maxlength')) {
-                console.log("111")
                 if (index < inputs.length - 1) {
                     inputs[index + 1].focus();
                 }

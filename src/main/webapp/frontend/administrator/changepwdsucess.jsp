@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>更改成功</title>
+<title>寵毛導師 Woof | 密碼更改成功</title>
 
 <style>
    body {

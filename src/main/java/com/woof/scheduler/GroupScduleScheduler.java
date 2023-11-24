@@ -185,7 +185,6 @@ public class GroupScduleScheduler extends HttpServlet {
                         
                         List<AppointmentDetail> allAppointments = appointmentDetailService.getAllUpdateStatus();
                         
-//                        System.out.println(allAppointments);
                         appointmentDetailService.updateComplete(allAppointments);
 
                         currentSession.getTransaction().commit();
@@ -193,12 +192,9 @@ public class GroupScduleScheduler extends HttpServlet {
                         e.printStackTrace();
                         currentSession.getTransaction().rollback();;
                     }
-                },
+                }
                 
 
-                ()->{
-
-                 }
         };
 
         for (Runnable task : tasks)

@@ -8,7 +8,8 @@
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <script src="<%=request.getContextPath()%>/webutil/js/jquery-3.7.1.min.js"></script>
 <html>
-
+<meta charset="UTF-8">
+<title>寵毛導師 Woof | 管理員首頁</title>
 <style>
     @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600&family=Roboto:wght@300;400;500&display=swap");
 /* 將按鈕固定在左上角 */
@@ -199,6 +200,7 @@ section {
               clickable: true
           }
        });
+ 
   })
   
   //表單點擊找出對應的function
@@ -254,7 +256,12 @@ section {
     <div class="swiper-wrapper">
           
 	<c:forEach var="administrator" items="${administratorService.allAdministrators}">
-         <div class="swiper-slide" style="background-image: url(data:image/jpeg;base64,${administrator.imgStr}); background-size: cover;">
+<div class="swiper-slide" style="background-image: url(data:image/jpeg;base64,${administrator.imgStr}), url(<%=request.getContextPath()%>/frontend/images/avatar24-01.png); background-size: cover;">
+
+
+
+
+
               <span>${administrator.adminName}</span>
               <div>
                 <h2>${administrator.adminTel}</h2>

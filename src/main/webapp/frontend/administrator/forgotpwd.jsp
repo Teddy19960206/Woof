@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>忘記密碼</title>
+    <title>寵毛導師 Woof | 員工忘記密碼</title>
     <style>
         body {
             font-family: Arial, sans-serif;

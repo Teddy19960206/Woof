@@ -142,6 +142,7 @@ public class AdministratorServlet extends HttpServlet {
 		Administrator admin = new Administrator();
 		String adminemail = req.getParameter("ADMIN_EMAIL");
 		String adminNo = req.getParameter("ADMIN_NO");
+		Administrator originaladmin =  administratorService.findAdministratorByAdminNo(adminNo);;
 
 		/***********************1.接收請求參數 - 輸入格式的各式錯誤處理*************************/
 		if (adminNo == null || adminNo.trim().length() == 0) {
@@ -180,7 +181,7 @@ public class AdministratorServlet extends HttpServlet {
 		
 		String adminpwd = req.getParameter("ADMIN_PASSWORD").trim();
 		if (adminpwd == null || adminpwd.trim().length() == 0) {
-//			errorMsgs.put("ADMIN_PASSWORD","管理員密碼請勿空白");
+			admin.setAdminPassword(originaladmin.getAdminPassword());
 		}else {
 		    // 密碼加密
 		    String encryptedPassword = BCrypt.hashpw(adminpwd, BCrypt.gensalt());
@@ -308,6 +309,7 @@ private void processUpdate2(HttpServletRequest req, HttpServletResponse res) thr
 	Administrator admin = new Administrator();
 	String adminemail = req.getParameter("ADMIN_EMAIL");
 	String adminNo = req.getParameter("ADMIN_NO");
+	Administrator originaladmin =  administratorService.findAdministratorByAdminNo(adminNo);;
 
 	/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
 	if (adminNo == null || adminNo.trim().length() == 0) {
@@ -346,7 +348,7 @@ private void processUpdate2(HttpServletRequest req, HttpServletResponse res) thr
 	
 	String adminpwd = req.getParameter("ADMIN_PASSWORD").trim();
 	if (adminpwd == null || adminpwd.trim().length() == 0) {
-//		errorMsgs.put("ADMIN_PASSWORD","管理員密碼請勿空白");
+		admin.setAdminPassword(originaladmin.getAdminPassword());
 	}else {
 	   
 	    String encryptedPassword = BCrypt.hashpw(adminpwd, BCrypt.gensalt());

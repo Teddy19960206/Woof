@@ -21,7 +21,7 @@
 <div class="container mt-5">
     <div class="row">
         <div data-aos="zoom-in" data-aos-duration="1500">
-            <h1 class="h5 text-center">
+            <h1 class="h3 text-center">
                 通過我們的團體課程，讓您的犬幼犬學會基本命令，改善行為問題，並促進與其他狗狗和人的社交</h1>
         </div>
 
@@ -35,9 +35,9 @@
                 <p class="mb-4">這是一個讓您的寵物學會基本指令、建立社交技能、解決行為問題的機會。您將與其他寵物愛好者分享經驗，同時建立持久的友誼。我們的訓練師是經驗豐富的專家，將為您提供個性化的指導，確保您和您的寵物實現最佳成果。加入我們，一起探索一個充滿愛和學習的旅程！</p>
             </div>
 
-            <div class="col-md-8 mx-auto" >
+            <div class="col-md-9 mx-auto" >
                 <div data-aos="fade-up" data-aos-anchor-placement="bottom-bottom" class="mb-5">
-                <h1 class="h3 text-center myTextColor">課程特色</h1>
+                <h1 class="h2 text-center myTextColor my-5">課程特色</h1>
                     <ul>
                         <li><span>個人化指導：</span>突出強調你的課程如何提供針對每個狗狗的個人指導，以確保最佳的學習體驗。</li>
                         <li><span>專業訓練師：</span>強調你的訓練師擁有豐富的專業經驗和認證，可以提供高品質的訓練。</li>
@@ -47,7 +47,7 @@
                     </ul>
                 </div>
                 <div data-aos="fade-up" data-aos-anchor-placement="bottom-bottom" class="mb-5">
-                    <h1 class="h3 text-center myTextColor">課程內容摘要</h1>
+                    <h1 class="h2 text-center myTextColor my-5">課程內容摘要</h1>
                     <ul>
                         <li><span>基本命令：</span>簡要列出學員將學到的基本命令，例如坐下、待命、召回等。</li>
                         <li><span>行為糾正：</span>提到課程如何幫助學員改善狗狗的不良行為，如咬咬、吠叫等。</li>
