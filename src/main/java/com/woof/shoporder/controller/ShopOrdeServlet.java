@@ -7,7 +7,10 @@ import java.util.List;
 import java.util.Map;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
+import ecpay.payment.integration.domain.AioCheckOutOneTime;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -34,12 +37,15 @@ import com.woof.shoporder.service.ShopOrderServiceImpl;
 import com.woof.shoporderdetail.service.ShopOrderDetailService;
 import com.woof.shoporderdetail.service.ShopOrderDetailServiceImpl;
 
+import ecpay.payment.integration.AllInOne;
+
 @WebServlet("/shoporder/*")
 public class ShopOrdeServlet extends HttpServlet {
 
 	private ShopOrderService shopOrderService;
 	private ShopOrderDetailService shopOrderDetailService;
-
+	public static AllInOne all;
+	
 	@Override
 	public void init() throws ServletException {
 		super.init();
@@ -70,14 +76,18 @@ public class ShopOrdeServlet extends HttpServlet {
 			return;
 
 		case "addshoporder":
-			forwardPath = addshoporder(request, response);
-			break;
+			addshoporder(request, response);
+			return;
 
 //			會員單一查詢
 		case "getByMemNo":
 			forwardPath = getByMemNo(request, response);
 			break;
 
+		case "updateecpay":
+			updateecpay(request, response);
+			return;
+			
 		// 全部不成立會跑到這邊
 		default:
 			forwardPath = "/backend/index.jsp";
@@ -159,7 +169,7 @@ public class ShopOrdeServlet extends HttpServlet {
 		response.getWriter().write("{\"message\": \"修改成功\"}");
 	}
 
-	private String addshoporder(HttpServletRequest request, HttpServletResponse response) {
+	private void addshoporder(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		String memNo = request.getParameter("memNo");
 
@@ -184,7 +194,10 @@ public class ShopOrdeServlet extends HttpServlet {
 
 		int payMethod = Integer.parseInt(request.getParameter("payment"));
 		request.setAttribute("payMethod", payMethod);
-		int orderStatus = (payMethod == 1) ? 4 : 0; // 如果付款方式是匯款（1），訂單狀態設為 4（未付款）
+		int orderStatus = (payMethod == 1) ? 4 : 0; //付款方式 0:信用卡 1:匯款 2:綠界
+		
+
+		
 		request.getSession().setAttribute("orderStatus", orderStatus);
 
 		Boolean shipMethod = Boolean.parseBoolean(request.getParameter("shipMethod"));
@@ -211,11 +224,51 @@ public class ShopOrdeServlet extends HttpServlet {
 		memberService.updateMemberPoints(memNo, newMoCoins);
 
 		int orderTotalPrice = Integer.parseInt(request.getParameter("totalPrice"));
-		int actualPrice = Integer.parseInt(request.getParameter("totalAfterCoins"));
-
+		
+		String actualPriceStr = request.getParameter("totalAfterCoins");
+		int actualPrice = Integer.parseInt(actualPriceStr);
+		
+		
+		
 		int savedOrderNo = shopOrderService.addShopOrder(member, prodOrderDate, payMethod, shipMethod, orderStatus,
 				recName, recMobile, recAddress, hasReturn, moCoin, orderTotalPrice, actualPrice);
 
+		if(payMethod == 2) {
+			
+            // 獲取協議（http或https）
+            String scheme = request.getScheme();
+            // 獲取主機名
+            String host = request.getServerName();
+            // 獲取端口號
+            int port = request.getServerPort();
+            // 構建完整的URL
+            String fullURL = scheme + "://" + host + ":" + port;
+
+            all = new AllInOne("");
+
+            AioCheckOutOneTime obj = new AioCheckOutOneTime();
+            obj.setMerchantTradeNo(formatOrderId(savedOrderNo));
+            obj.setMerchantTradeDate(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")));
+            obj.setTotalAmount(actualPriceStr);
+            obj.setTradeDesc("寵毛導師：商成訂單付款成功");
+            obj.setItemName("狗罐頭");
+            
+            // 有異常導回首頁
+            obj.setReturnURL(fullURL+request.getContextPath()+"/index.jsp");
+            obj.setNeedExtraPaidInfo("N");
+            obj.setRedeem("N");
+
+//            要重新更新訂單狀態
+            obj.setClientBackURL(fullURL+request.getContextPath()+"/shoporder/ecpay?action=updateecpay&orderno=" + savedOrderNo);
+			
+            response.setContentType("text/html;charset=UTF-8");
+            response.getWriter().print(all.aioCheckOut(obj , null));
+            
+			return;
+		}
+		
+		
+		
 		// 如果有確定進入資料庫會有流水編號，再去找流水編號的值，顯示在jsp
 		var result = shopOrderService.findByShopOrderNo(savedOrderNo);
 //		 資料給下一個jsp
@@ -268,8 +321,10 @@ public class ShopOrdeServlet extends HttpServlet {
 //	        return -1; // 訂單新增失败
 			System.out.println("新增失敗");
 		}
-
-		return "/frontend/cartlist/finishorder.jsp";
+		
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/frontend/cartlist/finishorder.jsp");
+		dispatcher.forward(request, response);
+		
 	}
 
 	private String getByMemNo(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -290,4 +345,25 @@ public class ShopOrdeServlet extends HttpServlet {
 		return "/backend/shoporder/getOneshoporder.jsp";
 	}
 
+	
+	
+//  轉換訂單編號
+  public String formatOrderId(long orderId) {
+      return "woofShopOrder" + String.format("%08d", orderId);
+  }
+  
+  private void updateecpay(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	  
+//	  Member member = (Member) request.getSession(false).getAttribute("member");
+	  Integer orderno = Integer.valueOf(request.getParameter("orderno"));
+	  	  
+	  ShopOrder shoporder = shopOrderService.findByShopOrderNo(orderno);
+//	  shoporder.setOrderStatus(5);
+	  
+	  shopOrderService.updateShopOrder(shoporder.getShopOrderNo(), shoporder.getMember(), shoporder.getProdOrderDate(), shoporder.getPayMethod(), shoporder.getShipMethod(), 5, shoporder.getRecName(), shoporder.getRecMobile(), shoporder.getRecAddress(), shoporder.getHasReturn(), shoporder.getMoCoin(), shoporder.getOrderTotalPrice(), shoporder.getActualPrice());
+	  
+	  response.setContentType("text/html;charset=UTF-8");
+	  response.sendRedirect(request.getContextPath()+"/index.jsp");
+  }
+  
 }
