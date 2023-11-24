@@ -13,6 +13,7 @@ import com.woof.groupcourseschedule.service.GroupGourseScheduleService;
 import com.woof.groupscheduledetail.entity.GroupScheduleDetail;
 import com.woof.groupscheduledetail.service.GroupScheduleDetailServiceImpl;
 import com.woof.member.entity.Member;
+import com.woof.member.service.MemberServiceImpl;
 import com.woof.util.*;
 import ecpay.payment.integration.AllInOne;
 import ecpay.payment.integration.domain.AioCheckOutOneTime;
@@ -24,6 +25,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDateTime;
@@ -236,6 +238,9 @@ public class GroupCourseOrderServlet extends HttpServlet {
 //          新增Order
             orderNo = groupCourseOrderService.addOrder(member, groupCourseSchedule, payment, smmp, actualAmount, status);
 
+            member.setMomoPoint(member.getMomoPoint() - smmp);
+            new MemberServiceImpl().updateMember(member);
+            request.getSession(false).setAttribute("member" , member);
 
             if (payment == 2){
                 // 獲取協議（http或https）
@@ -281,7 +286,6 @@ public class GroupCourseOrderServlet extends HttpServlet {
                             groupCourseSchedule.getGroupCourse().getClassType().getCtName(),    // 班級名稱
                             dates,                                                              // 上課日期
                             groupCourseSchedule.getGroupCourse().getCourseContent()))).start(); // 課程內容
-
 
 
         }catch (Exception e){
