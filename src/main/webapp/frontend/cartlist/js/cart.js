@@ -101,10 +101,13 @@ $(document).on("click", "#cart-icon", function() {
 				Swal.fire({
 					icon: "warning",
 					title: "購物車是空的，請去商城逛逛~",
-				});
+				confirmButtonText: "確定", 
+				}).then((result) => {
+					if (result.isConfirmed) {
 
-//				window.location.href = `${projectCart}/shopHome.html`;
-				return;
+						window.location.href = `${projectCart}/shopHome.html`;
+					}
+				});
 			}
 
 			let html = "";
@@ -131,8 +134,18 @@ $(document).on("click", "#cart-icon", function() {
 		},
 		error: function(xhr, status, error) {
 			if (xhr.status === 401) {
-				window.location.href = `${projectCart}/frontend/member/login/login.jsp`;
+				Swal.fire({
+					icon: "error",
+					title: "請先登入會員~",
+					confirmButtonText: "確定", 
+				}).then((result) => {
+					if (result.isConfirmed) {
+
+						window.location.href = `${projectCart}/frontend/member/login/login.jsp`;
+					}
+				});
 			}
+
 		}
 	});
 });
