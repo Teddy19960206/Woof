@@ -279,7 +279,7 @@ h1 {
                         </c:forEach>
                     </ul>
                     <a href="${pageContext.request.contextPath}/frontend/privatetrainer/appointment.jsp?trainerNo=${trainer.trainerNo}">
-                        <buttonf type="button" class="btn btn-appointment">預約訓練師</buttonf>
+                        <button type="button" class="btn btn-appointment">預約訓練師</button>
                     </a>
                 </div>
             </div>
