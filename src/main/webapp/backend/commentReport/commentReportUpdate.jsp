@@ -4,7 +4,7 @@
 <html>
 <head>
 <%@ include file="/backend/backhead.file" %>
-<title>寵毛導師 Woof | 評論檢舉處理</title>
+<title>寵毛導師 Woof | 評論檢舉處理更新</title>
 <style>
 
 	body {
