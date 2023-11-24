@@ -118,7 +118,7 @@ $(document).on("click", "#cart-icon", function() {
 				html += `<tr>
 						    <td class="text-center align-middle">${item.prodName}</td>
 						    <td class="text-center align-middle">
-						        <img src="${projectName}/productImage/${item.prodNo}" style="width: 100px; height: 100px;" onerror="this.onerror=null; this.src='${projectName}/fallback-image.jpg';"/>
+						        <img src="${projectCart}/productImage/${item.prodNo}" style="width: 100px; height: 100px;" onerror="this.onerror=null; this.src='${projectCart}/fallback-image.jpg';"/>
 						    </td>
 						    <td class="text-center align-middle">${item.quantity}</td>
 						    <td class="text-center align-middle">NT$${itemTotal}</td>

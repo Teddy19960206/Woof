@@ -46,7 +46,7 @@
       text-align: center;
     }
     .uploadImage{
-      overflow: ;
+      overflow: inherit;
     }
 
   </style>
