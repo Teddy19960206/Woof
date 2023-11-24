@@ -1,11 +1,9 @@
 //Content Loaded
 let header = document.querySelector(".chat-box .header");
-let chatRoom = document.querySelector(".chat-room");
-let typeArea = document.querySelector(".type-area");
 let inputText = document.querySelector("#inputText");
 let btnSend = document.querySelector(".button-send");
-// let messageArea = document.querySelector(".message.message-right");
 const charRoom = document.getElementById("chat-room");
+const name = document.getElementById("name");
 window.addEventListener("DOMContentLoaded", (e) => {
 
     //Button Send onclick event
@@ -25,18 +23,15 @@ window.addEventListener("DOMContentLoaded", (e) => {
 
 
 
-$(document).on("click" , ".header" , function (){
-    if (typeArea.classList.contains("chat-none")) {
-        header.style.borderRadius = "20px 20px 0 0";
-        // 開啟連線
-        connect();
-    } else {
-        header.style.borderRadius = "20px";
+$(document).on("click" , ".chat-icon" , function (){
+    $('#chat-box').removeClass('chat-none');
+    connect();
+    // 開啟連線
+})
 
-        disconnect();
-    }
-    typeArea.classList.toggle("chat-none");
-    chatRoom.classList.toggle("chat-none");
+$(document).on("click" , ".chat-header" , function (){
+    $('#chat-box').addClass('chat-none');
+    disconnect();
 })
 
 // ------------------------------------------------------------------------------- 連線
@@ -58,15 +53,16 @@ function connect(){
     websocket = new WebSocket(endPoint);
 
     websocket.onopen = function (event){
+        inputText.disabled = false;
+        inputText.placeholder = "請輸入文字";
+        name.innerHTML = "客服";
         console.log("連線成功");
         getHistory();
     }
 
     websocket.onmessage = function (event){
         const jsonObj = JSON.parse(event.data);
-        console.log(jsonObj);
         if ("open" === jsonObj.type) {
-
         }else if ("chat" === jsonObj.type){
             if ("admin" === jsonObj.sender){
                 addMessage(jsonObj);
@@ -85,11 +81,12 @@ function connect(){
     }
 
     websocket.onclose = function (event) {
-
+        inputText.disabled = true;
+        inputText.placeholder = "目前無法聯絡客服";
+        name.innerHTML = "客服 <span style='color: red'>(目前無法聯絡客服)</span>";
     }
 
     websocket.onerror = function (event){
-
     }
 }
 
@@ -148,4 +145,3 @@ function sendMessage(message) {
     inputText.focus();
     scrollToBottom();
 }
-
