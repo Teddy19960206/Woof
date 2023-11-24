@@ -189,3 +189,22 @@ function loadPromotionProducts() {
         }
     })
 }
+
+		$(document).ready(function() {
+		    $.ajax({
+		        url: `members/sessionInfo`,
+		        type: "GET",
+		        success: function(response) {
+		            if (response.memNo) {
+		                // 用戶已登入，顯示登出按鈕
+		                $('#logoutSection').show();
+		                $('#memberImage').attr('src', `DBPngReader?action=member&id=${response.memNo}`);
+		            }
+		        },
+		        error: function(xhr, status, error) {
+		            // 處理錯誤，例如用戶未登入
+		            $('#logoutSection').hide();
+		            $('#memberImage').attr('src', `webutil/icons/user2.svg`);
+		        }
+		    });
+		});
