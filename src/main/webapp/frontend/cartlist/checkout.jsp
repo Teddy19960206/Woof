@@ -196,6 +196,7 @@
 							</label> <input class="form-check-input" type="radio" name="payment"
 								value="2" id="ecPay" /> <label class="form-check-label"
 								for="ecPay">使用綠界</label>
+<!-- 								一般信用卡測試卡號 : 4311-9522-2222-2222 安全碼 : 222 -->
 						</div>
 						<div class="form showPayment" id="showPayment">
 							<div class="d-flex mt-3">
