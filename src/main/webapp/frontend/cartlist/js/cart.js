@@ -103,7 +103,7 @@ $(document).on("click", "#cart-icon", function() {
 					title: "購物車是空的，請去商城逛逛~",
 				});
 
-				window.location.href = `${projectCart}/shopHome.html`;
+//				window.location.href = `${projectCart}/shopHome.html`;
 				return;
 			}
 
