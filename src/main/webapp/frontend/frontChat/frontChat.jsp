@@ -1,8 +1,39 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <c:if test="${!empty sessionScope.member}">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/frontend/frontChat/css/frontChat.css" />
-
-<div class="chat-box">
+<style>
+  #chat-icon {
+    position: fixed;
+    bottom: 50px;
+    right: 50px;
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 50px;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    transition: transform 1s ease;
+ }
+ #chat-icon img {
+    max-width: 100%; /* 確保圖片不會超過容器寬度 */
+    max-height: 100%; /* 確保圖片不會超過容器高度 */
+    border-radius: 50%; /* 圓形圖片 */
+    object-fit: cover; /* 保持圖片的比例 */
+}
+</style>
+<script>
+$(document).ready(function() {
+    $('#chat-icon').click(function() {
+        $('#chat-box').toggle(); // 切換顯示和隱藏
+    });
+});
+</script>
+<!-- 聊天室圖標 -->
+<div id="chat-icon" class="chat-icon">
+    <img src="${pageContext.request.contextPath}/webutil/icons/6.jpg" />
+</div>
+<div class="chat-box" id="chat-box" style="display: none;">
     <div class="header">
         <div class="avatar-wrapper avatar-big">
             <img
