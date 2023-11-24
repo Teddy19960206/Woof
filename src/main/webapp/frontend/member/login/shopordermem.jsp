@@ -312,22 +312,22 @@
 							<td>
 							<c:choose>
 							    <c:when test="${order.orderStatus == 0}">
-							        <p><span class="text-success"> 成立</span></p>
+							        <p><span class="text-success">成立</span></p>
 							    </c:when>
 							    <c:when test="${order.orderStatus == 1}">
-							        <p>出貨</p>
+							        <p><span class="text-primary">出貨</span></p>
 							    </c:when>
 							    <c:when test="${order.orderStatus == 2}">
-							        <p>完成</p>
+							        <p><span class="text-warning">完成</span></p>
 							    </c:when>
 							    <c:when test="${order.orderStatus == 3}">
-							        <p>取消</p>
+							        <p><span class="text-danger">取消</span></p>
 							    </c:when>
 							    <c:when test="${order.orderStatus == 4}">
-							        <p><span class="text-danger"> 未付款</span></p>
+							        <p><span style="color: orange;">未付款</span></p>
 							    </c:when>
 							    <c:when test="${order.orderStatus == 5}">
-							        <p>已付款</p>
+							        <p><span style="color: cyan;">已付款</span></p>
 							    </c:when>
 							</c:choose>
 						    </td> 
