@@ -1,0 +1,114 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-3 position-fixed bg-color p-0" style="height: 100vh; z-index: 11">
+            <aside id="sidebar">
+                <a href="/woof/backend/index.jsp">
+                    <img src="/woof/backend/images/logo.png" width="220" class="text-center" />
+                </a>
+                <ul class="sidebar-nav">
+                    <li class="sidebar-item">
+                        <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#mem" aria-expanded="false" aria-controls="mem">
+                            <i class="fa-solid fa-user pe-3"></i>會員系統
+                        </a>
+                        <ul id="mem" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                            <li class="sidebar-item">
+                                <a href="/woof/member.do?action=getall" class="sidebar-link2">會員管理</a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="/woof/backend/member/selectmember.jsp" class="sidebar-link2">會員查詢</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#class" aria-expanded="false" aria-controls="class">
+                            <i class="fa-solid fa-calendar-days pe-3"></i>課程系統
+                        </a>
+                        <ul id="class" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                            <li class="sidebar-item">
+                                <a href="/woof/backend/course/classContent.jsp" class="sidebar-link2">團體內容管理</a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="/woof/backend/course/schedule.jsp" class="sidebar-link2">團體報名管理</a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="/woof/backend/course/trainerSchedule.jsp" class="sidebar-link2">團體上課日期查詢</a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="/woof/backend/course/orderManagement.jsp" class="sidebar-link2">課堂檔期訂單管理</a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="/woof/classorder/getAll" class="sidebar-link2">課堂數訂單管理</a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="/woof/privatetrainingappointmentform?action=getall" class="sidebar-link2">私人預約管理</a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="/woof/backend/privateTrainer/allSchedule.jsp" class="sidebar-link2">私人訓練師課表查詢</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#shop" aria-expanded="false" aria-controls="shop">
+                            <i class="fa-solid fa-cart-shopping pe-3"></i>商城系統
+                        </a>
+                        <ul id="shop" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                            <li class="sidebar-item">
+                                <a href="/woof/promotion.html" class="sidebar-link2">促銷管理</a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="/woof/productPage.html" class="sidebar-link2">商品管理</a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="/woof/shoporder?action=getAll" class="sidebar-link2">商品訂單管理</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#frontdesk" aria-expanded="false" aria-controls="frontdesk">
+                            <i class="fa-solid fa-dog pe-3"></i>前台管理系統
+                        </a>
+                        <ul id="frontdesk" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                            <li class="sidebar-item">
+                                <a href="/woof/backend/latestnews/latestNews.jsp" class="sidebar-link2">最新消息管理</a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="/woof/faq?action=getAll" class="sidebar-link2">FAQ管理</a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="/woof/backend/backChat/backChat.jsp" class="sidebar-link2">客服管理</a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="/woof/commentreport?action=getAll" class="sidebar-link2">評論檢舉處理</a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="/woof/backend/carousel/carousel.jsp" class="sidebar-link2">輪播管理</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#staff" aria-expanded="false" aria-controls="staff">
+                            <i class="fa-solid fa-user-tie pe-3"></i>員工管理
+                        </a>
+                        <ul id="staff" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                            <li class="sidebar-item">
+                                <a href="/woof/frontend/administrator/administrator.jsp" class="sidebar-link2">新增員工</a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="#" class="sidebar-link2">權限管理</a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="/woof/backend/member/trainerSkill.jsp" class="sidebar-link2">訓練師技能管理</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </aside>
+        </div>
+        <div class="col-12 bg-light" style="box-shadow: 0 6px 2px -2px rgba(126, 126, 126, 0.2); height: 80px; position: fixed; top: 0; z-index: 8">
+            <div style="position: absolute; bottom: 0; right: 0; text-align: right; padding: 5px;">
+                <img src="/woof/backend/images/happy.png" width="30" />
+                <span style="color: rgb(80, 80, 80)">超级管理員</span>
+                <a href="/woof/logout1?action1=administratorlogout" class="btn" style="background-color: #faba91; font-family: 'Noto Sans TC', sans-serif; font-weight: 700;">登出</a>
+                <a href="/woof/index.jsp" class="btn" style="background-color: #faba91; font-family: 'Noto Sans TC', sans-serif; font-weight: 700;">返回前台首頁</a>
+            </div>
+        </div>
