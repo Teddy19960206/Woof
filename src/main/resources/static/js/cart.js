@@ -1,8 +1,6 @@
-let pathNames = window.document.location.pathname;
-let pro = pathNames.substring(0, pathNames.substring(1).indexOf("/") + 1);
+let pathcart = window.document.location.pathname;
+let projectCart = pathcart.substring(0, pathcart.substring(1).indexOf("/") + 1);
 
-document.getElementById("productDetailModal");
-let closeBtn = document.getElementById("closeBtn");
 
 //自動重新刷新會載入總數
 $(function() {
@@ -11,15 +9,15 @@ $(function() {
 
 function getCartTotalQuantity() {
 	$.ajax({
-		cache: false,
 		type: "POST",
-		url: `${pro}/cart`,
+		url: `${projectCart}/cart`,
 		data: {
 			action: "getTotalQuantity",
 		},
 		dataType: "json",
 		success: function(response) {
 			$("#cart-count").text(response.totalQuantity);
+
 		},
 		error: function(xhr, status, error) {
 			if (xhr.status === 401) {
@@ -42,16 +40,16 @@ $(".add-to-cart").on("click", function() {
 	var quantity = parseInt($('#product-quantity').val()); // 從數量選擇器獲取選擇的數量
 	//    var productImageSrc = $('#product-image').attr('src');
 
-	// console.log(prodNo);
-	// console.log(prodName);
-	// console.log(prodPrice);
-	// console.log(quantity);
+	console.log(prodNo);
+	console.log(prodName);
+	console.log(prodPrice);
+	console.log(quantity);
 	//	console.log(productImageSrc);
 
 
 	$.ajax({
 		type: "POST",
-		url: `${pro}/cart`,
+		url: `${projectCart}/cart`,
 		data: {
 			action: "add",
 			prodNo: prodNo,
@@ -71,23 +69,20 @@ $(".add-to-cart").on("click", function() {
 					title: "請先登入會員~",
 				});
 			} else if (response.message) {
-				$('#productDetailModal').modal('hide');
+
 				Swal.fire({
 					icon: "success",
 					title: "成功加入購物車",
 				}).then(()=>{
+					// 按下OK，購物車旁邊的數字會更新
 					parent.closeBtn.click();
 					parent.getCartTotalQuantity();
 				});
-
-
-
+				
 //				$("#cart-count").text(response.totalQuantity);
 			}
 		},
-		error: function(xhr, status, error) {
-			// 錯誤處理
-		}
+
 	});
 });
 
@@ -96,7 +91,7 @@ $(".add-to-cart").on("click", function() {
 $(document).on("click", "#cart-icon", function() {
 	$.ajax({
 		type: "POST",
-		url: `${pro}/cartlist`,
+		url: `${projectCart}/cartlist`,
 		data: {
 			action: "getCart",
 		},
@@ -109,10 +104,13 @@ $(document).on("click", "#cart-icon", function() {
 				Swal.fire({
 					icon: "warning",
 					title: "購物車是空的，請去商城逛逛~",
-				});
+				confirmButtonText: "確定", 
+				}).then((result) => {
+					if (result.isConfirmed) {
 
-				window.location.href = `${pro}/shopHome.html`;
-				return;
+						window.location.href = `${projectCart}/shopHome.html`;
+					}
+				});
 			}
 
 			let html = "";
@@ -124,11 +122,13 @@ $(document).on("click", "#cart-icon", function() {
 				totalAmount += itemTotal; // 計算購物車總金額
 
 				html += `<tr>
-                            <td>${item.prodName}</td>
-                             <td><img src="${pro}/productImage/${item.prodNo}" style="width: 100px; height: 100px;" onerror="this.onerror=null; this.src='${pro}/fallback-image.jpg';"/></td>
-                            <td>${item.quantity}</td>
-                            <td>NT$${itemTotal}</td>
-                        </tr>`;
+						    <td class="text-center align-middle">${item.prodName}</td>
+						    <td class="text-center align-middle">
+						        <img src="${projectCart}/productImage/${item.prodNo}" style="width: 100px; height: 100px;" onerror="this.onerror=null; this.src='${projectCart}/fallback-image.jpg';"/>
+						    </td>
+						    <td class="text-center align-middle">${item.quantity}</td>
+						    <td class="text-center align-middle">NT$${itemTotal}</td>
+						</tr>`;
 			});
 
 			$("#cart-items-list").html(html);
@@ -137,8 +137,18 @@ $(document).on("click", "#cart-icon", function() {
 		},
 		error: function(xhr, status, error) {
 			if (xhr.status === 401) {
-				window.location.href = `${pro}/frontend/member/login/login.jsp`;
+				Swal.fire({
+					icon: "error",
+					title: "請先登入會員~",
+					confirmButtonText: "確定", 
+				}).then((result) => {
+					if (result.isConfirmed) {
+
+						window.location.href = `${projectCart}/frontend/member/login/login.jsp`;
+					}
+				});
 			}
+
 		}
 	});
 });
@@ -151,6 +161,6 @@ $(document).ready(function() {
 
 		console.log("11111");
 
-		window.location.href = '<%=request.getContextPath()%>/checkout.jsp';
+		window.location.href = `${projectCart}/checkout.jsp`;
 	});
 });

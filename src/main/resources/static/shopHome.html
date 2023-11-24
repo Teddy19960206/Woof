@@ -22,7 +22,7 @@
 	rel="stylesheet">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <link rel="stylesheet" href="/woof/webutil/css/animate.min.css" />
 <link rel="stylesheet" href="/woof/webutil/css/style.css" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -70,15 +70,14 @@
 					<li class="nav-item me-3"><a class="nav-link"
 						href="/woof/frontend/member/login/membercenter.jsp"> <img
 							id="memberImage" src="/woof/webutil/icons/user2.svg"
-							style="width: 30px; height:30px; border-radius: 50%" />
+							style="width: 30px; height: 30px; border-radius: 50%" />
 							<p class="d-xl-none d-inline text-center mx-3">會員中心</p>
 					</a></li>
 
 					<li class="nav-item me-3">
 						<button class="nav-link" id="cart-icon">
 							<img src="/woof/webutil/icons/cart-plus-solid.svg"
-								style="width: 30px" /> 
-								<span id="cart-count">0</span>
+								style="width: 30px" /> <span id="cart-count">0</span>
 							<p class="d-xl-none d-inline text-center mx-3">購物車</p>
 						</button>
 					</li>
@@ -184,22 +183,22 @@
 	<!-- 購物車模態框 -->
 	<div class="modal fade" id="cartModal" tabindex="-1"
 		aria-labelledby="cartModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
+		<div class="modal-dialog modal-dialog-centered modal-lg">
 			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="cartModalLabel">購物車清單</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal"
-						aria-label="Close"></button>
+				<div class="modal-header" style="background-color: #FCDABF;">
+					<h5 class="modal-title text-center" id="cartModalLabel">購物車</h5>
+					<button type="button" class="btn-close btn-close-white"
+						data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
 					<!-- 購物車清單以表格形式顯示 -->
-					<table class="table text-center">
+					<table class="table table-hover text-center">
 						<thead>
 							<tr>
-								<th class="col-2">商品名稱</th>
-								<th class="col-2">照片</th>
-								<th class="col-2">數量</th>
-								<th class="col-2">價格</th>
+								<th scope="col">商品名稱</th>
+								<th scope="col">照片</th>
+								<th scope="col">數量</th>
+								<th scope="col">價格</th>
 							</tr>
 						</thead>
 						<tbody id="cart-items-list">
@@ -210,8 +209,10 @@
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary"
 						data-bs-dismiss="modal">繼續購物</button>
-					<a href="/woof/frontend/cartlist/checkout.jsp"
-						class="btn btn-primary">結帳</a>
+					<a
+						href="/woof/frontend/cartlist/checkout.jsp"
+						class="btn btn-primary"
+						style="background-color: #F79B66; border: none;">結帳</a>
 				</div>
 			</div>
 		</div>
