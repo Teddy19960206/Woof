@@ -1,5 +1,5 @@
 
-// 讀取圖片
+// --------------------------- 讀取圖片 ---------------------------
 function readImg(result) {
     let reader = new FileReader();
     reader.readAsDataURL(result);
@@ -9,7 +9,7 @@ function readImg(result) {
     });
 }
 
-// 當選擇新圖片時，讀取圖片並顯示在頁面上
+// --------------------------- 當選擇新圖片時，讀取圖片並顯示在頁面上 ---------------------------
 p_file.addEventListener("change", function (e) {
     if (this.files.length > 0) {
         readImg(this.files[0]);

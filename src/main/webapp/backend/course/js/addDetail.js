@@ -112,7 +112,7 @@ const calendar = new FullCalendar.Calendar(calendarEl, {
     },
 });
 
-// 進入下月時，清除之前的內容
+//  --------------------- 進入下月時，清除之前的內容 ---------------------------
 function removeAllEvents(){
     let allEvents = calendar.getEvents();
     allEvents.forEach(function (event){
@@ -123,7 +123,7 @@ function removeAllEvents(){
 
 
 
-// 預約清單
+// --------------------------- 預約清單 ---------------------------
 const reserveDate= [];
 
 
@@ -137,7 +137,7 @@ function reserve(arr){
     })
 }
 
-// 新增預約日期
+// --------------------------- 新增預約日期 ---------------------------
 $("#reserveBtn").on("click" , function (){
 
     calendar.addEvent({
@@ -151,7 +151,7 @@ $("#reserveBtn").on("click" , function (){
 });
 
 
-// 獲取當月所有已報名訊息
+// --------------------------- 獲取當月所有已報名訊息 ---------------------------
 async function fetchDetailByDate(year , month){
 
     let url = `${projectName}/scheduleDetail/getDetails`;
@@ -217,8 +217,6 @@ $("#confirm").on("click" , async function (){
             window.location.href = `${projectName}/backend/course/schedule.jsp`;
         }
     });
-
-
 })
 
 
@@ -246,7 +244,13 @@ async function addFetch(){
         return data;
 
     }catch (error){
+        await Swal.fire({
+            title: "新增失敗!",
+            text: "請重新嘗試!",
+            icon: "error"
+        });
         console.error("Error" , error);
+        window.location.reload();
     }
 
 }
