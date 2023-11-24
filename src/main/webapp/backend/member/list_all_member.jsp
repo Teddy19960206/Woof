@@ -74,13 +74,13 @@ table {
 th {
 	background-color: #FFA500; /* 橘色背景 */
 	color: white;
-	padding: 15px;
+	padding: 10px;
 	text-align: center;
-	font-size: 16px;
+	font-size: 15px;
 }
 
 td {
-	padding: 15px;
+	padding: 10px;
 	text-align: center;
 	border-bottom: 1px solid #ddd;
 }
