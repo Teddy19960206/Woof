@@ -31,7 +31,7 @@ public class ProductController {
             @RequestParam("prodPrice") Integer prodPrice,
             @RequestParam("prodName") String prodName,
             @RequestParam("prodStatus") String prodStatus,
-            @RequestParam("prodPhoto") MultipartFile prodPhoto){
+            @RequestParam(value = "prodPhoto" , required = false) MultipartFile prodPhoto){
         ProductDto productDto = new ProductDto();
         productDto.setProdCatName(prodCatName);
         productDto.setProdContent(prodContent);
