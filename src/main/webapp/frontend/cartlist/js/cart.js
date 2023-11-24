@@ -1,5 +1,5 @@
-let pathName = window.document.location.pathname;
-let projectName = pathName.substring(0, pathName.substring(1).indexOf("/") + 1);
+let pathcart = window.document.location.pathname;
+let projectCart = pathcart.substring(0, pathcart.substring(1).indexOf("/") + 1);
 
 
 //自動重新刷新會載入總數
@@ -10,7 +10,7 @@ $(function() {
 function getCartTotalQuantity() {
 	$.ajax({
 		type: "POST",
-		url: `${projectName}/cart`,
+		url: `${projectCart}/cart`,
 		data: {
 			action: "getTotalQuantity",
 		},
@@ -49,7 +49,7 @@ $(".add-to-cart").on("click", function() {
 
 	$.ajax({
 		type: "POST",
-		url: `${projectName}/cart`,
+		url: `${projectCart}/cart`,
 		data: {
 			action: "add",
 			prodNo: prodNo,
@@ -82,7 +82,7 @@ $(".add-to-cart").on("click", function() {
 $(document).on("click", "#cart-icon", function() {
 	$.ajax({
 		type: "POST",
-		url: `${projectName}/cartlist`,
+		url: `${projectCart}/cartlist`,
 		data: {
 			action: "getCart",
 		},
@@ -94,7 +94,7 @@ $(document).on("click", "#cart-icon", function() {
 
 				alert("購物車是空的！，請去商城逛逛~");
 
-				window.location.href = `${projectName}/shopHome.html`;
+				window.location.href = `${projectCart}/shopHome.html`;
 				return;
 			}
 
@@ -108,7 +108,7 @@ $(document).on("click", "#cart-icon", function() {
 
 				html += `<tr>
                             <td>${item.prodName}</td>
-                             <td><img src="${projectName}/productImage/${item.prodNo}" style="width: 100px; height: 100px;" onerror="this.onerror=null; this.src='${projectName}/fallback-image.jpg';"/></td>
+                             <td><img src="${projectCart}/productImage/${item.prodNo}" style="width: 100px; height: 100px;" onerror="this.onerror=null; this.src='${projectCart}/fallback-image.jpg';"/></td>
                             <td>${item.quantity}</td>
                             <td>NT$${itemTotal}</td>
                         </tr>`;
@@ -120,7 +120,7 @@ $(document).on("click", "#cart-icon", function() {
 		},
 		error: function(xhr, status, error) {
 			if (xhr.status === 401) {
-				window.location.href = `${projectName}/frontend/member/login/login.jsp`;
+				window.location.href = `${projectCart}/frontend/member/login/login.jsp`;
 			}
 		}
 	});
@@ -134,6 +134,6 @@ $(document).ready(function() {
 
 		console.log("11111");
 
-		window.location.href = '<%=request.getContextPath()%>/checkout.jsp';
+		window.location.href = `${projectCart}/checkout.jsp`;
 	});
 });
