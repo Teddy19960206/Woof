@@ -65,7 +65,7 @@
           <a class="nav-link" href="<%=request.getContextPath()%>/frontend/member/login/membercenter.jsp">
         <c:choose>
         <c:when test="${!empty sessionScope.member}">
-            <img src="<%=request.getContextPath()%>/DBPngReader?action=member&id=${member.memNo}" style="width: 30px; border-radius: 50%"
+            <img src="<%=request.getContextPath()%>/DBPngReader?action=member&id=${member.memNo}" style="width: 30px; height:30px; border-radius: 50%"
               onerror="this.onerror=null; this.src='${pageContext.request.contextPath}/webutil/images/memberDog.jpg';" />
         </c:when>
         <c:otherwise>

@@ -90,11 +90,26 @@ public class MemberServlet1 extends HttpServlet {
 			case "validemail":
 				validEmail(req,res);
 				return;
+			case "deletephoto":
+				deletePhoto(req,res);
+				return;
 			default:
 				forwardPath = "/frontend/member/selectmember.jsp";
 			}
 		}
 		req.getRequestDispatcher(forwardPath).forward(req, res);
+	}
+
+	private void deletePhoto(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		String memNo = req.getParameter("memNo");
+	    memberService.deleteMemberPhoto(memNo);
+		 // 從資料庫重新獲取會員資料
+	    Member updatedMember = memberService.findMemberByNo(memNo);
+//	    updatedMember.setMemPhoto(null);
+	    // 將更新的會員資料加入請求屬性
+	    req.setAttribute("member", updatedMember);
+//	    // 轉發到更新頁面
+	    req.getRequestDispatcher("/frontend/member/login/updatemember.jsp").forward(req, res);
 	}
 
 	private void validEmail(HttpServletRequest req, HttpServletResponse res) throws IOException {
@@ -388,7 +403,7 @@ public class MemberServlet1 extends HttpServlet {
 
 	private void delete(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.getParameter("memNo");
-		memberService.deletePhoto(req.getParameter("memNo"));
+		memberService.delete(req.getParameter("memNo"));
 		// 導到指定的URL 頁面上 把請求回應都帶過去
 		req.getRequestDispatcher( "/frontend/member/login/login.jsp").forward(req, res);
 	}
