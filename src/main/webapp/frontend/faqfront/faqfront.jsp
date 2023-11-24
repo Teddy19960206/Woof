@@ -18,6 +18,9 @@
 	
 	<div class="container mt-5 mb-5">
 		<h1>FAQ</h1>
+		
+		
+		
 
 		<div class="accordion" id="faqAccordion">
 			<c:forEach var="entry" items="${all}">
@@ -38,6 +41,11 @@
 				</div>
 			</c:forEach>
 		</div>
+		
+		
+		
+		
+		
 	</div>
 	<%@ include file="/Footer.file"%>
 

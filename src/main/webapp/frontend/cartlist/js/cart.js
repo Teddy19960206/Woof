@@ -73,13 +73,16 @@ $(".add-to-cart").on("click", function() {
 				Swal.fire({
 					icon: "success",
 					title: "成功加入購物車",
+				}).then(()=>{
+					// 按下OK，購物車旁邊的數字會更新
+					parent.closeBtn.click();
+					parent.getCartTotalQuantity();
 				});
-				$("#cart-count").text(response.totalQuantity);
+				
+//				$("#cart-count").text(response.totalQuantity);
 			}
 		},
-		error: function(xhr, status, error) {
-			// 錯誤處理
-		}
+
 	});
 });
 
