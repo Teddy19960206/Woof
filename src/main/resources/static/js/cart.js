@@ -75,11 +75,13 @@ $(".add-to-cart").on("click", function() {
 				Swal.fire({
 					icon: "success",
 					title: "成功加入購物車",
+				}).then(()=>{
+					parent.closeBtn.click();
+					parent.getCartTotalQuantity();
 				});
 
 
-				parent.closeBtn.click();
-				parent.getCartTotalQuantity();
+
 //				$("#cart-count").text(response.totalQuantity);
 			}
 		},
