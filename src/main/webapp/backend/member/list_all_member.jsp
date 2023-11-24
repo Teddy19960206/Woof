@@ -176,7 +176,7 @@ tr:hover {
 			<th>狀態</th>
 			<th></th>
 		</tr>
-		<c:forEach var="member" items="${member}">
+		  <c:forEach var="member" items="${memberService.allMembers}">
 			<tr>
 				<td>${member.memNo}</td>
 				<td>${member.memName}</td>
