@@ -191,7 +191,7 @@
     <c:if test="${currentPage + 1 <= PTAPageQty3}">
         <a href="${pageContext.request.contextPath}/privatetrainingappointmentform?action=getboth&page=${currentPage + 1}&trainerNo=${param.trainerNo}">下一頁</a>&nbsp;
     </c:if>
-    <c:if test="${currentPage != PTAPageQty3}">
+    <c:if test="${currentPage != PTAPageQty3 && currentPage <= PTAPageQty3}">
         <a href="${pageContext.request.contextPath}/privatetrainingappointmentform?action=getboth&page=${PTAPageQty3}&trainerNo=${param.trainerNo}">至最後一頁</a>&nbsp;
     </c:if>
 <%-- 	<button class="btn btn-back" onclick="window.location='${pageContext.request.contextPath}/backend/index.jsp'">返回</button> --%>

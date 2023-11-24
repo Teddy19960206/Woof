@@ -199,7 +199,7 @@
 	<c:if test="${currentPage + 1 <= COPageQty2}">
 		<a href="${pageContext.request.contextPath}/classorder/getByMemNo?page=${currentPage + 1}&memNo=${param.memNo}">下一頁</a>&nbsp;
 	</c:if>
-	<c:if test="${currentPage != COPageQty2}">
+	<c:if test="${currentPage != COPageQty2 && currentPage <= COPageQty2}">
 		<a href="${pageContext.request.contextPath}/classorder/getByMemNo?page=${COPageQty2}&memNo=${param.memNo}">至最後一頁</a>&nbsp;
 	</c:if>
 

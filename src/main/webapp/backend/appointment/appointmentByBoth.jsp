@@ -190,7 +190,7 @@
 	<c:if test="${currentPage + 1 <= PTAPageQty5}">
 		<a href="${pageContext.request.contextPath}/privatetrainingappointmentform?action=getboth&page=${currentPage + 1}&trainerNo=${param.trainerNo}&memNo=${param.memNo}">下一頁</a>&nbsp;
 	</c:if>
-	<c:if test="${currentPage != PTAPageQty5}">
+	<c:if test="${currentPage != PTAPageQty5 && currentPage <= PTAPageQty5}}">
 		<a href="${pageContext.request.contextPath}/privatetrainingappointmentform?action=getboth&page=${PTAFPageQty5}&trainerNo=${param.trainerNo}&memNo=${param.memNo}">至最後一頁</a>&nbsp;
 	</c:if>
 

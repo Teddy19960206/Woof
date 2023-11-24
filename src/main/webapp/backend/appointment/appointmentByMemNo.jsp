@@ -188,7 +188,7 @@
 	<c:if test="${currentPage + 1 <= PTAPageQty4}">
 		<a href="${pageContext.request.contextPath}/privatetrainingappointmentform?action=getboth&page=${currentPage + 1}&memNo=${param.memNo}">下一頁</a>&nbsp;
 	</c:if>
-	<c:if test="${currentPage != PTAPageQty4}">
+	<c:if test="${currentPage != PTAPageQty4 && currentPage <= PTAPageQty4}">
 		<a href="${pageContext.request.contextPath}/privatetrainingappointmentform?action=getboth&page=${PTAFPageQty4}&memNo=${param.memNo}">至最後一頁</a>&nbsp;
 	</c:if>
 
