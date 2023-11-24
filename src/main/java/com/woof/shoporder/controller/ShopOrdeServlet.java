@@ -349,7 +349,7 @@ public class ShopOrdeServlet extends HttpServlet {
 	
 //  轉換訂單編號
   public String formatOrderId(long orderId) {
-      return "woofShopOrder" + String.format("%08d", orderId);
+      return "woofShop" + String.format("%08d", orderId);
   }
   
   private void updateecpay(HttpServletRequest request, HttpServletResponse response) throws IOException {
