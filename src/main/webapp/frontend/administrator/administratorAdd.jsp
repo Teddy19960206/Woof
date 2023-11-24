@@ -12,7 +12,7 @@
 <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery-twzipcode@1.7.14/jquery.twzipcode.min.js"></script>
 <meta charset="UTF-8">
-<title>administrator</title>
+<title>寵毛導師 Woof | 管理員新增頁面</title>
 <script>
       //日期格式
     $(function() {

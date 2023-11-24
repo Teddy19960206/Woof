@@ -7,7 +7,7 @@
 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 <meta charset="UTF-8">
-<title>administrator</title>
+<title>寵毛導師 Woof | 管理員修改</title>
 <script>
 	$(document).ready(function(){
 	 	 $.ajax({

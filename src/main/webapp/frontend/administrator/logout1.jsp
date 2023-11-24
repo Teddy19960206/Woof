@@ -60,7 +60,7 @@ body.specific-page{
 </style>
 
 
-<title>管理員登入畫面</title>
+<title>寵毛導師 Woof | 後台登入畫面</title>
 </head>
 <body class="specific-page">
 	<div class="login-container">

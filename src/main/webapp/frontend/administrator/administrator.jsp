@@ -8,7 +8,8 @@
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <script src="<%=request.getContextPath()%>/webutil/js/jquery-3.7.1.min.js"></script>
 <html>
-
+<meta charset="UTF-8">
+<title>寵毛導師 Woof | 管理員首頁</title>
 <style>
     @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600&family=Roboto:wght@300;400;500&display=swap");
 /* 將按鈕固定在左上角 */

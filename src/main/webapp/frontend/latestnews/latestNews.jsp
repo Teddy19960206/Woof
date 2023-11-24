@@ -5,7 +5,7 @@
 <head>
   <%@ include file="/meta.file" %>
 <meta charset="UTF-8">
-<title>最新消息</title>
+<title>寵毛導師 Woof | 最新消息</title>
 <!-- 引入 Bootstrap CSS -->
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">

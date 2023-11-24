@@ -4,7 +4,7 @@
 <html lang="zh-TW">
 <head>
 <%@ include file="/backend/backhead.file" %>
-<title>訓練師中心</title>
+<title>寵毛導師 Woof | 訓練師專區</title>
 
 <style>
 a[name="adminNo"] {

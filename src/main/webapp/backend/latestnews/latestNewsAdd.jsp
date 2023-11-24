@@ -7,7 +7,7 @@ LatestNews ln = (LatestNews) request.getAttribute("latestNews");
 <html>
 <head>
 <meta charset="UTF-8">
-<title>latestNews</title>
+<title>寵毛導師 Woof | 最新消息新增</title>
 </head>
 <body>
 	<form method="post"
