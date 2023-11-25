@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <script>
+<meta charset="UTF-8">
+<script>
     let currentUrl = window.location.href;
     let pathArray = currentUrl.split("/");
     let protocol = pathArray[0];
@@ -13,61 +13,89 @@
     }
     document.write(`<base href="${basePath}">`);
     </script>
-    <title>寵毛導師 Woof | 商品管理</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/woof/css/productPage.css">
+<title>寵毛導師 Woof | 商品管理</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="/woof/css/productPage.css">
+<link rel="icon" type="image/x-icon"
+	href="/woof/webutil/icons/happy_1.png" />
 </head>
 <body>
 
-<div class="container mt-5">
-    <h1>商品管理</h1>
-    <div class="row mb-3">
-        <div class="col">
-            <button id="addProduct" class="btn btn-info">新增商品</button>
-            <button id="editProduct" class="btn btn-info">修改商品</button>
-            <!-- <button id="deleteProduct" class="btn btn-danger">刪除商品</button> -->
-        </div>
-        <div class="col text-right">
-            <button id="activateProduct" class="btn btn-success">上架</button>
-            <button id="deactivateProduct" class="btn btn-danger">下架</button>
-        </div>
-    </div>
+	<div class="col-12 bg-light"
+		style="box-shadow: 0 6px 2px -2px rgba(126, 126, 126, 0.2); height: 80px; position: relative; top: 0; z-index: 8">
+		<div style="float: left; padding: 10px;">
+			<a href="/woof/backend/index.jsp"> <img
+				src="/woof/backend/images/logo.png" width="220" class="text-center" />
+			</a> 
+			<span style="font-size: 36px; margin-left: 10px; font-family: 'Noto Sans TC', sans-serif; color: #333; text-shadow: 1px 1px 2px rgba(0,0,0,0.2);">商品管理</span>
 
-    <table class="table table-bordered mt-3">
-        <thead>
-        <tr>
-            <th><input type="checkbox" id="selectAll"></th>
-            <th>商品編號</th>
-            <th>商品照片</th>
-            <th>商品類別</th>
-            <th>商品名稱</th>
-            <th>商品描述</th>
-            <th>商品價格</th>
-            <th>商品狀態</th>
-        </tr>
-        </thead>
-        <tbody id="productTableBody">
-        <!-- 產品資料將透過 JavaScript 動態插入 -->
-        </tbody>
-    </table>
+		</div>
+		<div
+			style="position: absolute; bottom: 0; right: 0; text-align: right; padding: 5px;">
+			<a
+				href="/woof/promotion.html" class="btn"
+				style="background-color: #faba91; font-family: 'Noto Sans TC', sans-serif; font-weight: 700;">前往促銷管理</a>
+			<img src="/woof/backend/images/happy.png" width="30" /> <span
+				style="color: rgb(80, 80, 80)">超级管理員</span> <a
+				href="/woof/logout1?action1=administratorlogout" class="btn"
+				style="background-color: #faba91; font-family: 'Noto Sans TC', sans-serif; font-weight: 700;">登出</a>
+			<a href="/woof/index.jsp" class="btn"
+				style="background-color: #faba91; font-family: 'Noto Sans TC', sans-serif; font-weight: 700;">返回前台首頁</a>
+		</div>
+	</div>
 
-    <div id="addProductModalContainer"></div>
-    <div id="editProductModalContainer"></div>
+	<div class="container mt-5" >
+		<div class="row mb-3">
+			<div class="col">
+				<button id="addProduct" class="btn btn-info">新增商品</button>
+				<button id="editProduct" class="btn btn-info">修改商品</button>
+				<!-- <button id="deleteProduct" class="btn btn-danger">刪除商品</button> -->
+			</div>
+			<div class="col text-right">
+				<button id="activateProduct" class="btn btn-success">上架</button>
+				<button id="deactivateProduct" class="btn btn-danger">下架</button>
+			</div>
+		</div>
 
-    <div id="paginationControls">
-        <button id="prevPage">上一頁</button>
-        <span id="currentPage"></span> / <span id="totalPages"></span>
-        <button id="nextPage">下一頁</button>
-    </div>
-</div>
+		<table class="table table-bordered mt-3">
+			<thead>
+				<tr>
+					<th><input type="checkbox" id="selectAll"></th>
+					<th>商品編號</th>
+					<th>商品照片</th>
+					<th>商品類別</th>
+					<th>商品名稱</th>
+					<th>商品描述</th>
+					<th>商品價格</th>
+					<th>商品狀態</th>
+				</tr>
+			</thead>
+			<tbody id="productTableBody">
+				<!-- 產品資料將透過 JavaScript 動態插入 -->
+			</tbody>
+		</table>
 
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="sweetalert2.all.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+		<div id="addProductModalContainer"></div>
+		<div id="editProductModalContainer"></div>
 
-<script>
+		<div id="paginationControls">
+			<button id="prevPage">上一頁</button>
+			<span id="currentPage"></span> / <span id="totalPages"></span>
+			<button id="nextPage">下一頁</button>
+		</div>
+	</div>
+
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<script src="sweetalert2.all.min.js"></script>
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+	<script>
     // 加載新增商品模態框並綁定事件
     fetch('/woof/addModal.html')
         .then(response => response.text())
@@ -84,9 +112,9 @@
         });
 </script>
 
-<script src="/woof/js/productPage.js"></script>
-<script src="/woof/js/modal.js"></script>
-<script src="/woof/js/editModal.js"></script>
+	<script src="/woof/js/productPage.js"></script>
+	<script src="/woof/js/modal.js"></script>
+	<script src="/woof/js/editModal.js"></script>
 
 </body>
 </html>

@@ -125,7 +125,7 @@
 			items="${classOrders}">
 
 			<tr>
-				<td>${classOrder.coNo}</td>
+				<td>${coId[classOrder]}</td>
 				<td>${classOrder.member.memNo}</td>
 				<td>${classOrder.member.totalClass}</td>
 				<td>${classOrder.coBc}</td>
@@ -152,6 +152,7 @@
 					<FORM METHOD="post"
 						action="${pageContext.request.contextPath}/backend/classOrder/classOrderUpdate.jsp">
 						<%
+ 							String coId = request.getParameter("coId");
  							String coNo = request.getParameter("coNo");
 	 						String memNo = request.getParameter("memNo");
 	 						String coBc = request.getParameter("coBc");
@@ -161,6 +162,7 @@
 	 						String coStatus = request.getParameter("coStatus");
 	 						String actualAmount = request.getParameter("actualAmount");
 						%> 
+						<input type="hidden" name="coId" value="${coId[classOrder]}">					
 						<input type="hidden" name="coNo" value="${classOrder.coNo}">					
 						<input type="hidden" name="memNo" value="${classOrder.member.memNo}">
 						<input type="hidden" name="coBc" value="${classOrder.coBc}">

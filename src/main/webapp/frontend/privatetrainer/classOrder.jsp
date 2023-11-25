@@ -22,7 +22,7 @@
             <div class="row">
                 <label class="col-5 text-center">課堂訂單編號</label>
                 <div class="col-5">
-                    <input type="text" class="form-control" id="coNo" value="${coNo}" readonly>
+                    <input type="text" class="form-control" id="coNo" value="${coId}" readonly>
                 </div>
             </div>
            

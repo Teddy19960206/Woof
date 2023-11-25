@@ -24,4 +24,6 @@ public interface ClassOrderService {
 	int getPageTotal2(String memNo);
 	
 	List<ClassOrder> getOrderByMemNo(String memNo);
+	
+	public String formatOrderId(long orderId);
 }

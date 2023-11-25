@@ -114,7 +114,7 @@ async function getOrder(page){
                           <td>${item.gcoSmmp}</td>
                           <td>${item.actualAmount}</td>
                           <td>${statusText}</td>
-                          <td><button type="button" class="detail-btn btn btn-primary" data-id="${item.gcoNo}" ${item.gcoStatus == 4 ? 'disabled' : ''}>修改</button></td>
+                          <td><button type="button" class="detail-btn btn btn-primary" data-id="${item.gcoNo}" ${item.gcoStatus == 4 || item.gcoStatus == 3 ? 'disabled' : ''}>修改</button></td>
                       </tr>`);
         })
 
@@ -333,13 +333,14 @@ async function fetchDetail(id){
                 </div>
 
                 <div class="text-center p-3">
-                    <button class="btn btn-primary refund" ${data.gcoStatus != 0 || data.gcoStatus != 2 || data.gcoStatus != 3? '' : 'disabled'}  data-id="${data.gcoNo}">退款</button>
+                    <button class="btn btn-primary refund" ${data.gcoStatus != 0 && data.gcoStatus != 2 && data.gcoStatus != 3? '' : 'disabled'}  data-id="${data.gcoNo}">退款</button>
                     <button class="btn btn-primary modify" data-id="${data.gcoNo}">確認修改</button>
                     <button class="btn btn-secondary" onclick="window.location.href = '${projectName}/backend/course/orderManagement.jsp'">取消修改</button>
                 </div>
             </div>
         </div>
     </div>`);
+        console.log(data.gcoStatus != 0)
 
         html = arr.join("");
         allPage.innerHTML = html;

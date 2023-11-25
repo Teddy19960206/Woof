@@ -132,7 +132,7 @@ public class MemberServlet1 extends HttpServlet {
 		member.setMemStatus(1);
 		memberService.updateMember(member);
 		// 導到指定的URL 頁面上 把請求回應都帶過去
-		req.getRequestDispatcher( "/frontend/member/login/login.jsp").forward(req, res);
+		req.getRequestDispatcher( "/frontend/member/login/validsucess.jsp").forward(req, res);
 	}
 
 	private void processQuery(HttpServletRequest req, HttpServletResponse res) throws IOException {

@@ -42,7 +42,7 @@ request.setAttribute("canCommentMap", canCommentMap);
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <%@ include file="/meta.file"%>
-<title>私人訓練師預約</title>
+<title>寵毛導師 Woof | 預約單管理</title>
 <script type="text/javascript">
 //表單點擊找出對應的function//
   function processUpdate(jsonData){

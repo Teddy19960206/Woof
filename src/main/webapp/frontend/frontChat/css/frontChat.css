@@ -1,3 +1,24 @@
+#chat-icon {
+    position: fixed;
+    bottom: 50px;
+    right: 50px;
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 50px;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    transition: transform 1s ease;
+    z-index: 99;
+}
+#chat-icon img {
+    max-width: 100%; /* 確保圖片不會超過容器寬度 */
+    max-height: 100%; /* 確保圖片不會超過容器高度 */
+    border-radius: 50%; /* 圓形圖片 */
+    object-fit: cover; /* 保持圖片的比例 */
+}
+
 
 div.chat-box{
     position: fixed;
@@ -35,10 +56,14 @@ img.chat-img {
     display: flex;
     align-items: center;
     background-color: #bbd6f1;
-    border-radius: 20px;
-    /* border-radius: 20px 20px 0 0; */
+    /*border-radius: 20px;*/
+    border-radius: 20px 20px 0 0;
     padding: 15px;
 }
+.header:hover{
+    background-color: #68aff5;
+}
+
 .chat-box .header .avatar-big {
     width: 35px;
     height: 35px;
@@ -132,7 +157,7 @@ img.chat-img {
     border-radius: 0 0 20px 0;
 }
 .chat-box .type-area .button-send:hover {
-    background-color: #597999;
+    background-color: #68aff5;
     color: #fff;
 } /*# sourceMappingURL=index.css.map */
 
@@ -173,3 +198,4 @@ img.chat-img {
     box-shadow: transparent;
 
 }
+

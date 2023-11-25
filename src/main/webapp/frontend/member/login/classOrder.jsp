@@ -1,7 +1,8 @@
 <%@ page import="com.woof.member.entity.Member" %>
 <%@ page import="com.woof.classorder.service.ClassOrderServiceImpl" %>
+<%@ page import="com.woof.classorder.service.ClassOrderService" %>
 <%@ page import="com.woof.classorder.entity.ClassOrder" %>
-<%@ page import="java.util.List" %>
+<%@ page import="java.util.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
@@ -11,6 +12,29 @@
 	ClassOrderServiceImpl c = new ClassOrderServiceImpl();
 	List<ClassOrder> classOrders = c.getOrderByMemNo(member.getMemNo());
 	request.setAttribute("all" , classOrders);
+	
+	List<Integer> coNoList = new ArrayList<>();
+
+	for (ClassOrder classOrder : classOrders) {
+		Integer coNo = classOrder.getCoNo();
+		coNoList.add(coNo);
+	}
+
+	List<String> orderIdList = new ArrayList<>();
+
+	ClassOrderService classOrderService = new ClassOrderServiceImpl();
+	for (Integer coNo : coNoList) {
+		String coId = classOrderService.formatOrderId(coNo);
+		orderIdList.add(coId);
+	}
+
+	Map<ClassOrder, String> coId = new LinkedHashMap<>();
+
+	for (int i = 0; i < classOrders.size(); i++) {
+		coId.put(classOrders.get(i), orderIdList.get(i));
+	}
+
+	request.setAttribute("coId", coId);
 %>
 <!DOCTYPE html>
 <html lang="zh-TW">
@@ -18,7 +42,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<%@ include file="/meta.file"%>
-	<title>私人訓練師預約</title>
+	<title>寵毛導師 Woof | 課堂訂單管理</title>
 	<script type="text/javascript">
 		//表單點擊找出對應的function//
 		function processUpdate(jsonData){
@@ -126,7 +150,7 @@
 
 				<c:forEach items="${all}" var="classOrder" begin="0" end="9">
 					<tr>
-						<td class="truncated-text">${classOrder.coNo}</td>
+						<td class="truncated-text">${coId[classOrder]}</td>
 						<td>${classOrder.coBc}</td>
 						<td>${classOrder.coPaymentMethod == 0 ? '信用卡' : classOrder.coPaymentMethod == 1 ? '匯款' : "綠界"}</td>
 						<td>${classOrder.coSmmp}</td>

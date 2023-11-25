@@ -3,7 +3,7 @@ package com.woof.classorder.service;
 import static com.woof.util.Constants.PAGE_MAX_RESULT;
 
 import java.sql.Timestamp;
-import java.util.List;
+import java.util.*;
 
 import org.hibernate.Session;
 
@@ -104,5 +104,9 @@ public class ClassOrderServiceImpl implements ClassOrderService{
 		return dao.getOrderByMemNo(memNo);
 	}
 	
-	
+	@Override
+	public String formatOrderId(long orderId) {
+        return "woofClass" + String.format("%08d", orderId);
+    }
+
 }

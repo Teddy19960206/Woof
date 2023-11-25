@@ -226,12 +226,14 @@ tr:hover {
     <tr>
         <th></th>
         <td>
-            <form method="post" action="${pageContext.request.contextPath}/member.do" 
-                onsubmit="return confirmChangeStatus(this);" style="margin-bottom: 0px;">
-                <input type="hidden" name="action" value="changestatus">
-                <input type="hidden" name="memNo" value="${member.memNo}">
-                <input type="submit" class="update-btn" value="修改狀態">
-            </form>
+					<form method="post"
+					action="${pageContext.request.contextPath}/member.do"
+					onsubmit="return confirmChangeStatus(this);"
+					style="margin-bottom: 0px;">
+					<input type="hidden" name="action" value="changestatus"> <input
+						type="hidden" name="memNo" value="${member.memNo}"> <input
+						type="submit" class="update-btn" value="修改狀態">
+				</form>
         </td>
     </tr>
 </table>

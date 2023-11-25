@@ -14,6 +14,8 @@ package com.woof.administrator.controller;
 	import javax.servlet.http.HttpServletRequest;
 	import javax.servlet.http.HttpServletResponse;
 
+import org.mindrot.jbcrypt.BCrypt;
+
 import com.woof.administrator.entity.Administrator;
 import com.woof.administrator.service.AdministratorService;
 import com.woof.administrator.service.AdministratorServiceImpl;
@@ -55,7 +57,7 @@ import com.woof.util.MailService;
 				}
 				if(!errorMsgs.isEmpty()) {
 					
-					req.getRequestDispatcher("frontend/administrator/forgotpwd.jsp").forward(req, res);
+					req.getRequestDispatcher("frontend/administratorlogin/forgotpwd.jsp").forward(req, res);
 				    return;
 				}
 				// 生成令牌
@@ -63,7 +65,7 @@ import com.woof.util.MailService;
 				String realURL = req.getScheme() + "://" + req.getServerName() + ":" + req.getServerPort();
 				// 創建重置連結
 				String resetLink = realURL + req.getContextPath()
-						+ "/frontend/administrator/changepwd.jsp?action=reset&adminEmail=" + adminemail +"&token=" + token;
+						+ "/frontend/administratorlogin/changepwd.jsp?action=reset&adminEmail=" + adminemail +"&token=" + token;
 				// 將令牌保存到某處，例如數據庫，與用戶的郵箱地址關聯
 				// 連接到 Redis
 				try (Jedis jedis = new Jedis("localhost", 6379)) {
@@ -80,8 +82,9 @@ import com.woof.util.MailService;
 				mailService.sendMail(adminemail, "忘記密碼", MailService.passwordResetEmail(resetLink));
 
 				// 導到指定的URL 頁面上 把請求回應都帶過去
-				String url = req.getContextPath() + "/frontend/administrator/validemail.jsp";
-				res.sendRedirect(url);
+//				String url = req.getContextPath() + "/frontend/administrator/validemail.jsp";
+//				res.sendRedirect(url);
+				req.getRequestDispatcher("frontend/administratorlogin/validemail.jsp").forward(req, res);
 			}
 			// ================更改密碼======================//
 			if ("changepwd".equals(action)) {
@@ -89,11 +92,12 @@ import com.woof.util.MailService;
 				String tokenFromRequest = req.getParameter("token");
 				String adminPassword = req.getParameter("adminPassword");
 				String confirmPassword = req.getParameter("confirmadminPassword");
-				// 新增: 比較 memPassword 和 confirmPassword 是否一致
+				// 新增: 比較 adminPassword 和 confirmPassword 是否一致
+				 String encryptedPassword = BCrypt.hashpw(adminPassword, BCrypt.gensalt());
 			    if (!adminPassword.equals(confirmPassword)) {
 			        // 如果不一致，設置錯誤訊息並重定向到錯誤頁面或顯示錯誤
 			        req.setAttribute("errorMsg", "密碼和確認密碼不匹配");
-			        req.getRequestDispatcher("/frontend/administrator/changepwd.jsp").forward(req, res);
+			        req.getRequestDispatcher("/frontend/administratorlogin/changepwd.jsp").forward(req, res);
 			        return;
 			    }
 				System.out.println(adminEmail + "/ adminEmail");
@@ -109,7 +113,7 @@ import com.woof.util.MailService;
 					    return;
 					}
 				}else {
-				    // 處理 mememail 為空的情況
+				    // 處理 adminemail 為空的情況
 					System.out.println("adminemail is null");
 				}
 				
@@ -117,12 +121,12 @@ import com.woof.util.MailService;
 					// 令牌有效，繼續執行更改密碼的操作
 					Administrator admin = administratorService.findAdministratorByEmail(adminEmail);
 					System.out.println(admin+ " / admin");
-					admin.setAdminPassword(adminPassword);
+					admin.setAdminPassword(encryptedPassword);
 					administratorService.updateAdministrator(admin);
 					// 導到指定的URL 頁面上 把請求回應都帶過去
-					req.getRequestDispatcher("/frontend/administrator/changepwdsucess.jsp").forward(req, res);
+					req.getRequestDispatcher("/frontend/administratorlogin/changepwdsucess.jsp").forward(req, res);
 				} else {
-					req.getRequestDispatcher("/frontend/administrator/errorPage.jsp").forward(req, res);
+					req.getRequestDispatcher("/frontend/administratorlogin/errorPage.jsp").forward(req, res);
 					return;
 				}
 			}

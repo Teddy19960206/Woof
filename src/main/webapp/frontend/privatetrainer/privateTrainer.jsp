@@ -263,7 +263,14 @@ h1 {
                 <div class="col-auto mx-auto text-center">
                     <h2>${trainer.administrator.adminName}</h2>
                     <div class="img-div mx-auto">
-                        <img class="img-fluid" src="${pageContext.request.contextPath}/DBPngReader?action=administrator&id=${trainer.administrator.adminNo}" alt="${trainer.administrator.adminName}">
+                    <c:choose>
+					    <c:when test="${empty trainer.administrator.adminPhoto}">
+					        <img class="img-fluid" src="${pageContext.request.contextPath}/frontend/images/avatar24-01.png" alt="${trainer.administrator.adminName}">
+					    </c:when>
+					    <c:otherwise>
+					        <img class="img-fluid" src="${pageContext.request.contextPath}/DBPngReader?action=administrator&id=${trainer.administrator.adminNo}" alt="${trainer.administrator.adminName}">
+					    </c:otherwise>
+					</c:choose>
                     </div>
                     <p>專長:</p>
                     <ul>
@@ -272,7 +279,7 @@ h1 {
                         </c:forEach>
                     </ul>
                     <a href="${pageContext.request.contextPath}/frontend/privatetrainer/appointment.jsp?trainerNo=${trainer.trainerNo}">
-                        <buttonf type="button" class="btn btn-appointment">預約訓練師</buttonf>
+                        <button type="button" class="btn btn-appointment">預約訓練師</button>
                     </a>
                 </div>
             </div>
