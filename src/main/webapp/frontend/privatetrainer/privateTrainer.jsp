@@ -293,9 +293,19 @@ h1 {
         <div class="comment-wrapper">
             <div class="comment">
                 <ul>
-                    <li class="comment-meta">${pta.member.memName} - <span class="comment-time">${pta.commentTime}</span></li>
-                    <li class="comment-content">${pta.ptaComment}</li>
-                </ul>
+				    <li class="comment-meta">
+				        ${pta.member.memName} - 
+				        <c:choose>
+				            <c:when test="${not empty pta.commentUpTime}">
+				                <span class="comment-time">${pta.commentUpTime} 已編輯</span>
+				            </c:when>
+				            <c:otherwise>
+				                <span class="comment-time">${pta.commentTime}</span>
+				            </c:otherwise>
+				        </c:choose>
+				    </li>
+				    <li class="comment-content">${pta.ptaComment}</li>
+				</ul>
             </div>
             <div class="report-comment">
                 <form method="POST" action="${pageContext.request.contextPath}/commentreport?action=report" onsubmit="return commentReport()">
