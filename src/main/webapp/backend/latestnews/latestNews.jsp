@@ -9,9 +9,34 @@
 <!-- 引入 Bootstrap CSS -->
 
 	<style>
+  .form-inline {
+    display: flex; /* 使用flexbox排列元素 */
+    align-items: center; /* 垂直居中 */
+    flex-wrap: nowrap; /* 防止元素換行 */
+  }
+
+  .form-inline label {
+    margin-right: 0.5em; /* 標籤右邊的空間 */
+  }
+
+  .form-inline input[type="text"] {
+    flex-grow: 1; /* 輸入框佔據多餘空間 */
+    min-width: 0; /* 允許輸入框縮小到最小內容大小 */
+  }
+
+  .form-inline .button {
+    white-space: nowrap; /* 防止按鈕文字換行 */
+  }
+
+  /* 當螢幕太小無法容納所有元素時，您可以設定一個斷點來調整樣式 */
+  @media screen and (max-width: 600px) {
+    .form-inline input[type="text"] {
+      min-width: 150px; /* 為輸入框設定最小寬度 */
+    }
+  }
   /* 基本按鈕樣式 */
    .custom-button {
-    margin-top: 1rem; /* 或者更多，根據您的需求調整 */
+    margin-top: -1rem; /* 或者更多，根據您的需求調整 */
     margin-bottom: 1rem; /* 增加下邊距，根據您的需求調整 */
         background-color:#FFAF60; /* 綠色背景 */
         color: white; /* 白色文字 */
@@ -81,6 +106,15 @@
 <div class="container mt-5"> <!-- mt-5 表示 margin-top: 3rem -->
 	<jsp:useBean id="latestNewsService" scope="page"
 		class="com.woof.latestnews.service.LatestNewsServiceImpl" />
+		<form method="post" action="${pageContext.request.contextPath}/latestNews.do" class="form-inline">
+    <label class="mr-2"><b>輸入編號:</b></label> 
+    <input type="text" class="form-control mr-2" name="LN_NO" placeholder="輸入消息編號" value="${latestNews.lnNo}" required>
+    <input type="hidden" name="action" value="getone">
+    <label for="search" class="search">
+        <i class="fa-solid fa-magnifying-glass"></i>
+    </label>
+    <button type="submit" class='button' id="btnAdd">查詢編號</button>
+</form>
 	<div class="container mt-5">
 		<input type="button" id="btnadd"  class="custom-button"
 			value="新增" onclick="processAdd();">

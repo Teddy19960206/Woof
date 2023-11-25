@@ -73,43 +73,47 @@ public class AdministratorServlet extends HttpServlet {
 		}
 	}
 	private void getOne(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+	    AdministratorService administratorService = new AdministratorServiceImpl();
 
-		AdministratorService administratorService = new AdministratorServiceImpl();
+	    try {
+	        req.setCharacterEncoding("UTF-8");
 
-		try {
+	        // 獲取特定成員
+	        String adminNoStr = req.getParameter("ADMIN_NO");
+	        System.out.println(adminNoStr);
 
-			req.setCharacterEncoding("UTF-8");
-		
-
-			// 獲取特定成員
-			String adminNoStr = req.getParameter("ADMIN_NO");
-			System.out.println(adminNoStr);
-
-			if (adminNoStr != null && !adminNoStr.trim().isEmpty()) {
-				try {
-
-					Administrator administrator = administratorService.findAdministratorByAdminNo(adminNoStr);;
-					req.setAttribute("administrator", administrator);
-				} catch (NumberFormatException e) {
-					e.printStackTrace();
-				}
-			} else {
-				req.setAttribute("error", "Invalid administrator number provided.");
-				RequestDispatcher dispatcher = req.getRequestDispatcher("/frontend/administrator/errorPage.jsp");
-				dispatcher.forward(req, res);
-				return;
-			}
-			// 設置編碼和轉發到指定的JSP頁面
-			req.setCharacterEncoding("UTF-8");
-			RequestDispatcher dispatcher = req.getRequestDispatcher("/frontend/administrator/listoneadministrator.jsp");
-			dispatcher.forward(req, res);
-
-		} catch (Exception e) {
-			// 處理其他潛在錯誤
-			e.printStackTrace();
-
-		}
+	        if (adminNoStr != null && !adminNoStr.trim().isEmpty()) {
+	            try {
+	                Administrator administrator = administratorService.findAdministratorByAdminNo(adminNoStr);
+	                if (administrator != null) {
+	                    req.setAttribute("administrator", administrator);
+	                    RequestDispatcher dispatcher = req.getRequestDispatcher("/frontend/administrator/listoneadministrator.jsp");
+	                    dispatcher.forward(req, res);
+	                } else {
+	                    req.setAttribute("error", "No administrator found with the provided number.");
+	                    RequestDispatcher dispatcher = req.getRequestDispatcher("/frontend/administrator/errorPage2.jsp");
+	                    dispatcher.forward(req, res);
+	                }
+	            } catch (NumberFormatException e) {
+	                e.printStackTrace();
+	                req.setAttribute("error", "Invalid number format.");
+	                RequestDispatcher dispatcher = req.getRequestDispatcher("/frontend/administrator/errorPage2.jsp");
+	                dispatcher.forward(req, res);
+	            }
+	        } else {
+	            req.setAttribute("error", "Invalid administrator number provided.");
+	            RequestDispatcher dispatcher = req.getRequestDispatcher("/frontend/administrator/errorPage2.jsp");
+	            dispatcher.forward(req, res);
+	        }
+	    } catch (Exception e) {
+	        // 處理其他潛在錯誤
+	        e.printStackTrace();
+	        req.setAttribute("error", "An error occurred processing your request.");
+	        RequestDispatcher dispatcher = req.getRequestDispatcher("/frontend/administrator/errorPage2.jsp");
+	        dispatcher.forward(req, res);
+	    }
 	}
+
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -142,7 +146,7 @@ public class AdministratorServlet extends HttpServlet {
 		Administrator admin = new Administrator();
 		String adminemail = req.getParameter("ADMIN_EMAIL");
 		String adminNo = req.getParameter("ADMIN_NO");
-		Administrator originaladmin =  administratorService.findAdministratorByAdminNo(adminNo);;
+		Administrator originaladmin =  administratorService.findAdministratorByAdminNo(adminNo);
 
 		/***********************1.接收請求參數 - 輸入格式的各式錯誤處理*************************/
 		if (adminNo == null || adminNo.trim().length() == 0) {
