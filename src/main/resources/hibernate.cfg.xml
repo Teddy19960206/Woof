@@ -37,7 +37,6 @@
 		<mapping class="com.woof.classorder.entity.ClassOrder"/>
 		<mapping class="com.woof.nontrainingschedule.entity.NonTrainingSchedule"/>
 		<mapping class="com.woof.administrator.entity.Administrator" />
-        <mapping class="com.woof.functionpermission.entity.FunctionPermission"/>
 		<mapping class="com.woof.latestnews.entity.LatestNews"/>
 		<mapping class="com.woof.faq.entity.Faq"/>
 		<mapping class="com.woof.shoporder.entity.ShopOrder"/>
