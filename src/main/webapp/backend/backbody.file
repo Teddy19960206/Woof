@@ -189,9 +189,6 @@
                       <li class="sidebar-item">
                           <a href="${pageContext.request.contextPath}/frontend/administrator/administratorcenter.jsp" class="sidebar-link2">訓練師基本資料管理</a>
                       </li>
-                      <li class="sidebar-item">
-                          <a href="#" class="sidebar-link2">訓練師班表管理</a>
-                      </li>
                        <li class="sidebar-item">
                           <a href="${pageContext.request.contextPath}/backend/trainer/trainerClass.jsp" class="sidebar-link2">訓練師課程查詢</a>
                       </li>
