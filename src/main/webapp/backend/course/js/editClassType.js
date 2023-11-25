@@ -40,15 +40,41 @@ $(document).on("click" , "button.modify-button" ,  async function (){
 
 // ------------------   刪除 classType 按鈕觸發fetchData  ----------------------------
 $(document).on("click", "button.delete-button" , async function (){
-    // 獲取 classType 編號
-    let id = $(this).closest("tr").find("td").eq(0).text();
 
-    // 發送請求進行修改
-    let result = await fetchData(id , null , "delete");
 
-    if (result === 1){
-        $(this).closest("tr").remove();
-    }
+    Swal.fire({
+        title: "確定要刪除嗎?",
+        text: "此操作將無法復原!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "是, 刪除!",
+        cancelButtonText: "否, 取消!",
+    }).then(async (result) => {
+        if (result.isConfirmed) {
+            // 獲取 classType 編號
+            let id = $(this).closest("tr").find("td").eq(0).text();
+            // 發送請求進行修改
+            let result = await fetchData(id , null , "delete");
+            if (result === 1){
+                $(this).closest("tr").remove();
+                Swal.fire({
+                    title: "已刪除!",
+                    text: "該班級已刪除!",
+                    icon: "success"
+                });
+            }else {
+                Swal.fire({
+                    title: "失敗!",
+                    text: "刪除失敗，請重新嘗試!",
+                    icon: "error"
+                });
+            }
+
+        }
+    });
+
 })
 
 async function fetchData(id , name , action){
