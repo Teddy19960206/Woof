@@ -5,19 +5,31 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+ <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <style>
+        body {
+            padding-top: 20px;
+        }
+        .container {
+            max-width: 600px;
+        }
+        .error-msg {
+            font-size: 0.9em;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        img#myphoto {
+            width: 50%; /* or any custom size */
+            height: auto;
+            margin-bottom: 15px;
+        }
+    </style>
 <title>寵毛導師 Woof | 最新消息修改</title>
 <script>
 
-function formatDate(timestamp) {
-    var date = new Date(parseInt(timestamp));
-    var year = date.getFullYear();
-    var month = ('0' + (date.getMonth() + 1)).slice(-2);
-    var day = ('0' + date.getDate()).slice(-2);
-    var hours = ('0' + date.getHours()).slice(-2);
-    var minutes = ('0' + date.getMinutes()).slice(-2);
-    var seconds = ('0' + date.getSeconds()).slice(-2);
-    return year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
-}
 
 $(document).ready(function(){
     $.ajax({
@@ -57,38 +69,32 @@ $(document).ready(function(){
 </script>
 </head>
 <body>
-   <form method="post" action="<%=request.getContextPath()%>/latestNews.do?action=update" enctype="multipart/form-data">
-   <table>
-    <tr>
-   <th>消息編號</th>
-   <td> <input type="text" name="LN_NO" id="LN_NO" value="LN_NO" readonly>
-   </tr>
-   <tr>
-   <th>消息標題</th>
-   <td><input type="text" name="LN_TITLE" id="LN_TITLE"></td>
-   </tr>
-   <tr>
-   <th>消息內容</th>
-   <td><input type="text" name="LN_CONTENT" id="LN_CONTENT">
-   </td>
-   </tr>
-   <tr>
-    <th>消息時間</th>
-   <th><input type="text" name="LN_TIME" id="LN_TIME"></th>
-   </tr>
-   <!-- 	顯示大頭貼的DIV -->
-<!-- 	<img> -->
-	  <div>個人大頭貼</div>
-   <img src="#" id="myphoto" name="myphoto" accept="image/*">
-<input type="file" id="LN_PHOTO" name="LN_PHOTO" style="display:none;" accept="image/*">
-<input type="button" value="修改照片" onclick="$('#LN_PHOTO').click();" >
-
- 
-   </table>
-   <button type="submit">送出</button>
-   <input type="button" onclick="window.location.href='<%=request.getContextPath()%>/backend/latestnews/latestNews.jsp'"
-   value="取消">
-   </form>
+<div class="container">
+    <form method="post" action="<%=request.getContextPath()%>/latestNews.do?action=update" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="LN_NO">消息編號</label>
+            <input type="text" class="form-control" name="LN_NO" id="LN_NO" value="LN_NO" readonly>
+        </div>
+        <div class="form-group">
+            <label for="LN_TITLE">消息標題</label>
+            <input type="text" class="form-control" name="LN_TITLE" id="LN_TITLE">
+            <small style="color: red;" class="error-msg">${errorMsgs.LN_TITLE}</small>
+        </div>
+        <div class="form-group">
+            <label for="LN_CONTENT">消息內容</label>
+            <textarea class="form-control" name="LN_CONTENT" id="LN_CONTENT" rows="5" placeholder="請輸入消息內容"></textarea>
+            <small style="color: red;" class="error-msg">${errorMsgs.LN_CONTENT}</small>
+        </div>
+        <div class="form-group">
+            <label for="myphoto">個人大頭貼</label>
+            <img src="#" id="myphoto" class="img-thumbnail" accept="image/*">
+            <input type="file" id="LN_PHOTO" name="LN_PHOTO" class="form-control-file" style="display:none;" accept="image/*">
+            <button type="button" class="btn btn-info mt-2" onclick="$('#LN_PHOTO').click();">修改照片</button>
+        </div>
+        <button type="submit" class="btn btn-primary">送出</button>
+        <button type="button" class="btn btn-secondary" onclick="window.location.href='<%=request.getContextPath()%>/backend/latestnews/latestNews.jsp'">取消</button>
+    </form>
+</div>
 
 
 

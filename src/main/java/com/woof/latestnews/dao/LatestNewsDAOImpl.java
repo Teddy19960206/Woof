@@ -27,7 +27,7 @@ public class LatestNewsDAOImpl implements LatestNewsDAO {
 		@Override
 		public int update(LatestNews latestNews) {
 			try {
-				getSession().update(latestNews);
+				getSession().merge(latestNews);
 				return 1;
 			} catch (Exception e) {
 				return -1;

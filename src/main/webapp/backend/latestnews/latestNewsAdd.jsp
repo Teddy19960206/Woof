@@ -1,44 +1,58 @@
 <%@ page language="java" contentType="text/html; charset=BIG5"
-	pageEncoding="BIG5"%>
+    pageEncoding="BIG5"%>
 <%@ page import="com.woof.latestnews.entity.*"%>
 <%
 LatestNews ln = (LatestNews) request.getAttribute("latestNews");
 %>
-<html>
+<!DOCTYPE html>
+<html lang="zh-Hant">
 <head>
 <meta charset="UTF-8">
 <title>寵毛導師 Woof | 最新消息新增</title>
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<style>
+    body {
+        padding-top: 20px;
+    }
+    .container {
+        max-width: 600px;
+    }
+    .error-msg {
+        font-size: 0.9em;
+    }
+    .form-group {
+        margin-bottom: 10px;
+    }
+</style>
 </head>
 <body>
-	<form method="post"
-		action="<%=request.getContextPath()%>/latestNews.do"
-		accept-charset="UTF-8" enctype="multipart/form-data">
-		<table>
-			<tr>
-				<th>消息標題</th>
-				<td><input type="text" name="LN_TITLE" id="LN_TITLE"></td>
-				<td><small class="error-msg">${errorMsgs.LN_TITLE}</small></td>
-			</tr>
-			<th>消息內容</th>
-			<td><input type="text" name="LN_CONTENT" id="LN_CONTENT">
-			</td>
-			<td><small class="error-msg">${errorMsgs.LN_CONTENT}</small></td>
-			</tr>
-			<tr>
-				<th>消息時間</th>
-				<td><input type="text" name="LN_TIME" id="LN_TIME"></td>
-				<td><small class="error-msg">${errorMsgs.LN_TIME}</small></td>
-			</tr>
-			<tr>
-				<th>管理員大頭貼</th>
-				<td><input type="file" name="LN_PHOTO"></td>
-			</tr>
-		</table>
-		<input type="hidden" name="action" value="add">
-		<button type="submit">送出</button>
-		<input type="button"
-			onclick="window.location.href='<%=request.getContextPath()%>/backend/latestnews/latestNews.jsp'"
-			value="取消">
-	</form>
+<div class="container">
+    <form method="post" action="<%=request.getContextPath()%>/latestNews.do" accept-charset="UTF-8" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="LN_PHOTO">管理員大頭貼</label>
+            <input type="file" class="form-control-file" name="LN_PHOTO">
+        </div>
+        <div class="form-group">
+            <label for="LN_TITLE">消息標題</label>
+            <input type="text" class="form-control" name="LN_TITLE" id="LN_TITLE">
+            <small style="color: red;" class="error-msg">${errorMsgs.LN_TITLE}</small>
+        </div>
+        <div class="form-group">
+            <label for="LN_CONTENT">消息內容</label>
+            <textarea class="form-control" name="LN_CONTENT" id="LN_CONTENT" rows="5" placeholder="請輸入消息內容"></textarea>
+            <small style="color: red;" class="error-msg">${errorMsgs.LN_CONTENT}</small>
+        </div>
+        <input type="hidden" name="action" value="add">
+        <button type="submit" class="btn btn-primary">送出</button>
+        <button type="button" class="btn btn-secondary" onclick="window.location.href='<%=request.getContextPath()%>/backend/latestnews/latestNews.jsp'">取消</button>
+    </form>
+</div>
+<!-- Bootstrap JavaScript and dependencies -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
 </html>

@@ -17,12 +17,15 @@ import javax.servlet.http.Part;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import com.woof.latestnews.service.LatestNewsService;
 import com.woof.latestnews.service.LatestNewsServiceImpl;
 import com.woof.util.PartParsebyte;
 import com.woof.administrator.entity.Administrator;
+import com.woof.administrator.service.AdministratorService;
+import com.woof.administrator.service.AdministratorServiceImpl;
 import com.woof.latestnews.entity.*;
 
 @WebServlet("/latestNews.do")
@@ -52,10 +55,51 @@ public class LatestNewsServlet extends HttpServlet {
 				break;
 			case "query":
 				processQuery(req, res);
+				break;
+			case "getone":
+				getOne(req, res);
+				break;
 			default:
 			}
 		}
+		private void getOne(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
+			LatestNewsService latestNewsService = new LatestNewsServiceImpl();
+
+			try {
+
+				req.setCharacterEncoding("UTF-8");
+			
+
+				// 獲取特定成員
+				String lnNoStr = req.getParameter("LN_NO");
+				System.out.println(lnNoStr);
+
+				if (lnNoStr != null && !lnNoStr.trim().isEmpty()) {
+					try {
+
+						LatestNews latestNews=latestNewsService.findLatestNewsByLnNo(Integer.parseInt(lnNoStr));
+						req.setAttribute("latestNews", latestNews);
+					} catch (NumberFormatException e) {
+						e.printStackTrace();
+					}
+				} else {
+					req.setAttribute("error", "Invalid latestNews number provided.");
+					RequestDispatcher dispatcher = req.getRequestDispatcher("/frontend/administrator/errorPage.jsp");
+					dispatcher.forward(req, res);
+					return;
+				}
+				// 設置編碼和轉發到指定的JSP頁面
+				req.setCharacterEncoding("UTF-8");
+				RequestDispatcher dispatcher = req.getRequestDispatcher("/backend/latestnews/listonelatestnews.jsp");
+				dispatcher.forward(req, res);
+
+			} catch (Exception e) {
+				// 處理其他潛在錯誤
+				e.printStackTrace();
+
+			}
+		}
 		@Override
 		protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 			doPost(req, res);
@@ -78,25 +122,67 @@ public class LatestNewsServlet extends HttpServlet {
 		}
 		
 		private void processUpdate(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
-			 LatestNews ln = new LatestNews();
-			 String lnNoStr = req.getParameter("LN_NO");
-			    if (lnNoStr != null && !lnNoStr.isEmpty()) {
-			        ln.setLnNo(Integer.parseInt(lnNoStr));
-			    }
+			Map<String,String> errorMsgs = new LinkedHashMap<String,String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			List<LatestNews> latestNews = latestNewsService.getAllLatestNews(); 
+			LatestNews ln = new LatestNews();
+		
+			
+			 
+			String lnNoStr = req.getParameter("LN_NO");
+		    if (lnNoStr != null && !lnNoStr.isEmpty()) {
+		        ln.setLnNo(Integer.parseInt(lnNoStr));
+		    }
+			    
+			    
+			    String lnTitle = req.getParameter("LN_TITLE");
+				if (lnTitle == null || lnTitle.trim().length() == 0) {
+				    errorMsgs.put("LN_TITLE", "消息標題請勿空白");
+				}else if(lnTitle.length() >40) { 
+					errorMsgs.put("LN_TITLE","長度不得超過40");
+		        }
+				
+				String lnContent = req.getParameter("LN_CONTENT");
+				if (lnContent == null || lnContent.trim().length() == 0) {
+				    errorMsgs.put("LN_CONTENT", "消息內容請勿空白");
+				}else if(lnContent.length() >300) { 
+					errorMsgs.put("LN_CONTENT","長度不得超過300");
+		        }
+				
+				if (!errorMsgs.isEmpty()){
+					req.getSession().setAttribute("errorMsgs", errorMsgs);
+					String contextPath = req.getContextPath();
+					res.sendRedirect(contextPath + "/backend/latestnews/latestNewsUpdate.jsp?lnNo=" + lnNoStr);
+
+			    return;
+//			    刪除錯誤訊息
+				}else {
+					req.getSession().removeAttribute("errorMsgs");
+				}
 			    // 設置標題和內容
+		
 			    ln.setLnTitle(req.getParameter("LN_TITLE"));
 			    ln.setLnContent(req.getParameter("LN_CONTENT"));
 
 			    // 處理時間
 			    String lnTimeStr1 = req.getParameter("LN_TIME"); 
-			    SimpleDateFormat dateFormat1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			    try {
-			        Date parseDate1 = dateFormat1.parse(lnTimeStr1);
-			        java.sql.Timestamp lnTime1 = new java.sql.Timestamp(parseDate1.getTime());
-			        ln.setLnTime(lnTime1);
-			    } catch (ParseException e) {
-			        e.printStackTrace();
-			    }
+			    Date now = new Date();
+				SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				Date parseDate;
+				java.sql.Timestamp lnTime;
+				String lnTimeStr = dateFormat.format(now);
+					
+					Date parsedDate = null;
+					try {
+						parsedDate = dateFormat.parse(lnTimeStr);
+					} catch (ParseException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					lnTime = new Timestamp(parsedDate.getTime());
+					System.out.println(lnTime);
+					ln.setLnTime(lnTime);
+					req.setAttribute("lnTime", lnTime);
 			    Part p = req.getPart("LN_PHOTO");
 		        InputStream input = p.getInputStream();
 		        byte[] photo = new byte[input.available()];
@@ -115,24 +201,58 @@ public class LatestNewsServlet extends HttpServlet {
 			}
 
 		private void processAdd(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
+			Map<String,String> errorMsgs = new LinkedHashMap<String,String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			List<LatestNews> latestNews = latestNewsService.getAllLatestNews();
 			LatestNews ln = new LatestNews();
 			//把資料給前端
-		
+			String lnTitle = req.getParameter("LN_TITLE");
+			if (lnTitle == null || lnTitle.trim().length() == 0) {
+			    errorMsgs.put("LN_TITLE", "消息標題請勿空白");
+			}else if(lnTitle.length() >40) { 
+				errorMsgs.put("LN_TITLE","長度不得超過40");
+	        }
+			
+			String lnContent = req.getParameter("LN_CONTENT");
+			if (lnContent == null || lnContent.trim().length() == 0) {
+			    errorMsgs.put("LN_CONTENT", "消息內容請勿空白");
+			}else if(lnContent.length() >300) { 
+				errorMsgs.put("LN_CONTENT","長度不得超過300");
+	        }
+			
+			if (!errorMsgs.isEmpty()){
+				req.getSession().setAttribute("errorMsgs", errorMsgs);
+				req.getRequestDispatcher("backend/latestnews/latestNewsAdd.jsp").forward(req, res);
+
+		    return;
+//		    刪除錯誤訊息
+			}else {
+				req.getSession().removeAttribute("errorMsgs");
+			}
+			
 //			ln.setLnNo (req.getParameter(Integer.parseInt("LN_NO")));
 			ln.setLnTitle (req.getParameter("LN_TITLE"));
 			ln.setLnContent(req.getParameter("LN_CONTENT"));
-			String lnTimeStr = req.getParameter("LN_TIME"); // 獲取 LN_TIME 參數的值
+			
+			Date now = new Date();
 			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			Date parseDate;
 			java.sql.Timestamp lnTime;
-			try {
-				parseDate = dateFormat.parse(lnTimeStr);
-				lnTime = new java.sql.Timestamp(parseDate.getTime());
+			String lnTimeStr = dateFormat.format(now);
+				
+				Date parsedDate = null;
+				try {
+					parsedDate = dateFormat.parse(lnTimeStr);
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				lnTime = new Timestamp(parsedDate.getTime());
+				System.out.println(lnTime);
 				ln.setLnTime(lnTime);
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+				req.setAttribute("lnTime", lnTime);
+				
+			
 			
 			
 		
