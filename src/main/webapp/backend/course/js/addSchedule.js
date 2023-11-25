@@ -321,7 +321,7 @@ async function fetchDetailByDate(year , month){
         if (!response.ok){
             await Swal.fire({
                 icon: "error",
-                title: `${str}`,
+                title: `異常錯誤`,
                 text: "異常",
             });
             throw new Error("網路異常")
@@ -361,7 +361,7 @@ async function fetchNonClass(year , month , trainerNo){
         if (!response.ok){
             await Swal.fire({
                 icon: "error",
-                title: `${str}`,
+                title: `異常錯誤`,
                 text: "異常",
             });
             throw new Error("異常錯誤");
@@ -382,7 +382,7 @@ async function fetchNonClass(year , month , trainerNo){
     }catch (error){
         await Swal.fire({
             icon: "error",
-            title: `${str}`,
+            title: `失敗！`,
             text: "新增失敗",
         });
         console.error("Error" , error)
@@ -440,7 +440,7 @@ async function addSchedule(){
 
             await Swal.fire({
                 icon: "error",
-                title: `${str}`,
+                title: `錯誤！`,
                 text: "新增失敗",
             });
         }
@@ -448,7 +448,7 @@ async function addSchedule(){
     }catch (error){
         await Swal.fire({
             icon: "error",
-            title: `${str}`,
+            title: `失敗！`,
             text: "新增失敗",
         });
         console.error('Error', error);
