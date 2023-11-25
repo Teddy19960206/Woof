@@ -669,6 +669,9 @@ public class GroupScheduleServlet extends HttpServlet {
                     groupCourseSchedule.getGcsDelayReason(),
                     groupCourseSchedule.getRelatedGcsNo());
 
+            Jedis jedis = JedisUtil.getResource();
+            jedis.hdel("schedules" , idStr);
+            jedis.close();
 
 
             response.getWriter().write("{ \"message\":\"新增成功\" }");
