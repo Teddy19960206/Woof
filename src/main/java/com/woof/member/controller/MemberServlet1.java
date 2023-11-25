@@ -7,6 +7,8 @@ import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -198,6 +200,19 @@ public class MemberServlet1 extends HttpServlet {
 		
 		if (mememail == null || mememail.trim().length() == 0) {
 			errorMsgs.put("memEmail","會員信箱請勿空白");
+		} else {
+		    // 檢查信箱長度
+		    if (mememail.length() < 16 || mememail.length() > 40) {
+		        errorMsgs.put("memEmail", "帳號長度必須在6到30個字符之間");
+		    } else {
+		        // 正則表達式，用於驗證信箱格式
+		        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+		        Pattern pattern = Pattern.compile(emailRegex);
+		        Matcher matcher = pattern.matcher(mememail);
+		        if (!matcher.matches()) {
+		            errorMsgs.put("memEmail", "請輸入有效的信箱地址");
+		        }
+		    }
 		}
 		
 		String mempwd = req.getParameter("memPassword").trim();
@@ -209,10 +224,13 @@ public class MemberServlet1 extends HttpServlet {
 		    member.setMemPassword(encryptedPassword);
 		}
 		
+		String memtel1 = "^09\\d{8}$";
 		String memtel = req.getParameter("memTel").trim();
 		if (memtel == null || memtel.trim().length() == 0) {
 			errorMsgs.put("memTel","會員電話請勿空白");
-		} 
+		} else if(!memtel.trim().matches(memtel1)) {
+			errorMsgs.put("memTel","會員電話: 只能是09開頭且總長度為10");
+        }
 		
 		String memaddress = req.getParameter("memAddress").trim();
 		if (memaddress == null || memaddress.trim().length() == 0) {
@@ -307,17 +325,20 @@ public class MemberServlet1 extends HttpServlet {
 		    String encryptedPassword = BCrypt.hashpw(mempwd, BCrypt.gensalt());
 		    member.setMemPassword(encryptedPassword);
 		}
-			
+		
+		String memtel1 = "^09\\d{8}$";
 		String memtel = req.getParameter("memTel").trim();
 		if (memtel == null || memtel.trim().length() == 0) {
 			errorMsgs.put("memTel","會員電話請勿空白");
-		} 
+		} else if(!memtel.trim().matches(memtel1)) {
+			errorMsgs.put("memTel","會員電話: 只能是09開頭且總長度為10");
+        }
 		
 		String memaddress = req.getParameter("memAddress").trim();
 		if (memaddress == null || memaddress.trim().length() == 0) {
 			errorMsgs.put("memAddress","會員地址請勿空白");
 		}
-		// Send the use back to the form, if there were errors
+		
 		if (!errorMsgs.isEmpty()){
 			req.getRequestDispatcher("frontend/member/login/updatemember.jsp?memNo=" + memNo).forward(req, res);
 	    return;
