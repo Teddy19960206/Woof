@@ -282,7 +282,7 @@ body {
 					<div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="TEXT" name="memNo"
-								id="memNo" size="56" readonly
+								id="memNo" size="51" readonly
 								style="background-color: #e9ecef; border: 1px solid #ced4da;" />
 						</div>
 					</div>
@@ -292,7 +292,7 @@ body {
 					<div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="TEXT" name="memName"
-								id="memName" size="56" required />
+								id="memName" size="51" required />
 						</div>
 					</div>
 					<small class="error-msg">${errorMsgs.memName}</small>
@@ -336,7 +336,7 @@ body {
 					<div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="email" name="memEmail"
-								id="memEmail" placeholder="XXX@gmail.com" size="56" readonly
+								id="memEmail" placeholder="XXX@gmail.com" size="51" readonly
 								style="background-color: #e9ecef; border: 1px solid #ced4da;" />
 						</div>
 					</div>
@@ -346,9 +346,9 @@ body {
 					<label for="memPassword">密碼(需大於六個字):</label>
 					<div style="position: relative;">
 						<input class="form__input" pattern=".{6,}" type="password"
-							name="memPassword" id="memPassword" size="56" /> <i
+							name="memPassword" id="memPassword" size="51" /> <i
 							class="fa fa-eye-slash"
-							style="position: absolute; right: 60px; top: 6px; cursor: pointer;"
+							style="position: absolute; right: 100px; top: 6px; cursor: pointer;"
 							onclick="togglePasswordVisibility('memPassword', this)"
 							id="togglePassword"></i>
 						<!-- 	<span class="icon" style="position: absolute; right: 10; top: 6px;"></span> -->
@@ -360,7 +360,7 @@ body {
 					<div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="tel" name="memTel"
-								id="memTel" size="56" required />
+								id="memTel" size="51" required />
 						</div>
 					</div>
 					<small class="error-msg">${errorMsgs.memTel}</small>
@@ -379,7 +379,7 @@ body {
 					<div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="Text" name="memBd"
-								id="memBd" size="56" />
+								id="memBd" size="51" />
 						</div>
 					</div>
 				</div>
@@ -388,7 +388,7 @@ body {
 					<div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="number" name="momoPoint"
-								id="momoPoint" size="56" readonly
+								id="momoPoint" size="51" readonly
 								style="background-color: #e9ecef; border: 1px solid #ced4da;" />
 						</div>
 					</div>
@@ -398,7 +398,7 @@ body {
 					<div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="number" name="totalClass"
-								id="totalClass" size="56" readonly
+								id="totalClass" size="51" readonly
 								style="background-color: #e9ecef; border: 1px solid #ced4da;" />
 						</div>
 					</div>
@@ -408,7 +408,7 @@ body {
 					<div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="number" name="memStatus"
-								id="memStatus" size="56" readonly
+								id="memStatus" size="51" readonly
 								style="background-color: #e9ecef; border: 1px solid #ced4da;" />
 						</div>
 					</div>
