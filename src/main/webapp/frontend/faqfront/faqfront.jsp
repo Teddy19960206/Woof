@@ -5,7 +5,7 @@
 <head>
 <%@ include file="/meta.file"%>
 <meta charset="UTF-8">
-<title>FAQ</title>
+<title>寵毛導師 Woof | FAQ</title>
 
 </head>
 <body>
