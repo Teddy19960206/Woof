@@ -33,7 +33,7 @@
 					<div id="petTrainingFaqs" class="faq-category">
 						<div class="accordion" id="petTrainingFaqs">
 							<c:forEach items="${all}" var="entry">
-								<c:if test="${entry.faqClass eq '寵物訓練問題'}">
+								<c:if test="${entry.faqClass eq '課程問題'}">
 									<div class="accordion-item">
 										<h2 class="accordion-header" id="heading${entry.faqNo}">
 											<button class="accordion-button collapsed bg-light"
