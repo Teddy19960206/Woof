@@ -84,7 +84,7 @@ public class LoginServlet extends HttpServlet {
 						}
 					catch (Exception e) {
 					e.printStackTrace();
-					 errorMsgs.put("loginError1", "帳號密碼有誤");
+					 errorMsgs.put("loginError1", "帳號未註冊");
 					req.getRequestDispatcher("frontend/administratorlogin/logout1.jsp").forward(req, res);
 					}
 					return;
