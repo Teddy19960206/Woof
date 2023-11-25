@@ -23,8 +23,8 @@
 					<tr>
 						<th class="col-1">FAQ編號</th>
 						<th class="col-2">類別</th>
-						<th class="col-2">標題</th>
-						<th class="col-7">內容</th>
+						<th class="col-3">標題</th>
+						<th class="col-6">內容</th>
 					</tr>
 				</thead>
 				<tr>
