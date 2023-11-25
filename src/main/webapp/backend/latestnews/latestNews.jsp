@@ -95,8 +95,8 @@
 					</p>
 					<div class="image-container mb-3">
 						<!-- 確保圖片的 Base64 編碼是正確的 -->
-						<img src="data:image/jpeg;base64,${latestNews.imgStr1}"
-    class="fixed-size-image" alt="News Image">
+						<img src="data:image/jpeg;base64,${latestNews.imgStr1}"class="fixed-size-image" alt="News Image"
+						 onerror="this.onerror=null; this.src='/woof/frontend/images/avatar24-01.png';">
 					</div>
 					<input type="button" class="btn btn-secondary" value="修改"
 						onclick="processUpdate({lnNo:'${latestNews.lnNo}'});"> <input
