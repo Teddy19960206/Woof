@@ -32,15 +32,15 @@
 			action="${pageContext.request.contextPath}/faq?action=addfaq">
 			<div class="form-group">
 				<label for="faqClass">FAQ類別：</label> <input type="text"
-					class="form-control" id="faqClass" name="faqClass" value="訂單問題">
+					class="form-control" id="faqClass" name="faqClass" value="">
 			</div>
 			<div class="form-group">
 				<label for="faqTitle">FAQ標題：</label> <input type="text"
-					class="form-control" id="faqTitle" name="faqTitle" value="退貨時間？">
+					class="form-control" id="faqTitle" name="faqTitle" value="">
 			</div>
 			<div class="form-group">
 				<label for="faqContent">FAQ內容：</label> <input type="text"
-					class="form-control" id="faqContent" name="faqContent" value="9點">
+					class="form-control" id="faqContent" name="faqContent" value="">
 			</div>
 			<button class="btn btn-success" type="submit">確定新增</button>
 			<a class="btn btn-secondary"
