@@ -72,7 +72,7 @@
 			<th>預約時間</th>
 			<th>預約狀態</th>
 			<th></th>
-			<th></th>
+<!-- 			<th></th> -->
 		
 		</tr>
 		<c:set var="ptaNo" value="" />
@@ -116,21 +116,21 @@
 
 					</FORM>
 				</td>
-				<td>
-					<FORM METHOD="post" action="${pageContext.request.contextPath}/appointmentdetail?action=delete" enctype="application/x-www-form-urlencoded">
-						<%
-						adNo = request.getParameter("adNo");
-						ptaNo = request.getParameter("ptaNo");
-						memNo = request.getParameter("memNo");
-						trainerNo = request.getParameter("trainerNo");
-						%>
-						<input type="hidden" name="adNo" value="${AD.adNo}">
-						<input type="hidden" name="ptaNo" value="${AD.privateTrainingAppointmentForm.ptaNo}">
-						<input type="hidden" name="memNo" value="${param.memNo}">
-						<input type="hidden" name="trainerNo" value="${param.trainerNo}">
-						<button class="btn btn-delete" type="submit">刪除</button>
-					</FORM>
-				</td>
+<!-- 				<td> -->
+<%-- 					<FORM METHOD="post" action="${pageContext.request.contextPath}/appointmentdetail?action=delete" enctype="application/x-www-form-urlencoded"> --%>
+<%-- 						<% --%>
+<!-- 						adNo = request.getParameter("adNo"); -->
+<!-- 						ptaNo = request.getParameter("ptaNo"); -->
+<!-- 						memNo = request.getParameter("memNo"); -->
+<!-- 						trainerNo = request.getParameter("trainerNo"); -->
+<!-- 						%> -->
+<%-- 						<input type="hidden" name="adNo" value="${AD.adNo}"> --%>
+<%-- 						<input type="hidden" name="ptaNo" value="${AD.privateTrainingAppointmentForm.ptaNo}"> --%>
+<%-- 						<input type="hidden" name="memNo" value="${param.memNo}"> --%>
+<%-- 						<input type="hidden" name="trainerNo" value="${param.trainerNo}"> --%>
+<!-- 						<button class="btn btn-delete" type="submit">刪除</button> -->
+<!-- 					</FORM> -->
+<!-- 				</td> -->
 			</tr>
 		</c:forEach>
 	</table>
