@@ -52,7 +52,6 @@
 
     button {
         padding: 10px 20px;
-        margin-top: 10px;
         background-color: #007bff;
         color: #fff;
         border: none;
