@@ -203,29 +203,30 @@ section {
  
   })
   
-  //表單點擊找出對應的function
+  //點擊找出對應的function
   function processUpdate(jsonData){
 	  window.location.href = " <%=request.getContextPath()%>/frontend/administrator/administratorUpdate.jsp?adminNo=" + jsonData.adminNo ;
   }
   function processDelete(jsonData){
- 	 $.ajax({
-     //指定http參數傳輸格式為POST
-     type : "POST",
-     //ajax請求配置
-     data : jsonData,
-     //請求目標的url
-     url : "<%=request.getContextPath()%>/administrator.do?action=del",
-     //Ajax成功後執行的function，response為回傳的值
-     success : function(data) {
-    	 alert('刪除成功');
-    	 window.location.reload();
-     },
-     //Ajax失敗後要執行的function，此例為印出錯誤訊息
-     error : function(xhr, ajaxOptions, thrownError) {
-      alert("哇 錯了");
-     }
-    });
-  }
+	    // 增加確認框
+	    if(confirm("確定要刪除嗎？")) {
+	        $.ajax({
+	            type : "POST",
+	            data : jsonData,
+	            url : "<%=request.getContextPath()%>/administrator.do?action=del",
+	            success : function(data) {
+	                alert('刪除成功');
+	                window.location.reload();
+	            },
+	            error : function(xhr, ajaxOptions, thrownError) {
+	                alert("哇 錯了");
+	            }
+	        });
+	    } else {
+	        // 如果用戶點擊"取消"，則不進行任何操作
+	        alert('已取消刪除');
+	    }
+	}
   //跳轉到add.jsp頁面
   function processAdd() {
 	  window.location.href= "<%=request.getContextPath()%>/frontend/administrator/administratorAdd.jsp"

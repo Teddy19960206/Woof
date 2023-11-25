@@ -51,20 +51,26 @@
 		function processUpdate(jsonData){
 		window.location.href="<%=request.getContextPath()%>/backend/latestnews/latestNewsUpdate.jsp?lnNo="+jsonData.lnNo;
 	}
-	function processDelete(jsonData){
-		$.ajax({
-			type:"POST",
-			data:jsonData,
-			url:"<%=request.getContextPath()%>/latestNews.do?action=del",
-					success:function(data){
-						alert('刪除成功');
-						window.location.reload();
-					},
-					error: function(xhr,ajaxOptions,thrownError){
-						alert("哇 錯了");
-					}
-		});
-	}
+		  function processDelete(jsonData){
+			    // 增加確認框
+			    if(confirm("確定要刪除嗎？")) {
+			        $.ajax({
+			            type : "POST",
+			            data : jsonData,
+			            url : "<%=request.getContextPath()%>/latestNews.do?action=del",
+			            success : function(data) {
+			                alert('刪除成功');
+			                window.location.reload();
+			            },
+			            error : function(xhr, ajaxOptions, thrownError) {
+			                alert("哇 錯了");
+			            }
+			        });
+			    } else {
+			        // 如果用戶點擊"取消"，則不進行任何操作
+			        alert('已取消刪除');
+			    }
+			}
 	function processAdd(){
 		window.location.href="<%=request.getContextPath()%>/backend/latestnews/latestNewsAdd.jsp"
 	}
@@ -89,8 +95,8 @@
 					</p>
 					<div class="image-container mb-3">
 						<!-- 確保圖片的 Base64 編碼是正確的 -->
-						<img src="data:image/jpeg;base64,${latestNews.imgStr1}"
-    class="fixed-size-image" alt="News Image">
+						<img src="data:image/jpeg;base64,${latestNews.imgStr1}"class="fixed-size-image" alt="News Image"
+						 onerror="this.onerror=null; this.src='/woof/frontend/images/avatar24-01.png';">
 					</div>
 					<input type="button" class="btn btn-secondary" value="修改"
 						onclick="processUpdate({lnNo:'${latestNews.lnNo}'});"> <input
