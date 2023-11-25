@@ -6,7 +6,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <%@ include file="/meta.file"%>
-<title>私人訓練師預約</title>
+<title>寵毛導師 Woof | 預約單評論</title>
+<%@ include file="body.jsp"%>
 <script type="text/javascript">
 //表單點擊找出對應的function//
   function processUpdate(jsonData){
@@ -196,135 +197,16 @@ button[type="submit"]:hover {
 </script>
 <script src="https://kit.fontawesome.com/3f37e88a3b.js" crossorigin="anonymous"></script>
 <body>
-<%@ include file="/Header.file"%>
-	<jsp:useBean id="memberService" scope="page"
-		class="com.woof.member.service.MemberServiceImpl" />
-	<div class="container mt-5">
-		<div class="row">
-			<div class="col-12 col-md-4">
-				<div class="accordion" id="accordionExample">
-					<!-- 用戶資訊項目 -->
-					<div class="accordion-item">
-						<h2 class="accordion-header">
-							<button class="accordion-button" type="button"
-								data-bs-toggle="collapse" data-bs-target="#collapseUserInfo"
-								aria-expanded="true" aria-controls="collapseUserInfo">
-								您好，
-								<c:out value="${member.memName}！" />
-							</button>
-						</h2>
-						<div id="collapseUserInfo"
-							class="accordion-collapse collapse show"
-							data-bs-parent="#accordionExample">
-							<div class="accordion-body">
-								<form method="post"
-									action="${pageContext.request.contextPath}/member1.do"
-									style="margin-bottom: 0px;">
-									<input type="hidden" name="action" value="update"> <input
-										type="hidden" name="memNo" value="${member.memNo}"> <a
-										onclick="processUpdate({memNo:'${member.memNo}'});"
-										style="cursor: pointer;"> <i class="fa-solid fa-user"></i>&nbsp;修改基本資料
-									</a>
-								</form>
-							</div>
-						</div>
-					</div>
-			<!-- 課程管理項目 -->
-			<div class="accordion-item">
-				<h2 class="accordion-header">
-					<button class="accordion-button collapsed" type="button"
-						data-bs-toggle="collapse"
-						data-bs-target="#collapseCourseManagement" aria-expanded="false"
-						aria-controls="collapseCourseManagement">
-						<i class="fa-solid fa-school"></i>&nbsp;課程管理
-					</button>
-				</h2>
-				<div id="collapseCourseManagement"
-					class="accordion-collapse collapse"
-					data-bs-parent="#accordionExample">
-					<div class="accordion-body">
-						<!-- 私人訓練師項目 -->
-						<div class="accordion-item">
-							<h2 class="accordion-header">
-								<button class="accordion-button collapsed" type="button"
-									data-bs-toggle="collapse"
-									data-bs-target="#collapsePersonalTrainerOptions"
-									aria-expanded="false"
-									aria-controls="collapsePersonalTrainerOptions">
-									</i> 私人訓練師
-								</button>
-							</h2>
-							<div id="collapsePersonalTrainerOptions"
-								class="accordion-collapse collapse"
-								data-bs-parent="#collapseCourseManagement">
-								<div class="accordion-body">
-									<a href="${pageContext.request.contextPath}/frontend/member/login/classOrder.jsp">課程訂單管理</a>
-								</div>
-								<hr class="custom-divider">
-								<div class="accordion-body">
-									<a href="${pageContext.request.contextPath}/frontend/member/login/appointment.jsp">預約單管理</a>
-								</div>
-							</div>
-						</div>
-					</div>
-					<hr class="custom-divider">
-					<div class="accordion-body">
-						<a
-							href="${pageContext.request.contextPath}/frontend/member/login/groupOrder.jsp">團體報名訂單管理</a>
-					</div>
-				</div>
-			</div>
-
-			<!-- 商城訂單查詢項目 -->
-			<div class="accordion-item">
-				<h2 class="accordion-header">
-					<button class="accordion-button collapsed" type="button"
-						data-bs-toggle="collapse"
-						data-bs-target="#collapseShopOrderManagement"
-						aria-expanded="false" aria-controls="collapseShopOrderManagement">
-						<i class="fa-solid fa-shop"></i>&nbsp;商城訂單查詢
-					</button>
-				</h2>
-				<div id="collapseShopOrderManagement"
-					class="accordion-collapse collapse"
-					data-bs-parent="#accordionExample">
-					<div class="accordion-body">
-						<a href="#">訂單查詢</a>
-					</div>
-				</div>
-				<hr class="custom-divider">
-				<!-- 新增分隔線，並加入自訂類別 -->
-				<div id="collapseShopOrderManagement"
-					class="accordion-collapse collapse"
-					data-bs-parent="#accordionExample">
-					<div class="accordion-body">
-						<a href="#">訂單追蹤</a>
-					</div>
-				</div>
-				<hr class="custom-divider">
-				<!-- 新增分隔線，並加入自訂類別 -->
-				<div id="collapseShopOrderManagement"
-					class="accordion-collapse collapse"
-					data-bs-parent="#accordionExample">
-					<div class="accordion-body">
-						<a href="#">商品退貨</a>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-			<div class="col-12 col-md-8">
-				<div class="card">
-        			<div class="card-body">
-            			<h3 class="card-title text-center p-2">私人預約單評論</h3>
-            				<form method="POST" action="${pageContext.request.contextPath}/privatetrainingappointmentform?action=updatecomment">
-        						<textarea name="comment" rows="5" placeholder="請輸入評論內容" required>${param.ptaComment}</textarea>
-        						<input type="hidden" name="ptaNo" value="${param.ptaNo}">					
-        						<button type="submit">提交評論</button>
-    						</form>
-    						<button class="btn btn-back" onclick="history.back()">返回</button>
-					</div>
-				</div>
+	<div class="col-12 col-md-8">
+		<div class="card">
+        	<div class="card-body">
+            	<h3 class="card-title text-center p-2">私人預約單評論</h3>
+            		<form method="POST" action="${pageContext.request.contextPath}/privatetrainingappointmentform?action=updatecomment">
+        				<textarea name="comment" rows="5" placeholder="請輸入評論內容" required>${param.ptaComment}</textarea>
+        				<input type="hidden" name="ptaNo" value="${param.ptaNo}">					
+        				<button type="submit">提交評論</button>
+    				</form>
+    				<button class="btn btn-back" onclick="history.back()">返回</button>
 			</div>
 		</div>
 	</div>
