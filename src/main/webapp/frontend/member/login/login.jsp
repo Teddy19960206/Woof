@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- 引入 Bootstrap CSS -->
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -60,6 +61,38 @@ body {
 
 .button-submit:hover {
   background-color: #ff8c00;
+}
+
+@media (max-width: 768px) {
+    .login-container {
+        margin: 20px 10px;
+        padding: 10px;
+    }
+
+    .login-header {
+        font-size: 1.5em; /* 調整字體大小 */
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .login-container {
+        max-width: 100%;
+        margin: 10px;
+        padding: 15px;
+    }
+
+    .login-header, label, .form-check-label, .button-submit, .form-control {
+        font-size: 1em; /* 增大字體大小 */
+    }
+
+    .button-submit, .form-control {
+        height: 40px; /* 調整高度 */
+        padding: 8px; /* 調整內間距 */
+    }
+
+    .flex-row {
+        flex-direction: column; /* 將柔性盒子由水平改為垂直排列 */
+    }
 }
 </style>
 <script src="https://kit.fontawesome.com/3f37e88a3b.js" crossorigin="anonymous"></script>
