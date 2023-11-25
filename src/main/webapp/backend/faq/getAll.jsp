@@ -34,19 +34,19 @@ request.setCharacterEncoding("UTF-8");
 			<div class="row pt-2">
 				<div class="col-4">
 					<label for="faqClass">FAQ類別：</label> <input type="text"
-						class="form-control" id="faqClass" name="faqClass" value="訂單問題	">
+						class="form-control" id="faqClass" name="faqClass" value="訂單問題	" required>
 				</div>
 				<div class="col-4">
 					<label for="faqTitle">FAQ標題：</label> <input type="text"
 						class="form-control" id="faqTitle" name="faqTitle"
-						value="如何查詢已購買的商品？">
+						value="如何查詢已購買的商品？" required>
 				</div>
 			</div>
 			<div class="row pt-2">
 				<div class="col-10">
 					<label for="faqContent">FAQ內容：</label> <input type="text"
 						class="form-control" id="faqContent" name="faqContent"
-						value="在您的訂單查詢，您可以找到已購買的商品。">
+						value="在您的訂單查詢，您可以找到已購買的商品。" required>
 				</div>
 
 				<div class="col-2  d-flex align-items-end">

@@ -13,7 +13,7 @@
 	<%@ include file="/backend/backbody.file"%>
 
 	<div class="container pt-3">
-		<h1 class="text-center">確定修改FAQ</h1>
+<!-- 		<h1 class="text-center">確定修改FAQ</h1> -->
 
 		<form action="${pageContext.request.contextPath}/faq/updatefaq"
 			method="post">

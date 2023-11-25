@@ -36,7 +36,7 @@ request.setAttribute("shopOrder", shopOrder);
 <!DOCTYPE html>
 <html>
 <head>
-<title>訂單明細</title>
+<title>寵毛導師 Woof | 商城訂單明細</title>
 <style>
 .invoice-border {
 	border: 2px solid #ddd;
