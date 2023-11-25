@@ -145,16 +145,16 @@ body {
 	border: 1px solid lightgray;
 	display: inline-block; /*  */
 	width: 200px;
-	min-height: 256px;
+	min-height: 251px;
 	position: relative;
 }
 
 #preview span.text {
 	position: absolute;
 	display: inline-block;
-	left: 56%;
-	top: 56%;
-	transform: translate(-56%, -56%);
+	left: 51%;
+	top: 51%;
+	transform: translate(-51%, -51%);
 	z-index: -1;
 	color: lightgray;
 }
@@ -203,7 +203,7 @@ body {
 					<div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="TEXT" name="memNo"
-								id="memNo" size="56" required />
+								id="memNo" size="51" required />
 						</div>
 					</div>
 					<small class="error-msg">${errorMsgs.memNo}</small>
@@ -213,7 +213,7 @@ body {
 					<div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="TEXT" name="memName"
-								id="memName" size="56" required />
+								id="memName" size="51" required />
 						</div>
 					</div>
 					<small class="error-msg">${errorMsgs.memName}</small>
@@ -258,7 +258,7 @@ body {
 					<div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="email" name="memEmail"
-								id="memEmail" placeholder="XXX@gmail.com" size="56" required />
+								id="memEmail" placeholder="XXX@gmail.com" size="51" required />
 						</div>
 					</div>
 					<small class="error-msg">${errorMsgs.memEmail}</small>
@@ -267,9 +267,9 @@ body {
 					<label for="memPassword"><span class="required">*</span>密碼(需大於六個字):</label>
 					<div style="position: relative;">
 						<input class="form__input" pattern=".{6,}" type="password"
-							name="memPassword" id="memPassword" size="56" required /> <i
+							name="memPassword" id="memPassword" size="51" required /> <i
 							class="fa fa-eye-slash"
-							style="position: absolute; right: 60px; top: 6px; cursor: pointer;"
+							style="position: absolute; right: 100px; top: 6px; cursor: pointer;"
 							onclick="togglePasswordVisibility('memPassword', this)"
 							id="togglePassword"></i>
 						<span class="icon" style="position: absolute; right: 10; top: 6px;"></span>
@@ -281,7 +281,7 @@ body {
 					<div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="tel" name="memTel"
-								id="memTel" size="56" required />
+								id="memTel" size="51" required />
 						</div>
 					</div>
 					<small class="error-msg">${errorMsgs.memTel}</small>
@@ -301,7 +301,7 @@ body {
 					<div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="Text" name="memBd"
-								id="memBd" size="56" placeholder="西元-月-日" required />
+								id="memBd" size="51" placeholder="西元-月-日" required />
 						</div>
 					</div>
 					<small class="error-msg">${errorMsgs.memBd}</small>
