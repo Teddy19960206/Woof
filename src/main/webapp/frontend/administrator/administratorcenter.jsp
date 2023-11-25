@@ -8,6 +8,7 @@
 
 <style>
 a[name="adminNo"] {
+	padding-top: 50px;
     font-family: 'Arial', sans-serif; /* 設置字體 */
     color: #ffffff; /* 文字顏色 */
     background-color: #faba91; /* 背景顏色 */
@@ -20,6 +21,19 @@ a[name="adminNo"] {
 a[name="adminNo"]:hover {
     background-color: #ffc107; /* 滑鼠懸停時的背景顏色 */
     color: #ffffff; /* 滑鼠懸停時的文字顏色 */
+}
+.myBtn{
+	font-family: 'Arial', sans-serif; /* 設置字體 */
+	color: black; /* 文字顏色 */
+	background-color: #faba91; /* 背景顏色 */
+	padding: 5px 10px 5px 10px; /* 內邊距 */
+	text-decoration: none; /* 移除文字下劃線 */
+	border-radius: 4px; /* 邊框圓角 */
+	transition: all 0.3s ease; /* 添加過渡效果 */
+}
+.myBtn:hover{
+	background-color: #ffc107; /* 滑鼠懸停時的背景顏色 */
+	color: black; /* 滑鼠懸停時的文字顏色 */
 }
 
 </style>
@@ -34,11 +48,12 @@ function processUpdate2(jsonData){
 </head>
 <body>
 <%@ include file="/backend/backbody.file" %>
-	<nav class="navbar navbar-expand-lg navbar-light">
-		<a class="navbar-brand" href="#">訓練師中心</a>
-	</nav>
 
-	<div class="container mt-5">
+
+	<div class="container py-5">
+		<nav class="navbar navbar-expand-lg navbar-light mx-auto">
+			<a class="navbar-brand" href="#">訓練師中心</a>
+		</nav>
 		<div class="row">
 			<div class="col-12 col-md-4">
 				<div class="card">
@@ -47,21 +62,20 @@ function processUpdate2(jsonData){
 						您好，
 						<c:out value="${administrator.adminName}！" />
 					</div>
-					 <ul class="list-group list-group-flush">
-      <li class="list-group-item">
-       <form method="post"
-        action="${pageContext.request.contextPath}/administrator.do"
-        style="margin-bottom: 0px;">
-        <input type="hidden" name="action" value="update2">
-	    <input type="hidden" name="adminNo" value="${administrator.adminNo}">
-		   <a name="adminNo" onclick="processUpdate2({adminNo:'${administrator.adminNo}'});">修改基本資料</a>
-		   <div class="mt-2">
-			   <a href="${pageContext.request.contextPath}/backend/trainer/skillList.jsp">
-				   <button type="button" class="btn btn-primary">技能清單</button>
-			   </a>
-		   </div>
-       </form>
-      </li>
+					 <ul class="list-group list-group-flush py-3">
+						 <li class="list-group-item">
+							 <form method="post" action="${pageContext.request.contextPath}/administrator.do" style="margin-bottom: 0px;">
+								 <input type="hidden" name="action" value="update2">
+							     <input type="hidden" name="adminNo" value="${administrator.adminNo}">
+							     <a name="adminNo" onclick="processUpdate2({adminNo:'${administrator.adminNo}'});">修改基本資料</a>
+							     <div class="mt-3">
+									 <a href="${pageContext.request.contextPath}/backend/trainer/skillList.jsp">
+										 <button type="button" class="btn myBtn">技能清單</button>
+									 </a>
+								 </div>
+						     </form>
+     					 </li>
+					 </ul>
 				</div>
 			</div>
 			<div class="col-12 col-md-8">

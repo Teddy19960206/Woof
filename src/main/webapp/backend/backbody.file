@@ -170,9 +170,6 @@
                              <a href="${pageContext.request.contextPath}/frontend/administrator/administrator.jsp" class="sidebar-link2">新增員工</a>
                         </li>
                         <li class="sidebar-item">
-                            <a href="#" class="sidebar-link2">權限管理</a>
-                        </li>
-                        <li class="sidebar-item">
                           <a href="${pageContext.request.contextPath}/backend/member/trainerSkill.jsp" class="sidebar-link2">訓練師技能管理</a>
                         </li>
                     </ul>
