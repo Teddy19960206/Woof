@@ -123,7 +123,7 @@
 	<c:if test="${currentPage + 1 <= CRPageQty}">
 		<a href="${pageContext.request.contextPath}/commentreport?action=getAll&page=${currentPage + 1}">下一頁</a>&nbsp;
 	</c:if>
-	<c:if test="${currentPage != CRPageQty && currentPage <= COPageQty}">
+	<c:if test="${currentPage != CRPageQty && currentPage <= CRPageQty}">
 		<a href="${pageContext.request.contextPath}/commentreport?action=getAll&page=${CRPageQty}">至最後一頁</a>&nbsp;
 	</c:if>
 
