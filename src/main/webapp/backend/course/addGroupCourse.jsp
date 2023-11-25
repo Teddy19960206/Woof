@@ -100,7 +100,7 @@
 
             <div class="col-6 mx-auto my-2">
                 <label>課程內容：</label>
-                <textarea name="content" class="form-control" style="height: 20vh"></textarea>
+                <textarea name="content" class="form-control" style="height: 20vh" required></textarea>
             </div>
             <div class="col-6 mx-auto text-center my-2">
                 <button type="submit" class="btn btn-primary">新增</button>
