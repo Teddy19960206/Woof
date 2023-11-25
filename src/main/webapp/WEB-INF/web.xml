@@ -34,6 +34,7 @@
 		<url-pattern>/groupOrder/getGroupInfo/*</url-pattern>
 		<url-pattern>/frontend/group/orderPage.jsp</url-pattern>
 		<url-pattern>/frontend/member/login/membercenter.jsp</url-pattern>
+		<url-pattern>/frontend/member/login/updatemember.jsp</url-pattern>
 		<url-pattern>/frontend/member/login/groupOrder.jsp</url-pattern>
 		<url-pattern>/frontend/cartlist/checkout.jsp</url-pattern>
 		<url-pattern>/frontend/privatetrainer/buyClass.jsp</url-pattern>

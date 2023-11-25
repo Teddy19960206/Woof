@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>更改密碼</title>
+    <link rel="icon" type="image/x-icon" href="<%=request.getContextPath()%>/webutil/icons/happy_1.png" />
     <style>
         body {
             background-color: #f7f7f7; /* 設定背景顏色 */

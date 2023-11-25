@@ -17,6 +17,7 @@
     // 使用 SweetAlert 顯示確認對話框
     Swal.fire({
         title: '您確定要註銷編號為 ' + memNo + ' 的會員帳號嗎？',
+        text: "此操作無法復原!",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',

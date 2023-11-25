@@ -18,6 +18,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <meta charset="UTF-8">
 <title>更新會員資料</title>
+<link rel="icon" type="image/x-icon" href="<%=request.getContextPath()%>/webutil/icons/happy_1.png" />
 <script>
 	// 日期選擇器初始化
 	$(function() {

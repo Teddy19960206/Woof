@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>停權</title>
+<link rel="icon" type="image/x-icon" href="<%=request.getContextPath()%>/webutil/icons/happy_1.png" />
 <!-- 引入 Bootstrap CSS -->
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">

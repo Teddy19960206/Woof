@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>註冊成功</title>
+<link rel="icon" type="image/x-icon" href="<%=request.getContextPath()%>/webutil/icons/happy_1.png" />
 <!-- 加入Bootstrap的CDN連結 -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <style>
