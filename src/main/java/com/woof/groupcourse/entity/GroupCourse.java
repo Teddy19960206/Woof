@@ -35,7 +35,6 @@ public class GroupCourse implements Serializable {
 	private ClassType classType;
 
 	@JsonIgnore
-	@Expose
 	@Column(name = "COURSE_PHOTO" , columnDefinition= "MEDIUMBLOB")
     private byte[] coursePhoto;
 	@Expose
