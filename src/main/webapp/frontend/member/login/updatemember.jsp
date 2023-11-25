@@ -356,11 +356,11 @@ body {
 					<small class="error-msg">${errorMsgs.memPassword}</small>
 				</div>
 				<div class="form-group">
-					<label for="memTel"><span class="required">*</span>會員電話:</label>
+					<label for="memTel"><span class="required">*</span>會員電話(09)共十碼:</label>
 					<div>
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="tel" name="memTel"
-								id="memTel" size="51" required />
+								id="memTel" size="51" placeholder="09xxxxxxxx" required />
 						</div>
 					</div>
 					<small class="error-msg">${errorMsgs.memTel}</small>
