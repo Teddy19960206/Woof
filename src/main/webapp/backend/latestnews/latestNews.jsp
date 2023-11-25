@@ -51,20 +51,26 @@
 		function processUpdate(jsonData){
 		window.location.href="<%=request.getContextPath()%>/backend/latestnews/latestNewsUpdate.jsp?lnNo="+jsonData.lnNo;
 	}
-	function processDelete(jsonData){
-		$.ajax({
-			type:"POST",
-			data:jsonData,
-			url:"<%=request.getContextPath()%>/latestNews.do?action=del",
-					success:function(data){
-						alert('刪除成功');
-						window.location.reload();
-					},
-					error: function(xhr,ajaxOptions,thrownError){
-						alert("哇 錯了");
-					}
-		});
-	}
+		  function processDelete(jsonData){
+			    // 增加確認框
+			    if(confirm("確定要刪除嗎？")) {
+			        $.ajax({
+			            type : "POST",
+			            data : jsonData,
+			            url : "<%=request.getContextPath()%>/latestNews.do?action=del",
+			            success : function(data) {
+			                alert('刪除成功');
+			                window.location.reload();
+			            },
+			            error : function(xhr, ajaxOptions, thrownError) {
+			                alert("哇 錯了");
+			            }
+			        });
+			    } else {
+			        // 如果用戶點擊"取消"，則不進行任何操作
+			        alert('已取消刪除');
+			    }
+			}
 	function processAdd(){
 		window.location.href="<%=request.getContextPath()%>/backend/latestnews/latestNewsAdd.jsp"
 	}
