@@ -6,6 +6,7 @@
 <%@ include file="/meta.file"%>
 <meta charset="UTF-8">
 <title>FAQ</title>
+
 </head>
 <body>
 
