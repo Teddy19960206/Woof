@@ -163,14 +163,14 @@
 							<input type="hidden" name="coNo" value="${classOrder.coNo}">
 							<button data-id="${classOrder.coNo}"
 									<c:choose>
-										<c:when test="${classOrder.coStatus != 1}">
+										<c:when test="${classOrder.coStatus != 1 || classOrder.member.totalClass < classOrder.coBc}">
 											class="btn btn-refundApplication-disabled" disabled="disabled"
 										</c:when>
 										<c:otherwise>
 											class="btn btn-refundApplication refund" type="button"
 										</c:otherwise>
 									</c:choose>
-							>${classOrder.coStatus == 0 ? '未付款' : classOrder.coStatus == 1 ? '申請退款' : classOrder.coStatus == 2 ? '已退款'
+							>${classOrder.coStatus == 0 ? '未付款' : classOrder.coStatus == 1 && classOrder.member.totalClass < classOrder.coBc ? '課堂不足退款' : classOrder.coStatus == 1 ? '申請退款' : classOrder.coStatus == 2 ? '已退款'
 									: classOrder.coStatus == 3 ? '退款申請中' : '其他情況'}
 							</button>
 						</td>
