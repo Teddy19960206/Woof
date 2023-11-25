@@ -48,14 +48,14 @@ document.addEventListener('DOMContentLoaded',  function() {
 
 // 取得該訓練師，請假日期
 async function fetchNonClass(year , month , trainerNo , trainerName){
-    let url = `${projectName}/nontrainingschedule/getbyntsdate`;
+    let url = `${projectName}/nontrainingschedule/getByNtsDateForCalendar`;
     try{
         const response = await fetch(url , {
             method : "POST",
             headers : {
                 "Content-Type" : "application/x-www-form-urlencoded"
             },
-            body : "action=getByNtsDate" + "&trainerNo="+ trainerNo + "&year=" + year + "&month=" + month
+            body : "action=getByNtsDateForCalendar" + "&trainerNo="+ trainerNo + "&year=" + year + "&month=" + month
         })
 
         if (!response.ok){

@@ -76,6 +76,9 @@ public class NonTrainingScheduleServlet extends HttpServlet {
 			case "addForTrainer":
 				addForTrainer(req ,res);
 				return;
+			case "getByNtsDateForCalendar":
+				getByNtsDateForCalendar(req ,res);
+				return;
 			default:
 				forwardPath = "/frontend/nontrainingschedule/nonTrainingSchedule.jsp";
 			}
@@ -225,6 +228,27 @@ public class NonTrainingScheduleServlet extends HttpServlet {
 		Trainer trainer = new TrainerServiceImpl().getByAdmin(administrator.getAdminNo());
 
 		List<Date> allByTrainer = nonTrainingScheduleService.getAllByTrainer(year, month, trainer.getTrainerNo());
+
+		Gson gson = new GsonBuilder()
+				.excludeFieldsWithoutExposeAnnotation()
+				.setDateFormat("yyyy-MM-dd")
+				.create();
+
+		String json = gson.toJson(allByTrainer);
+
+		response.setContentType("application/json;charset=UTF-8");
+		response.getWriter().write(json);
+
+	}
+
+	private void getByNtsDateForCalendar(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+
+		Integer year = Integer.valueOf(request.getParameter("year"));
+		Integer month = Integer.valueOf(request.getParameter("month"));
+		Integer trainerNo = Integer.valueOf(request.getParameter("trainerNo"));
+
+		List<Date> allByTrainer = nonTrainingScheduleService.getAllByTrainer(year, month, trainerNo);
 
 		Gson gson = new GsonBuilder()
 				.excludeFieldsWithoutExposeAnnotation()
