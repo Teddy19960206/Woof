@@ -62,11 +62,10 @@ async function fetchData(page){
             <td>${item.gcNo}</td>
             <td>${item.skill.skillName}</td>
             <td>`);
-            if(item.coursePhoto instanceof Object && Object.keys(item.coursePhoto).length > 0){
-                arr.push(`<img src="${projectName}/DBPngReader?action=groupCourse&id=${item.gcNo}" style="width: 100px; height: 100px" >`);
-            }else {
-                arr.push(`<img src="${projectName}/webutil/images/no-image.png" style="width: 100px; height: 100px" >`)
-            }
+            console.log(item.gcNo)
+
+            arr.push(`<img src="${projectName}/DBPngReader?action=groupCourse&id=${item.gcNo}" style="width: 100px; height: 100px"
+                        onerror="this.onerror=null; this.src='${projectName}/webutil/images/no-image.png';"/>`);
             arr.push(`</td>
             <td width="500px" class="text-start">${item.courseContent}</td>
             <td>${item.courseStatus == 0 ? "下架" : "<font color='red'>上架</font>"}</td>
