@@ -150,6 +150,20 @@ function renderCartItems(cart) {
     let html = "";
 	let total = 0;
 	
+	if (cart.length === 0) {
+        // 購物車是空的時，彈出提示框
+        Swal.fire({
+            icon: "warning",
+            title: "購物車是空的，請去商城逛逛~",
+            confirmButtonText: "確定",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // 點擊確認按鈕後跳轉到商城頁面
+                window.location.href = `${projectName}/shopHome.html`;
+            }
+        });
+    } else {
+	
     cart.forEach(item => {	
 		                
         let subtotal = item.quantity * item.prodPrice;	
@@ -182,6 +196,7 @@ function renderCartItems(cart) {
 	$("#totalPrice").val(total);
     $("#totalAfterCoins").val(total);
 //    document.getElementById('totalPrice').value = total;
+}
 }
 
 //全部刪除
