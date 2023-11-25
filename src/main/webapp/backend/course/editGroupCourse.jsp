@@ -2,14 +2,16 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>寵毛導師 Woof | 修改團體資料</title>
+    <title>寵毛導師 Woof | 課程內容修改</title>
     <%@ include file="/backend/backhead.file" %>
 </head>
 <style>
     #preview {
         border: 1px solid lightgray;
-        display: inline-block;
-        width: 300px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 400px;
         min-height: 400px;
         position: relative;
     }
