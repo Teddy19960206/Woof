@@ -28,7 +28,7 @@
 
 			<!-- 			<div class="row mt-3"> -->
 			<div class="col-md-10 d-flex justify-content-center">
-				<div style="width: 550px">
+				<div style="width: 650px">
 					<!-- 寵物訓練問題 -->
 					<div id="petTrainingFaqs" class="faq-category">
 						<div class="accordion" id="petTrainingFaqs">
