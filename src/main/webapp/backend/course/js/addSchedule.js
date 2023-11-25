@@ -104,7 +104,7 @@ $("button#next").on("click" , function (){
             hasError = true;
         }
 
-        if (minLimit.value > maxLimit.value){
+        if (parseInt(minLimit.value) > parseInt(maxLimit.value)){
             setError(minLimitErr , "最低人數不能大於最多人數")
             hasError = true;
         }
@@ -339,7 +339,7 @@ async function fetchDetailByDate(year , month){
     }catch (error){
         await Swal.fire({
             icon: "error",
-            title: `${str}`,
+            title: `失敗！`,
             text: "新增失敗",
         });
         console.error('Error', error);
