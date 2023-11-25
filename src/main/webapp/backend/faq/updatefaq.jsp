@@ -18,7 +18,7 @@ request.setCharacterEncoding("UTF-8");
 
 
 	<div class="container pt-3">
-		<h1 class="text-center">修改FAQ畫面</h1>
+<!-- 		<h1 class="text-center">修改FAQ畫面</h1> -->
 		<form method="post"
 			action="${pageContext.request.contextPath}/faq?action=updatefaq">
 			<div class="form-row">
