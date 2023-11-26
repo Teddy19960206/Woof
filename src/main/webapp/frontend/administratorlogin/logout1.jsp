@@ -102,9 +102,9 @@ body.specific-page{
 			</div>
 		
 			<div class="form-group form-check">
-				<input type="checkbox" class="form-check-input" name="remember"
-					id="remember"> <label class="form-check-label"
-					for="remember"><b>記住帳號</b></label>
+				<input type="checkbox" class="form-check-input" name="readmin"
+					id="readmin"> <label class="form-check-label"
+					for="readmin"><b>記住帳號</b></label>
 			</div>
 	
 		  <a href='/woof/frontend/administratorlogin/forgotpwd.jsp' style="margin-left: 180px;"><span class="span">忘記密碼？</span></a>
@@ -112,15 +112,15 @@ body.specific-page{
 	</form>
 	<script>
         let username = document.getElementById("username");
-        let remember = document.getElementById("remember");
+        let readmin = document.getElementById("readmin");
         let account1 = JSON.parse(localStorage.getItem("account1"));
 
         if(account1){
             username.value = account1.username;
-            remember.checked = true;
+            readmin.checked = true;
         }
 
-        remember.onchange = function(){
+        readmin.onchange = function(){
             if(this.checked){
                 var data = {username: username.value};
                 localStorage.setItem("account1", JSON.stringify(data));
