@@ -52,7 +52,6 @@ var calendar = new FullCalendar.Calendar(calendarEl, {
 
         if (date.some(item => arg.event.startStr === item)) {
             calendar.unselect(); // 取消選擇
-            console.log(item)
             return; // 結束函數執行
         }
 
@@ -110,6 +109,8 @@ var calendar = new FullCalendar.Calendar(calendarEl, {
         let nowDate = new Date(info.start);
         nowDate.setDate(nowDate.getDate() + 7);
         fetchDetail(nowDate.getFullYear() , nowDate.getMonth()+1);
+        let trainerNo = params.get('trainerNo');
+        fetchNonClass(nowDate.getFullYear() , nowDate.getMonth()+1 ,trainerNo );
     },
 
 });
@@ -317,4 +318,48 @@ async function fetchTrainer(id){
         console.error("Error" , error);
     }
 
+}
+
+// ----------------------------------
+// ------------------  抓取當月該訓練師請假日期  --------------------
+async function fetchNonClass(year , month , trainerNo){
+    let url = `${projectName}/nontrainingschedule/getByNtsDateForCalendar`;
+    try{
+        const response = await fetch(url , {
+            method : "POST",
+            headers : {
+                "Content-Type" : "application/x-www-form-urlencoded"
+            },
+            body : "action=getByNtsDateForCalendar" + "&trainerNo="+ trainerNo + "&year=" + year + "&month=" + month
+        })
+
+        if (!response.ok){
+            await Swal.fire({
+                icon: "error",
+                title: `異常錯誤`,
+                text: "異常",
+            });
+            throw new Error("異常錯誤");
+        }
+
+        const data = await response.json();
+
+        for(let i = 0 ; i < data.length; i++){
+            calendar.addEvent({
+                title:`已請假`,
+                start: data[i],
+                backgroundColor:"#aaaaaa"
+            });
+            date.push(data[i]);
+        };
+
+
+    }catch (error){
+        await Swal.fire({
+            icon: "error",
+            title: `失敗！`,
+            text: "新增失敗",
+        });
+        console.error("Error" , error)
+    }
 }
