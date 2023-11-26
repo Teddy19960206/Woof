@@ -37,7 +37,7 @@ public class LoginFilter1 implements Filter {
 			return;
 		} else {
 			// 檢查管理員是否被停權
-			if (((Administrator) admin).getAdminStatus() == 2) {
+			if (((Administrator) admin).getAdminStatus() == 2||((Administrator) admin).getAdminStatus() == 0) {
 				// 如果管理員被停權，重定向到停權通知頁面
 				res.sendRedirect(req.getContextPath() + "/frontend/administratorlogin/adminsuspend.jsp");
 				return;
