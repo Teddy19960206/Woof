@@ -243,7 +243,7 @@
 		</table>
   <div>個人大頭貼</div>
    <img src="#" id="myphoto" name="myphoto" accept="image/*" style="width: 200px; height: 200px">
-<input type="file" id="ADMIN_PHOTO" name="ADMIN_PHOTO"  accept="image/*">
+<input type="file" id="ADMIN_PHOTO" name="ADMIN_PHOTO" style="display:none;" accept="image/*">
 <input type="button" value="修改照片" onclick="$('#ADMIN_PHOTO').click();" >
 		
 		<button type="submit">送出</button>

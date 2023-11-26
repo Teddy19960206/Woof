@@ -43,7 +43,7 @@ $(document).ready(function(){
             $('#LN_CONTENT').val(jsonObj.lnContent);
             // 使用 formatDate 函數來轉換時間戳記並設置值
             $('#LN_TIME').val(formatDate(jsonObj.lnTime));
-         
+            $('#myphoto').attr('src', "${pageContext.request.contextPath}/DBPngReader?action=latestnews&id="+jsonObj.lnNo);
         },
         error: function(xhr, ajaxOptions, thrownError){
             alert("挖 錯了");
@@ -59,7 +59,22 @@ $(document).ready(function(){
             reader.readAsDataURL(this.files[0]);
         }
     });
+ 
+    function formatDate(dateStr) {
+        var date = new Date(dateStr);
+        var year = date.getFullYear();
+        var month = date.getMonth() + 1; // 月份是從 0 開始的
+        var day = date.getDate();
+
+        // 確保月份和日期始終是兩位數
+        month = (month < 10) ? '0' + month : month;
+        day = (day < 10) ? '0' + day : day;
+
+        return year + '-' + month + '-' + day;
+    }
 });
+
+
 
 
 
@@ -87,7 +102,7 @@ $(document).ready(function(){
         </div>
         <div class="form-group">
             <label for="myphoto">個人大頭貼</label>
-            <img src="#" id="myphoto" class="img-thumbnail" accept="image/*">
+            <img src="#" id="myphoto" name="myphoto" class="img-thumbnail" accept="image/*" style="width: 200px; height: 200px">
             <input type="file" id="LN_PHOTO" name="LN_PHOTO" class="form-control-file" style="display:none;" accept="image/*">
             <button type="button" class="btn btn-info mt-2" onclick="$('#LN_PHOTO').click();">修改照片</button>
         </div>

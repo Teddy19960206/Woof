@@ -3,6 +3,7 @@ package com.woof.latestnews.service;
 import java.util.List;
 import org.hibernate.Session;
 
+import com.woof.AppService;
 import com.woof.latestnews.dao.LatestNewsDAO;
 import com.woof.latestnews.dao.LatestNewsDAOImpl;
 import com.woof.latestnews.entity.LatestNews;
@@ -13,7 +14,7 @@ import java.util.List;
 
 import org.hibernate.Session;
 
-public class LatestNewsServiceImpl implements LatestNewsService {
+public class LatestNewsServiceImpl implements LatestNewsService, AppService<String> {
 	
 		private LatestNewsDAO dao;
 
@@ -59,6 +60,15 @@ public class LatestNewsServiceImpl implements LatestNewsService {
 			}
 			return latestNewsList;
 		}
+
+		@Override
+		public byte[] getPhotoById(String lnNoStr) {
+			// TODO Auto-generated method stub
+			Integer lnNo = Integer.valueOf(lnNoStr);
+
+	        return findLatestNewsByLnNo(lnNo).getLnPhoto();
+		}
+		
 
 	}
 

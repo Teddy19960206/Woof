@@ -5,7 +5,7 @@ import com.woof.AppService;
 import com.woof.groupcourse.service.GroupCourseServiceImpl;
 import com.woof.member.service.MemberServiceImpl;
 import com.woof.administrator.service.AdministratorServiceImpl;
-
+import com.woof.latestnews.service.LatestNewsServiceImpl;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.WebServlet;
@@ -32,6 +32,9 @@ public class DBPngReader extends HttpServlet {
                 break;
             case "administrator":
             	appService = new AdministratorServiceImpl();
+            	break;
+            case "latestnews":
+            	appService = new LatestNewsServiceImpl();
             	break;
         }
 
