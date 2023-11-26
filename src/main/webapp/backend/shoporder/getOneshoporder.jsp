@@ -75,6 +75,7 @@ request.setCharacterEncoding("UTF-8");
 					<td class="pay-method"><c:choose>
 							<c:when test="${shopOrders.payMethod == 0}">信用卡</c:when>
 							<c:when test="${shopOrders.payMethod == 1}">匯款</c:when>
+							<c:when test="${shopOrders.payMethod == 2}">綠界</c:when>
 						</c:choose></td>
 					<td class="ship-method"><c:choose>
 							<c:when test="${shopOrders.shipMethod == false}">宅配</c:when>
@@ -96,6 +97,7 @@ request.setCharacterEncoding("UTF-8");
 								<c:when test="${shopOrders.orderStatus == 2}">完成</c:when>
 								<c:when test="${shopOrders.orderStatus == 3}">取消</c:when>
 								<c:when test="${shopOrders.orderStatus == 4}">未付款</c:when>
+								<c:when test="${shopOrders.orderStatus == 5}">已付款</c:when>
 							</c:choose>
 					</span> <select class="status-select" style="display: none;">
 							<option value="0"
@@ -108,6 +110,8 @@ request.setCharacterEncoding("UTF-8");
 								${shopOrders.orderStatus == 3 ? 'selected' : ''}>取消</option>
 							<option value="4"
 								${shopOrders.orderStatus == 4 ? 'selected' : ''}>未付款</option>
+							<option value="5"
+								${shopOrders.orderStatus == 5 ? 'selected' : ''}>已付款</option>
 					</select></td>
 										<td>
 						<div class="d-flex flex-column">
