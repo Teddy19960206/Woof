@@ -8,7 +8,7 @@
 </head>
 <body>
 <%@ include file="/backend/backbody.file" %>
-<div class="container">
+<div class="container py-3">
     <h1 align="center" class="my-3">查看班別名稱列表</h1>
 
     <table class="table">

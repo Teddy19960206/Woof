@@ -99,7 +99,7 @@
                             實際付款金額
                         </label>
                         <fieldset id="actual" class="mt-1">
-                            <input type="text" class="form-control text-center" name="actualAmount" value="" id="actualAmount" maxlength="4" pattern="[0-9]{0,4}" title="請輸入數字0~4位數" />
+                            <input type="text" class="form-control text-center" name="actualAmount" value="" id="actualAmount" />
                         </fieldset>
                     </div>
                 </div>

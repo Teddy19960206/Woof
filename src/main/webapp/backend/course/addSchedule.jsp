@@ -7,7 +7,11 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/backend/course/css/calendar.css" />
     <title>寵毛導師 Woof | 新增報名資訊</title>
 </head>
-
+<style>
+    select{
+        text-align: center;
+    }
+</style>
 <body>
 
 <%@ include file="/backend/backbody.file" %>

@@ -254,7 +254,7 @@
                                      data-bs-parent="#collapseCourseManagement">
                                     <div class="accordion-body">
                                         <a
-                                                href="${pageContext.request.contextPath}/frontend/member/login/classOrder.jsp">課程訂單管理</a>
+                                                href="${pageContext.request.contextPath}/frontend/member/login/classOrder.jsp">課堂訂單管理</a>
                                     </div>
                                     <hr class="custom-divider">
                                     <div class="accordion-body">

@@ -10,7 +10,6 @@ request.setCharacterEncoding("UTF-8");
 <title>寵毛導師 Woof | FAQ管理</title>
 
 <style>
-
 </style>
 
 <%@ include file="/backend/backhead.file"%>
@@ -33,37 +32,41 @@ request.setCharacterEncoding("UTF-8");
 		<form method="Post"
 			action="${pageContext.request.contextPath}/faq?action=addfaq">
 			<div class="row pt-2">
-				<div class="col-2">
+				<div class="col-4">
 					<label for="faqClass">FAQ類別：</label> <input type="text"
-						class="form-control" id="faqClass" name="faqClass" value="付款問題	">
+						class="form-control" id="faqClass" name="faqClass" value="訂單問題	" required>
 				</div>
-				<div class="col-2">
+				<div class="col-4">
 					<label for="faqTitle">FAQ標題：</label> <input type="text"
-						class="form-control" id="faqTitle" name="faqTitle" value="付款是否安全？">
+						class="form-control" id="faqTitle" name="faqTitle"
+						value="如何查詢已購買的商品？" required>
 				</div>
-				<div class="col-6">
+			</div>
+			<div class="row pt-2">
+				<div class="col-10">
 					<label for="faqContent">FAQ內容：</label> <input type="text"
-						class="form-control" id="faqContent" name="faqContent" value="是的，我們的付款系統非常安全且符合最高安全標準。">
+						class="form-control" id="faqContent" name="faqContent"
+						value="在您的訂單查詢，您可以找到已購買的商品。" required>
 				</div>
 
 				<div class="col-2  d-flex align-items-end">
 					<button class="btn btn-success" type="submit">確定新增</button>
-<!-- 					<a class="btn btn-secondary" -->
-<%-- 						href="${pageContext.request.contextPath}/backend/index.jsp">取消新增</a> --%>
+					<!-- 					<a class="btn btn-secondary" -->
+					<%-- 						href="${pageContext.request.contextPath}/backend/index.jsp">取消新增</a> --%>
 				</div>
 			</div>
 		</form>
 
 		<h3 class="pt-4 text-center"></h3>
-		<table class="table table-hover text-center" >
+		<table class="table table-hover table-sm">
 			<thead class="table-secondary">
 				<tr>
-					<th>編號</th>
-					<th>類別</th>
-					<th>標題</th>
-					<th>內容</th>
-					<th>狀態</th>
-					<th></th>
+					<th style="width: 5%;">編號</th>
+					<th style="width: 10%;">類別</th>
+					<th style="width: 30%;">標題</th>
+					<th style="width: 40%;">內容</th>
+					<th style="width: 3%;">狀態</th>
+					<th style="width: 3%;"></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -74,21 +77,27 @@ request.setCharacterEncoding("UTF-8");
 						<td>${all.faqTitle}</td>
 						<td>${all.faqContent}</td>
 						<td>
+<!-- 						修改 -->
 							<form method="post"
 								action="${pageContext.request.contextPath}/backend/faq/updatefaq.jsp">
 								<input type="hidden" name="faqNo" value="${all.faqNo}">
 								<input type="hidden" name="faqClass" value="${all.faqClass}">
 								<input type="hidden" name="faqTitle" value="${all.faqTitle}">
 								<input type="hidden" name="faqContent" value="${all.faqContent}">
-								<button class="btn btn-primary small-btn" type="submit">修改</button>
+								<button class="btn btn-primary btn-sm" type="submit">
+									<i class="fa-solid fa-pen-to-square"></i>
+								</button>
 							</form>
 						</td>
 						<td>
+<!-- 						刪除 -->
 							<form method="post"
 								action="${pageContext.request.contextPath}/faq">
 								<input type="hidden" name="faqNo" value="${all.faqNo}">
 								<input type="hidden" name="action" value="deletefaq">
-								<button class="btn btn-danger small-btn" type="submit">刪除</button>
+								<button class="btn btn-danger btn-sm" type="submit">
+									<i class="fa-solid fa-trash"></i>
+								</button>
 							</form>
 						</td>
 					</tr>

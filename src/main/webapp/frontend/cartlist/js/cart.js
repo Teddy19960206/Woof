@@ -73,13 +73,13 @@ $(".add-to-cart").on("click", function() {
 				Swal.fire({
 					icon: "success",
 					title: "成功加入購物車",
-				}).then(()=>{
+				}).then(() => {
 					// 按下OK，購物車旁邊的數字會更新
 					parent.closeBtn.click();
 					parent.getCartTotalQuantity();
 				});
-				
-//				$("#cart-count").text(response.totalQuantity);
+
+				//				$("#cart-count").text(response.totalQuantity);
 			}
 		},
 
@@ -100,55 +100,55 @@ $(document).on("click", "#cart-icon", function() {
 			console.log(cartJson)
 
 			if (cartJson.length === 0) {
-
+				// 購物車為空時顯示提示
 				Swal.fire({
 					icon: "warning",
 					title: "購物車是空的，請去商城逛逛~",
-				confirmButtonText: "確定", 
+					confirmButtonText: "確定",
 				}).then((result) => {
 					if (result.isConfirmed) {
-
+						
 						window.location.href = `${projectCart}/shopHome.html`;
 					}
+
 				});
+			} else {
+				// 購物車有內容時顯示購物車模態框
+				let html = "";
+				let totalAmount = 0;
+
+				// 跑購物車清單
+				cartJson.forEach(item => {
+					let itemTotal = item.quantity * item.prodPrice;
+					totalAmount += itemTotal; // 計算購物車總金額
+
+					html += `<tr>
+                                <td class="text-center align-middle">${item.prodName}</td>
+                                <td class="text-center align-middle">
+                                    <img src="${projectCart}/productImage/${item.prodNo}" style="width: 100px; height: 100px;" onerror="this.onerror=null; this.src='${projectCart}/fallback-image.jpg';"/>
+                                </td>
+                                <td class="text-center align-middle">${item.quantity}</td>
+                                <td class="text-center align-middle">NT$${itemTotal}</td>
+                            </tr>`;
+				});
+
+				$("#cart-items-list").html(html);
+				$("#cart-total-amount").text(`NT$${totalAmount}`);
+				$('#cartModal').modal('show');
 			}
-
-			let html = "";
-			let totalAmount = 0;
-
-			// 跑購物車清單
-			cartJson.forEach(item => {
-				let itemTotal = item.quantity * item.prodPrice;
-				totalAmount += itemTotal; // 計算購物車總金額
-
-				html += `<tr>
-						    <td class="text-center align-middle">${item.prodName}</td>
-						    <td class="text-center align-middle">
-						        <img src="${projectCart}/productImage/${item.prodNo}" style="width: 100px; height: 100px;" onerror="this.onerror=null; this.src='${projectCart}/fallback-image.jpg';"/>
-						    </td>
-						    <td class="text-center align-middle">${item.quantity}</td>
-						    <td class="text-center align-middle">NT$${itemTotal}</td>
-						</tr>`;
-			});
-
-			$("#cart-items-list").html(html);
-			$("#cart-total-amount").text(`NT$${totalAmount}`);
-			$('#cartModal').modal('show');
 		},
 		error: function(xhr, status, error) {
 			if (xhr.status === 401) {
 				Swal.fire({
 					icon: "error",
 					title: "請先登入會員~",
-					confirmButtonText: "確定", 
+					confirmButtonText: "確定",
 				}).then((result) => {
 					if (result.isConfirmed) {
-
 						window.location.href = `${projectCart}/frontend/member/login/login.jsp`;
 					}
 				});
 			}
-
 		}
 	});
 });
