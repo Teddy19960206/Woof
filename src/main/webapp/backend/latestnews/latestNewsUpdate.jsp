@@ -101,7 +101,7 @@ $(document).ready(function(){
             <small style="color: red;" class="error-msg">${errorMsgs.LN_CONTENT}</small>
         </div>
         <div class="form-group">
-            <label for="myphoto">個人大頭貼</label>
+            <label for="myphoto">最新消息圖片</label>
             <img src="#" id="myphoto" name="myphoto" class="img-thumbnail" accept="image/*" style="width: 200px; height: 200px">
             <input type="file" id="LN_PHOTO" name="LN_PHOTO" class="form-control-file" style="display:none;" accept="image/*">
             <button type="button" class="btn btn-info mt-2" onclick="$('#LN_PHOTO').click();">修改照片</button>

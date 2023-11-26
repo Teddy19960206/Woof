@@ -32,7 +32,7 @@ LatestNews ln = (LatestNews) request.getAttribute("latestNews");
 <div class="container">
     <form method="post" action="<%=request.getContextPath()%>/latestNews.do" accept-charset="UTF-8" enctype="multipart/form-data">
         <div class="form-group">
-            <label for="LN_PHOTO">管理員大頭貼</label>
+            <label for="LN_PHOTO">最新消息圖片</label>
             <input type="file" class="form-control-file" name="LN_PHOTO">
         </div>
         <div class="form-group">
