@@ -24,6 +24,6 @@
 <body>
 	error
 	<h3>Error:</h3>
-	<p>${errorMessage}</p>
+	<p>查無資料</p>
 </body>
 </html>
