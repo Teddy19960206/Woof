@@ -52,7 +52,7 @@ function splicingCarousel(data){
                 <td><img src="${project}/CarouselImage/${item.carId}" style="width: 100px" onerror="this.onerror=null; this.src='${project}/webutil/images/no-image.png';"></td>
                 <td>${item.title}</td>
                 <td>${item.content}</td>
-                <td>${item.sequence}</td>
+                <td>${item.sequence != null ? `${item.sequence}` : ''}</td>
                 <td>${item.isActive == 0 ? '不顯示' : '顯示'}</td>
                 <td><button type="button" class="modifyBtn btn btn-primary" data-id="${item.carId}">修改</button></td>
                 <td><button type="button" class="deleteDetail btn btn-danger" data-id="${item.carId}">刪除</button></td> 
