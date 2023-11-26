@@ -24,22 +24,22 @@ request.setCharacterEncoding("UTF-8");
 			<div class="form-row">
 				<div class="form-group">
 					<label for="faqNo">FAQ編號：</label> <span id="faqNo">${param.faqNo}</span>
-					<input type="hidden" name="faqNo" value="${param.faqNo}">
+					<input type="hidden" name="faqNo" value="${param.faqNo}" >
 				</div>
 				<div class="form-group mt-2">
 					<label for="faqClass">FAQ類別：</label> <input type="text"
 						class="form-control" id="faqClass" name="faqClass"
-						value="${param.faqClass}">
+						value="${param.faqClass}" required>
 				</div>
 				<div class="form-group mt-2">
 					<label for="faqTitle">FAQ標題：</label> <input type="text"
 						class="form-control" id="faqTitle" name="faqTitle"
-						value="${param.faqTitle}">
+						value="${param.faqTitle}" required>
 				</div>
 				<div class="form-group mt-2">
 					<label for="faqContent">FAQ內容：</label> <input type="text"
 						class="form-control" id="faqContent" name="faqContent"
-						value="${param.faqContent}">
+						value="${param.faqContent}" required>
 				</div>
 				<button class="btn btn-success mt-3" type="submit">確定修改</button>
 				<a class="btn btn-secondary mt-3" href="javascript:history.back()">取消修改</a>

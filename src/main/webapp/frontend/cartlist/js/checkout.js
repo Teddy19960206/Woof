@@ -1,5 +1,5 @@
-let pathName = window.document.location.pathname;
-let projectName = pathName.substring(0, pathName.substring(1).indexOf("/") + 1);
+let pathCheckOut = window.document.location.pathname;
+let projectCheckOut = pathCheckOut.substring(0, pathCheckOut.substring(1).indexOf("/") + 1);
 
 const useSmmpRadio = document.getElementById("UseSmmp");
 const notUseSmmpRadio = document.getElementById("notusemocoin");
@@ -126,7 +126,7 @@ window.addEventListener("load" , ()=>{
 function fetchCart(memNo) {
     $.ajax({
         type: "POST",
-        url: `${projectName}/checkout`,
+        url: `${projectCheckOut}/checkout`,
         data: {
             action: "getCart",
             memNo: memNo
@@ -159,7 +159,7 @@ function renderCartItems(cart) {
         }).then((result) => {
             if (result.isConfirmed) {
                 // 點擊確認按鈕後跳轉到商城頁面
-                window.location.href = `${projectName}/shopHome.html`;
+                window.location.href = `${projectCheckOut}/shopHome.html`;
             }
         });
     } else {
@@ -174,7 +174,7 @@ function renderCartItems(cart) {
 				    <td id="item-row-${item.prodNo}" class="hidden d-none text-center align-middle">${item.prodNo}</td>
 				    <td class="text-center align-middle">${item.prodName}</td>
 				    <td class="text-center align-middle">
-				        <img src="${projectName}/productImage/${item.prodNo}" style="width: 100px; height: 100px;" onerror="this.onerror=null; this.src='${projectName}/fallback-image.jpg';"/>
+				        <img src="${projectCheckOut}/productImage/${item.prodNo}" style="width: 100px; height: 100px;" onerror="this.onerror=null; this.src='${projectCheckOut}/fallback-image.jpg';"/>
 				    </td>
 				    <td class="text-center align-middle">
 				        <div>
@@ -214,7 +214,7 @@ $('#confirmDelete').click(function() {
     
     $.ajax({
         type: 'POST',
-        url: `${projectName}/checkout`,
+        url: `${projectCheckOut}/checkout`,
         data: {
             action: 'deleteItem',
             prodNo: prodNo,
@@ -234,7 +234,7 @@ function updateCartDisplay() {
 
     $.ajax({
         type: 'POST',
-        url: `${projectName}/checkout`,
+        url: `${projectCheckOut}/checkout`,
         data: {
             action: 'getCart',
             memNo: memNo 
@@ -290,7 +290,7 @@ function decreaseQuantity(prodNo) {
 function updateDecreaseQuantity(prodNo, newQuantity) {
     $.ajax({
         type: 'POST',
-        url: `${projectName}/checkout`,
+        url: `${projectCheckOut}/checkout`,
         data: {
             action: 'decreaseQuantity',
             prodNo: prodNo,
@@ -328,7 +328,7 @@ function updateIncreaseQuantity(prodNo, newQuantity) {
 	
     $.ajax({
         type: 'POST',
-        url: `${projectName}/checkout`,
+        url: `${projectCheckOut}/checkout`,
         data: {
             action: 'increaseQuantity',
             prodNo: prodNo,
@@ -362,3 +362,29 @@ function updateItemSubtotal(prodNo) {
     }
 }
 
+
+
+
+//===========================================
+//右上方icon的數字更新address
+
+function getCartTotalQuantity() {
+	$.ajax({
+		type: "POST",
+		url: `${projectCart}/cart`,
+		data: {
+			action: "getTotalQuantity",
+		},
+		dataType: "json",
+		success: function(response) {
+			$("#cart-count").text(response.totalQuantity);
+
+		},
+		error: function(xhr, status, error) {
+			if (xhr.status === 401) {
+				$("#cart-count").text("0");
+				// window.location.href = `${projectCheckOut}/frontend/member/login/login.jsp`;
+			}
+		}
+	});
+}

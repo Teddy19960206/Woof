@@ -125,7 +125,7 @@ request.setCharacterEncoding("UTF-8");
 						<!-- 						</form>  -->
 						<div class="d-flex flex-column">
 							<a
-								href="backend/shoporderdetail/shoporderdetail.jsp?shopOrderNo=${all.shopOrderNo}"
+								href="backend/shoporderdetail/shoporderdetail.jsp?shopOrderNo=${shopOrders.shopOrderNo}"
 								class="btn btn-secondary small-btn"
 								style="font-size: 10px; min-width: 20px; color: white;">查看</a>
 						</div>
