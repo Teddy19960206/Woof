@@ -185,7 +185,7 @@ async function change(){
 
     let html = `<select class="form-select" style="width: 200px">`
         data.forEach((item)=>{
-            html += `<option value="${item.trainerNo}" ${item.administrator.adminName == $("trianer").val() ? 'selected' : ''}>${item.administrator.adminName}</option>`;
+            html += `<option value="${item.trainerNo}" ${item.administrator.adminName == $("#trainer").val() ? 'selected' : ''}>${item.administrator.adminName}</option>`;
         })
         html += `</select>`;
 
