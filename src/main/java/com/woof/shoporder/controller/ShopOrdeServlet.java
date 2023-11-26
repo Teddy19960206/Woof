@@ -309,7 +309,7 @@ public class ShopOrdeServlet extends HttpServlet {
             obj.setMerchantTradeDate(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")));
             obj.setTotalAmount(actualPriceStr);
             obj.setTradeDesc("寵毛導師：商成訂單付款成功");
-            obj.setItemName("狗罐頭");
+            obj.setItemName("貓咪純淨配方(貓飼料)");
             
             // 有異常導回首頁
             obj.setReturnURL(fullURL+request.getContextPath()+"/index.jsp");
