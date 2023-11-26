@@ -9,7 +9,7 @@ $(document).ready(function() {
             type: 'GET',
             success: function(product) {
                 $('#product-image').attr('src', `productImage/${product.prodNo}`)
-                				   .attr('onerror', "this.onerror=null; this.src='image/未有照片之圖片.png';");;
+                				   .attr('onerror', "this.onerror=null; this.src='image/未有照片之圖片.png';");
                 $('#product-name').text(product.prodName);
                 $('#product-description').text(product.prodContent);
 
