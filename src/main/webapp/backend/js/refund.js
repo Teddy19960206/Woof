@@ -39,7 +39,7 @@ async function refundsFetch(){
             refundBtn.innerText = "退款審核通知";
             refundBtn.disabled = true ;
         }else{
-            html  = `團課通知<span class="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-danger">
+            html  = `退款審核通知<span class="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-danger">
                    ${data}
                 </span>`;
 
