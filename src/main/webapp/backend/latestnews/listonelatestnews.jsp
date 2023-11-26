@@ -175,10 +175,11 @@ margin-top: 5px; /* 或者您想要的任何距離 */
 	<jsp:useBean id="latestnewsService" scope="page"
 		class="com.woof.latestnews.service.LatestNewsServiceImpl" />
 	 <div class="table-wrapper">
+	
 	<table>
 		<input type="button" class="btn btn-secondary" value="修改"
 						onclick="processUpdate({lnNo:'${latestNews.lnNo}'});">
-<button value="取消" onclick="window.history.back();" class="button2">取消</button>
+	<button value="取消" onclick="window.history.back();" class="button2">取消</button>
 		<tr>
 		  <th scope="row">消息編號</th>
 		  <td>${latestNews.lnNo}</td>
@@ -193,7 +194,7 @@ margin-top: 5px; /* 或者您想要的任何距離 */
 	  <tr>
 			<th scope="row">消息照片</th>
 			<td><img
-			src="${pageContext.request.contextPath}/DBPngReader?action=latestNews&id=${latestNews.lnNo}" 
+			src="${pageContext.request.contextPath}/DBPngReader?action=latestnews&id=${latestNews.lnNo}" 
 			class="img-thumbnail" style="width: 100px; height: 100px">
 		</td>
 	</tr>

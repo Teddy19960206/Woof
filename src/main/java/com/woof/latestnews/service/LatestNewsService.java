@@ -15,4 +15,6 @@ public interface LatestNewsService {
 	LatestNews findLatestNewsByLnNo(Integer lnNo);
 
 	List<LatestNews> getAllLatestNews();
+
+	byte[] getPhotoById(String lnNoStr);
 }

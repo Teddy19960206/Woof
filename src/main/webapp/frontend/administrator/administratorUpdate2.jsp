@@ -74,6 +74,24 @@
     input[type="button"]:hover {
       background-color: #2980b9;
     }
+    
+    .button-container {
+    display: flex;
+    justify-content: center; /* 這將使按鈕在容器中水平置中 */
+    padding: 10px 0; /* 添加一些間隔 */
+}
+
+/* 調整按鈕的外邊距以增加按鈕之間的空間 */
+button[type="submit"],
+input[type="button"] {
+    margin: 0 10px; /* 左右邊距設為10px */
+}
+      .photo-section {
+    display: flex;
+    flex-direction: column; /* 子元素垂直排列 */
+    align-items: center; /* 子元素在交叉軸上置中，對於 column 方向的 flex 容器，這意味著水平置中 */
+    margin-top: 20px; /* 可以調整適合您的佈局 */
+}
   </style>
 <meta charset="UTF-8">
 <title>寵毛導師 Woof | 訓練師修改</title>
@@ -100,6 +118,7 @@
 	 	    	 $('#EMERGENCY_CONTACTEL').val(jsonObj.emergencyContactel);
 	 	    	 $('#ADMIN_HD').val(jsonObj.adminHd);
 	 	    	 $('input[name=ADMIN_STATUS][value='+jsonObj.adminStatus+']').prop('checked',true);
+	 	    	 $('#myphoto').attr('src', "${pageContext.request.contextPath}/DBPngReader?action=administrator&id="+jsonObj.adminNo);
 	 	     },
 	 	     //Ajax失敗後要執行的function，此例為印出錯誤訊息
 	 	     error : function(xhr, ajaxOptions, thrownError) {
@@ -134,7 +153,7 @@
 		<tr>
 			<th>管理員帳號</th>
 			<td>
-				<input type="text" name="ADMIN_NO" id="ADMIN_NO" value="<%= request.getParameter("adminNo")%>" >
+				<input type="text" name="ADMIN_NO" id="ADMIN_NO" value="<%= request.getParameter("adminNo")%>" readonly >
 			</td>
 			<td><small class="error-msg" style="color: red;">${errorMsgs.ADMIN_NO}</small></td>
 		</tr>
@@ -202,18 +221,20 @@
 			</td>
 				<td><small class="error-msg" style="color: red;">${errorMsgs.EMERGENCY_CONTACTEL}</small></td>
 		</tr>
-
+	
 		</table>
 <!-- 	顯示大頭貼的DIV -->
 <!-- 	<img> -->
+ <div class="photo-section">
  <div>個人大頭貼</div>
-   <img src="#" id="myphoto" name="myphoto" accept="image/*">
+  <img src="#" id="myphoto" name="myphoto" accept="image/*" style="width: 200px; height: 200px">
 <input type="file" id="ADMIN_PHOTO" name="ADMIN_PHOTO" style="display:none;" accept="image/*">
-<input type="button" value="修改照片" onclick="$('#ADMIN_PHOTO').click();" >
-		
-		<button type="submit">送出</button>
-                    <!-- 		取消後跳轉回去首頁 -->
-		<input  type="button" onclick="window.location.href='<%=request.getContextPath()%>/frontend/administrator/administratorcenter.jsp'" value="取消">
+</div>
+<div class="button-container">
+    <input type="button" value="修改照片" onclick="$('#ADMIN_PHOTO').click();" >
+    <button type="submit">送出</button>
+    <input type="button" onclick="window.location.href='<%=request.getContextPath()%>/frontend/administrator/administratorcenter.jsp'" value="取消">
+</div>
 	</form>
 
 
