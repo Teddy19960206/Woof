@@ -65,7 +65,6 @@ async function groupRefundFetch(){
         }
         const data = await response.json();
 
-        console.log(data);
 
         if (data){
 
@@ -202,14 +201,14 @@ $(document).on("click" , "button.orderCancel" , function (){
         confirmButtonText: "是, 取消退款"
     }).then(async (result) => {
         if (result.isConfirmed) {
-            await cancelRefund(this.getAttribute("data-id"));
+            let data = await cancelRefund(this.getAttribute("data-id"));
             if (data.message){
                 await Swal.fire({
                     title: "Good job!",
                     text: `${data.message}`,
                     icon: "success"
                 });
-                $(this).closest("tr").remove();
+                window.location.reload();
             }else{
                 cancelError();
             }

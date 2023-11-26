@@ -25,4 +25,6 @@ public interface MemberDAO {
 
 	void updateTotalClass(String memNo , Integer clazz);
 
+	Member findMemberByName(String name);
+
 }

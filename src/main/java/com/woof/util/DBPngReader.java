@@ -2,6 +2,7 @@ package com.woof.util;
 
 
 import com.woof.AppService;
+import com.woof.AppServiceByName;
 import com.woof.groupcourse.service.GroupCourseServiceImpl;
 import com.woof.member.service.MemberServiceImpl;
 import com.woof.administrator.service.AdministratorServiceImpl;
@@ -18,6 +19,7 @@ import java.io.IOException;
 public class DBPngReader extends HttpServlet {
 
     private AppService appService;
+    private AppServiceByName appServiceByName;
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -30,6 +32,9 @@ public class DBPngReader extends HttpServlet {
             case "member":
                 appService = new MemberServiceImpl();
                 break;
+            case "memberName":
+                appServiceByName = new MemberServiceImpl();
+                break;
             case "administrator":
             	appService = new AdministratorServiceImpl();
             	break;
@@ -38,7 +43,12 @@ public class DBPngReader extends HttpServlet {
         String id = request.getParameter("id").trim();
         byte[] picture = null;
         try {
-            picture = appService.getPhotoById(id);
+            if (!"memberName".equals(action)){
+                picture = appService.getPhotoById(id);
+            }else{
+                picture = appServiceByName.getPhotoByName(id);
+            }
+
             response.setContentType("image/png");
             ServletOutputStream out = response.getOutputStream();
             out.write(picture);

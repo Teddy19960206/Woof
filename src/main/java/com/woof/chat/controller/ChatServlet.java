@@ -47,7 +47,6 @@ public class ChatServlet {
 
         String text = String.format("Session ID = %s, connected; userName = %s%nusers: %s", userSession.getId(),
                 userName, memberNames);
-        System.out.println(text);
     }
 
     @OnMessage
@@ -62,7 +61,6 @@ public class ChatServlet {
             ChatMessage cmHistory = new ChatMessage("history", sender, receiver, historyMsg);
             if (userSession != null && userSession.isOpen()) {
                 userSession.getAsyncRemote().sendText(gson.toJson(cmHistory));
-                System.out.println("history = " + gson.toJson(cmHistory));
                 return;
             }
         }
@@ -74,7 +72,6 @@ public class ChatServlet {
             userSession.getAsyncRemote().sendText(message);
             JedisHandleMessage.saveChatMessage(sender, receiver, message);
         }
-        System.out.println("Message received: " + message);
     }
 
     @OnError
