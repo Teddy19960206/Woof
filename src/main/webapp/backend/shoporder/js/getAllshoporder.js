@@ -43,6 +43,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			case 2: statusText = '完成'; break;
 			case 3: statusText = '取消'; break;
 			case 4: statusText = '未付款'; break;
+			case 5: statusText = '已付款'; break;
 			default: statusText = '未知'; // 未知狀態
 		}
 		tr.querySelector('.status-text').textContent = statusText;
