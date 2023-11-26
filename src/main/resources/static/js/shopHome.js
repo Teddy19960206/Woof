@@ -199,7 +199,7 @@ function loadPromotionProducts() {
 		                // 用戶已登入，顯示登出按鈕
 		                $('#logoutSection').show();
 		                $('#memberImage').attr('src', `DBPngReader?action=member&id=${response.memNo}`)
-		                				 .attr('onerror', "this.onerror=null; this.src='woof/webutil/images/memberDog.jpg';");
+		                				 .attr('onerror', "this.onerror=null; this.src='/woof/webutil/images/memberDog.jpg';");
 		            }
 		        },
 		        error: function(xhr, status, error) {
