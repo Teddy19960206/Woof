@@ -348,7 +348,7 @@ async function fetchDetailByDate(year , month){
 }
 // ------------------  抓取當月該訓練師請假日期  --------------------
 async function fetchNonClass(year , month , trainerNo){
-    let url = `${projectName}/nontrainingschedule/getbyntsdate`;
+    let url = `${projectName}/nontrainingschedule/getByNtsDateForCalendar`;
     try{
         const response = await fetch(url , {
             method : "POST",
