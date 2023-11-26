@@ -85,7 +85,7 @@ public class LatestNewsServlet extends HttpServlet {
 					}
 				} else {
 					req.setAttribute("error", "Invalid latestNews number provided.");
-					RequestDispatcher dispatcher = req.getRequestDispatcher("/frontend/administrator/errorPage.jsp");
+					RequestDispatcher dispatcher = req.getRequestDispatcher("/backend/latestnews/errorPage.jsp");
 					dispatcher.forward(req, res);
 					return;
 				}
@@ -97,7 +97,9 @@ public class LatestNewsServlet extends HttpServlet {
 			} catch (Exception e) {
 				// 處理其他潛在錯誤
 				e.printStackTrace();
-
+				req.setAttribute("error", "Invalid latestNews number provided.");
+				RequestDispatcher dispatcher = req.getRequestDispatcher("/backend/latestnews/errorPage.jsp");
+				dispatcher.forward(req, res);
 			}
 		}
 		@Override
