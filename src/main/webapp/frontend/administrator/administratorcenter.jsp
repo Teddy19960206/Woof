@@ -135,11 +135,31 @@ function processUpdate2(jsonData){
 								
 								<tr>
 									<th scope="row">狀態</th>
-									<td>${administrator.adminStatus}</td>
+									<td><c:choose>
+					<c:when test="${administrator.adminStatus == 2}">
+						<span class="status-label status-suspended">停權</span>
+					</c:when>
+					<c:when test="${administrator.adminStatus == 1}">
+						<span class="status-label status-normal">在職</span>
+					</c:when>
+					<c:when test="${administrator.adminStatus == 0}">
+						<span class="status-label status-nonvalid">離職</span>
+					</c:when>
+				</c:choose></td>
 								</tr>
 								<tr>
 									<th scope="row">功能權限</th>
-									<td>${administrator.adminFuncName}</td>
+									<td><c:choose>
+					<c:when test="${administrator.adminFuncName == 0}">
+						<span class="status-label status-suspended">無功能</span>
+					</c:when>
+					<c:when test="${administrator.adminFuncName == 1}">
+						<span class="status-label status-normal">管理員</span>
+					</c:when>
+					<c:when test="${administrator.adminFuncName == 2}">
+						<span class="status-label status-normal">訓練師</span>
+					</c:when>
+				</c:choose></td>
 								</tr>
 							</tbody>
 						</table>
