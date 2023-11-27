@@ -78,7 +78,8 @@ async function splicing(data){
                     <!-- Modal body -->
                     <div class="modal-body">
                         <div class="modal-div">
-                            <img src="${projectName}/webutil/images/Carousel01.jpg" class="modal-img">
+                        <img src="${projectName}/DBPngReader?action=groupCourse&id=${item.groupCourse.gcNo}"
+                             class="modal-img" onerror="this.onerror=null; this.src='${projectName}/webutil/images/cuteDog.jpg';">
                         </div>
                         <div class="container">
                             <div class="row">
