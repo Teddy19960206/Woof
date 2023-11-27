@@ -127,7 +127,7 @@ let addInput = `
                 <div class="row my-5">
                     <h2 align="center" class="my-2">新增技能</h2>
                     <div class="col-6 mx-auto">
-                        <input type="text" class="form-control" id="newSkill">
+                        <input type="text" class="form-control text-center" id="newSkill" required>
                         <div class="text-center">
                             <button type="button" class="btn btn-primary add-button my-2">確定新增</button>
                             <button type="button" class="btn btn-secondary" onclick="window.location.href='${projectName}/backend/member/trainerSkill.jsp'">取消新增</button
