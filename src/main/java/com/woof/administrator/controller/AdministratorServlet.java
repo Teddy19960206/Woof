@@ -21,6 +21,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
+
+import com.woof.trainer.entity.Trainer;
+import com.woof.trainer.service.TrainerServiceImpl;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.io.IOException;
@@ -608,7 +611,13 @@ private void processUpdate2(HttpServletRequest req, HttpServletResponse res) thr
 		admin.setAdminPhoto(photo);
 		admin.setAdminFuncName(Integer.valueOf(req.getParameter("ADMIN_FUNC_NAME")));
 		//把資料裝起來然後新增
-		administratorService.addAdministrator(admin);
+		Administrator administrator = administratorService.addAdministrator(admin);
+
+		if (Integer.valueOf(req.getParameter("ADMIN_FUNC_NAME")) == 2){
+			Trainer trainer = new Trainer();
+			trainer.setAdministrator(administrator);
+			new TrainerServiceImpl().addTrainer(trainer);
+		}
 		
 	
 		//導到指定的URL 頁面上 把請求回應都帶過去
