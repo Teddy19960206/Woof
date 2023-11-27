@@ -93,4 +93,14 @@ public class MemberDAOImpl implements MemberDAO {
 		query.setParameter("memNo" , memNo);
 		query.executeUpdate();
 	}
+
+	@Override
+	public Member findMemberByName(String name) {
+
+		String hql = "FROM Member mem WHERE mem.memName = :memName";
+		Query query = getSession().createQuery(hql , Member.class);
+		query.setParameter("memName", name);
+
+		return (Member) query.getSingleResult();
+	}
 }

@@ -26,7 +26,7 @@
   <div class="col-6 mx-auto">
     <input type="hidden" id="scheduleNo" name="scheduleNo" value="${schedule.gcsNo}">
 
-    <input type="hidden" id="related" name="scheduleNo" value="${schedule.relatedGcsNo.gcsNo}">
+<%--    <input type="hidden" id="related" name="scheduleNo" value="${schedule.relatedGcsNo.gcsNo}">--%>
     <div class="row">
       <div class="col-6">
         <label>課程：</label>

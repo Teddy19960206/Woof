@@ -138,7 +138,7 @@ function membersList(member , memberOnline){
     }
 
     return `<li class="clearfix li-chat" data-id="${member}">
-              <img src="${projectName}/DBPngReader?action=member&id=${member}" alt="avatar">
+              <img src="${projectName}/DBPngReader?action=memberName&id=${member}" alt="avatar" onerror="this.onerror=null; this.src='${projectName}/webutil/icons/happy_1.png';" />
               <div class="about">
                 <div class="name">${member}</div>
                 <div class="status"> <i class="fa fa-circle ${online ? 'online' : 'offline'}"></i>${online ? 'online' : 'offline'}</div>
@@ -150,7 +150,7 @@ function memberHeader(member){
     return `<div class="row">
               <div class="col-lg-6">
                 <a href="javascript:void(0);" data-toggle="modal" data-target="#view_info">
-                  <img src="${projectName}/DBPngReader?action=member&id=${member}" alt="avatar">
+                  <img src="${projectName}/DBPngReader?action=memberName&id=${member}" alt="avatar" onerror="this.onerror=null; this.src='${projectName}/webutil/icons/happy_1.png';"/>
                 </a>
                 <div class="chat-about">
                   <h6 class="m-b-0">${member}</h6>

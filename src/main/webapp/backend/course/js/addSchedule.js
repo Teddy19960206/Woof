@@ -429,7 +429,7 @@ async function addSchedule(){
             await Swal.fire({
                 icon: "success",
                 title: "新增成功",
-                text: "恭喜'",
+                text: "恭喜",
             });
 
         }else if (data.length > 0){

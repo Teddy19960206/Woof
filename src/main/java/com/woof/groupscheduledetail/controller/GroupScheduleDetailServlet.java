@@ -145,7 +145,7 @@ public class GroupScheduleDetailServlet extends HttpServlet {
         String classDateStr = request.getParameter("classDate");
 
 
-        if (classDateStr == null || classDateStr.trim().length() == 0){
+        if (classDateStr == null || "undefined".equals(classDateStr) || classDateStr.trim().length() == 0){
             date = groupScheduleDetailService.findByGcsd(gcsdNo).getClassDate();
         }else{
             date = Date.valueOf(classDateStr);
@@ -210,7 +210,8 @@ public class GroupScheduleDetailServlet extends HttpServlet {
         Integer scheduleNo = Integer.valueOf(request.getParameter("scheduleNo"));
         GroupCourseSchedule schedule = new GroupCourseScheduleServiceImpl().findByGcsNo(scheduleNo);
 
-        Set<Date> dates = Arrays.stream(request.getParameter("classDate").split(","))
+
+        Set<Date> dates = Arrays.stream(request.getParameter("classDates").split(","))
                 .map(Date::valueOf)
                 .collect(Collectors.toSet());
 

@@ -6,6 +6,7 @@ import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 
+import com.woof.AppServiceByName;
 import org.hibernate.Session;
 
 import com.woof.AppService;
@@ -14,7 +15,7 @@ import com.woof.member.dao.MemberDAOImpl;
 import com.woof.member.entity.Member;
 import com.woof.util.HibernateUtil;
 
-public class MemberServiceImpl implements MemberService, AppService<String> {
+public class MemberServiceImpl implements MemberService, AppService<String> , AppServiceByName {
 
 	private MemberDAO dao;
 
@@ -115,4 +116,14 @@ public class MemberServiceImpl implements MemberService, AppService<String> {
 		dao.updateTotalClass(memNo, 1);
 	}
 
+	@Override
+	public byte[] getPhotoByName(String name) {
+		byte[] photoBytes = null;
+		try {
+			photoBytes = dao.findMemberByName(name).getMemPhoto();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return photoBytes;
+	}
 }

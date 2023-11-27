@@ -217,11 +217,11 @@ public class GroupCourseOrderServlet extends HttpServlet {
             groupGourseScheduleService.registrationSchedule(groupScheduleNo);
         }
 
-        if (!errorMsgs.isEmpty()){
-            request.getRequestDispatcher("/groupOrder/getGroupInfo/1")
-                    .forward(request, response);
-            return;
-        }
+//        if (!errorMsgs.isEmpty()){
+//            request.getRequestDispatcher("/groupOrder/getGroupInfo/1")
+//                    .forward(request, response);
+//            return;
+//        }
 
 //        使用信用卡0 預設為已付款1
 //        使用匯款 1 預設為未付款0
