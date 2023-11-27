@@ -28,13 +28,9 @@ public class TrainerServiceImpl  implements TrainerService{
 
 	@Override
 	public Trainer addTrainer(Trainer trainer) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		session.beginTransaction();
 			if (dao.insert(trainer) == 1) {
-				session.getTransaction().commit();
 				return trainer;
 			}
-			session.getTransaction().rollback();
 		return null;
 	}
 

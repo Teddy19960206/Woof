@@ -28,7 +28,7 @@ public class AdministratorDAOImpl implements AdministratorDAO {
 
 	@Override
 	public void insert(Administrator administrator) {
-		getSession().save(administrator);
+		getSession().merge(administrator);
 	}
 
 	@Override
