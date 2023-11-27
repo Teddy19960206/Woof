@@ -78,6 +78,9 @@ public class GroupCourseServlet extends HttpServlet {
             case "/getAll":
                 getAll(request , response);
                 return;
+            case "/getUpStatusCourse":
+                getUpStatusCourse(request , response);
+                return;
             default:
 //                進入edit畫面根據取得的id去抓取要修改的資料
                 if (pathInfo.startsWith("/edit/")) {
@@ -235,6 +238,20 @@ public class GroupCourseServlet extends HttpServlet {
 
     private void getAll(HttpServletRequest request, HttpServletResponse response) throws IOException {
         List<GroupCourse> allGroupCourse = groupCourseService.getAllGroupCourse();
+
+        Gson gson = new GsonBuilder()
+                .excludeFieldsWithoutExposeAnnotation()
+                .setDateFormat("yyyy-MM-dd")
+                .create();
+
+        String json = gson.toJson(allGroupCourse);
+
+        response.setContentType("application/json;charset=UTF-8");
+        response.getWriter().write(json);
+    }
+
+    private void getUpStatusCourse(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        List<GroupCourse> allGroupCourse = groupCourseService.getUpStatusCourse();
 
         Gson gson = new GsonBuilder()
                 .excludeFieldsWithoutExposeAnnotation()

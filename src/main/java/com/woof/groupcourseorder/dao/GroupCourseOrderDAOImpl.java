@@ -117,7 +117,7 @@ public class GroupCourseOrderDAOImpl implements GroupCourseOrderDAO{
         List<Predicate> predicates = new ArrayList<>();
 
         if (groupClass != null){
-            predicates.add(builder.equal(root.get("gcoNo"), groupClass));
+            predicates.add(builder.equal(root.get("groupCourseSchedule").get("groupCourse").get("gcNo"), groupClass));
         }
 
         if (status != null){

@@ -33,6 +33,11 @@ async function getOrder(page){
     let url = `${projectName}/groupOrder/getOrder`;
     try{
         let formData = new FormData();
+
+        console.log(document.getElementById("groupClass").value);
+        console.log(document.getElementById("groupClass").value);
+        console.log(document.getElementById("selectStatus").value);
+        console.log(document.getElementById("memNo").value);
         formData.append("groupClass" , document.getElementById("groupClass").value);
         formData.append("selectStatus" , document.getElementById("selectStatus").value);
         formData.append("memNo" , document.getElementById("memNo").value);
@@ -179,7 +184,7 @@ async function getOrder(page){
 //  ---------------------------  抓取團體課程 下拉式選單內容  ----------------------------------
 async function getGroupCourse(){
 
-    let url = `${projectName}/groupcourse/getAll`;
+    let url = `${projectName}/groupcourse/getUpStatusCourse`;
     try{
         const response = await fetch(url , {
             method : "POST"

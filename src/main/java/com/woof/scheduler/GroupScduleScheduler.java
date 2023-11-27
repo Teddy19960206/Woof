@@ -69,7 +69,6 @@ public class GroupScduleScheduler extends HttpServlet {
 //              1. 尋找審核中的課程截止日期過一天後，是否滿足開課條件
 //              2. 會先尋找報名開課程的會員訂單，是否都已付款
 //              3. 若未付款狀態，則取消該訂單，並報名人數-1
-
 //              若滿足開課條件，則狀態變成確定開課，並賦予回饋有購買該課程的會員 毛毛幣 為原價格的 3%
 //              若不滿足，則狀態不變，但會存到 redis 由後台管理員做後續處理
 
@@ -145,7 +144,6 @@ public class GroupScduleScheduler extends HttpServlet {
                     Session currentSession = sessionFactory.getCurrentSession();
                     try{
                         currentSession.beginTransaction();
-//                      尋找Schedule 確認開課 (2) 後 該課程的所有上課時間 都已經小於現在時間時， 狀態改變成 5 (已結束)
                         List<GroupCourseSchedule> allConfirmSchedule = groupGourseScheduleService.getAllConfirmSchedule();
 
                         Calendar today = Calendar.getInstance();
@@ -154,15 +152,7 @@ public class GroupScduleScheduler extends HttpServlet {
                         today.set(Calendar.SECOND, 0);
                         today.set(Calendar.MILLISECOND, 0);
 
-//                        allConfirmSchedule.stream()
-//                                .map(groupCourseSchedule ->  groupScheduleDetailService.getMaxDate(groupCourseSchedule.getGcsNo()))
-//                                .filter(groupScheduleDetail -> groupScheduleDetail != null)
-//                                .filter(groupScheduleDetail -> groupScheduleDetail.getClassDate().before(today.getTime()))
-//                                .forEach(groupCourseSchedule -> groupCourseOrderService.finishOrder(groupCourseSchedule.getGcsNo()));
-
-
                         for (GroupCourseSchedule groupCourseSchedule : allConfirmSchedule) {
-//                          且報名該課程的人 order ，狀態改變成 4 (已完成)
 
                             GroupScheduleDetail maxDate = groupScheduleDetailService.getMaxDate(groupCourseSchedule.getGcsNo());
                             if (maxDate != null && maxDate.getClassDate().before(today.getTime())) {
