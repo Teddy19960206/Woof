@@ -62,9 +62,7 @@ function splicing(data){
                 </tr>`);
             });
             arr.push(`</tbody></table>
-                        <div class="text-center">
-                            <button type="button" class="btn btn-primary addSkill">新增專業技能</button>
-                        </div>`);
+                        `);
     html = arr.join("");
     showList.innerHTML = html;
 }
@@ -109,6 +107,7 @@ async function addSkillhtml(){
         </div>
     </div>`);
     html = arr.join("");
+    $(".divBtn").hide();
     showList.innerHTML = html;
 }
 

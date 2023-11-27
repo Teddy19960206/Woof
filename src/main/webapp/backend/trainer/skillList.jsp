@@ -11,7 +11,11 @@
 <div class="container p-5">
     <h1 align="center">專業技能清單</h1>
     <div id="showList"></div>
+    <div class="text-center divBtn">
+        <button type="button" class="btn btn-primary addSkill">新增專業技能</button>
+    </div>
 </div>
+
 
 <%@ include file="/backend/backfoot.file" %>
 <script src="${pageContext.request.contextPath}/backend/trainer/js/skillList.js"></script>
