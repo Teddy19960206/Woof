@@ -36,27 +36,41 @@ $(document).on("click" , "button.modify-button" , async function (){
 });
 $(document).on("click" , "button.delete-button" , async function (){
 
-    if (confirm("確定要刪除嗎")) {
-        let skillNo =  $(this).closest("tr").find("td").eq(0);
-        let data = await deleteFetch(skillNo.text());
-        if (data.message){
+    Swal.fire({
+        title: "確定要刪除嗎?",
+        text: "此操作無法復原!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "是, 刪除!"
+    }).then(async (result) => {
+        if (result.isConfirmed) {
+            let skillNo =  $(this).closest("tr").find("td").eq(0);
+            let data = await deleteFetch(skillNo.text());
+            if (data.message){
 
-            await Swal.fire({
-                title: "Good job!",
-                text: `${data.message}`,
-                icon: "success"
-            });
+                await Swal.fire({
+                    title: "Good job!",
+                    text: `${data.message}`,
+                    icon: "success"
+                });
 
-            $(this).closest("tr").remove();
-        }else{
+                $(this).closest("tr").remove();
+            }else{
 
-            await Swal.fire({
-                title: "Oops...",
-                text: "刪除失敗",
-                icon: "error"
-            });
+                await Swal.fire({
+                    title: "Oops...",
+                    text: "刪除失敗",
+                    icon: "error"
+                });
+            }
         }
-    }
+    });
+
+
+
+
 
 });
 
