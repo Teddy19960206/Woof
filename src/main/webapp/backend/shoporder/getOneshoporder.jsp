@@ -92,12 +92,24 @@ request.setCharacterEncoding("UTF-8");
 					<td class="order-total-price">${shopOrders.orderTotalPrice}</td>
 					<td class="actual-price">${shopOrders.actualPrice}</td>
 					<td><span class="status-text"> <c:choose>
-								<c:when test="${shopOrders.orderStatus == 0}">成立</c:when>
-								<c:when test="${shopOrders.orderStatus == 1}">出貨</c:when>
-								<c:when test="${shopOrders.orderStatus == 2}">完成</c:when>
-								<c:when test="${shopOrders.orderStatus == 3}">取消</c:when>
-								<c:when test="${shopOrders.orderStatus == 4}">未付款</c:when>
-								<c:when test="${shopOrders.orderStatus == 5}">已付款</c:when>
+								<c:when test="${shopOrders.orderStatus == 0}">
+								<span style="color: green;">成立</span>
+								</c:when>
+								<c:when test="${shopOrders.orderStatus == 1}">
+								<span style="color: blue;">出貨</span>
+								</c:when>
+								<c:when test="${shopOrders.orderStatus == 2}">
+								<span style="color: yellow;">完成</span>
+								</c:when>
+								<c:when test="${shopOrders.orderStatus == 3}">
+								<span style="color: red;">取消</span>
+								</c:when>
+								<c:when test="${shopOrders.orderStatus == 4}">
+								<span style="color: orange;">未付款</span>
+								</c:when>
+								<c:when test="${shopOrders.orderStatus == 5}">
+								<span style="color: cyan;">已付款</span>
+								</c:when>
 							</c:choose>
 					</span> <select class="status-select" style="display: none;">
 							<option value="0"

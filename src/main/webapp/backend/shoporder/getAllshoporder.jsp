@@ -114,7 +114,7 @@ request.setCharacterEncoding("UTF-8");
 							<option value="2" ${all.orderStatus == 2 ? 'selected' : ''}>完成</option>
 							<option value="3" ${all.orderStatus == 3 ? 'selected' : ''}>取消</option>
 							<option value="4" ${all.orderStatus == 4 ? 'selected' : ''}>未付款</option>
-							<option value="4" ${all.orderStatus == 5 ? 'selected' : ''}>已付款</option>
+							<option value="5" ${all.orderStatus == 5 ? 'selected' : ''}>已付款</option>
 					</select></td>
 					<td>
 						<div class="d-flex flex-column">
